@@ -28,6 +28,8 @@ import {
 export { abilityModifier, coreRule, sampleEntry, rollTable } from './tables';
 export type { RuleRoll } from './tables';
 import { generateCharacter, characterFieldRoll } from './character';
+import { generateMonster, loadMonsterPreset, fereAppearance } from './monster';
+export { feretoryStats } from './monster';
 const blankRoll: RuleRoll = {
   value: '',
   source: '원문 생성표 없음 · 직접 작성',
@@ -134,48 +136,6 @@ export function canReroll(
     key,
   );
 }
-export function feretoryStats(rolls: { A: number; B: number; C: number }) {
-  const values = Object.values(rolls);
-  const highest = Math.max(...values),
-    lowest = Math.min(...values);
-  const sides =
-    lowest <= 3
-      ? 4
-      : lowest <= 5
-        ? 6
-        : lowest <= 7
-          ? 8
-          : lowest <= 10
-            ? 10
-            : 12;
-  const tied = Object.entries(rolls)
-    .filter(([, value]) => value === highest)
-    .map(([key]) => key);
-  const options = tied.map((key) =>
-    key === 'A'
-      ? 'None'
-      : key === 'B'
-        ? '−d2'
-        : highest % 2 === 1
-          ? '−d4'
-          : '−d6',
-  );
-  return {
-    hp: 2 * rollDie(sides),
-    morale: highest,
-    damage: `d${sides}`,
-    armor:
-      options.length === 1
-        ? options[0]
-        : `동률 — 심판 선택: ${options.join(' / ')}`,
-    sides,
-  };
-}
-function fereAppearance(rolls: { A: number; B: number; C: number }): string {
-  return (['A', 'B', 'C'] as const)
-    .map((key) => entries('feretory.' + key)[rolls[key] - 1].text)
-    .join('; ');
-}
 function commonEncounter(region: RegionId): RuleRoll {
   const table = regional(region, 'monsters');
   if (table) {
@@ -214,7 +174,8 @@ export function generateEntityRoll(
     return characterFieldRoll(key, (current ?? {}) as Partial<Character>);
   if (kind === 'monsters') {
     if (key === 'hp') {
-      const damage = (current as Partial<Monster>)?.damage ?? 'd4';
+      const damage =
+        (current as Partial<Monster>)?.attacks?.[0]?.damage ?? 'd4';
       const n = Number(/^d(4|6|8|10|12)$/.exec(damage)?.[1]);
       return n
         ? {
@@ -279,38 +240,18 @@ export function generateEntity<K extends LibraryKind>(
 ): EntityMap[K] {
   if (kind === 'characters')
     return generateCharacter(id(), blank) as EntityMap[K];
+  if (kind === 'monsters') return generateMonster(id(), blank) as EntityMap[K];
   const entity: Record<string, unknown> = { ...base() };
   const sources: Record<string, string> = {};
   for (const field of entityFields[kind])
     entity[field.key] = field.type === 'number' && kind !== 'npcs' ? 0 : '';
   if (kind === 'encounters') entity.category = category;
   if (!blank) {
-    if (kind === 'monsters') {
-      const rolls = { A: rollDie(12), B: rollDie(12), C: rollDie(12) };
-      const stats = feretoryStats(rolls);
-      Object.assign(entity, {
-        name: personalName(),
-        appearance: fereAppearance(rolls),
-        hp: stats.hp,
-        morale: stats.morale,
-        armor: stats.armor,
-        damage: stats.damage,
-        wants: rollTable('feretory.desire').value,
-        specialAbility: rollTable('feretory.trait').value,
-        generation: { system: 'feretory', rolls },
-      });
-      for (const key of ['hp', 'morale', 'armor', 'damage'])
-        sources[key] =
-          `FERETORY · PDF 2쪽 · A=${rolls.A}, B=${rolls.B}, C=${rolls.C}${key === 'hp' ? ' · 피해 주사위 한 번 ×2 (본문; 괄호 예시와 불일치)' : ''}`;
-      sources.name = sourceCitation('core.names');
-      sources.appearance = sourceCitation('feretory.A');
-      sources.wants = sourceCitation('feretory.desire');
-      sources.specialAbility = sourceCitation('feretory.trait');
-    } else if (kind === 'encounters' && category === 'rare') {
+    if (kind === 'encounters' && category === 'rare') {
       const monster = generateEntity('monsters', region);
       entity.name = monster.name;
-      entity.description = `${monster.appearance}\nHP ${monster.hp} · Morale ${monster.morale} · Armor ${monster.armor} · Damage ${monster.damage}\n${monster.wants}`;
-      entity.complication = monster.specialAbility;
+      entity.description = `${monster.appearance}\nHP ${monster.hp} · Morale ${monster.morale} · Armor ${monster.armor} · Damage ${monster.attacks.map((a) => a.damage).join(' / ')}\n${monster.wants}`;
+      entity.complication = monster.special.map((s) => s.text).join('\n');
       entity.sign = regional(region, 'trait')
         ? rollTable(regional(region, 'trait')!).value
         : '';
@@ -454,6 +395,7 @@ export function createCampaign(title: string, subtitle = ''): Campaign {
     characters: [],
     dungeons: [],
     monsters: [],
+    monsterPlacements: [],
     npcs: [],
     encounters: [],
     notes: '',
@@ -465,11 +407,12 @@ export function loadPreset(
   kind: 'monsters' | 'npcs',
   record: Record<string, unknown>,
 ): EntityMap['monsters'] | EntityMap['npcs'] {
+  if (kind === 'monsters') return loadMonsterPreset(id(), record);
   if (typeof record.hp !== 'number')
     throw new Error(
       '원문에 일반 HP가 없는 개체입니다. 직접 작성으로 기록하세요.',
     );
-  const entity = generateEntity(kind, 'graven-tosk', 'common', true);
+  const entity = generateEntity('npcs', 'graven-tosk', 'common', true);
   const raw = entity as unknown as Record<string, unknown>;
   const source = `${record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${record.context ? ` · ${scalarText(record.context)}` : ''}`;
   for (const field of entityFields[kind]) {

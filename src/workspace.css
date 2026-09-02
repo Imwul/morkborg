@@ -957,3 +957,200 @@ h1 {
     font-size: 30px;
   }
 }
+
+/* Monster definitions and their independent placement records. */
+.monster-identity-grid,
+.monster-stats-grid,
+.monster-item-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.monster-identity-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.monster-stats-grid {
+  border-top: 3px solid var(--ink);
+  margin: 28px 0;
+}
+.monster-workbench .character-section {
+  margin-top: 28px;
+}
+.monster-workbench .character-item,
+.monster-placement,
+.monster-target,
+.placement-location {
+  min-width: 0;
+}
+.monster-workbench .page-heading h1,
+.monster-card .card-title {
+  overflow-wrap: anywhere;
+}
+.monster-attack-summary {
+  overflow-wrap: anywhere;
+}
+.monster-placement-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.monster-placement {
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.placement-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.placement-monster-link {
+  min-width: 0;
+  text-align: left;
+}
+.placement-monster-link strong {
+  display: block;
+  font-family: var(--font-proper);
+  font-weight: 900;
+  font-size: 27px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.placement-monster-link span {
+  display: block;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+.placement-destination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+  text-align: left;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+.placement-destination svg {
+  flex-shrink: 0;
+}
+.placement-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 220px);
+  gap: 20px;
+  align-items: start;
+  margin: 18px 0;
+}
+.monster-target .placement-controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.placement-location,
+.quantity-field,
+.placement-note {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+.placement-location select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px;
+  min-height: 42px;
+  text-overflow: ellipsis;
+}
+.quantity-control {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 4px;
+  max-width: 220px;
+}
+.quantity-control input {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+  min-height: 42px;
+}
+.quantity-control .icon-btn {
+  width: 38px;
+  height: 42px;
+}
+.placement-note textarea {
+  min-width: 0;
+  width: 100%;
+  line-height: 1.8;
+  font-weight: 400;
+  padding: 10px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+}
+.monster-placement-dialog {
+  max-width: 580px;
+}
+.monster-placement-dialog > .placement-location,
+.monster-placement-dialog > .quantity-field,
+.monster-placement-dialog > .placement-note {
+  margin: 15px 0;
+}
+.placement-new {
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+  padding-top: 16px;
+}
+.placement-new p,
+.target-caption {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.dungeon-monsters {
+  margin-top: 30px;
+}
+.monster-target > .btn {
+  white-space: normal;
+  height: auto;
+  min-height: 42px;
+}
+@media (max-width: 1800px) {
+  .monster-item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .monster-placement-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 1100px) {
+  .monster-identity-grid,
+  .monster-stats-grid,
+  .monster-item-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .monster-target .placement-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .placement-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .monster-workbench .section-title {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .monster-placement-dialog {
+    width: calc(100vw - 24px);
+  }
+  .placement-monster-link strong {
+    font-size: 24px;
+  }
+  .monster-attack .section-title {
+    align-items: flex-start;
+  }
+  .monster-target .back-button {
+    margin: 0;
+  }
+}

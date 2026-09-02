@@ -1,0 +1,252 @@
+import type {
+  Campaign,
+  Monster,
+  MonsterPlacement,
+  MonsterTarget,
+} from './types';
+import { id, now } from '../generators/random';
+import { generateMonster } from '../generators/monster';
+
+/** Only a compatibility index for old readers; all new UI and mutations use placements. */
+export function syncMonsterRefs(c: Campaign): void {
+  for (const d of c.dungeons) {
+    const placements = c.monsterPlacements.filter((p) => p.dungeonId === d.id);
+    d.monsterIds = [...new Set(placements.map((p) => p.monsterId))];
+    for (const r of d.rooms)
+      r.monsterIds = [
+        ...new Set(
+          placements.filter((p) => p.roomId === r.id).map((p) => p.monsterId),
+        ),
+      ];
+  }
+}
+export function monsterRelationIssues(c: Campaign): string[] {
+  const monsters = new Set(c.monsters.map((m) => m.id));
+  const dungeons = new Map(
+    c.dungeons.map((d) => [d.id, new Set(d.rooms.map((r) => r.id))]),
+  );
+  const issues: string[] = [];
+  for (const p of c.monsterPlacements) {
+    if (!monsters.has(p.monsterId))
+      issues.push(`배치 ${p.id}: 몬스터가 없습니다.`);
+    const rooms = dungeons.get(p.dungeonId);
+    if (!rooms) issues.push(`배치 ${p.id}: 던전이 없습니다.`);
+    if (p.roomId !== null && !rooms?.has(p.roomId))
+      issues.push(`배치 ${p.id}: 해당 던전의 방이 아닙니다.`);
+    if (!Number.isInteger(p.quantity) || p.quantity < 1 || p.quantity > 999999)
+      issues.push(`배치 ${p.id}: 수량은 1–999999 사이 정수여야 합니다.`);
+  }
+  return issues;
+}
+export function validMonsterTarget(
+  c: Campaign,
+  target?: MonsterTarget | null,
+): MonsterTarget | null {
+  if (!target) return null;
+  const d = c.dungeons.find((d) => d.id === target.dungeonId);
+  if (!d) return null;
+  return {
+    dungeonId: d.id,
+    roomId:
+      target.roomId && d.rooms.some((r) => r.id === target.roomId)
+        ? target.roomId
+        : null,
+  };
+}
+export function beginMonsterDraft(
+  c: Campaign,
+  target?: MonsterTarget | null,
+  blank = false,
+): void {
+  if (!c.drafts.monsters) c.drafts.monsters = generateMonster(c.id, blank);
+  c.workspace.section = 'monsters';
+  c.workspace.selected.monsters = c.drafts.monsters.id;
+  if (target !== undefined)
+    c.workspace.monsterTarget = validMonsterTarget(c, target);
+}
+export function saveMonsterDraft(c: Campaign): Monster {
+  const draft = c.drafts.monsters;
+  if (!draft) throw new Error('저장할 몬스터 후보가 없습니다.');
+  if (c.monsters.some((m) => m.id === draft.id))
+    throw new Error('이미 저장된 몬스터입니다.');
+  const m = structuredClone(draft);
+  m.campaignId = c.id;
+  m.updatedAt = now();
+  c.monsters.push(m);
+  c.drafts.monsters = null;
+  c.workspace.selected.monsters = m.id;
+  return m;
+}
+export function addMonsterPlacement(
+  c: Campaign,
+  monsterId: string,
+  target: MonsterTarget,
+  quantity = 1,
+  notes = '',
+): MonsterPlacement {
+  const d = c.dungeons.find((d) => d.id === target.dungeonId);
+  if (
+    !d ||
+    (target.roomId !== null && !d.rooms.some((r) => r.id === target.roomId))
+  )
+    throw new Error('배치 대상 던전 또는 방이 없습니다.');
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 999999)
+    throw new Error('수량은 1–999999 사이 정수여야 합니다.');
+  if (!c.monsters.some((m) => m.id === monsterId)) {
+    if (c.drafts.monsters?.id !== monsterId)
+      throw new Error('캠페인 보관함에 없는 몬스터입니다.');
+    saveMonsterDraft(c);
+  }
+  const p: MonsterPlacement = {
+    id: id(),
+    monsterId,
+    ...target,
+    quantity,
+    notes,
+  };
+  c.monsterPlacements.push(p);
+  d.updatedAt = now();
+  syncMonsterRefs(c);
+  return p;
+}
+export function editMonsterPlacement(
+  c: Campaign,
+  placementId: string,
+  patch: Partial<Pick<MonsterPlacement, 'roomId' | 'quantity' | 'notes'>>,
+): void {
+  const p = c.monsterPlacements.find((p) => p.id === placementId);
+  if (!p) return;
+  const d = c.dungeons.find((d) => d.id === p.dungeonId);
+  if (!d) return;
+  if (
+    patch.roomId !== undefined &&
+    patch.roomId !== null &&
+    !d.rooms.some((r) => r.id === patch.roomId)
+  )
+    throw new Error('해당 던전에 없는 방입니다.');
+  if (
+    patch.quantity !== undefined &&
+    (!Number.isInteger(patch.quantity) ||
+      patch.quantity < 1 ||
+      patch.quantity > 999999)
+  )
+    return;
+  if (patch.roomId !== undefined) p.roomId = patch.roomId;
+  if (patch.quantity !== undefined) p.quantity = patch.quantity;
+  if (patch.notes !== undefined) p.notes = patch.notes;
+  d.updatedAt = now();
+  syncMonsterRefs(c);
+}
+export function removeMonsterPlacement(c: Campaign, placementId: string): void {
+  const p = c.monsterPlacements.find((p) => p.id === placementId);
+  c.monsterPlacements = c.monsterPlacements.filter((p) => p.id !== placementId);
+  const d = c.dungeons.find((d) => d.id === p?.dungeonId);
+  if (d) d.updatedAt = now();
+  syncMonsterRefs(c);
+}
+export function cloneMonster(
+  source: Monster,
+  campaignId = source.campaignId,
+): Monster {
+  const m = structuredClone(source);
+  Object.assign(m, {
+    id: id(),
+    campaignId,
+    createdAt: now(),
+    updatedAt: now(),
+  });
+  for (const item of [...m.attacks, ...m.special, ...m.weakness, ...m.loot])
+    item.id = id();
+  return m;
+}
+export function deleteMonster(c: Campaign, monsterId: string): void {
+  const affected = new Set(
+    c.monsterPlacements
+      .filter((p) => p.monsterId === monsterId)
+      .map((p) => p.dungeonId),
+  );
+  c.monsters = c.monsters.filter((m) => m.id !== monsterId);
+  if (c.drafts.monsters?.id === monsterId) c.drafts.monsters = null;
+  if (c.workspace.selected.monsters === monsterId)
+    c.workspace.selected.monsters = null;
+  c.monsterPlacements = c.monsterPlacements.filter(
+    (p) => p.monsterId !== monsterId,
+  );
+  for (const d of c.dungeons) if (affected.has(d.id)) d.updatedAt = now();
+  if (c.dungeonDraft)
+    for (const a of [c.dungeonDraft, ...c.dungeonDraft.rooms])
+      a.monsterIds = a.monsterIds.filter((id) => id !== monsterId);
+  syncMonsterRefs(c);
+}
+export function materializeDraftMonsterRefs(
+  c: Campaign,
+  dungeonId: string,
+): void {
+  const d = c.dungeons.find((d) => d.id === dungeonId);
+  if (!d) return;
+  const refs = structuredClone(d);
+  const roomMembers = new Set(refs.rooms.flatMap((r) => r.monsterIds));
+  for (const r of refs.rooms)
+    for (const monsterId of r.monsterIds)
+      addMonsterPlacement(c, monsterId, { dungeonId, roomId: r.id });
+  for (const monsterId of refs.monsterIds)
+    if (!roomMembers.has(monsterId))
+      addMonsterPlacement(c, monsterId, { dungeonId, roomId: null });
+}
+export function deleteRoom(
+  c: Campaign,
+  dungeonId: string,
+  roomId: string,
+): void {
+  const d = c.dungeons.find((d) => d.id === dungeonId);
+  if (!d) return;
+  for (const p of c.monsterPlacements)
+    if (p.dungeonId === dungeonId && p.roomId === roomId) p.roomId = null;
+  d.rooms = d.rooms.filter((r) => r.id !== roomId);
+  d.updatedAt = now();
+  if (c.workspace.roomId === roomId) c.workspace.roomId = null;
+  if (c.workspace.monsterTarget?.roomId === roomId)
+    c.workspace.monsterTarget.roomId = null;
+  syncMonsterRefs(c);
+}
+export function deleteDungeon(c: Campaign, dungeonId: string): void {
+  c.dungeons = c.dungeons.filter((d) => d.id !== dungeonId);
+  c.monsterPlacements = c.monsterPlacements.filter(
+    (p) => p.dungeonId !== dungeonId,
+  );
+  if (c.workspace.dungeonId === dungeonId) {
+    c.workspace.dungeonId = null;
+    c.workspace.roomId = null;
+  }
+  if (c.workspace.monsterTarget?.dungeonId === dungeonId)
+    c.workspace.monsterTarget = null;
+}
+export function duplicateDungeon(c: Campaign, dungeonId: string) {
+  const source = c.dungeons.find((d) => d.id === dungeonId);
+  if (!source) throw new Error('복제할 던전이 없습니다.');
+  const d = structuredClone(source);
+  Object.assign(d, {
+    id: id(),
+    title: d.title + ' — copy',
+    createdAt: now(),
+    updatedAt: now(),
+  });
+  const roomMap = new Map<string, string>();
+  for (const r of d.rooms) {
+    const next = id();
+    roomMap.set(r.id, next);
+    r.id = next;
+  }
+  const copies = c.monsterPlacements
+    .filter((p) => p.dungeonId === source.id)
+    .map((p) => ({
+      ...structuredClone(p),
+      id: id(),
+      dungeonId: d.id,
+      roomId: p.roomId ? roomMap.get(p.roomId)! : null,
+    }));
+  c.dungeons.push(d);
+  c.monsterPlacements.push(...copies);
+  syncMonsterRefs(c);
+  return d;
+}

@@ -27,6 +27,10 @@ import {
   validateCampaign,
 } from '../src/storage/schema.ts';
 import { weightedPick } from '../src/generators/random.ts';
+import {
+  generateMonster,
+  rerollMonsterSpecial,
+} from '../src/generators/monster.ts';
 import { generateCharacter } from '../src/generators/character.ts';
 const hasRules = existsSync('public/rules/library.json');
 if (hasRules)
@@ -113,7 +117,7 @@ test(
     c.dungeons.push(d);
     d.rooms = Array.from({ length: 4 }, () => createRoom(d.region));
     const targetId = d.rooms[1].id;
-    const m = generateEntity('monsters', d.region);
+    const m = generateMonster(c.id);
     c.drafts.monsters = m;
     c.workspace.selected.monsters = m.id;
     assignEntity(c, 'monsters', m.id, d.id, targetId);
@@ -174,8 +178,9 @@ test(
     assert.match(result.source, /FERETORY/);
     const m = generateEntity('monsters', 'sarkash');
     const old = structuredClone(m);
-    m.specialAbility = String(result.value);
-    m.sources!.specialAbility = result.source;
+    rerollMonsterSpecial(m, m.special[0].id);
+    assert.match(m.special[0].source!, /FERETORY/);
+    assert.equal(m.special[0].id, old.special[0].id);
     assert.equal(m.hp, old.hp);
     assert.equal(m.appearance, old.appearance);
     assert.deepEqual(d, before);
@@ -199,7 +204,7 @@ test(
   { skip: !hasRules },
   () => {
     const c = createCampaign('Drafts');
-    const m = generateEntity('monsters', 'sarkash');
+    const m = generateMonster(c.id);
     c.drafts.monsters = m;
     c.workspace.selected.monsters = m.id;
     c.workspace.section = 'monsters';
@@ -235,7 +240,10 @@ test(
       'monsters',
       pack.creatures.find((e) => e.name === 'The Übertaker')!,
     );
-    assert.match(boss.specialAbility ?? '', /d4|1:/);
+    assert.match(
+      'special' in boss ? boss.special.map((s) => s.text).join('\n') : '',
+      /d4|1:/,
+    );
     assert.equal(boss.generation?.system, 'preset');
     for (const record of pack.outcasts.filter(
       (e) => typeof e.hp === 'number',

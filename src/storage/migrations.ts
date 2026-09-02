@@ -9,10 +9,11 @@ import { dungeonFields, roomFields, emptyWorkspace } from '../domain/types';
 import { regions } from '../data/regions';
 import { validateSave } from './schema';
 
-export const STORAGE_KEY = 'morkborg-codex:v3';
-export const PREVIOUS_STORAGE_KEY = 'morkborg-codex:v2';
+export const STORAGE_KEY = 'morkborg-codex:v4';
+export const PREVIOUS_STORAGE_KEY = 'morkborg-codex:v3';
+export const V2_STORAGE_KEY = 'morkborg-codex:v2';
 export const LEGACY_STORAGE_KEY = 'morkborg-codex:v1';
-export const MIGRATION_BACKUP_KEY = 'morkborg-codex:pre-v3-backup';
+export const MIGRATION_BACKUP_KEY = 'morkborg-codex:pre-v4-backup';
 export interface SaveStorage {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
@@ -20,7 +21,7 @@ export interface SaveStorage {
   readonly length: number;
 }
 export const emptySave = (): AppSave => ({
-  schemaVersion: 3,
+  schemaVersion: 4,
   campaigns: [],
   activeCampaignId: null,
   view: 'campaigns',
@@ -85,7 +86,8 @@ export function migrateSave(input: unknown): AppSave {
     'schemaVersion' in value &&
     value.schemaVersion !== 1 &&
     value.schemaVersion !== 2 &&
-    value.schemaVersion !== 3
+    value.schemaVersion !== 3 &&
+    value.schemaVersion !== 4
   )
     throw new Error('지원하지 않는 저장 버전입니다. 원본을 보존했습니다.');
   const raw = object(value.dungeon) ?? object(value.currentDungeon) ?? value;
@@ -175,6 +177,7 @@ export function migrateSave(input: unknown): AppSave {
     notes: '',
     characters: [],
     monsters: [],
+    monsterPlacements: [],
     npcs: [],
     encounters: [],
     drafts: { characters: null, monsters: null, npcs: null, encounters: null },
@@ -191,9 +194,9 @@ export function loadStoredSave(storage: SaveStorage): {
   if (current !== null)
     return { save: validateSave(JSON.parse(current)), migrated: [] };
   const previousKey =
-    storage.getItem(PREVIOUS_STORAGE_KEY) !== null
-      ? PREVIOUS_STORAGE_KEY
-      : LEGACY_STORAGE_KEY;
+    [PREVIOUS_STORAGE_KEY, V2_STORAGE_KEY, LEGACY_STORAGE_KEY].find(
+      (key) => storage.getItem(key) !== null,
+    ) ?? LEGACY_STORAGE_KEY;
   const previous = storage.getItem(previousKey);
   const originals: { key: string; raw: string }[] = [];
   let save = emptySave();

@@ -93,3 +93,10 @@ Black Han Sans / 나눔스퀘어 네오와 기존의 넓은 한글 행간을 유
 2026-09-03에 Character 생성·편집·저장, v2→v3 변환, 현재/최대 HP 분리 및 개별 장비·특성 재굴림을 검증했습니다. 기존 두 던전과 새 캐릭터 두 명이 화면 이동·reload·Campaign 복제·JSON 충돌 가져오기 후 보존되었습니다. 요청한 27단계 UI 검증과 360/768/1440/3440px 확인을 실행했습니다. 기존 29개 검사를 유지하고 17개를 추가하여 총 46개가 통과했습니다.
 
 새 Barlow Condensed Black / Pretendard 서체의 움라우트와 결합 악센트 글리프를 확인했습니다. [Character 구조·원문 표·27단계 결과·반응형 검증](characters.md)에 상세 기록을 남겼습니다.
+
+
+## 2026-09-03 · Monster Library와 Dungeon/Room 배치
+
+기존 46개 + 추가 31개 = **77개 통과, skip 0**. 120개 몬스터 정의와 600개 배치의 저장·복제·JSON 복원을 포함한다. 실제 브라우저에서 요청한 33단계를 실행하고, 기존 Character·Dungeon 보존, 두 Room의 공유 HP 31, Room 4 수량 3, Dungeon-only, placement 제거, Dungeon 복제·삭제, reload, Campaign JSON 충돌 remapping을 검증했다. Dangling reference는 0개였다.
+
+360·768·1440·3440px 화면에서 가로 넘침 0. 360px 입력·공격 편집·Room selector·수량·배치 목록을 조작하고 스크린샷을 확인했다. 기존 Dungeon의 3440px 4열도 유지된다. 모델·원문 표·33단계별 결과·제약은 [Monster 검증 상세](monsters.md)에 기록했다.

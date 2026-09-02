@@ -64,20 +64,44 @@ export interface Character extends BaseEntity {
   description: string;
   status: 'alive' | 'dead';
 }
+export interface MonsterAttack extends Provenance {
+  id: string;
+  name: string;
+  damage: string;
+  description: string;
+  tableId?: string;
+}
+export interface MonsterText {
+  id: string;
+  text: string;
+  source?: string;
+  tableId?: string;
+}
 export interface Monster extends BaseEntity {
+  campaignId: string;
   concept: string;
   appearance: string;
-  behaviour: string;
+  behavior: string;
   wants: string;
   hp: number;
   morale: number | string;
   armor: string;
-  attack: string;
-  damage: string;
-  specialAbility: string;
-  weakness: string;
+  attacks: MonsterAttack[];
+  special: MonsterText[];
+  weakness: MonsterText[];
   weirdTrait: string;
-  loot: string;
+  loot: MonsterText[];
+  description: string;
+}
+export interface MonsterTarget {
+  dungeonId: string;
+  roomId: string | null;
+}
+export interface MonsterPlacement extends MonsterTarget {
+  id: string;
+  monsterId: string;
+  quantity: number;
+  notes: string;
 }
 export interface NPC extends BaseEntity {
   archetype: string;
@@ -101,6 +125,7 @@ export interface Encounter extends BaseEntity {
   treasure: string;
 }
 export interface Assignment {
+  /** Derived compatibility index. MonsterPlacement is the authoritative relation. */
   monsterIds: string[];
   npcIds: string[];
   encounterIds: string[];
@@ -151,6 +176,7 @@ export interface Workspace {
   roomId: string | null;
   stockingKind: 'encounters' | 'npcs';
   selected: Record<LibraryKind, string | null>;
+  monsterTarget?: MonsterTarget | null;
 }
 export interface Campaign {
   id: string;
@@ -163,6 +189,7 @@ export interface Campaign {
   dungeons: Dungeon[];
   dungeonDraft?: Dungeon | null;
   monsters: Monster[];
+  monsterPlacements: MonsterPlacement[];
   npcs: NPC[];
   encounters: Encounter[];
   notes: string;
@@ -170,7 +197,7 @@ export interface Campaign {
   workspace: Workspace;
 }
 export interface AppSave {
-  schemaVersion: 3;
+  schemaVersion: 4;
   campaigns: Campaign[];
   activeCampaignId: string | null;
   view: 'campaigns' | 'campaign';

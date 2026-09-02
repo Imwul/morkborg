@@ -466,7 +466,9 @@ export function Library({
                     selected.generation?.system !== 'preset' &&
                     (kind !== 'monsters' ||
                       spec.key !== 'hp' ||
-                      /^d(4|6|8|10|12)$/.test((selected as Monster).damage))
+                      /^d(4|6|8|10|12)$/.test(
+                        (selected as Monster).attacks[0]?.damage ?? '',
+                      ))
                       ? () =>
                           generateEntityRoll(
                             kind,

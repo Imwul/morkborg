@@ -55,6 +55,8 @@ import {
 } from './domain/operations';
 import { Library, type Confirm } from './components/Library';
 import { Dungeons } from './components/Dungeons';
+import { Monsters } from './components/Monsters';
+import { beginMonsterDraft } from './domain/monsterOperations';
 import { Characters } from './components/Characters';
 import { Sources } from './components/Sources';
 import { useRules, loadRules } from './storage/rulesStore';
@@ -134,6 +136,16 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
       if (
         matches(
           ...Object.values(e).filter((v): v is string => typeof v === 'string'),
+          ...('attacks' in e
+            ? [
+                ...e.attacks.map(
+                  (a) => `${a.name} ${a.damage} ${a.description}`,
+                ),
+                ...e.special.map((s) => s.text),
+                ...e.weakness.map((s) => s.text),
+                ...e.loot.map((s) => s.text),
+              ]
+            : []),
           ...('weapons' in e
             ? [...e.weapons, ...e.equipment, ...e.traits].map(
                 (item) => item.text,
@@ -225,7 +237,14 @@ export default function App() {
           ...(c.drafts.characters ? [c.drafts.characters] : []),
         ].find((ch) => ch.id === c.workspace.selected.characters)?.name
       : undefined;
-  const recordPageTitle = dungeonPageTitle || characterPageTitle;
+  const monsterPageTitle =
+    c?.workspace.section === 'monsters'
+      ? [...c.monsters, ...(c.drafts.monsters ? [c.drafts.monsters] : [])].find(
+          (m) => m.id === c.workspace.selected.monsters,
+        )?.name
+      : undefined;
+  const recordPageTitle =
+    dungeonPageTitle || characterPageTitle || monsterPageTitle;
   useEffect(() => {
     document.title = campaignTitle
       ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
@@ -267,7 +286,12 @@ export default function App() {
                 section,
                 selected: { ...c.workspace.selected, characters: null },
               }
-            : { section },
+            : section === 'monsters'
+              ? {
+                  section,
+                  selected: { ...c.workspace.selected, monsters: null },
+                }
+              : { section },
       );
     setDrawer(false);
     setQuery('');
@@ -287,7 +311,7 @@ export default function App() {
   }
   function exportCampaign(campaign: Campaign) {
     setExportData({
-      text: JSON.stringify({ schemaVersion: 3, campaign }, null, 2),
+      text: JSON.stringify({ schemaVersion: 4, campaign }, null, 2),
       filename: `${campaign.title.replace(/[^\p{L}\p{N} -]/gu, '').slice(0, 80) || 'campaign'}.json`,
     });
   }
@@ -309,7 +333,7 @@ export default function App() {
     transact((next) => {
       next.campaigns.push(cloneCampaign(campaign));
     });
-    notify('캐릭터·던전·방과 메모를 포함해 캠페인을 복제했습니다.');
+    notify('캐릭터·몬스터·던전·방과 모든 배치를 포함해 캠페인을 복제했습니다.');
   }
   function importJson(text: string) {
     try {
@@ -372,11 +396,11 @@ export default function App() {
                     [
                       'overview',
                       'characters',
+                      'monsters',
                       'dungeons',
                       'notes',
                       'about',
                     ].includes(item.key) ||
-                    (item.key === 'monsters' && c.monsters.length > 0) ||
                     (item.key === 'encounters' &&
                       c.npcs.length + c.encounters.length > 0),
                 )
@@ -556,77 +580,72 @@ export default function App() {
             )}
           </div>
         )}
-        {c &&
-          c.dungeons.length > 0 &&
-          c.monsters.length + c.npcs.length + c.encounters.length > 0 &&
-          !(
-            c.workspace.section === 'dungeons' && c.workspace.dungeonPreview
-          ) && (
-            <div className="context-bar">
-              <div className="context-label">
-                <MapPin size={15} />
-                <span>현재 배치 위치</span>
-              </div>
-              <label className="sr-only" htmlFor="destination-dungeon">
-                배치할 던전
-              </label>
-              <select
-                id="destination-dungeon"
-                value={d?.id ?? ''}
-                onChange={(e) =>
-                  changeWorkspace(c.id, {
-                    dungeonId: e.target.value || null,
-                    roomId: null,
-                  })
-                }
-              >
-                <option value="">캠페인 보관함에만 저장</option>
-                {c.dungeons.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.title || 'Untitled dungeon'}
-                  </option>
-                ))}
-              </select>
-              {d && (
-                <>
-                  <span className="context-region">
-                    {regionById(d.region).name}
-                  </span>
-                  <span className="context-slash">/</span>
-                  <label className="sr-only" htmlFor="destination-room">
-                    배치할 방
-                  </label>
-                  <select
-                    id="destination-room"
-                    value={room?.id ?? ''}
-                    onChange={(e) =>
-                      changeWorkspace(c.id, { roomId: e.target.value || null })
-                    }
-                  >
-                    <option value="">방: 지정 안 함</option>
-                    {d.rooms.map((r, i) => (
-                      <option key={r.id} value={r.id}>
-                        방 {i + 1}: {r.name || '이름 없는 방'}
-                      </option>
-                    ))}
-                  </select>
-                  <Button
-                    className="icon-btn"
-                    aria-label="현재 던전으로 돌아가기"
-                    title="던전으로 돌아가기"
-                    onClick={() =>
-                      changeWorkspace(c.id, {
-                        section: 'dungeons',
-                        dungeonPreview: false,
-                      })
-                    }
-                  >
-                    <ArrowRight size={15} />
-                  </Button>
-                </>
-              )}
+        {c && c.dungeons.length > 0 && c.workspace.section === 'encounters' && (
+          <div className="context-bar">
+            <div className="context-label">
+              <MapPin size={15} />
+              <span>현재 배치 위치</span>
             </div>
-          )}
+            <label className="sr-only" htmlFor="destination-dungeon">
+              배치할 던전
+            </label>
+            <select
+              id="destination-dungeon"
+              value={d?.id ?? ''}
+              onChange={(e) =>
+                changeWorkspace(c.id, {
+                  dungeonId: e.target.value || null,
+                  roomId: null,
+                })
+              }
+            >
+              <option value="">캠페인 보관함에만 저장</option>
+              {c.dungeons.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.title || 'Untitled dungeon'}
+                </option>
+              ))}
+            </select>
+            {d && (
+              <>
+                <span className="context-region">
+                  {regionById(d.region).name}
+                </span>
+                <span className="context-slash">/</span>
+                <label className="sr-only" htmlFor="destination-room">
+                  배치할 방
+                </label>
+                <select
+                  id="destination-room"
+                  value={room?.id ?? ''}
+                  onChange={(e) =>
+                    changeWorkspace(c.id, { roomId: e.target.value || null })
+                  }
+                >
+                  <option value="">방: 지정 안 함</option>
+                  {d.rooms.map((r, i) => (
+                    <option key={r.id} value={r.id}>
+                      방 {i + 1}: {r.name || '이름 없는 방'}
+                    </option>
+                  ))}
+                </select>
+                <Button
+                  className="icon-btn"
+                  aria-label="현재 던전으로 돌아가기"
+                  title="던전으로 돌아가기"
+                  onClick={() =>
+                    changeWorkspace(c.id, {
+                      section: 'dungeons',
+                      dungeonPreview: false,
+                    })
+                  }
+                >
+                  <ArrowRight size={15} />
+                </Button>
+              </>
+            )}
+          </div>
+        )}
         <main className="content" inert={blocked}>
           {c && (
             <nav className="codex-breadcrumb" aria-label="현재 위치">
@@ -639,14 +658,16 @@ export default function App() {
                   ? '캠페인 노트'
                   : c.workspace.section === 'characters'
                     ? characterPageTitle || '캐릭터 보관함'
-                    : c.workspace.section === 'about'
-                      ? '자료 및 규칙'
-                      : c.workspace.section === 'dungeons'
-                        ? c.workspace.dungeonPreview
-                          ? '새 던전 후보'
-                          : pageDungeon?.title || '던전 보관함'
-                        : nav.find((n) => n.key === c.workspace.section)
-                            ?.label || '던전 보관함'}
+                    : c.workspace.section === 'monsters'
+                      ? monsterPageTitle || '몬스터 보관함'
+                      : c.workspace.section === 'about'
+                        ? '자료 및 규칙'
+                        : c.workspace.section === 'dungeons'
+                          ? c.workspace.dungeonPreview
+                            ? '새 던전 후보'
+                            : pageDungeon?.title || '던전 보관함'
+                          : nav.find((n) => n.key === c.workspace.section)
+                              ?.label || '던전 보관함'}
               </span>
             </nav>
           )}
@@ -944,6 +965,44 @@ export default function App() {
                 </section>
                 <aside>
                   <div className="section-title">
+                    <h2>몬스터</h2>
+                    <Button
+                      className="btn ghost small"
+                      onClick={() =>
+                        editCampaign(c.id, (next) =>
+                          beginMonsterDraft(next, undefined, !rules.pack),
+                        )
+                      }
+                    >
+                      <Plus size={14} />새 몬스터
+                    </Button>
+                  </div>
+                  {c.monsters.map((m) => (
+                    <button
+                      className="notebook-row"
+                      key={m.id}
+                      onClick={() =>
+                        changeWorkspace(c.id, {
+                          section: 'monsters',
+                          selected: { ...c.workspace.selected, monsters: m.id },
+                        })
+                      }
+                    >
+                      <Skull size={18} />
+                      <div>
+                        <h3>{m.name || 'Unnamed Monster'}</h3>
+                        <p>
+                          HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale}
+                        </p>
+                      </div>
+                      <ArrowUpRight size={18} />
+                    </button>
+                  ))}
+                  {!c.monsters.length && (
+                    <p className="empty-copy">아직 기록된 몬스터가 없습니다.</p>
+                  )}
+
+                  <div className="section-title">
                     <h2>여백의 기록</h2>
                     <NotebookPen size={19} />
                   </div>
@@ -1060,14 +1119,17 @@ export default function App() {
             </>
           ) : c.workspace.section === 'characters' ? (
             <Characters campaign={c} confirm={confirm} notify={notify} />
+          ) : c.workspace.section === 'monsters' ? (
+            <Monsters
+              key={`${c.id}:${c.workspace.selected.monsters ?? 'library'}`}
+              campaign={c}
+              confirm={confirm}
+              notify={notify}
+            />
           ) : (
             <Library
               campaign={c}
-              kind={
-                c.workspace.section === 'monsters'
-                  ? 'monsters'
-                  : c.workspace.stockingKind
-              }
+              kind={c.workspace.stockingKind}
               confirm={confirm}
               notify={notify}
             />
@@ -1325,6 +1387,7 @@ export default function App() {
               onClick={() => {
                 const original =
                   localStorage.getItem(MIGRATION_BACKUP_KEY) ??
+                  localStorage.getItem('morkborg-codex:pre-v3-backup') ??
                   localStorage.getItem('morkborg-codex:pre-v2-backup');
                 if (original)
                   downloadText(original, 'campaign-codex-original-backup.json');

@@ -6,7 +6,14 @@ import type {
   Assignment,
   Workspace,
   Character,
+  Monster,
 } from './types';
+import {
+  addMonsterPlacement,
+  deleteMonster,
+  materializeDraftMonsterRefs,
+  syncMonsterRefs,
+} from './monsterOperations';
 import { id, now } from '../generators/random';
 export const referenceKey = (
   kind: Exclude<LibraryKind, 'characters'>,
@@ -46,6 +53,29 @@ export function cloneCampaign(
     ch.campaignId = c.id;
     for (const item of [...ch.weapons, ...ch.equipment, ...ch.traits])
       item.id = replace(item.id);
+  }
+  for (const m of [
+    ...c.monsters,
+    ...(c.drafts.monsters ? [c.drafts.monsters] : []),
+  ]) {
+    m.campaignId = c.id;
+    for (const item of [...m.attacks, ...m.special, ...m.weakness, ...m.loot])
+      item.id = replace(item.id);
+  }
+  for (const p of c.monsterPlacements) {
+    p.id = replace(p.id);
+    p.monsterId = replace(p.monsterId);
+    p.dungeonId = replace(p.dungeonId);
+    if (p.roomId) p.roomId = replace(p.roomId);
+  }
+  if (c.workspace.monsterTarget) {
+    c.workspace.monsterTarget.dungeonId = replace(
+      c.workspace.monsterTarget.dungeonId,
+    );
+    if (c.workspace.monsterTarget.roomId)
+      c.workspace.monsterTarget.roomId = replace(
+        c.workspace.monsterTarget.roomId,
+      );
   }
   const reassign = (a: Assignment) => {
     for (const key of ['monsterIds', 'npcIds', 'encounterIds'] as const)
@@ -95,6 +125,10 @@ export function assignEntity(
   dungeonId: string,
   roomId: string | null,
 ): void {
+  if (kind === 'monsters') {
+    addMonsterPlacement(c, entityId, { dungeonId, roomId });
+    return;
+  }
   const dungeon = c.dungeons.find((d) => d.id === dungeonId);
   if (!dungeon) throw new Error('Choose a dungeon first.');
   const room = roomId ? dungeon.rooms.find((r) => r.id === roomId) : undefined;
@@ -115,6 +149,10 @@ export function deleteEntity(
   kind: LibraryKind,
   entityId: string,
 ): void {
+  if (kind === 'monsters') {
+    deleteMonster(c, entityId);
+    return;
+  }
   const collection = c[kind];
   const index = collection.findIndex((e) => e.id === entityId);
   if (index >= 0) collection.splice(index, 1);
@@ -142,6 +180,19 @@ export function removeAssignment(
 ): void {
   const d = c.dungeons.find((e) => e.id === dungeonId);
   if (!d) return;
+  if (kind === 'monsters') {
+    c.monsterPlacements = c.monsterPlacements.filter(
+      (p) =>
+        !(
+          p.monsterId === entityId &&
+          p.dungeonId === dungeonId &&
+          (!roomId || p.roomId === roomId)
+        ),
+    );
+    d.updatedAt = now();
+    syncMonsterRefs(c);
+    return;
+  }
   const key = referenceKey(kind);
   if (roomId) {
     const r = d.rooms.find((e) => e.id === roomId);
@@ -158,6 +209,7 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
   candidate.title = title;
   candidate.updatedAt = now();
   c.dungeons.push(candidate);
+  materializeDraftMonsterRefs(c, candidate.id);
   c.dungeonDraft = null;
   Object.assign(c.workspace, {
     section: 'dungeons',
@@ -171,6 +223,15 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
 export function campaignIds(c: Campaign): string[] {
   return [
     c.id,
+    ...c.monsterPlacements.map((p) => p.id),
+    ...[
+      ...c.monsters,
+      ...(c.drafts.monsters ? [c.drafts.monsters] : []),
+    ].flatMap((m) =>
+      [...m.attacks, ...m.special, ...m.weakness, ...m.loot].map(
+        (item) => item.id,
+      ),
+    ),
     ...[...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].flatMap(
       (d) => [d.id, ...d.rooms.map((r) => r.id)],
     ),
@@ -226,12 +287,14 @@ export function applyCampaignEdit(
   action: (campaign: Campaign) => void,
   timestamp = now(),
 ): void {
-  const content = (d: Dungeon | Character) =>
+  const content = (d: Dungeon | Character | Monster) =>
     JSON.stringify({ ...d, updatedAt: undefined });
   const before = new Map(
     [
       ...c.dungeons,
       ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+      ...c.monsters,
+      ...(c.drafts.monsters ? [c.drafts.monsters] : []),
       ...c.characters,
       ...(c.drafts.characters ? [c.drafts.characters] : []),
     ].map((d) => [d.id, content(d)]),
@@ -240,6 +303,8 @@ export function applyCampaignEdit(
   for (const d of [
     ...c.dungeons,
     ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+    ...c.monsters,
+    ...(c.drafts.monsters ? [c.drafts.monsters] : []),
     ...c.characters,
     ...(c.drafts.characters ? [c.drafts.characters] : []),
   ])

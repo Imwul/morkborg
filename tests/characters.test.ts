@@ -29,7 +29,7 @@ import {
   emptySave,
   loadStoredSave,
   STORAGE_KEY,
-  PREVIOUS_STORAGE_KEY,
+  V2_STORAGE_KEY,
   LEGACY_STORAGE_KEY,
   MIGRATION_BACKUP_KEY,
 } from '../src/storage/migrations.ts';
@@ -110,12 +110,12 @@ test('v2 migration preserves existing characters, draft, dungeon rooms, selectio
     3,
   );
   const storage = new MemoryStorage();
-  storage.setItem(PREVIOUS_STORAGE_KEY, raw);
+  storage.setItem(V2_STORAGE_KEY, raw);
   storage.setItem(LEGACY_STORAGE_KEY, 'do not merge this old copy');
   storage.setItem('morkborg-codex:pre-v2-backup', 'older backup');
   const result = loadStoredSave(storage);
   const migrated = result.save.campaigns[0];
-  assert.equal(result.save.schemaVersion, 3);
+  assert.equal(result.save.schemaVersion, 4);
   assert.deepEqual(migrated.dungeons, c.dungeons);
   assert.equal(migrated.characters[0].id, legacy.id);
   assert.equal(migrated.characters[0].className, legacy.archetype);
@@ -129,7 +129,7 @@ test('v2 migration preserves existing characters, draft, dungeon rooms, selectio
   assert.equal(migrated.drafts.characters!.hp, 0);
   assert.equal(migrated.drafts.characters!.status, 'dead');
   assert.equal(migrated.workspace.selected.characters, draft.id);
-  assert.equal(storage.getItem(PREVIOUS_STORAGE_KEY), raw);
+  assert.equal(storage.getItem(V2_STORAGE_KEY), raw);
   assert.equal(JSON.parse(storage.getItem(MIGRATION_BACKUP_KEY)!)[0].raw, raw);
   assert.equal(storage.getItem('morkborg-codex:pre-v2-backup'), 'older backup');
   assert.deepEqual(loadStoredSave(storage).save, result.save);
@@ -173,10 +173,10 @@ test('v3 migration failure never overwrites v2 and preserves the old v2 backup',
   for (const fail of [MIGRATION_BACKUP_KEY, STORAGE_KEY]) {
     const storage = new MemoryStorage();
     const raw = JSON.stringify({ ...emptySave(), schemaVersion: 2 });
-    storage.setItem(PREVIOUS_STORAGE_KEY, raw);
+    storage.setItem(V2_STORAGE_KEY, raw);
     storage.fail = fail;
     assert.throws(() => loadStoredSave(storage));
-    assert.equal(storage.getItem(PREVIOUS_STORAGE_KEY), raw);
+    assert.equal(storage.getItem(V2_STORAGE_KEY), raw);
     assert.equal(storage.getItem(STORAGE_KEY), null);
   }
 });

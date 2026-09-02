@@ -35,11 +35,16 @@ import {
 } from '../generators';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import {
-  cloneDungeon,
   referenceKey,
   removeAssignment,
   assignEntity,
 } from '../domain/operations';
+import {
+  deleteDungeon,
+  deleteRoom,
+  duplicateDungeon,
+} from '../domain/monsterOperations';
+import { DungeonMonsters } from './MonsterAssignments';
 import { useRules } from '../storage/rulesStore';
 import { now } from '../generators/random';
 import { Field } from './Field';
@@ -82,19 +87,12 @@ export function Dungeons({
   const remove = (dungeon: Dungeon) =>
     confirm(
       `${dungeon.title} 던전을 삭제할까요?`,
-      '던전과 방을 삭제합니다. 저장한 몬스터, NPC, 조우는 캠페인 보관함에 남습니다.',
-      () =>
-        editCampaign(c.id, (next) => {
-          next.dungeons = next.dungeons.filter((x) => x.id !== dungeon.id);
-          if (next.workspace.dungeonId === dungeon.id) {
-            next.workspace.dungeonId = null;
-            next.workspace.roomId = null;
-          }
-        }),
+      '던전과 방, 이 던전의 몬스터 배치를 삭제합니다. 몬스터 정의는 캠페인 보관함에 남습니다.',
+      () => editCampaign(c.id, (next) => deleteDungeon(next, dungeon.id)),
     );
   const duplicate = (dungeon: Dungeon) => {
     editCampaign(c.id, (next) => {
-      next.dungeons.push(cloneDungeon(dungeon));
+      duplicateDungeon(next, dungeon.id);
     });
     notify('던전을 복제했습니다. 보관함의 원본 항목은 공유됩니다.');
   };
@@ -194,7 +192,7 @@ export function Dungeons({
     ] as DungeonTab[]
   ).filter(
     (t) =>
-      ['overview', 'rooms', 'notes'].includes(t) ||
+      ['overview', 'rooms', 'monsters', 'notes'].includes(t) ||
       d[referenceKey(t as 'monsters' | 'npcs' | 'encounters')]?.length > 0,
   );
   return (
@@ -449,9 +447,10 @@ export function Dungeons({
       {tab === 'rooms' && (
         <Rooms campaign={c} dungeon={d} confirm={confirm} notify={notify} />
       )}
-      {(['monsters', 'npcs', 'encounters'] as const).includes(
-        tab as 'monsters',
-      ) && (
+      {tab === 'monsters' && (
+        <DungeonMonsters campaign={c} dungeon={d} notify={notify} />
+      )}
+      {(['npcs', 'encounters'] as const).includes(tab as 'npcs') && (
         <Assigned
           campaign={c}
           dungeon={d}
@@ -541,13 +540,8 @@ function Rooms({
   function remove(r: DungeonRoom) {
     confirm(
       `${r.name || '이 방'}을 삭제할까요?`,
-      '방을 삭제합니다. 배치한 항목은 던전과 캠페인 보관함에 남습니다.',
-      () =>
-        editCampaign(c.id, (next) => {
-          const dungeon = next.dungeons.find((x) => x.id === d.id)!;
-          dungeon.rooms = dungeon.rooms.filter((x) => x.id !== r.id);
-          if (next.workspace.roomId === r.id) next.workspace.roomId = null;
-        }),
+      `이 방의 몬스터 배치 ${c.monsterPlacements.filter((p) => p.roomId === r.id).length}개를 Dungeon-only로 옮깁니다. 수량과 배치 메모는 유지됩니다.`,
+      () => editCampaign(c.id, (next) => deleteRoom(next, d.id, r.id)),
     );
   }
   return (
@@ -657,53 +651,25 @@ function Rooms({
                 />
               ))}
             </div>
-            {c.monsters.length + c.npcs.length + c.encounters.length > 0 && (
-              <div className="room-stock">
-                <span className="eyebrow">이 방에 배치된 내용</span>
-                {(['monsters', 'npcs', 'encounters'] as const).map((kind) => (
-                  <Assigned
-                    key={kind}
-                    campaign={c}
-                    dungeon={d}
-                    room={selected}
-                    kind={kind}
-                    notify={notify}
-                  />
-                ))}
-                <div className="actions">
-                  <Button
-                    className="btn small"
-                    onClick={() =>
-                      changeWorkspace(c.id, { section: 'monsters' })
-                    }
-                  >
-                    <Skull size={14} /> 몬스터 생성
-                  </Button>
-                  <Button
-                    className="btn small"
-                    onClick={() =>
-                      changeWorkspace(c.id, {
-                        section: 'encounters',
-                        stockingKind: 'encounters',
-                      })
-                    }
-                  >
-                    <Swords size={14} /> 조우 생성
-                  </Button>
-                  <Button
-                    className="btn small"
-                    onClick={() =>
-                      changeWorkspace(c.id, {
-                        section: 'encounters',
-                        stockingKind: 'npcs',
-                      })
-                    }
-                  >
-                    <UserRound size={14} /> NPC 생성
-                  </Button>
-                </div>
-              </div>
-            )}
+            <DungeonMonsters
+              key={selected.id}
+              campaign={c}
+              dungeon={d}
+              room={selected}
+              notify={notify}
+            />
+            {(['npcs', 'encounters'] as const)
+              .filter((kind) => selected[referenceKey(kind)].length > 0)
+              .map((kind) => (
+                <Assigned
+                  key={kind}
+                  campaign={c}
+                  dungeon={d}
+                  room={selected}
+                  kind={kind}
+                  notify={notify}
+                />
+              ))}
             <div className="notes-block">
               <label className="eyebrow" htmlFor="room-notes">
                 방 메모
