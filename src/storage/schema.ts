@@ -98,6 +98,7 @@ const campaign = z.object({
   id: uuid,
   title: text.min(1),
   subtitle: text,
+  description: text.optional(),
   createdAt: time,
   updatedAt: time,
   characters: z.array(character),
@@ -132,6 +133,7 @@ const campaign = z.object({
       'notes',
     ]),
     dungeonPreview: z.boolean().optional(),
+    pendingRegion: z.enum(REGION_IDS).optional(),
     dungeonId: uuid.nullable(),
     roomId: uuid.nullable(),
     stockingKind: z.enum(['encounters', 'npcs']),
@@ -205,14 +207,15 @@ export function validateCampaign(input: unknown): Campaign {
 export function validateSave(input: unknown): AppSave {
   const shape = z
     .object({
-      schemaVersion: z.literal(1),
+      schemaVersion: z.union([z.literal(1), z.literal(2)]),
       campaigns: z.array(z.unknown()),
       activeCampaignId: uuid.nullable(),
+      view: z.enum(['campaigns', 'campaign']).optional(),
     })
     .safeParse(input);
   if (!shape.success)
     throw new Error(
-      'Unsupported or damaged save file. Expected schema version 1.',
+      'Unsupported or damaged save file. Expected schema version 1 or 2.',
     );
   const campaigns = shape.data.campaigns.map(validateCampaign);
   const all = campaigns.map((c) => c.id);
@@ -221,9 +224,12 @@ export function validateSave(input: unknown): AppSave {
   if (shape.data.activeCampaignId && !all.includes(shape.data.activeCampaignId))
     throw new Error('Active campaign is missing.');
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     campaigns,
     activeCampaignId: shape.data.activeCampaignId,
+    view:
+      shape.data.view ??
+      (shape.data.activeCampaignId ? 'campaign' : 'campaigns'),
   };
 }
 export function parseImport(raw: string): Campaign[] {
@@ -234,10 +240,10 @@ export function parseImport(raw: string): Campaign[] {
     !value ||
     typeof value !== 'object' ||
     !('schemaVersion' in value) ||
-    value.schemaVersion !== 1
+    (value.schemaVersion !== 1 && value.schemaVersion !== 2)
   )
     throw new Error(
-      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1 JSON을 사용하세요.',
+      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1 또는 2 JSON을 사용하세요.',
     );
   if ('campaign' in value) return [validateCampaign(value.campaign)];
   return validateSave(value).campaigns;

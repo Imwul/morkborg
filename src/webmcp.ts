@@ -1,5 +1,6 @@
 import { getSnapshot, transact } from './storage/saveStore';
 import { createCampaign } from './generators';
+import { openCampaignLibrary } from './domain/operations';
 interface ModelContext {
   registerTool(
     tool: {
@@ -72,7 +73,7 @@ export function registerCodexTools() {
         );
         transact((next) => {
           next.campaigns.push(c);
-          next.activeCampaignId = c.id;
+          openCampaignLibrary(next, c.id);
         });
         return { id: c.id, title: c.title, status: 'created' };
       },

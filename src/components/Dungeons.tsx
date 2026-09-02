@@ -31,6 +31,7 @@ import {
   generateRoomRoll,
   dungeonTitle,
   canReroll,
+  rerollRoomContents,
 } from '../generators';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import {
@@ -108,12 +109,16 @@ export function Dungeons({
         <div className="page-heading">
           <div>
             <h1>
-              지하와 그 너머<span className="acid">.</span>
+              던전 보관함<span className="acid">.</span>
             </h1>
-            <p>불길한 상상에 문과 이름, 지도 위의 자리를 부여하세요.</p>
+            <p>
+              {c.description ||
+                c.subtitle ||
+                '지역을 고르고 던전을 생성한 뒤, 원하는 후보를 이 캠페인에 보관하세요.'}
+            </p>
           </div>
           <Button className="btn primary" onClick={create}>
-            <Dices /> 던전 생성기 열기
+            <Plus /> 새 던전
           </Button>
         </div>
         {c.dungeonDraft && (
@@ -139,12 +144,16 @@ export function Dungeons({
               <p>{dungeon.status}</p>
               <div className="card-counts">
                 <span>{dungeon.rooms.length}개 방</span>
-                <span>{dungeon.monsterIds.length} 몬스터</span>
-                <span>
-                  {dungeon.npcIds.length + dungeon.encounterIds.length} NPC /
-                  조우
-                </span>
               </div>
+              <p className="modified-time">
+                마지막 수정{' '}
+                <time dateTime={dungeon.updatedAt}>
+                  {new Date(dungeon.updatedAt).toLocaleString('ko-KR', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  })}
+                </time>
+              </p>
               <div className="card-actions">
                 <Button className="btn ghost" onClick={() => open(dungeon)}>
                   던전 열기 <ArrowRight size={16} />
@@ -168,20 +177,26 @@ export function Dungeons({
           ))}
           <button className="create-card" onClick={create}>
             <Plus size={29} strokeWidth={1} />
-            <span>던전 만들기</span>
+            <span>새 던전</span>
             <p>무언가 아래에서 기다립니다.</p>
           </button>
         </div>
       </>
     );
-  const tabs: DungeonTab[] = [
-    'overview',
-    'rooms',
-    'monsters',
-    'npcs',
-    'encounters',
-    'notes',
-  ];
+  const tabs: DungeonTab[] = (
+    [
+      'overview',
+      'rooms',
+      'monsters',
+      'npcs',
+      'encounters',
+      'notes',
+    ] as DungeonTab[]
+  ).filter(
+    (t) =>
+      ['overview', 'rooms', 'notes'].includes(t) ||
+      d[referenceKey(t as 'monsters' | 'npcs' | 'encounters')]?.length > 0,
+  );
   return (
     <>
       <Button
@@ -270,8 +285,8 @@ export function Dungeons({
             <div>
               <span className="eyebrow">던전 개요</span>
               <p className="help-line">
-                모든 항목을 편집할 수 있습니다. 특징에는 지역별 원문 표를 함께
-                적용합니다. Grift는 공통 표를 사용합니다.
+                모든 항목을 편집할 수 있습니다. 지역 태그는 원문 결과의 확률만
+                조정하며 다른 결과도 나올 수 있습니다.
               </p>
             </div>
             <Button
@@ -393,37 +408,40 @@ export function Dungeons({
               >
                 <Plus size={14} /> 방 만들기
               </Button>
-              <div className="index-contents">
-                <span className="eyebrow">이곳에 배치된 존재</span>
-                <p>
-                  <Skull size={15} />
-                  {d.monsterIds.length} 몬스터
-                </p>
-                <p>
-                  <UserRound size={15} />
-                  {d.npcIds.length} NPC
-                </p>
-                <p>
-                  <Swords size={15} />
-                  {d.encounterIds.length} 조우
-                </p>
-                {(['monsters', 'npcs', 'encounters'] as const).map((kind) =>
-                  d[referenceKey(kind)].map((entityId) => {
-                    const entity = c[kind].find((e) => e.id === entityId);
-                    return entity ? (
-                      <button
-                        className="contents-link"
-                        key={entityId}
-                        onClick={() =>
-                          changeWorkspace(c.id, { dungeonTab: kind })
-                        }
-                      >
-                        {entity.name}
-                      </button>
-                    ) : null;
-                  }),
-                )}
-              </div>
+              {d.monsterIds.length + d.npcIds.length + d.encounterIds.length >
+                0 && (
+                <div className="index-contents">
+                  <span className="eyebrow">이곳에 배치된 존재</span>
+                  <p>
+                    <Skull size={15} />
+                    {d.monsterIds.length} 몬스터
+                  </p>
+                  <p>
+                    <UserRound size={15} />
+                    {d.npcIds.length} NPC
+                  </p>
+                  <p>
+                    <Swords size={15} />
+                    {d.encounterIds.length} 조우
+                  </p>
+                  {(['monsters', 'npcs', 'encounters'] as const).map((kind) =>
+                    d[referenceKey(kind)].map((entityId) => {
+                      const entity = c[kind].find((e) => e.id === entityId);
+                      return entity ? (
+                        <button
+                          className="contents-link"
+                          key={entityId}
+                          onClick={() =>
+                            changeWorkspace(c.id, { dungeonTab: kind })
+                          }
+                        >
+                          {entity.name}
+                        </button>
+                      ) : null;
+                    }),
+                  )}
+                </div>
+              )}
             </aside>
           </div>
         </>
@@ -451,6 +469,19 @@ export function Dungeons({
             value={d.notes}
             onChange={(e) => patch('notes', e.target.value)}
             placeholder="비밀, 미해결 사건, 그리고 일행이 아직 망가뜨리지 않은 것들."
+          />
+        </div>
+      )}
+      {tab !== 'notes' && (
+        <div className="notes-block dungeon-inline-notes">
+          <label className="eyebrow" htmlFor="dungeon-notes-inline">
+            던전 노트
+          </label>
+          <Textarea
+            id="dungeon-notes-inline"
+            value={d.notes}
+            onChange={(e) => patch('notes', e.target.value)}
+            placeholder="이 던전에 대한 기록을 남기세요. 자동으로 저장됩니다."
           />
         </div>
       )}
@@ -581,6 +612,26 @@ function Rooms({
                 방 {String(d.rooms.indexOf(selected) + 1).padStart(2, '0')}
               </span>
               <Button
+                className="btn small"
+                disabled={!rules.pack}
+                aria-label={`방 ${d.rooms.indexOf(selected) + 1} 전체 재굴림`}
+                onClick={() =>
+                  confirm(
+                    '이 방의 내용을 다시 굴릴까요?',
+                    '선택한 방의 생성 항목만 바꿉니다. 방 ID와 메모는 유지됩니다.',
+                    () =>
+                      editCampaign(c.id, (next) => {
+                        const target = next.dungeons
+                          .find((x) => x.id === d.id)!
+                          .rooms.find((r) => r.id === selected.id)!;
+                        rerollRoomContents(target, d.region);
+                      }),
+                  )
+                }
+              >
+                <Dices size={16} /> 이 방 다시 굴리기
+              </Button>
+              <Button
                 className="icon-btn danger"
                 aria-label="방 삭제"
                 onClick={() => remove(selected)}
@@ -606,49 +657,53 @@ function Rooms({
                 />
               ))}
             </div>
-            <div className="room-stock">
-              <span className="eyebrow">이 방에 배치된 내용</span>
-              {(['monsters', 'npcs', 'encounters'] as const).map((kind) => (
-                <Assigned
-                  key={kind}
-                  campaign={c}
-                  dungeon={d}
-                  room={selected}
-                  kind={kind}
-                  notify={notify}
-                />
-              ))}
-              <div className="actions">
-                <Button
-                  className="btn small"
-                  onClick={() => changeWorkspace(c.id, { section: 'monsters' })}
-                >
-                  <Skull size={14} /> 몬스터 생성
-                </Button>
-                <Button
-                  className="btn small"
-                  onClick={() =>
-                    changeWorkspace(c.id, {
-                      section: 'encounters',
-                      stockingKind: 'encounters',
-                    })
-                  }
-                >
-                  <Swords size={14} /> 조우 생성
-                </Button>
-                <Button
-                  className="btn small"
-                  onClick={() =>
-                    changeWorkspace(c.id, {
-                      section: 'encounters',
-                      stockingKind: 'npcs',
-                    })
-                  }
-                >
-                  <UserRound size={14} /> NPC 생성
-                </Button>
+            {c.monsters.length + c.npcs.length + c.encounters.length > 0 && (
+              <div className="room-stock">
+                <span className="eyebrow">이 방에 배치된 내용</span>
+                {(['monsters', 'npcs', 'encounters'] as const).map((kind) => (
+                  <Assigned
+                    key={kind}
+                    campaign={c}
+                    dungeon={d}
+                    room={selected}
+                    kind={kind}
+                    notify={notify}
+                  />
+                ))}
+                <div className="actions">
+                  <Button
+                    className="btn small"
+                    onClick={() =>
+                      changeWorkspace(c.id, { section: 'monsters' })
+                    }
+                  >
+                    <Skull size={14} /> 몬스터 생성
+                  </Button>
+                  <Button
+                    className="btn small"
+                    onClick={() =>
+                      changeWorkspace(c.id, {
+                        section: 'encounters',
+                        stockingKind: 'encounters',
+                      })
+                    }
+                  >
+                    <Swords size={14} /> 조우 생성
+                  </Button>
+                  <Button
+                    className="btn small"
+                    onClick={() =>
+                      changeWorkspace(c.id, {
+                        section: 'encounters',
+                        stockingKind: 'npcs',
+                      })
+                    }
+                  >
+                    <UserRound size={14} /> NPC 생성
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
             <div className="notes-block">
               <label className="eyebrow" htmlFor="room-notes">
                 방 메모

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, ArrowRight, Dices, Pencil, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,6 +12,7 @@ import {
   dungeonTitle,
   generateDungeonRoll,
   generateRoomRoll,
+  rerollRoomContents,
 } from '../generators';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { useRules, sourceCitation } from '../storage/rulesStore';
@@ -31,18 +32,8 @@ export function DungeonDraft({
 }) {
   const rules = useRules();
   const draft = c.dungeonDraft;
-  const region =
-    draft?.region ??
-    c.dungeons.find((dungeon) => dungeon.id === c.workspace.dungeonId)
-      ?.region ??
-    'graven-tosk';
-  useEffect(() => {
-    if (!rules.pack || draft) return;
-    editCampaign(c.id, (next) => {
-      if (next.workspace.dungeonPreview && !next.dungeonDraft)
-        next.dungeonDraft = createDungeonCandidate(next.id, region);
-    });
-  }, [rules.pack, draft, c.id, region]);
+  const [initialRooms, setInitialRooms] = useState(4);
+  const region = draft?.region ?? c.workspace.pendingRegion;
   const patch = (key: string, value: string | number, source = '직접 작성') =>
     editCampaign(c.id, (next) => {
       if (!next.dungeonDraft) return;
@@ -53,11 +44,12 @@ export function DungeonDraft({
       });
     });
   function generate() {
+    if (!region) return;
     try {
       const candidate = createDungeonCandidate(
         c.id,
         region,
-        draft?.rooms.length ?? 4,
+        draft?.rooms.length ?? initialRooms,
       );
       if (draft) {
         candidate.id = draft.id;
@@ -72,6 +64,7 @@ export function DungeonDraft({
     }
   }
   function manual() {
+    if (!region) return;
     const run = () =>
       editCampaign(c.id, (next) => {
         next.dungeonDraft = createDungeon(c.id, '', region, true);
@@ -103,6 +96,11 @@ export function DungeonDraft({
     notify('선택한 던전과 방을 캠페인에 저장했습니다.');
   }
   function changeRooms(count: number) {
+    if (!draft) {
+      setInitialRooms(count);
+      return;
+    }
+    if (!region) return;
     editCampaign(c.id, (next) => {
       if (!next.dungeonDraft) return;
       const rooms = next.dungeonDraft.rooms;
@@ -110,6 +108,61 @@ export function DungeonDraft({
       while (rooms.length < count) rooms.push(createRoom(region, !rules.pack));
     });
   }
+  const settings = (
+    <div className="candidate-settings">
+      <label htmlFor="candidate-region">
+        지역
+        <select
+          id="candidate-region"
+          value={region ?? ''}
+          onChange={(e) =>
+            draft
+              ? patch('region', e.target.value as RegionId)
+              : changeWorkspace(c.id, {
+                  pendingRegion: e.target.value as RegionId,
+                })
+          }
+        >
+          <option value="" disabled>
+            지역을 선택하세요
+          </option>
+          {regions.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <p>
+        {region
+          ? regionById(region).description
+          : '지역을 선택한 뒤 생성하세요. 제목과 내용, 방이 한 번에 준비됩니다.'}
+        <br />
+        {draft
+          ? '지역을 바꿔도 현재 문구는 유지되며, 이후 재굴림부터 새 지역을 적용합니다.'
+          : '지역 태그는 확률만 조정하며 모든 원문 결과가 나올 수 있습니다.'}
+      </p>
+      <label htmlFor="candidate-room-count">
+        함께 생성할 방
+        <select
+          id="candidate-room-count"
+          value={draft?.rooms.length ?? initialRooms}
+          onChange={(e) => changeRooms(Number(e.target.value))}
+        >
+          {Array.from({ length: 13 }, (_, i) => (
+            <option key={i} value={i}>
+              {i}개
+            </option>
+          ))}
+        </select>
+      </label>
+      <span className="stamp">
+        {draft
+          ? '미저장 후보 · 선택하면 보관함에 추가'
+          : '01 지역 선택 → 02 던전 생성 → 03 후보 선택'}
+      </span>
+    </div>
+  );
   return (
     <div className="dungeon-generator">
       <Button
@@ -131,80 +184,41 @@ export function DungeonDraft({
             굴리고, 골라라<span className="acid">.</span>
           </h1>
           <p>
-            제목과 내용은 이미 준비되어 있습니다. 원하는 항목만 다시 굴리거나
-            직접 고쳐 선택하세요.
+            {draft
+              ? '원하는 항목만 다시 굴리거나 직접 고친 뒤 이 던전을 선택하세요.'
+              : '먼저 지역을 고르세요. 제목을 입력하지 않아도 던전과 방이 함께 만들어집니다.'}
           </p>
         </div>
         <div className="actions">
-          <Button className="btn" onClick={manual}>
+          <Button className="btn" disabled={!region} onClick={manual}>
             <Pencil size={16} /> 직접 작성
           </Button>
-          <Button className="btn" disabled={!rules.pack} onClick={generate}>
-            <Dices size={18} /> 모두 다시 굴리기
+          <Button
+            className={`btn ${draft ? '' : 'primary'}`}
+            disabled={!rules.pack || !region}
+            onClick={generate}
+          >
+            <Dices size={18} /> {draft ? '모두 다시 굴리기' : '던전 생성'}
           </Button>
-          <Button className="btn primary" disabled={!draft} onClick={choose}>
-            이 던전 선택 <ArrowRight size={17} />
-          </Button>
+          {draft && (
+            <Button className="btn primary" onClick={choose}>
+              이 던전 선택 <ArrowRight size={17} />
+            </Button>
+          )}
         </div>
       </div>
       {!draft ? (
-        <div className="empty-artifact">
-          <Dices size={44} />
-          <h2>
-            {rules.loading
-              ? '생성표를 펼치는 중입니다.'
-              : '새 후보를 굴려 보세요.'}
-          </h2>
-          <p>제목을 입력하지 않아도 던전과 방이 함께 생성됩니다.</p>
-          <Button
-            className="btn primary"
-            disabled={!rules.pack}
-            onClick={generate}
-          >
-            던전 후보 생성
-          </Button>
-        </div>
+        <section className="generation-setup" aria-label="던전 생성 설정">
+          {settings}
+          <p className="help-line">
+            선택하기 전까지 보관함에 추가되지 않습니다. 마음에 드는 결과가 나올
+            때까지 굴릴 수 있습니다.
+          </p>
+        </section>
       ) : (
         <>
           <div className="candidate-meta">
-            <div className="candidate-settings">
-              <label htmlFor="candidate-region">
-                지역
-                <select
-                  id="candidate-region"
-                  value={region}
-                  onChange={(e) => patch('region', e.target.value as RegionId)}
-                >
-                  {regions.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <p>
-                {regionById(region).description}
-                <br />
-                선택한 지역은 다음 재굴림부터 반영됩니다.
-              </p>
-              <label htmlFor="candidate-room-count">
-                함께 생성할 방
-                <select
-                  id="candidate-room-count"
-                  value={draft.rooms.length}
-                  onChange={(e) => changeRooms(Number(e.target.value))}
-                >
-                  {Array.from({ length: 13 }, (_, i) => (
-                    <option key={i} value={i}>
-                      {i}개
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <span className="stamp">
-                미저장 후보 · 선택하면 보관함에 추가
-              </span>
-            </div>
+            {settings}
             <div className="candidate-title">
               <Field
                 spec={{ key: 'title', label: '던전 제목' }}
@@ -237,7 +251,7 @@ export function DungeonDraft({
                 onChange={(value, source) => patch(spec.key, value, source)}
                 reroll={
                   rules.pack
-                    ? () => generateDungeonRoll(spec.key, region)
+                    ? () => generateDungeonRoll(spec.key, draft.region)
                     : undefined
                 }
               />
@@ -265,6 +279,21 @@ export function DungeonDraft({
                   <strong>{room.name || '이름 없는 방'}</strong>
                   <span>항목 편집</span>
                 </summary>
+                <Button
+                  className="btn small"
+                  aria-label={`방 ${index + 1} 전체 재굴림`}
+                  disabled={!rules.pack}
+                  onClick={() =>
+                    editCampaign(c.id, (next) => {
+                      const target = next.dungeonDraft?.rooms.find(
+                        (r) => r.id === room.id,
+                      );
+                      if (target) rerollRoomContents(target, draft.region);
+                    })
+                  }
+                >
+                  <Dices size={16} /> 이 방 다시 굴리기
+                </Button>
                 <div className="fields-grid">
                   {roomFields.map((spec) => (
                     <Field
@@ -291,7 +320,7 @@ export function DungeonDraft({
                       }
                       reroll={
                         rules.pack
-                          ? () => generateRoomRoll(spec.key, region)
+                          ? () => generateRoomRoll(spec.key, draft.region)
                           : undefined
                       }
                     />

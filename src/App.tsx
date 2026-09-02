@@ -47,7 +47,12 @@ import {
   retrySave,
 } from './storage/saveStore';
 import { parseImport } from './storage/schema';
-import { cloneCampaign } from './domain/operations';
+import { MIGRATION_BACKUP_KEY } from './storage/migrations';
+import {
+  cloneCampaign,
+  importCampaigns,
+  openCampaignLibrary,
+} from './domain/operations';
 import { Library, type Confirm } from './components/Library';
 import { Dungeons } from './components/Dungeons';
 import { Sources } from './components/Sources';
@@ -56,7 +61,7 @@ import { registerCodexTools } from './webmcp';
 const nav = [
   { key: 'overview', label: '개요', icon: BookOpen },
   { key: 'characters', label: '캐릭터', icon: UsersRound },
-  { key: 'dungeons', label: '던전', icon: Castle },
+  { key: 'dungeons', label: '던전 보관함', icon: Castle },
   { key: 'monsters', label: '몬스터', icon: Skull },
   { key: 'encounters', label: '조우 및 NPC', icon: Swords },
   { key: 'notes', label: '캠페인 노트', icon: NotebookPen },
@@ -155,7 +160,10 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
 export default function App() {
   const rules = useRules();
   const { save, error, blocked, recovery } = useSave();
-  const c = save.campaigns.find((c) => c.id === save.activeCampaignId);
+  const c =
+    save.view === 'campaign'
+      ? save.campaigns.find((c) => c.id === save.activeCampaignId)
+      : undefined;
   const d = c?.dungeons.find((d) => d.id === c.workspace.dungeonId);
   const room = d?.rooms.find((r) => r.id === c?.workspace.roomId);
   const [importText, setImportText] = useState<string | null>(null);
@@ -168,6 +176,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const [form, setForm] = useState<'campaign' | 'rename' | null>(null);
+  const [renameId, setRenameId] = useState<string | null>(null);
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [importError, setImportError] = useState('');
@@ -198,11 +207,16 @@ export default function App() {
   }, []);
   useEffect(() => registerCodexTools(), []);
   const campaignTitle = c?.title;
+  const pageDungeon =
+    c?.workspace.section === 'dungeons' && !c.workspace.dungeonPreview
+      ? d
+      : undefined;
+  const dungeonPageTitle = pageDungeon?.title;
   useEffect(() => {
     document.title = campaignTitle
-      ? `${campaignTitle} — Campaign Codex`
+      ? `${dungeonPageTitle ? dungeonPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
       : 'MÖRK BORG — Campaign Codex';
-  }, [campaignTitle]);
+  }, [campaignTitle, dungeonPageTitle]);
   function openForm(kind: 'campaign' | 'dungeon' | 'rename' | null) {
     if (kind === 'dungeon') {
       if (!c) return;
@@ -216,32 +230,45 @@ export default function App() {
       return;
     }
     setForm(kind);
+    if (kind === 'rename') setRenameId(c?.id ?? null);
     setTitle(
       kind === 'rename' ? (c?.title ?? '') : rules.pack ? dungeonTitle() : '',
     );
-    setSubtitle(kind === 'rename' ? (c?.subtitle ?? '') : '');
+    setSubtitle(kind === 'rename' ? (c?.description ?? c?.subtitle ?? '') : '');
+  }
+  function renameCampaign(campaign: Campaign) {
+    setRenameId(campaign.id);
+    setTitle(campaign.title);
+    setSubtitle(campaign.description ?? campaign.subtitle);
+    setForm('rename');
   }
   function navigate(section: Section) {
-    if (c) changeWorkspace(c.id, { section });
+    if (c)
+      changeWorkspace(
+        c.id,
+        section === 'dungeons'
+          ? { section, dungeonId: null, roomId: null, dungeonPreview: false }
+          : { section },
+      );
     setDrawer(false);
     setQuery('');
   }
   function home() {
     transact((next) => {
-      next.activeCampaignId = null;
+      next.view = 'campaigns';
     });
     setDrawer(false);
     setQuery('');
   }
   function openCampaign(campaign: Campaign) {
     transact((next) => {
-      next.activeCampaignId = campaign.id;
+      openCampaignLibrary(next, campaign.id);
     });
     setQuery('');
   }
   function exportCampaign(campaign: Campaign) {
     setExportData({
-      text: JSON.stringify({ schemaVersion: 1, campaign }, null, 2),
+      text: JSON.stringify({ schemaVersion: 2, campaign }, null, 2),
       filename: `${campaign.title.replace(/[^\p{L}\p{N} -]/gu, '').slice(0, 80) || 'campaign'}.json`,
     });
   }
@@ -252,8 +279,10 @@ export default function App() {
       () =>
         transact((next) => {
           next.campaigns = next.campaigns.filter((c) => c.id !== campaign.id);
-          if (next.activeCampaignId === campaign.id)
+          if (next.activeCampaignId === campaign.id) {
             next.activeCampaignId = null;
+            next.view = 'campaigns';
+          }
         }),
     );
   }
@@ -270,14 +299,7 @@ export default function App() {
       const campaigns = parseImport(text);
       if (!campaigns.length) throw new Error('파일에 캠페인이 없습니다.');
       transact((next) => {
-        for (const campaign of campaigns) {
-          const exists = next.campaigns.some((c) => c.id === campaign.id);
-          const imported = exists
-            ? cloneCampaign(campaign, campaign.title + ' — imported')
-            : campaign;
-          next.campaigns.push(imported);
-          next.activeCampaignId = imported.id;
-        }
+        importCampaigns(next, campaigns);
       });
       setImportError('');
       setImportText(null);
@@ -325,19 +347,28 @@ export default function App() {
               <ChevronDown size={14} />
             </button>
             <nav aria-label="캠페인 메뉴">
-              {nav.map((item) => (
-                <button
-                  key={item.key}
-                  className={`nav-item ${c.workspace.section === item.key ? 'active' : ''}`}
-                  onClick={() => navigate(item.key)}
-                >
-                  <item.icon size={17} />
-                  {item.label}
-                  {item.key === 'dungeons' && c.dungeons.length > 0 && (
-                    <span className="nav-count">{c.dungeons.length}</span>
-                  )}
-                </button>
-              ))}
+              {nav
+                .filter(
+                  (item) =>
+                    ['dungeons', 'notes', 'about'].includes(item.key) ||
+                    (item.key === 'characters' && c.characters.length > 0) ||
+                    (item.key === 'monsters' && c.monsters.length > 0) ||
+                    (item.key === 'encounters' &&
+                      c.npcs.length + c.encounters.length > 0),
+                )
+                .map((item) => (
+                  <button
+                    key={item.key}
+                    className={`nav-item ${c.workspace.section === item.key ? 'active' : ''}`}
+                    onClick={() => navigate(item.key)}
+                  >
+                    <item.icon size={17} />
+                    {item.label}
+                    {item.key === 'dungeons' && c.dungeons.length > 0 && (
+                      <span className="nav-count">{c.dungeons.length}</span>
+                    )}
+                  </button>
+                ))}
             </nav>
             <div className="side-divider small-divider" />
             <button
@@ -485,7 +516,7 @@ export default function App() {
               </strong>
               <p>
                 {rules.loading
-                  ? '준비가 끝나면 제목과 내용이 자동으로 채워집니다.'
+                  ? '준비가 끝나면 지역을 선택해 던전과 방을 생성할 수 있습니다.'
                   : rules.error}
               </p>
             </div>
@@ -503,6 +534,7 @@ export default function App() {
         )}
         {c &&
           c.dungeons.length > 0 &&
+          c.monsters.length + c.npcs.length + c.encounters.length > 0 &&
           !(
             c.workspace.section === 'dungeons' && c.workspace.dungeonPreview
           ) && (
@@ -572,6 +604,26 @@ export default function App() {
             </div>
           )}
         <main className="content" inert={blocked}>
+          {c && (
+            <nav className="codex-breadcrumb" aria-label="현재 위치">
+              <button onClick={home}>캠페인 목록</button>
+              <span>/</span>
+              <button onClick={() => navigate('dungeons')}>{c.title}</button>
+              <span>/</span>
+              <span aria-current="page">
+                {c.workspace.section === 'notes'
+                  ? '캠페인 노트'
+                  : c.workspace.section === 'about'
+                    ? '자료 및 규칙'
+                    : c.workspace.section === 'dungeons'
+                      ? c.workspace.dungeonPreview
+                        ? '새 던전 후보'
+                        : pageDungeon?.title || '던전 보관함'
+                      : nav.find((n) => n.key === c.workspace.section)?.label ||
+                        '던전 보관함'}
+              </span>
+            </nav>
+          )}
           {!c ? (
             <>
               <div className="eyebrow">끔찍한 것들의 연대기 / 제1권</div>
@@ -602,11 +654,20 @@ export default function App() {
                     >
                       {campaign.title}
                     </button>
-                    <p>{campaign.subtitle || '아직 쓰이지 않은 연대기.'}</p>
+                    <p>
+                      {campaign.description ||
+                        campaign.subtitle ||
+                        '아직 쓰이지 않은 연대기.'}
+                    </p>
                     <div className="card-counts">
-                      <span>{campaign.characters.length} 캐릭터</span>
                       <span>{campaign.dungeons.length} 던전</span>
-                      <span>{campaign.monsters.length} 몬스터</span>
+                      <span>
+                        {campaign.dungeons.reduce(
+                          (n, d) => n + d.rooms.length,
+                          0,
+                        )}
+                        개 방
+                      </span>
                     </div>
                     <div className="card-actions">
                       <Button
@@ -614,6 +675,14 @@ export default function App() {
                         onClick={() => openCampaign(campaign)}
                       >
                         캠페인 열기 <ArrowRight size={16} />
+                      </Button>
+                      <Button
+                        className="icon-btn"
+                        aria-label={`${campaign.title} 이름 변경`}
+                        title="이름 변경"
+                        onClick={() => renameCampaign(campaign)}
+                      >
+                        <Pencil size={16} />
                       </Button>
                       <Button
                         className="icon-btn"
@@ -651,7 +720,7 @@ export default function App() {
                     시작하세요.
                   </h2>
                   <p>
-                    캐릭터, 던전, 그리고 어둠 속의 존재들.
+                    여러 던전과 방, 캠페인의 기록.
                     <br />
                     하나의 기록에 담으세요.
                   </p>
@@ -684,7 +753,7 @@ export default function App() {
                       <p>
                         <strong>위험한 것들을 채우세요.</strong>
                         <br />
-                        방과 괴물, 조우를 준비하세요.
+                        지역을 선택하고 던전과 방을 굴리세요.
                       </p>
                     </div>
                     <div>
@@ -692,7 +761,7 @@ export default function App() {
                       <p>
                         <strong>모든 것에는 자리가 있습니다.</strong>
                         <br />
-                        선택한 결과를 던전이나 방에 배치하세요.
+                        마음에 드는 후보를 선택하고 기록을 이어가세요.
                       </p>
                     </div>
                     <Button
@@ -1041,12 +1110,13 @@ export default function App() {
                 );
                 transact((next) => {
                   next.campaigns.push(value);
-                  next.activeCampaignId = value.id;
+                  openCampaignLibrary(next, value.id);
                 });
-              } else if (form === 'rename' && c) {
-                editCampaign(c.id, (next) => {
+              } else if (form === 'rename' && renameId) {
+                editCampaign(renameId, (next) => {
                   next.title = title.trim();
                   next.subtitle = subtitle;
+                  next.description = subtitle;
                 });
               }
               setForm(null);
@@ -1237,6 +1307,17 @@ export default function App() {
             세상의 끝을 위한 로컬 캠페인 기록장.
           </DialogDescription>
           <div className="about-body">
+            <Button
+              className="btn"
+              onClick={() => {
+                const original = localStorage.getItem(MIGRATION_BACKUP_KEY);
+                if (original)
+                  downloadText(original, 'campaign-codex-pre-v2-backup.json');
+                else notify('이 기기에 변환 전 저장 원본이 없습니다.');
+              }}
+            >
+              <Download size={16} /> 변환 전 저장 원본 내보내기
+            </Button>
             <p>
               Campaign Codex is an independent production by Imwul and is not
               affiliated with Ockult Örtmästare Games or Stockholm Kartell. It

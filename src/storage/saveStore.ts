@@ -1,8 +1,14 @@
 import { useSyncExternalStore } from 'react';
 import type { AppSave, Campaign, Workspace } from '../domain/types';
-import { now } from '../generators/random';
 import { validateSave } from './schema';
-export const STORAGE_KEY = 'morkborg-codex:v1';
+import { applyCampaignEdit, updateWorkspace } from '../domain/operations';
+import {
+  STORAGE_KEY,
+  PREVIOUS_STORAGE_KEY,
+  emptySave,
+  loadStoredSave,
+} from './migrations';
+export { STORAGE_KEY } from './migrations';
 export interface PersistenceAdapter {
   read(): string | null;
   write(value: string): void;
@@ -11,11 +17,7 @@ export const localAdapter: PersistenceAdapter = {
   read: () => localStorage.getItem(STORAGE_KEY),
   write: (value) => localStorage.setItem(STORAGE_KEY, value),
 };
-const empty = (): AppSave => ({
-  schemaVersion: 1,
-  campaigns: [],
-  activeCampaignId: null,
-});
+const empty = emptySave;
 interface Snapshot {
   save: AppSave;
   error: string | null;
@@ -29,12 +31,13 @@ let snapshot: Snapshot = {
   recovery: null,
 };
 try {
-  const raw = localAdapter.read();
-  if (raw) snapshot.save = validateSave(JSON.parse(raw));
+  if (typeof localStorage !== 'undefined')
+    snapshot.save = loadStoredSave(localStorage).save;
 } catch (error) {
   let recovery: string | null = null;
   try {
-    recovery = localAdapter.read();
+    recovery =
+      localAdapter.read() ?? localStorage.getItem(PREVIOUS_STORAGE_KEY);
   } catch {
     /* browser storage unavailable */
   }
@@ -79,18 +82,17 @@ export function editCampaign(
   transact((save) => {
     const c = save.campaigns.find((c) => c.id === campaignId);
     if (!c) throw new Error('캠페인을 찾지 못했습니다.');
-    action(c);
-    c.updatedAt = now();
+    applyCampaignEdit(c, action);
   });
 }
 export function changeWorkspace(
   campaignId: string,
   patch: Partial<Workspace>,
 ): void {
-  editCampaign(campaignId, (c) => {
-    if (patch.dungeonId !== undefined && patch.dungeonPreview === undefined)
-      c.workspace.dungeonPreview = false;
-    Object.assign(c.workspace, patch);
+  transact((save) => {
+    const c = save.campaigns.find((c) => c.id === campaignId);
+    if (!c) throw new Error('캠페인을 찾지 못했습니다.');
+    updateWorkspace(c, patch);
   });
 }
 export function resetDamagedSave(): void {
@@ -112,26 +114,29 @@ export function retrySave(): void {
   }
   emit();
 }
-window.addEventListener('storage', (event) => {
-  if (event.key !== STORAGE_KEY) return;
-  if (snapshot.error) return;
-  try {
-    snapshot = {
-      save: event.newValue ? validateSave(JSON.parse(event.newValue)) : empty(),
-      error: null,
-      blocked: false,
-      recovery: null,
-    };
-    emit();
-  } catch {
-    snapshot = {
-      ...snapshot,
-      error:
-        '다른 탭의 저장 데이터를 읽을 수 없습니다. 현재 캠페인은 유지됩니다.',
-    };
-    emit();
-  }
-});
+if (typeof window !== 'undefined')
+  window.addEventListener('storage', (event) => {
+    if (event.key !== STORAGE_KEY) return;
+    if (snapshot.error) return;
+    try {
+      snapshot = {
+        save: event.newValue
+          ? validateSave(JSON.parse(event.newValue))
+          : empty(),
+        error: null,
+        blocked: false,
+        recovery: null,
+      };
+      emit();
+    } catch {
+      snapshot = {
+        ...snapshot,
+        error:
+          '다른 탭의 저장 데이터를 읽을 수 없습니다. 현재 캠페인은 유지됩니다.',
+      };
+      emit();
+    }
+  });
 export function downloadJson(value: unknown, filename: string): void {
   downloadText(JSON.stringify(value, null, 2), filename);
 }

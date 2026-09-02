@@ -664,3 +664,100 @@ h1 {
     font-size: 34px;
   }
 }
+
+.codex-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  font: 700 13px/1.85 var(--font-ui);
+}
+.codex-breadcrumb button {
+  text-align: left;
+  color: #5c684a;
+}
+.codex-breadcrumb button:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.codex-breadcrumb > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.codex-breadcrumb [aria-current] {
+  color: var(--ink);
+}
+.generation-setup {
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0 28px;
+}
+.generation-setup .candidate-settings {
+  align-items: flex-start;
+}
+.generation-setup .candidate-settings label:first-child {
+  flex: 0 1 440px;
+}
+.generation-setup .candidate-settings > p {
+  flex: 1 1 380px;
+}
+.generation-setup .candidate-settings .stamp {
+  flex-basis: 100%;
+  text-align: left;
+}
+.generation-setup .help-line {
+  margin-top: 20px;
+}
+.candidate-room > .btn {
+  margin: 20px 0 0;
+}
+.modified-time {
+  font: 12px/1.8 var(--font-ui) !important;
+  color: #5c684a;
+}
+.dungeon-inline-notes {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid var(--ink);
+}
+.card-actions {
+  flex-wrap: wrap;
+}
+@media (min-width: 721px) and (max-width: 1100px) {
+  .generator-heading,
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .generator-heading .actions {
+    flex-wrap: wrap;
+  }
+  .campaign-grid,
+  .dungeon-grid,
+  .fields-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .codex-breadcrumb {
+    font-size: 12px;
+    gap: 6px 10px;
+  }
+  .room-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .generation-setup .candidate-settings > p {
+    flex-basis: 100%;
+  }
+  .candidate-settings,
+  .candidate-meta,
+  .candidate-title,
+  .field,
+  .card-title {
+    min-width: 0;
+  }
+}

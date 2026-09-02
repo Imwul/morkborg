@@ -1,4 +1,11 @@
-import type { Campaign, Dungeon, LibraryKind, Assignment } from './types';
+import type {
+  AppSave,
+  Campaign,
+  Dungeon,
+  LibraryKind,
+  Assignment,
+  Workspace,
+} from './types';
 import { id, now } from '../generators/random';
 export const referenceKey = (
   kind: Exclude<LibraryKind, 'characters'>,
@@ -150,4 +157,71 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
     roomId: null,
     dungeonTab: 'overview',
   });
+}
+
+export function campaignIds(c: Campaign): string[] {
+  return [
+    c.id,
+    ...[...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].flatMap(
+      (d) => [d.id, ...d.rooms.map((r) => r.id)],
+    ),
+    ...(['characters', 'monsters', 'npcs', 'encounters'] as const).flatMap(
+      (k) => [
+        ...c[k].map((e) => e.id),
+        ...(c.drafts[k] ? [c.drafts[k]!.id] : []),
+      ],
+    ),
+  ];
+}
+
+export function importCampaigns(save: AppSave, campaigns: Campaign[]): void {
+  const used = new Set(save.campaigns.flatMap(campaignIds));
+  for (const campaign of campaigns) {
+    const imported = campaignIds(campaign).some((id) => used.has(id))
+      ? cloneCampaign(campaign, campaign.title + ' — imported')
+      : structuredClone(campaign);
+    save.campaigns.push(imported);
+    campaignIds(imported).forEach((id) => used.add(id));
+    openCampaignLibrary(save, imported.id);
+  }
+}
+
+export function openCampaignLibrary(save: AppSave, campaignId: string): void {
+  const c = save.campaigns.find((c) => c.id === campaignId);
+  if (!c) throw new Error('캠페인을 찾지 못했습니다.');
+  save.activeCampaignId = c.id;
+  save.view = 'campaign';
+  updateWorkspace(c, {
+    section: 'dungeons',
+    dungeonId: null,
+    roomId: null,
+    dungeonPreview: false,
+    dungeonTab: 'overview',
+  });
+}
+
+export function updateWorkspace(c: Campaign, patch: Partial<Workspace>): void {
+  if (patch.dungeonId !== undefined && patch.dungeonPreview === undefined)
+    c.workspace.dungeonPreview = false;
+  Object.assign(c.workspace, patch);
+}
+
+export function applyCampaignEdit(
+  c: Campaign,
+  action: (campaign: Campaign) => void,
+  timestamp = now(),
+): void {
+  const content = (d: Dungeon) =>
+    JSON.stringify({ ...d, updatedAt: undefined });
+  const before = new Map(
+    [...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].map((d) => [
+      d.id,
+      content(d),
+    ]),
+  );
+  action(c);
+  for (const d of [...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])])
+    if (before.has(d.id) && before.get(d.id) !== content(d))
+      d.updatedAt = timestamp;
+  c.updatedAt = timestamp;
 }

@@ -132,6 +132,7 @@ export interface Workspace {
   section: Section;
   dungeonTab: DungeonTab;
   dungeonPreview?: boolean;
+  pendingRegion?: RegionId;
   dungeonId: string | null;
   roomId: string | null;
   stockingKind: 'encounters' | 'npcs';
@@ -141,6 +142,7 @@ export interface Campaign {
   id: string;
   title: string;
   subtitle: string;
+  description?: string;
   createdAt: string;
   updatedAt: string;
   characters: Character[];
@@ -154,9 +156,10 @@ export interface Campaign {
   workspace: Workspace;
 }
 export interface AppSave {
-  schemaVersion: 1;
+  schemaVersion: 2;
   campaigns: Campaign[];
   activeCampaignId: string | null;
+  view: 'campaigns' | 'campaign';
 }
 export interface FieldSpec {
   key: string;
@@ -179,7 +182,7 @@ export const dungeonFields: FieldSpec[] = [
   { key: 'treasure', label: '찾는 물건' },
 ];
 export const roomFields: FieldSpec[] = [
-  { key: 'name', label: '방 이름', type: 'line' },
+  { key: 'name', label: '방 이름' },
   { key: 'description', label: '묘사' },
   { key: 'feature', label: '특징' },
   { key: 'danger', label: '위험 / 함정' },
@@ -242,7 +245,7 @@ export const entityFields: Record<LibraryKind, FieldSpec[]> = {
   ],
 };
 export const emptyWorkspace = (): Workspace => ({
-  section: 'overview',
+  section: 'dungeons',
   dungeonTab: 'overview',
   dungeonId: null,
   roomId: null,

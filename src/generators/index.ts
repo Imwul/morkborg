@@ -9,7 +9,13 @@ import type {
   Monster,
   RegionId,
 } from '../domain/types';
-import { dungeonFields, entityFields, emptyWorkspace } from '../domain/types';
+import {
+  dungeonFields,
+  roomFields,
+  entityFields,
+  emptyWorkspace,
+} from '../domain/types';
+import { regionWeightFactor, REGION_WEIGHT_TABLES } from './regionWeights';
 import { id, now, pick, rollDie, rollDice, weightedPick } from './random';
 import {
   getRules,
@@ -33,22 +39,40 @@ function entries(tableId: string): RuleEntry[] {
   if (!table) throw new Error(`원문 표를 불러와야 합니다: ${tableId}`);
   return table.entries;
 }
-export function sampleEntry(tableId: string): RuleEntry {
+export function sampleEntry(tableId: string, region?: RegionId): RuleEntry {
   return weightedPick(
-    entries(tableId).map((entry) => ({ value: entry, weight: entry.weight })),
+    entries(tableId).map((entry) => ({
+      value: entry,
+      weight: entry.weight * regionWeightFactor(tableId, entry.text, region),
+    })),
   );
 }
-function entryText(entry: RuleEntry): string {
+function entryText(
+  entry: RuleEntry,
+  tableId: string,
+  region?: RegionId,
+): string {
   const sub = entry.followup
     ? weightedPick(
-        entry.followup.map((value) => ({ value, weight: value.weight })),
+        entry.followup.map((value) => ({
+          value,
+          weight:
+            value.weight * regionWeightFactor(tableId, value.text, region),
+        })),
       )
     : undefined;
-  return sub ? `${entry.text}: ${entryText(sub)}` : entry.text;
+  return sub ? `${entry.text}: ${entryText(sub, tableId, region)}` : entry.text;
 }
-export function rollTable(tableId: string): RuleRoll {
-  const entry = sampleEntry(tableId);
-  return { value: entryText(entry), source: sourceCitation(tableId) };
+export function rollTable(tableId: string, region?: RegionId): RuleRoll {
+  const entry = sampleEntry(tableId, region);
+  return {
+    value: entryText(entry, tableId, region),
+    source:
+      sourceCitation(tableId) +
+      (region && REGION_WEIGHT_TABLES.has(tableId)
+        ? ' · 지역 태그 확률 보정'
+        : ''),
+  };
 }
 const blankRoll: RuleRoll = {
   value: '',
@@ -116,8 +140,8 @@ const roomTable: Record<string, string> = {
 export function generateDungeonRoll(key: string, region: RegionId): RuleRoll {
   const table = dungeonTable[key];
   if (!table || !getRules()?.tables[table]) return blankRoll;
-  const result = rollTable(table);
-  // Combine two printed tables without inventing a new regional probability rule.
+  const result = rollTable(table, region);
+  // Preserve the existing combination with the printed regional trait table.
   const trait =
     key === 'distinctiveFeature' ? regional(region, 'trait') : undefined;
   if (trait) {
@@ -135,13 +159,17 @@ export function generateDungeonField(key: string, region: RegionId): string {
 export function generateRoomRoll(key: string, _region: RegionId): RuleRoll {
   if (key === 'name' && getRules()?.tables['sd.room.adjective'])
     return {
-      value: `${rollTable('sd.room.adjective').value} ${rollTable('sd.room.type').value}`,
-      source: sourceCitation('sd.room.adjective') + ' · Room Type d12',
+      value: `${rollTable('sd.room.adjective', _region).value} ${rollTable('sd.room.type', _region).value}`,
+      source:
+        sourceCitation('sd.room.adjective') +
+        ' · Room Type d12 · 지역 태그 확률 보정',
     };
   if (key === 'feature' && regional(_region, 'trait'))
     return rollTable(regional(_region, 'trait')!);
   const table = roomTable[key];
-  return table && getRules()?.tables[table] ? rollTable(table) : blankRoll;
+  return table && getRules()?.tables[table]
+    ? rollTable(table, _region)
+    : blankRoll;
 }
 export function generateRoomField(key: string, region: RegionId): string {
   return scalarText(generateRoomRoll(key, region).value);
@@ -192,7 +220,10 @@ function resolveGear(entry: RuleEntry, presence: number): string {
   return text;
 }
 function equipment(presence: number): string {
-  const container = entryText(sampleEntry('core.containers'));
+  const container = entryText(
+    sampleEntry('core.containers'),
+    'core.containers',
+  );
   return `Waterskin; ${rollDie(4)} days of food; ${container}; ${resolveGear(sampleEntry('core.gearA'), presence)}; ${resolveGear(sampleEntry('core.gearB'), presence)}`;
 }
 function weapon(current: Partial<Character>): string {
@@ -511,8 +542,14 @@ export function createRoom(region: RegionId, blank = false): DungeonRoom {
               ? 'treasure'
               : 'feature';
       const r = rollTable('reclvse.' + sub);
+      const previousSource = room[key] ? room.sources![key] : undefined;
       room[key] = room[key] ? `${room[key]}; ${r.value}` : scalarText(r.value);
-      room.sources![key] = r.source + ' · ROOM CONTENTS d4 (PDF 92쪽)';
+      room.sources![key] = [
+        previousSource,
+        r.source + ' · ROOM CONTENTS d4 (PDF 92쪽)',
+      ]
+        .filter(Boolean)
+        .join(' + ');
     }
   }
   return room;
@@ -547,6 +584,14 @@ export function createDungeon(
   d.sources = sources;
   return d as unknown as Dungeon;
 }
+export function rerollRoomContents(room: DungeonRoom, region: RegionId): void {
+  const generated = createRoom(region);
+  for (const { key } of roomFields)
+    Object.assign(room, {
+      [key]: (generated as unknown as Record<string, unknown>)[key],
+    });
+  room.sources = generated.sources;
+}
 export function createDungeonCandidate(
   campaignId: string,
   region: RegionId,
@@ -569,6 +614,7 @@ export function createCampaign(title: string, subtitle = ''): Campaign {
     id: id(),
     title,
     subtitle,
+    description: subtitle,
     createdAt: now(),
     updatedAt: now(),
     characters: [],
