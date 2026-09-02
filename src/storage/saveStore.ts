@@ -5,6 +5,7 @@ import { applyCampaignEdit, updateWorkspace } from '../domain/operations';
 import {
   STORAGE_KEY,
   PREVIOUS_STORAGE_KEY,
+  LEGACY_STORAGE_KEY,
   emptySave,
   loadStoredSave,
 } from './migrations';
@@ -37,7 +38,9 @@ try {
   let recovery: string | null = null;
   try {
     recovery =
-      localAdapter.read() ?? localStorage.getItem(PREVIOUS_STORAGE_KEY);
+      localAdapter.read() ??
+      localStorage.getItem(PREVIOUS_STORAGE_KEY) ??
+      localStorage.getItem(LEGACY_STORAGE_KEY);
   } catch {
     /* browser storage unavailable */
   }

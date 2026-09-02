@@ -1,6 +1,6 @@
 # Local webfonts
 
-- Black Han Sans: https://github.com/google/fonts/tree/main/ofl/blackhansans (unmodified TTF)
-- NanumSquare Neo: https://campaign.naver.com/nanumsquare_neo/ (unmodified variable WOFF2 from the official download)
+- Barlow Condensed Black (weight 900): https://github.com/google/fonts/tree/main/ofl/barlowcondensed
+- Pretendard Variable (weight 100–900, v1.3.9): https://github.com/orioncactus/pretendard
 
-Each font is supplied with its SIL Open Font License. Fonts load locally without external runtime requests.
+Unmodified official font files and their SIL Open Font Licenses are stored here. Both fonts contain precomposed ö ä ü ú Ä Ö Ü and combining diaeresis U+0308 / acute U+0301. They load locally without external runtime requests.

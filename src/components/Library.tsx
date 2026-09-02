@@ -340,7 +340,7 @@ export function Library({
                       : '일반 조우'
                     : ''}
                 {'status' in e
-                  ? ` · ${e.status === 'Alive' ? '생존' : '사망'}`
+                  ? ` · ${e.status === 'alive' ? '생존' : '사망'}`
                   : ''}
               </span>
             </button>
@@ -430,8 +430,8 @@ export function Library({
                     value={(selected as Character).status}
                     onChange={(e) => patch('status', e.target.value)}
                   >
-                    <option value="Alive">생존</option>
-                    <option value="Dead">사망</option>
+                    <option value="alive">생존</option>
+                    <option value="dead">사망</option>
                   </select>
                 </label>
               </>

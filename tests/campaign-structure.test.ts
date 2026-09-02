@@ -15,6 +15,7 @@ import {
   migrateSave,
   STORAGE_KEY,
   PREVIOUS_STORAGE_KEY,
+  LEGACY_STORAGE_KEY,
   MIGRATION_BACKUP_KEY,
   type SaveStorage,
 } from '../src/storage/migrations.ts';
@@ -95,12 +96,12 @@ test('v1 migration preserves IDs, notes, drafts, timestamps and exact original b
     3,
   );
   const storage = new MemoryStorage();
-  storage.setItem(PREVIOUS_STORAGE_KEY, raw);
+  storage.setItem(LEGACY_STORAGE_KEY, raw);
   const result = loadStoredSave(storage);
-  assert.equal(result.save.schemaVersion, 2);
+  assert.equal(result.save.schemaVersion, 3);
   assert.deepEqual(result.save.campaigns[0], c);
   assert.equal(result.save.activeCampaignId, c.id);
-  assert.equal(storage.getItem(PREVIOUS_STORAGE_KEY), raw);
+  assert.equal(storage.getItem(LEGACY_STORAGE_KEY), raw);
   assert.equal(JSON.parse(storage.getItem(MIGRATION_BACKUP_KEY)!)[0].raw, raw);
   assert.deepEqual(loadStoredSave(storage).save, result.save);
   assert.equal(loadStoredSave(storage).migrated.length, 0);

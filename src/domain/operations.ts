@@ -5,6 +5,7 @@ import type {
   LibraryKind,
   Assignment,
   Workspace,
+  Character,
 } from './types';
 import { id, now } from '../generators/random';
 export const referenceKey = (
@@ -37,6 +38,14 @@ export function cloneCampaign(
   ] as const) {
     for (const e of c[kind]) e.id = replace(e.id);
     if (c.drafts[kind]) c.drafts[kind]!.id = replace(c.drafts[kind]!.id);
+  }
+  for (const ch of [
+    ...c.characters,
+    ...(c.drafts.characters ? [c.drafts.characters] : []),
+  ]) {
+    ch.campaignId = c.id;
+    for (const item of [...ch.weapons, ...ch.equipment, ...ch.traits])
+      item.id = replace(item.id);
   }
   const reassign = (a: Assignment) => {
     for (const key of ['monsterIds', 'npcIds', 'encounterIds'] as const)
@@ -171,6 +180,12 @@ export function campaignIds(c: Campaign): string[] {
         ...(c.drafts[k] ? [c.drafts[k]!.id] : []),
       ],
     ),
+    ...[
+      ...c.characters,
+      ...(c.drafts.characters ? [c.drafts.characters] : []),
+    ].flatMap((ch) =>
+      [...ch.weapons, ...ch.equipment, ...ch.traits].map((item) => item.id),
+    ),
   ];
 }
 
@@ -211,17 +226,47 @@ export function applyCampaignEdit(
   action: (campaign: Campaign) => void,
   timestamp = now(),
 ): void {
-  const content = (d: Dungeon) =>
+  const content = (d: Dungeon | Character) =>
     JSON.stringify({ ...d, updatedAt: undefined });
   const before = new Map(
-    [...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].map((d) => [
-      d.id,
-      content(d),
-    ]),
+    [
+      ...c.dungeons,
+      ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+      ...c.characters,
+      ...(c.drafts.characters ? [c.drafts.characters] : []),
+    ].map((d) => [d.id, content(d)]),
   );
   action(c);
-  for (const d of [...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])])
+  for (const d of [
+    ...c.dungeons,
+    ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+    ...c.characters,
+    ...(c.drafts.characters ? [c.drafts.characters] : []),
+  ])
     if (before.has(d.id) && before.get(d.id) !== content(d))
       d.updatedAt = timestamp;
   c.updatedAt = timestamp;
+}
+
+export function cloneCharacter(
+  source: Character,
+  campaignId = source.campaignId,
+): Character {
+  const copy = structuredClone(source);
+  copy.id = id();
+  copy.campaignId = campaignId;
+  copy.createdAt = now();
+  copy.updatedAt = now();
+  for (const item of [...copy.weapons, ...copy.equipment, ...copy.traits])
+    item.id = id();
+  return copy;
+}
+export function saveCharacterDraft(c: Campaign): void {
+  if (!c.drafts.characters) throw new Error('저장할 캐릭터 후보가 없습니다.');
+  const ch = structuredClone(c.drafts.characters);
+  ch.campaignId = c.id;
+  ch.updatedAt = now();
+  c.characters.push(ch);
+  c.drafts.characters = null;
+  c.workspace.selected.characters = ch.id;
 }

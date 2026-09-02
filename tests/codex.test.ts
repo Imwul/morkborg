@@ -27,6 +27,7 @@ import {
   validateCampaign,
 } from '../src/storage/schema.ts';
 import { weightedPick } from '../src/generators/random.ts';
+import { generateCharacter } from '../src/generators/character.ts';
 const hasRules = existsSync('public/rules/library.json');
 if (hasRules)
   setRules(JSON.parse(readFileSync('public/rules/library.json', 'utf8')));
@@ -79,18 +80,21 @@ test(
   { skip: !hasRules },
   () => {
     for (let i = 0; i < 150; i++) {
-      const c = generateEntity('characters', 'graven-tosk');
+      const campaign = createCampaign('Test');
+      const c = generateCharacter(campaign.id);
       assert.ok(c.hp >= 1 && c.hp <= 11);
       assert.ok(c.omens >= 1 && c.omens <= 2);
       assert.ok(c.silver >= 20 && c.silver <= 120 && c.silver % 10 === 0);
       assert.ok(
         getRules()!.tables['core.names'].entries.some((e) => e.text === c.name),
       );
-      if (/scroll/i.test(c.equipment)) {
-        assert.doesNotMatch(c.weapons, /Bow|Crossbow|Flail|Zweihänder/);
+      if (c.equipment.some((item) => /scroll/i.test(item.text))) {
+        assert.doesNotMatch(
+          c.weapons.map((item) => item.text).join('\n'),
+          /Bow|Crossbow|Flail|Zweihänder/,
+        );
         assert.doesNotMatch(c.armor, /Medium|Heavy/);
       }
-      const campaign = createCampaign('Test');
       campaign.characters.push(c);
       validateCampaign(campaign);
     }

@@ -6,6 +6,7 @@ import {
   entityFields,
 } from '../domain/types';
 import type { AppSave, Campaign, LibraryKind } from '../domain/types';
+import { upgradeCampaignCharacters } from './characterMigration';
 const text = z.string();
 const uuid = z.uuid();
 const time = z.iso.datetime();
@@ -47,10 +48,34 @@ const fields = (kind: LibraryKind) =>
             : text,
       ]),
   );
+const characterItem = z.object({
+  id: uuid,
+  text,
+  source: text.optional(),
+  tableId: text.optional(),
+  slot: text.optional(),
+});
 const character = z.object({
   ...base,
-  ...fields('characters'),
-  status: z.enum(['Alive', 'Dead']),
+  campaignId: uuid,
+  className: text,
+  classSource: text.optional(),
+  hp: z.number().int().min(-999).max(9999),
+  maxHp: z.number().int().min(1).max(9999),
+  ...Object.fromEntries(
+    ['strength', 'agility', 'presence', 'toughness'].map((key) => [
+      key,
+      z.number().int().min(-99).max(99),
+    ]),
+  ),
+  armor: text,
+  weapons: z.array(characterItem.extend({ damage: text })),
+  equipment: z.array(characterItem),
+  traits: z.array(characterItem),
+  omens: z.number().int().min(0).max(999),
+  silver: z.number().int().min(0).max(9999999),
+  description: text,
+  status: z.enum(['alive', 'dead']),
 });
 const monster = z.object({ ...base, ...fields('monsters') });
 const npc = z.object({
@@ -141,7 +166,7 @@ const campaign = z.object({
   }),
 });
 export function validateCampaign(input: unknown): Campaign {
-  const parsed = campaign.safeParse(input);
+  const parsed = campaign.safeParse(upgradeCampaignCharacters(input));
   if (!parsed.success) {
     const first = parsed.error.issues[0];
     throw new Error(
@@ -161,9 +186,21 @@ export function validateCampaign(input: unknown): Campaign {
     ...Object.values(c.drafts)
       .filter(Boolean)
       .map((e) => e!.id),
+    ...[
+      ...c.characters,
+      ...(c.drafts.characters ? [c.drafts.characters] : []),
+    ].flatMap((ch) =>
+      [...ch.weapons, ...ch.equipment, ...ch.traits].map((item) => item.id),
+    ),
   ];
   if (new Set(all).size !== all.length)
     throw new Error('Campaign contains duplicate IDs.');
+  for (const ch of [
+    ...c.characters,
+    ...(c.drafts.characters ? [c.drafts.characters] : []),
+  ])
+    if (ch.campaignId !== c.id)
+      throw new Error('Character belongs to another campaign.');
   const kinds = ['monsters', 'npcs', 'encounters'] as const;
   for (const d of [
     ...c.dungeons,
@@ -207,7 +244,7 @@ export function validateCampaign(input: unknown): Campaign {
 export function validateSave(input: unknown): AppSave {
   const shape = z
     .object({
-      schemaVersion: z.union([z.literal(1), z.literal(2)]),
+      schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
       campaigns: z.array(z.unknown()),
       activeCampaignId: uuid.nullable(),
       view: z.enum(['campaigns', 'campaign']).optional(),
@@ -215,7 +252,7 @@ export function validateSave(input: unknown): AppSave {
     .safeParse(input);
   if (!shape.success)
     throw new Error(
-      'Unsupported or damaged save file. Expected schema version 1 or 2.',
+      'Unsupported or damaged save file. Expected schema version 1, 2 or 3.',
     );
   const campaigns = shape.data.campaigns.map(validateCampaign);
   const all = campaigns.map((c) => c.id);
@@ -224,7 +261,7 @@ export function validateSave(input: unknown): AppSave {
   if (shape.data.activeCampaignId && !all.includes(shape.data.activeCampaignId))
     throw new Error('Active campaign is missing.');
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     campaigns,
     activeCampaignId: shape.data.activeCampaignId,
     view:
@@ -240,10 +277,12 @@ export function parseImport(raw: string): Campaign[] {
     !value ||
     typeof value !== 'object' ||
     !('schemaVersion' in value) ||
-    (value.schemaVersion !== 1 && value.schemaVersion !== 2)
+    (value.schemaVersion !== 1 &&
+      value.schemaVersion !== 2 &&
+      value.schemaVersion !== 3)
   )
     throw new Error(
-      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1 또는 2 JSON을 사용하세요.',
+      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2 또는 3 JSON을 사용하세요.',
     );
   if ('campaign' in value) return [validateCampaign(value.campaign)];
   return validateSave(value).campaigns;

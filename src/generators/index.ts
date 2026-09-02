@@ -15,65 +15,19 @@ import {
   entityFields,
   emptyWorkspace,
 } from '../domain/types';
-import { regionWeightFactor, REGION_WEIGHT_TABLES } from './regionWeights';
-import { id, now, pick, rollDie, rollDice, weightedPick } from './random';
-import {
-  getRules,
-  sourceCitation,
-  type RuleEntry,
-} from '../storage/rulesStore';
+import { id, now, pick, rollDie } from './random';
+import { getRules, sourceCitation } from '../storage/rulesStore';
 
-function scalarText(value: unknown): string {
-  return typeof value === 'string' || typeof value === 'number'
-    ? String(value)
-    : '';
-}
-export interface RuleRoll {
-  value: string | number;
-  source: string;
-}
-export const coreRule = (page: number, detail: string) =>
-  `MÖRK BORG BARE BONES EDITION · PDF ${page}쪽 · ${detail}`;
-function entries(tableId: string): RuleEntry[] {
-  const table = getRules()?.tables[tableId];
-  if (!table) throw new Error(`원문 표를 불러와야 합니다: ${tableId}`);
-  return table.entries;
-}
-export function sampleEntry(tableId: string, region?: RegionId): RuleEntry {
-  return weightedPick(
-    entries(tableId).map((entry) => ({
-      value: entry,
-      weight: entry.weight * regionWeightFactor(tableId, entry.text, region),
-    })),
-  );
-}
-function entryText(
-  entry: RuleEntry,
-  tableId: string,
-  region?: RegionId,
-): string {
-  const sub = entry.followup
-    ? weightedPick(
-        entry.followup.map((value) => ({
-          value,
-          weight:
-            value.weight * regionWeightFactor(tableId, value.text, region),
-        })),
-      )
-    : undefined;
-  return sub ? `${entry.text}: ${entryText(sub, tableId, region)}` : entry.text;
-}
-export function rollTable(tableId: string, region?: RegionId): RuleRoll {
-  const entry = sampleEntry(tableId, region);
-  return {
-    value: entryText(entry, tableId, region),
-    source:
-      sourceCitation(tableId) +
-      (region && REGION_WEIGHT_TABLES.has(tableId)
-        ? ' · 지역 태그 확률 보정'
-        : ''),
-  };
-}
+import {
+  scalarText,
+  entries,
+  sampleEntry,
+  rollTable,
+  type RuleRoll,
+} from './tables';
+export { abilityModifier, coreRule, sampleEntry, rollTable } from './tables';
+export type { RuleRoll } from './tables';
+import { generateCharacter, characterFieldRoll } from './character';
 const blankRoll: RuleRoll = {
   value: '',
   source: '원문 생성표 없음 · 직접 작성',
@@ -89,20 +43,6 @@ const base = (): BaseEntity => ({
   updatedAt: now(),
   sources: {},
 });
-export const abilityModifier = (total: number): number =>
-  total <= 4
-    ? -3
-    : total <= 6
-      ? -2
-      : total <= 8
-        ? -1
-        : total <= 12
-          ? 0
-          : total <= 14
-            ? 1
-            : total <= 16
-              ? 2
-              : 3;
 const dungeonTable: Record<string, string> = {
   premise: 'core.sparks',
   status: 'core.status',
@@ -194,50 +134,6 @@ export function canReroll(
     key,
   );
 }
-function resolveGear(entry: RuleEntry, presence: number): string {
-  let text = entry.text.replace(/Presence\s*\+\s*(\d+)/g, (_, n: string) =>
-    scalarText(presence + Number(n)),
-  );
-  if (entry.meta.scrollTable) {
-    const table = scalarText(entry.meta.scrollTable);
-    const scroll = sampleEntry('core.' + table);
-    return `${table} scroll: ${scroll.text} — ${scalarText(scroll.meta.effect ?? '')}`;
-  }
-  if (entry.meta.quantity === 'd4')
-    text = text.replace('d4 doses', `${rollDie(4)} doses`);
-  if (entry.meta.companion && typeof entry.meta.companion === 'object') {
-    const companion = entry.meta.companion as {
-      count: number | string;
-      hp: string;
-      attack: string;
-      damage: string;
-    };
-    const count =
-      typeof companion.count === 'number' ? companion.count : rollDie(4);
-    const die = companion.hp.startsWith('d6') ? 6 : 4;
-    return `${text} [${count} creature(s); HP: ${Array.from({ length: count }, () => rollDie(die) + 2).join(', ')}]`;
-  }
-  return text;
-}
-function equipment(presence: number): string {
-  const container = entryText(
-    sampleEntry('core.containers'),
-    'core.containers',
-  );
-  return `Waterskin; ${rollDie(4)} days of food; ${container}; ${resolveGear(sampleEntry('core.gearA'), presence)}; ${resolveGear(sampleEntry('core.gearB'), presence)}`;
-}
-function weapon(current: Partial<Character>): string {
-  const hasScroll = /scroll/i.test(current.equipment ?? '');
-  const entry = entries('core.weapons')[rollDie(hasScroll ? 6 : 10) - 1];
-  return `${entry.text} ${scalarText(entry.meta.damage)}${entry.meta.ammunition ? `; ${scalarText(entry.meta.ammunition).replace('Presence + 10', scalarText((current.presence ?? 0) + 10))}` : ''}`;
-}
-function armor(current: Partial<Character>): string {
-  const entry =
-    entries('core.armor')[
-      rollDie(/scroll/i.test(current.equipment ?? '') ? 2 : 4) - 1
-    ];
-  return `${entry.text}${entry.meta.damageReduction ? ` −${scalarText(entry.meta.damageReduction)}` : ''}${Number(entry.meta.agilityDRPenalty) > 0 ? ` (Agility DR +${scalarText(entry.meta.agilityDRPenalty)}; defence DR +${scalarText(entry.meta.defenseDRPenalty)})` : ''}`;
-}
 export function feretoryStats(rolls: { A: number; B: number; C: number }) {
   const values = Object.values(rolls);
   const highest = Math.max(...values),
@@ -314,54 +210,8 @@ export function generateEntityRoll(
         : rollTable('reclvse.strangeMeeting');
     return rollTable('core.names');
   }
-  if (kind === 'characters') {
-    const c = (current ?? {}) as Partial<Character>;
-    if (['strength', 'agility', 'presence', 'toughness'].includes(key))
-      return {
-        value: abilityModifier(rollDice(3, 6)),
-        source: coreRule(27, '3d6 능력치 변환'),
-      };
-    if (key === 'hp')
-      return {
-        value: Math.max(1, (c.toughness ?? 0) + rollDie(8)),
-        source: coreRule(29, 'max(1, Toughness + d8)'),
-      };
-    if (key === 'omens')
-      return {
-        value: rollDie(2),
-        source: coreRule(37, 'Classless d2 Omens (선택 규칙)'),
-      };
-    if (key === 'silver')
-      return {
-        value: rollDice(2, 6) * 10,
-        source: coreRule(21, '2d6 × 10 silver'),
-      };
-    if (key === 'archetype')
-      return { value: 'Classless', source: coreRule(21, '기본 캐릭터') };
-    if (key === 'equipment')
-      return {
-        value: equipment(c.presence ?? 0),
-        source: coreRule(
-          21,
-          '시작 장비; PDF 22쪽 d12 두 표; scroll PDF 34–35쪽',
-        ),
-      };
-    if (key === 'weapons')
-      return {
-        value: weapon(c),
-        source: coreRule(23, 'd10; scroll 보유 시 d6'),
-      };
-    if (key === 'armor')
-      return { value: armor(c), source: coreRule(23, 'd4; scroll 보유 시 d2') };
-    if (key === 'description')
-      return {
-        value: `${rollTable('core.traits').value}; ${rollTable('core.traits').value}. ${rollTable('core.bodies').value}`,
-        source: coreRule(
-          38,
-          'Terrible Traits d20 두 번; Broken Bodies PDF 39쪽',
-        ),
-      };
-  }
+  if (kind === 'characters')
+    return characterFieldRoll(key, (current ?? {}) as Partial<Character>);
   if (kind === 'monsters') {
     if (key === 'hp') {
       const damage = (current as Partial<Monster>)?.damage ?? 'd4';
@@ -427,11 +277,12 @@ export function generateEntity<K extends LibraryKind>(
   category: 'common' | 'rare' = 'common',
   blank = false,
 ): EntityMap[K] {
+  if (kind === 'characters')
+    return generateCharacter(id(), blank) as EntityMap[K];
   const entity: Record<string, unknown> = { ...base() };
   const sources: Record<string, string> = {};
   for (const field of entityFields[kind])
     entity[field.key] = field.type === 'number' && kind !== 'npcs' ? 0 : '';
-  if (kind === 'characters') entity.status = 'Alive';
   if (kind === 'encounters') entity.category = category;
   if (!blank) {
     if (kind === 'monsters') {
@@ -475,24 +326,7 @@ export function generateEntity<K extends LibraryKind>(
       if (regional(region, 'discovery'))
         sources.treasure = sourceCitation(regional(region, 'discovery')!);
     } else {
-      const order =
-        kind === 'characters'
-          ? [
-              'name',
-              'archetype',
-              'strength',
-              'agility',
-              'presence',
-              'toughness',
-              'hp',
-              'equipment',
-              'weapons',
-              'armor',
-              'omens',
-              'silver',
-              'description',
-            ]
-          : entityFields[kind].map((f) => f.key);
+      const order = entityFields[kind].map((f) => f.key);
       for (const key of order) {
         const result = generateEntityRoll(
           kind,

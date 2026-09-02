@@ -11,12 +11,14 @@ export function Field({
   onChange,
   reroll,
   source,
+  onReroll,
 }: {
   spec: FieldSpec;
   value: string | number;
   onChange: (value: string | number, source?: string) => void;
   reroll?: () => RuleRoll;
   source?: string;
+  onReroll?: () => void;
 }) {
   const htmlId = useId();
   const [history, setHistory] = useState<RuleRoll[]>([]);
@@ -48,12 +50,12 @@ export function Field({
               <Undo2 size={13} />
             </Button>
           )}
-          {reroll && (
+          {(reroll || onReroll) && (
             <Button
               className="icon-btn"
               aria-label={`${spec.label} 재굴림`}
               title={`${spec.label} 재굴림`}
-              onClick={roll}
+              onClick={onReroll ?? roll}
             >
               <RotateCcw size={13} />
             </Button>

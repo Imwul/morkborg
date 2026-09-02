@@ -9,9 +9,10 @@ import { dungeonFields, roomFields, emptyWorkspace } from '../domain/types';
 import { regions } from '../data/regions';
 import { validateSave } from './schema';
 
-export const STORAGE_KEY = 'morkborg-codex:v2';
-export const PREVIOUS_STORAGE_KEY = 'morkborg-codex:v1';
-export const MIGRATION_BACKUP_KEY = 'morkborg-codex:pre-v2-backup';
+export const STORAGE_KEY = 'morkborg-codex:v3';
+export const PREVIOUS_STORAGE_KEY = 'morkborg-codex:v2';
+export const LEGACY_STORAGE_KEY = 'morkborg-codex:v1';
+export const MIGRATION_BACKUP_KEY = 'morkborg-codex:pre-v3-backup';
 export interface SaveStorage {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
@@ -19,7 +20,7 @@ export interface SaveStorage {
   readonly length: number;
 }
 export const emptySave = (): AppSave => ({
-  schemaVersion: 2,
+  schemaVersion: 3,
   campaigns: [],
   activeCampaignId: null,
   view: 'campaigns',
@@ -83,7 +84,8 @@ export function migrateSave(input: unknown): AppSave {
   if (
     'schemaVersion' in value &&
     value.schemaVersion !== 1 &&
-    value.schemaVersion !== 2
+    value.schemaVersion !== 2 &&
+    value.schemaVersion !== 3
   )
     throw new Error('지원하지 않는 저장 버전입니다. 원본을 보존했습니다.');
   const raw = object(value.dungeon) ?? object(value.currentDungeon) ?? value;
@@ -188,12 +190,16 @@ export function loadStoredSave(storage: SaveStorage): {
   const current = storage.getItem(STORAGE_KEY);
   if (current !== null)
     return { save: validateSave(JSON.parse(current)), migrated: [] };
-  const previous = storage.getItem(PREVIOUS_STORAGE_KEY);
+  const previousKey =
+    storage.getItem(PREVIOUS_STORAGE_KEY) !== null
+      ? PREVIOUS_STORAGE_KEY
+      : LEGACY_STORAGE_KEY;
+  const previous = storage.getItem(previousKey);
   const originals: { key: string; raw: string }[] = [];
   let save = emptySave();
   if (previous !== null) {
     save = migrateSave(JSON.parse(previous));
-    originals.push({ key: PREVIOUS_STORAGE_KEY, raw: previous });
+    originals.push({ key: previousKey, raw: previous });
   } else {
     // Inspect only actual MÖRK BORG keys on this origin; never guess a historical key.
     for (let i = 0; i < storage.length; i++) {

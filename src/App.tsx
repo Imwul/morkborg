@@ -55,6 +55,7 @@ import {
 } from './domain/operations';
 import { Library, type Confirm } from './components/Library';
 import { Dungeons } from './components/Dungeons';
+import { Characters } from './components/Characters';
 import { Sources } from './components/Sources';
 import { useRules, loadRules } from './storage/rulesStore';
 import { registerCodexTools } from './webmcp';
@@ -133,6 +134,11 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
       if (
         matches(
           ...Object.values(e).filter((v): v is string => typeof v === 'string'),
+          ...('weapons' in e
+            ? [...e.weapons, ...e.equipment, ...e.traits].map(
+                (item) => item.text,
+              )
+            : []),
         )
       )
         results.push({
@@ -212,11 +218,19 @@ export default function App() {
       ? d
       : undefined;
   const dungeonPageTitle = pageDungeon?.title;
+  const characterPageTitle =
+    c?.workspace.section === 'characters'
+      ? [
+          ...c.characters,
+          ...(c.drafts.characters ? [c.drafts.characters] : []),
+        ].find((ch) => ch.id === c.workspace.selected.characters)?.name
+      : undefined;
+  const recordPageTitle = dungeonPageTitle || characterPageTitle;
   useEffect(() => {
     document.title = campaignTitle
-      ? `${dungeonPageTitle ? dungeonPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
+      ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
       : 'MÖRK BORG — Campaign Codex';
-  }, [campaignTitle, dungeonPageTitle]);
+  }, [campaignTitle, recordPageTitle]);
   function openForm(kind: 'campaign' | 'dungeon' | 'rename' | null) {
     if (kind === 'dungeon') {
       if (!c) return;
@@ -248,7 +262,12 @@ export default function App() {
         c.id,
         section === 'dungeons'
           ? { section, dungeonId: null, roomId: null, dungeonPreview: false }
-          : { section },
+          : section === 'characters'
+            ? {
+                section,
+                selected: { ...c.workspace.selected, characters: null },
+              }
+            : { section },
       );
     setDrawer(false);
     setQuery('');
@@ -268,7 +287,7 @@ export default function App() {
   }
   function exportCampaign(campaign: Campaign) {
     setExportData({
-      text: JSON.stringify({ schemaVersion: 2, campaign }, null, 2),
+      text: JSON.stringify({ schemaVersion: 3, campaign }, null, 2),
       filename: `${campaign.title.replace(/[^\p{L}\p{N} -]/gu, '').slice(0, 80) || 'campaign'}.json`,
     });
   }
@@ -290,7 +309,7 @@ export default function App() {
     transact((next) => {
       next.campaigns.push(cloneCampaign(campaign));
     });
-    notify('방과 배치 정보를 포함해 캠페인을 복제했습니다.');
+    notify('캐릭터·던전·방과 메모를 포함해 캠페인을 복제했습니다.');
   }
   function importJson(text: string) {
     try {
@@ -350,8 +369,13 @@ export default function App() {
               {nav
                 .filter(
                   (item) =>
-                    ['dungeons', 'notes', 'about'].includes(item.key) ||
-                    (item.key === 'characters' && c.characters.length > 0) ||
+                    [
+                      'overview',
+                      'characters',
+                      'dungeons',
+                      'notes',
+                      'about',
+                    ].includes(item.key) ||
                     (item.key === 'monsters' && c.monsters.length > 0) ||
                     (item.key === 'encounters' &&
                       c.npcs.length + c.encounters.length > 0),
@@ -613,14 +637,16 @@ export default function App() {
               <span aria-current="page">
                 {c.workspace.section === 'notes'
                   ? '캠페인 노트'
-                  : c.workspace.section === 'about'
-                    ? '자료 및 규칙'
-                    : c.workspace.section === 'dungeons'
-                      ? c.workspace.dungeonPreview
-                        ? '새 던전 후보'
-                        : pageDungeon?.title || '던전 보관함'
-                      : nav.find((n) => n.key === c.workspace.section)?.label ||
-                        '던전 보관함'}
+                  : c.workspace.section === 'characters'
+                    ? characterPageTitle || '캐릭터 보관함'
+                    : c.workspace.section === 'about'
+                      ? '자료 및 규칙'
+                      : c.workspace.section === 'dungeons'
+                        ? c.workspace.dungeonPreview
+                          ? '새 던전 후보'
+                          : pageDungeon?.title || '던전 보관함'
+                        : nav.find((n) => n.key === c.workspace.section)
+                            ?.label || '던전 보관함'}
               </span>
             </nav>
           )}
@@ -821,16 +847,6 @@ export default function App() {
                   </strong>{' '}
                   방
                 </span>
-                <span>
-                  <strong>
-                    {c.monsters.length.toString().padStart(2, '0')}
-                  </strong>{' '}
-                  몬스터
-                </span>
-                <span>
-                  <strong>{c.npcs.length.toString().padStart(2, '0')}</strong>{' '}
-                  NPC
-                </span>
               </div>
               <div className="overview-columns">
                 <section>
@@ -873,10 +889,7 @@ export default function App() {
                     <div className="notebook-empty">
                       <Castle size={31} strokeWidth={1} />
                       <h3>지도는 아직 비어 있습니다.</h3>
-                      <p>
-                        첫 던전을 만드세요. 발견한 모든 것을 그곳에 배치할 수
-                        있습니다.
-                      </p>
+                      <p>지역을 선택하고 첫 던전을 생성하세요.</p>
                       <Button
                         className="btn primary"
                         onClick={() => openForm('dungeon')}
@@ -913,8 +926,8 @@ export default function App() {
                         <div>
                           <h3>{e.name || 'Nameless wanderer'}</h3>
                           <p>
-                            {e.archetype} · {e.hp} HP ·{' '}
-                            {e.status === 'Alive' ? '생존' : '사망'}
+                            {e.className} · HP {e.hp}/{e.maxHp} ·{' '}
+                            {e.status === 'alive' ? '생존' : '사망'}
                           </p>
                         </div>
                         <ArrowUpRight size={18} />
@@ -1045,15 +1058,15 @@ export default function App() {
                 />
               </div>
             </>
+          ) : c.workspace.section === 'characters' ? (
+            <Characters campaign={c} confirm={confirm} notify={notify} />
           ) : (
             <Library
               campaign={c}
               kind={
-                c.workspace.section === 'characters'
-                  ? 'characters'
-                  : c.workspace.section === 'monsters'
-                    ? 'monsters'
-                    : c.workspace.stockingKind
+                c.workspace.section === 'monsters'
+                  ? 'monsters'
+                  : c.workspace.stockingKind
               }
               confirm={confirm}
               notify={notify}
@@ -1248,8 +1261,8 @@ export default function App() {
         <DialogContent className="codex-dialog">
           <DialogTitle>캠페인 내보내기</DialogTitle>
           <DialogDescription>
-            파일로 저장하거나 JSON 내용을 복사해 백업하세요. 방과 배치 정보,
-            미저장 초안이 모두 포함됩니다.
+            파일로 저장하거나 JSON 내용을 복사해 백업하세요. 캐릭터와 장비,
+            던전·방·메모 및 미저장 초안이 모두 포함됩니다.
           </DialogDescription>
           <Textarea
             className="export-json"
@@ -1310,9 +1323,11 @@ export default function App() {
             <Button
               className="btn"
               onClick={() => {
-                const original = localStorage.getItem(MIGRATION_BACKUP_KEY);
+                const original =
+                  localStorage.getItem(MIGRATION_BACKUP_KEY) ??
+                  localStorage.getItem('morkborg-codex:pre-v2-backup');
                 if (original)
-                  downloadText(original, 'campaign-codex-pre-v2-backup.json');
+                  downloadText(original, 'campaign-codex-original-backup.json');
                 else notify('이 기기에 변환 전 저장 원본이 없습니다.');
               }}
             >

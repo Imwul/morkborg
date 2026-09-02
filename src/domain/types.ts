@@ -35,20 +35,34 @@ export interface BaseEntity extends Provenance {
   createdAt: string;
   updatedAt: string;
 }
+export interface CharacterItem {
+  id: string;
+  text: string;
+  source?: string;
+  tableId?: string;
+  slot?: string;
+}
+export interface CharacterWeapon extends CharacterItem {
+  damage: string;
+}
 export interface Character extends BaseEntity {
-  archetype: string;
+  campaignId: string;
+  className: string;
+  classSource?: string;
   hp: number;
+  maxHp: number;
   strength: number;
   agility: number;
   presence: number;
   toughness: number;
   armor: string;
-  weapons: string;
-  equipment: string;
+  weapons: CharacterWeapon[];
+  equipment: CharacterItem[];
+  traits: CharacterItem[];
   omens: number;
   silver: number;
   description: string;
-  status: 'Alive' | 'Dead';
+  status: 'alive' | 'dead';
 }
 export interface Monster extends BaseEntity {
   concept: string;
@@ -156,7 +170,7 @@ export interface Campaign {
   workspace: Workspace;
 }
 export interface AppSave {
-  schemaVersion: 2;
+  schemaVersion: 3;
   campaigns: Campaign[];
   activeCampaignId: string | null;
   view: 'campaigns' | 'campaign';
