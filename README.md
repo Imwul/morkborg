@@ -27,6 +27,8 @@ npm run preview
 
 이 작업 환경에는 `public/rules/library.json`에 기존 생성표, `public/rules/oracles.json`에 추가 Oracle 개인 자료, `public/rules/mythic-fate.json`에 검증된 Standard Fate Chart가 준비되어 있습니다. 세 파일을 함께 보관하세요. 새로 복제한 저장소에서는 자신의 자료 파일을 해당 경로에 복사하세요. 기존 `library.json`은 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로도 불러올 수 있습니다. PDF 자동 해석 기능은 아닙니다. Fate Chart 파일이 없어도 Chaos 편집, Fate Check, Scene Check는 사용할 수 있습니다.
 
+**Vercel처럼 Git에서 빌드한 배포에는 개인 자료가 포함되지 않습니다.** 해당 사이트의 **개인 자료 JSON 가져오기**에서 세 파일을 함께 선택하거나 개인 자료 묶음 하나를 가져오세요. 이 버튼은 Fate/Oracle의 자료 누락 안내와 **자료 및 규칙**에 있습니다. 파일 내용은 서버로 전송하지 않고 해당 주소의 브라우저 IndexedDB에 저장합니다. 한 번 가져오면 새로고침 후에도 사용할 수 있습니다. **개인 자료 전체 백업**은 현재 자료를 묶음 파일로 저장합니다. localhost·배포 주소·다른 브라우저는 저장소가 다르므로 각각 한 번씩 가져와야 합니다. [배포 자료 복구와 검증](docs/private-data.md)을 참고하세요.
+
 자료 JSON은 `schemaVersion: 1`, `books`, `tables`, `creatures`, `outcasts`, `notes`를 갖습니다. 정확한 타입과 유효성 검사는 `src/storage/rulesStore.ts`에 있습니다. 원본 파일은 `.gitignore`로 제외됩니다. 로컬 빌드의 `dist`에는 개인 자료가 복사되므로 해당 빌드를 공개 호스팅에 올리지 마세요. 공개 코드에는 책 내용 재배포 권한이 포함되지 않습니다.
 
 ## 사용

@@ -1769,6 +1769,7 @@ h1 {
   min-height: 50px;
 }
 .fate-error {
+  display: block;
   font: 12px/1.8 var(--font-ui);
   padding: 12px;
   border-left: 3px solid #982d27;
@@ -1778,6 +1779,26 @@ h1 {
 }
 .fate-error button {
   margin-top: 10px;
+}
+.private-data-tools {
+  min-width: 0;
+  margin: 12px 0;
+}
+.private-data-tools .actions {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.private-data-tools .help-line,
+.private-data-tools output,
+.private-data-error {
+  display: block;
+  font: 12px/1.8 var(--font-ui);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin: 10px 0 0;
+}
+.private-data-error {
+  color: #842a24;
 }
 .fate-result {
   margin-top: 26px;

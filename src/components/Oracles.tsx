@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { PrivateDataTools } from './PrivateDataTools';
 import { Input } from '@/components/ui/input';
 import type { Campaign } from '../domain/types';
 import {
@@ -180,6 +181,7 @@ export function Oracles({
       {error && (
         <div className="source-notice" role="alert">
           <p>{error}</p>
+          <PrivateDataTools />
           <Button
             className="btn small"
             onClick={() =>

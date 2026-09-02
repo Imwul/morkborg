@@ -39,6 +39,7 @@ import { rollProcedure } from '../generators/oracleRoller';
 import { loadFateChart, useFateChart } from '../storage/fateChartStore';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { transact } from '../storage/saveStore';
+import { PrivateDataTools } from './PrivateDataTools';
 
 interface Props {
   open: boolean;
@@ -174,7 +175,7 @@ export function MythicPanel({
     >
       <DialogContent
         id="mythic-panel"
-        className="fate-panel"
+        className="fate-panel translate-x-0 translate-y-0"
         showOverlay={!wide}
         initialFocus={questionRef}
         finalFocus={launcherRef}
@@ -433,10 +434,13 @@ export function MythicPanel({
             </div>
           )}
           {rollBlocked && (
-            <output className="fate-error">
-              {chartState.loading
-                ? '원문 Fate Chart를 불러오는 중…'
-                : chartState.error}
+            <div className="fate-error" aria-live="polite">
+              <p>
+                {chartState.loading
+                  ? '원문 Fate Chart를 불러오는 중…'
+                  : chartState.error}
+              </p>
+              {!chartState.loading && <PrivateDataTools />}
               <Button
                 type="button"
                 className="btn small"
@@ -444,7 +448,7 @@ export function MythicPanel({
               >
                 자료 다시 불러오기
               </Button>
-            </output>
+            </div>
           )}
           <Button
             type="submit"

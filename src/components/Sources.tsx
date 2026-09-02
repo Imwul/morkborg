@@ -1,9 +1,10 @@
-import { useState, useRef } from 'react';
-import { BookOpen, Upload, Download, Dices, Save } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Dices, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useRules, setRules, sourceCitation } from '../storage/rulesStore';
-import { downloadJson, editCampaign } from '../storage/saveStore';
+import { useRules, sourceCitation } from '../storage/rulesStore';
+import { PrivateDataTools } from './PrivateDataTools';
+import { editCampaign } from '../storage/saveStore';
 import { rollDie } from '../generators/random';
 import type { Campaign } from '../domain/types';
 export function Sources({
@@ -16,8 +17,6 @@ export function Sources({
   const { pack, error, loading } = useRules();
   const [book, setBook] = useState('core');
   const [table, setTable] = useState('');
-  const [message, setMessage] = useState('');
-  const input = useRef<HTMLInputElement>(null);
   const [modifier, setModifier] = useState(0);
   const [dr, setDr] = useState(12);
   const [odds, setOdds] = useState(50);
@@ -47,7 +46,7 @@ export function Sources({
         캠페인 기록은 JSON으로 별도 보관할 수 있습니다.
       </div>
       {loading && <p>자료를 불러오는 중…</p>}
-      {(error || message) && <p role="alert">{message || error}</p>}
+      {error && <p role="alert">{error}</p>}
       <div className="rule-book-list">
         {pack?.books.map((b) => (
           <div className="rule-book" key={b.id}>
@@ -59,41 +58,7 @@ export function Sources({
           </div>
         ))}
       </div>
-      <div className="actions">
-        <Button className="btn" onClick={() => input.current?.click()}>
-          <Upload size={15} /> 룰북 자료 JSON 가져오기
-        </Button>
-        <Button
-          className="btn"
-          disabled={!pack}
-          onClick={() => downloadJson(pack, 'morkborg-private-rules.json')}
-        >
-          <Download size={15} /> 개인 자료 백업
-        </Button>
-      </div>
-      <input
-        ref={input}
-        type="file"
-        accept=".json,application/json"
-        className="sr-only"
-        aria-label="룰북 자료 JSON"
-        onChange={async (e) => {
-          const file = e.target.files?.[0];
-          if (file)
-            try {
-              if (file.size > 10 * 1024 * 1024)
-                throw new Error('자료는 10MB 이하여야 합니다.');
-              setRules(JSON.parse(await file.text()), true);
-              setMessage('');
-              notify('룰북 자료를 불러왔습니다.');
-            } catch (err) {
-              setMessage(
-                err instanceof Error ? err.message : '자료를 읽지 못했습니다.',
-              );
-            }
-          e.target.value = '';
-        }}
-      />
+      <PrivateDataTools backup />
       {pack && (
         <>
           <div className="section-title">

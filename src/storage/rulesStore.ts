@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
+import { readPrivateData } from './privateData';
 export interface RuleEntry {
   text: string;
   weight: number;
@@ -167,9 +168,13 @@ export const useRules = () =>
     () => state,
   );
 export const getRules = () => state.pack;
-export function setRules(input: unknown, persist = false) {
+export function parseRulesPack(input: unknown): RulesPack {
   const pack = schema.parse(input);
   validateGeneratorTables(pack);
+  return pack;
+}
+export function setRules(input: unknown, persist = false) {
+  const pack = parseRulesPack(input);
   if (persist) localStorage.setItem('morkborg-rules:v1', JSON.stringify(pack));
   state = { pack, error: null, loading: false };
   emit();
@@ -181,6 +186,17 @@ export function loadRules(): Promise<void> {
   state = { pack: null, error: null, loading: true };
   emit();
   inFlight = (async () => {
+    try {
+      const local =
+        typeof indexedDB === 'undefined'
+          ? undefined
+          : await readPrivateData('library');
+      if (local && !state.pack) setRules(local);
+      if (state.pack) return;
+    } catch {
+      /* A damaged private pack must not prevent trying the local source. */
+    }
+    if (state.pack) return;
     try {
       const local = localStorage.getItem('morkborg-rules:v1');
       if (local) {

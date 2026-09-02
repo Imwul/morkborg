@@ -4,6 +4,7 @@ import { ORACLE_CATEGORIES, type OraclePack } from '../domain/oracle';
 import { buildOracleRegistry } from '../data/oracles';
 import { useRules } from './rulesStore';
 import { validateOracleRegistry } from '../validation/oracleValidation';
+import { readPrivateData } from './privateData';
 const tableSchema = z.object({
   id: z.string().min(1),
   sourceBookId: z.string().min(1),
@@ -84,6 +85,12 @@ const subscribe = (fn: () => void) => {
   };
 };
 const emit = () => listeners.forEach((fn) => fn());
+export const getOraclePack = () => state.pack;
+export function setOraclePack(input: unknown) {
+  const pack = parseOraclePack(input);
+  state = { pack, loading: false, error: null };
+  emit();
+}
 export async function loadOraclePack() {
   if (state.pack) return;
   if (inFlight) return inFlight;
@@ -91,19 +98,28 @@ export async function loadOraclePack() {
   emit();
   inFlight = (async () => {
     try {
+      const local =
+        typeof indexedDB === 'undefined'
+          ? undefined
+          : await readPrivateData('oracles');
+      if (local && !state.pack) setOraclePack(local);
+      if (state.pack) return;
+    } catch {
+      /* Keep the source fallback available if a stored pack is damaged. */
+    }
+    if (state.pack) return;
+    try {
       const response = await fetch('/rules/oracles.json');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      state = {
-        pack: parseOraclePack(await response.json()),
-        loading: false,
-        error: null,
-      };
+      const data: unknown = await response.json();
+      if (!state.pack) setOraclePack(data);
     } catch (e) {
-      state = {
-        pack: null,
-        loading: false,
-        error: `Oracle 개인 자료를 불러오지 못했습니다. ${e instanceof Error ? e.message : ''}`,
-      };
+      if (!state.pack)
+        state = {
+          pack: null,
+          loading: false,
+          error: `이 브라우저에 Oracle 자료가 없습니다. 개인 자료 JSON을 가져오세요. ${e instanceof Error ? e.message : ''}`,
+        };
     }
     emit();
   })().finally(() => {

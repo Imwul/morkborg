@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { FATE_ODDS, type FateChart } from '../domain/mythic';
+import { readPrivateData } from './privateData';
 const cell = z
   .object({
     exceptionalYes: z.number().int().min(1).max(100).nullable(),
@@ -34,6 +35,12 @@ let state: { chart: FateChart | null; loading: boolean; error: string | null } =
   { chart: null, loading: false, error: null };
 let inFlight: Promise<void> | null = null;
 const listeners = new Set<() => void>();
+export const getFateChart = () => state.chart;
+export function setFateChart(input: unknown) {
+  const chart = parseFateChart(input);
+  state = { chart, loading: false, error: null };
+  listeners.forEach((f) => f());
+}
 export async function loadFateChart() {
   if (state.chart) return;
   if (inFlight) return inFlight;
@@ -41,20 +48,29 @@ export async function loadFateChart() {
   listeners.forEach((f) => f());
   inFlight = (async () => {
     try {
+      const local =
+        typeof indexedDB === 'undefined'
+          ? undefined
+          : await readPrivateData('fateChart');
+      if (local && !state.chart) setFateChart(local);
+      if (state.chart) return;
+    } catch {
+      /* Keep the source fallback available if a stored chart is damaged. */
+    }
+    if (state.chart) return;
+    try {
       const response = await fetch('/rules/mythic-fate.json');
       if (!response.ok) throw new Error('HTTP ' + response.status);
-      state = {
-        chart: parseFateChart(await response.json()),
-        loading: false,
-        error: null,
-      };
+      const data: unknown = await response.json();
+      if (!state.chart) setFateChart(data);
     } catch {
-      state = {
-        chart: null,
-        loading: false,
-        error:
-          '원문 Fate Chart 자료를 불러오지 못했습니다. 다시 불러오거나 Fate Check를 사용하세요.',
-      };
+      if (!state.chart)
+        state = {
+          chart: null,
+          loading: false,
+          error:
+            '이 브라우저에 Fate Chart 자료가 없습니다. 개인 자료 JSON을 가져오세요. Fate Check는 바로 사용할 수 있습니다.',
+        };
     }
     listeners.forEach((f) => f());
   })().finally(() => {
