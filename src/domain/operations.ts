@@ -35,7 +35,10 @@ export function cloneCampaign(
     for (const key of ['monsterIds', 'npcIds', 'encounterIds'] as const)
       a[key] = a[key].map(replace);
   };
-  for (const d of c.dungeons) {
+  for (const d of [
+    ...c.dungeons,
+    ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+  ]) {
     d.id = replace(d.id);
     d.campaignId = c.id;
     reassign(d);
@@ -104,7 +107,10 @@ export function deleteEntity(
     c.workspace.selected[kind] = null;
   if (kind !== 'characters') {
     const key = referenceKey(kind);
-    for (const d of c.dungeons) {
+    for (const d of [
+      ...c.dungeons,
+      ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+    ]) {
       d[key] = d[key].filter((i) => i !== entityId);
       for (const room of d.rooms)
         room[key] = room[key].filter((i) => i !== entityId);
@@ -128,4 +134,20 @@ export function removeAssignment(
     d[key] = d[key].filter((i) => i !== entityId);
     for (const r of d.rooms) r[key] = r[key].filter((i) => i !== entityId);
   }
+}
+
+export function selectDungeonCandidate(c: Campaign, title: string): void {
+  if (!c.dungeonDraft) throw new Error('선택할 던전 후보가 없습니다.');
+  const candidate = structuredClone(c.dungeonDraft);
+  candidate.title = title;
+  candidate.updatedAt = now();
+  c.dungeons.push(candidate);
+  c.dungeonDraft = null;
+  Object.assign(c.workspace, {
+    section: 'dungeons',
+    dungeonPreview: false,
+    dungeonId: candidate.id,
+    roomId: null,
+    dungeonTab: 'overview',
+  });
 }

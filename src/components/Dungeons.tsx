@@ -44,6 +44,7 @@ import { now } from '../generators/random';
 import { Field } from './Field';
 import type { Confirm } from './Library';
 import { singular } from './Library';
+import { DungeonDraft } from './DungeonDraft';
 export function Dungeons({
   campaign: c,
   create,
@@ -71,6 +72,7 @@ export function Dungeons({
   };
   const open = (dungeon: Dungeon) =>
     changeWorkspace(c.id, {
+      dungeonPreview: false,
       dungeonId: dungeon.id,
       roomId: null,
       dungeonTab: 'overview',
@@ -95,6 +97,8 @@ export function Dungeons({
     });
     notify('던전을 복제했습니다. 보관함의 원본 항목은 공유됩니다.');
   };
+  if (c.workspace.dungeonPreview)
+    return <DungeonDraft campaign={c} confirm={confirm} notify={notify} />;
   if (!d)
     return (
       <>
@@ -109,9 +113,19 @@ export function Dungeons({
             <p>불길한 상상에 문과 이름, 지도 위의 자리를 부여하세요.</p>
           </div>
           <Button className="btn primary" onClick={create}>
-            <Plus /> 던전 만들기
+            <Dices /> 던전 생성기 열기
           </Button>
         </div>
+        {c.dungeonDraft && (
+          <button className="resume-candidate" onClick={create}>
+            <Dices size={20} />
+            <span>
+              마지막 후보 이어 보기
+              <strong>{c.dungeonDraft.title || '직접 작성 중'}</strong>
+            </span>
+            <ArrowRight size={18} />
+          </button>
+        )}
         <div className="dungeon-grid">
           {c.dungeons.map((dungeon, i) => (
             <article className="dungeon-card" key={dungeon.id}>
@@ -291,6 +305,45 @@ export function Dungeons({
               <Dices size={16} /> 전체 재굴림
             </Button>
           </div>
+          {rules.pack &&
+            dungeonFields.some(
+              (f) => !(d as unknown as Record<string, unknown>)[f.key],
+            ) && (
+              <div className="fill-missing">
+                <p>
+                  비어 있는 항목을 원문 표로 채울 수 있습니다. 이미 적힌 내용은
+                  유지됩니다.
+                </p>
+                <Button
+                  className="btn"
+                  onClick={() =>
+                    editCampaign(c.id, (next) => {
+                      const target = next.dungeons.find((x) => x.id === d.id)!;
+                      for (const field of dungeonFields)
+                        if (
+                          !(target as unknown as Record<string, unknown>)[
+                            field.key
+                          ]
+                        ) {
+                          const result = generateDungeonRoll(
+                            field.key,
+                            target.region,
+                          );
+                          Object.assign(target, {
+                            [field.key]: result.value,
+                            sources: {
+                              ...target.sources,
+                              [field.key]: result.source,
+                            },
+                          });
+                        }
+                    })
+                  }
+                >
+                  <Dices size={16} /> 빈 항목만 생성
+                </Button>
+              </div>
+            )}
           <div className="dungeon-overview-layout">
             <div className="fields-grid dungeon-fields">
               {dungeonFields.map((spec) => (

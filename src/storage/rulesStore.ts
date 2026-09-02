@@ -60,6 +60,23 @@ const schema = z.object({
   notes: z.record(z.string(), z.unknown()),
 });
 const requiredTables = [
+  'core.sparks',
+  'core.status',
+  'core.inhabitants',
+  'core.feature',
+  'core.danger',
+  'core.treasures',
+  'core.rooms',
+  'core.traps',
+  'reclvse.dungeonPurposeThen',
+  'reclvse.questEncounterHook',
+  'reclvse.dungeonEntrance',
+  'reclvse.entranceState',
+  'reclvse.arcaneEncounter',
+  'reclvse.roomPurpose',
+  'reclvse.dressing',
+  'reclvse.roomLoot',
+  'reclvse.roomEncounter',
   'core.names',
   'core.titleA',
   'core.titleB',
@@ -89,6 +106,14 @@ const requiredTables = [
   'reclvse.npcMotivation',
 ];
 function validateGeneratorTables(pack: RulesPack) {
+  if (
+    pack.tables['core.treasures']?.entries.some((e) =>
+      /^d10\s+Occult treasures$/i.test(e.text.trim()),
+    )
+  )
+    throw new Error(
+      '보물 표에 표 제목이 섞여 있습니다. 교정된 개인 자료를 다시 불러오세요.',
+    );
   const missing = requiredTables.filter((key) => !pack.tables[key]);
   if (missing.length)
     throw new Error(
@@ -149,28 +174,55 @@ export function setRules(input: unknown, persist = false) {
   state = { pack, error: null, loading: false };
   emit();
 }
-export async function loadRules() {
-  try {
-    const local = localStorage.getItem('morkborg-rules:v1');
-    if (local) {
-      setRules(JSON.parse(local));
-      return;
+let inFlight: Promise<void> | null = null;
+export function loadRules(): Promise<void> {
+  if (state.pack) return Promise.resolve();
+  if (inFlight) return inFlight;
+  state = { pack: null, error: null, loading: true };
+  emit();
+  inFlight = (async () => {
+    try {
+      const local = localStorage.getItem('morkborg-rules:v1');
+      if (local) {
+        setRules(JSON.parse(local));
+        return;
+      }
+    } catch {
+      /* Retry the bundled local source if a saved pack is obsolete. */
     }
-  } catch {
-    /* A valid local source pack can still be loaded below. */
+    try {
+      const response = await fetch('/rules/library.json');
+      if (!response.ok) throw new Error(`자료 응답: HTTP ${response.status}`);
+      const data: unknown = await response.json();
+      if (!state.pack) setRules(data);
+    } catch (error) {
+      if (!state.pack) {
+        state = {
+          pack: null,
+          loading: false,
+          error: `생성표를 불러오지 못했습니다. 다시 불러오거나 자료 및 규칙에서 개인 자료를 가져오세요. ${error instanceof Error ? error.message : ''}`,
+        };
+        emit();
+      }
+    }
+  })().finally(() => {
+    inFlight = null;
+  });
+  return inFlight;
+}
+if (import.meta.hot) {
+  const previous = import.meta.hot.data.rulesState as typeof state | undefined;
+  if (previous?.pack) {
+    try {
+      validateGeneratorTables(previous.pack);
+      state = previous;
+    } catch {
+      /* Load the corrected pack below. */
+    }
   }
-  try {
-    const response = await fetch('/rules/library.json');
-    if (!response.ok) throw new Error();
-    setRules(await response.json());
-  } catch {
-    state = {
-      pack: null,
-      error: '책 자료를 불러오세요. 원문 생성표는 개인 자료로 별도 보관됩니다.',
-      loading: false,
-    };
-    emit();
-  }
+  import.meta.hot.dispose((data) => {
+    data.rulesState = state;
+  });
 }
 export function sourceCitation(tableId: string): string {
   const table = state.pack?.tables[tableId];
@@ -178,3 +230,5 @@ export function sourceCitation(tableId: string): string {
   const book = state.pack?.books.find((b) => b.id === table.book);
   return `${book?.title ?? table.book} · PDF ${table.pages.join(', ')}쪽 · ${table.title}`;
 }
+
+if (typeof window !== 'undefined') void loadRules();

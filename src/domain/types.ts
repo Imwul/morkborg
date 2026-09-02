@@ -131,6 +131,7 @@ export interface EntityMap {
 export interface Workspace {
   section: Section;
   dungeonTab: DungeonTab;
+  dungeonPreview?: boolean;
   dungeonId: string | null;
   roomId: string | null;
   stockingKind: 'encounters' | 'npcs';
@@ -144,6 +145,7 @@ export interface Campaign {
   updatedAt: string;
   characters: Character[];
   dungeons: Dungeon[];
+  dungeonDraft?: Dungeon | null;
   monsters: Monster[];
   npcs: NPC[];
   encounters: Encounter[];

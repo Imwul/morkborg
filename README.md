@@ -1,6 +1,6 @@
 # MÖRK BORG Campaign Codex
 
-한국어 UI로 사용하는 로컬 캠페인 기록장입니다. 캐릭터 → 던전 → 방 → 몬스터·NPC·조우를 하나의 캠페인 안에서 작성합니다. 고유명사와 원문 생성표의 결과는 원래 표기를 유지합니다.
+한국어 UI로 사용하는 로컬 무작위 생성기와 캠페인 기록장입니다. 제목과 내용을 반복해서 굴리고 원하는 후보를 선택하여, 캐릭터 → 던전 → 방 → 몬스터·NPC·조우를 하나의 캠페인에 모읍니다. 고유명사와 원문 생성표의 결과는 원래 표기를 유지합니다.
 
 ## 실행
 
@@ -31,11 +31,13 @@ npm run preview
 
 ## 사용
 
-- 캠페인을 만든 다음 캐릭터와 던전을 추가합니다. 일곱 지역 이름은 원문을 유지합니다.
+- 캠페인을 만든 다음 **던전 생성기 열기**를 누릅니다. 제목 입력 없이 제목·개요·방 4개가 채워진 후보를 볼 수 있습니다. 일곱 지역 이름은 원문을 유지합니다.
+- **모두 다시 굴리기**로 새 후보를 즉시 확인하고, **이 던전 선택**을 누르면 그 내용과 방이 그대로 보관함에 들어갑니다. 생성할 방 수는 0–12개로 조정할 수 있습니다. 선택 전 후보도 화면 이동과 새로고침 후 유지됩니다.
 - 생성 결과는 초안입니다. **캠페인에 저장** 또는 **던전에 추가 / 방 N에 추가**를 누르면 보관함에 들어갑니다.
 - 상단에서 배치할 던전과 방을 고릅니다. 동일한 개체를 여러 방에 배치해도 원본은 하나입니다.
-- 필드별 주사위 버튼은 해당 값만 바꿉니다. 이전 값은 편집 세션에서 세 번까지 되돌릴 수 있습니다. 전체 재굴림과 삭제는 확인 후 적용합니다.
+- 필드별 재굴림 버튼은 제목·입구·특징 등 해당 값만 바꿉니다. 이전 값은 편집 세션에서 세 번까지 되돌릴 수 있습니다. 저장된 개체의 전체 재굴림과 삭제는 확인 후 적용합니다.
 - 직접 수정한 값에는 `직접 작성`이 표시됩니다. 원문에 해당 표가 없는 필드는 비워 둡니다.
+- 빈 던전에서 시작하려면 **직접 작성**을 누릅니다. 기존 던전에 비어 있는 개요가 있다면 **빈 항목만 생성**으로 채울 수 있습니다. 이미 쓴 값은 유지됩니다.
 - 방 순서를 바꿔도 UUID로 연결된 배치는 유지됩니다. 방 삭제 시 개체는 보관함과 던전에 남습니다.
 - 검색으로 방·개체·노트로 이동할 수 있습니다. `⌘K` / `Ctrl+K`를 지원합니다.
 - **캠페인 내보내기**에서 JSON을 파일로 저장하거나 복사하세요. 가져오기는 파일 선택과 붙여넣기를 지원하며, 같은 캠페인이 이미 있으면 새 ID의 복제본으로 추가합니다.
@@ -52,6 +54,8 @@ npm run preview
 
 구조는 `src/domain`의 모델·참조 작업, `src/generators`의 주사위와 생성 절차, `src/storage`의 검증·저장, `src/components`의 편집 화면으로 나뉩니다. React 19, Vite, TypeScript strict, Zod, shadcn/Base UI를 사용합니다. WebMCP를 지원하는 브라우저에서는 로컬 캠페인 목록과 새 캠페인 생성 도구를 제공합니다.
 
+화면은 3440×1440 울트라와이드에서 작업 영역 전체를 사용하며 개요 필드를 네 열로 배치합니다. 작은 화면에서는 세 열·두 열·한 열로 줄어듭니다. 한글 제목은 Black Han Sans, 본문은 나눔스퀘어 네오를 사용하고 본문 행간을 1.85로 넓혔습니다.
+
 ## Credits
 
 Campaign Codex is an independent production by Imwul and is not affiliated with Ockult Örtmästare Games or Stockholm Kartell. It is published under the MÖRK BORG Third Party License.
@@ -60,4 +64,6 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
 [MÖRK BORG Third Party License](https://morkborg.com/license/)
 
-워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 이 사이트의 코드·표를 복제하거나 실행 시 호출하지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
+워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 공개된 생성 구조와 출처를 확인하여 참고했습니다. 생성 문구는 사용자가 제공한 룰북의 실제 표에서 가져오며, 위 사이트를 실행 시 호출하지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
+
+서체: [Black Han Sans](https://github.com/google/fonts/tree/main/ofl/blackhansans), [네이버 나눔스퀘어 네오](https://campaign.naver.com/nanumsquare_neo/). 원본 서체 파일과 SIL Open Font License를 `public/fonts`에 함께 보관합니다.

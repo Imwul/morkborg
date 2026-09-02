@@ -33,9 +33,9 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import type { Campaign, RegionId, Section, Workspace } from './domain/types';
-import { regions, regionById } from './data/regions';
-import { createCampaign, createDungeon, dungeonTitle } from './generators';
+import type { Campaign, Section, Workspace } from './domain/types';
+import { regionById } from './data/regions';
+import { createCampaign, dungeonTitle } from './generators';
 import {
   useSave,
   transact,
@@ -51,7 +51,7 @@ import { cloneCampaign } from './domain/operations';
 import { Library, type Confirm } from './components/Library';
 import { Dungeons } from './components/Dungeons';
 import { Sources } from './components/Sources';
-import { useRules } from './storage/rulesStore';
+import { useRules, loadRules } from './storage/rulesStore';
 import { registerCodexTools } from './webmcp';
 const nav = [
   { key: 'overview', label: '개요', icon: BookOpen },
@@ -167,12 +167,9 @@ export default function App() {
   const [toast, setToast] = useState('');
   const [query, setQuery] = useState('');
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
-  const [form, setForm] = useState<'campaign' | 'dungeon' | 'rename' | null>(
-    null,
-  );
+  const [form, setForm] = useState<'campaign' | 'rename' | null>(null);
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
-  const [region, setRegion] = useState<RegionId>('graven-tosk');
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -206,11 +203,23 @@ export default function App() {
       ? `${campaignTitle} — Campaign Codex`
       : 'MÖRK BORG — Campaign Codex';
   }, [campaignTitle]);
-  function openForm(kind: typeof form) {
+  function openForm(kind: 'campaign' | 'dungeon' | 'rename' | null) {
+    if (kind === 'dungeon') {
+      if (!c) return;
+      const campaignId = c.id;
+      changeWorkspace(campaignId, {
+        section: 'dungeons',
+        dungeonPreview: true,
+      });
+      if (!c.dungeonDraft) void loadRules();
+      setDrawer(false);
+      return;
+    }
     setForm(kind);
-    setTitle(kind === 'rename' ? (c?.title ?? '') : '');
+    setTitle(
+      kind === 'rename' ? (c?.title ?? '') : rules.pack ? dungeonTitle() : '',
+    );
     setSubtitle(kind === 'rename' ? (c?.subtitle ?? '') : '');
-    setRegion('graven-tosk');
   }
   function navigate(section: Section) {
     if (c) changeWorkspace(c.id, { section });
@@ -463,67 +472,105 @@ export default function App() {
             </div>
           </div>
         )}
-        {c && c.dungeons.length > 0 && (
-          <div className="context-bar">
-            <div className="context-label">
-              <MapPin size={15} />
-              <span>현재 배치 위치</span>
+        {c && !rules.pack && c.workspace.section !== 'about' && (
+          <div
+            className="rules-banner"
+            role={rules.loading ? 'status' : 'alert'}
+          >
+            <div>
+              <strong>
+                {rules.loading
+                  ? '생성표를 불러오는 중입니다.'
+                  : '랜덤 생성 자료를 불러오지 못했습니다.'}
+              </strong>
+              <p>
+                {rules.loading
+                  ? '준비가 끝나면 제목과 내용이 자동으로 채워집니다.'
+                  : rules.error}
+              </p>
             </div>
-            <label className="sr-only" htmlFor="destination-dungeon">
-              배치할 던전
-            </label>
-            <select
-              id="destination-dungeon"
-              value={d?.id ?? ''}
-              onChange={(e) =>
-                changeWorkspace(c.id, {
-                  dungeonId: e.target.value || null,
-                  roomId: null,
-                })
-              }
-            >
-              <option value="">캠페인 보관함에만 저장</option>
-              {c.dungeons.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.title || 'Untitled dungeon'}
-                </option>
-              ))}
-            </select>
-            {d && (
-              <>
-                <span className="context-region">
-                  {regionById(d.region).name}
-                </span>
-                <span className="context-slash">/</span>
-                <label className="sr-only" htmlFor="destination-room">
-                  배치할 방
-                </label>
-                <select
-                  id="destination-room"
-                  value={room?.id ?? ''}
-                  onChange={(e) =>
-                    changeWorkspace(c.id, { roomId: e.target.value || null })
-                  }
-                >
-                  <option value="">방: 지정 안 함</option>
-                  {d.rooms.map((r, i) => (
-                    <option key={r.id} value={r.id}>
-                      방 {i + 1}: {r.name || '이름 없는 방'}
-                    </option>
-                  ))}
-                </select>
-                <Button
-                  className="icon-btn"
-                  aria-label="현재 던전으로 돌아가기"
-                  title="던전으로 돌아가기"
-                  onClick={() => changeWorkspace(c.id, { section: 'dungeons' })}
-                >
-                  <ArrowRight size={15} />
+            {!rules.loading && (
+              <div className="actions">
+                <Button className="btn" onClick={() => void loadRules()}>
+                  다시 불러오기
                 </Button>
-              </>
+                <Button className="btn" onClick={() => navigate('about')}>
+                  자료 및 규칙 열기
+                </Button>
+              </div>
             )}
           </div>
         )}
+        {c &&
+          c.dungeons.length > 0 &&
+          !(
+            c.workspace.section === 'dungeons' && c.workspace.dungeonPreview
+          ) && (
+            <div className="context-bar">
+              <div className="context-label">
+                <MapPin size={15} />
+                <span>현재 배치 위치</span>
+              </div>
+              <label className="sr-only" htmlFor="destination-dungeon">
+                배치할 던전
+              </label>
+              <select
+                id="destination-dungeon"
+                value={d?.id ?? ''}
+                onChange={(e) =>
+                  changeWorkspace(c.id, {
+                    dungeonId: e.target.value || null,
+                    roomId: null,
+                  })
+                }
+              >
+                <option value="">캠페인 보관함에만 저장</option>
+                {c.dungeons.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.title || 'Untitled dungeon'}
+                  </option>
+                ))}
+              </select>
+              {d && (
+                <>
+                  <span className="context-region">
+                    {regionById(d.region).name}
+                  </span>
+                  <span className="context-slash">/</span>
+                  <label className="sr-only" htmlFor="destination-room">
+                    배치할 방
+                  </label>
+                  <select
+                    id="destination-room"
+                    value={room?.id ?? ''}
+                    onChange={(e) =>
+                      changeWorkspace(c.id, { roomId: e.target.value || null })
+                    }
+                  >
+                    <option value="">방: 지정 안 함</option>
+                    {d.rooms.map((r, i) => (
+                      <option key={r.id} value={r.id}>
+                        방 {i + 1}: {r.name || '이름 없는 방'}
+                      </option>
+                    ))}
+                  </select>
+                  <Button
+                    className="icon-btn"
+                    aria-label="현재 던전으로 돌아가기"
+                    title="던전으로 돌아가기"
+                    onClick={() =>
+                      changeWorkspace(c.id, {
+                        section: 'dungeons',
+                        dungeonPreview: false,
+                      })
+                    }
+                  >
+                    <ArrowRight size={15} />
+                  </Button>
+                </>
+              )}
+            </div>
+          )}
         <main className="content" inert={blocked}>
           {!c ? (
             <>
@@ -971,25 +1018,27 @@ export default function App() {
       >
         <DialogContent className="codex-dialog">
           <DialogTitle>
-            {form === 'dungeon'
-              ? '어둠으로 들어가는 문.'
-              : form === 'rename'
-                ? '표지를 다시 쓰세요.'
-                : '파멸의 연대기를 시작하세요.'}
+            {form === 'rename'
+              ? '표지를 다시 쓰세요.'
+              : '파멸의 연대기를 시작하세요.'}
           </DialogTitle>
           <DialogDescription>
-            {form === 'dungeon'
-              ? '이름을 붙이고, 그 장소가 자리할 지역을 선택하세요.'
-              : form === 'rename'
-                ? '캠페인을 당신의 말로 기록하세요.'
-                : '캠페인 이름은 나중에 언제든 바꿀 수 있습니다.'}
+            {form === 'rename'
+              ? '캠페인을 당신의 말로 기록하세요.'
+              : '이름도 바로 굴릴 수 있습니다. 나중에 언제든 바꿀 수 있습니다.'}
           </DialogDescription>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (!title.trim()) return;
+              if (form === 'rename' && !title.trim()) return;
               if (form === 'campaign') {
-                const value = createCampaign(title.trim(), subtitle);
+                const value = createCampaign(
+                  title.trim() ||
+                    (rules.pack
+                      ? dungeonTitle()
+                      : `Campaign ${save.campaigns.length + 1}`),
+                  subtitle,
+                );
                 transact((next) => {
                   next.campaigns.push(value);
                   next.activeCampaignId = value.id;
@@ -999,80 +1048,45 @@ export default function App() {
                   next.title = title.trim();
                   next.subtitle = subtitle;
                 });
-              } else if (form === 'dungeon' && c) {
-                editCampaign(c.id, (next) => {
-                  const dungeon = createDungeon(c.id, title.trim(), region);
-                  next.dungeons.push(dungeon);
-                  Object.assign(next.workspace, {
-                    section: 'dungeons',
-                    dungeonId: dungeon.id,
-                    roomId: null,
-                    dungeonTab: 'overview',
-                  });
-                });
               }
               setForm(null);
             }}
           >
-            <label htmlFor="create-title">
-              {form === 'dungeon' ? '던전 제목' : '캠페인 제목'}
-            </label>
+            <label htmlFor="create-title">캠페인 제목</label>
             <div className="form-title-row">
               <Input
                 id="create-title"
                 value={title}
                 maxLength={200}
-                required
+                required={form === 'rename'}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={
-                  form === 'dungeon'
-                    ? 'The Sepulchre of Seven Tongues'
-                    : 'The Ashen Psalm'
-                }
+                placeholder="The Ashen Psalm"
               />
-              {form === 'dungeon' && (
+              {form === 'campaign' && (
                 <Button
                   type="button"
                   className="icon-btn"
                   disabled={!rules.pack}
-                  aria-label="제목 재굴림"
+                  aria-label="캠페인 제목 재굴림"
                   onClick={() => setTitle(dungeonTitle())}
                 >
                   <Dices size={20} />
                 </Button>
               )}
             </div>
-            {form === 'dungeon' ? (
-              <>
-                <label htmlFor="create-region">지역</label>
-                <select
-                  id="create-region"
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value as RegionId)}
-                >
-                  {regions.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.name}
-                    </option>
-                  ))}
-                </select>
-                <p className="region-description">
-                  {regionById(region).description}
-                </p>
-              </>
-            ) : (
-              <>
-                <label htmlFor="create-subtitle">
-                  부제 / 간단한 설명 <span>선택 사항</span>
-                </label>
-                <Textarea
-                  id="create-subtitle"
-                  value={subtitle}
-                  onChange={(e) => setSubtitle(e.target.value)}
-                  placeholder="모든 것이 무너지기 전에 남길 몇 마디."
-                />
-              </>
-            )}
+
+            <>
+              <label htmlFor="create-subtitle">
+                부제 / 간단한 설명 <span>선택 사항</span>
+              </label>
+              <Textarea
+                id="create-subtitle"
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
+                placeholder="모든 것이 무너지기 전에 남길 몇 마디."
+              />
+            </>
+
             <div className="dialog-actions">
               <Button
                 type="button"
@@ -1084,13 +1098,9 @@ export default function App() {
               <Button
                 type="submit"
                 className="btn primary"
-                disabled={!title.trim()}
+                disabled={form === 'rename' && !title.trim()}
               >
-                {form === 'dungeon'
-                  ? '던전 만들기'
-                  : form === 'rename'
-                    ? '변경 저장'
-                    : '캠페인 만들기'}
+                {form === 'rename' ? '변경 저장' : '캠페인 만들기'}
                 <ArrowRight size={16} />
               </Button>
             </div>
@@ -1261,7 +1271,8 @@ export default function App() {
               >
                 DNGNSTOCK by 1d10+5
               </a>
-              . 해당 웹사이트의 코드나 생성표를 복제하지 않았습니다.
+              . 공개된 생성 구조를 참고했으며, 생성 문구는 제공된 룰북의 실제
+              표를 사용합니다.
             </p>
             <p>
               생성표는 사용자가 제공한 MÖRK BORG, FERETORY, HERETIC, Sölitary
@@ -1273,6 +1284,25 @@ export default function App() {
               지역과 고유명사는 원문 표기를 유지합니다. 표의 결과는 원문 영어를
               보존하며, 화면 안내는 한국어로 제공합니다. 미리보기 이미지는 AI로
               제작했습니다.
+            </p>
+            <p>
+              서체:{' '}
+              <a
+                href="https://github.com/google/fonts/tree/main/ofl/blackhansans"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Black Han Sans
+              </a>
+              {' · '}
+              <a
+                href="https://campaign.naver.com/nanumsquare_neo/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                네이버 나눔스퀘어 네오
+              </a>
+              . SIL Open Font License로 제공되며 이 앱에 함께 저장됩니다.
             </p>
             <p>
               <a

@@ -5,6 +5,7 @@ import { setRules, getRules } from '../src/storage/rulesStore.ts';
 import {
   createCampaign,
   createDungeon,
+  createDungeonCandidate,
   createRoom,
   generateEntity,
   generateEntityRoll,
@@ -15,6 +16,7 @@ import {
 } from '../src/generators/index.ts';
 import {
   cloneCampaign,
+  selectDungeonCandidate,
   cloneDungeon,
   assignEntity,
   deleteEntity,
@@ -249,5 +251,75 @@ test(
     delete partial.tables['feretory.A'];
     assert.throws(() => setRules(partial), /feretory.A/);
     assert.equal(getRules(), pack);
+  },
+);
+
+test(
+  'dungeon candidates generate a title, all overview fields and four rooms without saving',
+  { skip: !hasRules },
+  () => {
+    const c = createCampaign('Preview');
+    const draft = createDungeonCandidate(c.id, 'kergus');
+    assert.ok(draft.title.trim());
+    assert.equal(draft.rooms.length, 4);
+    assert.equal(c.dungeons.length, 0);
+    for (const key of [
+      'premise',
+      'status',
+      'formerPurpose',
+      'inhabitants',
+      'motive',
+      'entrance',
+      'entranceCondition',
+      'distinctiveFeature',
+      'environmentalDanger',
+      'weirdPhenomenon',
+      'treasure',
+    ] as const)
+      assert.ok(draft[key].trim(), key);
+    assert.ok(draft.rooms.every((r) => r.name && r.description));
+  },
+);
+test(
+  'preview edits and room IDs survive JSON, clone and choosing the exact candidate',
+  { skip: !hasRules },
+  () => {
+    const c = createCampaign('Preview');
+    c.dungeonDraft = createDungeonCandidate(c.id, 'sarkash');
+    c.workspace.dungeonPreview = true;
+    c.dungeonDraft.distinctiveFeature = '직접 편집한 한글 기록';
+    const d = structuredClone(c.dungeonDraft);
+    const imported = parseImport(
+      JSON.stringify({ schemaVersion: 1, campaign: c }),
+    )[0];
+    assert.deepEqual(imported, c);
+    const clone = cloneCampaign(c);
+    validateCampaign(clone);
+    assert.notEqual(clone.dungeonDraft!.id, d.id);
+    assert.equal(clone.dungeonDraft!.campaignId, clone.id);
+    assert.notEqual(clone.dungeonDraft!.rooms[0].id, d.rooms[0].id);
+    selectDungeonCandidate(c, d.title);
+    assert.equal(c.dungeonDraft, null);
+    assert.equal(c.dungeons.length, 1);
+    assert.equal(c.dungeons[0].id, d.id);
+    assert.deepEqual(c.dungeons[0].rooms, d.rooms);
+    assert.equal(c.dungeons[0].distinctiveFeature, d.distinctiveFeature);
+    assert.equal(c.workspace.dungeonPreview, false);
+    validateCampaign(c);
+  },
+);
+test(
+  'occult treasure rolls contain ten actual results, never a PDF page heading',
+  { skip: !hasRules },
+  () => {
+    const entries = getRules()!.tables['core.treasures'].entries;
+    assert.equal(entries.length, 10);
+    assert.equal(
+      entries.reduce((sum, e) => sum + e.weight, 0),
+      10,
+    );
+    assert.ok(
+      entries.every((e) => !/^d10\s+Occult treasures$/i.test(e.text.trim())),
+    );
   },
 );

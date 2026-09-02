@@ -87,7 +87,11 @@ export function changeWorkspace(
   campaignId: string,
   patch: Partial<Workspace>,
 ): void {
-  editCampaign(campaignId, (c) => Object.assign(c.workspace, patch));
+  editCampaign(campaignId, (c) => {
+    if (patch.dungeonId !== undefined && patch.dungeonPreview === undefined)
+      c.workspace.dungeonPreview = false;
+    Object.assign(c.workspace, patch);
+  });
 }
 export function resetDamagedSave(): void {
   localAdapter.write(JSON.stringify(empty()));

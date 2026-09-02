@@ -521,7 +521,10 @@ export function createDungeon(
   campaignId: string,
   title: string,
   region: RegionId,
+  blank = false,
 ): Dungeon {
+  if (!blank && !getRules())
+    throw new Error('생성표를 불러온 뒤 다시 굴려 주세요.');
   const d: Record<string, unknown> = {
     id: id(),
     campaignId,
@@ -537,12 +540,29 @@ export function createDungeon(
   };
   const sources: Record<string, string> = {};
   for (const f of dungeonFields) {
-    const result = generateDungeonRoll(f.key, region);
+    const result = blank ? blankRoll : generateDungeonRoll(f.key, region);
     d[f.key] = result.value;
     sources[f.key] = result.source;
   }
   d.sources = sources;
   return d as unknown as Dungeon;
+}
+export function createDungeonCandidate(
+  campaignId: string,
+  region: RegionId,
+  roomCount = 4,
+): Dungeon {
+  const candidate = createDungeon(campaignId, dungeonTitle(), region);
+  candidate.sources = {
+    ...candidate.sources,
+    title:
+      sourceCitation('core.titleA') + ' + ' + sourceCitation('core.titleB'),
+  };
+  candidate.rooms = Array.from(
+    { length: Math.max(0, Math.min(12, roomCount)) },
+    () => createRoom(region),
+  );
+  return candidate;
 }
 export function createCampaign(title: string, subtitle = ''): Campaign {
   return {

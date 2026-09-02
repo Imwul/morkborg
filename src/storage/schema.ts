@@ -102,6 +102,7 @@ const campaign = z.object({
   updatedAt: time,
   characters: z.array(character),
   dungeons: z.array(dungeon),
+  dungeonDraft: dungeon.nullable().optional(),
   monsters: z.array(monster),
   npcs: z.array(npc),
   encounters: z.array(encounter),
@@ -130,6 +131,7 @@ const campaign = z.object({
       'encounters',
       'notes',
     ]),
+    dungeonPreview: z.boolean().optional(),
     dungeonId: uuid.nullable(),
     roomId: uuid.nullable(),
     stockingKind: z.enum(['encounters', 'npcs']),
@@ -147,7 +149,9 @@ export function validateCampaign(input: unknown): Campaign {
   const c = parsed.data as unknown as Campaign;
   const all = [
     c.id,
-    ...c.dungeons.flatMap((d) => [d.id, ...d.rooms.map((r) => r.id)]),
+    ...[...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].flatMap(
+      (d) => [d.id, ...d.rooms.map((r) => r.id)],
+    ),
     ...c.characters.map((e) => e.id),
     ...c.monsters.map((e) => e.id),
     ...c.npcs.map((e) => e.id),
@@ -159,7 +163,10 @@ export function validateCampaign(input: unknown): Campaign {
   if (new Set(all).size !== all.length)
     throw new Error('Campaign contains duplicate IDs.');
   const kinds = ['monsters', 'npcs', 'encounters'] as const;
-  for (const d of c.dungeons) {
+  for (const d of [
+    ...c.dungeons,
+    ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+  ]) {
     if (d.campaignId !== c.id)
       throw new Error('Dungeon belongs to another campaign.');
     for (const target of [d, ...d.rooms])
