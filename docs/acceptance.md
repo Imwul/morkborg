@@ -100,3 +100,8 @@ Black Han Sans / 나눔스퀘어 네오와 기존의 넓은 한글 행간을 유
 기존 46개 + 추가 31개 = **77개 통과, skip 0**. 120개 몬스터 정의와 600개 배치의 저장·복제·JSON 복원을 포함한다. 실제 브라우저에서 요청한 33단계를 실행하고, 기존 Character·Dungeon 보존, 두 Room의 공유 HP 31, Room 4 수량 3, Dungeon-only, placement 제거, Dungeon 복제·삭제, reload, Campaign JSON 충돌 remapping을 검증했다. Dangling reference는 0개였다.
 
 360·768·1440·3440px 화면에서 가로 넘침 0. 360px 입력·공격 편집·Room selector·수량·배치 목록을 조작하고 스크린샷을 확인했다. 기존 Dungeon의 3440px 4열도 유지된다. 모델·원문 표·33단계별 결과·제약은 [Monster 검증 상세](monsters.md)에 기록했다.
+
+
+## Oracle Library 단계
+
+[8개 PDF의 전체 inventory](oracles/INVENTORY.md)와 [21단계 실제 UI·반응형·117개 테스트 결과](oracles/README.md)를 참고하세요. Mythic Meaning Tables49개를 모두 포함하고 기존Campaign v4와 생성기는 유지합니다.

@@ -11,7 +11,7 @@
 | Sölitary Depths                       | 지역별 특성·조우·NPC 직업·발견; 희귀 조우에 허용된 Monster Approaches 대안               |
 | RECLVSE — A Solo Engine for Mörk Borg | 던전 입구·상태·용도, 방 내용, NPC와 조우 구성, 2d20 판정과 d100 질문 판정; 추가 표 열람  |
 
-현재 개인 자료에는 193개 표가 있습니다. 모든 표를 생성기에서 실행하는 것은 아니며, 원문 목록 열람은 중첩 주사위·카드·조건부 규칙 전체를 자동 처리하지 않습니다. 선택 직업과 그 보정은 직접 적용합니다.
+기존 생성기 canonical 개인 자료에는 193개 표가 있습니다. 추가 Oracle Registry의 전체 구성과 Mythic Meaning Tables49개는 [Oracle inventory](oracles/INVENTORY.md)에 기록했습니다. 모든 표를 생성기에서 실행하는 것은 아니며, 원문 목록 열람은 중첩 주사위·카드·조건부 규칙 전체를 자동 처리하지 않습니다. 선택 직업과 그 보정은 직접 적용합니다.
 
 ## 판정 기준과 조합
 

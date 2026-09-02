@@ -25,7 +25,7 @@ npm run preview
 
 **이 저장소에는 원본 PDF와 책에서 추출한 표가 포함되지 않습니다.** 사용자가 제공한 책의 표를 개인용 JSON으로 변환하여 로컬에서 사용합니다. 직접 작성, 저장된 캠페인 편집 및 JSON 가져오기는 자료 없이도 가능합니다.
 
-이 작업 환경에는 `public/rules/library.json`에 개인용 자료가 준비되어 있습니다. 새로 복제한 저장소에서는 자신의 자료 파일을 이 경로에 복사하거나, 캠페인을 연 다음 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로 불러오세요. 이 가져오기는 PDF를 자동 해석하는 기능이 아닙니다.
+이 작업 환경에는 `public/rules/library.json`에 기존 생성표, `public/rules/oracles.json`에 추가 Oracle 개인 자료가 준비되어 있습니다. Oracle 사용을 위해 두 파일을 함께 보관하세요. 새로 복제한 저장소에서는 자신의 자료 파일을 이 경로에 복사하거나, 캠페인을 연 다음 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로 불러오세요. 이 가져오기는 PDF를 자동 해석하는 기능이 아닙니다.
 
 자료 JSON은 `schemaVersion: 1`, `books`, `tables`, `creatures`, `outcasts`, `notes`를 갖습니다. 정확한 타입과 유효성 검사는 `src/storage/rulesStore.ts`에 있습니다. 원본 파일은 `.gitignore`로 제외됩니다. 로컬 빌드의 `dist`에는 개인 자료가 복사되므로 해당 빌드를 공개 호스팅에 올리지 마세요. 공개 코드에는 책 내용 재배포 권한이 포함되지 않습니다.
 
@@ -36,6 +36,7 @@ npm run preview
 - **캐릭터 → 새 캐릭터**에서 Classless 후보를 만들고 **캐릭터 저장**으로 보관함에 추가합니다. 이름·능력치·HP·장비·특성을 개별 재굴림하거나 직접 편집할 수 있습니다. 현재/최대 HP와 생존/사망 상태, 캐릭터 노트는 별도로 저장합니다.
 - 선택 전 캐릭터 후보도 다른 화면 이동과 새로고침 후 이어서 편집할 수 있습니다. [Character 생성·저장 설명과 검증](docs/characters.md)을 참고하세요.
 - **몬스터 → 새 몬스터**에서 FERETORY 후보를 생성합니다. **저장 + 배치**로 Dungeon-only 또는 특정 Room에 수량·메모를 지정하며, 여러 배치가 같은 정의를 참조합니다. Dungeon/Room에서도 기존 몬스터 선택과 새 생성이 가능합니다. [Monster 구조·룰북·33단계 UI 검증](docs/monsters.md)을 참고하세요.
+- **ORACLES**에서 룰북 표를 검색·필터하고 개별 또는 조합으로 굴립니다. 현재 Campaign/Dungeon/Room/Character/Monster Notes에 결과를 덧붙일 수 있습니다. Mythic Meaning Tables 49개·4,900항목을 모두 포함합니다. [Oracle 구조·검증](docs/oracles/README.md), [전체 표 inventory](docs/oracles/INVENTORY.md)를 참고하세요.
 - 필드별 재굴림 버튼은 제목·입구·특징 등 해당 값만 바꿉니다. 던전 필드의 이전 값은 편집 세션에서 세 번까지 되돌릴 수 있습니다. 저장된 개체의 전체 재굴림과 삭제는 확인 후 적용합니다.
 - 직접 수정한 값에는 `직접 작성`이 표시됩니다. 원문에 해당 표가 없는 필드는 비워 둡니다.
 - 빈 던전에서 시작하려면 **직접 작성**을 누릅니다. 기존 던전에 비어 있는 개요가 있다면 **빈 항목만 생성**으로 채울 수 있습니다. 이미 쓴 값은 유지됩니다.
@@ -45,7 +46,7 @@ npm run preview
 
 ## 저장
 
-캠페인은 현재 브라우저의 `localStorage`에 즉시 저장됩니다. 저장 키는 `morkborg-codex:v4`, `schemaVersion`은 `4`이며 생성 초안, 선택한 화면과 배치 위치도 복원합니다. 가져온 개인 자료는 별도의 `morkborg-rules:v1` 키를 사용합니다.
+캠페인은 현재 브라우저의 `localStorage`에 즉시 저장됩니다. 저장 키는 `morkborg-codex:v4`, `schemaVersion`은 `4`이며 생성 초안, 선택한 화면과 배치 위치도 복원합니다. 가져온 기존 개인 자료는 별도의 `morkborg-rules:v1` 키를 사용합니다. Oracle 즐겨찾기와 필터는 `morkborg-oracle-preferences:v1`에 별도로 저장하며, Oracle 정의와 임시 굴림 history는 Campaign save에 포함하지 않습니다.
 
 이전 v3·v2·v1 원본과 기존 백업은 유지하고, 변환 전 JSON 백업을 별도로 남긴 뒤 v4를 기록합니다. 구형 캐릭터와 몬스터의 원문·수치·Notes를 보존하고 기존 monsterIds 관계는 명시적인 배치로 변환합니다. 판별 가능한 단일 던전은 `Untitled Campaign`으로 옮깁니다. [저장 구조·마이그레이션·지역 가중치](docs/campaign-persistence.md)에 형식과 한계를 설명했습니다.
 
@@ -57,7 +58,7 @@ npm run preview
 
 구조는 `src/domain`의 모델·참조 작업, `src/generators`의 주사위와 생성 절차, `src/storage`의 검증·저장, `src/components`의 편집 화면으로 나뉩니다. React 19, Vite, TypeScript strict, Zod, shadcn/Base UI를 사용합니다. WebMCP를 지원하는 브라우저에서는 로컬 캠페인 목록과 새 캠페인 생성 도구를 제공합니다.
 
-화면은 3440×1440 울트라와이드에서 작업 영역 전체를 사용하며 개요 필드를 네 열로 배치합니다. 작은 화면에서는 세 열·두 열·한 열로 줄어듭니다. 캐릭터는 큰 화면에서 2–3열, 모바일에서 한 열입니다. 제목은 Barlow Condensed Black과 Pretendard 900, 본문은 Pretendard를 사용하고 행간 1.85를 유지합니다. 움라우트와 결합 악센트도 지원합니다.
+화면은 3440×1440 울트라와이드에서 작업 영역 전체를 사용하며 개요 필드를 네 열로 배치합니다. 작은 화면에서는 세 열·두 열·한 열로 줄어듭니다. 캐릭터는 큰 화면에서 2–3열, 모바일에서 한 열입니다. 영문 큰 제목은 Grenze Gotisch, 본문과 작은 목록 제목은 Alegreya를 사용합니다. 한글·UI·숫자는 Pretendard로 표시하고 본문 행간1.85를 유지합니다. 움라우트와 결합 악센트도 지원합니다.
 
 ## Credits
 
@@ -69,4 +70,4 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
 워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 공개된 생성 구조와 출처를 확인하여 참고했습니다. 생성 문구는 사용자가 제공한 룰북의 실제 표에서 가져오며, 위 사이트를 실행 시 호출하지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
 
-서체: [Barlow Condensed](https://github.com/google/fonts/tree/main/ofl/barlowcondensed), [Pretendard](https://github.com/orioncactus/pretendard). 원본 서체 파일과 SIL Open Font License를 `public/fonts`에 함께 보관합니다.
+서체: [Grenze Gotisch](https://github.com/Omnibus-Type/Grenze-Gotisch), [Alegreya](https://github.com/google/fonts/tree/main/ofl/alegreya), [Pretendard](https://github.com/orioncactus/pretendard). 원본 서체 파일과 SIL Open Font License를 `public/fonts`에 함께 보관합니다.

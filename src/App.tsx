@@ -59,6 +59,8 @@ import { Monsters } from './components/Monsters';
 import { beginMonsterDraft } from './domain/monsterOperations';
 import { Characters } from './components/Characters';
 import { Sources } from './components/Sources';
+import { Oracles } from './components/Oracles';
+import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
 import { registerCodexTools } from './webmcp';
 const nav = [
@@ -199,6 +201,14 @@ export default function App() {
   const [subtitle, setSubtitle] = useState('');
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
+  const [oracleOpen, setOracleOpen] = useState(false);
+  const [oracleContext, setOracleContext] = useState<NotesTarget | null>(null);
+  function openOracles() {
+    if (!oracleOpen) setOracleContext(c ? contextNotesTarget(c) : null);
+    setOracleOpen(true);
+    setDrawer(false);
+    setQuery('');
+  }
   const fileRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const confirm: Confirm = (title, description, action) =>
@@ -243,8 +253,9 @@ export default function App() {
           (m) => m.id === c.workspace.selected.monsters,
         )?.name
       : undefined;
-  const recordPageTitle =
-    dungeonPageTitle || characterPageTitle || monsterPageTitle;
+  const recordPageTitle = oracleOpen
+    ? 'ORACLES'
+    : dungeonPageTitle || characterPageTitle || monsterPageTitle;
   useEffect(() => {
     document.title = campaignTitle
       ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
@@ -276,6 +287,7 @@ export default function App() {
     setForm('rename');
   }
   function navigate(section: Section) {
+    setOracleOpen(false);
     if (c)
       changeWorkspace(
         c.id,
@@ -297,6 +309,7 @@ export default function App() {
     setQuery('');
   }
   function home() {
+    setOracleOpen(false);
     transact((next) => {
       next.view = 'campaigns';
     });
@@ -304,6 +317,7 @@ export default function App() {
     setQuery('');
   }
   function openCampaign(campaign: Campaign) {
+    setOracleOpen(false);
     transact((next) => {
       openCampaignLibrary(next, campaign.id);
     });
@@ -344,6 +358,7 @@ export default function App() {
       transact((next) => {
         importCampaigns(next, campaigns);
       });
+      setOracleOpen(false);
       setImportError('');
       setImportText(null);
       notify(`${campaigns.length}개 캠페인을 복원했습니다.`);
@@ -407,8 +422,11 @@ export default function App() {
                 .map((item) => (
                   <button
                     key={item.key}
-                    className={`nav-item ${c.workspace.section === item.key ? 'active' : ''}`}
-                    onClick={() => navigate(item.key)}
+                    className={`nav-item ${!oracleOpen && c.workspace.section === item.key ? 'active' : ''}`}
+                    onClick={() => {
+                      setOracleOpen(false);
+                      navigate(item.key);
+                    }}
                   >
                     <item.icon size={17} />
                     {item.label}
@@ -417,6 +435,12 @@ export default function App() {
                     )}
                   </button>
                 ))}
+              <button
+                className={`nav-item ${oracleOpen ? 'active' : ''}`}
+                onClick={openOracles}
+              >
+                <Dices size={17} /> ORACLES
+              </button>
             </nav>
             <div className="side-divider small-divider" />
             <button
@@ -435,9 +459,18 @@ export default function App() {
         ) : (
           <>
             <div className="eyebrow">심판의 작업실</div>
-            <button className="nav-item active" onClick={home}>
+            <button
+              className={`nav-item ${!oracleOpen ? 'active' : ''}`}
+              onClick={home}
+            >
               <BookOpen size={18} /> 나의 캠페인
               <ArrowUpRight size={15} />
+            </button>
+            <button
+              className={`nav-item ${oracleOpen ? 'active' : ''}`}
+              onClick={openOracles}
+            >
+              <Dices size={17} /> ORACLES
             </button>
           </>
         )}
@@ -483,6 +516,7 @@ export default function App() {
                     <button
                       key={i}
                       onClick={() => {
+                        setOracleOpen(false);
                         changeWorkspace(c.id, r.patch);
                         setQuery('');
                       }}
@@ -654,24 +688,33 @@ export default function App() {
               <button onClick={() => navigate('dungeons')}>{c.title}</button>
               <span>/</span>
               <span aria-current="page">
-                {c.workspace.section === 'notes'
-                  ? '캠페인 노트'
-                  : c.workspace.section === 'characters'
-                    ? characterPageTitle || '캐릭터 보관함'
-                    : c.workspace.section === 'monsters'
-                      ? monsterPageTitle || '몬스터 보관함'
-                      : c.workspace.section === 'about'
-                        ? '자료 및 규칙'
-                        : c.workspace.section === 'dungeons'
-                          ? c.workspace.dungeonPreview
-                            ? '새 던전 후보'
-                            : pageDungeon?.title || '던전 보관함'
-                          : nav.find((n) => n.key === c.workspace.section)
-                              ?.label || '던전 보관함'}
+                {oracleOpen
+                  ? 'ORACLES'
+                  : c.workspace.section === 'notes'
+                    ? '캠페인 노트'
+                    : c.workspace.section === 'characters'
+                      ? characterPageTitle || '캐릭터 보관함'
+                      : c.workspace.section === 'monsters'
+                        ? monsterPageTitle || '몬스터 보관함'
+                        : c.workspace.section === 'about'
+                          ? '자료 및 규칙'
+                          : c.workspace.section === 'dungeons'
+                            ? c.workspace.dungeonPreview
+                              ? '새 던전 후보'
+                              : pageDungeon?.title || '던전 보관함'
+                            : nav.find((n) => n.key === c.workspace.section)
+                                ?.label || '던전 보관함'}
               </span>
             </nav>
           )}
-          {!c ? (
+          {oracleOpen ? (
+            <Oracles
+              campaign={c}
+              context={oracleContext}
+              onClose={() => setOracleOpen(false)}
+              notify={notify}
+            />
+          ) : !c ? (
             <>
               <div className="eyebrow">끔찍한 것들의 연대기 / 제1권</div>
               <div className="page-heading">

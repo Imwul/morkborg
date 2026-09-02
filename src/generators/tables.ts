@@ -1,9 +1,6 @@
 import type { RegionId } from '../domain/types';
-import {
-  getRules,
-  sourceCitation,
-  type RuleEntry,
-} from '../storage/rulesStore';
+import { sourceCitation, type RuleEntry } from '../storage/rulesStore';
+import { getCanonicalRuleTable } from '../data/oracles';
 import { weightedPick } from './random';
 import { regionWeightFactor, REGION_WEIGHT_TABLES } from './regionWeights';
 export function scalarText(value: unknown): string {
@@ -18,7 +15,7 @@ export interface RuleRoll {
 export const coreRule = (page: number, detail: string) =>
   `MÖRK BORG BARE BONES EDITION · PDF ${page}쪽 · ${detail}`;
 export function entries(tableId: string): RuleEntry[] {
-  const table = getRules()?.tables[tableId];
+  const table = getCanonicalRuleTable(tableId);
   if (!table) throw new Error(`원문 표를 불러와야 합니다: ${tableId}`);
   return table.entries;
 }
