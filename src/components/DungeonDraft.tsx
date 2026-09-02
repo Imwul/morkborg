@@ -3,21 +3,19 @@ import { ArrowLeft, ArrowRight, Dices, Pencil, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import type { Campaign, RegionId } from '../domain/types';
-import { dungeonFields, roomFields } from '../domain/types';
 import { regions, regionById } from '../data/regions';
 import {
   createDungeon,
   createDungeonCandidate,
   createRoom,
   dungeonTitle,
-  generateDungeonRoll,
-  generateRoomRoll,
   rerollRoomContents,
 } from '../generators';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { useRules, sourceCitation } from '../storage/rulesStore';
 import { now } from '../generators/random';
 import { Field } from './Field';
+import { DungeonSheet } from './DungeonSheet';
 import { selectDungeonCandidate } from '../domain/operations';
 import type { Confirm } from './Library';
 
@@ -239,96 +237,38 @@ export function DungeonDraft({
               />
             </div>
           </div>
-          <div className="fields-grid candidate-fields">
-            {dungeonFields.map((spec) => (
-              <Field
-                key={`${draft.id}:${spec.key}`}
-                spec={spec}
-                value={String(
-                  (draft as unknown as Record<string, unknown>)[spec.key],
-                )}
-                source={draft.sources?.[spec.key]}
-                onChange={(value, source) => patch(spec.key, value, source)}
-                reroll={
-                  rules.pack
-                    ? () => generateDungeonRoll(spec.key, draft.region)
-                    : undefined
-                }
-              />
-            ))}
-          </div>
-          <div className="section-title candidate-rooms-heading">
-            <h2>
-              함께 생성된 방 <span>{draft.rooms.length}</span>
-            </h2>
-            <Button
-              className="btn"
-              onClick={() => changeRooms(Math.min(12, draft.rooms.length + 1))}
-              disabled={draft.rooms.length >= 12}
-            >
-              <Plus size={16} /> 방 추가
-            </Button>
-          </div>
-          <div className="candidate-rooms">
-            {draft.rooms.map((room, index) => (
-              <details className="candidate-room" key={room.id}>
-                <summary>
-                  <span className="entity-number">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <strong>{room.name || '이름 없는 방'}</strong>
-                  <span>항목 편집</span>
-                </summary>
-                <Button
-                  className="btn small"
-                  aria-label={`방 ${index + 1} 전체 재굴림`}
-                  disabled={!rules.pack}
-                  onClick={() =>
-                    editCampaign(c.id, (next) => {
-                      const target = next.dungeonDraft?.rooms.find(
-                        (r) => r.id === room.id,
-                      );
-                      if (target) rerollRoomContents(target, draft.region);
-                    })
-                  }
-                >
-                  <Dices size={16} /> 이 방 다시 굴리기
-                </Button>
-                <div className="fields-grid">
-                  {roomFields.map((spec) => (
-                    <Field
-                      key={spec.key}
-                      spec={spec}
-                      value={String(
-                        (room as unknown as Record<string, unknown>)[spec.key],
-                      )}
-                      source={room.sources?.[spec.key]}
-                      onChange={(value, source) =>
-                        editCampaign(c.id, (next) => {
-                          const target = next.dungeonDraft?.rooms.find(
-                            (r) => r.id === room.id,
-                          );
-                          if (target)
-                            Object.assign(target, {
-                              [spec.key]: value,
-                              sources: {
-                                ...target.sources,
-                                [spec.key]: source ?? '직접 작성',
-                              },
-                            });
-                        })
-                      }
-                      reroll={
-                        rules.pack
-                          ? () => generateRoomRoll(spec.key, draft.region)
-                          : undefined
-                      }
-                    />
-                  ))}
-                </div>
-              </details>
-            ))}
-          </div>
+          <DungeonSheet
+            dungeon={draft}
+            ready={!!rules.pack}
+            patch={patch}
+            patchRoom={(roomId, key, value, source) =>
+              editCampaign(c.id, (next) => {
+                const room = next.dungeonDraft?.rooms.find(
+                  (r) => r.id === roomId,
+                );
+                if (room)
+                  Object.assign(room, {
+                    [key]: value,
+                    sources: { ...room.sources, [key]: source ?? '직접 작성' },
+                  });
+              })
+            }
+            rollRoom={(roomId) =>
+              editCampaign(c.id, (next) => {
+                const room = next.dungeonDraft?.rooms.find(
+                  (r) => r.id === roomId,
+                );
+                if (room) rerollRoomContents(room, draft.region);
+              })
+            }
+          />
+          <Button
+            className="btn small"
+            onClick={() => changeRooms(Math.min(12, draft.rooms.length + 1))}
+            disabled={draft.rooms.length >= 12}
+          >
+            <Plus size={14} /> 방 추가
+          </Button>
           <div className="notes-block">
             <label className="eyebrow" htmlFor="candidate-notes">
               후보 메모

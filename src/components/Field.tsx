@@ -1,9 +1,10 @@
 import { useId, useState } from 'react';
-import { RotateCcw, Undo2, Eraser } from 'lucide-react';
+import { RotateCcw, Undo2, Eraser, Check } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import type { RuleRoll } from '../generators';
+import { Translation } from './Translation';
 import type { FieldSpec } from '../domain/types';
 export function Field({
   spec,
@@ -21,6 +22,7 @@ export function Field({
   onReroll?: () => void;
 }) {
   const htmlId = useId();
+  const [editing, setEditing] = useState(false);
   const [history, setHistory] = useState<RuleRoll[]>([]);
   function roll() {
     if (!reroll) return;
@@ -36,10 +38,21 @@ export function Field({
     setHistory(history.slice(1));
   }
   return (
-    <div className={`field ${spec.type === 'number' ? 'number-field' : ''}`}>
+    <div
+      className={`field ${spec.type === 'number' ? 'number-field' : ''} ${editing ? 'is-editing' : ''}`}
+    >
       <div className="field-label">
         <label htmlFor={htmlId}>{spec.label}</label>
         <span className="field-tools">
+          {editing && (
+            <Button
+              className="icon-btn"
+              aria-label={`${spec.label} 편집 완료`}
+              onClick={() => setEditing(false)}
+            >
+              <Check size={14} />
+            </Button>
+          )}
           {history.length > 0 && (
             <Button
               className="icon-btn"
@@ -60,7 +73,7 @@ export function Field({
               <RotateCcw size={13} />
             </Button>
           )}
-          {spec.type !== 'number' && value !== '' && (
+          {editing && spec.type !== 'number' && value !== '' && (
             <Button
               className="icon-btn clear-field"
               aria-label={`${spec.label} 비우기`}
@@ -77,11 +90,21 @@ export function Field({
           )}
         </span>
       </div>
-      {spec.type === 'number' ? (
+      {!editing && spec.type !== 'number' ? (
+        <button
+          id={htmlId}
+          className={`field-value ${value === '' ? 'empty' : ''}`}
+          aria-label={`${spec.label} 편집`}
+          onClick={() => setEditing(true)}
+        >
+          {value === '' ? '직접 입력…' : value}
+        </button>
+      ) : spec.type === 'number' ? (
         <Input
           id={htmlId}
           type="number"
           className="number-input"
+          onFocus={() => setEditing(true)}
           value={value}
           min={spec.min}
           max={spec.max}
@@ -117,9 +140,12 @@ export function Field({
           placeholder="직접 입력…"
         />
       )}
-      <p className="source-citation">
-        {source ?? (value !== '' ? '직접 작성' : '직접 작성 가능')}
-      </p>
+      {spec.type !== 'number' && <Translation text={String(value)} />}
+      {editing && (
+        <p className="source-citation">
+          {source ?? (value !== '' ? '직접 작성' : '직접 작성 가능')}
+        </p>
+      )}
     </div>
   );
 }

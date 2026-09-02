@@ -8,7 +8,7 @@ import {
   sourceCitation,
   type RuleEntry,
 } from '../storage/rulesStore';
-import { id, now, rollDie, rollDice, weightedPick } from './random';
+import { id, now, pick, rollDie, rollDice, weightedPick } from './random';
 import {
   abilityModifier,
   coreRule,
@@ -17,6 +17,20 @@ import {
   scalarText,
   type RuleRoll,
 } from './tables';
+
+import {
+  addCharacterBackground,
+  applyClassCreation,
+  characterClass,
+  characterClasses,
+  classArmorForbidden,
+  classCharacterName,
+  classCitation,
+  classOmenBonus,
+  classOmenDie,
+  rollCharacterTable,
+  syncCharacterAttachments,
+} from './characterClasses';
 
 export const abilityKeys = [
   'strength',
@@ -33,6 +47,7 @@ export const characterLimits: Record<string, [number, number]> = {
   toughness: [-99, 99],
   omens: [0, 999],
   silver: [0, 9999999],
+  powerUses: [0, 999],
 };
 export const isClassless = (c: Partial<Character>) =>
   !c.className || c.className === 'Classless';
@@ -68,11 +83,34 @@ function resolveGear(entry: RuleEntry, presence: number): string {
 // A gear-only reroll never changes another slot. New scrolls require compatible
 // existing starting arms; unknown manually written arms are left untouched.
 export function canAddStartingScroll(c: Partial<Character>): boolean {
+  const def = characterClass(c);
+  if (def?.forbidScrolls) return false;
+  const maxArmor = classArmorForbidden(c)
+    ? 0
+    : Math.max(
+        def?.armorDie != null ? def.armorDie - 1 : 1,
+        def?.powerArmorMaxTier ?? 1,
+      );
+  const armorAllowed =
+    !c.armor ||
+    tableEntries('core.armor').some(
+      (e) =>
+        Number(e.meta.tier) <= maxArmor &&
+        !def?.armorExcludedTiers?.includes(Number(e.meta.tier)) &&
+        c.armor!.startsWith(e.text),
+    );
+  const allowedWeapons = tableEntries('core.weapons')
+    .slice(0, def?.weaponDie ?? 6)
+    .map((e) => e.text);
   return (
-    (!c.armor || /^(No armor|Light armor)/.test(c.armor)) &&
-    (c.weapons ?? []).every((w) =>
-      /^(Femur|Staff|Shortsword|Knife|Warhammer|Sword)(\b|$)/.test(w.text),
-    )
+    armorAllowed &&
+    (c.weapons ?? [])
+      .filter((w) => !w.slot?.startsWith('feature:') && w.slot !== 'fangedBite')
+      .every((w) =>
+        allowedWeapons.some(
+          (name) => w.text === name || w.text.startsWith(name + ';'),
+        ),
+      )
   );
 }
 export function rollEquipmentSlot(
@@ -116,7 +154,7 @@ export function rollEquipmentSlot(
   };
 }
 export function rollWeapon(c: Partial<Character>): CharacterWeapon {
-  const sides = hasScroll(c) ? 6 : 10;
+  const sides = characterClass(c)?.weaponDie ?? (hasScroll(c) ? 6 : 10);
   const entry = tableEntries('core.weapons')[rollDie(sides) - 1];
   const ammo = scalarText(entry.meta.ammunition).replace(
     'Presence + 10',
@@ -127,6 +165,7 @@ export function rollWeapon(c: Partial<Character>): CharacterWeapon {
     text: entry.text + (ammo ? `; ${ammo}` : ''),
     damage: scalarText(entry.meta.damage),
     tableId: 'core.weapons',
+    slot: 'startingWeapon',
     source: coreRule(
       23,
       `시작 무기 d${sides}${hasScroll(c) ? ' · scroll 보유' : ''}`,
@@ -134,8 +173,17 @@ export function rollWeapon(c: Partial<Character>): CharacterWeapon {
   };
 }
 export function rollArmor(c: Partial<Character>): RuleRoll {
-  const sides = hasScroll(c) ? 2 : 4;
-  const entry = tableEntries('core.armor')[rollDie(sides) - 1];
+  const def = characterClass(c);
+  if (classArmorForbidden(c))
+    return {
+      value: 'No armor',
+      source: def ? classCitation(def) + ' · 방어구 착용 불가' : 'No armor',
+    };
+  const sides = def?.armorDie ?? (hasScroll(c) ? 2 : 4);
+  const candidates = tableEntries('core.armor')
+    .slice(0, sides)
+    .filter((_, i) => !def?.armorExcludedTiers?.includes(i));
+  const entry = pick(candidates);
   return {
     value: `${entry.text}${entry.meta.damageReduction ? ` −${scalarText(entry.meta.damageReduction)}` : ''}${Number(entry.meta.agilityDRPenalty) > 0 ? ` (Agility DR +${scalarText(entry.meta.agilityDRPenalty)}; defence DR +${scalarText(entry.meta.defenseDRPenalty)})` : ''}`,
     source: coreRule(
@@ -146,38 +194,65 @@ export function rollArmor(c: Partial<Character>): RuleRoll {
 }
 export function rollTrait(tableId = 'core.traits'): CharacterItem {
   const table = tableId === 'core.bodies' ? 'core.bodies' : 'core.traits';
-  const roll = rollTable(table);
+  const entry = sampleEntry(table);
   return {
     id: id(),
-    text: String(roll.value),
+    text: entry.text,
     tableId: table,
-    source: roll.source,
+    source: sourceCitation(table),
+    entryRoll: Number(entry.meta.roll),
   };
 }
 export function characterFieldRoll(
   key: string,
   c: Partial<Character>,
 ): RuleRoll {
-  if (key === 'name') return rollTable('core.names');
+  const def = characterClass(c);
+  if (key === 'name') {
+    const name = def ? classCharacterName(def) : null;
+    return name && def
+      ? { value: name, source: classCitation(def) }
+      : rollTable('core.names');
+  }
   if (abilityKeys.includes(key as (typeof abilityKeys)[number]))
     return {
-      value: abilityModifier(rollDice(3, 6)),
-      source: coreRule(27, '3d6 능력치 변환'),
+      value:
+        abilityModifier(
+          rollDice(3, 6) + (def?.abilityRollAdjustments[key] ?? 0),
+        ) + (def?.abilityModifierAdjustments[key] ?? 0),
+      source: def
+        ? classCitation(def) +
+          ` · 3d6${(def.abilityRollAdjustments[key] ?? 0) >= 0 ? '+' : ''}${def.abilityRollAdjustments[key] ?? 0} 변환${def.abilityModifierAdjustments[key] ? ` 후 ${def.abilityModifierAdjustments[key]}` : ''}`
+        : coreRule(27, '3d6 능력치 변환'),
     };
   if (key === 'hp' || key === 'maxHp')
     return {
-      value: Math.max(1, (c.toughness ?? 0) + rollDie(8)),
-      source: coreRule(29, 'max(1, Toughness + d8)'),
+      value: Math.max(1, (c.toughness ?? 0) + rollDie(def?.hpDie ?? 8)),
+      source: def
+        ? classCitation(def) + ` · max(1, Toughness + d${def.hpDie})`
+        : coreRule(29, 'max(1, Toughness + d8)'),
     };
   if (key === 'omens')
     return {
-      value: rollDie(2),
-      source: coreRule(37, 'Classless d2 Omens · 선택 규칙'),
+      value: rollDie(classOmenDie(c)) + classOmenBonus(c),
+      source: def
+        ? classCitation(def) +
+          ` · d${classOmenDie(c)}+${classOmenBonus(c)} Omens`
+        : coreRule(37, 'Classless d2 Omens · 선택 규칙'),
     };
   if (key === 'silver')
     return {
-      value: rollDice(2, 6) * 10,
-      source: coreRule(21, '2d6 × 10 silver'),
+      value:
+        rollDice(def?.silver.count ?? 2, def?.silver.sides ?? 6) *
+        (def?.silver.multiplier ?? 10),
+      source: def
+        ? classCitation(def) + ' · 시작 은화'
+        : coreRule(21, '2d6 × 10 silver'),
+    };
+  if (key === 'powerUses')
+    return {
+      value: Math.max(0, (c.presence ?? 0) + rollDie(4)),
+      source: coreRule(34, 'Presence+d4 Powers/day'),
     };
   if (key === 'armor') return rollArmor(c);
   if (key === 'archetype' || key === 'className')
@@ -217,23 +292,31 @@ export function patchCharacterScalar(
   if (key === 'status' && !['alive', 'dead'].includes(String(value))) return;
   Object.assign(c, { [key]: value });
   c.sources = { ...c.sources, [key]: source };
-  if (key === 'className') c.classSource = source;
-  if (key === 'toughness' && isClassless(c)) updateCharacterHpFromToughness(c);
+  if (key === 'className') {
+    c.classSource = source;
+    if (characterClasses().find((d) => d.id === c.classId)?.name !== input)
+      delete c.classId;
+  }
+  if (key === 'toughness' && (isClassless(c) || characterClass(c)))
+    updateCharacterHpFromToughness(c);
 }
 export function rerollCharacterField(c: Character, key: string): void {
-  if (!isClassless(c) && key !== 'name') return;
+  const def = characterClass(c);
+  if (!isClassless(c) && !def && key !== 'name') return;
   if (key === 'hp' || key === 'maxHp') {
-    const die = rollDie(8);
+    const die = rollDie(def?.hpDie ?? 8);
     c.generation = {
       ...c.generation,
-      system: 'core-classless',
+      system: def ? `class:${def.id}` : 'core-classless',
       rolls: { ...c.generation?.rolls, hpDie: die },
     };
     c.maxHp = c.hp = Math.max(1, c.toughness + die);
     c.sources = {
       ...c.sources,
       hp: coreRule(29, '초기 HP = 최대 HP'),
-      maxHp: coreRule(29, `max(1, Toughness + d8) · d8=${die}`),
+      maxHp:
+        (def ? classCitation(def) : coreRule(29, 'HP')) +
+        ` · max(1, Toughness + d${def?.hpDie ?? 8}) · roll=${die}`,
     };
   } else {
     const result = characterFieldRoll(key, c);
@@ -243,6 +326,7 @@ export function rerollCharacterField(c: Character, key: string): void {
 export function generateCharacter(
   campaignId: string,
   blank = false,
+  mode = 'classless',
 ): Character {
   const c: Character = {
     id: id(),
@@ -262,6 +346,8 @@ export function generateCharacter(
     weapons: [],
     equipment: [],
     traits: [],
+    background: [],
+    classFeatures: [],
     description: '',
     status: 'alive',
     notes: '',
@@ -271,25 +357,48 @@ export function generateCharacter(
     generation: { system: 'core-classless', rolls: {} },
   };
   if (blank) return c;
+  const def =
+    mode === 'random'
+      ? pick(characterClasses())
+      : characterClasses().find((d) => d.id === mode);
+  if (mode !== 'classless' && !def)
+    throw new Error('직업 자료를 먼저 가져오세요.');
+  if (def) {
+    c.classId = def.id;
+    c.className = def.name;
+    c.classSource = classCitation(def);
+    c.generation!.system = `class:${def.id}`;
+    applyClassCreation(c, def);
+  }
   for (const key of ['name', ...abilityKeys, 'hp', 'omens', 'silver'])
     rerollCharacterField(c, key);
-  c.equipment = ['waterskin', 'food', 'container', 'gearA', 'gearB'].map(
-    (slot) => rollEquipmentSlot(slot, c),
-  );
-  c.weapons = [rollWeapon(c)];
+  c.equipment = [
+    ...c.equipment,
+    ...['waterskin', 'food', 'container', 'gearA', 'gearB'].map((slot) =>
+      rollEquipmentSlot(slot, c),
+    ),
+  ];
+  c.weapons = [rollWeapon(c), ...c.weapons];
   const armor = rollArmor(c);
   c.armor = String(armor.value);
   c.sources!.armor = armor.source;
   c.traits = [rollTrait(), rollTrait(), rollTrait('core.bodies')];
+  addCharacterBackground(c);
+  [...c.traits, ...(c.background ?? [])].forEach((item) =>
+    syncCharacterAttachments(c, item),
+  );
+  c.powerUses = Number(characterFieldRoll('powerUses', c).value);
   return c;
 }
 export function rerollCharacterItem(
   c: Character,
-  kind: 'weapons' | 'equipment' | 'traits',
+  kind: 'weapons' | 'equipment' | 'traits' | 'background',
   itemId: string,
 ): void {
-  const item = c[kind].find((e) => e.id === itemId);
-  if (!item || (kind !== 'traits' && !isClassless(c))) return;
+  const item = c[kind]?.find((e) => e.id === itemId);
+  if (!item || (kind !== 'traits' && !isClassless(c) && !characterClass(c)))
+    return;
+  if (kind === 'weapons' && item.slot && item.slot !== 'startingWeapon') return;
   if (
     kind === 'equipment' &&
     !['food', 'container', 'gearA', 'gearB'].includes(item.slot ?? '')
@@ -300,6 +409,10 @@ export function rerollCharacterItem(
       ? rollWeapon(c)
       : kind === 'equipment'
         ? rollEquipmentSlot(item.slot!, c)
-        : rollTrait(item.tableId);
+        : kind === 'background'
+          ? rollCharacterTable(item.tableId!, item.slot ?? 'background')
+          : rollTrait(item.tableId);
   Object.assign(item, replacement, { id: itemId });
+  if (kind === 'traits' || kind === 'background')
+    syncCharacterAttachments(c, item);
 }

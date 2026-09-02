@@ -6,6 +6,28 @@ import type {
   OracleRoll,
 } from '../domain/oracle';
 import { id, random, rollDie, type RandomSource } from './random';
+export function pairedOracleProcedure(
+  table: OracleDefinition,
+  registry: OracleRegistry,
+): OracleProcedure {
+  const pairs = [
+    ['mythic2.meaning.action-1', 'mythic2.meaning.action-2'],
+    ['mythic2.meaning.descriptor-1', 'mythic2.meaning.descriptor-2'],
+  ];
+  const pair = pairs.find((ids) => ids.includes(table.id));
+  const oracleIds = pair ?? [table.id, table.id];
+  if (oracleIds.some((id) => !registry.tables.some((t) => t.id === id)))
+    throw new Error('함께 굴릴 원문 표를 먼저 가져오세요.');
+  return {
+    id: `${table.id}.reading-pair`,
+    title: pair
+      ? pair[0].includes('action')
+        ? 'Meaning Tables: Actions'
+        : 'Meaning Tables: Descriptions'
+      : table.title,
+    oracleIds,
+  };
+}
 function tupleSides(notation: string): [number, number] | null {
   const pairs: Record<string, [number, number]> = {
     d66: [6, 6],

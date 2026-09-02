@@ -42,6 +42,7 @@ export interface CharacterItem {
   source?: string;
   tableId?: string;
   slot?: string;
+  entryRoll?: number;
 }
 export interface CharacterWeapon extends CharacterItem {
   damage: string;
@@ -50,6 +51,10 @@ export interface Character extends BaseEntity {
   campaignId: string;
   className: string;
   classSource?: string;
+  classId?: string;
+  background?: CharacterItem[];
+  classFeatures?: CharacterItem[];
+  powerUses?: number;
   hp: number;
   maxHp: number;
   strength: number;

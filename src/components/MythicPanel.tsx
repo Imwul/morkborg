@@ -1,3 +1,4 @@
+import { Translation } from './Translation';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { Dices, Minus, Plus } from 'lucide-react';
 import {
@@ -508,6 +509,14 @@ export function MythicPanel({
                       {r.title} · {r.roll}
                     </small>
                     <p>{r.text}</p>
+                    <Translation
+                      text={r.text}
+                      translation={
+                        typeof r.metadata?.ko === 'string'
+                          ? r.metadata.ko
+                          : undefined
+                      }
+                    />
                     <span className="source-citation">{r.source}</span>
                   </div>
                 ))}

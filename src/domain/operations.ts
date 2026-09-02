@@ -23,6 +23,22 @@ export const referenceKey = (
     : kind === 'npcs'
       ? 'npcIds'
       : 'encounterIds';
+function replaceCharacterItemIds(
+  ch: Character,
+  replace: (old: string) => string,
+) {
+  const items = [
+    ...ch.weapons,
+    ...ch.equipment,
+    ...ch.traits,
+    ...(ch.background ?? []),
+    ...(ch.classFeatures ?? []),
+  ];
+  for (const item of items) item.id = replace(item.id);
+  for (const item of items)
+    if (item.slot?.startsWith('feature:'))
+      item.slot = 'feature:' + replace(item.slot.slice('feature:'.length));
+}
 export function cloneCampaign(
   source: Campaign,
   title = source.title + ' — copy',
@@ -55,8 +71,7 @@ export function cloneCampaign(
     ...(c.drafts.characters ? [c.drafts.characters] : []),
   ]) {
     ch.campaignId = c.id;
-    for (const item of [...ch.weapons, ...ch.equipment, ...ch.traits])
-      item.id = replace(item.id);
+    replaceCharacterItemIds(ch, replace);
   }
   for (const m of [
     ...c.monsters,
@@ -249,7 +264,13 @@ export function campaignIds(c: Campaign): string[] {
       ...c.characters,
       ...(c.drafts.characters ? [c.drafts.characters] : []),
     ].flatMap((ch) =>
-      [...ch.weapons, ...ch.equipment, ...ch.traits].map((item) => item.id),
+      [
+        ...ch.weapons,
+        ...ch.equipment,
+        ...ch.traits,
+        ...(ch.background ?? []),
+        ...(ch.classFeatures ?? []),
+      ].map((item) => item.id),
     ),
   ];
 }
@@ -326,8 +347,11 @@ export function cloneCharacter(
   copy.campaignId = campaignId;
   copy.createdAt = now();
   copy.updatedAt = now();
-  for (const item of [...copy.weapons, ...copy.equipment, ...copy.traits])
-    item.id = id();
+  const ids = new Map<string, string>();
+  replaceCharacterItemIds(copy, (old) => {
+    if (!ids.has(old)) ids.set(old, id());
+    return ids.get(old)!;
+  });
   return copy;
 }
 export function saveCharacterDraft(c: Campaign): void {

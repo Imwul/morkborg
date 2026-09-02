@@ -1,3 +1,4 @@
+import { Translation } from './Translation';
 import { useState } from 'react';
 import { BookOpen, Dices, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -105,7 +106,15 @@ export function Sources({
               </p>
               <ol>
                 {selected.entries.map((e, i) => (
-                  <li key={i}>{e.text}</li>
+                  <li key={i}>
+                    {e.text}
+                    <Translation
+                      text={e.text}
+                      translation={
+                        typeof e.meta.ko === 'string' ? e.meta.ko : undefined
+                      }
+                    />
+                  </li>
                 ))}
               </ol>
               <p className="help-line">
@@ -234,11 +243,13 @@ export function Sources({
             <h2>적용 범위와 판정 기준</h2>
           </div>
           <p>
-            기본 캐릭터는 Classless 규칙을 사용합니다. 몬스터는 FERETORY의 「The
-            Monster Approaches」 또는 책에 실린 개체를 사용합니다. 일반 조우에는
-            Sölitary Depths의 해당 지역 표를 적용하고, Grift처럼 지역 표가 없는
-            곳에는 Sölitary Defilement의 기본 절차를 사용합니다. Galgenbeck은
-            원문에 명시된 상위 지역 Tveland 표를 참조합니다.
+            캐릭터는 Classless 또는 기본 룰북·FERETORY·HERETIC의 12개 직업으로
+            생성합니다. 직업별 능력치·장비·배경·능력과 제한을 함께 적용합니다.
+            몬스터는 FERETORY의 「The Monster Approaches」 또는 책에 실린 개체를
+            사용합니다. 일반 조우에는 Sölitary Depths의 해당 지역 표를 적용하고,
+            Grift처럼 지역 표가 없는 곳에는 Sölitary Defilement의 기본 절차를
+            사용합니다. Galgenbeck은 원문에 명시된 상위 지역 Tveland 표를
+            참조합니다.
           </p>
           <p>
             희귀 조우는 Depths에서 허용하는 「The Monster Approaches」 대안과

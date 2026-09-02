@@ -59,12 +59,17 @@ const characterItem = z.object({
   source: text.optional(),
   tableId: text.optional(),
   slot: text.optional(),
+  entryRoll: z.number().int().optional(),
 });
 const character = z.object({
   ...base,
   campaignId: uuid,
   className: text,
   classSource: text.optional(),
+  classId: text.optional(),
+  background: z.array(characterItem).optional(),
+  classFeatures: z.array(characterItem).optional(),
+  powerUses: z.number().int().min(0).max(999).optional(),
   hp: z.number().int().min(-999).max(9999),
   maxHp: z.number().int().min(1).max(9999),
   ...Object.fromEntries(
@@ -246,7 +251,13 @@ export function validateCampaign(input: unknown): Campaign {
       ...c.characters,
       ...(c.drafts.characters ? [c.drafts.characters] : []),
     ].flatMap((ch) =>
-      [...ch.weapons, ...ch.equipment, ...ch.traits].map((item) => item.id),
+      [
+        ...ch.weapons,
+        ...ch.equipment,
+        ...ch.traits,
+        ...(ch.background ?? []),
+        ...(ch.classFeatures ?? []),
+      ].map((item) => item.id),
     ),
   ];
   if (new Set(all).size !== all.length)

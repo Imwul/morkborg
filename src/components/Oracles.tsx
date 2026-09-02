@@ -2,10 +2,10 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PrivateDataTools } from './PrivateDataTools';
+import { Translation } from './Translation';
 import { Input } from '@/components/ui/input';
 import type { Campaign } from '../domain/types';
 import {
-  ORACLE_CATEGORIES,
   type OraclePreferences,
   type OracleResult,
   type OracleRegistry,
@@ -17,7 +17,11 @@ import {
   type NotesTarget,
 } from '../domain/oracleNotes';
 import { filterOracles } from '../data/oracles';
-import { rollProcedure, sourceLabel } from '../generators/oracleRoller';
+import {
+  pairedOracleProcedure,
+  rollProcedure,
+  sourceLabel,
+} from '../generators/oracleRoller';
 import { editCampaign } from '../storage/saveStore';
 import { loadOraclePack, useOracleRegistry } from '../storage/oracleStore';
 import { loadRules } from '../storage/rulesStore';
@@ -65,17 +69,15 @@ export function Oracles({
   const filtered = useMemo(
     () =>
       filterOracles(registry, {
-        query,
         source: prefs.source,
-        category: prefs.category,
-        dice: prefs.dice,
         favorites: favoritesOnly ? prefs.favoriteIds : undefined,
-      }),
+      }).filter((t) =>
+        `${t.title} ${registry.books.find((b) => b.id === t.sourceBookId)?.title}`
+          .toLocaleLowerCase()
+          .includes(query.trim().toLocaleLowerCase()),
+      ),
     [registry, query, prefs, favoritesOnly],
   );
-  const diceOptions = [
-    ...new Set(registry.tables.map((t) => t.dice).filter(Boolean)),
-  ].sort();
   function preference(patch: Partial<OraclePreferences>) {
     const next = { ...prefs, ...patch };
     setPrefs(next);
@@ -103,11 +105,7 @@ export function Oracles({
   function roll() {
     try {
       const next = rollProcedure(
-        procedure ?? {
-          id: selected!.id,
-          title: selected!.title,
-          oracleIds: [selected!.id],
-        },
+        procedure ?? pairedOracleProcedure(selected!, registry),
         registry,
       );
       setResult(next);
@@ -215,7 +213,7 @@ export function Oracles({
                 <Input
                   id="oracle-search"
                   aria-label="Oracle 검색"
-                  placeholder="제목, 책, 태그, 분류…"
+                  placeholder="표 이름 또는 PDF 이름 검색…"
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);
@@ -236,32 +234,6 @@ export function Oracles({
                   <option key={b.id} value={b.id}>
                     {b.title}
                   </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              분류
-              <select
-                aria-label="Oracle 분류"
-                value={prefs.category}
-                onChange={(e) => preference({ category: e.target.value })}
-              >
-                <option value="">모든 분류</option>
-                {ORACLE_CATEGORIES.map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              주사위
-              <select
-                aria-label="Oracle 주사위"
-                value={prefs.dice}
-                onChange={(e) => preference({ dice: e.target.value })}
-              >
-                <option value="">모든 주사위 / 참조</option>
-                {diceOptions.map((d) => (
-                  <option key={d}>{d}</option>
                 ))}
               </select>
             </label>
@@ -296,9 +268,7 @@ export function Oracles({
                 className={`oracle-card ${selectedId === t.id ? 'selected' : ''}`}
               >
                 <div className="oracle-card-meta">
-                  <span>
-                    {t.category} · {t.rollable === false ? '참조' : t.dice}
-                  </span>
+                  <span>{t.rollable === false ? '참조' : t.dice}</span>
                   <Button
                     className="icon-btn"
                     aria-label={`${t.title} 즐겨찾기`}
@@ -410,9 +380,10 @@ export function Oracles({
               </div>
               {selected && (
                 <>
-                  <p className="source-citation">
-                    Source: {sourceLabel(selected, registry)}
-                  </p>
+                  <details className="sheet-source">
+                    <summary>출처와 원문 조건</summary>
+                    <p>{sourceLabel(selected, registry)}</p>
+                  </details>
                   <p className="oracle-dice">
                     {selected.originalDice || selected.dice || '직접 참조'} ·{' '}
                     {selected.entries.length}개 항목
@@ -424,8 +395,8 @@ export function Oracles({
                     ) : (
                       <>
                         <p className="oracle-rule-note">
-                          원문 결과를 그대로 표시합니다. 여러 결과를 함께
-                          해석하려면 위에서 원문의 표 조합을 선택하세요.
+                          영문 원문과 한국어 풀이를 함께 표시합니다. 한 번
+                          누르면 두 결과를 함께 굴립니다.
                         </p>
                         <details className="oracle-metadata">
                           <summary>출처 주석 / 사용 조건</summary>
@@ -447,7 +418,11 @@ export function Oracles({
                 onClick={roll}
               >
                 <Dices size={19} />
-                {procedure ? 'ROLL ALL' : result ? 'REROLL' : 'ROLL'}
+                {procedure && procedure.oracleIds.length > 2
+                  ? '모두 굴리기'
+                  : result
+                    ? '두 결과 다시 굴리기'
+                    : '두 결과 굴리기'}
               </Button>
               {result && (
                 <div className="oracle-result" aria-live="polite">
@@ -460,8 +435,18 @@ export function Oracles({
                           ? ` (${r.diceValues.join(', ')})`
                           : ''}
                       </span>
-                      <p className="oracle-result-text">{r.text}</p>
-                      <p className="source-citation">{r.source}</p>
+                      <p className="oracle-result-text" lang="en">
+                        {r.text}
+                      </p>
+                      {typeof r.metadata?.ko === 'string' && (
+                        <p className="oracle-result-ko" lang="ko">
+                          {r.metadata.ko}
+                        </p>
+                      )}
+                      <details className="sheet-source">
+                        <summary>출처</summary>
+                        <p>{r.source}</p>
+                      </details>
                       {r.metadata &&
                         Object.keys(r.metadata).some(
                           (k) =>
@@ -548,6 +533,11 @@ export function Oracles({
                         </span>
                         <p>
                           {e.text}
+                          {typeof e.metadata?.ko === 'string' && (
+                            <small className="oracle-result-ko" lang="ko">
+                              {e.metadata.ko}
+                            </small>
+                          )}
                           {e.sourceUnclear && (
                             <strong className="oracle-error">
                               {' '}
@@ -580,6 +570,14 @@ export function Oracles({
                 >
                   <span>{h.title}</span>
                   <strong>{h.rolls.map((r) => r.text).join(' / ')}</strong>
+                  <Translation
+                    text={h.rolls.map((r) => r.text).join(' / ')}
+                    translation={
+                      h.rolls.every((r) => typeof r.metadata?.ko === 'string')
+                        ? h.rolls.map((r) => r.metadata!.ko).join(' / ')
+                        : undefined
+                    }
+                  />
                 </button>
               ))}
             </section>
@@ -614,6 +612,8 @@ function OracleConditions({
     'sourceBookId',
     'tableId',
     'schemaVersion',
+    'category',
+    'tags',
   ]);
   const labels: Record<string, string> = {
     followup: '후속 선택지',
@@ -643,11 +643,14 @@ function OracleConditions({
           {linked.title} ↗
         </button>
       ) : (
-        value
+        <span>
+          {value}
+          <Translation text={value} />
+        </span>
       );
     }
     if (typeof value === 'number') return String(value);
-    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+    if (typeof value === 'boolean') return value ? 'Yes · 예' : 'No · 아니요';
     if (Array.isArray(value))
       return (
         <ul>
@@ -662,6 +665,7 @@ function OracleConditions({
         return (
           <span>
             {obj.text}
+            <Translation text={obj.text} />
             {obj.followup ? render(obj.followup, 'followup', depth + 1) : null}
           </span>
         );

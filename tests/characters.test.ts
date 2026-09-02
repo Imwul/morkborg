@@ -193,7 +193,25 @@ test(
       assert.equal(ch.campaignId, c.id);
       assert.equal(ch.equipment.length, 5);
       assert.equal(ch.traits.length, 3);
-      assert.equal(ch.weapons.length, 1);
+      assert.equal(
+        ch.weapons.filter((w) => w.slot === 'startingWeapon').length,
+        1,
+      );
+      const hooks = ch.weapons.filter((w) => w.slot?.startsWith('feature:'));
+      assert.equal(
+        hooks.length,
+        ch.traits.filter(
+          (t) => t.tableId === 'core.bodies' && t.entryRoll === 6,
+        ).length,
+      );
+      assert.ok(
+        hooks.every(
+          (w) =>
+            w.text === 'Rusted hand hook' &&
+            w.damage === 'd6' &&
+            ch.traits.some((t) => w.slot === `feature:${t.id}`),
+        ),
+      );
       assert.equal(
         ch.maxHp,
         Math.max(1, ch.toughness + ch.generation!.rolls.hpDie),

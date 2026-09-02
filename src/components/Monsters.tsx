@@ -34,6 +34,7 @@ import {
 } from '../generators/monster';
 import { id } from '../generators/random';
 import { Field } from './Field';
+import { Translation } from './Translation';
 import {
   PlacementList,
   QuantityControl,
@@ -60,6 +61,7 @@ export function Monsters({
   const target = validMonsterTarget(c, c.workspace.monsterTarget);
   const dungeon = c.dungeons.find((d) => d.id === target?.dungeonId);
   const room = dungeon?.rooms.find((r) => r.id === target?.roomId);
+  const [showEmpty, setShowEmpty] = useState(false);
   const [quantity, setQuantity] = useState(1),
     [placementNotes, setPlacementNotes] = useState('');
   const presets =
@@ -151,7 +153,9 @@ export function Monsters({
       kind
     ];
     return (
-      <section className="character-section monster-text-section">
+      <section
+        className={`character-section monster-text-section monster-${kind}`}
+      >
         <div className="section-title">
           <h2>{label}</h2>
           <Button
@@ -324,6 +328,7 @@ export function Monsters({
               : '생성 후보 · 보관함에 저장되지 않음'}
           </span>
           <h1>{selected.name || '이름 없는 후보'}</h1>
+          <Translation text={selected.name} />
           <p>
             HP {selected.hp} · 사기{' '}
             {selected.morale === '' ? '—' : selected.morale} ·{' '}
@@ -349,11 +354,14 @@ export function Monsters({
           )}
         </div>
       </div>
-      <p className="source-notice">
-        FERETORY · The Monster Approaches. 외형과 능력치는 같은 A/B/C 결과를
-        사용합니다. 이름은 기본 룰북의 이름표를 사용합니다. 공격명·독립
-        행동·약점·전리품은 직접 작성합니다.
-      </p>
+      <details className="sheet-source">
+        <summary>생성 규칙과 출처</summary>
+        <p>
+          FERETORY · The Monster Approaches. 외형과 능력치는 같은 A/B/C 결과를
+          사용합니다. 이름은 기본 룰북의 이름표를 사용합니다. 공격명·독립
+          행동·약점·전리품은 직접 작성합니다.
+        </p>
+      </details>
       {!rules.pack && (
         <p className="source-notice">
           원문 자료를 불러오면 재굴림을 사용할 수 있습니다. 직접 작성과 배치는
@@ -396,7 +404,149 @@ export function Monsters({
           </select>
         </label>
       )}
-      <section className="monster-target character-section">
+      <div
+        className={`monster-sheet codex-sheet ${showEmpty ? 'show-empty' : ''} ${!selected.weakness.length && !selected.loot.length ? 'short-monster' : ''}`}
+        aria-label="몬스터 전체 시트"
+      >
+        <div className="monster-identity-grid">
+          {scalar({ key: 'name', label: '몬스터 이름' }, () =>
+            edit((m) => rerollMonsterField(m, 'name')),
+          )}
+          {scalar({ key: 'concept', label: '종류 / 개념' })}
+        </div>
+        <div className="monster-stats-grid">
+          {scalar(
+            {
+              key: 'hp',
+              label: '몬스터 HP',
+              type: 'number',
+              min: 0,
+              max: 9999,
+            },
+            canRerollMonsterHp(selected)
+              ? () => edit((m) => rerollMonsterField(m, 'hp'))
+              : undefined,
+          )}
+          {scalar(
+            { key: 'morale', label: '사기 · Morale', type: 'line' },
+            isFeretory ? () => linked('morale') : undefined,
+          )}
+          {scalar(
+            { key: 'armor', label: '방어구' },
+            isFeretory ? () => linked('armor') : undefined,
+          )}
+        </div>
+        <section className="character-section">
+          <div className="section-title">
+            <h2>공격</h2>
+            <Button
+              className="btn small"
+              onClick={() =>
+                edit((m) =>
+                  m.attacks.push({
+                    id: id(),
+                    name: '',
+                    damage: '',
+                    description: '',
+                    sources: { name: '직접 작성', damage: '직접 작성' },
+                  }),
+                )
+              }
+            >
+              <Plus size={14} />
+              공격 추가
+            </Button>
+          </div>
+          <p className="help-line">
+            공격명과 피해를 분리해 기록합니다. FERETORY 피해 재굴림은
+            외형·능력치의 자동값과 연동됩니다.
+          </p>
+          <div className="monster-item-grid">
+            {selected.attacks.map((a, i) => (
+              <div className="character-item monster-attack" key={a.id}>
+                <div className="section-title">
+                  <h3>공격 {i + 1}</h3>
+                  {rules.pack &&
+                    isFeretory &&
+                    a.tableId === 'feretory.stats' && (
+                      <Button
+                        className="btn small"
+                        aria-label={`공격 ${i + 1} 재굴림`}
+                        onClick={() => linked('attack', a.id)}
+                      >
+                        <Dices size={14} />
+                        피해 재굴림
+                      </Button>
+                    )}
+                </div>
+                {(['name', 'damage', 'description'] as const).map((key) => (
+                  <Field
+                    key={key}
+                    spec={{
+                      key,
+                      label: `공격 ${i + 1} ${{ name: '이름', damage: '피해', description: '설명' }[key]}`,
+                    }}
+                    value={a[key]}
+                    source={a.sources?.[key]}
+                    onChange={(value, source) =>
+                      edit((m) => {
+                        const t = m.attacks.find((x) => x.id === a.id);
+                        if (t) {
+                          t[key] = String(value);
+                          t.sources = {
+                            ...t.sources,
+                            [key]: source ?? '직접 작성',
+                          };
+                        }
+                      })
+                    }
+                  />
+                ))}
+                <Button
+                  className="btn ghost small danger"
+                  aria-label={`공격 ${i + 1} 삭제`}
+                  onClick={() =>
+                    edit((m) => {
+                      m.attacks = m.attacks.filter((t) => t.id !== a.id);
+                    })
+                  }
+                >
+                  <Trash2 size={13} />
+                  공격 삭제
+                </Button>
+              </div>
+            ))}
+          </div>
+          {!selected.attacks.length && (
+            <p className="empty-copy">기록된 공격이 없습니다.</p>
+          )}
+        </section>
+        <div className="monster-identity-grid monster-story">
+          {scalar(
+            { key: 'appearance', label: '외형' },
+            isFeretory ? () => linked('appearance') : undefined,
+          )}
+          {scalar({ key: 'wants', label: '욕망 / 목표' }, () =>
+            edit((m) => rerollMonsterField(m, 'wants')),
+          )}
+          {scalar({ key: 'behavior', label: '행동' })}
+          {scalar({ key: 'weirdTrait', label: '기이한 특성' })}
+        </div>
+        {texts('special')}
+        {texts('weakness')}
+        {texts('loot')}
+        <section className="character-section">
+          {scalar({ key: 'description', label: '몬스터 설명' })}
+        </section>
+      </div>
+      <Button
+        className="btn small"
+        aria-pressed={showEmpty}
+        onClick={() => setShowEmpty(!showEmpty)}
+      >
+        {showEmpty ? '빈 항목 접기' : '추가 항목 직접 입력'}
+      </Button>
+      <section className="monster-target character-section secondary-controls">
         <div className="section-title">
           <h2>현재 배치 대상</h2>
           {dungeon && (
@@ -513,128 +663,6 @@ export function Monsters({
             던전을 선택하면 이 몬스터를 배치할 수 있습니다.
           </p>
         )}
-      </section>
-      <div className="monster-identity-grid">
-        {scalar({ key: 'name', label: '몬스터 이름' }, () =>
-          edit((m) => rerollMonsterField(m, 'name')),
-        )}
-        {scalar({ key: 'concept', label: '종류 / 개념' })}
-      </div>
-      <div className="monster-stats-grid">
-        {scalar(
-          { key: 'hp', label: '몬스터 HP', type: 'number', min: 0, max: 9999 },
-          canRerollMonsterHp(selected)
-            ? () => edit((m) => rerollMonsterField(m, 'hp'))
-            : undefined,
-        )}
-        {scalar(
-          { key: 'morale', label: '사기 · Morale', type: 'line' },
-          isFeretory ? () => linked('morale') : undefined,
-        )}
-        {scalar(
-          { key: 'armor', label: '방어구' },
-          isFeretory ? () => linked('armor') : undefined,
-        )}
-      </div>
-      <section className="character-section">
-        <div className="section-title">
-          <h2>공격</h2>
-          <Button
-            className="btn small"
-            onClick={() =>
-              edit((m) =>
-                m.attacks.push({
-                  id: id(),
-                  name: '',
-                  damage: '',
-                  description: '',
-                  sources: { name: '직접 작성', damage: '직접 작성' },
-                }),
-              )
-            }
-          >
-            <Plus size={14} />
-            공격 추가
-          </Button>
-        </div>
-        <p className="help-line">
-          공격명과 피해를 분리해 기록합니다. FERETORY 피해 재굴림은
-          외형·능력치의 자동값과 연동됩니다.
-        </p>
-        <div className="monster-item-grid">
-          {selected.attacks.map((a, i) => (
-            <div className="character-item monster-attack" key={a.id}>
-              <div className="section-title">
-                <h3>공격 {i + 1}</h3>
-                {rules.pack && isFeretory && a.tableId === 'feretory.stats' && (
-                  <Button
-                    className="btn small"
-                    aria-label={`공격 ${i + 1} 재굴림`}
-                    onClick={() => linked('attack', a.id)}
-                  >
-                    <Dices size={14} />
-                    피해 재굴림
-                  </Button>
-                )}
-              </div>
-              {(['name', 'damage', 'description'] as const).map((key) => (
-                <Field
-                  key={key}
-                  spec={{
-                    key,
-                    label: `공격 ${i + 1} ${{ name: '이름', damage: '피해', description: '설명' }[key]}`,
-                  }}
-                  value={a[key]}
-                  source={a.sources?.[key]}
-                  onChange={(value, source) =>
-                    edit((m) => {
-                      const t = m.attacks.find((x) => x.id === a.id);
-                      if (t) {
-                        t[key] = String(value);
-                        t.sources = {
-                          ...t.sources,
-                          [key]: source ?? '직접 작성',
-                        };
-                      }
-                    })
-                  }
-                />
-              ))}
-              <Button
-                className="btn ghost small danger"
-                aria-label={`공격 ${i + 1} 삭제`}
-                onClick={() =>
-                  edit((m) => {
-                    m.attacks = m.attacks.filter((t) => t.id !== a.id);
-                  })
-                }
-              >
-                <Trash2 size={13} />
-                공격 삭제
-              </Button>
-            </div>
-          ))}
-        </div>
-        {!selected.attacks.length && (
-          <p className="empty-copy">기록된 공격이 없습니다.</p>
-        )}
-      </section>
-      <div className="monster-identity-grid">
-        {scalar(
-          { key: 'appearance', label: '외형' },
-          isFeretory ? () => linked('appearance') : undefined,
-        )}
-        {scalar({ key: 'wants', label: '욕망 / 목표' }, () =>
-          edit((m) => rerollMonsterField(m, 'wants')),
-        )}
-        {scalar({ key: 'behavior', label: '행동' })}
-        {scalar({ key: 'weirdTrait', label: '기이한 특성' })}
-      </div>
-      {texts('special')}
-      {texts('weakness')}
-      {texts('loot')}
-      <section className="character-section">
-        {scalar({ key: 'description', label: '몬스터 설명' })}
       </section>
       <section className="notes-block character-section">
         <label htmlFor="monster-notes" className="eyebrow">

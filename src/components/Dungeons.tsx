@@ -8,9 +8,6 @@ import {
   Trash2,
   DoorOpen,
   ArrowRight,
-  Skull,
-  UserRound,
-  Swords,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -48,9 +45,11 @@ import { DungeonMonsters } from './MonsterAssignments';
 import { useRules } from '../storage/rulesStore';
 import { now } from '../generators/random';
 import { Field } from './Field';
+import { Translation } from './Translation';
 import type { Confirm } from './Library';
 import { singular } from './Library';
 import { DungeonDraft } from './DungeonDraft';
+import { DungeonSheet } from './DungeonSheet';
 export function Dungeons({
   campaign: c,
   create,
@@ -196,7 +195,7 @@ export function Dungeons({
       d[referenceKey(t as 'monsters' | 'npcs' | 'encounters')]?.length > 0,
   );
   return (
-    <>
+    <div className="dungeon-workbench">
       <Button
         className="btn ghost back-button"
         onClick={() => changeWorkspace(c.id, { dungeonId: null, roomId: null })}
@@ -228,6 +227,7 @@ export function Dungeons({
             <Dices size={20} />
           </Button>
         </div>
+        <Translation text={d.title} />
         <div className="region-line">
           <label htmlFor="dungeon-region" className="sr-only">
             지역
@@ -357,91 +357,37 @@ export function Dungeons({
                 </Button>
               </div>
             )}
-          <div className="dungeon-overview-layout">
-            <div className="fields-grid dungeon-fields">
-              {dungeonFields.map((spec) => (
-                <Field
-                  key={`${d.id}:${spec.key}`}
-                  spec={spec}
-                  value={String(
-                    (d as unknown as Record<string, unknown>)[spec.key],
-                  )}
-                  source={d.sources?.[spec.key]}
-                  onChange={(value, source) => patch(spec.key, value, source)}
-                  reroll={
-                    canReroll('dungeon', spec.key)
-                      ? () => generateDungeonRoll(spec.key, d.region)
-                      : undefined
-                  }
-                />
-              ))}
-            </div>
-            <aside className="dungeon-index">
-              <div className="list-heading">
-                방 목록{' '}
-                <span>{d.rooms.length.toString().padStart(2, '0')}</span>
-              </div>
-              {d.rooms.map((r, i) => (
-                <button
-                  className="room-index-row"
-                  key={r.id}
-                  onClick={() =>
-                    changeWorkspace(c.id, { roomId: r.id, dungeonTab: 'rooms' })
-                  }
-                >
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  <strong>{r.name || '이름 없는 방'}</strong>
-                  <ArrowRight size={14} />
-                </button>
-              ))}
-              {!d.rooms.length && (
-                <p className="list-empty">
-                  아직 방이 없습니다.
-                  <br />이 장소를 구체화하세요.
-                </p>
-              )}
-              <Button
-                className="btn ghost"
-                onClick={() => changeWorkspace(c.id, { dungeonTab: 'rooms' })}
-              >
-                <Plus size={14} /> 방 만들기
-              </Button>
-              {d.monsterIds.length + d.npcIds.length + d.encounterIds.length >
-                0 && (
-                <div className="index-contents">
-                  <span className="eyebrow">이곳에 배치된 존재</span>
-                  <p>
-                    <Skull size={15} />
-                    {d.monsterIds.length} 몬스터
-                  </p>
-                  <p>
-                    <UserRound size={15} />
-                    {d.npcIds.length} NPC
-                  </p>
-                  <p>
-                    <Swords size={15} />
-                    {d.encounterIds.length} 조우
-                  </p>
-                  {(['monsters', 'npcs', 'encounters'] as const).map((kind) =>
-                    d[referenceKey(kind)].map((entityId) => {
-                      const entity = c[kind].find((e) => e.id === entityId);
-                      return entity ? (
-                        <button
-                          className="contents-link"
-                          key={entityId}
-                          onClick={() =>
-                            changeWorkspace(c.id, { dungeonTab: kind })
-                          }
-                        >
-                          {entity.name}
-                        </button>
-                      ) : null;
-                    }),
-                  )}
-                </div>
-              )}
-            </aside>
-          </div>
+          <DungeonSheet
+            dungeon={d}
+            ready={!!rules.pack}
+            patch={patch}
+            patchRoom={(roomId, key, value, source) =>
+              editCampaign(c.id, (next) => {
+                const target = next.dungeons.find((x) => x.id === d.id)!;
+                const room = target.rooms.find((r) => r.id === roomId);
+                if (room) {
+                  Object.assign(room, {
+                    [key]: value,
+                    sources: { ...room.sources, [key]: source ?? '직접 작성' },
+                  });
+                  target.updatedAt = now();
+                }
+              })
+            }
+            rollRoom={(roomId) =>
+              editCampaign(c.id, (next) => {
+                const target = next.dungeons.find((x) => x.id === d.id)!;
+                const room = target.rooms.find((r) => r.id === roomId);
+                if (room) {
+                  rerollRoomContents(room, target.region);
+                  target.updatedAt = now();
+                }
+              })
+            }
+            openRoom={(roomId) =>
+              changeWorkspace(c.id, { roomId, dungeonTab: 'rooms' })
+            }
+          />
         </>
       )}
       {tab === 'rooms' && (
@@ -492,7 +438,7 @@ export function Dungeons({
           <Trash2 size={14} /> 던전 삭제
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 function Rooms({
