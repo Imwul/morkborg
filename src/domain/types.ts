@@ -1,3 +1,4 @@
+import type { MythicState } from './mythic';
 export const REGION_IDS = [
   'galgenbeck',
   'sarkash',
@@ -179,6 +180,8 @@ export interface Workspace {
   monsterTarget?: MonsterTarget | null;
 }
 export interface Campaign {
+  /** Added lazily to older v4 campaigns; absent means the standard Chaos5 defaults. */
+  mythic?: MythicState;
   id: string;
   title: string;
   subtitle: string;
@@ -197,6 +200,8 @@ export interface Campaign {
   workspace: Workspace;
 }
 export interface AppSave {
+  /** Standalone Fate state when no campaign is open. */
+  mythic?: MythicState;
   schemaVersion: 4;
   campaigns: Campaign[];
   activeCampaignId: string | null;

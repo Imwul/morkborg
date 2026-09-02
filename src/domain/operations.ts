@@ -37,6 +37,10 @@ export function cloneCampaign(
   c.title = title;
   c.createdAt = now();
   c.updatedAt = now();
+  for (const reading of c.mythic?.history ?? []) {
+    reading.id = replace(reading.id);
+    if (reading.event) reading.event.id = replace(reading.event.id);
+  }
   for (const kind of [
     'characters',
     'monsters',

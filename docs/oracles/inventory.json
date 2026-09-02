@@ -14392,12 +14392,14 @@
     "duplicatePages": [
       195
     ],
-    "usedBy": [],
-    "status": "deferred",
-    "deferredReason": "Requires selected Odds and Chaos Factor; each of 81 cells has exceptional-yes, yes, exceptional-no thresholds. A flat equally-weighted table would be wrong.",
+    "usedBy": [
+      "Mythic Fate panel"
+    ],
+    "status": "implemented-contextual",
     "sourceNote": "9 Odds rows × 9 Chaos Factor columns. Roll <= left threshold: Exceptional Yes; <= central: Yes; >= right: Exceptional No; otherwise No. X marks unavailable exceptional threshold. Doubles can also trigger Random Events (PDF26/printed25).",
     "kind": "conditional-chart",
-    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-020.txt"
+    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-020.txt",
+    "implementationNote": "Implemented in the Mythic Fate panel with persistent per-Campaign Odds and Chaos. All 81 standard cells were visually verified against PDF20 and PDF195; printed X stays null. 100 is not a Random Event double (PDF187)."
   },
   {
     "id": "mythic2.fate-question-answers",
@@ -14442,12 +14444,14 @@
     "duplicatePages": [
       196
     ],
-    "usedBy": [],
-    "status": "deferred",
-    "deferredReason": "Two input lookup columns (9 Odds and 9 Chaos rows); modifiers depend on user-selected context.",
+    "usedBy": [
+      "Mythic Fate panel"
+    ],
+    "status": "implemented-contextual",
     "sourceNote": "Odds modifiers +5,+4,+2,+1,0,-1,-2,-4,-5; Chaos9..1 uses the same sequence.",
     "kind": "conditional-chart",
-    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-027.txt"
+    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-027.txt",
+    "implementationNote": "Implemented in the Mythic Fate panel. Odds and Chaos modifiers are applied to two independent d10 results, both stored in the reading."
   },
   {
     "id": "mythic2.fate-check-answers",
@@ -14467,12 +14471,14 @@
     "duplicatePages": [
       196
     ],
-    "usedBy": [],
-    "status": "deferred",
-    "deferredReason": "Requires modified total and both individual dice to determine answer and a possibly simultaneous Random Event.",
+    "usedBy": [
+      "Mythic Fate panel"
+    ],
+    "status": "implemented-contextual",
     "sourceNote": "18–20 Exceptional Yes; >=11 Yes; <=10 No; 2–4 Exceptional No. IMPORTANT: no clamping: modified22 is regular Yes, modified1 is regular No (PDF26/printed25). Doubles whose single-digit value <= CF also produce Random Event.",
     "kind": "conditional-chart",
-    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-027.txt"
+    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-027.txt",
+    "implementationNote": "Implemented in the Mythic Fate panel. Exact exceptional bands 2–4 and 18–20, no clamping; Random Event uses original doubles <= Chaos."
   },
   {
     "id": "mythic2.fate-questions-as-rpg-rules",
@@ -14567,12 +14573,14 @@
     "duplicatePages": [
       217
     ],
-    "usedBy": [],
-    "status": "deferred",
-    "deferredReason": "Needs current Chaos Factor; result also depends on parity. Do not assign fixed 1–N ranges.",
+    "usedBy": [
+      "Mythic Fate panel"
+    ],
+    "status": "implemented-contextual",
     "sourceNote": "Above CF: Expected Scene. Odd <=CF: Altered Scene. Even <=CF: Interrupt Scene.",
     "kind": "conditional-chart",
-    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-068.txt"
+    "sourceTextFile": "/tmp/mork-oracle-research/mythic/page-068.txt",
+    "implementationNote": "Implemented in the Mythic Fate panel Scene tab with saved expected-scene text and current Campaign Chaos. Interrupt marks a Random Event."
   },
   {
     "id": "mythic2.npc-behavior-table",

@@ -9,6 +9,9 @@ import type { AppSave, Campaign, LibraryKind } from '../domain/types';
 import { upgradeCampaignCharacters } from './characterMigration';
 import { upgradeCampaignMonsters } from './monsterMigration';
 import { monsterRelationIssues } from '../domain/monsterOperations';
+import { mythicStateSchema } from './mythicSchema';
+import { createCampaign } from '../generators';
+import { id } from '../generators/random';
 const text = z.string();
 const uuid = z.uuid();
 const time = z.iso.datetime();
@@ -159,6 +162,7 @@ const selection = z.object({
   encounters: uuid.nullable(),
 });
 const campaign = z.object({
+  mythic: mythicStateSchema.optional(),
   id: uuid,
   title: text.min(1),
   subtitle: text,
@@ -338,6 +342,7 @@ export function validateSave(input: unknown): AppSave {
         z.literal(4),
       ]),
       campaigns: z.array(z.unknown()),
+      mythic: mythicStateSchema.optional(),
       activeCampaignId: uuid.nullable(),
       view: z.enum(['campaigns', 'campaign']).optional(),
     })
@@ -354,6 +359,7 @@ export function validateSave(input: unknown): AppSave {
     throw new Error('Active campaign is missing.');
   return {
     schemaVersion: 4,
+    ...(shape.data.mythic ? { mythic: shape.data.mythic } : {}),
     campaigns,
     activeCampaignId: shape.data.activeCampaignId,
     view:
@@ -378,5 +384,18 @@ export function parseImport(raw: string): Campaign[] {
       '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3 또는 4 JSON을 사용하세요.',
     );
   if ('campaign' in value) return [validateCampaign(value.campaign)];
-  return validateSave(value).campaigns;
+  const save = validateSave(value);
+  if (!save.mythic) return save.campaigns;
+  // Import never overwrites the current standalone session. Keep its backup
+  // in a new Campaign, including when the exported save had no campaigns.
+  const standalone = createCampaign(
+    'Mythic — standalone backup',
+    '전체 백업에 포함된 캠페인 밖 Mythic 기록입니다.',
+  );
+  standalone.mythic = structuredClone(save.mythic);
+  standalone.mythic.history.forEach((reading) => {
+    reading.id = id();
+    if (reading.event) reading.event.id = id();
+  });
+  return [...save.campaigns, standalone];
 }

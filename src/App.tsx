@@ -60,6 +60,8 @@ import { beginMonsterDraft } from './domain/monsterOperations';
 import { Characters } from './components/Characters';
 import { Sources } from './components/Sources';
 import { Oracles } from './components/Oracles';
+import { MythicPanel } from './components/MythicPanel';
+import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
 import { registerCodexTools } from './webmcp';
@@ -202,6 +204,14 @@ export default function App() {
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
   const [oracleOpen, setOracleOpen] = useState(false);
+  const [fateOpen, setFateOpen] = useState(false);
+  const fateLauncherRef = useRef<HTMLButtonElement>(null);
+  const mythicState = (c ? c.mythic : save.mythic) ?? defaultMythicState();
+  function openFate() {
+    setFateOpen(true);
+    setDrawer(false);
+    setQuery('');
+  }
   const [oracleContext, setOracleContext] = useState<NotesTarget | null>(null);
   function openOracles() {
     if (!oracleOpen) setOracleContext(c ? contextNotesTarget(c) : null);
@@ -221,6 +231,16 @@ export default function App() {
   }, [toast]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        e.shiftKey &&
+        e.key.toLowerCase() === 'f' &&
+        !e.repeat
+      ) {
+        e.preventDefault();
+        setFateOpen((open) => !open);
+        setDrawer(false);
+      }
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         searchRef.current?.focus();
@@ -381,8 +401,18 @@ export default function App() {
   }
 
   const result = c ? searchCampaign(c, query) : [];
+  const fateLink = (
+    <button
+      className="nav-item fate-nav"
+      onClick={openFate}
+      aria-label="Mythic 패널 열기"
+    >
+      <Dices size={17} /> MYTHIC FATE{' '}
+      <span className="nav-count">CF {mythicState.chaosFactor}</span>
+    </button>
+  );
   return (
-    <div className="app">
+    <div className={'app' + (fateOpen ? ' fate-open' : '')}>
       {drawer && (
         <button
           className="drawer-backdrop"
@@ -435,6 +465,7 @@ export default function App() {
                     )}
                   </button>
                 ))}
+              {fateLink}
               <button
                 className={`nav-item ${oracleOpen ? 'active' : ''}`}
                 onClick={openOracles}
@@ -466,6 +497,7 @@ export default function App() {
               <BookOpen size={18} /> 나의 캠페인
               <ArrowUpRight size={15} />
             </button>
+            {fateLink}
             <button
               className={`nav-item ${oracleOpen ? 'active' : ''}`}
               onClick={openOracles}
@@ -1367,7 +1399,7 @@ export default function App() {
           <DialogTitle>캠페인 내보내기</DialogTitle>
           <DialogDescription>
             파일로 저장하거나 JSON 내용을 복사해 백업하세요. 캐릭터와 장비,
-            던전·방·메모 및 미저장 초안이 모두 포함됩니다.
+            던전·방·메모, 미저장 초안 및 Mythic Chaos·판정 기록이 포함됩니다.
           </DialogDescription>
           <Textarea
             className="export-json"
@@ -1478,9 +1510,9 @@ export default function App() {
             </p>
             <p>
               생성표는 사용자가 제공한 MÖRK BORG, FERETORY, HERETIC, Sölitary
-              Defilement, Sölitary Depths, RECLVSE에서 확인한 자료를 사용합니다.
-              임의로 창작한 생성표는 포함하지 않습니다. 선택 직업의 고유 규칙은
-              직접 적용합니다.
+              Defilement, Sölitary Depths, RECLVSE, Mythic GME Second
+              Edition에서 확인한 자료를 사용합니다. 임의로 창작한 생성표는
+              포함하지 않습니다. 선택 직업의 고유 규칙은 직접 적용합니다.
             </p>
             <p>
               지역과 고유명사는 원문 표기를 유지합니다. 표의 결과는 원문 영어를
@@ -1490,19 +1522,27 @@ export default function App() {
             <p>
               서체:{' '}
               <a
-                href="https://github.com/google/fonts/tree/main/ofl/blackhansans"
+                href="https://github.com/Omnibus-Type/Grenze-Gotisch"
                 target="_blank"
                 rel="noreferrer"
               >
-                Black Han Sans
+                Grenze Gotisch
               </a>
               {' · '}
               <a
-                href="https://campaign.naver.com/nanumsquare_neo/"
+                href="https://github.com/google/fonts/tree/main/ofl/alegreya"
                 target="_blank"
                 rel="noreferrer"
               >
-                네이버 나눔스퀘어 네오
+                Alegreya
+              </a>
+              {' · '}
+              <a
+                href="https://github.com/orioncactus/pretendard"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Pretendard
               </a>
               . SIL Open Font License로 제공되며 이 앱에 함께 저장됩니다.
             </p>
@@ -1532,6 +1572,30 @@ export default function App() {
           </div>
         </DialogContent>
       </Dialog>
+      <button
+        ref={fateLauncherRef}
+        className="fate-launcher"
+        onClick={openFate}
+        aria-label={'Mythic 운명 판정 열기 · Chaos ' + mythicState.chaosFactor}
+        aria-expanded={fateOpen}
+        aria-controls="mythic-panel"
+        title="Mythic Fate · Ctrl/⌘ + Shift + F"
+      >
+        <Dices size={20} />
+        <span>FATE</span>
+        <strong>CF {mythicState.chaosFactor}</strong>
+      </button>
+      <MythicPanel
+        key={c?.id ?? 'standalone'}
+        open={fateOpen}
+        onOpenChange={setFateOpen}
+        campaign={c}
+        state={mythicState}
+        context={oracleOpen ? oracleContext : null}
+        saveError={error}
+        notify={notify}
+        launcherRef={fateLauncherRef}
+      />
       {toast && (
         <output className="toast">
           <Check size={17} />

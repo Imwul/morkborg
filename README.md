@@ -25,7 +25,7 @@ npm run preview
 
 **이 저장소에는 원본 PDF와 책에서 추출한 표가 포함되지 않습니다.** 사용자가 제공한 책의 표를 개인용 JSON으로 변환하여 로컬에서 사용합니다. 직접 작성, 저장된 캠페인 편집 및 JSON 가져오기는 자료 없이도 가능합니다.
 
-이 작업 환경에는 `public/rules/library.json`에 기존 생성표, `public/rules/oracles.json`에 추가 Oracle 개인 자료가 준비되어 있습니다. Oracle 사용을 위해 두 파일을 함께 보관하세요. 새로 복제한 저장소에서는 자신의 자료 파일을 이 경로에 복사하거나, 캠페인을 연 다음 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로 불러오세요. 이 가져오기는 PDF를 자동 해석하는 기능이 아닙니다.
+이 작업 환경에는 `public/rules/library.json`에 기존 생성표, `public/rules/oracles.json`에 추가 Oracle 개인 자료, `public/rules/mythic-fate.json`에 검증된 Standard Fate Chart가 준비되어 있습니다. 세 파일을 함께 보관하세요. 새로 복제한 저장소에서는 자신의 자료 파일을 해당 경로에 복사하세요. 기존 `library.json`은 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로도 불러올 수 있습니다. PDF 자동 해석 기능은 아닙니다. Fate Chart 파일이 없어도 Chaos 편집, Fate Check, Scene Check는 사용할 수 있습니다.
 
 자료 JSON은 `schemaVersion: 1`, `books`, `tables`, `creatures`, `outcasts`, `notes`를 갖습니다. 정확한 타입과 유효성 검사는 `src/storage/rulesStore.ts`에 있습니다. 원본 파일은 `.gitignore`로 제외됩니다. 로컬 빌드의 `dist`에는 개인 자료가 복사되므로 해당 빌드를 공개 호스팅에 올리지 마세요. 공개 코드에는 책 내용 재배포 권한이 포함되지 않습니다.
 
@@ -37,6 +37,7 @@ npm run preview
 - 선택 전 캐릭터 후보도 다른 화면 이동과 새로고침 후 이어서 편집할 수 있습니다. [Character 생성·저장 설명과 검증](docs/characters.md)을 참고하세요.
 - **몬스터 → 새 몬스터**에서 FERETORY 후보를 생성합니다. **저장 + 배치**로 Dungeon-only 또는 특정 Room에 수량·메모를 지정하며, 여러 배치가 같은 정의를 참조합니다. Dungeon/Room에서도 기존 몬스터 선택과 새 생성이 가능합니다. [Monster 구조·룰북·33단계 UI 검증](docs/monsters.md)을 참고하세요.
 - **ORACLES**에서 룰북 표를 검색·필터하고 개별 또는 조합으로 굴립니다. 현재 Campaign/Dungeon/Room/Character/Monster Notes에 결과를 덧붙일 수 있습니다. Mythic Meaning Tables 49개·4,900항목을 모두 포함합니다. [Oracle 구조·검증](docs/oracles/README.md), [전체 표 inventory](docs/oracles/INVENTORY.md)를 참고하세요.
+- **FATE · CF** 고정 버튼이나 **MYTHIC FATE** 메뉴, `⌘⇧F` / `Ctrl+Shift+F`로 운명 판정 패널을 엽니다. Chaos 1–9, 질문, Odds를 입력하고 Fate Chart·Fate Check 또는 장면 판정을 굴릴 수 있습니다. 실물 주사위 값 직접 입력, Random Event의 Focus + Actions, 최근 판정 20개 및 Notes 추가를 지원합니다. 1600px 이상에서는 패널을 열어 둔 채 다른 기록을 편집할 수 있습니다. [Mythic 규칙·저장·UI 검증](docs/mythic-fate.md)을 참고하세요.
 - 필드별 재굴림 버튼은 제목·입구·특징 등 해당 값만 바꿉니다. 던전 필드의 이전 값은 편집 세션에서 세 번까지 되돌릴 수 있습니다. 저장된 개체의 전체 재굴림과 삭제는 확인 후 적용합니다.
 - 직접 수정한 값에는 `직접 작성`이 표시됩니다. 원문에 해당 표가 없는 필드는 비워 둡니다.
 - 빈 던전에서 시작하려면 **직접 작성**을 누릅니다. 기존 던전에 비어 있는 개요가 있다면 **빈 항목만 생성**으로 채울 수 있습니다. 이미 쓴 값은 유지됩니다.
@@ -47,6 +48,8 @@ npm run preview
 ## 저장
 
 캠페인은 현재 브라우저의 `localStorage`에 즉시 저장됩니다. 저장 키는 `morkborg-codex:v4`, `schemaVersion`은 `4`이며 생성 초안, 선택한 화면과 배치 위치도 복원합니다. 가져온 기존 개인 자료는 별도의 `morkborg-rules:v1` 키를 사용합니다. Oracle 즐겨찾기와 필터는 `morkborg-oracle-preferences:v1`에 별도로 저장하며, Oracle 정의와 임시 굴림 history는 Campaign save에 포함하지 않습니다.
+
+Mythic Fate는 별도입니다. 각 Campaign의 `mythic`에 Chaos·질문·예상 장면·Odds·판정 방식·최근 판정을 자동 저장하고 JSON 내보내기/복제에도 포함합니다. 예전 v4 데이터에는 기본값 Chaos 5를 표시하며 처음 수정할 때 추가합니다. 캠페인 목록에서 사용한 Mythic 상태는 최상위 `AppSave.mythic`에 독립 저장합니다. 이전 판정의 Chaos·Odds·주사위는 현재 설정을 바꾸어도 유지됩니다.
 
 이전 v3·v2·v1 원본과 기존 백업은 유지하고, 변환 전 JSON 백업을 별도로 남긴 뒤 v4를 기록합니다. 구형 캐릭터와 몬스터의 원문·수치·Notes를 보존하고 기존 monsterIds 관계는 명시적인 배치로 변환합니다. 판별 가능한 단일 던전은 `Untitled Campaign`으로 옮깁니다. [저장 구조·마이그레이션·지역 가중치](docs/campaign-persistence.md)에 형식과 한계를 설명했습니다.
 
@@ -69,5 +72,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 [MÖRK BORG Third Party License](https://morkborg.com/license/)
 
 워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 공개된 생성 구조와 출처를 확인하여 참고했습니다. 생성 문구는 사용자가 제공한 룰북의 실제 표에서 가져오며, 위 사이트를 실행 시 호출하지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
+
+Mythic Fate의 작업 흐름은 [공식 Mythic GME Digital](https://jasonholtdigital.itch.io/mythic-gme-digital)의 공개 기능 설명을 참고했습니다. 판정 규칙과 표의 근거는 사용자가 제공한 Mythic Game Master Emulator Second Edition PDF입니다. 이 Codex는 공식 Mythic 앱이 아닙니다.
 
 서체: [Grenze Gotisch](https://github.com/Omnibus-Type/Grenze-Gotisch), [Alegreya](https://github.com/google/fonts/tree/main/ofl/alegreya), [Pretendard](https://github.com/orioncactus/pretendard). 원본 서체 파일과 SIL Open Font License를 `public/fonts`에 함께 보관합니다.

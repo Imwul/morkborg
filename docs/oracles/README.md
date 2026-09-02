@@ -23,7 +23,7 @@ Mythic Meaning Tables는 **49개 / 4,900항목 전체**를 포함합니다. Acti
 
 최종 Registry는 **493표 / 11,780항목**입니다. 자동 굴림 476표, 참고 전용 17표이며, 독립 표를 조합하는 절차는 52개입니다. 전체 inventory 568기록은 이 493표에 보류54·기존 항목 안의 하위표19·조합 참조2를 더한 수입니다.
 
-보류54개는 Core4, FERETORY14, RECLVSE6, SD7, Depths3, Mythic20입니다. 주요 이유는 Fate/Chaos·능력 수정치 같은 사용자 입력, 비복원 카드/달력 상태, 기존 하위표와 중복, 다단 지역 생물 stat block의 미검증 열 배치입니다. 행별 제목과 페이지·구체적인 이유는 전체 inventory에 남겼습니다. Meaning Tables49개에는 보류가 없습니다.
+후속 Mythic Fate 패널에서 Standard Fate Chart, Fate Check의 수정치·결과, Scene Check 등 4개 조건부 절차를 구현했습니다. Registry 493표와 별도이며 [구현·검증](../mythic-fate.md)을 참고하세요. 남은 보류50개는 Core4, FERETORY14, RECLVSE6, SD7, Depths3, Mythic16입니다. 주요 이유는 선택 Chaos 변형·능력 수정치 같은 사용자 입력, 비복원 카드/달력 상태, 기존 하위표와 중복, 다단 지역 생물 stat block의 미검증 열 배치입니다. 행별 제목과 페이지·구체적인 이유는 전체 inventory에 남겼습니다. Meaning Tables49개에는 보류가 없습니다.
 
 ## 구조와 공유 데이터
 
@@ -97,6 +97,6 @@ Oracle 진입 직전의 실제 section을 기준으로 기본 대상을 정합�
 
 기존77개 테스트를 유지하고 Oracle40개를 추가했습니다. 전체117개 통과,0실패,0skip. `npm run build`, `npm run lint`, `git diff --check`도 통과했습니다. 추가 테스트는 전체 ID/범위/출처 검증, d66/d100 전 값,2d6 분포, 좌표 주사위, 조합, 필터·검색·즐겨찾기, 다섯 Notes 대상 append/reload, 교차 캠페인/삭제된 대상 거부, canonical 공유 및 기존 생성 확률 보존을 검사합니다.
 
-원문 ambiguity와 미구현 절차는 inventory 각 행에 구체적으로 남겼습니다. 특히 HERETIC Curse Cure12번은 원문이“do not”에서 잘려 있어 전체 표를 참조용으로 두었습니다. Mythic의 Names24 `Ell`/설명 `El`, Curses59 `Jealously`, Magic Item/Magical Item 제목 차이를 임의로 수정하지 않았습니다. RECLVSE Brute/Beast Archetype Skills는“굴리기”지시와1–6행이 있지만 D6가 생략되어 참고 전용입니다. HERETIC Spinal Husk의6+/11/12 겹침도 수정하지 않고 참고용으로 남겼습니다. RECLVSE/SD 조건부 판정, Mythic Fate/Chaos 행렬과 사용자 목록, 카드의 비복원 추출을 평범한 균등 표로 만들지 않았습니다.
+원문 ambiguity와 미구현 절차는 inventory 각 행에 구체적으로 남겼습니다. 특히 HERETIC Curse Cure12번은 원문이“do not”에서 잘려 있어 전체 표를 참조용으로 두었습니다. Mythic의 Names24 `Ell`/설명 `El`, Curses59 `Jealously`, Magic Item/Magical Item 제목 차이를 임의로 수정하지 않았습니다. RECLVSE Brute/Beast Archetype Skills는“굴리기”지시와1–6행이 있지만 D6가 생략되어 참고 전용입니다. HERETIC Spinal Husk의6+/11/12 겹침도 수정하지 않고 참고용으로 남겼습니다. RECLVSE/SD 조건부 판정, Mythic 사용자 목록, 카드의 비복원 추출은 보류 상태입니다. Standard Fate/Chaos 행렬은 별도 Mythic Fate 패널에서 입력값과 원문 경계를 적용합니다.
 
 고정적인 본문 중 보류된 표는 목록과 이유를 제공하며 실제 구현 수에 넣지 않습니다. 웹사이트 스크래핑이나 새 NPC/Encounter/battle/map/cloud/auth 기능은 추가하지 않았습니다. 빌드는 성공하지만 기존 단일 JS chunk가500kB를 초과한다는 크기 경고는 남아 있습니다.
