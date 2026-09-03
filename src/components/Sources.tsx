@@ -42,11 +42,11 @@ export function Sources({
         <BookOpen size={39} strokeWidth={1} />
       </div>
       <details className="sheet-source">
-        <summary>개인 자료 안내</summary>
+        <summary>자료 저장 안내</summary>
         <p>
-          제공한 룰북의 표는 개인용 자료로 이 기기에서 불러옵니다. 공개 코드
-          저장소에는 원본 PDF와 책에서 추출한 생성표를 포함하지 않습니다. 생성된
-          캠페인 기록은 JSON으로 별도 보관할 수 있습니다.
+          제공한 룰북의 표와 번역을 서버에서 자동으로 불러와 이 브라우저에
+          저장합니다. 캠페인과 플레이 기록은 브라우저에 자동 저장하며, JSON으로
+          별도 백업할 수 있습니다.
         </p>
       </details>
       {loading && <p>자료를 불러오는 중…</p>}
@@ -140,30 +140,32 @@ export function Sources({
             노트에 기록할 수 있습니다.
           </p>
           <div className="solo-grid">
-            <div>
-              <label htmlFor="solo-modifier">
-                능력치 보정
-                <Input
-                  id="solo-modifier"
-                  aria-label="솔로 능력치 보정"
-                  type="number"
-                  min={-99}
-                  max={99}
-                  value={modifier}
-                  onChange={(e) => setModifier(Number(e.target.value) || 0)}
-                />
-              </label>
-              <label>
-                난이도
-                <select
-                  aria-label="솔로 난이도"
-                  value={dr}
-                  onChange={(e) => setDr(Number(e.target.value))}
-                >
-                  <option value={12}>DR 12 — 기본</option>
-                  <option value={10}>DR 10 — 선택 규칙</option>
-                </select>
-              </label>
+            <section className="solo-check" aria-label="2d20 판정 설정">
+              <div className="solo-controls">
+                <label htmlFor="solo-modifier">
+                  능력치 보정
+                  <Input
+                    id="solo-modifier"
+                    aria-label="솔로 능력치 보정"
+                    type="number"
+                    min={-99}
+                    max={99}
+                    value={modifier}
+                    onChange={(e) => setModifier(Number(e.target.value) || 0)}
+                  />
+                </label>
+                <label>
+                  난이도
+                  <select
+                    aria-label="솔로 난이도"
+                    value={dr}
+                    onChange={(e) => setDr(Number(e.target.value))}
+                  >
+                    <option value={12}>DR 12 — 기본</option>
+                    <option value={10}>DR 10 — 선택 규칙</option>
+                  </select>
+                </label>
+              </div>
               <Button
                 className="btn primary"
                 onClick={() => {
@@ -190,28 +192,30 @@ export function Sources({
               >
                 <Dices size={15} /> 2d20 판정
               </Button>
-            </div>
-            <div>
-              <label>
-                질문의 가능성
-                <select
-                  aria-label="질문 가능성"
-                  value={odds}
-                  onChange={(e) => setOdds(Number(e.target.value))}
-                >
-                  {[
-                    [90, '거의 확실함'],
-                    [75, '높음'],
-                    [50, '불확실함'],
-                    [25, '낮음'],
-                    [10, '거의 불가능함'],
-                  ].map(([n, label]) => (
-                    <option key={n} value={n}>
-                      {label} — {n}%
-                    </option>
-                  ))}
-                </select>
-              </label>
+            </section>
+            <section className="solo-check" aria-label="d100 질문 판정 설정">
+              <div className="solo-controls solo-controls-single">
+                <label>
+                  질문의 가능성
+                  <select
+                    aria-label="질문 가능성"
+                    value={odds}
+                    onChange={(e) => setOdds(Number(e.target.value))}
+                  >
+                    {[
+                      [90, '거의 확실함'],
+                      [75, '높음'],
+                      [50, '불확실함'],
+                      [25, '낮음'],
+                      [10, '거의 불가능함'],
+                    ].map(([n, label]) => (
+                      <option key={n} value={n}>
+                        {label} — {n}%
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
               <Button
                 className="btn"
                 onClick={() => {
@@ -227,7 +231,7 @@ export function Sources({
                 원문 표의 ‘이하(≤)’를 적용합니다. 같은 페이지 설명의 ‘미만’과
                 표기가 다릅니다.
               </p>
-            </div>
+            </section>
           </div>
           {result && (
             <div className="solo-result">
@@ -261,10 +265,10 @@ export function Sources({
             참조합니다.
           </p>
           <p>
-            희귀 조우는 Depths에서 허용하는 「The Monster Approaches」 대안과
-            지역 특성·발견 표를 사용합니다. 방과 NPC의 구성에는 Defilement 및
-            RECLVSE 표를 참조합니다. 여러 책의 결과를 함께 보여 주는 작업
-            방식이며, 하나의 책에 실린 단일 절차라고 표시하지 않습니다.
+            희귀 조우는 Sölitary Defilement의 d8+DR 표를 사용합니다. 방과 NPC의
+            구성에는 Defilement 및 RECLVSE 표를 참조합니다. 여러 책의 결과를
+            함께 보여 주는 작업 방식이며, 하나의 책에 실린 단일 절차라고
+            표시하지 않습니다.
           </p>
           <p>
             FERETORY의 HP는 본문의 ‘피해 주사위 한 번 ×2’를 따릅니다. 괄호의 2dN

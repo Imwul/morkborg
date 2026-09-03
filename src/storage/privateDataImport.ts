@@ -32,6 +32,7 @@ import {
   privateImportCompleted,
   type UpdateConnection,
 } from './privateUpdateConnection';
+import { publishedConnectionSchema } from './publishedDataConnection';
 
 export type ParsedPrivateData = Partial<{
   library: RulesPack;
@@ -99,7 +100,15 @@ export async function importPrivateData(
         revision: 0,
       };
   }
-  await persist(merged);
+  const stored: PrivateData = { ...merged };
+  if (announce) {
+    const server = publishedConnectionSchema.safeParse(
+      await readPrivateData('serverConnection'),
+    );
+    if (server.success)
+      stored.serverConnection = { ...server.data, revision: 0 };
+  }
+  await persist(stored);
   if (merged.library) setRules(merged.library);
   if (merged.oracles) setOraclePack(merged.oracles);
   if (merged.fateChart) setFateChart(merged.fateChart);
@@ -114,7 +123,9 @@ export async function exportPrivateData() {
     fateChart = getFateChart();
   if (!library && !oracles && !fateChart)
     throw new Error('먼저 개인 자료를 가져오세요.');
-  const savedConnection = await readPrivateData('updateConnection');
+  const savedConnection = (await readPrivateData('serverConnection'))
+    ? undefined
+    : await readPrivateData('updateConnection');
   const connection = savedConnection
     ? parseUpdateConnection(savedConnection)
     : undefined;

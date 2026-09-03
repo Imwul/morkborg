@@ -14,8 +14,9 @@ export function TranslationDataNotice() {
     >
       <strong>한국어 번역 자료가 아직 적용되지 않았습니다.</strong>
       <p>
-        최신 개인 자료 JSON을 가져오면 기존 던전·캐릭터·몬스터·Oracle에도 번역이
-        표시됩니다. 저장한 생성 결과와 직접 수정한 내용은 유지됩니다.
+        서버의 최신 번역 자료를 확인하고 있습니다. 자동 확인이 끝나도 번역이
+        없다면 아래에서 다시 확인하세요. 저장한 생성 결과와 직접 수정한 내용은
+        유지됩니다.
       </p>
       <PrivateDataTools />
     </aside>

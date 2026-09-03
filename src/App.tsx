@@ -66,7 +66,7 @@ import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
 import { PrivateDataTools } from './components/PrivateDataTools';
 import { TranslationDataNotice } from './components/TranslationDataNotice';
-import { startPrivateUpdates } from './storage/privateUpdates';
+import { startPublishedDataUpdates } from './storage/publishedData';
 import { registerCodexTools } from './webmcp';
 const nav = [
   { key: 'overview', label: '개요', icon: BookOpen },
@@ -184,7 +184,7 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
   return results.slice(0, 25);
 }
 export default function App() {
-  useEffect(startPrivateUpdates, []);
+  useEffect(startPublishedDataUpdates, []);
   const rules = useRules();
   const { save, error, blocked, recovery } = useSave();
   const c =

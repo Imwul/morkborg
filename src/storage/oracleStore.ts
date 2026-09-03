@@ -5,6 +5,7 @@ import { buildOracleRegistry } from '../data/oracles';
 import { useRules } from './rulesStore';
 import { validateOracleRegistry } from '../validation/oracleValidation';
 import { readPrivateData } from './privateData';
+import { loadPublishedData } from './publishedData';
 const tableSchema = z.object({
   id: z.string().min(1),
   sourceBookId: z.string().min(1),
@@ -109,6 +110,12 @@ export async function loadOraclePack() {
     }
     if (state.pack) return;
     try {
+      if (typeof window !== 'undefined') {
+        await loadPublishedData();
+        if (state.pack) return;
+        if (!import.meta.env?.DEV)
+          throw new Error('서버 자료를 다시 확인해 주세요.');
+      }
       const response = await fetch('/rules/oracles.json');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data: unknown = await response.json();
@@ -118,7 +125,7 @@ export async function loadOraclePack() {
         state = {
           pack: null,
           loading: false,
-          error: `이 브라우저에 Oracle 자료가 없습니다. 개인 자료 JSON을 가져오세요. ${e instanceof Error ? e.message : ''}`,
+          error: `Oracle 자료를 불러오지 못했습니다. 서버 자료를 다시 확인해 주세요. ${e instanceof Error ? e.message : ''}`,
         };
     }
     emit();

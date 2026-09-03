@@ -2,6 +2,7 @@ import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { FATE_ODDS, type FateChart } from '../domain/mythic';
 import { readPrivateData } from './privateData';
+import { loadPublishedData } from './publishedData';
 const cell = z
   .object({
     exceptionalYes: z.number().int().min(1).max(100).nullable(),
@@ -59,6 +60,12 @@ export async function loadFateChart() {
     }
     if (state.chart) return;
     try {
+      if (typeof window !== 'undefined') {
+        await loadPublishedData();
+        if (state.chart) return;
+        if (!import.meta.env?.DEV)
+          throw new Error('Rulebook service unavailable.');
+      }
       const response = await fetch('/rules/mythic-fate.json');
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const data: unknown = await response.json();
@@ -69,7 +76,7 @@ export async function loadFateChart() {
           chart: null,
           loading: false,
           error:
-            '이 브라우저에 Fate Chart 자료가 없습니다. 개인 자료 JSON을 가져오세요. Fate Check는 바로 사용할 수 있습니다.',
+            'Fate Chart 자료를 불러오지 못했습니다. 서버 자료를 다시 확인해 주세요. Fate Check는 바로 사용할 수 있습니다.',
         };
     }
     listeners.forEach((f) => f());

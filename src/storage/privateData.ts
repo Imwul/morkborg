@@ -2,7 +2,8 @@ export type PrivateDataKey =
   | 'library'
   | 'oracles'
   | 'fateChart'
-  | 'updateConnection';
+  | 'updateConnection'
+  | 'serverConnection';
 export type PrivateData = Partial<Record<PrivateDataKey, unknown>>;
 
 function openDatabase(): Promise<IDBDatabase> {

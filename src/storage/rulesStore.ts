@@ -2,6 +2,7 @@ import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { readPrivateData } from './privateData';
 import { mergeRuleTranslations } from './ruleTranslations';
+import { loadPublishedData } from './publishedData';
 export interface RuleEntry {
   text: string;
   weight: number;
@@ -230,6 +231,12 @@ export function loadRules(): Promise<void> {
       /* Retry the bundled local source if a saved pack is obsolete. */
     }
     try {
+      if (typeof window !== 'undefined') {
+        await loadPublishedData();
+        if (state.pack) return;
+        if (!import.meta.env?.DEV)
+          throw new Error('서버 자료를 다시 확인해 주세요.');
+      }
       const response = await fetch('/rules/library.json');
       if (!response.ok) throw new Error(`자료 응답: HTTP ${response.status}`);
       const data: unknown = await response.json();
@@ -239,7 +246,7 @@ export function loadRules(): Promise<void> {
         state = {
           pack: null,
           loading: false,
-          error: `생성표를 불러오지 못했습니다. 다시 불러오거나 자료 및 규칙에서 개인 자료를 가져오세요. ${error instanceof Error ? error.message : ''}`,
+          error: `생성표를 불러오지 못했습니다. 자료 및 규칙에서 서버 자료를 다시 확인해 주세요. ${error instanceof Error ? error.message : ''}`,
         };
         emit();
       }

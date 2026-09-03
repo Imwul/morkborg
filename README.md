@@ -11,7 +11,7 @@ npm ci
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
-브라우저에서 <http://127.0.0.1:5173>을 엽니다. 계정, 서버 데이터베이스, 외부 생성 API는 사용하지 않습니다. 로컬 서버를 실행한 상태에서 사용하며, 설치형 오프라인 PWA는 아닙니다.
+브라우저에서 <http://127.0.0.1:5173>을 엽니다. 플레이 기록은 브라우저에 저장하며 계정, 서버 데이터베이스, 외부 생성 API는 사용하지 않습니다. 공통 룰북 자료는 이 사이트의 서버에서 자동으로 불러옵니다. 로컬 서버를 실행한 상태에서 사용하며, 설치형 오프라인 PWA는 아닙니다.
 
 ```sh
 npm test
@@ -23,15 +23,15 @@ npm run preview
 
 ## 룰북 자료
 
-**이 저장소에는 원본 PDF와 책에서 추출한 표가 포함되지 않습니다.** 사용자가 제공한 책의 표를 개인용 JSON으로 변환하여 로컬에서 사용합니다. 직접 작성, 저장된 캠페인 편집 및 JSON 가져오기는 자료 없이도 가능합니다.
+제공한 PDF의 실제 생성표와 한국어 번역을 서버에서 자동으로 내려받습니다. **최초 접속에도 JSON 가져오기가 필요하지 않습니다.** `/api/rulebook-data` 한 요청으로 룰북·Oracle·Fate Chart를 검증한 뒤 브라우저 IndexedDB에 함께 저장합니다. 이후 접속은 저장 자료를 먼저 사용하고, 앱 시작·5분 간격·탭/네트워크 복귀 때 새 버전을 확인합니다. `자료 및 규칙 → 서버 자료`에서 자동 확인을 끄거나 지금 확인할 수 있습니다.
 
-이 작업 환경에는 `public/rules/library.json`에 기존 생성표, `public/rules/oracles.json`에 추가 Oracle 개인 자료, `public/rules/mythic-fate.json`에 검증된 Standard Fate Chart가 준비되어 있습니다. 세 파일을 함께 보관하세요. 새로 복제한 저장소에서는 자신의 자료 파일을 해당 경로에 복사하세요. 기존 `library.json`은 **자료 및 규칙 → 룰북 자료 JSON 가져오기**로도 불러올 수 있습니다. PDF 자동 해석 기능은 아닙니다. Fate Chart 파일이 없어도 Chaos 편집, Fate Check, Scene Check는 사용할 수 있습니다.
+기존 영문·주사위 범위·가중치·직접 추가한 내용은 보존하면서 일치하는 한국어 번역과 누락된 표·개체를 보충합니다. 캠페인, 생성 결과, 직접 편집한 문장, Chaos는 자료 갱신으로 바뀌지 않습니다. JSON은 `자료 백업 · 복원`에서 선택적으로 사용합니다. [서버 자료 구조와 검증](docs/private-data.md)을 참고하세요.
 
-**Vercel처럼 Git에서 빌드한 배포에는 개인 자료가 포함되지 않습니다.** 해당 사이트의 **개인 자료 JSON 가져오기**에서 세 파일을 함께 선택하거나 개인 자료 묶음 하나를 가져오세요. 이 버튼은 Fate/Oracle의 자료 누락 안내와 **자료 및 규칙**에 있습니다. 파일 내용은 서버로 전송하지 않고 해당 주소의 브라우저 IndexedDB에 저장합니다. 한 번 가져오면 새로고침 후에도 사용할 수 있습니다. **개인 자료 전체 백업**은 현재 자료를 묶음 파일로 저장합니다. localhost·배포 주소·다른 브라우저는 저장소가 다르므로 각각 한 번씩 가져와야 합니다. [배포 자료 복구와 검증](docs/private-data.md)을 참고하세요.
+원본 PDF·평문 JSON·발행 키는 Git과 정적 빌드에서 제외합니다. Git에는 암호화된 발행 자산이 들어가며 Vercel Function이 서버 환경변수 `MORKBORG_DATA_KEY`로 해독합니다. 클라이언트에는 복호화 키를 보내지 않습니다. 서버의 자료 API는 별도 로그인 없이 이 사이트에서 사용합니다.
 
-자료 JSON은 `schemaVersion: 1`, `books`, `tables`, `creatures`, `outcasts`, `notes`를 갖습니다. 정확한 타입과 유효성 검사는 `src/storage/rulesStore.ts`에 있습니다. 원본 파일은 `.gitignore`로 제외되며, production build는 `dist/rules`를 제거하고 비공개 원문·발행 키 유출을 검사합니다. 공개 코드에는 책 내용 재배포 권한이 포함되지 않습니다.
+로컬 작업 환경은 `outputs/private-update-publisher.json`의 발행 키를 Vite 서버에서 읽거나 `MORKBORG_DATA_KEY`를 사용할 수 있습니다. 서버 자료가 없는 개발 환경은 Git에서 제외된 `public/rules/library.json`, `oracles.json`, `mythic-fate.json`을 fallback으로 읽습니다. 배포에서 이 정적 경로에 의존하지 않습니다. 새 자료를 발행할 때는 개인 원문·번역 자료를 수정하고 `npm run data:publish` 후 Git/Vercel 배포를 수행합니다. 컴퓨터의 파일 변경 자체를 감시하는 기능은 아닙니다.
 
-자동 확인 연결이 포함된 개인 JSON을 한 번 가져오면 **이 사이트에 발행된** 번역·개체 자료를 시작 시와 5분 간격으로 확인합니다. 컴퓨터의 JSON 파일을 감시하는 기능은 아닙니다. 자료를 수정한 뒤 발행자가 `npm run data:publish`와 배포를 수행해야 새 버전이 전달됩니다. [실제 자동 갱신 범위와 브라우저 검증](docs/private-data.md)을 참고하세요.
+자료 JSON은 `schemaVersion: 1`, `books`, `tables`, `creatures`, `outcasts`, `notes`를 갖습니다. 정확한 타입과 검증은 `src/storage/rulesStore.ts`에 있습니다. `npm run build`는 평문 자료와 발행 키가 정적 결과물에 들어가지 않았는지도 검사합니다.
 
 ## 사용
 

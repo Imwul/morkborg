@@ -51,13 +51,13 @@ Eight-book 조사에는 Full Edition의 Rotblack Sludge, FERETORY의 여행·여
 
 ## 자동 자료 갱신
 
-읽는 곳은 로컬 Downloads가 아니라 같은 배포 origin의 `/private-updates/latest.json`과 암호화 JSON입니다. 연결·복호화 키가 들어간 개인 JSON을 브라우저마다 한 번 가져오며 이후 시작·5분 간격·탭/네트워크 복귀 때 확인합니다. 5분 이내 중복 확인은 생략합니다. 파일 변경만으로 배포가 바뀌지는 않습니다. 발행자가 `npm run data:publish` 후 배포해야 합니다.
+`/api/rulebook-data`에서 서버 자료를 자동으로 내려받습니다. 최초 JSON import 없이 룰북·Oracle·Fate Chart가 채워지며, 기존 캐시는 먼저 사용합니다. 이후 시작·5분 간격·탭/네트워크 복귀 때 새 버전을 확인하고 5분 이내의 중복 확인은 생략합니다. 발행자가 `npm run data:publish` 후 배포해야 하며 로컬 파일 변경을 감시하지 않습니다.
 
-자동 반영 범위는 원문과 ID가 일치하는 한국어, 신규 검증 개체, Eat Prey Kill metadata입니다. 기존 Oracle에 새 표/항목을 넣거나 설치된 Fate Chart를 교체하는 기능은 아닙니다. File System Access API 및 앱 코드의 개인 절대 경로는 없습니다. 지원 API가 없으면 `수동 가져오기`, 연결 전에는 `미연결`, 요청 실패는 `확인 실패`로 표시합니다. [세부 감사](private-data.md)를 참고하세요.
+기존 영어·주사위 규칙과 사용자 항목을 보존하고 한국어, 누락 표, 신규 검증 개체, Eat Prey Kill metadata를 보충합니다. 표의 선택 범위/override도 누락분을 보충하되 기존 사용자 값을 유지합니다. 키는 서버 환경변수에만 두고 응답에 포함하지 않습니다. Campaign 저장은 기존 localStorage를 유지합니다. [저장·갱신·경합 검증](private-data.md)을 참고하세요.
 
 ## 검증
 
-기존 테스트를 유지하고 NPC/Encounter/관계 테스트 28개와 source/card 렌더링 테스트 3개를 추가했습니다. 전체 **202개 통과, 실패 0, 건너뜀 0**을 확인했습니다. 별도 읽기 전용 검토에서도 28개 관계 테스트를 다시 통과했고 추가 dangling reference 문제를 발견하지 못했습니다.
+기존 테스트를 유지하고 NPC/Encounter/관계 테스트 28개와 source/card 렌더링 테스트 3개를 추가했습니다. NPC/조우 단계에서 **202개 통과, 실패 0, 건너뜀 0**을 확인했습니다. 별도 읽기 전용 검토에서도 28개 관계 테스트를 다시 통과했고 추가 dangling reference 문제를 발견하지 못했습니다.
 
 실제 로컬 UI에서 다음을 수행했습니다.
 

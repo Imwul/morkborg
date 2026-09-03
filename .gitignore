@@ -37,7 +37,7 @@ next-env.d.ts
 /outputs/
 /work/
 
-# User-supplied rulebook transformations stay on the user's device.
+# PDFs and plaintext rulebook sources stay out of Git.
 /public/rules/
 *.pdf
 *.tsbuildinfo

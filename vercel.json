@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/rulebook-data.ts": {
+      "includeFiles": "public/private-updates/**"
+    }
+  }
+}

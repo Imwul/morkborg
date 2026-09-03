@@ -2415,18 +2415,38 @@ h1 {
 }
 .solo-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 35px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 35px;
   margin: 22px 0;
 }
-.solo-grid > div {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.solo-check {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  min-width: 0;
+}
+.solo-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px;
+}
+.solo-controls-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+.solo-grid input {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.5;
 }
 .solo-grid .btn {
-  align-self: flex-start;
-  margin-top: auto;
+  place-self: start;
+  margin: 0;
+}
+.solo-grid .help-line {
+  margin: 0;
 }
 .solo-result {
   padding: 22px;
