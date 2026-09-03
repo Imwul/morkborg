@@ -2675,10 +2675,10 @@ h1 {
 .monster-sheet > .monster-story {
   grid-column: 2/-1;
   grid-row: 1;
-  padding: 28px 32px;
+  padding: 20px 24px;
 }
 .monster-sheet > .monster-story .field-value {
-  font: 600 clamp(23px, 2vw, 44px)/1.25 var(--font-reading);
+  font: 600 clamp(19px, 1.5vw, 30px)/1.4 var(--font-reading);
 }
 .monster-sheet > .monster-story .generated-translation {
   font-size: 14px;
@@ -2697,9 +2697,6 @@ h1 {
 }
 .monster-sheet > .monster-identity-grid:first-child .field-value {
   font: 800 clamp(26px, 2.8vw, 58px)/1.2 var(--font-display);
-}
-.monster-sheet > .character-section:last-child {
-  grid-column: 1/-1;
 }
 @media (max-width: 1200px) {
   .monster-sheet > .monster-story {
@@ -2958,4 +2955,132 @@ button:disabled {
 }
 .oracle-result-single {
   grid-template-columns: minmax(0, 1fr);
+}
+
+/* Library cards expose essentials; sources and longer descriptions open on demand. */
+.oracle-cards {
+  gap: 8px;
+}
+.oracle-card {
+  position: relative;
+  padding: 12px 14px;
+  border-color: var(--foreground);
+}
+.oracle-card.selected {
+  background: #ffe900;
+  box-shadow: inset 0 3px #111;
+}
+.oracle-card .oracle-title {
+  margin: 5px 0 0;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.oracle-title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.oracle-card .icon-btn {
+  position: relative;
+  z-index: 1;
+}
+.oracle-card:has(.oracle-title:focus-visible) {
+  outline: 3px solid #111;
+  outline-offset: 2px;
+}
+.campaign-card,
+.dungeon-card {
+  min-height: 0;
+  padding: 18px;
+}
+.campaign-card .card-title,
+.dungeon-card .card-title {
+  margin-top: 12px;
+}
+.campaign-card > p,
+.dungeon-card > p {
+  margin: 8px 0;
+}
+.card-counts {
+  margin-top: 12px;
+  padding-bottom: 10px;
+}
+.card-actions {
+  margin-top: 12px;
+  padding-top: 8px;
+  gap: 6px;
+}
+.new-campaign,
+.create-card {
+  min-height: 150px;
+  padding: 20px;
+}
+.new-campaign {
+  align-items: center;
+  justify-content: center;
+}
+.card-details {
+  font-size: 13px;
+  margin-top: 10px;
+}
+.card-details summary,
+.private-update-status summary {
+  cursor: pointer;
+}
+.card-details p {
+  margin: 8px 0;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.private-update-status {
+  margin-top: 12px;
+}
+.private-update-status .checkbox-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+.private-update-status input[type='checkbox'] {
+  accent-color: #111;
+  width: 18px;
+  height: 18px;
+}
+.oracle-page .page-heading {
+  margin-bottom: 24px;
+}
+.oracle-back {
+  margin-bottom: 16px;
+}
+.oracle-filters {
+  grid-template-columns: minmax(0, 1fr);
+}
+.oracle-page .oracle-filters .oracle-search {
+  grid-column: auto;
+}
+@media (min-width: 1800px) {
+  .oracle-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+  }
+}
+.monster-generation-controls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+.monster-generation-controls label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  flex: 1 1 240px;
+  max-width: 480px;
+  min-width: 0;
+}
+.monster-generation-controls select {
+  width: 100%;
+  max-width: 100%;
 }

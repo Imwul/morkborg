@@ -1,4 +1,9 @@
-import type { Monster, MonsterAttack, MonsterText } from '../domain/types';
+import type {
+  Monster,
+  MonsterAttack,
+  MonsterText,
+  RegionId,
+} from '../domain/types';
 import { id, now, pick, rollDie } from './random';
 import { entries, rollTable, scalarText } from './tables';
 import { getRules, sourceCitation } from '../storage/rulesStore';
@@ -241,7 +246,7 @@ export function loadMonsterPreset(
   const additional = record.additionalSource as
     | { pdfPage?: number }
     | undefined;
-  const source = `${record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}`;
+  const source = `${record.book === 'feretory' ? 'MÖRK BORG CULT: FERETORY · Eat Prey Kill' : record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}`;
   for (const key of [
     'name',
     'concept',
@@ -269,7 +274,17 @@ export function loadMonsterPreset(
   });
   if (Array.isArray(record.attackOptions) && record.attackOptions.length)
     m.attacks = record.attackOptions.map(attack);
-  else if (record.attack || record.damage) m.attacks = [attack(record)];
+  else if (record.attack || record.damage)
+    m.attacks = [
+      attack({
+        ...record,
+        description:
+          record.attackDescription ??
+          record.attackEffect ??
+          record.effect ??
+          '',
+      }),
+    ];
   const table = record.attackTable as
     | { entries?: Record<string, unknown>[] }
     | undefined;
@@ -314,4 +329,44 @@ export function loadMonsterPreset(
   );
   m.generation = { system: 'preset', rolls: {} };
   return m;
+}
+
+const epkRegionKeys: Record<RegionId, string> = {
+  galgenbeck: 'tveland',
+  sarkash: 'sarkash',
+  'graven-tosk': 'gravenTosk',
+  grift: 'grift',
+  kergus: 'kergus',
+  wastland: 'wastland',
+  'valley-undead': 'valley',
+};
+export function eatPreyKillCreatures(region: RegionId) {
+  return (getRules()?.creatures ?? []).filter(
+    (record) =>
+      record.book === 'feretory' &&
+      record.section === 'Eat Prey Kill' &&
+      record.regionKey === epkRegionKeys[region] &&
+      typeof record.hp === 'number' &&
+      record.presetEligible !== false,
+  );
+}
+export function generateEatPreyKillMonster(
+  campaignId: string,
+  region: RegionId,
+): Monster {
+  const records = eatPreyKillCreatures(region);
+  if (!records.length)
+    throw new Error('Eat Prey Kill 지역 자료를 먼저 갱신하세요.');
+  const record = pick(records);
+  const monster = loadMonsterPreset(campaignId, record);
+  monster.region = region;
+  monster.generation = {
+    system: 'epk',
+    rolls: { entry: Number(record.roll) || 0 },
+  };
+  const link = scalarText(record.depthsReference);
+  if (link)
+    for (const key of Object.keys(monster.sources ?? {}))
+      monster.sources![key] += ` · ${link}`;
+  return monster;
 }

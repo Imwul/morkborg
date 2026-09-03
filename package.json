@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/check-public-build.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "tsx --test tests/*.test.ts",
-    "lint": "oxlint src"
+    "lint": "oxlint src",
+    "data:publish": "node scripts/publish-private-update.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

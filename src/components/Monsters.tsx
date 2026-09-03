@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import type { Campaign, FieldSpec, Monster } from '../domain/types';
+import type { Campaign, FieldSpec, Monster, RegionId } from '../domain/types';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { useRules } from '../storage/rulesStore';
 import {
@@ -26,12 +26,15 @@ import {
   canRerollMonsterHp,
   usesFeretory,
   generateMonster,
+  generateEatPreyKillMonster,
+  eatPreyKillCreatures,
   loadMonsterPreset,
   patchMonsterScalar,
   rerollMonsterField,
   rerollMonsterLinked,
   rerollMonsterSpecial,
 } from '../generators/monster';
+import { regions, regionById } from '../data/regions';
 import { id } from '../generators/random';
 import { Field } from './Field';
 import { Translation } from './Translation';
@@ -61,11 +64,24 @@ export function Monsters({
   const target = validMonsterTarget(c, c.workspace.monsterTarget);
   const dungeon = c.dungeons.find((d) => d.id === target?.dungeonId);
   const room = dungeon?.rooms.find((r) => r.id === target?.roomId);
+  const generationMode =
+    c.workspace.monsterGenerationMode ??
+    (selected?.generation?.system === 'feretory' ? 'tma' : 'epk');
+  const generationRegion =
+    c.workspace.monsterRegion ??
+    selected?.region ??
+    dungeon?.region ??
+    'sarkash';
+  const epkAvailable = eatPreyKillCreatures(generationRegion).length > 0;
+  const generatorReady =
+    !!rules.pack && (generationMode === 'tma' || epkAvailable);
   const [showEmpty, setShowEmpty] = useState(false);
   const [quantity, setQuantity] = useState(1),
     [placementNotes, setPlacementNotes] = useState('');
   const presets =
-    rules.pack?.creatures.filter((r) => typeof r.hp === 'number') ?? [];
+    rules.pack?.creatures.filter(
+      (r) => typeof r.hp === 'number' && r.presetEligible !== false,
+    ) ?? [];
   const select = (monsterId: string | null) =>
     changeWorkspace(c.id, {
       section: 'monsters',
@@ -111,11 +127,17 @@ export function Monsters({
       '이름·외형·능력치·공격 피해·욕망·특수능력을 새로 생성합니다. 직접 수정한 생성값은 바뀝니다. 몬스터 노트와 기존 배치는 유지됩니다.',
       () =>
         edit((m) =>
-          Object.assign(m, generateMonster(c.id), {
-            id: m.id,
-            createdAt: m.createdAt,
-            notes: m.notes,
-          }),
+          Object.assign(
+            m,
+            generationMode === 'epk'
+              ? generateEatPreyKillMonster(c.id, generationRegion)
+              : generateMonster(c.id),
+            {
+              id: m.id,
+              createdAt: m.createdAt,
+              notes: m.notes,
+            },
+          ),
         ),
     );
   }
@@ -225,6 +247,48 @@ export function Monsters({
       </section>
     );
   }
+  const generationControls = (
+    <div className="monster-generation-controls">
+      <label>
+        생성 방식
+        <select
+          aria-label="몬스터 생성 방식"
+          value={generationMode}
+          onChange={(e) =>
+            changeWorkspace(c.id, {
+              monsterGenerationMode: e.target.value as 'epk' | 'tma',
+            })
+          }
+        >
+          <option value="epk">Eat Prey Kill · 지역 생물</option>
+          <option value="tma">The Monster Approaches · 괴물 생성</option>
+        </select>
+      </label>
+      {generationMode === 'epk' && (
+        <label>
+          지역
+          <select
+            aria-label="몬스터 생성 지역"
+            value={generationRegion}
+            onChange={(e) =>
+              changeWorkspace(c.id, {
+                monsterRegion: e.target.value as RegionId,
+              })
+            }
+          >
+            {regions.map((region) => (
+              <option key={region.id} value={region.id}>
+                {region.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+      {generationMode === 'epk' && !epkAvailable && (
+        <p>Eat Prey Kill 자료를 갱신하면 지역 생물을 생성할 수 있습니다.</p>
+      )}
+    </div>
+  );
   if (!selected)
     return (
       <>
@@ -236,10 +300,15 @@ export function Monsters({
             </h1>
             <p>이름과 능력치를 기록하고, 던전과 방에 머물 자리를 정하세요.</p>
           </div>
-          <Button className="btn primary" onClick={create}>
+          <Button
+            className="btn primary"
+            onClick={create}
+            disabled={!generatorReady}
+          >
             <Plus size={16} />새 몬스터
           </Button>
         </div>
+        {generationControls}
         {draft && (
           <button className="resume-candidate" onClick={() => select(draft.id)}>
             <Dices size={21} />
@@ -272,20 +341,8 @@ export function Monsters({
               </button>
               <Translation text={m.name} />
               <p>
-                HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale} ·{' '}
-                {m.armor || '방어구 미기록'}
+                HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale}
               </p>
-              <Translation text={m.armor} />
-              <p className="monster-attack-summary">
-                {m.attacks
-                  .map((a) => [a.name, a.damage].filter(Boolean).join(' · '))
-                  .join(' / ') || '공격 미기록'}
-              </p>
-              <Translation
-                text={m.attacks
-                  .map((a) => [a.name, a.damage].filter(Boolean).join(' · '))
-                  .join(' / ')}
-              />
               <div className="card-actions">
                 <Button className="btn ghost" onClick={() => select(m.id)}>
                   몬스터 열기
@@ -343,7 +400,11 @@ export function Monsters({
           </p>
         </div>
         <div className="actions">
-          <Button className="btn" disabled={!rules.pack} onClick={randomize}>
+          <Button
+            className="btn"
+            disabled={!generatorReady}
+            onClick={randomize}
+          >
             <Dices size={16} />
             몬스터 전체 재굴림
           </Button>
@@ -361,13 +422,34 @@ export function Monsters({
           )}
         </div>
       </div>
+      {generationControls}
       <details className="sheet-source">
         <summary>생성 규칙과 출처</summary>
-        <p>
-          FERETORY · The Monster Approaches. 외형과 능력치는 같은 A/B/C 결과를
-          사용합니다. 이름은 기본 룰북의 이름표를 사용합니다. 공격명·독립
-          행동·약점·전리품은 직접 작성합니다.
-        </p>
+        {selected.generation?.system === 'epk' ? (
+          <>
+            <p>
+              FERETORY · Eat Prey Kill ·{' '}
+              {selected.region && regionById(selected.region).name}. 해당
+              지역에서 전투 수치가 명시된 생물을 무작위로 고르고, 책의 능력치와
+              특성을 함께 불러옵니다. 수치가 없는 참조 항목은 자동 전투 개체에서
+              제외합니다.
+            </p>
+            <p>{selected.sources?.name}</p>
+            <p>
+              Sölitary Depths의 일치하는 지역 항목에는 원문 PDF·쪽수 참조를 함께
+              보관합니다. Galgenbeck은 Tveland를 참조하며, Grift는 Eat Prey
+              Kill의 자체 지역 표를 사용합니다.
+            </p>
+          </>
+        ) : isFeretory ? (
+          <p>
+            FERETORY · The Monster Approaches. 외형과 능력치는 같은 A/B/C 결과를
+            사용합니다. 이름은 기본 룰북 이름표를 사용하며, 공격명·독립
+            행동·약점·전리품은 직접 작성합니다.
+          </p>
+        ) : (
+          <p>{selected.sources?.name || '직접 작성한 몬스터입니다.'}</p>
+        )}
       </details>
       {!rules.pack && (
         <p className="source-notice">
@@ -376,48 +458,58 @@ export function Monsters({
         </p>
       )}
       {!saved && presets.length > 0 && (
-        <label className="preset-select">
-          책에 실린 몬스터 불러오기
-          <select
-            aria-label="룰북 몬스터 선택"
-            value=""
-            onChange={(e) => {
-              const record = presets[Number(e.target.value) - 1];
-              if (!record) return;
-              confirm(
-                '현재 후보를 원문 몬스터로 바꿀까요?',
-                '선택한 몬스터의 능력치와 특수 규칙 전체를 불러옵니다. 현재 후보의 직접 수정값은 바뀝니다.',
-                () =>
-                  edit((m) => {
-                    const preset = loadMonsterPreset(c.id, record);
-                    Object.assign(m, preset, {
-                      id: m.id,
-                      createdAt: m.createdAt,
-                      notes: [m.notes, preset.notes]
-                        .filter(Boolean)
-                        .join('\n\n'),
-                    });
-                  }),
-              );
-            }}
-          >
-            <option value="">원문 개체 선택</option>
-            {presets.map((p, i) => (
-              <option key={i} value={i + 1}>
-                {String(p.name)} —{' '}
-                {p.book === 'heretic' ? 'HERETIC' : 'MÖRK BORG'}
-              </option>
-            ))}
-          </select>
-        </label>
+        <details className="sheet-source">
+          <summary>책의 개체 직접 선택</summary>
+          <label className="preset-select">
+            책에 실린 몬스터 불러오기
+            <select
+              aria-label="룰북 몬스터 선택"
+              value=""
+              onChange={(e) => {
+                const record = presets[Number(e.target.value) - 1];
+                if (!record) return;
+                confirm(
+                  '현재 후보를 원문 몬스터로 바꿀까요?',
+                  '선택한 몬스터의 능력치와 특수 규칙 전체를 불러옵니다. 현재 후보의 직접 수정값은 바뀝니다.',
+                  () =>
+                    edit((m) => {
+                      const preset = loadMonsterPreset(c.id, record);
+                      Object.assign(m, preset, {
+                        id: m.id,
+                        createdAt: m.createdAt,
+                        notes: [m.notes, preset.notes]
+                          .filter(Boolean)
+                          .join('\n\n'),
+                      });
+                    }),
+                );
+              }}
+            >
+              <option value="">원문 개체 선택</option>
+              {presets.map((p, i) => (
+                <option key={i} value={i + 1}>
+                  {String(p.name)} —{' '}
+                  {p.book === 'feretory'
+                    ? 'Eat Prey Kill'
+                    : p.book === 'heretic'
+                      ? 'HERETIC'
+                      : 'MÖRK BORG'}
+                </option>
+              ))}
+            </select>
+          </label>
+        </details>
       )}
       <div
         className={`monster-sheet codex-sheet ${showEmpty ? 'show-empty' : ''} ${!selected.weakness.length && !selected.loot.length ? 'short-monster' : ''}`}
         aria-label="몬스터 전체 시트"
       >
         <div className="monster-identity-grid">
-          {scalar({ key: 'name', label: '몬스터 이름' }, () =>
-            edit((m) => rerollMonsterField(m, 'name')),
+          {scalar(
+            { key: 'name', label: '몬스터 이름' },
+            isFeretory
+              ? () => edit((m) => rerollMonsterField(m, 'name'))
+              : undefined,
           )}
           {scalar({ key: 'concept', label: '종류 / 개념' })}
         </div>
@@ -533,18 +625,19 @@ export function Monsters({
             { key: 'appearance', label: '외형' },
             isFeretory ? () => linked('appearance') : undefined,
           )}
-          {scalar({ key: 'wants', label: '욕망 / 목표' }, () =>
-            edit((m) => rerollMonsterField(m, 'wants')),
+          {scalar(
+            { key: 'wants', label: '욕망 / 목표' },
+            isFeretory
+              ? () => edit((m) => rerollMonsterField(m, 'wants'))
+              : undefined,
           )}
           {scalar({ key: 'behavior', label: '행동' })}
           {scalar({ key: 'weirdTrait', label: '기이한 특성' })}
+          {scalar({ key: 'description', label: '몬스터 설명' })}
         </div>
         {texts('special')}
         {texts('weakness')}
         {texts('loot')}
-        <section className="character-section">
-          {scalar({ key: 'description', label: '몬스터 설명' })}
-        </section>
       </div>
       <Button
         className="btn small"

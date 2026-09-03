@@ -139,8 +139,6 @@ export function Dungeons({
                 {dungeon.title}
               </button>
               <Translation text={dungeon.title} />
-              <p>{dungeon.status}</p>
-              <Translation text={dungeon.status} />
               <div className="card-counts">
                 <span>{dungeon.rooms.length}개 방</span>
               </div>

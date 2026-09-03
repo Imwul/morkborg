@@ -1,4 +1,8 @@
-export type PrivateDataKey = 'library' | 'oracles' | 'fateChart';
+export type PrivateDataKey =
+  | 'library'
+  | 'oracles'
+  | 'fateChart'
+  | 'updateConnection';
 export type PrivateData = Partial<Record<PrivateDataKey, unknown>>;
 
 function openDatabase(): Promise<IDBDatabase> {
@@ -34,7 +38,10 @@ export async function readPrivateData(key: PrivateDataKey): Promise<unknown> {
 }
 
 /** Commit the complete validated import before changing any active store. */
-export async function writePrivateData(data: PrivateData): Promise<void> {
+export async function writePrivateData(
+  data: PrivateData,
+  expected?: PrivateData,
+): Promise<void> {
   const db = await openDatabase();
   try {
     await new Promise<void>((resolve, reject) => {
@@ -44,7 +51,23 @@ export async function writePrivateData(data: PrivateData): Promise<void> {
         reject(tx.error ?? new Error('자료 저장이 취소되었습니다.'));
       tx.onerror = () => reject(tx.error);
       const store = tx.objectStore('packs');
-      for (const [key, value] of Object.entries(data)) store.put(value, key);
+      const commit = () => {
+        for (const [key, value] of Object.entries(data)) store.put(value, key);
+      };
+      const checks = Object.entries(expected ?? {});
+      if (!checks.length) commit();
+      let remaining = checks.length;
+      for (const [key, value] of checks) {
+        const request = store.get(key);
+        request.onsuccess = () => {
+          if (JSON.stringify(request.result) !== JSON.stringify(value)) {
+            // Another tab imported or updated data after this update was prepared.
+            tx.abort();
+            return;
+          }
+          if (!--remaining) commit();
+        };
+      }
     });
   } finally {
     db.close();

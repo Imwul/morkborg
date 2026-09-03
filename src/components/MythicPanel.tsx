@@ -517,7 +517,10 @@ export function MythicPanel({
                           : undefined
                       }
                     />
-                    <span className="source-citation">{r.source}</span>
+                    <details className="sheet-source">
+                      <summary>출처</summary>
+                      <p>{r.source}</p>
+                    </details>
                   </div>
                 ))}
               </div>

@@ -7,6 +7,8 @@ import {
 } from '../storage/privateDataImport';
 import { downloadJson } from '../storage/saveStore';
 
+import { PrivateUpdateStatus } from './PrivateUpdateStatus';
+
 export function PrivateDataTools({ backup = false }: { backup?: boolean }) {
   const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
@@ -111,6 +113,7 @@ export function PrivateDataTools({ backup = false }: { backup?: boolean }) {
         </p>
       )}
       {message && <output>{message}</output>}
+      <PrivateUpdateStatus />
     </div>
   );
 }

@@ -84,6 +84,7 @@ export interface MonsterText {
   tableId?: string;
 }
 export interface Monster extends BaseEntity {
+  region?: RegionId;
   campaignId: string;
   concept: string;
   appearance: string;
@@ -183,6 +184,8 @@ export interface Workspace {
   stockingKind: 'encounters' | 'npcs';
   selected: Record<LibraryKind, string | null>;
   monsterTarget?: MonsterTarget | null;
+  monsterRegion?: RegionId;
+  monsterGenerationMode?: 'epk' | 'tma';
 }
 export interface Campaign {
   /** Added lazily to older v4 campaigns; absent means the standard Chaos5 defaults. */

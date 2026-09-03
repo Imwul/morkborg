@@ -41,24 +41,33 @@ export function Sources({
         </div>
         <BookOpen size={39} strokeWidth={1} />
       </div>
-      <div className="source-notice">
-        제공한 룰북의 표는 개인용 자료로 이 기기에서 불러옵니다. 공개 코드
-        저장소에는 원본 PDF와 책에서 추출한 생성표를 포함하지 않습니다. 생성된
-        캠페인 기록은 JSON으로 별도 보관할 수 있습니다.
-      </div>
+      <details className="sheet-source">
+        <summary>개인 자료 안내</summary>
+        <p>
+          제공한 룰북의 표는 개인용 자료로 이 기기에서 불러옵니다. 공개 코드
+          저장소에는 원본 PDF와 책에서 추출한 생성표를 포함하지 않습니다. 생성된
+          캠페인 기록은 JSON으로 별도 보관할 수 있습니다.
+        </p>
+      </details>
       {loading && <p>자료를 불러오는 중…</p>}
       {error && <p role="alert">{error}</p>}
-      <div className="rule-book-list">
-        {pack?.books.map((b) => (
-          <div className="rule-book" key={b.id}>
-            <strong>{b.title}</strong>
-            <p>
-              {Object.values(pack.tables).filter((t) => t.book === b.id).length}
-              개 표 · {b.fileName}
-            </p>
-          </div>
-        ))}
-      </div>
+      <details className="sheet-source">
+        <summary>사용 중인 룰북 · {pack?.books.length ?? 0}권</summary>
+        <div className="rule-book-list">
+          {pack?.books.map((b) => (
+            <div className="rule-book" key={b.id}>
+              <strong>{b.title}</strong>
+              <p>
+                {
+                  Object.values(pack.tables).filter((t) => t.book === b.id)
+                    .length
+                }
+                개 표 · {b.fileName}
+              </p>
+            </div>
+          ))}
+        </div>
+      </details>
       <PrivateDataTools backup />
       {pack && (
         <>

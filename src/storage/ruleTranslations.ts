@@ -23,9 +23,30 @@ export function mergeRuleTranslations(
   const key = (text: string) =>
     text.normalize('NFC').replace(/\s+/g, ' ').trim();
   const update = (entries: RuleEntry[], source: RuleEntry[]): RuleEntry[] => {
-    const byText = new Map(source.map((entry) => [key(entry.text), entry]));
+    const byText = new Map<string, RuleEntry[]>();
+    const counts = new Map<string, number>();
+    const seen = new Map<string, number>();
+    source.forEach((entry) =>
+      byText.set(key(entry.text), [
+        ...(byText.get(key(entry.text)) ?? []),
+        entry,
+      ]),
+    );
+    entries.forEach((entry) =>
+      counts.set(key(entry.text), (counts.get(key(entry.text)) ?? 0) + 1),
+    );
     return entries.map((entry) => {
-      const match = byText.get(key(entry.text));
+      const textKey = key(entry.text);
+      const matches = byText.get(textKey) ?? [];
+      const occurrence = seen.get(textKey) ?? 0;
+      seen.set(textKey, occurrence + 1);
+      // Duplicate wording can have distinct translations in its original context.
+      const match =
+        matches.length === 1
+          ? matches[0]
+          : matches.length === counts.get(textKey)
+            ? matches[occurrence]
+            : undefined;
       return {
         ...entry,
         meta: {

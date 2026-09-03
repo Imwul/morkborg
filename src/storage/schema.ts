@@ -103,6 +103,7 @@ const monsterAttack = z.object({
 });
 const monster = z.object({
   ...base,
+  region: z.enum(REGION_IDS).optional(),
   campaignId: uuid,
   concept: text,
   appearance: text,
@@ -213,6 +214,8 @@ const campaign = z.object({
     stockingKind: z.enum(['encounters', 'npcs']),
     selected: selection,
     monsterTarget: monsterTarget.nullable().optional(),
+    monsterRegion: z.enum(REGION_IDS).optional(),
+    monsterGenerationMode: z.enum(['epk', 'tma']).optional(),
   }),
 });
 export function validateCampaign(input: unknown): Campaign {

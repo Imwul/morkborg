@@ -17,16 +17,27 @@ import {
   parseFateChart,
   setFateChart,
 } from './fateChartStore';
-import { writePrivateData, type PrivateData } from './privateData';
+import {
+  readPrivateData,
+  writePrivateData,
+  type PrivateData,
+} from './privateData';
 import type { OraclePack } from '../domain/oracle';
 import type { FateChart } from '../domain/mythic';
 import { buildOracleRegistry } from '../data/oracles';
 import { validateOracleRegistry } from '../validation/oracleValidation';
 
+import {
+  parseUpdateConnection,
+  privateImportCompleted,
+  type UpdateConnection,
+} from './privateUpdateConnection';
+
 export type ParsedPrivateData = Partial<{
   library: RulesPack;
   oracles: OraclePack;
   fateChart: FateChart;
+  updateConnection: UpdateConnection;
 }>;
 export function parsePrivateData(input: unknown): ParsedPrivateData {
   if (
@@ -43,7 +54,9 @@ export function parsePrivateData(input: unknown): ParsedPrivateData {
     if ('library' in input) data.library = parseRulesPack(input.library);
     if ('oracles' in input) data.oracles = parseOraclePack(input.oracles);
     if ('fateChart' in input) data.fateChart = parseFateChart(input.fateChart);
-    if (!Object.keys(data).length)
+    if ('updateConnection' in input)
+      data.updateConnection = parseUpdateConnection(input.updateConnection);
+    if (!data.library && !data.oracles && !data.fateChart)
       throw new Error('개인 자료 묶음이 비어 있습니다.');
     return data;
   }
@@ -57,6 +70,7 @@ export function parsePrivateData(input: unknown): ParsedPrivateData {
 export async function importPrivateData(
   inputs: unknown[],
   persist: (data: PrivateData) => Promise<void> = writePrivateData,
+  announce = true,
 ): Promise<ParsedPrivateData> {
   const merged: ParsedPrivateData = {};
   for (const input of inputs) {
@@ -77,10 +91,19 @@ export async function importPrivateData(
     throw new Error(
       'Oracle 자료를 확인하세요: ' + issues.slice(0, 3).join('; '),
     );
+  if (!merged.updateConnection) {
+    const saved = await readPrivateData('updateConnection');
+    if (saved)
+      merged.updateConnection = {
+        ...parseUpdateConnection(saved),
+        revision: 0,
+      };
+  }
   await persist(merged);
   if (merged.library) setRules(merged.library);
   if (merged.oracles) setOraclePack(merged.oracles);
   if (merged.fateChart) setFateChart(merged.fateChart);
+  privateImportCompleted(announce);
   return merged;
 }
 
@@ -91,11 +114,17 @@ export async function exportPrivateData() {
     fateChart = getFateChart();
   if (!library && !oracles && !fateChart)
     throw new Error('먼저 개인 자료를 가져오세요.');
+  const savedConnection = await readPrivateData('updateConnection');
+  const connection = savedConnection
+    ? parseUpdateConnection(savedConnection)
+    : undefined;
   return {
     kind: 'morkborg-private-data',
     schemaVersion: 1,
     ...(library ? { library } : {}),
     ...(oracles ? { oracles } : {}),
     ...(fateChart ? { fateChart } : {}),
+    // A backup may outlive this tab's in-memory snapshot. Recheck its feed on import.
+    ...(connection ? { updateConnection: { ...connection, revision: 0 } } : {}),
   };
 }

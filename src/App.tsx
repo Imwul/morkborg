@@ -64,7 +64,9 @@ import { MythicPanel } from './components/MythicPanel';
 import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
+import { PrivateDataTools } from './components/PrivateDataTools';
 import { TranslationDataNotice } from './components/TranslationDataNotice';
+import { startPrivateUpdates } from './storage/privateUpdates';
 import { registerCodexTools } from './webmcp';
 const nav = [
   { key: 'overview', label: '개요', icon: BookOpen },
@@ -181,6 +183,7 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
   return results.slice(0, 25);
 }
 export default function App() {
+  useEffect(startPrivateUpdates, []);
   const rules = useRules();
   const { save, error, blocked, recovery } = useSave();
   const c =
@@ -778,11 +781,12 @@ export default function App() {
                     >
                       {campaign.title}
                     </button>
-                    <p>
-                      {campaign.description ||
-                        campaign.subtitle ||
-                        '아직 쓰이지 않은 연대기.'}
-                    </p>
+                    {(campaign.description || campaign.subtitle) && (
+                      <details className="card-details">
+                        <summary>설명</summary>
+                        <p>{campaign.description || campaign.subtitle}</p>
+                      </details>
+                    )}
                     <div className="card-counts">
                       <span>{campaign.dungeons.length} 던전</span>
                       <span>
@@ -833,21 +837,6 @@ export default function App() {
                   </article>
                 ))}
                 <article className="new-campaign">
-                  <span className="cover-number">
-                    {String(save.campaigns.length + 1).padStart(3, '0')} /
-                    미기록
-                  </span>
-                  <BookOpen size={42} strokeWidth={1} />
-                  <h2>
-                    파멸의 이야기를
-                    <br />
-                    시작하세요.
-                  </h2>
-                  <p>
-                    여러 던전과 방, 캠페인의 기록.
-                    <br />
-                    하나의 기록에 담으세요.
-                  </p>
                   <Button
                     className="btn primary"
                     onClick={() => openForm('campaign')}
@@ -1455,6 +1444,10 @@ export default function App() {
       <Dialog open={about} onOpenChange={setAbout}>
         <DialogContent className="codex-dialog about-dialog">
           <DialogTitle>Campaign Codex</DialogTitle>
+          <details className="sheet-source">
+            <summary>개인 자료 · 갱신 관리</summary>
+            <PrivateDataTools backup />
+          </details>
           <DialogDescription>
             세상의 끝을 위한 로컬 캠페인 기록장.
           </DialogDescription>

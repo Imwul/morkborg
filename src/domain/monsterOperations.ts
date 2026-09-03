@@ -5,7 +5,11 @@ import type {
   MonsterTarget,
 } from './types';
 import { id, now } from '../generators/random';
-import { generateMonster } from '../generators/monster';
+import {
+  generateMonster,
+  generateEatPreyKillMonster,
+  eatPreyKillCreatures,
+} from '../generators/monster';
 
 /** Only a compatibility index for old readers; all new UI and mutations use placements. */
 export function syncMonsterRefs(c: Campaign): void {
@@ -58,7 +62,17 @@ export function beginMonsterDraft(
   target?: MonsterTarget | null,
   blank = false,
 ): void {
-  if (!c.drafts.monsters) c.drafts.monsters = generateMonster(c.id, blank);
+  if (!c.drafts.monsters) {
+    const dungeon = c.dungeons.find((d) => d.id === target?.dungeonId);
+    const region = dungeon?.region ?? c.workspace.monsterRegion ?? 'sarkash';
+    if (dungeon) c.workspace.monsterRegion = region;
+    c.drafts.monsters =
+      !blank &&
+      c.workspace.monsterGenerationMode !== 'tma' &&
+      eatPreyKillCreatures(region).length
+        ? generateEatPreyKillMonster(c.id, region)
+        : generateMonster(c.id, blank);
+  }
   c.workspace.section = 'monsters';
   c.workspace.selected.monsters = c.drafts.monsters.id;
   if (target !== undefined)

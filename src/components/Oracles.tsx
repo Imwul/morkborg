@@ -278,7 +278,10 @@ export function Oracles({
                 className={`oracle-card ${selectedId === t.id ? 'selected' : ''}`}
               >
                 <div className="oracle-card-meta">
-                  <span>{t.rollable === false ? '참조' : t.dice}</span>
+                  <span>
+                    {t.rollable === false ? '참조' : t.dice}
+                    {oracleLibraryRollIds(t.id).length === 2 ? ' × 2' : ''}
+                  </span>
                   <Button
                     className="icon-btn"
                     aria-label={`${t.title} 즐겨찾기`}
@@ -295,17 +298,13 @@ export function Oracles({
                     />
                   </Button>
                 </div>
-                <button className="oracle-title" onClick={() => select(t.id)}>
+                <button
+                  className="oracle-title"
+                  aria-pressed={selectedId === t.id}
+                  onClick={() => select(t.id)}
+                >
                   {t.title}
                 </button>
-                <p>
-                  {registry.books.find((b) => b.id === t.sourceBookId)?.title}
-                </p>
-                <span className="source-citation">
-                  PDF {[t.sourcePage].flat().join(', ') || '?'}쪽 ·{' '}
-                  {t.entries.length}항목
-                  {oracleLibraryRollIds(t.id).length === 2 ? ' × 2표' : ''}
-                </span>
               </article>
             ))}
           </div>
@@ -375,37 +374,26 @@ export function Oracles({
               </div>
               {selected && (
                 <>
-                  <details className="sheet-source">
-                    <summary>출처와 원문 조건</summary>
-                    {sourceTables.map((table) => (
-                      <p key={table.id}>{sourceLabel(table, registry)}</p>
-                    ))}
-                  </details>
                   <p className="oracle-dice">
-                    {selected.originalDice || selected.dice || '직접 참조'} ·{' '}
-                    {sourceTables
-                      .map((table) => table.entries.length)
-                      .join(' + ')}
-                    개 항목
+                    {selected.originalDice || selected.dice || '직접 참조'}
+                    {isPair ? ' · 각 표에서 한 번씩' : ''}
                   </p>
-                  {selected.description && <p>{selected.description}</p>}
-                  {selected.sourceNote &&
-                    (selected.rollable === false ? (
-                      <p className="oracle-rule-note">{selected.sourceNote}</p>
-                    ) : (
-                      <>
-                        <p className="oracle-rule-note">
-                          영문 원문과 한국어 풀이를 함께 표시합니다.{' '}
-                          {isPair
-                            ? '각 원문 표에서 한 번씩, 두 결과를 함께 굴립니다.'
-                            : '한 번 누르면 결과 하나를 굴립니다.'}
-                        </p>
-                        <details className="oracle-metadata">
-                          <summary>출처 주석 / 사용 조건</summary>
-                          <p>{selected.sourceNote}</p>
-                        </details>
-                      </>
+                  <details className="sheet-source">
+                    <summary>출처 · 표 정보</summary>
+                    {sourceTables.map((table) => (
+                      <p key={table.id}>
+                        {sourceLabel(table, registry)} · {table.entries.length}
+                        항목
+                      </p>
                     ))}
+                    {selected.description && <p>{selected.description}</p>}
+                    {selected.sourceNote && <p>{selected.sourceNote}</p>}
+                  </details>
+                  {selected.rollable === false && (
+                    <p className="oracle-rule-note">
+                      참조용 표입니다. 출처의 사용 조건을 확인하세요.
+                    </p>
+                  )}
                 </>
               )}
               <Button
