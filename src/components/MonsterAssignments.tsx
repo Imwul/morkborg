@@ -1,5 +1,6 @@
+import { ContentPlacementRows } from './ContentAssignments';
 import { useState } from 'react';
-import { ArrowRight, Minus, Plus, Skull, X } from 'lucide-react';
+import { Minus, Plus, Skull } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -15,12 +16,10 @@ import type {
   DungeonRoom,
   MonsterPlacement,
 } from '../domain/types';
-import { editCampaign, changeWorkspace } from '../storage/saveStore';
+import { editCampaign } from '../storage/saveStore';
 import {
   addMonsterPlacement,
   beginMonsterDraft,
-  editMonsterPlacement,
-  removeMonsterPlacement,
 } from '../domain/monsterOperations';
 import { useRules } from '../storage/rulesStore';
 
@@ -107,123 +106,15 @@ export function PlacementList({
   campaign: Campaign;
   placements: MonsterPlacement[];
 }) {
-  if (!placements.length)
-    return <p className="empty-copy">아직 배치된 몬스터가 없습니다.</p>;
   return (
-    <div className="monster-placement-list">
-      {placements.map((p) => {
-        const m = c.monsters.find((m) => m.id === p.monsterId),
-          d = c.dungeons.find((d) => d.id === p.dungeonId);
-        const r = d?.rooms.find((r) => r.id === p.roomId);
-        if (!m || !d || (p.roomId && !r))
-          return (
-            <p className="source-notice" key={p.id}>
-              연결을 확인해야 하는 배치입니다. JSON 백업을 보존하세요.
-            </p>
-          );
-        return (
-          <article
-            className="monster-placement"
-            key={p.id}
-            data-placement-id={p.id}
-          >
-            <div className="placement-heading">
-              <button
-                className="placement-monster-link"
-                onClick={() =>
-                  changeWorkspace(c.id, {
-                    section: 'monsters',
-                    monsterTarget: { dungeonId: d.id, roomId: p.roomId },
-                    selected: { ...c.workspace.selected, monsters: m.id },
-                  })
-                }
-              >
-                <strong>
-                  {p.quantity} × {m.name || 'Unnamed Monster'}
-                </strong>
-                <span>
-                  HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale} ·{' '}
-                  {m.armor || '방어구 미기록'}
-                </span>
-                <span>
-                  {m.attacks
-                    .map((a) => [a.name, a.damage].filter(Boolean).join(' · '))
-                    .join(' / ') || '공격 미기록'}
-                </span>
-              </button>
-              <Button
-                className="icon-btn"
-                aria-label={`${m.name} 배치 제거`}
-                title="이 배치만 제거"
-                onClick={() =>
-                  editCampaign(c.id, (next) =>
-                    removeMonsterPlacement(next, p.id),
-                  )
-                }
-              >
-                <X size={16} />
-              </Button>
-            </div>
-            <button
-              className="placement-destination"
-              onClick={() =>
-                changeWorkspace(c.id, {
-                  section: 'dungeons',
-                  dungeonId: d.id,
-                  roomId: p.roomId,
-                  dungeonTab: p.roomId ? 'rooms' : 'monsters',
-                })
-              }
-            >
-              {d.title} /{' '}
-              {r
-                ? `Room ${d.rooms.indexOf(r) + 1} — ${r.name}`
-                : 'Dungeon only'}{' '}
-              <ArrowRight size={14} />
-            </button>
-            <div className="placement-controls">
-              <RoomSelector
-                dungeon={d}
-                value={p.roomId}
-                onChange={(roomId) =>
-                  editCampaign(c.id, (next) =>
-                    editMonsterPlacement(next, p.id, { roomId }),
-                  )
-                }
-              />
-              <QuantityControl
-                value={p.quantity}
-                onChange={(quantity) =>
-                  editCampaign(c.id, (next) =>
-                    editMonsterPlacement(next, p.id, { quantity }),
-                  )
-                }
-              />
-            </div>
-            <label
-              className="placement-note"
-              htmlFor={`placement-notes-${p.id}`}
-            >
-              배치 메모
-              <Textarea
-                id={`placement-notes-${p.id}`}
-                aria-label="배치 메모"
-                rows={2}
-                value={p.notes}
-                placeholder="이 장소에서의 역할과 단서"
-                onChange={(e) =>
-                  editCampaign(c.id, (next) =>
-                    editMonsterPlacement(next, p.id, { notes: e.target.value }),
-                  )
-                }
-              />
-            </label>
-          </article>
-        );
-      })}
-    </div>
+    <ContentPlacementRows
+      campaign={c}
+      kind="monsters"
+      placementIds={placements.map((p) => p.id)}
+    />
   );
 }
+
 export function DungeonMonsters({
   campaign: c,
   dungeon: d,

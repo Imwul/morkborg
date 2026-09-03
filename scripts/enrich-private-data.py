@@ -46,14 +46,28 @@ def enrich(entries, book, metadata):
         if entry.get("followup"):
             enrich(entry["followup"], book, metadata)
 
+# Source-specific meanings override the shared dictionary only in their own table.
+override_path = maps_dir / "table-overrides.json"
+overrides = json.loads(override_path.read_text()) if override_path.exists() else {}
 for table in library["tables"].values():
     enrich(table["entries"], table["book"], "meta")
 for table in oracles["tables"]:
     enrich(table["entries"], table["sourceBookId"], "metadata")
+for table_id, values in overrides.items():
+    table = library["tables"].get(table_id)
+    if table:
+        for entry in table["entries"]:
+            if entry["text"] in values:
+                entry.setdefault("meta", {})["ko"] = values[entry["text"]]
+    for oracle in oracles["tables"]:
+        if oracle["id"] == table_id:
+            for entry in oracle["entries"]:
+                if entry["text"] in values:
+                    entry.setdefault("metadata", {})["ko"] = values[entry["text"]]
 if missing:
     raise SystemExit(f"Missing {len(missing)} translations: {missing[:20]}")
 library["notes"]["translations"] = combined
-library["notes"]["translationEdition"] = "ko-2026-09-03-r3"
+library["notes"]["translationEdition"] = "ko-2026-09-03-r4"
 for path, data in ((library_path, library), (oracles_path, oracles)):
     path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
 bundle = {

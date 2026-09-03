@@ -6,6 +6,7 @@ import {
   STORAGE_KEY,
   PREVIOUS_STORAGE_KEY,
   V2_STORAGE_KEY,
+  V3_STORAGE_KEY,
   LEGACY_STORAGE_KEY,
   emptySave,
   loadStoredSave,
@@ -41,6 +42,7 @@ try {
     recovery =
       localAdapter.read() ??
       localStorage.getItem(PREVIOUS_STORAGE_KEY) ??
+      localStorage.getItem(V3_STORAGE_KEY) ??
       localStorage.getItem(V2_STORAGE_KEY) ??
       localStorage.getItem(LEGACY_STORAGE_KEY);
   } catch {
@@ -67,9 +69,9 @@ export function transact(action: (save: AppSave) => void): void {
     throw new Error(
       '읽을 수 없는 저장 데이터를 복구하거나 초기화한 뒤 편집하세요.',
     );
-  const next = structuredClone(snapshot.save);
+  let next = structuredClone(snapshot.save);
   action(next);
-  validateSave(next);
+  next = validateSave(next);
   let error: string | null = null;
   try {
     localAdapter.write(JSON.stringify(next));

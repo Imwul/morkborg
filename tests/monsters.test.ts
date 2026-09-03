@@ -48,6 +48,7 @@ import {
   loadStoredSave,
   STORAGE_KEY,
   PREVIOUS_STORAGE_KEY,
+  V3_STORAGE_KEY,
   V2_STORAGE_KEY,
   MIGRATION_BACKUP_KEY,
   type SaveStorage,
@@ -577,7 +578,7 @@ test('Invalid Monster, Dungeon, cross-Dungeon Room and duplicate owned IDs are r
     addMonsterPlacement(c, m.id, { dungeonId: d.id, roomId: null }, NaN),
   );
 });
-test('v3 to v4 migration preserves prose and all existing records with exact backup, without duplicate Dungeon-only placements', () => {
+test('v3 to v5 migration preserves prose and all existing records with exact backup, without duplicate Dungeon-only placements', () => {
   const { c, d, m } = fixture();
   m.notes = 'Monster notes';
   d.notes = 'Dungeon notes';
@@ -621,12 +622,12 @@ test('v3 to v4 migration preserves prose and all existing records with exact bac
     3,
   );
   const storage = new Storage();
-  storage.setItem(PREVIOUS_STORAGE_KEY, raw);
+  storage.setItem(V3_STORAGE_KEY, raw);
   storage.setItem('morkborg-codex:pre-v3-backup', 'keep this backup');
   const migrated = loadStoredSave(storage);
   const out = migrated.save.campaigns[0],
     mon = out.monsters[0];
-  assert.equal(migrated.save.schemaVersion, 4);
+  assert.equal(migrated.save.schemaVersion, 5);
   assert.equal(out.monsterPlacements.length, 2);
   assert.ok(
     out.monsterPlacements.every((p) => p.roomId !== null && p.quantity === 1),
@@ -645,7 +646,7 @@ test('v3 to v4 migration preserves prose and all existing records with exact bac
   assert.equal(mon.notes, 'Monster notes');
   assert.equal(out.notes, c.notes);
   assert.equal(out.dungeons[0].notes, d.notes);
-  assert.equal(storage.getItem(PREVIOUS_STORAGE_KEY), raw);
+  assert.equal(storage.getItem(V3_STORAGE_KEY), raw);
   assert.equal(JSON.parse(storage.getItem(MIGRATION_BACKUP_KEY)!)[0].raw, raw);
   assert.equal(
     storage.getItem('morkborg-codex:pre-v3-backup'),
@@ -686,11 +687,11 @@ test('Migration adds missing Monster library, refuses malformed data, and never 
     activeCampaignId: null,
   });
   const storage = new Storage();
-  storage.setItem(PREVIOUS_STORAGE_KEY, raw);
+  storage.setItem(V3_STORAGE_KEY, raw);
   storage.fail = MIGRATION_BACKUP_KEY;
   assert.throws(() => loadStoredSave(storage), /quota/);
   assert.equal(storage.getItem(STORAGE_KEY), null);
-  assert.equal(storage.getItem(PREVIOUS_STORAGE_KEY), raw);
+  assert.equal(storage.getItem(V3_STORAGE_KEY), raw);
   storage.fail = STORAGE_KEY;
   assert.throws(() => loadStoredSave(storage), /quota/);
   assert.equal(JSON.parse(storage.getItem(MIGRATION_BACKUP_KEY)!)[0].raw, raw);
@@ -704,8 +705,17 @@ test('Newest supported save takes priority over older v2 and v3 records', () => 
     campaigns: [createCampaign('Old')],
   };
   storage.setItem(V2_STORAGE_KEY, JSON.stringify({ ...old, schemaVersion: 2 }));
-  storage.setItem(PREVIOUS_STORAGE_KEY, JSON.stringify(old));
+  storage.setItem(V3_STORAGE_KEY, JSON.stringify(old));
   assert.equal(loadStoredSave(storage).save.campaigns[0].title, 'Old');
+  storage.setItem(
+    PREVIOUS_STORAGE_KEY,
+    JSON.stringify({
+      ...old,
+      schemaVersion: 4,
+      campaigns: [createCampaign('Version Four')],
+    }),
+  );
+  assert.equal(loadStoredSave(storage).save.campaigns[0].title, 'Old'); // Migrated v5 has priority.
   storage.setItem(STORAGE_KEY, JSON.stringify(current));
   assert.deepEqual(loadStoredSave(storage).save, current);
 });

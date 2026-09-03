@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PrivateDataTools } from './PrivateDataTools';
+import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import { Input } from '@/components/ui/input';
 import type { Campaign } from '../domain/types';
@@ -378,8 +379,7 @@ export function Oracles({
                     {selected.originalDice || selected.dice || '직접 참조'}
                     {isPair ? ' · 각 표에서 한 번씩' : ''}
                   </p>
-                  <details className="sheet-source">
-                    <summary>출처 · 표 정보</summary>
+                  <SourceDisclosure key={selected.id} label="출처 · 표 정보">
                     {sourceTables.map((table) => (
                       <p key={table.id}>
                         {sourceLabel(table, registry)} · {table.entries.length}
@@ -388,7 +388,7 @@ export function Oracles({
                     ))}
                     {selected.description && <p>{selected.description}</p>}
                     {selected.sourceNote && <p>{selected.sourceNote}</p>}
-                  </details>
+                  </SourceDisclosure>
                   {selected.rollable === false && (
                     <p className="oracle-rule-note">
                       참조용 표입니다. 출처의 사용 조건을 확인하세요.
@@ -435,10 +435,7 @@ export function Oracles({
                             : undefined
                         }
                       />
-                      <details className="sheet-source">
-                        <summary>출처</summary>
-                        <p>{r.source}</p>
-                      </details>
+                      <SourceDisclosure source={r.source} />
                       {r.metadata &&
                         Object.keys(r.metadata).some(
                           (k) =>
@@ -562,14 +559,6 @@ export function Oracles({
                 >
                   <span>{h.title}</span>
                   <strong>{h.rolls.map((r) => r.text).join(' / ')}</strong>
-                  <Translation
-                    text={h.rolls.map((r) => r.text).join(' / ')}
-                    translation={
-                      h.rolls.every((r) => typeof r.metadata?.ko === 'string')
-                        ? h.rolls.map((r) => r.metadata!.ko).join(' / ')
-                        : undefined
-                    }
-                  />
                 </button>
               ))}
             </section>

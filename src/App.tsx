@@ -19,7 +19,6 @@ import {
   Menu,
   X,
   Check,
-  MapPin,
   Info,
   Dices,
   HardDrive,
@@ -53,7 +52,8 @@ import {
   importCampaigns,
   openCampaignLibrary,
 } from './domain/operations';
-import { Library, type Confirm } from './components/Library';
+import { ContentLibrary } from './components/ContentLibrary';
+import { type Confirm } from './components/Library';
 import { Dungeons } from './components/Dungeons';
 import { Monsters } from './components/Monsters';
 import { beginMonsterDraft } from './domain/monsterOperations';
@@ -73,7 +73,8 @@ const nav = [
   { key: 'characters', label: '캐릭터', icon: UsersRound },
   { key: 'dungeons', label: '던전 보관함', icon: Castle },
   { key: 'monsters', label: '몬스터', icon: Skull },
-  { key: 'encounters', label: '조우 및 NPC', icon: Swords },
+  { key: 'npcs', label: 'NPC', icon: UsersRound },
+  { key: 'encounters', label: '조우', icon: Swords },
   { key: 'notes', label: '캠페인 노트', icon: NotebookPen },
   { key: 'about', label: '자료 및 규칙', icon: BookOpen },
 ] as const;
@@ -169,7 +170,7 @@ function searchCampaign(c: Campaign, q: string): SearchResult[] {
             encounters: '조우',
           }[kind],
           patch: {
-            section: kind === 'npcs' ? 'encounters' : kind,
+            section: kind,
             stockingKind: kind === 'npcs' ? 'npcs' : 'encounters',
             selected: { ...c.workspace.selected, [kind]: e.id },
           },
@@ -191,7 +192,6 @@ export default function App() {
       ? save.campaigns.find((c) => c.id === save.activeCampaignId)
       : undefined;
   const d = c?.dungeons.find((d) => d.id === c.workspace.dungeonId);
-  const room = d?.rooms.find((r) => r.id === c?.workspace.roomId);
   const [importText, setImportText] = useState<string | null>(null);
   const [exportData, setExportData] = useState<{
     filename: string;
@@ -277,9 +277,23 @@ export default function App() {
           (m) => m.id === c.workspace.selected.monsters,
         )?.name
       : undefined;
+  const contentKind =
+    c?.workspace.section === 'npcs' || c?.workspace.section === 'encounters'
+      ? c.workspace.section
+      : null;
+  const contentPageTitle =
+    c && contentKind
+      ? [
+          ...c[contentKind],
+          ...(c.drafts[contentKind] ? [c.drafts[contentKind]!] : []),
+        ].find((e) => e.id === c.workspace.selected[contentKind])?.name
+      : undefined;
   const recordPageTitle = oracleOpen
     ? 'ORACLES'
-    : dungeonPageTitle || characterPageTitle || monsterPageTitle;
+    : dungeonPageTitle ||
+      characterPageTitle ||
+      monsterPageTitle ||
+      contentPageTitle;
   useEffect(() => {
     document.title = campaignTitle
       ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
@@ -327,7 +341,13 @@ export default function App() {
                   section,
                   selected: { ...c.workspace.selected, monsters: null },
                 }
-              : { section },
+              : section === 'npcs' || section === 'encounters'
+                ? {
+                    section,
+                    selected: { ...c.workspace.selected, [section]: null },
+                    contentTarget: null,
+                  }
+                : { section },
       );
     setDrawer(false);
     setQuery('');
@@ -349,7 +369,7 @@ export default function App() {
   }
   function exportCampaign(campaign: Campaign) {
     setExportData({
-      text: JSON.stringify({ schemaVersion: 4, campaign }, null, 2),
+      text: JSON.stringify({ schemaVersion: 5, campaign }, null, 2),
       filename: `${campaign.title.replace(/[^\p{L}\p{N} -]/gu, '').slice(0, 80) || 'campaign'}.json`,
     });
   }
@@ -439,36 +459,22 @@ export default function App() {
               <ChevronDown size={14} />
             </button>
             <nav aria-label="캠페인 메뉴">
-              {nav
-                .filter(
-                  (item) =>
-                    [
-                      'overview',
-                      'characters',
-                      'monsters',
-                      'dungeons',
-                      'notes',
-                      'about',
-                    ].includes(item.key) ||
-                    (item.key === 'encounters' &&
-                      c.npcs.length + c.encounters.length > 0),
-                )
-                .map((item) => (
-                  <button
-                    key={item.key}
-                    className={`nav-item ${!oracleOpen && c.workspace.section === item.key ? 'active' : ''}`}
-                    onClick={() => {
-                      setOracleOpen(false);
-                      navigate(item.key);
-                    }}
-                  >
-                    <item.icon size={17} />
-                    {item.label}
-                    {item.key === 'dungeons' && c.dungeons.length > 0 && (
-                      <span className="nav-count">{c.dungeons.length}</span>
-                    )}
-                  </button>
-                ))}
+              {nav.map((item) => (
+                <button
+                  key={item.key}
+                  className={`nav-item ${!oracleOpen && c.workspace.section === item.key ? 'active' : ''}`}
+                  onClick={() => {
+                    setOracleOpen(false);
+                    navigate(item.key);
+                  }}
+                >
+                  <item.icon size={17} />
+                  {item.label}
+                  {item.key === 'dungeons' && c.dungeons.length > 0 && (
+                    <span className="nav-count">{c.dungeons.length}</span>
+                  )}
+                </button>
+              ))}
               {fateLink}
               <button
                 className={`nav-item ${oracleOpen ? 'active' : ''}`}
@@ -651,72 +657,6 @@ export default function App() {
             )}
           </div>
         )}
-        {c && c.dungeons.length > 0 && c.workspace.section === 'encounters' && (
-          <div className="context-bar">
-            <div className="context-label">
-              <MapPin size={15} />
-              <span>현재 배치 위치</span>
-            </div>
-            <label className="sr-only" htmlFor="destination-dungeon">
-              배치할 던전
-            </label>
-            <select
-              id="destination-dungeon"
-              value={d?.id ?? ''}
-              onChange={(e) =>
-                changeWorkspace(c.id, {
-                  dungeonId: e.target.value || null,
-                  roomId: null,
-                })
-              }
-            >
-              <option value="">캠페인 보관함에만 저장</option>
-              {c.dungeons.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.title || 'Untitled dungeon'}
-                </option>
-              ))}
-            </select>
-            {d && (
-              <>
-                <span className="context-region">
-                  {regionById(d.region).name}
-                </span>
-                <span className="context-slash">/</span>
-                <label className="sr-only" htmlFor="destination-room">
-                  배치할 방
-                </label>
-                <select
-                  id="destination-room"
-                  value={room?.id ?? ''}
-                  onChange={(e) =>
-                    changeWorkspace(c.id, { roomId: e.target.value || null })
-                  }
-                >
-                  <option value="">방: 지정 안 함</option>
-                  {d.rooms.map((r, i) => (
-                    <option key={r.id} value={r.id}>
-                      방 {i + 1}: {r.name || '이름 없는 방'}
-                    </option>
-                  ))}
-                </select>
-                <Button
-                  className="icon-btn"
-                  aria-label="현재 던전으로 돌아가기"
-                  title="던전으로 돌아가기"
-                  onClick={() =>
-                    changeWorkspace(c.id, {
-                      section: 'dungeons',
-                      dungeonPreview: false,
-                    })
-                  }
-                >
-                  <ArrowRight size={15} />
-                </Button>
-              </>
-            )}
-          </div>
-        )}
         <main className="content" inert={blocked}>
           {c && (
             <nav className="codex-breadcrumb" aria-label="현재 위치">
@@ -733,14 +673,19 @@ export default function App() {
                       ? characterPageTitle || '캐릭터 보관함'
                       : c.workspace.section === 'monsters'
                         ? monsterPageTitle || '몬스터 보관함'
-                        : c.workspace.section === 'about'
-                          ? '자료 및 규칙'
-                          : c.workspace.section === 'dungeons'
-                            ? c.workspace.dungeonPreview
-                              ? '새 던전 후보'
-                              : pageDungeon?.title || '던전 보관함'
-                            : nav.find((n) => n.key === c.workspace.section)
-                                ?.label || '던전 보관함'}
+                        : contentKind
+                          ? contentPageTitle ||
+                            (contentKind === 'npcs'
+                              ? 'NPC 보관함'
+                              : '조우 보관함')
+                          : c.workspace.section === 'about'
+                            ? '자료 및 규칙'
+                            : c.workspace.section === 'dungeons'
+                              ? c.workspace.dungeonPreview
+                                ? '새 던전 후보'
+                                : pageDungeon?.title || '던전 보관함'
+                              : nav.find((n) => n.key === c.workspace.section)
+                                  ?.label || '던전 보관함'}
               </span>
             </nav>
           )}
@@ -1105,8 +1050,7 @@ export default function App() {
                         key={e.id}
                         onClick={() =>
                           changeWorkspace(c.id, {
-                            section:
-                              e.kind === 'monsters' ? 'monsters' : 'encounters',
+                            section: e.kind,
                             stockingKind:
                               e.kind === 'npcs' ? 'npcs' : 'encounters',
                             selected: {
@@ -1193,9 +1137,18 @@ export default function App() {
               notify={notify}
             />
           ) : (
-            <Library
+            <ContentLibrary
+              key={
+                c.id +
+                ':' +
+                c.workspace.section +
+                ':' +
+                (c.workspace.selected[
+                  c.workspace.section === 'npcs' ? 'npcs' : 'encounters'
+                ] ?? 'library')
+              }
               campaign={c}
-              kind={c.workspace.stockingKind}
+              kind={c.workspace.section === 'npcs' ? 'npcs' : 'encounters'}
               confirm={confirm}
               notify={notify}
             />
@@ -1389,8 +1342,9 @@ export default function App() {
         <DialogContent className="codex-dialog">
           <DialogTitle>캠페인 내보내기</DialogTitle>
           <DialogDescription>
-            파일로 저장하거나 JSON 내용을 복사해 백업하세요. 캐릭터와 장비,
-            던전·방·메모, 미저장 초안 및 Mythic Chaos·판정 기록이 포함됩니다.
+            파일로 저장하거나 JSON 내용을 복사해 백업하세요.
+            NPC·조우·참가자·배치, 캐릭터와 장비, 던전·방·메모, 미저장 초안 및
+            Mythic Chaos·판정 기록이 포함됩니다.
           </DialogDescription>
           <Textarea
             className="export-json"

@@ -7,6 +7,8 @@ import type {
   Workspace,
   Character,
   Monster,
+  NPC,
+  Encounter,
 } from './types';
 import {
   addMonsterPlacement,
@@ -14,6 +16,13 @@ import {
   materializeDraftMonsterRefs,
   syncMonsterRefs,
 } from './monsterOperations';
+import {
+  addContentPlacement,
+  contentPlacementKey,
+  deleteContent,
+  materializeDraftContentRefs,
+  syncContentRefs,
+} from './contentOperations';
 import { id, now } from '../generators/random';
 export const referenceKey = (
   kind: Exclude<LibraryKind, 'characters'>,
@@ -81,6 +90,34 @@ export function cloneCampaign(
     for (const item of [...m.attacks, ...m.special, ...m.weakness, ...m.loot])
       item.id = replace(item.id);
   }
+  for (const e of [
+    ...c.npcs,
+    ...c.encounters,
+    ...(c.drafts.npcs ? [c.drafts.npcs] : []),
+    ...(c.drafts.encounters ? [c.drafts.encounters] : []),
+  ]) {
+    e.campaignId = c.id;
+    if ('participants' in e)
+      for (const p of e.participants ?? []) {
+        p.id = replace(p.id);
+        p.entityId = replace(p.entityId);
+      }
+  }
+  for (const key of ['npcPlacements', 'encounterPlacements'] as const)
+    for (const p of c[key]) {
+      p.id = replace(p.id);
+      p.entityId = replace(p.entityId);
+      p.dungeonId = replace(p.dungeonId);
+      if (p.roomId) p.roomId = replace(p.roomId);
+    }
+  for (const target of [
+    c.workspace.contentTarget,
+    ...Object.values(c.workspace.contentDraftTargets ?? {}),
+  ])
+    if (target) {
+      target.dungeonId = replace(target.dungeonId);
+      if (target.roomId) target.roomId = replace(target.roomId);
+    }
   for (const p of c.monsterPlacements) {
     p.id = replace(p.id);
     p.monsterId = replace(p.monsterId);
@@ -148,20 +185,7 @@ export function assignEntity(
     addMonsterPlacement(c, entityId, { dungeonId, roomId });
     return;
   }
-  const dungeon = c.dungeons.find((d) => d.id === dungeonId);
-  if (!dungeon) throw new Error('Choose a dungeon first.');
-  const room = roomId ? dungeon.rooms.find((r) => r.id === roomId) : undefined;
-  if (roomId && !room) throw new Error('That room no longer exists.');
-  if (!c[kind].some((e) => e.id === entityId)) {
-    const draft = c.drafts[kind];
-    if (!draft || draft.id !== entityId) throw new Error('Object not found.');
-    (c[kind] as Array<typeof draft>).push(structuredClone(draft));
-    c.drafts[kind] = null;
-  }
-  const key = referenceKey(kind);
-  if (!dungeon[key].includes(entityId)) dungeon[key].push(entityId);
-  if (room && !room[key].includes(entityId)) room[key].push(entityId);
-  dungeon.updatedAt = now();
+  addContentPlacement(c, kind, entityId, { dungeonId, roomId });
 }
 export function deleteEntity(
   c: Campaign,
@@ -172,23 +196,16 @@ export function deleteEntity(
     deleteMonster(c, entityId);
     return;
   }
+  if (kind === 'npcs' || kind === 'encounters') {
+    deleteContent(c, kind, entityId);
+    return;
+  }
   const collection = c[kind];
   const index = collection.findIndex((e) => e.id === entityId);
   if (index >= 0) collection.splice(index, 1);
   if (c.drafts[kind]?.id === entityId) c.drafts[kind] = null;
   if (c.workspace.selected[kind] === entityId)
     c.workspace.selected[kind] = null;
-  if (kind !== 'characters') {
-    const key = referenceKey(kind);
-    for (const d of [
-      ...c.dungeons,
-      ...(c.dungeonDraft ? [c.dungeonDraft] : []),
-    ]) {
-      d[key] = d[key].filter((i) => i !== entityId);
-      for (const room of d.rooms)
-        room[key] = room[key].filter((i) => i !== entityId);
-    }
-  }
 }
 export function removeAssignment(
   c: Campaign,
@@ -212,14 +229,17 @@ export function removeAssignment(
     syncMonsterRefs(c);
     return;
   }
-  const key = referenceKey(kind);
-  if (roomId) {
-    const r = d.rooms.find((e) => e.id === roomId);
-    if (r) r[key] = r[key].filter((i) => i !== entityId);
-  } else {
-    d[key] = d[key].filter((i) => i !== entityId);
-    for (const r of d.rooms) r[key] = r[key].filter((i) => i !== entityId);
-  }
+  const key = contentPlacementKey(kind);
+  c[key] = c[key].filter(
+    (p) =>
+      !(
+        p.entityId === entityId &&
+        p.dungeonId === dungeonId &&
+        (!roomId || p.roomId === roomId)
+      ),
+  );
+  d.updatedAt = now();
+  syncContentRefs(c);
 }
 
 export function selectDungeonCandidate(c: Campaign, title: string): void {
@@ -229,6 +249,7 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
   candidate.updatedAt = now();
   c.dungeons.push(candidate);
   materializeDraftMonsterRefs(c, candidate.id);
+  materializeDraftContentRefs(c, candidate.id);
   c.dungeonDraft = null;
   Object.assign(c.workspace, {
     section: 'dungeons',
@@ -243,6 +264,12 @@ export function campaignIds(c: Campaign): string[] {
   return [
     c.id,
     ...c.monsterPlacements.map((p) => p.id),
+    ...c.npcPlacements.map((p) => p.id),
+    ...c.encounterPlacements.map((p) => p.id),
+    ...[
+      ...c.encounters,
+      ...(c.drafts.encounters ? [c.drafts.encounters] : []),
+    ].flatMap((e) => (e.participants ?? []).map((p) => p.id)),
     ...[
       ...c.monsters,
       ...(c.drafts.monsters ? [c.drafts.monsters] : []),
@@ -312,7 +339,7 @@ export function applyCampaignEdit(
   action: (campaign: Campaign) => void,
   timestamp = now(),
 ): void {
-  const content = (d: Dungeon | Character | Monster) =>
+  const content = (d: Dungeon | Character | Monster | NPC | Encounter) =>
     JSON.stringify({ ...d, updatedAt: undefined });
   const before = new Map(
     [
@@ -320,6 +347,10 @@ export function applyCampaignEdit(
       ...(c.dungeonDraft ? [c.dungeonDraft] : []),
       ...c.monsters,
       ...(c.drafts.monsters ? [c.drafts.monsters] : []),
+      ...c.npcs,
+      ...c.encounters,
+      ...(c.drafts.npcs ? [c.drafts.npcs] : []),
+      ...(c.drafts.encounters ? [c.drafts.encounters] : []),
       ...c.characters,
       ...(c.drafts.characters ? [c.drafts.characters] : []),
     ].map((d) => [d.id, content(d)]),
@@ -330,6 +361,10 @@ export function applyCampaignEdit(
     ...(c.dungeonDraft ? [c.dungeonDraft] : []),
     ...c.monsters,
     ...(c.drafts.monsters ? [c.drafts.monsters] : []),
+    ...c.npcs,
+    ...c.encounters,
+    ...(c.drafts.npcs ? [c.drafts.npcs] : []),
+    ...(c.drafts.encounters ? [c.drafts.encounters] : []),
     ...c.characters,
     ...(c.drafts.characters ? [c.drafts.characters] : []),
   ])

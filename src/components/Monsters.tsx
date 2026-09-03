@@ -37,12 +37,15 @@ import {
 import { regions, regionById } from '../data/regions';
 import { id } from '../generators/random';
 import { Field } from './Field';
+import { CompactCard } from './CompactCard';
+import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import {
   PlacementList,
   QuantityControl,
   RoomSelector,
 } from './MonsterAssignments';
+import { placementCaption } from './ContentAssignments';
 import type { Confirm } from './Library';
 
 export function Monsters({
@@ -322,48 +325,19 @@ export function Monsters({
         )}
         <div className="character-library monster-library">
           {c.monsters.map((m) => (
-            <article className="campaign-card monster-card" key={m.id}>
-              <div className="card-meta">
-                <span>MONSTER</span>
-                <span>
-                  {
-                    new Set(
-                      c.monsterPlacements
-                        .filter((p) => p.monsterId === m.id)
-                        .map((p) => p.dungeonId),
-                    ).size
-                  }
-                  개 던전에 배치
-                </span>
-              </div>
-              <button className="card-title" onClick={() => select(m.id)}>
-                {m.name || 'Unnamed Monster'}
-              </button>
-              <Translation text={m.name} />
-              <p>
-                HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale}
-              </p>
-              <div className="card-actions">
-                <Button className="btn ghost" onClick={() => select(m.id)}>
-                  몬스터 열기
-                  <ArrowRight size={15} />
-                </Button>
-                <Button
-                  className="icon-btn"
-                  aria-label={`${m.name} 복제`}
-                  onClick={() => duplicate(m)}
-                >
-                  <Copy size={16} />
-                </Button>
-                <Button
-                  className="icon-btn danger"
-                  aria-label={`${m.name} 삭제`}
-                  onClick={() => remove(m)}
-                >
-                  <Trash2 size={16} />
-                </Button>
-              </div>
-            </article>
+            <CompactCard
+              key={m.id}
+              title={m.name || 'Unnamed Monster'}
+              secondary={
+                'HP ' + m.hp + ' · Morale ' + (m.morale === '' ? '—' : m.morale)
+              }
+              metadata={placementCaption(c, 'monsters', m.id)}
+              onOpen={() => select(m.id)}
+              actions={[
+                { label: '복제', onSelect: () => duplicate(m) },
+                { label: '삭제', onSelect: () => remove(m), danger: true },
+              ]}
+            />
           ))}
         </div>
         {!c.monsters.length && (
@@ -423,8 +397,7 @@ export function Monsters({
         </div>
       </div>
       {generationControls}
-      <details className="sheet-source">
-        <summary>생성 규칙과 출처</summary>
+      <SourceDisclosure label="생성 규칙과 출처">
         {selected.generation?.system === 'epk' ? (
           <>
             <p>
@@ -450,7 +423,13 @@ export function Monsters({
         ) : (
           <p>{selected.sources?.name || '직접 작성한 몬스터입니다.'}</p>
         )}
-      </details>
+        {isFeretory && (
+          <p>
+            공격명과 피해를 분리해 기록합니다. FERETORY The Monster Approaches의
+            피해 재굴림은 외형·능력치의 자동값과 연동됩니다.
+          </p>
+        )}
+      </SourceDisclosure>
       {!rules.pack && (
         <p className="source-notice">
           원문 자료를 불러오면 재굴림을 사용할 수 있습니다. 직접 작성과 배치는
@@ -556,10 +535,6 @@ export function Monsters({
               공격 추가
             </Button>
           </div>
-          <p className="help-line">
-            공격명과 피해를 분리해 기록합니다. FERETORY 피해 재굴림은
-            외형·능력치의 자동값과 연동됩니다.
-          </p>
           <div className="monster-item-grid">
             {selected.attacks.map((a, i) => (
               <div className="character-item monster-attack" key={a.id}>

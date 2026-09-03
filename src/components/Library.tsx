@@ -73,7 +73,9 @@ export function Library({
   const saved = !!selected && c[kind].some((e) => e.id === selected.id);
   const category =
     kind === 'encounters' && selected && 'category' in selected
-      ? selected.category
+      ? selected.category === 'rare'
+        ? 'rare'
+        : 'common'
       : 'common';
   function select(entityId: string) {
     changeWorkspace(c.id, { selected: { ...w.selected, [kind]: entityId } });

@@ -14,6 +14,7 @@ export type Section =
   | 'characters'
   | 'dungeons'
   | 'monsters'
+  | 'npcs'
   | 'encounters'
   | 'notes'
   | 'about';
@@ -111,6 +112,14 @@ export interface MonsterPlacement extends MonsterTarget {
   notes: string;
 }
 export interface NPC extends BaseEntity {
+  campaignId: string;
+  region?: RegionId;
+  personality: string;
+  reaction: string;
+  affiliation: string;
+  fears: string;
+  description: string;
+  sourceRefs: SourceReference[];
   archetype: string;
   appearance: string;
   behaviour: string;
@@ -125,11 +134,49 @@ export interface NPC extends BaseEntity {
   possession: string;
 }
 export interface Encounter extends BaseEntity {
-  category: 'common' | 'rare';
+  campaignId: string;
+  region?: RegionId;
+  category: EncounterCategory;
+  text: string;
+  participants: EncounterParticipant[];
+  sourceRefs: SourceReference[];
+  dungeonDR: number;
+  unresolved?: boolean;
   description: string;
   sign: string;
   complication: string;
   treasure: string;
+}
+export type ContentKind = 'npcs' | 'encounters';
+export type EncounterCategory =
+  | 'common'
+  | 'rare'
+  | 'hazard'
+  | 'discovery'
+  | 'room';
+export interface SourceReference {
+  field?: string;
+  bookId?: string;
+  bookTitle?: string;
+  tableId?: string;
+  tableTitle?: string;
+  pdfPage?: number | number[] | null;
+  printedPage?: number | string | null;
+  note?: string;
+  roll?: number;
+  entryId?: string | null;
+}
+export interface EncounterParticipant {
+  id: string;
+  kind: 'monster' | 'npc';
+  entityId: string;
+  quantity: number;
+}
+export interface ContentPlacement extends MonsterTarget {
+  id: string;
+  entityId: string;
+  quantity: number;
+  notes: string;
 }
 export interface Assignment {
   /** Derived compatibility index. MonsterPlacement is the authoritative relation. */
@@ -186,6 +233,11 @@ export interface Workspace {
   monsterTarget?: MonsterTarget | null;
   monsterRegion?: RegionId;
   monsterGenerationMode?: 'epk' | 'tma';
+  contentTarget?: MonsterTarget | null;
+  contentDraftTargets?: Partial<Record<ContentKind, MonsterTarget | null>>;
+  contentRegion?: RegionId;
+  encounterCategory?: EncounterCategory | 'random';
+  encounterDR?: number;
 }
 export interface Campaign {
   /** Added lazily to older v4 campaigns; absent means the standard Chaos5 defaults. */
@@ -201,6 +253,8 @@ export interface Campaign {
   dungeonDraft?: Dungeon | null;
   monsters: Monster[];
   monsterPlacements: MonsterPlacement[];
+  npcPlacements: ContentPlacement[];
+  encounterPlacements: ContentPlacement[];
   npcs: NPC[];
   encounters: Encounter[];
   notes: string;
@@ -210,7 +264,7 @@ export interface Campaign {
 export interface AppSave {
   /** Standalone Fate state when no campaign is open. */
   mythic?: MythicState;
-  schemaVersion: 4;
+  schemaVersion: 5;
   campaigns: Campaign[];
   activeCampaignId: string | null;
   view: 'campaigns' | 'campaign';

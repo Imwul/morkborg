@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import type { RuleRoll } from '../generators';
+import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import type { FieldSpec } from '../domain/types';
 export function Field({
@@ -13,6 +14,7 @@ export function Field({
   reroll,
   source,
   onReroll,
+  translation,
 }: {
   spec: FieldSpec;
   value: string | number;
@@ -20,6 +22,7 @@ export function Field({
   reroll?: () => RuleRoll;
   source?: string;
   onReroll?: () => void;
+  translation?: string;
 }) {
   const htmlId = useId();
   const [editing, setEditing] = useState(false);
@@ -140,11 +143,13 @@ export function Field({
           placeholder="직접 입력…"
         />
       )}
-      {spec.type !== 'number' && <Translation text={String(value)} />}
+      {spec.type !== 'number' && (
+        <Translation text={String(value)} translation={translation} />
+      )}
       {editing && (
-        <p className="source-citation">
-          {source ?? (value !== '' ? '직접 작성' : '직접 작성 가능')}
-        </p>
+        <SourceDisclosure
+          source={source ?? (value !== '' ? '직접 작성' : '직접 작성 가능')}
+        />
       )}
     </div>
   );

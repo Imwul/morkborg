@@ -140,22 +140,45 @@ export const usePrivateUpdates = () =>
     () => state,
     () => state,
   );
+export function privateUpdateSupport(): { supported: boolean; reason: string } {
+  const supported =
+    typeof indexedDB !== 'undefined' &&
+    !!globalThis.crypto?.subtle &&
+    typeof AbortController !== 'undefined';
+  return {
+    supported,
+    reason: supported
+      ? ''
+      : '이 환경에서는 배포 자료 자동 확인을 지원하지 않습니다. 개인 자료 JSON을 직접 가져오세요.',
+  };
+}
 async function fetchJSON(path: string) {
-  // Neither the decryption key nor private data is ever sent to the server.
-  const response = await fetch(path, {
-    cache: 'no-store',
-    credentials: 'omit',
-    redirect: 'error',
-    signal: AbortSignal.timeout(15000),
-  });
-  if (!response.ok) throw new Error('갱신 자료에 연결할 수 없습니다.');
-  const text = await response.text();
-  if (text.length > 28_000_000) throw new Error('갱신 자료가 너무 큽니다.');
-  return JSON.parse(text) as unknown;
+  // No local file handles: only the same-origin published manifest and ciphertext.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(path, {
+      cache: 'no-store',
+      credentials: 'omit',
+      redirect: 'error',
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error('갱신 자료에 연결할 수 없습니다.');
+    const text = await response.text();
+    if (text.length > 28_000_000) throw new Error('갱신 자료가 너무 큽니다.');
+    return JSON.parse(text) as unknown;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 let inFlight: Promise<void> | null = null;
 let lastCheck = 0;
 export function checkPrivateUpdates(force = false): Promise<void> {
+  const support = privateUpdateSupport();
+  if (!support.supported) {
+    emit({ error: support.reason, busy: false });
+    return Promise.resolve();
+  }
   if (inFlight) return inFlight;
   if (!force && Date.now() - lastCheck < 5 * 60 * 1000)
     return Promise.resolve();

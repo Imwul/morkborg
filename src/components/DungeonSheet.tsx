@@ -76,25 +76,47 @@ export function DungeonSheet({
                 )}
               </div>
             </div>
-            {roomFields.map((spec) => (
-              <Field
-                key={spec.key}
-                spec={{
-                  ...spec,
-                  label: spec.key === 'name' ? '방 이름' : spec.label,
-                }}
-                value={String(
-                  (room as unknown as Record<string, string>)[spec.key] ?? '',
-                )}
-                source={room.sources?.[spec.key]}
-                onChange={(value, source) =>
-                  patchRoom(room.id, spec.key, value, source)
-                }
-                reroll={
-                  ready ? () => generateRoomRoll(spec.key, d.region) : undefined
-                }
-              />
-            ))}
+            {openRoom ? (
+              <>
+                <button
+                  className="room-preview-name"
+                  onClick={() => openRoom(room.id)}
+                >
+                  {room.name || 'Unnamed Room'}
+                </button>
+                <p className="room-preview-description">{room.description}</p>
+                <div className="contents-counts">
+                  <span>몬스터 {room.monsterIds.length}</span>
+                  <span>NPC {room.npcIds.length}</span>
+                  <span>조우 {room.encounterIds.length}</span>
+                </div>
+              </>
+            ) : (
+              <>
+                {roomFields.map((spec) => (
+                  <Field
+                    key={spec.key}
+                    spec={{
+                      ...spec,
+                      label: spec.key === 'name' ? '방 이름' : spec.label,
+                    }}
+                    value={String(
+                      (room as unknown as Record<string, string>)[spec.key] ??
+                        '',
+                    )}
+                    source={room.sources?.[spec.key]}
+                    onChange={(value, source) =>
+                      patchRoom(room.id, spec.key, value, source)
+                    }
+                    reroll={
+                      ready
+                        ? () => generateRoomRoll(spec.key, d.region)
+                        : undefined
+                    }
+                  />
+                ))}
+              </>
+            )}
           </article>
         ))}
       </div>

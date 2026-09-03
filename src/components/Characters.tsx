@@ -43,7 +43,7 @@ import {
 } from '../generators/characterClasses';
 import { id } from '../generators/random';
 import { Field } from './Field';
-import { Translation } from './Translation';
+import { CompactCard } from './CompactCard';
 import type { Confirm } from './Library';
 
 type ItemKind =
@@ -405,55 +405,26 @@ export function Characters({
         )}
         <div className="character-library">
           {c.characters.map((ch) => (
-            <article
-              className={`campaign-card character-card ${ch.status === 'dead' ? 'is-dead' : ''}`}
+            <CompactCard
               key={ch.id}
-            >
-              <div className="card-meta">
-                <span>CHARACTER</span>
-                <span>{ch.status === 'alive' ? '생존' : '사망'}</span>
-              </div>
-              <button
-                className="card-title"
-                onClick={() => {
-                  setMode(ch.classId ?? 'classless');
-                  select(ch.id);
-                }}
-              >
-                {ch.name || 'Unnamed Character'}
-              </button>
-              <Translation text={ch.name} />
-              <p>{ch.className}</p>
-              <Translation text={ch.className} />
-              <strong>
-                HP {ch.hp} / {ch.maxHp}
-              </strong>
-              <div className="card-actions">
-                <Button
-                  className="btn ghost"
-                  onClick={() => {
-                    setMode(ch.classId ?? 'classless');
-                    select(ch.id);
-                  }}
-                >
-                  캐릭터 열기 <ArrowRight size={15} />
-                </Button>
-                <Button
-                  className="icon-btn"
-                  aria-label={`${ch.name} 복제`}
-                  onClick={() => duplicate(ch)}
-                >
-                  <Copy size={16} />
-                </Button>
-                <Button
-                  className="icon-btn danger"
-                  aria-label={`${ch.name} 삭제`}
-                  onClick={() => remove(ch)}
-                >
-                  <Trash2 size={16} />
-                </Button>
-              </div>
-            </article>
+              title={ch.name || 'Unnamed Character'}
+              secondary={ch.className}
+              metadata={
+                'HP ' +
+                ch.hp +
+                ' / ' +
+                ch.maxHp +
+                (ch.status === 'dead' ? ' · 사망' : '')
+              }
+              onOpen={() => {
+                setMode(ch.classId ?? 'classless');
+                select(ch.id);
+              }}
+              actions={[
+                { label: '복제', onSelect: () => duplicate(ch) },
+                { label: '삭제', onSelect: () => remove(ch), danger: true },
+              ]}
+            />
           ))}
         </div>
       </>

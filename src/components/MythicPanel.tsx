@@ -1,3 +1,4 @@
+import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { Dices, Minus, Plus } from 'lucide-react';
@@ -517,23 +518,19 @@ export function MythicPanel({
                           : undefined
                       }
                     />
-                    <details className="sheet-source">
-                      <summary>출처</summary>
-                      <p>{r.source}</p>
-                    </details>
+                    <SourceDisclosure source={r.source} />
                   </div>
                 ))}
               </div>
             )}
-            <details className="fate-source">
-              <summary>원문 출처 / 판정 규칙</summary>
+            <SourceDisclosure label="원문 출처 / 판정 규칙">
               <p>{fateSource(reading)}</p>
               <p>
                 Chaos: PDF 22,115쪽. Random Event: PDF 187쪽. Fate Chart의 100은
                 doubles 사건이 아닙니다. 판정 자체로 Chaos를 자동 변경하지
                 않습니다.
               </p>
-            </details>
+            </SourceDisclosure>
             {campaign && destination ? (
               <div className="fate-notes">
                 <label>

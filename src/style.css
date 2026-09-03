@@ -1895,6 +1895,9 @@ h1 {
     display: flex;
     width: 265px;
     max-width: 85vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     z-index: 51;
     box-shadow: 15px 0 50px #14170c55;
   }

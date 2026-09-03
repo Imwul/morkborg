@@ -8,6 +8,12 @@ import {
 import type { AppSave, Campaign, LibraryKind } from '../domain/types';
 import { upgradeCampaignCharacters } from './characterMigration';
 import { upgradeCampaignMonsters } from './monsterMigration';
+import { upgradeCampaignContents } from './contentMigration';
+import {
+  contentRelationIssues,
+  contentPlacementKey,
+  contentRefKey,
+} from '../domain/contentOperations';
 import { monsterRelationIssues } from '../domain/monsterOperations';
 import { mythicStateSchema } from './mythicSchema';
 import { createCampaign } from '../generators';
@@ -126,7 +132,52 @@ const monsterPlacement = monsterTarget.extend({
   quantity: z.number().int().min(1).max(999999),
   notes: text,
 });
+const sourceReference = z.object({
+  field: text.optional(),
+  bookId: text.optional(),
+  bookTitle: text.optional(),
+  tableId: text.optional(),
+  tableTitle: text.optional(),
+  pdfPage: z
+    .union([
+      z.number().int().positive(),
+      z.array(z.number().int().positive()),
+      z.null(),
+    ])
+    .optional(),
+  printedPage: z.union([z.number(), text, z.null()]).optional(),
+  note: text.optional(),
+  roll: z.number().int().optional(),
+  entryId: text.nullable().optional(),
+});
+const contentPlacement = monsterTarget.extend({
+  id: uuid,
+  entityId: uuid,
+  quantity: z.number().int().min(1).max(999999),
+  notes: text,
+});
+const participant = z.object({
+  id: uuid,
+  kind: z.enum(['monster', 'npc']),
+  entityId: uuid,
+  quantity: z.number().int().min(1).max(999999),
+});
+const encounterCategory = z.enum([
+  'common',
+  'rare',
+  'room',
+  'hazard',
+  'discovery',
+]);
 const npc = z.object({
+  campaignId: uuid,
+  region: z.enum(REGION_IDS).optional(),
+  personality: text,
+  reaction: text,
+  affiliation: text,
+  fears: text,
+  description: text,
+  sourceRefs: z.array(sourceReference),
   ...base,
   ...fields('npcs'),
   specialAbility: text.default(''),
@@ -134,7 +185,14 @@ const npc = z.object({
 const encounter = z.object({
   ...base,
   ...fields('encounters'),
-  category: z.enum(['common', 'rare']),
+  campaignId: uuid,
+  region: z.enum(REGION_IDS).optional(),
+  category: encounterCategory,
+  text,
+  participants: z.array(participant),
+  sourceRefs: z.array(sourceReference),
+  dungeonDR: z.number().int().min(6).max(14),
+  unresolved: z.boolean().optional(),
 });
 const refs = {
   monsterIds: z.array(uuid),
@@ -180,6 +238,8 @@ const campaign = z.object({
   dungeonDraft: dungeon.nullable().optional(),
   monsters: z.array(monster),
   monsterPlacements: z.array(monsterPlacement),
+  npcPlacements: z.array(contentPlacement),
+  encounterPlacements: z.array(contentPlacement),
   npcs: z.array(npc),
   encounters: z.array(encounter),
   notes: text,
@@ -196,6 +256,7 @@ const campaign = z.object({
       'dungeons',
       'monsters',
       'encounters',
+      'npcs',
       'notes',
       'about',
     ]),
@@ -205,6 +266,7 @@ const campaign = z.object({
       'monsters',
       'npcs',
       'encounters',
+      'npcs',
       'notes',
     ]),
     dungeonPreview: z.boolean().optional(),
@@ -216,11 +278,25 @@ const campaign = z.object({
     monsterTarget: monsterTarget.nullable().optional(),
     monsterRegion: z.enum(REGION_IDS).optional(),
     monsterGenerationMode: z.enum(['epk', 'tma']).optional(),
+    contentTarget: monsterTarget.nullable().optional(),
+    contentDraftTargets: z
+      .object({
+        npcs: monsterTarget.nullable().optional(),
+        encounters: monsterTarget.nullable().optional(),
+      })
+      .optional(),
+    contentRegion: z.enum(REGION_IDS).optional(),
+    encounterCategory: z
+      .union([encounterCategory, z.literal('random')])
+      .optional(),
+    encounterDR: z.number().int().min(6).max(14).optional(),
   }),
 });
 export function validateCampaign(input: unknown): Campaign {
   const parsed = campaign.safeParse(
-    upgradeCampaignMonsters(upgradeCampaignCharacters(input)),
+    upgradeCampaignContents(
+      upgradeCampaignMonsters(upgradeCampaignCharacters(input)),
+    ),
   );
   if (!parsed.success) {
     const first = parsed.error.issues[0];
@@ -237,6 +313,12 @@ export function validateCampaign(input: unknown): Campaign {
     ...c.characters.map((e) => e.id),
     ...c.monsters.map((e) => e.id),
     ...c.monsterPlacements.map((p) => p.id),
+    ...c.npcPlacements.map((p) => p.id),
+    ...c.encounterPlacements.map((p) => p.id),
+    ...[
+      ...c.encounters,
+      ...(c.drafts.encounters ? [c.drafts.encounters] : []),
+    ].flatMap((e) => e.participants.map((p) => p.id)),
     ...[
       ...c.monsters,
       ...(c.drafts.monsters ? [c.drafts.monsters] : []),
@@ -277,6 +359,13 @@ export function validateCampaign(input: unknown): Campaign {
   ])
     if (m.campaignId !== c.id)
       throw new Error('Monster belongs to another campaign.');
+  for (const kind of ['npcs', 'encounters'] as const)
+    for (const e of [...c[kind], ...(c.drafts[kind] ? [c.drafts[kind]!] : [])])
+      if (e.campaignId !== c.id)
+        throw new Error('Content belongs to another campaign.');
+  const contentIssues = contentRelationIssues(c);
+  if (contentIssues.length)
+    throw new Error('Invalid content relation: ' + contentIssues[0]);
   const issues = monsterRelationIssues(c);
   if (issues.length) throw new Error(`Invalid monster relation: ${issues[0]}`);
   const kinds = ['monsters', 'npcs', 'encounters'] as const;
@@ -321,7 +410,38 @@ export function validateCampaign(input: unknown): Campaign {
           'Monster compatibility index does not match placements.',
         );
     }
+  for (const kind of ['npcs', 'encounters'] as const)
+    for (const d of c.dungeons)
+      for (const a of [d, ...d.rooms]) {
+        const expected = new Set(
+          c[contentPlacementKey(kind)]
+            .filter(
+              (p) => p.dungeonId === d.id && (a === d || p.roomId === a.id),
+            )
+            .map((p) => p.entityId),
+        );
+        const refs = a[contentRefKey(kind)];
+        if (
+          refs.length !== expected.size ||
+          refs.some((id) => !expected.has(id))
+        )
+          throw new Error(
+            'Content compatibility index does not match placements.',
+          );
+      }
   const w = c.workspace;
+  for (const location of [
+    w.contentTarget,
+    ...Object.values(w.contentDraftTargets ?? {}),
+  ])
+    if (location) {
+      const target = c.dungeons.find((d) => d.id === location.dungeonId);
+      if (
+        !target ||
+        (location.roomId && !target.rooms.some((r) => r.id === location.roomId))
+      )
+        throw new Error('Content placement target does not exist.');
+    }
   if (w.monsterTarget) {
     const target = c.dungeons.find((d) => d.id === w.monsterTarget!.dungeonId);
     if (
@@ -354,6 +474,7 @@ export function validateSave(input: unknown): AppSave {
         z.literal(2),
         z.literal(3),
         z.literal(4),
+        z.literal(5),
       ]),
       campaigns: z.array(z.unknown()),
       mythic: mythicStateSchema.optional(),
@@ -363,7 +484,7 @@ export function validateSave(input: unknown): AppSave {
     .safeParse(input);
   if (!shape.success)
     throw new Error(
-      'Unsupported or damaged save file. Expected schema version 1, 2, 3 or 4.',
+      'Unsupported or damaged save file. Expected schema version 1, 2, 3, 4 or 5.',
     );
   const campaigns = shape.data.campaigns.map(validateCampaign);
   const all = campaigns.map((c) => c.id);
@@ -372,7 +493,7 @@ export function validateSave(input: unknown): AppSave {
   if (shape.data.activeCampaignId && !all.includes(shape.data.activeCampaignId))
     throw new Error('Active campaign is missing.');
   return {
-    schemaVersion: 4,
+    schemaVersion: 5,
     ...(shape.data.mythic ? { mythic: shape.data.mythic } : {}),
     campaigns,
     activeCampaignId: shape.data.activeCampaignId,
@@ -392,10 +513,11 @@ export function parseImport(raw: string): Campaign[] {
     (value.schemaVersion !== 1 &&
       value.schemaVersion !== 2 &&
       value.schemaVersion !== 3 &&
-      value.schemaVersion !== 4)
+      value.schemaVersion !== 4 &&
+      value.schemaVersion !== 5)
   )
     throw new Error(
-      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3 또는 4 JSON을 사용하세요.',
+      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3, 4 또는 5 JSON을 사용하세요.',
     );
   if ('campaign' in value) return [validateCampaign(value.campaign)];
   const save = validateSave(value);

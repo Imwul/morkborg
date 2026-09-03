@@ -4,6 +4,10 @@ import type {
   MonsterPlacement,
   MonsterTarget,
 } from './types';
+import {
+  removeParticipantReferences,
+  syncContentRefs,
+} from './contentOperations';
 import { id, now } from '../generators/random';
 import {
   generateMonster,
@@ -174,6 +178,7 @@ export function cloneMonster(
   return m;
 }
 export function deleteMonster(c: Campaign, monsterId: string): void {
+  removeParticipantReferences(c, 'monster', monsterId);
   const affected = new Set(
     c.monsterPlacements
       .filter((p) => p.monsterId === monsterId)
@@ -216,14 +221,30 @@ export function deleteRoom(
   if (!d) return;
   for (const p of c.monsterPlacements)
     if (p.dungeonId === dungeonId && p.roomId === roomId) p.roomId = null;
+  for (const key of ['npcPlacements', 'encounterPlacements'] as const)
+    for (const p of c[key])
+      if (p.dungeonId === dungeonId && p.roomId === roomId) p.roomId = null;
+  for (const target of [
+    c.workspace.contentTarget,
+    ...Object.values(c.workspace.contentDraftTargets ?? {}),
+  ])
+    if (target?.roomId === roomId) target.roomId = null;
   d.rooms = d.rooms.filter((r) => r.id !== roomId);
   d.updatedAt = now();
   if (c.workspace.roomId === roomId) c.workspace.roomId = null;
   if (c.workspace.monsterTarget?.roomId === roomId)
     c.workspace.monsterTarget.roomId = null;
   syncMonsterRefs(c);
+  syncContentRefs(c);
 }
 export function deleteDungeon(c: Campaign, dungeonId: string): void {
+  for (const key of ['npcPlacements', 'encounterPlacements'] as const)
+    c[key] = c[key].filter((p) => p.dungeonId !== dungeonId);
+  if (c.workspace.contentTarget?.dungeonId === dungeonId)
+    c.workspace.contentTarget = null;
+  for (const kind of ['npcs', 'encounters'] as const)
+    if (c.workspace.contentDraftTargets?.[kind]?.dungeonId === dungeonId)
+      c.workspace.contentDraftTargets[kind] = null;
   c.dungeons = c.dungeons.filter((d) => d.id !== dungeonId);
   c.monsterPlacements = c.monsterPlacements.filter(
     (p) => p.dungeonId !== dungeonId,
@@ -259,8 +280,20 @@ export function duplicateDungeon(c: Campaign, dungeonId: string) {
       dungeonId: d.id,
       roomId: p.roomId ? roomMap.get(p.roomId)! : null,
     }));
+  for (const key of ['npcPlacements', 'encounterPlacements'] as const)
+    c[key].push(
+      ...c[key]
+        .filter((p) => p.dungeonId === source.id)
+        .map((p) => ({
+          ...structuredClone(p),
+          id: id(),
+          dungeonId: d.id,
+          roomId: p.roomId ? roomMap.get(p.roomId)! : null,
+        })),
+    );
   c.dungeons.push(d);
   c.monsterPlacements.push(...copies);
   syncMonsterRefs(c);
+  syncContentRefs(c);
   return d;
 }

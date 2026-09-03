@@ -98,7 +98,7 @@ test('v1 migration preserves IDs, notes, drafts, timestamps and exact original b
   const storage = new MemoryStorage();
   storage.setItem(LEGACY_STORAGE_KEY, raw);
   const result = loadStoredSave(storage);
-  assert.equal(result.save.schemaVersion, 4);
+  assert.equal(result.save.schemaVersion, 5);
   assert.deepEqual(result.save.campaigns[0], c);
   assert.equal(result.save.activeCampaignId, c.id);
   assert.equal(storage.getItem(LEGACY_STORAGE_KEY), raw);

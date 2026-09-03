@@ -396,6 +396,8 @@ export function createCampaign(title: string, subtitle = ''): Campaign {
     dungeons: [],
     monsters: [],
     monsterPlacements: [],
+    npcPlacements: [],
+    encounterPlacements: [],
     npcs: [],
     encounters: [],
     notes: '',
