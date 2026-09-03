@@ -77,7 +77,7 @@ Eight-book 조사에는 Full Edition의 Rotblack Sludge, FERETORY의 여행·여
 | 1440 × 1000 | document 1425px, 가로 overflow 없음. Room 카드 약186px. |
 | 3440 × 1440 | document 3425px, 가로 overflow 없음. 네 Room 카드가 같은 행, 각각 약718 ×164px. Monster 카드 약113px. |
 
-Safari 26.6.2에서는 실제 배포 페이지·Oracle 메뉴를 확인했습니다. 파일 선택 창에서 JSON 선택 후 업로드가 진행되지 않았으며 9월 4일 재시도도 같았습니다. Safari의 import→자동 갱신 검증은 미완료입니다. 기능 검출 코드만으로 Safari 성공을 주장하지 않습니다.
+Safari의 새 비공개 창에서 실제 배포 URL에 첫 접속하여 JSON 없이 Oracle 491개·8권과 Fate Chart가 준비됐습니다. CF6·d100=100 판정은 reload 후 복원됐고 새 Campaign에서 Graft NPC 생성·한국어 표시·저장을 확인했습니다. 서버 HTTP 200과 기존 배포 탭의 자동 자료 적용도 확인했습니다. 서버·bootstrap 테스트 20개를 포함한 최종 전체 테스트는 **222개 통과, 실패 0, 건너뜀 0**입니다. [서버·Safari·폼 정렬 실측](private-data.md)을 참고하세요.
 
 ## 남아 있는 범위
 
@@ -85,4 +85,9 @@ Safari 26.6.2에서는 실제 배포 페이지·Oracle 메뉴를 확인했습니
 - 종류 무작위는 지원하는 다섯 종류를 같은 확률로 선택하는 앱 기능이며, 원문의 d4/d12 stocking category 절차로 표시하지 않습니다.
 - Rare d8 + DR가 원문 표 범위 1–20 밖이면 미해결 상태를 표시하고 직접 선택·입력하도록 합니다. clamp·재굴림·새 몬스터 수치를 만들지 않습니다.
 - `Regional Creature` 같은 후속 지시는 그대로 보존하며 완전한 재귀 encounter 절차로 실행하지 않습니다.
-- Safari의 OS 파일 창을 통한 첫 import와 그 이후 자동 갱신은 별도의 실제 성공 확인이 필요합니다.
+- Safari OS 파일 선택을 통한 선택적 JSON 복원은 이번 최종 검증에서 재실행하지 않았습니다. 기본 서버 자동 로딩·새로고침·생성은 실제 Safari에서 성공했습니다.
+
+
+## 경로·배포 확인
+
+`src`, `api`, `server`에 개인 절대 경로(`/Users/`, `file://`)와 File System Access API 사용이 없음을 확인했습니다. 실제 기능 검증 커밋은 `f1a2530734c05915e28610a8f4cee4147ee18283`이며, 사용자 배포 주소는 `https://morkborg-4e3y.vercel.app/`입니다. 이 커밋은 NPC·Encounter 구현 `e45f129e25b48a395489b1cccd63a11a3ed7ad7b`를 포함합니다.
