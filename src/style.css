@@ -15,16 +15,16 @@
   --color-popover-foreground: var(--foreground);
 }
 :root {
-  --background: #eeeee5;
-  --foreground: #21221c;
+  --background: #ffffff;
+  --foreground: #000000;
   --primary: #ffe900;
-  --primary-foreground: #171910;
-  --muted: #f1eedf;
+  --primary-foreground: #000000;
+  --muted: #ffffff;
   --muted-foreground: #696b5d;
   --border: #c8cbbd;
   --acid: #ffe900;
-  --ink: #20211c;
-  --paper: #eeeee5;
+  --ink: #000000;
+  --paper: #ffffff;
   --radius: 0;
   color-scheme: light;
   font-family: Arial, Helvetica, sans-serif;
@@ -82,8 +82,8 @@ p {
 }
 .sidebar {
   width: 244px;
-  background: #20211c;
-  color: #eeeedf;
+  background: #000000;
+  color: #ffffff;
   position: fixed;
   inset: 0 auto 0 0;
   padding: 38px 26px;
@@ -108,7 +108,7 @@ p {
     monospace;
   letter-spacing: 2.7px;
   margin-top: 17px;
-  color: #fff4a3;
+  color: #ffe900;
 }
 .side-divider {
   height: 1px;
@@ -141,7 +141,7 @@ p {
 }
 .nav-item.active {
   background: var(--acid);
-  color: #20211c;
+  color: #000000;
 }
 .nav-item svg:last-child {
   margin-left: auto;
@@ -242,7 +242,7 @@ h1 {
   box-shadow: 3px 3px 0 var(--ink);
 }
 .btn:hover {
-  background: #fff4a3;
+  background: #ffe900;
 }
 .btn.primary:hover {
   background: #ffe900;
@@ -264,7 +264,7 @@ h1 {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  background: #fff4a3;
+  background: #ffe900;
   min-height: 402px;
 }
 .cover-number {
@@ -438,7 +438,7 @@ h1 {
   background: none;
   border: 0;
   text-align: left;
-  color: #edeee1;
+  color: #ffffff;
   width: 100%;
   padding: 0 20px 0 0;
 }
@@ -553,7 +553,7 @@ h1 {
   z-index: 40;
   background: var(--paper);
   border: 1px solid var(--ink);
-  box-shadow: 5px 5px 0 #20211c2a;
+  box-shadow: 5px 5px 0 #0000002a;
 }
 .search-results > button {
   display: flex;
@@ -567,7 +567,7 @@ h1 {
   background: none;
 }
 .search-results > button:hover {
-  background: #fff4a3;
+  background: #ffe900;
 }
 .search-results strong {
   font:
@@ -592,7 +592,7 @@ h1 {
   gap: 13px;
   padding: 13px 42px;
   border-bottom: 1px solid #c6cbb0;
-  background: #fff4a3;
+  background: #ffe900;
   flex-wrap: wrap;
 }
 .context-label {
@@ -653,7 +653,7 @@ h1 {
   color: inherit !important;
 }
 .icon-btn:hover {
-  background: #d6dac3 !important;
+  background: #ffe900 !important;
 }
 .btn.small {
   font-size: 10px;
@@ -676,7 +676,7 @@ h1 {
   text-align: left;
 }
 .campaign-card {
-  background: #fff4a3;
+  background: #ffe900;
   min-height: 320px;
   display: flex;
   flex-direction: column;
@@ -921,7 +921,7 @@ h1 {
 }
 .create-card {
   border: 1px dashed #8c9472;
-  background: #fff4a3;
+  background: #ffe900;
   padding: 35px;
   display: flex;
   align-items: center;
@@ -987,7 +987,7 @@ h1 {
 }
 .region-line > select {
   border: 1px solid #bfc8a3;
-  background: #fff4a3;
+  background: #ffe900;
   padding: 8px 12px;
   font:
     11px 'Courier New',
@@ -1028,7 +1028,7 @@ h1 {
 .tab.active {
   color: var(--ink) !important;
   box-shadow: inset 0 -4px var(--ink);
-  background: #fff4a3 !important;
+  background: #ffe900 !important;
 }
 .tab > span {
   color: #7a8558;
@@ -1126,7 +1126,7 @@ h1 {
 }
 .prose-input:focus,
 .text-input:focus {
-  background: #f5f5ed !important;
+  background: #ffffff !important;
   border-color: #869157 !important;
   padding-left: 6px !important;
   padding-right: 6px !important;
@@ -1258,12 +1258,12 @@ h1 {
   color: #727c58;
 }
 .entity-row.selected {
-  background: #fff4a3;
+  background: #ffe900;
   border-left: 3px solid #6d7c39;
   padding-left: 9px;
 }
 .entity-row.draft-row {
-  background: #fff4a3;
+  background: #ffe900;
   border: 1px dashed #97a167;
   margin-top: 12px;
 }
@@ -1276,7 +1276,7 @@ h1 {
   border: 1px solid var(--border);
   padding: 25px 29px;
   min-width: 0;
-  background: #f2f2e9;
+  background: #ffffff;
 }
 .artifact-head {
   display: flex;
@@ -1290,13 +1290,13 @@ h1 {
     8px/1.6 'Courier New',
     monospace;
   letter-spacing: 0.7px;
-  background: #fff4a3;
+  background: #ffe900;
   color: #6d7549;
   padding: 6px 8px;
   display: inline-block;
 }
 .stamp.saved {
-  background: #fff4a3;
+  background: #ffe900;
   color: #5a7044;
 }
 .entity-title {
@@ -1339,7 +1339,7 @@ h1 {
   border: 1px solid var(--border) !important;
   box-shadow: none !important;
   min-height: 120px;
-  background: #fff4a3;
+  background: #ffe900;
   font:
     14px/1.8 Georgia,
     serif;
@@ -1375,7 +1375,7 @@ h1 {
   border: 1px dashed #b7bea2;
   padding: 40px 24px;
   text-align: center;
-  background: #fff4a3;
+  background: #ffe900;
 }
 .empty-artifact > svg {
   color: #7f8967;
@@ -1409,7 +1409,7 @@ h1 {
     monospace;
   border: 1px solid var(--border);
   padding: 7px 10px;
-  background: #fff4a3;
+  background: #ffe900;
   color: var(--ink);
 }
 .stock-tabs {
@@ -1433,7 +1433,7 @@ h1 {
   padding: 14px 8px 7px;
 }
 .room-row.selected {
-  background: #fff4a3;
+  background: #ffe900;
   border-left: 3px solid #76884c;
   padding-left: 5px;
 }
@@ -1468,7 +1468,7 @@ h1 {
   border: 1px solid var(--border);
   padding: 23px;
   min-width: 0;
-  background: #f2f2e9;
+  background: #ffffff;
 }
 .room-stock {
   margin-top: 28px;
@@ -1510,7 +1510,7 @@ h1 {
   font:
     10px 'Courier New',
     monospace;
-  background: #fff4a3;
+  background: #ffe900;
   padding: 8px;
   color: var(--ink);
 }
@@ -1633,7 +1633,7 @@ h1 {
 }
 .codex-dialog input,
 .codex-dialog textarea {
-  background: #f7f7ef !important;
+  background: #ffffff !important;
   border-radius: 0 !important;
   border: 1px solid #b7c09a !important;
   box-shadow: none !important;
@@ -1650,7 +1650,7 @@ h1 {
 }
 .codex-dialog select {
   width: 100%;
-  background: #f7f7ef;
+  background: #ffffff;
   border: 1px solid #b7c09a;
   padding: 12px;
   font-size: 13px;
@@ -1704,7 +1704,7 @@ h1 {
   right: 28px;
   z-index: 60;
   background: var(--ink);
-  color: #fff4a3;
+  color: #ffe900;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -2309,7 +2309,7 @@ h1 {
   gap: 10px;
   padding: 13px 16px;
   border: 1px solid #bdc69e;
-  background: #fff4a3;
+  background: #ffe900;
   font-size: 12px;
   line-height: 1.7;
   margin-bottom: 25px;
@@ -2387,7 +2387,7 @@ h1 {
   width: 100%;
   border: 1px solid #b7c09c;
   padding: 11px;
-  background: #f2f4e7;
+  background: #ffffff;
   color: var(--ink);
   font-size: 13px;
   border-radius: 0;
@@ -2427,7 +2427,7 @@ h1 {
 }
 .solo-result {
   padding: 22px;
-  background: #fff4a3;
+  background: #ffe900;
   border: 1px solid #b5c296;
 }
 .solo-result > .btn {
@@ -2450,7 +2450,7 @@ h1 {
   padding: 10px;
   min-width: 190px;
   max-width: 100%;
-  background: #fff4a3;
+  background: #ffe900;
   color: var(--ink);
   font-size: 12px;
 }

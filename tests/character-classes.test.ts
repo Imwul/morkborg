@@ -158,7 +158,7 @@ test(
   },
 );
 test(
-  'Action and Descriptor select complementary columns; other tables roll twice independently',
+  'Action and Descriptor select complementary columns; other tables roll once',
   privateData,
   () => {
     const registry = buildOracleRegistry(getRules(), getOraclePack());
@@ -182,13 +182,13 @@ test(
       (t) => t.id === 'mythic2.meaning.locations',
     )!;
     const p = pairedOracleProcedure(t, registry);
-    assert.deepEqual(p.oracleIds, [t.id, t.id]);
+    assert.deepEqual(p.oracleIds, [t.id]);
     let n = 0;
     assert.deepEqual(
       rollProcedure(p, registry, () => (n++ === 0 ? 0.2 : 0.4)).rolls.map(
         (r) => r.roll,
       ),
-      [21, 41],
+      [21],
     );
   },
 );

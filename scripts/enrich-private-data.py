@@ -53,7 +53,7 @@ for table in oracles["tables"]:
 if missing:
     raise SystemExit(f"Missing {len(missing)} translations: {missing[:20]}")
 library["notes"]["translations"] = combined
-library["notes"]["translationEdition"] = "ko-2026-09-03"
+library["notes"]["translationEdition"] = "ko-2026-09-03-r2"
 for path, data in ((library_path, library), (oracles_path, oracles)):
     path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
 bundle = {

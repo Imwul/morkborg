@@ -35,7 +35,7 @@ export function feretoryStats(rolls: FeretoryRolls) {
     armor:
       options.length === 1
         ? options[0]
-        : `동률 — 심판 선택: ${options.join(' / ')}`,
+        : `동률 — 심판 선택: ${options.map((option) => (option === 'None' ? '없음' : option)).join(' / ')}`,
     sides,
   };
 }

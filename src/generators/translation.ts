@@ -1,4 +1,4 @@
-import { getRules } from '../storage/rulesStore';
+import { getRules, type RuleEntry } from '../storage/rulesStore';
 import { getOraclePack } from '../storage/oracleStore';
 
 // Translations travel with the user's private rules bundle, never a network service.
@@ -8,8 +8,8 @@ const vocabulary: Record<string, string> = {
   'No armor': '방어구 없음',
   None: '없음',
   'Light armor': '경갑',
-  'Medium armor': '중갑',
-  'Heavy armor': '중장갑',
+  'Medium armor': '중형 방어구',
+  'Heavy armor': '중갑',
   'sacred scroll': '신성한 두루마리',
   'unclean scroll': '부정한 두루마리',
   'Innate Power': '타고난 권능',
@@ -21,10 +21,13 @@ const vocabulary: Record<string, string> = {
   Presence: '지각',
   Strength: '근력',
   Toughness: '체력',
+  Morale: '사기',
+  Powers: '권능',
   Bite: '물기',
   Shield: '방패',
   Lockpicks: '자물쇠 따개',
   'Portable laboratory': '휴대용 실험실',
+  'A pet monkey': '애완 원숭이',
   'Fanged Deserter': '송곳니 달린 탈영병',
   'Gutterborn Scum': '빈민굴의 부랑자',
   'Esoteric Hermit': '비전의 은둔자',
@@ -63,6 +66,18 @@ let root: Trie = { next: new Map() },
   exact = new Map<string, string>();
 let previousRules: unknown, previousOracles: unknown;
 const normalize = (s: string) => s.normalize('NFC').replace(/\s+/g, ' ').trim();
+export function polishKoreanTranslation(text: string): string {
+  if (!/[가-힣]/.test(text)) return text;
+  return text.replace(
+    /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Attack|Defence|Defense|Damage)\b/gi,
+    (word) =>
+      vocabulary[
+        Object.keys(vocabulary).find(
+          (key) => key.toLowerCase() === word.toLowerCase(),
+        )!
+      ] ?? word,
+  );
+}
 function refresh() {
   const rules = getRules(),
     oracle = getOraclePack();
@@ -73,6 +88,15 @@ function refresh() {
   exact = new Map();
   const translations = rules?.notes.translations;
   const entries: [string, string][] = Object.entries(vocabulary);
+  const addRuleEntries = (rows: RuleEntry[]) => {
+    for (const row of rows) {
+      if (typeof row.meta.ko === 'string')
+        entries.push([row.text, row.meta.ko]);
+      if (row.followup) addRuleEntries(row.followup);
+    }
+  };
+  for (const table of Object.values(rules?.tables ?? {}))
+    addRuleEntries(table.entries);
   for (const t of oracle?.tables ?? [])
     for (const e of t.entries)
       if (typeof e.metadata?.ko === 'string')
@@ -111,7 +135,7 @@ export function translateGeneratedText(input: string): string {
   refresh();
   const text = normalize(input);
   const direct = exact.get(text.toLocaleLowerCase());
-  if (direct !== undefined) return direct;
+  if (direct !== undefined) return polishKoreanTranslation(direct);
   const food = /^(\d+) days of food$/i.exec(text);
   if (food) return `${food[1]}일치 식량`;
   const torch = /^(\d+) torches$/i.exec(text);
@@ -139,6 +163,7 @@ export function translateGeneratedText(input: string): string {
   // monster A/B/C descriptions and attached spell effects keep their boundaries.
   const lower = text.toLocaleLowerCase();
   let output = '',
+    unmatched = '',
     changed = false;
   for (let i = 0; i < text.length;) {
     let node = root,
@@ -157,6 +182,7 @@ export function translateGeneratedText(input: string): string {
       i = best.end;
     } else {
       output += text[i];
+      unmatched += text[i];
       i++;
     }
   }
@@ -168,5 +194,14 @@ export function translateGeneratedText(input: string): string {
     .replace(/\b(\d+) doses total\b/gi, '총 $1회분')
     .replace(/\bDecoctions:/gi, '탕약:')
     .replace(/\b24h\b/g, '24시간');
-  return (changed || output !== text) && /[가-힣]/.test(output) ? output : '';
+  // A few matched words are not a sentence translation. Only grammatical
+  // source fragments and explicit game notation may form a composite result.
+  const unknown = unmatched
+    .replace(/^The\s+/i, '')
+    .replace(/\b\d+\s+(?:arrows|bolts|doses total)\b/gi, '')
+    .replace(/\b(?:HP|DR\s*\d*|[dD]\d+|24h)\b/g, '');
+  if (/[\p{L}]/u.test(unknown)) return '';
+  return (changed || output !== text) && /[가-힣]/.test(output)
+    ? polishKoreanTranslation(output)
+    : '';
 }

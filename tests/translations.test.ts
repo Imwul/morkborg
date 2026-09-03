@@ -9,6 +9,10 @@ import {
 import { getOraclePack, setOraclePack } from '../src/storage/oracleStore.ts';
 import { translateGeneratedText as ko } from '../src/generators/translation.ts';
 import { regions } from '../src/data/regions.ts';
+import {
+  hasRuleTranslations,
+  mergeRuleTranslations,
+} from '../src/storage/ruleTranslations.ts';
 const available =
   existsSync('public/rules/library.json') &&
   existsSync('public/rules/oracles.json');
@@ -40,6 +44,119 @@ test(
         count++;
       }
     assert.ok(count > 11000);
+  },
+);
+test('untranslated sentences never masquerade as Korean after replacing one or two terms', () => {
+  assert.equal(
+    ko(
+      'An unlisted device alters attack rolls but leaves defence rolls untouched.',
+    ),
+    '',
+  );
+  assert.equal(ko('Some unknown sentence about Toughness and Agility.'), '');
+  assert.equal(ko('Bite — Attack DR10'), '물기 — 공격 DR10');
+});
+test(
+  'entry metadata and nested followups translate without the auxiliary dictionary',
+  privateData,
+  () => {
+    const before = getRules()!;
+    const pack = structuredClone(before);
+    pack.notes = {};
+    pack.tables['core.sparks'].entries[0] = {
+      text: 'A test-only signal',
+      weight: 1,
+      meta: { ko: '시험용 신호' },
+      followup: [
+        {
+          text: 'A nested test-only signal',
+          weight: 1,
+          meta: { ko: '중첩 시험용 신호' },
+        },
+      ],
+    };
+    try {
+      setRules(pack);
+      assert.equal(ko('A test-only signal'), '시험용 신호');
+      assert.equal(ko('A nested test-only signal'), '중첩 시험용 신호');
+    } finally {
+      setRules(before);
+    }
+  },
+);
+test(
+  'legacy translation upgrade preserves all original rules, weights and private additions',
+  privateData,
+  () => {
+    const latest = getRules()!;
+    const old = structuredClone(latest);
+    old.notes = { customNote: 'keep this' };
+    const strip = (rows: RuleEntry[]) =>
+      rows.forEach((row) => {
+        delete row.meta.ko;
+        if (row.followup) strip(row.followup);
+      });
+    Object.values(old.tables).forEach((table) => strip(table.entries));
+    old.tables['core.sparks'].entries[0].weight = 7;
+    old.tables['core.sparks'].entries.push({
+      text: 'My own signal',
+      weight: 3,
+      meta: {},
+    });
+    assert.equal(hasRuleTranslations(old), false);
+    const upgraded = mergeRuleTranslations(old, latest);
+    assert.equal(upgraded.notes.customNote, 'keep this');
+    assert.equal(upgraded.tables['core.sparks'].entries[0].weight, 7);
+    assert.equal(
+      typeof upgraded.tables['core.sparks'].entries[0].meta.ko,
+      'string',
+    );
+    assert.deepEqual(
+      upgraded.tables['core.sparks'].entries.at(-1),
+      old.tables['core.sparks'].entries.at(-1),
+    );
+    assert.equal(old.tables['core.sparks'].entries[0].meta.ko, undefined);
+    const removeTranslations = (pack: typeof old) => {
+      const copy = structuredClone(pack);
+      delete copy.notes.translationEdition;
+      delete copy.notes.translations;
+      Object.values(copy.tables).forEach((table) => strip(table.entries));
+      return copy;
+    };
+    assert.deepEqual(removeTranslations(upgraded), removeTranslations(old));
+  },
+);
+test(
+  'a legacy loaded pack displays full translations immediately after a current import',
+  privateData,
+  () => {
+    const latest = getRules()!,
+      oracle = getOraclePack()!;
+    const old = structuredClone(latest);
+    old.notes = {};
+    const strip = (rows: RuleEntry[]) =>
+      rows.forEach((row) => {
+        delete row.meta.ko;
+        if (row.followup) strip(row.followup);
+      });
+    Object.values(old.tables).forEach((table) => strip(table.entries));
+    try {
+      setOraclePack({
+        schemaVersion: 1,
+        books: [],
+        tables: [],
+        procedures: [],
+      });
+      setRules(old);
+      const savedValue = 'Thirteen priests are missing';
+      assert.equal(ko(savedValue), '');
+      setRules(mergeRuleTranslations(old, latest));
+      assert.equal(ko(savedValue), '사제 열셋이 실종되었다');
+      assert.equal(savedValue, 'Thirteen priests are missing');
+    } finally {
+      setRules(latest);
+      setOraclePack(oracle);
+    }
   },
 );
 test(

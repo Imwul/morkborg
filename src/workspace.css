@@ -42,6 +42,38 @@ textarea,
 select {
   font-family: var(--font-ui);
 }
+/* Native macOS menus otherwise paint a short bezel despite min-height. */
+:root select:not([multiple]):not([size]) {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 52px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 12px 42px 12px 14px;
+  border-radius: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 21px) 50%,
+    calc(100% - 15px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+:root select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+@media (forced-colors: active) {
+  :root select:not([multiple]):not([size]) {
+    -webkit-appearance: auto;
+    appearance: auto;
+    background-image: none;
+  }
+}
 p {
   line-height: 1.85;
   word-break: keep-all;
@@ -219,8 +251,8 @@ h1 {
   background: repeating-linear-gradient(
     transparent,
     transparent 35px,
-    #d4c673 35px,
-    #d4c673 36px
+    #000000 35px,
+    #000000 36px
   ) !important;
 }
 .notes-block > .eyebrow {
@@ -445,8 +477,8 @@ h1 {
   justify-content: space-between;
   gap: 24px;
   padding: 20px 42px;
-  background: #fff4a3;
-  border-bottom: 1px solid #c4b650;
+  background: #ffe900;
+  border-bottom: 1px solid #000000;
 }
 .rules-banner p,
 .fill-missing p {
@@ -456,7 +488,7 @@ h1 {
 .fill-missing {
   padding: 16px 20px;
   margin-bottom: 24px;
-  border: 1px solid #c4b650;
+  border: 1px solid #000000;
 }
 .generator-heading {
   align-items: flex-end;
@@ -486,7 +518,7 @@ h1 {
 .candidate-settings select {
   font: 14px/1.7 var(--font-ui);
   border: 1px solid #aeb996;
-  background: #fff4a3;
+  background: #ffe900;
   padding: 10px 12px;
   min-height: 44px;
   max-width: 100%;
@@ -527,7 +559,7 @@ h1 {
 }
 .candidate-room {
   border: 1px solid var(--border);
-  background: #fff4a3;
+  background: #ffe900;
   padding: 20px;
   min-width: 0;
 }
@@ -548,7 +580,7 @@ h1 {
 }
 .candidate-room[open] {
   grid-column: 1/-1;
-  background: #f2f2e9;
+  background: #ffffff;
 }
 .candidate-room[open] summary {
   padding-bottom: 20px;
@@ -565,7 +597,7 @@ h1 {
   gap: 18px;
   text-align: left;
   border: 1px dashed #91a159;
-  background: #fff4a3;
+  background: #ffe900;
   padding: 22px;
   margin-bottom: 24px;
 }
@@ -836,7 +868,7 @@ h1 {
 }
 .life-status {
   padding: 4px 10px;
-  background: #fff4a3;
+  background: #ffe900;
   font-weight: 800;
 }
 .life-status.dead {
@@ -880,7 +912,7 @@ h1 {
 .character-status select {
   padding: 12px;
   min-height: 44px;
-  background: #fff4a3;
+  background: #ffe900;
   border: 1px solid #aeb996;
   font: 700 16px/1.7 var(--font-ui);
 }
@@ -930,7 +962,7 @@ h1 {
 }
 .character-item {
   padding: 0 20px 16px;
-  background: #fff4a3;
+  background: #ffe900;
   border: 1px solid var(--border);
   min-width: 0;
 }
@@ -1291,7 +1323,7 @@ h1 {
 .oracle-card {
   padding: 17px;
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--background) 80%, white);
+  background: #ffffff;
 }
 .oracle-card.selected {
   border-color: var(--foreground);
@@ -1335,7 +1367,7 @@ h1 {
 .oracle-roller {
   border-top: 4px solid var(--foreground);
   padding: 20px 24px 24px;
-  background: color-mix(in srgb, var(--background) 60%, white);
+  background: #ffffff;
 }
 .oracle-procedure {
   margin-bottom: 28px;
@@ -1580,7 +1612,7 @@ h1 {
   border: 2px solid var(--ink);
   background: var(--acid);
   color: var(--ink);
-  box-shadow: 4px 4px 0 #20211c;
+  box-shadow: 4px 4px 0 #000000;
   font: 800 14px/1.4 var(--font-ui);
 }
 .fate-launcher strong {
@@ -1611,7 +1643,7 @@ h1 {
   border-radius: 0 !important;
   border-left: 3px solid var(--ink);
   padding: 28px 28px 42px !important;
-  background: #f5f4ea !important;
+  background: #ffffff !important;
   box-shadow: -12px 0 32px #15160f20;
   z-index: 55 !important;
   font-family: var(--font-ui);
@@ -1646,7 +1678,7 @@ h1 {
   text-overflow: ellipsis;
 }
 .fate-chaos {
-  background: #fff4a3;
+  background: #ffe900;
   border-block: 2px solid var(--ink);
   padding: 16px;
 }
@@ -1704,7 +1736,7 @@ h1 {
 .fate-form textarea {
   min-height: 86px;
   margin: 8px 0 16px;
-  background: #fffef7;
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 0;
   box-shadow: none;
@@ -1829,7 +1861,7 @@ h1 {
   margin-top: 18px;
   padding: 16px;
   border-left: 3px solid var(--ink);
-  background: #fff4a3;
+  background: #ffe900;
 }
 .fate-event > strong {
   font: 800 24px/1.4 var(--font-display);
@@ -1892,7 +1924,7 @@ h1 {
   border-bottom: 1px solid var(--border);
 }
 .fate-history > button.selected {
-  background: #fff4a3;
+  background: #ffe900;
   border-left: 3px solid var(--ink);
 }
 .fate-history span {
@@ -1940,10 +1972,10 @@ h1 {
 :root {
   --primary: #ffe900;
   --acid: #ffe900;
-  --paper: #faf9f4;
-  --background: #faf9f4;
-  --ink: #111110;
-  --foreground: #111110;
+  --paper: #ffffff;
+  --background: #ffffff;
+  --ink: #000000;
+  --foreground: #000000;
   --border: #c3c0b5;
 }
 ::selection {
@@ -1961,7 +1993,7 @@ h1 {
 }
 .codex-sheet {
   border: 2px solid var(--ink);
-  background: #fffef9;
+  background: #ffffff;
   box-shadow: 7px 7px 0 var(--ink);
   margin: 18px 7px 26px 0;
   min-width: 0;
@@ -1996,10 +2028,10 @@ h1 {
   font-weight: 400;
 }
 .field-value:hover {
-  background: #ffe90022;
+  background: #ffe900;
 }
 .field.is-editing {
-  background: #fff5b3;
+  background: #ffe900;
 }
 .field .field-label {
   margin-bottom: 5px;
@@ -2875,7 +2907,7 @@ h1 {
   }
 }
 :root {
-  --muted: #f1eedf;
+  --muted: #ffffff;
   --muted-foreground: #686354;
 }
 @media (max-width: 700px) {
@@ -2895,4 +2927,35 @@ h1 {
   .monster-sheet > .character-section {
     order: 3;
   }
+}
+
+/* Full-strength yellow; disabled controls use monochrome rather than a tint. */
+.btn:disabled,
+button:disabled {
+  opacity: 1;
+  color: #666;
+  background-color: #fff;
+  border-color: #777;
+  box-shadow: none;
+}
+.translation-data-notice {
+  border: 2px solid #000;
+  background: #ffe900;
+  color: #000;
+  padding: 18px 22px;
+  margin-block: 16px;
+  font-family: var(--font-ui);
+}
+.translation-data-notice > strong {
+  font-size: 17px;
+}
+.translation-data-notice > p {
+  font-size: 14px;
+  margin: 6px 0 12px;
+}
+.translation-data-notice .help-line {
+  color: #000;
+}
+.oracle-result-single {
+  grid-template-columns: minmax(0, 1fr);
 }

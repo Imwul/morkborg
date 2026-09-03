@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { readPrivateData } from './privateData';
+import { mergeRuleTranslations } from './ruleTranslations';
 export interface RuleEntry {
   text: string;
   weight: number;
@@ -180,8 +181,30 @@ export function setRules(input: unknown, persist = false) {
   emit();
 }
 let inFlight: Promise<void> | null = null;
+let localTranslations: Promise<void> | null = null;
+function refreshLocalTranslations(): Promise<void> {
+  // Private source files exist only on the local development server.
+  if (!import.meta.env?.DEV) return Promise.resolve();
+  if (localTranslations) return localTranslations;
+  localTranslations = (async () => {
+    const previous = state.pack;
+    if (!previous) return;
+    try {
+      const response = await fetch('/rules/library.json', {
+        cache: 'no-store',
+      });
+      if (!response.ok) return;
+      const incoming = parseRulesPack(await response.json());
+      if (!incoming.notes.translationEdition || state.pack !== previous) return;
+      setRules(mergeRuleTranslations(previous, incoming));
+    } catch {
+      // Keep all saved data usable if the local translation file is unavailable.
+    }
+  })();
+  return localTranslations;
+}
 export function loadRules(): Promise<void> {
-  if (state.pack) return Promise.resolve();
+  if (state.pack) return refreshLocalTranslations();
   if (inFlight) return inFlight;
   state = { pack: null, error: null, loading: true };
   emit();
@@ -192,16 +215,16 @@ export function loadRules(): Promise<void> {
           ? undefined
           : await readPrivateData('library');
       if (local && !state.pack) setRules(local);
-      if (state.pack) return;
+      if (state.pack) return refreshLocalTranslations();
     } catch {
       /* A damaged private pack must not prevent trying the local source. */
     }
-    if (state.pack) return;
+    if (state.pack) return refreshLocalTranslations();
     try {
       const local = localStorage.getItem('morkborg-rules:v1');
       if (local) {
         setRules(JSON.parse(local));
-        return;
+        return refreshLocalTranslations();
       }
     } catch {
       /* Retry the bundled local source if a saved pack is obsolete. */

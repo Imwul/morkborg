@@ -64,6 +64,7 @@ import { MythicPanel } from './components/MythicPanel';
 import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
+import { TranslationDataNotice } from './components/TranslationDataNotice';
 import { registerCodexTools } from './webmcp';
 const nav = [
   { key: 'overview', label: '개요', icon: BookOpen },
@@ -617,6 +618,7 @@ export default function App() {
             </div>
           </div>
         )}
+        {(c || oracleOpen) && <TranslationDataNotice />}
         {c && !rules.pack && c.workspace.section !== 'about' && (
           <div
             className="rules-banner"

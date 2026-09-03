@@ -1,4 +1,7 @@
-import { translateGeneratedText } from '../generators/translation';
+import {
+  polishKoreanTranslation,
+  translateGeneratedText,
+} from '../generators/translation';
 export function Translation({
   text,
   translation,
@@ -6,7 +9,9 @@ export function Translation({
   text: string;
   translation?: string;
 }) {
-  const ko = translation ?? translateGeneratedText(text);
+  const ko = polishKoreanTranslation(
+    translation ?? translateGeneratedText(text),
+  );
   return ko && ko.normalize('NFC') !== text.normalize('NFC') ? (
     <span className="generated-translation" lang="ko">
       {ko}

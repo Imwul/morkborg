@@ -18,6 +18,11 @@ import {
 } from '../domain/oracleNotes';
 import { filterOracles } from '../data/oracles';
 import {
+  oracleLibraryId,
+  oracleLibraryRollIds,
+  oracleLibraryTables,
+} from '../data/oracles/library';
+import {
   pairedOracleProcedure,
   rollProcedure,
   sourceLabel,
@@ -64,19 +69,27 @@ export function Oracles({
   const contextLabel = destinations.find(
     (d) => context && notesTargetKey(d.target) === notesTargetKey(context),
   )?.label;
-  const selected = registry.tables.find((t) => t.id === selectedId);
-  const procedure = registry.procedures.find((p) => p.id === selectedId);
+  const library = useMemo(
+    () => ({ ...registry, tables: oracleLibraryTables(registry) }),
+    [registry],
+  );
+  const selected = library.tables.find((t) => t.id === selectedId);
+  const rollIds = selected ? oracleLibraryRollIds(selected.id) : [];
+  const sourceTables = registry.tables.filter((table) =>
+    rollIds.includes(table.id),
+  );
+  const isPair = rollIds.length === 2;
   const filtered = useMemo(
     () =>
-      filterOracles(registry, {
+      filterOracles(library, {
         source: prefs.source,
         favorites: favoritesOnly ? prefs.favoriteIds : undefined,
       }).filter((t) =>
-        `${t.title} ${registry.books.find((b) => b.id === t.sourceBookId)?.title}`
+        `${t.title} ${library.books.find((b) => b.id === t.sourceBookId)?.title}`
           .toLocaleLowerCase()
           .includes(query.trim().toLocaleLowerCase()),
       ),
-    [registry, query, prefs, favoritesOnly],
+    [library, query, prefs, favoritesOnly],
   );
   function preference(patch: Partial<OraclePreferences>) {
     const next = { ...prefs, ...patch };
@@ -98,14 +111,14 @@ export function Oracles({
     });
   }
   function select(id: string) {
-    setSelectedId(id);
+    setSelectedId(oracleLibraryId(id));
     setResult(null);
     setFailure('');
   }
   function roll() {
     try {
       const next = rollProcedure(
-        procedure ?? pairedOracleProcedure(selected!, registry),
+        pairedOracleProcedure(selected!, registry),
         registry,
       );
       setResult(next);
@@ -136,21 +149,18 @@ export function Oracles({
       );
     }
   }
-  const targetTitle = selected?.title ?? procedure?.title;
-  const canRoll = selected
-    ? selected.rollable !== false &&
-      selected.sourceVerified &&
-      !issues.some((i) => i.startsWith(selected.id + ':'))
-    : !!procedure &&
-      procedure.oracleIds.every((id) => {
-        const t = registry.tables.find((t) => t.id === id);
-        return (
-          t &&
-          t.rollable !== false &&
-          t.sourceVerified &&
-          !issues.some((i) => i.startsWith(id + ':'))
-        );
-      });
+  const targetTitle = selected?.title;
+  const canRoll =
+    !!selected &&
+    rollIds.every((id) => {
+      const table = registry.tables.find((t) => t.id === id);
+      return (
+        table &&
+        table.rollable !== false &&
+        table.sourceVerified &&
+        !issues.some((issue) => issue.startsWith(id + ':'))
+      );
+    });
   return (
     <section className="oracle-page" aria-label="Oracle Library">
       <Button className="btn ghost oracle-back" onClick={onClose}>
@@ -166,7 +176,7 @@ export function Oracles({
           <p>원문을 굴리고, 당신의 세계에 의미를 붙이세요.</p>
         </div>
         <span className="oracle-total" aria-label="전체 Oracle 수">
-          {registry.tables.length}
+          {library.tables.length}
           <small>개 표 · {registry.books.length}권</small>
         </span>
       </div>
@@ -294,6 +304,7 @@ export function Oracles({
                 <span className="source-citation">
                   PDF {[t.sourcePage].flat().join(', ') || '?'}쪽 ·{' '}
                   {t.entries.length}항목
+                  {oracleLibraryRollIds(t.id).length === 2 ? ' × 2표' : ''}
                 </span>
               </article>
             ))}
@@ -330,30 +341,14 @@ export function Oracles({
           className="oracle-roller"
           aria-label="Oracle Roller"
         >
-          <label className="oracle-procedure">
-            함께 굴리기
-            <select
-              aria-label="Oracle 조합"
-              value={procedure?.id ?? ''}
-              onChange={(e) => {
-                if (e.target.value) select(e.target.value);
-              }}
-            >
-              <option value="">원문의 표 조합 선택</option>
-              {registry.procedures.map((p) => (
-                <option value={p.id} key={p.id}>
-                  {p.title}
-                </option>
-              ))}
-            </select>
-          </label>
           {!targetTitle ? (
             <div className="oracle-idle">
               <BookOpen size={34} strokeWidth={1} />
               <h2>어떤 답을 찾고 있나요?</h2>
               <p>
-                목록에서 표를 열거나 함께 굴릴 조합을 선택하세요. 결과를
-                기록하기 전까지 캠페인은 바뀌지 않습니다.
+                목록에서 표를 선택하세요. Action과 Descriptor는 각 원문 표에서
+                한 번씩, 나머지는 한 번 굴립니다. 결과를 기록하기 전까지
+                캠페인은 바뀌지 않습니다.
               </p>
             </div>
           ) : (
@@ -382,11 +377,16 @@ export function Oracles({
                 <>
                   <details className="sheet-source">
                     <summary>출처와 원문 조건</summary>
-                    <p>{sourceLabel(selected, registry)}</p>
+                    {sourceTables.map((table) => (
+                      <p key={table.id}>{sourceLabel(table, registry)}</p>
+                    ))}
                   </details>
                   <p className="oracle-dice">
                     {selected.originalDice || selected.dice || '직접 참조'} ·{' '}
-                    {selected.entries.length}개 항목
+                    {sourceTables
+                      .map((table) => table.entries.length)
+                      .join(' + ')}
+                    개 항목
                   </p>
                   {selected.description && <p>{selected.description}</p>}
                   {selected.sourceNote &&
@@ -395,8 +395,10 @@ export function Oracles({
                     ) : (
                       <>
                         <p className="oracle-rule-note">
-                          영문 원문과 한국어 풀이를 함께 표시합니다. 한 번
-                          누르면 두 결과를 함께 굴립니다.
+                          영문 원문과 한국어 풀이를 함께 표시합니다.{' '}
+                          {isPair
+                            ? '각 원문 표에서 한 번씩, 두 결과를 함께 굴립니다.'
+                            : '한 번 누르면 결과 하나를 굴립니다.'}
                         </p>
                         <details className="oracle-metadata">
                           <summary>출처 주석 / 사용 조건</summary>
@@ -406,26 +408,25 @@ export function Oracles({
                     ))}
                 </>
               )}
-              {procedure && (
-                <p className="oracle-rule-note">
-                  {procedure.description ||
-                    '각 표를 따로 굴린 결과입니다. 연결되는 의미는 직접 해석하세요.'}
-                </p>
-              )}
               <Button
                 className="btn primary oracle-roll-button"
                 disabled={!canRoll}
                 onClick={roll}
               >
                 <Dices size={19} />
-                {procedure && procedure.oracleIds.length > 2
-                  ? '모두 굴리기'
-                  : result
+                {isPair
+                  ? result
                     ? '두 결과 다시 굴리기'
-                    : '두 결과 굴리기'}
+                    : '두 결과 굴리기'
+                  : result
+                    ? '다시 굴리기'
+                    : '굴리기'}
               </Button>
               {result && (
-                <div className="oracle-result" aria-live="polite">
+                <div
+                  className={`oracle-result ${isPair ? '' : 'oracle-result-single'}`}
+                  aria-live="polite"
+                >
                   {result.rolls.map((r, i) => (
                     <div key={i}>
                       <span className="eyebrow">
@@ -438,11 +439,14 @@ export function Oracles({
                       <p className="oracle-result-text" lang="en">
                         {r.text}
                       </p>
-                      {typeof r.metadata?.ko === 'string' && (
-                        <p className="oracle-result-ko" lang="ko">
-                          {r.metadata.ko}
-                        </p>
-                      )}
+                      <Translation
+                        text={r.text}
+                        translation={
+                          typeof r.metadata?.ko === 'string'
+                            ? r.metadata.ko
+                            : undefined
+                        }
+                      />
                       <details className="sheet-source">
                         <summary>출처</summary>
                         <p>{r.source}</p>
@@ -514,13 +518,13 @@ export function Oracles({
                   )}
                 </section>
               )}
-              {selected && (
-                <details className="oracle-reference">
+              {sourceTables.map((table) => (
+                <details className="oracle-reference" key={table.id}>
                   <summary>
-                    원문 표 보기 · {selected.entries.length}항목
+                    원문 표 보기 · {table.title} · {table.entries.length}항목
                   </summary>
                   <div>
-                    {selected.entries.map((e) => (
+                    {table.entries.map((e) => (
                       <div className="oracle-reference-row" key={e.id}>
                         <span>
                           {scalarText(
@@ -533,11 +537,14 @@ export function Oracles({
                         </span>
                         <p>
                           {e.text}
-                          {typeof e.metadata?.ko === 'string' && (
-                            <small className="oracle-result-ko" lang="ko">
-                              {e.metadata.ko}
-                            </small>
-                          )}
+                          <Translation
+                            text={e.text}
+                            translation={
+                              typeof e.metadata?.ko === 'string'
+                                ? e.metadata.ko
+                                : undefined
+                            }
+                          />
                           {e.sourceUnclear && (
                             <strong className="oracle-error">
                               {' '}
@@ -549,7 +556,7 @@ export function Oracles({
                     ))}
                   </div>
                 </details>
-              )}
+              ))}
             </>
           )}
           {!!history.length && (
@@ -562,10 +569,7 @@ export function Oracles({
                   key={h.id}
                   onClick={() => {
                     setResult(h);
-                    const known = registry.procedures.find(
-                      (p) => p.title === h.title,
-                    );
-                    setSelectedId(known?.id ?? h.rolls[0].oracleId);
+                    setSelectedId(oracleLibraryId(h.rolls[0].oracleId));
                   }}
                 >
                   <span>{h.title}</span>

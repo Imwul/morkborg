@@ -1,4 +1,5 @@
 import type { OraclePreferences } from '../domain/oracle';
+import { oracleLibraryId } from '../data/oracles/library';
 export const ORACLE_PREFERENCES_KEY = 'morkborg-oracle-preferences:v1';
 const defaults = (): OraclePreferences => ({
   schemaVersion: 1,
@@ -20,7 +21,9 @@ export function readOraclePreferences(
       favoriteIds: Array.isArray(value.favoriteIds)
         ? [
             ...new Set<string>(
-              value.favoriteIds.filter((v: unknown) => typeof v === 'string'),
+              value.favoriteIds
+                .filter((v: unknown) => typeof v === 'string')
+                .map(oracleLibraryId),
             ),
           ]
         : [],

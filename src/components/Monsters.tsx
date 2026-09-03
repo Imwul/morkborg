@@ -270,15 +270,22 @@ export function Monsters({
               <button className="card-title" onClick={() => select(m.id)}>
                 {m.name || 'Unnamed Monster'}
               </button>
+              <Translation text={m.name} />
               <p>
                 HP {m.hp} · 사기 {m.morale === '' ? '—' : m.morale} ·{' '}
                 {m.armor || '방어구 미기록'}
               </p>
+              <Translation text={m.armor} />
               <p className="monster-attack-summary">
                 {m.attacks
                   .map((a) => [a.name, a.damage].filter(Boolean).join(' · '))
                   .join(' / ') || '공격 미기록'}
               </p>
+              <Translation
+                text={m.attacks
+                  .map((a) => [a.name, a.damage].filter(Boolean).join(' · '))
+                  .join(' / ')}
+              />
               <div className="card-actions">
                 <Button className="btn ghost" onClick={() => select(m.id)}>
                   몬스터 열기
