@@ -246,7 +246,8 @@ export function loadMonsterPreset(
   const additional = record.additionalSource as
     | { pdfPage?: number }
     | undefined;
-  const source = `${record.book === 'feretory' ? 'MÖRK BORG CULT: FERETORY · Eat Prey Kill' : record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}`;
+  const depthsReference = scalarText(record.depthsReference);
+  const source = `${record.book === 'feretory' ? 'MÖRK BORG CULT: FERETORY · Eat Prey Kill' : record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}${depthsReference ? ` · ${depthsReference}` : ''}`;
   for (const key of [
     'name',
     'concept',
@@ -364,9 +365,5 @@ export function generateEatPreyKillMonster(
     system: 'epk',
     rolls: { entry: Number(record.roll) || 0 },
   };
-  const link = scalarText(record.depthsReference);
-  if (link)
-    for (const key of Object.keys(monster.sources ?? {}))
-      monster.sources![key] += ` · ${link}`;
   return monster;
 }

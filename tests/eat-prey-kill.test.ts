@@ -30,9 +30,13 @@ test('a fixed FERETORY creature retains its actual source and does not reroll HP
     attack: 'Test attack',
     damage: 'd4',
     specialAbility: 'Test ability',
+    depthsReference: 'Sölitary Depths · PDF 26쪽',
   });
   assert.match(m.sources!.name, /FERETORY · Eat Prey Kill · PDF 14/);
   assert.ok(!m.sources!.name.includes('BARE BONES'));
+  assert.match(m.sources!.name, /Sölitary Depths · PDF 26쪽/);
+  assert.match(m.attacks[0].sources!.damage, /Sölitary Depths · PDF 26쪽/);
+  assert.match(m.special[0].source!, /Sölitary Depths · PDF 26쪽/);
   rerollMonsterField(m, 'hp');
   assert.equal(m.hp, 7);
 });
