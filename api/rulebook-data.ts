@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { handlePublishedRequest } from '../server/publishedRulebook';
+import { handlePublishedRequest } from '../server/publishedRulebook.js';
 
 export default function handler(
   request: IncomingMessage,
