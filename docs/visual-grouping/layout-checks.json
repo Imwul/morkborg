@@ -1,0 +1,143 @@
+[
+  {
+    "document": 1425,
+    "groups": [
+      {
+        "border": "1px",
+        "client": 555,
+        "scroll": 555
+      },
+      {
+        "border": "1px",
+        "client": 555,
+        "scroll": 555
+      },
+      {
+        "border": "1px",
+        "client": 555,
+        "scroll": 555
+      },
+      {
+        "border": "1px",
+        "client": 555,
+        "scroll": 555
+      }
+    ],
+    "smallestButton": 30,
+    "surface": "room-overview",
+    "viewport": 1440
+  },
+  {
+    "document": 753,
+    "groups": [
+      {
+        "border": "1px",
+        "client": 513,
+        "scroll": 513
+      },
+      {
+        "border": "1px",
+        "client": 513,
+        "scroll": 513
+      },
+      {
+        "border": "1px",
+        "client": 513,
+        "scroll": 513
+      },
+      {
+        "border": "1px",
+        "client": 513,
+        "scroll": 513
+      }
+    ],
+    "smallestButton": 30,
+    "surface": "room-overview",
+    "viewport": 768
+  },
+  {
+    "document": 345,
+    "groups": [
+      {
+        "class": "room-detail",
+        "client": 307,
+        "scroll": 307
+      }
+    ],
+    "screen": "room-detail-expanded",
+    "viewport": 360
+  },
+  {
+    "document": 1425,
+    "groups": [
+      {
+        "client": 1129,
+        "scroll": 1129
+      }
+    ],
+    "screen": "monster",
+    "viewport": 1440
+  },
+  {
+    "document": 753,
+    "groups": [
+      {
+        "client": 513,
+        "scroll": 513
+      }
+    ],
+    "screen": "monster",
+    "viewport": 768
+  },
+  {
+    "document": 345,
+    "groups": [
+      {
+        "client": 307,
+        "scroll": 307
+      }
+    ],
+    "screen": "monster",
+    "viewport": 360
+  },
+  {
+    "document": 345,
+    "groups": [
+      {
+        "class": "reference-reading ",
+        "client": 280,
+        "scroll": 280
+      },
+      {
+        "class": "creature-answer",
+        "client": 275,
+        "scroll": 275
+      }
+    ],
+    "screen": "reference",
+    "viewport": 360
+  },
+  {
+    "document": 345,
+    "groups": [
+      {
+        "client": 307,
+        "scroll": 307
+      },
+      {
+        "client": 307,
+        "scroll": 307
+      },
+      {
+        "client": 307,
+        "scroll": 307
+      },
+      {
+        "client": 307,
+        "scroll": 307
+      }
+    ],
+    "screen": "room-overview",
+    "viewport": 360
+  }
+]

@@ -2,6 +2,9 @@
 :root {
   --ink: #0b0b0a;
   --paper: #f7f5ee;
+  --group-paper: #fffef9;
+  --group-tint: #eeebe0;
+  --group-shadow: 3px 3px 0 #d5d0c2;
   --acid: #ffe900;
   --magenta: #ff3697;
   --muted-ink: #626057;
@@ -258,13 +261,13 @@ select:focus-visible {
   gap: 14px 24px;
 }
 .compact-card {
-  border: 0;
-  border-top: 2px solid var(--ink);
-  background: transparent;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ink);
+  background: var(--group-paper);
 }
 .compact-card-main {
   min-height: 100px;
-  padding: 14px 40px 14px 0;
+  padding: 16px 44px 16px 16px;
 }
 .compact-card-title {
   font-size: 24px;
@@ -522,15 +525,19 @@ select:focus-visible {
   color: var(--muted-ink);
 }
 .sheet-room-grid {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding-top: 16px;
 }
 .sheet-room {
   display: grid;
   grid-template-columns: 108px minmax(0, 1fr);
-  gap: 24px;
-  padding: 18px 0;
-  border: 0;
-  border-bottom: var(--rule-thin);
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid var(--ink);
+  background: var(--group-paper);
+  box-shadow: var(--group-shadow);
 }
 .sheet-room-heading {
   align-items: flex-start;
@@ -538,10 +545,16 @@ select:focus-visible {
   gap: 8px;
   margin: 0;
 }
+.sheet-room-heading > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
 .sheet-room-heading > .room-number {
-  padding: 0;
-  background: transparent;
-  color: var(--ink);
+  padding: 8px;
+  background: var(--ink);
+  color: var(--paper);
   display: flex;
   align-items: baseline;
   gap: 8px;
@@ -554,6 +567,10 @@ select:focus-visible {
   letter-spacing: -0.04em;
 }
 .room-preview-name {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-align: left;
   font: 700 25px/1.2 var(--font-reading);
   margin: 2px 0 6px;
 }
@@ -613,7 +630,7 @@ select:focus-visible {
   padding: 14px 0;
 }
 .room-row.selected {
-  background: transparent;
+  background: var(--group-tint);
   border-left: 3px solid var(--ink);
   padding-left: 10px;
 }
@@ -625,10 +642,34 @@ select:focus-visible {
   font-size: 17px;
 }
 .room-detail {
-  border: 0;
+  border: 1px solid var(--ink);
   border-top: var(--rule-heavy);
-  padding: 18px 0;
-  background: transparent;
+  padding: 20px;
+  background: var(--group-paper);
+  box-shadow: var(--group-shadow);
+}
+.room-detail > .artifact-head {
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--ink);
+}
+.room-detail .field[data-field='name'],
+.room-detail .field[data-field='description'] {
+  grid-column: 1/-1;
+}
+.room-detail .field[data-field='name'] .field-value {
+  font: 750 28px/1.25 var(--font-reading);
+}
+.room-detail .field[data-field='description'] .field-value {
+  font-size: 20px;
+  line-height: 1.5;
+}
+.room-detail .room-contents {
+  border-top: 1px solid var(--ink);
+  padding-top: 18px;
+}
+.room-detail .contents-group h3 {
+  border-bottom: 0;
 }
 .room-detail .artifact-head > .eyebrow {
   font: 900 40px/1 var(--font-display);
@@ -838,9 +879,11 @@ select:focus-visible {
 
 /* Stocking: definitions and placements share a spare, typographic ledger. */
 .monster-sheet {
+  border: 1px solid var(--ink);
   border-top: var(--rule-heavy);
-  background: transparent;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: var(--group-paper);
+  box-shadow: var(--group-shadow);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
 }
 .monster-sheet > * {
   border-right: 0;
@@ -848,6 +891,8 @@ select:focus-visible {
   padding: 18px;
 }
 .monster-sheet > .monster-identity-grid:first-child {
+  grid-column: 1/-1;
+  grid-row: 1;
   background: var(--ink);
   color: var(--paper);
 }
@@ -864,13 +909,53 @@ select:focus-visible {
   color: var(--ink);
 }
 .monster-sheet > .monster-stats-grid {
-  background: transparent;
-  border-bottom: var(--rule-heavy);
+  order: 1;
+  border-top: 0;
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  background: #f3efce;
+  border-bottom: 1px solid var(--ink);
+}
+.monster-sheet > .monster-stats-grid > .field + .field {
+  border-left: var(--rule-thin);
+  padding-left: 16px;
+}
+.monster-sheet > .character-section {
+  margin: 0;
+  border-top: 0;
+}
+.monster-sheet .monster-stats-grid [data-field='morale'] .field-value {
+  font: 750 26px/1.25 var(--font-mono);
+}
+.monster-sheet > .monster-combat {
+  grid-column: 2;
+  grid-row: 3;
+  border-left: var(--rule-thin);
+}
+.monster-sheet .monster-combat .monster-attack + .monster-attack {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: var(--rule-thin);
+}
+.monster-sheet > .monster-identity-grid:first-child .generated-translation {
+  color: #d0cdc3;
+}
+.monster-sheet
+  > .monster-identity-grid:first-child
+  .is-editing
+  .generated-translation {
+  color: var(--muted-ink);
 }
 .monster-sheet .number-input {
   font-family: var(--font-mono) !important;
 }
 .monster-sheet > .monster-story {
+  order: 2;
+  grid-column: 1;
+  grid-row: 3;
   background: transparent;
 }
 .monster-sheet > .monster-story .field-value {
@@ -902,8 +987,27 @@ select:focus-visible {
   margin-top: 24px;
   font: 800 12px var(--font-mono);
 }
+.content-placement-rows {
+  display: grid;
+  gap: 10px;
+}
 .content-placement-row {
-  border-color: var(--border);
+  border: var(--rule-thin);
+  border-left: 4px solid var(--ink);
+  padding: 4px 14px;
+  background: var(--group-paper);
+}
+.content-placement-row .placement-edit {
+  border: 0;
+  border-top: var(--rule-thin);
+  padding: 14px 0 6px;
+  margin-bottom: 0;
+  background: transparent;
+}
+.content-entry strong,
+.content-entry small {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .content-entry strong {
   font-size: 20px;
@@ -2123,7 +2227,17 @@ ol.ledger-list {
     gap: 16px;
   }
   .monster-sheet {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .monster-sheet > .monster-combat {
+    grid-column: 1;
+    grid-row: 4;
+    border-left: 0;
+  }
+}
+@media (max-width: 1100px) {
+  .sheet-room-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @media (max-width: 760px) {
@@ -2300,10 +2414,42 @@ ol.ledger-list {
   .dossier-field > .field {
     padding-block: 12px;
   }
+  .room-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .room-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+    padding-block: 8px;
+  }
+  .room-select {
+    align-items: center;
+    gap: 10px;
+  }
   .sheet-room {
-    grid-template-columns: 62px minmax(0, 1fr);
-    gap: 16px;
-    padding: 18px 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 14px;
+  }
+  .sheet-room-heading {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+    border-bottom: var(--rule-thin);
+  }
+  .room-detail {
+    padding: 14px;
+  }
+  .room-detail .fields-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .content-placement-row {
+    padding-inline: 10px;
   }
   .sheet-room-heading > .room-number {
     flex-direction: column;
@@ -2367,7 +2513,19 @@ ol.ledger-list {
     display: flex;
   }
   .monster-sheet > * {
-    padding: 16px 0;
+    padding: 16px;
+  }
+  .monster-sheet > .monster-stats-grid {
+    gap: 10px;
+  }
+  .monster-sheet > .monster-stats-grid > .field + .field {
+    padding-left: 10px;
+  }
+  .monster-sheet > .monster-combat {
+    border-left: 0;
+  }
+  .monster-sheet > .monster-story .field-value {
+    font-size: 18px;
   }
   .monster-sheet > .monster-identity-grid:first-child {
     padding: 18px;

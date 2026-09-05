@@ -3,7 +3,7 @@ import type { SourceReference } from './types';
 import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
 export interface ReferenceReading {
   title: string;
-  blocks: { title: string; text: string; dice?: string }[];
+  blocks: { title: string; text: string; dice?: string; kind?: 'creature' }[];
   copyContent?: { title: string; blocks: { title: string; text: string }[] };
   sourceRefs: SourceReference[];
   evidence?: ReferenceEvidence[];

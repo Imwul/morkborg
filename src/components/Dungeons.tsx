@@ -537,7 +537,11 @@ function Rooms({
           )}
         </aside>
         {selected ? (
-          <article className="room-detail" key={selected.id}>
+          <article
+            className="room-detail"
+            key={selected.id}
+            aria-label={`Room ${d.rooms.indexOf(selected) + 1}: ${selected.name}`}
+          >
             <div className="artifact-head">
               <span className="eyebrow">
                 방 {String(d.rooms.indexOf(selected) + 1).padStart(2, '0')}
@@ -570,13 +574,6 @@ function Rooms({
                 <Trash2 size={16} />
               </Button>
             </div>
-            <RoomContents
-              key={selected.id}
-              campaign={c}
-              dungeon={d}
-              room={selected}
-              notify={notify}
-            />
             <div className="fields-grid">
               {roomFields.map((spec) => (
                 <Field
@@ -595,6 +592,13 @@ function Rooms({
                 />
               ))}
             </div>
+            <RoomContents
+              key={selected.id}
+              campaign={c}
+              dungeon={d}
+              room={selected}
+              notify={notify}
+            />
             <div className="notes-block">
               <label className="eyebrow" htmlFor="room-notes">
                 방 메모

@@ -53,6 +53,7 @@ function monsterBlocks(m: Monster): ReferenceReading['blocks'] {
   return [
     {
       title: m.name,
+      kind: 'creature',
       text: [
         `HP ${m.hp} · Morale ${m.morale} · Armor ${m.armor || '—'}`,
         ...m.attacks.map(
@@ -108,7 +109,7 @@ export function executeReference(
       rules,
       options.rng,
     );
-    const blocks = [
+    const blocks: ReferenceReading['blocks'] = [
       {
         title: r.reading.title,
         text: r.reading.text,

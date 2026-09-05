@@ -1907,10 +1907,7 @@ h1 {
 }
 .monster-sheet > * {
   min-width: 0;
-  border: 0 !important;
-  border-right: 1px solid var(--ink) !important;
-  border-bottom: 1px solid var(--ink) !important;
-  margin: 0 !important;
+  margin: 0;
 }
 .monster-sheet .field {
   padding: 7px 0;

@@ -695,11 +695,13 @@ export function ReferenceProvider({
                     <section
                       key={n}
                       className={
-                        !plainRule &&
-                        block.text.length < 160 &&
-                        !block.text.includes('\n')
-                          ? 'short-answer'
-                          : ''
+                        block.kind === 'creature'
+                          ? 'creature-answer'
+                          : !plainRule &&
+                              block.text.length < 160 &&
+                              !block.text.includes('\n')
+                            ? 'short-answer'
+                            : ''
                       }
                     >
                       {block.dice && <small>{block.dice}</small>}

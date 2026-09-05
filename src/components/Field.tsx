@@ -42,6 +42,7 @@ export function Field({
   }
   return (
     <div
+      data-field={spec.key}
       className={`field ${spec.type === 'number' ? 'number-field' : ''} ${editing ? 'is-editing' : ''}`}
     >
       <div className="field-label">

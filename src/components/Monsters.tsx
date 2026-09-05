@@ -514,7 +514,7 @@ export function Monsters({
             isFeretory ? () => linked('armor') : undefined,
           )}
         </div>
-        <section className="character-section">
+        <section className="character-section monster-combat">
           <div className="section-title">
             <h2>공격</h2>
             <Button
