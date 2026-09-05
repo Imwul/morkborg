@@ -218,6 +218,9 @@ const refs = {
   encounterIds: z.array(uuid),
 };
 const room = z.object({
+  kind: z.enum(['special', 'generic']).optional(),
+  specialDetailIds: z.array(text).optional(),
+  exits: z.number().int().min(0).max(3).optional(),
   ...hiddenInformationSchema,
   playState: roomPlayStateSchema.optional(),
   ...provenance,
@@ -227,6 +230,28 @@ const room = z.object({
   ...Object.fromEntries(roomFields.map((f) => [f.key, text])),
 });
 const dungeon = z.object({
+  crawl: z
+    .object({
+      phase: z.enum(['entrance', 'ready', 'danger', 'room']),
+      specialRoomIds: z.array(uuid).length(4),
+      discoveredSpecialIds: z.array(uuid).max(4),
+      visitedRoomIds: z.array(uuid),
+      currentRoomId: uuid.nullable(),
+      threatRating: z.union([z.literal(9), z.literal(12), z.literal(15)]),
+      lastRoll: z
+        .object({
+          dice: z.tuple([
+            z.number().int().min(1).max(20),
+            z.number().int().min(1).max(20),
+          ]),
+          bonus: z.number().int().min(0).max(4),
+          dr: z.number().int().min(6).max(14),
+          outcome: z.enum(['strong', 'weak', 'miss']),
+          exhausted: z.boolean(),
+        })
+        .optional(),
+    })
+    .optional(),
   encounterTables: z
     .object({
       common: z.array(uuid.nullable()).length(6),
@@ -303,6 +328,7 @@ const campaign = z.object({
       'about',
     ]),
     dungeonTab: z.enum([
+      'crawl',
       'overview',
       'rooms',
       'monsters',
@@ -421,6 +447,26 @@ export function validateCampaign(input: unknown): Campaign {
   ]) {
     if (d.campaignId !== c.id)
       throw new Error('Dungeon belongs to another campaign.');
+    if (d.crawl) {
+      const state = d.crawl;
+      const roomIds = new Set(d.rooms.map((room) => room.id));
+      if (
+        new Set(state.specialRoomIds).size !== 4 ||
+        new Set(state.discoveredSpecialIds).size !==
+          state.discoveredSpecialIds.length ||
+        [
+          ...state.specialRoomIds,
+          ...state.visitedRoomIds,
+          ...state.discoveredSpecialIds,
+        ].some((key) => !roomIds.has(key)) ||
+        state.discoveredSpecialIds.some(
+          (key) => !state.specialRoomIds.includes(key),
+        ) ||
+        (state.currentRoomId && !roomIds.has(state.currentRoomId)) ||
+        (state.phase === 'room' && !state.currentRoomId)
+      )
+        throw new Error('Invalid dungeon crawl room reference.');
+    }
     if (d.encounterTables)
       for (const ref of [
         ...d.encounterTables.common,

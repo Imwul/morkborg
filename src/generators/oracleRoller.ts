@@ -7,6 +7,11 @@ import type {
 } from '../domain/oracle';
 import { id, random, rollDie, type RandomSource } from './random';
 import {
+  FERETORY_TABLE_IDS,
+  FERETORY_MONSTER_TITLE,
+  feretoryStats,
+} from './feretory';
+import {
   oracleLibraryRollIds,
   oracleLibraryTitle,
 } from '../data/oracles/library';
@@ -115,6 +120,53 @@ export function rollProcedure(
     if (!table) throw new Error(`연결된 표가 없습니다: ${id}`);
     return table;
   });
+  if (
+    tables.length === 3 &&
+    FERETORY_TABLE_IDS.every((id) => procedure.oracleIds.includes(id))
+  ) {
+    const ordered = FERETORY_TABLE_IDS.map((id) =>
+      tables.find((table) => table.id === id)!,
+    );
+    if (
+      ordered.some(
+        (table) =>
+          table.dice !== 'd12' ||
+          !table.sourceVerified ||
+          table.rollable === false,
+      )
+    )
+      throw new Error(
+        'The Monster Approaches의 A/B/C d12 원문 표를 모두 불러오세요.',
+      );
+    const rolls = ordered.map((table) => rollOracle(table, registry, rng));
+    const stats = feretoryStats(
+      { A: rolls[0].roll, B: rolls[1].roll, C: rolls[2].roll },
+      rng,
+    );
+    return {
+      id: id(),
+      title: FERETORY_MONSTER_TITLE,
+      rolls: [
+        ...rolls,
+        {
+          oracleId: 'feretory.hp',
+          title: '능력치 · 같은 A/B/C 결과로 계산',
+          dice: stats.damage,
+          roll: stats.hpRoll,
+          diceValues: [stats.hpRoll],
+          entryId: null,
+          text: `HP ${stats.hp} · Morale ${stats.morale} · Armor ${stats.armor} · Damage ${stats.damage}`,
+          source:
+            sourceLabel(ordered[0], registry) +
+            ' · The Monster Approaches · 능력치 계산',
+          metadata: {
+            sourceTableId: 'feretory.A',
+            procedureNote: `HP: ${stats.damage} = ${stats.hpRoll} × 2 = ${stats.hp}. 사기·피해·방어구는 위 A/B/C를 재사용합니다.`,
+          },
+        },
+      ],
+    };
+  }
   return {
     id: id(),
     title: procedure.title,

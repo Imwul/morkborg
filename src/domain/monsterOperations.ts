@@ -1,3 +1,4 @@
+import { remapDungeonCrawl } from './dungeonCrawl';
 import { pruneChronicleReferences } from './chronicleOperations';
 import type {
   Campaign,
@@ -223,6 +224,13 @@ export function deleteRoom(
 ): void {
   const d = c.dungeons.find((d) => d.id === dungeonId);
   if (!d) return;
+  if (
+    d.crawl?.specialRoomIds.includes(roomId) ||
+    d.rooms.find((room) => room.id === roomId)?.kind === 'special'
+  )
+    throw new Error(
+      '특별한 방 네 개는 유지해야 합니다. 방 내용을 편집하거나 재굴림하세요.',
+    );
   for (const p of c.monsterPlacements)
     if (p.dungeonId === dungeonId && p.roomId === roomId) p.roomId = null;
   for (const key of ['npcPlacements', 'encounterPlacements'] as const)
@@ -233,6 +241,15 @@ export function deleteRoom(
     ...Object.values(c.workspace.contentDraftTargets ?? {}),
   ])
     if (target?.roomId === roomId) target.roomId = null;
+  if (d.crawl) {
+    d.crawl.visitedRoomIds = d.crawl.visitedRoomIds.filter(
+      (key) => key !== roomId,
+    );
+    if (d.crawl.currentRoomId === roomId) {
+      d.crawl.currentRoomId = null;
+      if (d.crawl.phase === 'room') d.crawl.phase = 'ready';
+    }
+  }
   d.rooms = d.rooms.filter((r) => r.id !== roomId);
   d.updatedAt = now();
   if (c.workspace.roomId === roomId) c.workspace.roomId = null;
@@ -292,6 +309,7 @@ export function duplicateDungeon(c: Campaign, dungeonId: string) {
     roomMap.set(r.id, next);
     r.id = next;
   }
+  remapDungeonCrawl(d, (key) => roomMap.get(key) ?? key);
   const copies = c.monsterPlacements
     .filter((p) => p.dungeonId === source.id)
     .map((p) => ({

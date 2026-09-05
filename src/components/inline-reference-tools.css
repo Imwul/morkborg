@@ -1,0 +1,75 @@
+.inline-tools {
+  border: 1px solid var(--border, #45443c);
+  margin: 0.65rem 0;
+  padding: 0.7rem;
+  background: var(--background, #0d0d0b);
+}
+.inline-tools > summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  font-weight: 800;
+}
+.inline-tools > summary::before {
+  content: '+';
+}
+.inline-tools[open] > summary::before {
+  content: '−';
+}
+.inline-tools > summary small {
+  margin-left: auto;
+  opacity: 0.65;
+  font-size: 0.65rem;
+}
+.inline-tools-note {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin: 0.6rem 0;
+}
+.inline-tool-buttons,
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.5rem 0;
+}
+.inline-reading {
+  border-left: 3px solid var(--accent, #aba688);
+  background: rgba(128, 128, 100, 0.08);
+  padding: 0.85rem;
+  margin: 0.65rem 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.inline-reading > header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.inline-reading h4 {
+  font-weight: 900;
+  margin: 0;
+}
+.inline-reading-part {
+  margin: 0.6rem 0;
+}
+.inline-reading-part + .inline-reading-part {
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border, #45443c);
+}
+.inline-reading-part small {
+  display: block;
+  opacity: 0.65;
+}
+.inline-reading-part p {
+  white-space: pre-line;
+  margin: 0.35rem 0;
+}
+.inline-reading textarea {
+  width: 100%;
+  min-height: 8rem;
+}

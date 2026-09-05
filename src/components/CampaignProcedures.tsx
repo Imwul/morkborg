@@ -3,42 +3,34 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { Campaign } from '../domain/types';
-import type { OracleResult } from '../domain/oracle';
-import { regions } from '../data/regions';
 import { editCampaign } from '../storage/saveStore';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { SourceDisclosure } from './SourceDisclosure';
+import { JourneyWorkbench } from './JourneyWorkbench';
 import {
   APOCALYPSE_DICE,
   CALENDAR_SOURCE,
   MAX_CAMPAIGN_DAY,
-  TRAVEL_ACTIONS,
   campaignHasEnded,
-  knownRouteDice,
   miseryCode,
   recordDawn,
   recordMisery,
-  recordTravel,
   setCampaignDay,
   rollMisery,
-  rollRouteDuration,
-  rollTravel,
-  travelNeedsReplacement,
-  type TravelAction,
 } from '../domain/campaignProcedures';
 
 export function CampaignProcedures({
   campaign,
   notify,
+  onCity,
 }: {
   campaign: Campaign;
   notify: (message: string) => void;
+  onCity?: () => void;
 }) {
   const { registry, loading } = useOracleRegistry();
   const uid = useId();
-  const [tab, setTab] = useState<'calendar' | 'travel' | 'reference'>(
-    'calendar',
-  );
+  const [tab, setTab] = useState<'calendar' | 'travel' | 'reference'>('travel');
   const [error, setError] = useState('');
   const [manual, setManual] = useState(false);
   const [code, setCode] = useState('');
@@ -46,15 +38,7 @@ export function CampaignProcedures({
   const [notes, setNotes] = useState('');
   const [date, setDate] = useState(new Date().toLocaleDateString('en-CA'));
   const [sessionId, setSessionId] = useState(campaign.currentSessionId ?? '');
-  const [from, setFrom] = useState('sarkash');
-  const [to, setTo] = useState('graven-tosk');
-  const [days, setDays] = useState('');
-  const [action, setAction] = useState<TravelAction>('road');
-  const [travelNotes, setTravelNotes] = useState('');
-  const [reading, setReading] = useState<OracleResult | null>(null);
-  const [savedReading, setSavedReading] = useState('');
   const ended = campaignHasEnded(campaign);
-  const route = knownRouteDice(from, to);
   const latest = campaign.miseries.at(-1);
   function run(fn: () => void) {
     try {
@@ -69,8 +53,8 @@ export function CampaignProcedures({
       <fieldset className="chronicle-tabs" aria-label="절차 선택">
         {(
           [
-            ['calendar', 'CALENDAR'],
-            ['travel', 'TRAVEL'],
+            ['travel', 'JOURNEY'],
+            ['calendar', 'CALENDAR · 관리'],
             ['reference', 'AT THE TABLE'],
           ] as const
         ).map(([value, label]) => (
@@ -183,7 +167,9 @@ export function CampaignProcedures({
               className="procedure-form"
               onSubmit={(e) => {
                 e.preventDefault();
-                const day = Number(new FormData(e.currentTarget).get('campaignDay'));
+                const day = Number(
+                  new FormData(e.currentTarget).get('campaignDay'),
+                );
                 run(() => {
                   editCampaign(campaign.id, (c) => setCampaignDay(c, day));
                   notify(`캠페인 날짜: Day ${day}`);
@@ -204,9 +190,14 @@ export function CampaignProcedures({
                   defaultValue={campaign.campaignDay}
                 />
               </label>
-              <Button type="submit" variant="secondary">날짜 적용</Button>
+              <Button type="submit" variant="secondary">
+                날짜 적용
+              </Button>
             </form>
-            <p className="muted">이어서 플레이할 캠페인의 날짜를 맞춥니다. 이전 기록과 세션 날짜는 유지됩니다.</p>
+            <p className="muted">
+              이어서 플레이할 캠페인의 날짜를 맞춥니다. 이전 기록과 세션 날짜는
+              유지됩니다.
+            </p>
           </details>
           {manual && !ended && (
             <form
@@ -323,173 +314,13 @@ export function CampaignProcedures({
         </div>
       )}
       {tab === 'travel' && (
-        <div className="travel-dossier">
-          <header>
-            <p className="eyebrow">ROADS TO DAMNATION</p>
-            <h2>On the road</h2>
-          </header>
-          <div className="procedure-form travel-route">
-            <label>
-              FROM
-              <select
-                value={from}
-                onChange={(e) => {
-                  setFrom(e.target.value);
-                  setDays('');
-                  setReading(null);
-                }}
-              >
-                {regions.map((r) => (
-                  <option value={r.id} key={r.id}>
-                    {r.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              TO
-              <select
-                value={to}
-                onChange={(e) => {
-                  setTo(e.target.value);
-                  setDays('');
-                  setReading(null);
-                }}
-              >
-                {regions.map((r) => (
-                  <option value={r.id} key={r.id}>
-                    {r.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              계획한 여행일
-              <Input
-                type="number"
-                min={1}
-                value={days}
-                onChange={(e) => setDays(e.target.value)}
-                placeholder="GM이 정한 일수"
-              />
-            </label>
-            {route && (
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  run(() => setDays(String(rollRouteDuration(from, to).days)))
-                }
-              >
-                거리 d{route.sides}+{route.modifier}
-              </Button>
-            )}
-          </div>
-          <div className="procedure-controls">
-            <label htmlFor={`${uid}-action`}>절차</label>
-            <select
-              id={`${uid}-action`}
-              value={action}
-              onChange={(e) => {
-                setAction(e.target.value as TravelAction);
-                setReading(null);
-              }}
-            >
-              {TRAVEL_ACTIONS.map((a) => (
-                <option key={a.value} value={a.value}>
-                  {a.label}
-                </option>
-              ))}
-            </select>
-            <Button
-              disabled={loading}
-              onClick={() =>
-                run(() => {
-                  setReading(rollTravel(action, registry));
-                  setTravelNotes('');
-                  setSavedReading('');
-                })
-              }
-            >
-              ROLL TRAVEL
-            </Button>
-          </div>
-          <p className="muted">
-            새벽은 Calendar에서 기록합니다. 아래 결과를 해결한 뒤 여행 경과와
-            자원 변화를 메모하세요.
-          </p>
-          {reading && (
-            <div className="travel-reading">
-              {reading.rolls.map((r, i) => (
-                <article key={`${r.oracleId}-${i}`}>
-                  <h3>
-                    {r.title}{' '}
-                    <span>
-                      {r.dice}={r.roll}
-                    </span>
-                  </h3>
-                  <p>{r.text}</p>
-                  <SourceDisclosure source={r.source} />
-                </article>
-              ))}
-              {savedReading !== reading.id &&
-                travelNeedsReplacement(campaign, reading) && (
-                  <output>
-                    이미 사용한 일회성 도로 사건입니다. 아래에 대신 일어날
-                    사건을 기록하세요.
-                  </output>
-                )}
-              <label>
-                여행 메모 / 해결한 결과
-                <Textarea
-                  value={travelNotes}
-                  onChange={(e) => setTravelNotes(e.target.value)}
-                />
-              </label>
-              <Button
-                disabled={savedReading === reading.id}
-                onClick={() =>
-                  run(() => {
-                    editCampaign(campaign.id, (c) =>
-                      recordTravel(
-                        c,
-                        {
-                          from: regions.find((r) => r.id === from)!.name,
-                          to: regions.find((r) => r.id === to)!.name,
-                          days: days ? Number(days) : undefined,
-                          action,
-                          reading,
-                          notes: travelNotes,
-                        },
-                        registry,
-                      ),
-                    );
-                    setSavedReading(reading.id);
-                    notify('현재 Session과 연대기에 여행을 기록했습니다.');
-                  })
-                }
-              >
-                {savedReading === reading.id ? '기록됨' : '연대기에 기록'}
-              </Button>
-            </div>
-          )}
-          <SourceDisclosure source="MÖRK BORG CULT: FERETORY · Roads to Damnation · PDF 6–9 / p. 4–7; Sölitary Defilement · PDF 17 / p. 15">
-            <p>
-              출발 전 소요일을 정합니다. 도로 사건은 매일, 야영 사건은 밤에
-              사용합니다. 도로 사건 7–8은 다시 굴리고, 5–6은 날씨를 다시
-              굴립니다. 4이면 전진하지 않습니다. 보급 5–6은 마을 표도 굴립니다.
-            </p>
-            <p>
-              처음 지나간 도로 사건 10–12, 16, 18–19는 다음부터 직접 만든
-              사건으로 대체합니다. 식량·물, 자원 피해, 선택과 조건부 후속 결과는
-              확인 후 직접 반영하세요.
-            </p>
-            <p>
-              지도에서 양 끝이 확인된 Galgenbeck–Graven-Tosk,
-              Galgenbeck–Valley만 기본 거리 주사위를 제공합니다. 그 밖의 지역,
-              크기가 다른 세계, 악천후는 소요일을 직접 정합니다.
-            </p>
-          </SourceDisclosure>
-        </div>
+        <JourneyWorkbench
+          campaign={campaign}
+          registry={registry}
+          loading={loading}
+          notify={notify}
+          onCity={onCity}
+        />
       )}
       {tab === 'reference' && (
         <div className="table-reference">

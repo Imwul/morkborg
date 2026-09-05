@@ -5,45 +5,11 @@ import type {
   RegionId,
 } from '../domain/types';
 import { id, now, pick, rollDie } from './random';
+import { feretoryRolls, feretoryStats, type FeretoryRolls } from './feretory';
+export { feretoryRolls, feretoryStats, type FeretoryRolls } from './feretory';
 import { entries, rollTable, scalarText } from './tables';
 import { getRules, sourceCitation } from '../storage/rulesStore';
 
-export type FeretoryRolls = { A: number; B: number; C: number };
-export const feretoryRolls = (): FeretoryRolls => ({
-  A: rollDie(12),
-  B: rollDie(12),
-  C: rollDie(12),
-});
-export function feretoryStats(rolls: FeretoryRolls) {
-  const values = Object.values(rolls);
-  const highest = Math.max(...values),
-    lowest = Math.min(...values);
-  const sides =
-    lowest <= 3
-      ? 4
-      : lowest <= 5
-        ? 6
-        : lowest <= 7
-          ? 8
-          : lowest <= 10
-            ? 10
-            : 12;
-  const options = Object.entries(rolls)
-    .filter(([, n]) => n === highest)
-    .map(([key]) =>
-      key === 'A' ? 'None' : key === 'B' ? '−d2' : highest % 2 ? '−d4' : '−d6',
-    );
-  return {
-    hp: 2 * rollDie(sides),
-    morale: highest,
-    damage: `d${sides}`,
-    armor:
-      options.length === 1
-        ? options[0]
-        : `동률 — 심판 선택: ${options.map((option) => (option === 'None' ? '없음' : option)).join(' / ')}`,
-    sides,
-  };
-}
 export const fereAppearance = (rolls: FeretoryRolls): string =>
   (['A', 'B', 'C'] as const)
     .map((key) => entries(`feretory.${key}`)[rolls[key] - 1].text)
@@ -186,7 +152,7 @@ export function rerollMonsterField(
 /** FERETORY uses one linked 3d12 roll. Never silently replace another manually edited field. */
 export function rerollMonsterLinked(
   m: Monster,
-  target: 'appearance' | 'morale' | 'armor' | 'attack',
+  target: 'all' | 'appearance' | 'morale' | 'armor' | 'attack',
   attackId?: string,
 ): void {
   if (!usesFeretory(m)) return;

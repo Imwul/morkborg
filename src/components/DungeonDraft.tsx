@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Dices, Pencil, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Dices, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import type { Campaign, RegionId } from '../domain/types';
@@ -7,10 +6,12 @@ import { regions, regionById } from '../data/regions';
 import {
   createDungeon,
   createDungeonCandidate,
-  createRoom,
   dungeonTitle,
-  rerollRoomContents,
 } from '../generators';
+import {
+  prepareSpecialRooms,
+  rerollSpecialRoom,
+} from '../generators/specialRooms';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { useRules, sourceCitation } from '../storage/rulesStore';
 import { now } from '../generators/random';
@@ -30,7 +31,6 @@ export function DungeonDraft({
 }) {
   const rules = useRules();
   const draft = c.dungeonDraft;
-  const [initialRooms, setInitialRooms] = useState(4);
   const region = draft?.region ?? c.workspace.pendingRegion;
   const patch = (key: string, value: string | number, source = '직접 작성') =>
     editCampaign(c.id, (next) => {
@@ -44,11 +44,7 @@ export function DungeonDraft({
   function generate() {
     if (!region) return;
     try {
-      const candidate = createDungeonCandidate(
-        c.id,
-        region,
-        draft?.rooms.length ?? initialRooms,
-      );
+      const candidate = createDungeonCandidate(c.id, region);
       if (draft) {
         candidate.id = draft.id;
         candidate.createdAt = draft.createdAt;
@@ -65,7 +61,9 @@ export function DungeonDraft({
     if (!region) return;
     const run = () =>
       editCampaign(c.id, (next) => {
-        next.dungeonDraft = createDungeon(c.id, '', region, true);
+        const blank = createDungeon(c.id, '', region, true);
+        blank.rooms = prepareSpecialRooms(blank, true);
+        next.dungeonDraft = blank;
       });
     if (draft)
       confirm(
@@ -92,19 +90,6 @@ export function DungeonDraft({
       selectDungeonCandidate(next, title);
     });
     notify('선택한 던전과 방을 캠페인에 저장했습니다.');
-  }
-  function changeRooms(count: number) {
-    if (!draft) {
-      setInitialRooms(count);
-      return;
-    }
-    if (!region) return;
-    editCampaign(c.id, (next) => {
-      if (!next.dungeonDraft) return;
-      const rooms = next.dungeonDraft.rooms;
-      if (count < rooms.length) rooms.splice(count);
-      while (rooms.length < count) rooms.push(createRoom(region, !rules.pack));
-    });
   }
   const settings = (
     <div className="candidate-settings">
@@ -140,20 +125,9 @@ export function DungeonDraft({
           ? '지역을 바꿔도 현재 문구는 유지되며, 이후 재굴림부터 새 지역을 적용합니다.'
           : '지역 태그는 확률만 조정하며 모든 원문 결과가 나올 수 있습니다.'}
       </p>
-      <label htmlFor="candidate-room-count">
-        함께 생성할 방
-        <select
-          id="candidate-room-count"
-          value={draft?.rooms.length ?? initialRooms}
-          onChange={(e) => changeRooms(Number(e.target.value))}
-        >
-          {Array.from({ length: 13 }, (_, i) => (
-            <option key={i} value={i}>
-              {i}개
-            </option>
-          ))}
-        </select>
-      </label>
+      <strong className="special-room-count">
+        SPECIAL ROOMS · 4개 고정 · 크롤에서 발견
+      </strong>
       <span className="stamp">
         {draft
           ? '미저장 후보 · 선택하면 보관함에 추가'
@@ -258,17 +232,11 @@ export function DungeonDraft({
                 const room = next.dungeonDraft?.rooms.find(
                   (r) => r.id === roomId,
                 );
-                if (room) rerollRoomContents(room, draft.region);
+                if (room && next.dungeonDraft)
+                  rerollSpecialRoom(next.dungeonDraft, room);
               })
             }
           />
-          <Button
-            className="btn small"
-            onClick={() => changeRooms(Math.min(12, draft.rooms.length + 1))}
-            disabled={draft.rooms.length >= 12}
-          >
-            <Plus size={14} /> 방 추가
-          </Button>
           <div className="notes-block">
             <label className="eyebrow" htmlFor="candidate-notes">
               후보 메모

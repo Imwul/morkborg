@@ -19,7 +19,11 @@ import {
   encounterTable,
 } from '../generators/content';
 import { rollCityReference } from './cityReference';
-import { oracleReadingText, type ReferenceReading } from './referenceReading';
+import {
+  oracleReadingText,
+  feretoryResultBlock,
+  type ReferenceReading,
+} from './referenceReading';
 export function refsForOracle(
   result: OracleResult,
   registry: OracleRegistry,
@@ -40,7 +44,12 @@ export function refsForOracle(
       tableId: table.id,
       tableTitle: roll.entryId == null ? roll.title : table.title,
       ...(roll.entryId == null
-        ? { note: roll.dice + ' · 절차의 수량 판정' }
+        ? {
+            note:
+              typeof roll.metadata?.procedureNote === 'string'
+                ? roll.metadata.procedureNote
+                : roll.dice + ' · 절차의 수량 판정',
+          }
         : {}),
       pdfPage: table.sourcePage,
       printedPage: table.printedPage,
@@ -258,14 +267,17 @@ export function executeReference(
           },
           registry,
         )
-      : rollProcedure(procedure, registry);
+      : rollProcedure(procedure, registry, options.rng);
+    const monster = feretoryResultBlock(result);
     output = {
       title: result.title,
-      blocks: result.rolls.map((r) => ({
-        title: r.title,
-        text: oracleReadingText(r),
-        dice: `${r.dice} = ${r.roll}`,
-      })),
+      blocks: monster
+        ? [monster]
+        : result.rolls.map((r) => ({
+            title: r.title,
+            text: oracleReadingText(r),
+            dice: `${r.dice} = ${r.roll}`,
+          })),
       sourceRefs: refsForOracle(result, registry),
       oracle: result,
       relatedIds: [

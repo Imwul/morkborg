@@ -72,11 +72,13 @@ export function ReferenceProvider({
   children,
   campaign,
   onCampaignOpen,
+  onCity,
   notify,
 }: {
   children: ReactNode;
   campaign?: Campaign;
   onCampaignOpen: (patch: Partial<Workspace>) => void;
+  onCity?: () => void;
   notify: (message: string) => void;
 }) {
   const oracles = useOracleRegistry(),
@@ -166,6 +168,13 @@ export function ReferenceProvider({
     const entry = index.byId[entryId];
     if (!entry) return;
     entryId = entry.id;
+    if (entry.action?.kind === 'city' && onCity) {
+      touchEntry(entryId);
+      setSearchOpen(false);
+      setSelectedId(null);
+      onCity();
+      return;
+    }
     if (contextRegion) setRegion(contextRegion);
     if (
       entry.action?.kind === 'region' ||
@@ -259,6 +268,7 @@ export function ReferenceProvider({
         contextual: (context, r) => contextReferences(index, context, r, 6),
         pinnedIds: prefs.pinnedIds,
         recentIds: prefs.recentIds,
+        touch: touchEntry,
         togglePin: (entryId) => savePrefs(toggleReferencePin(prefs, entryId)),
       }}
     >

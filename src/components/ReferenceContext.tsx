@@ -12,6 +12,7 @@ export interface DeskContext {
   contextual: (context: ContextKind, region?: RegionId) => ReferenceEntry[];
   pinnedIds: string[];
   recentIds: string[];
+  touch: (id: string) => void;
   togglePin: (id: string) => void;
 }
 export const ReferenceContext = createContext<DeskContext | null>(null);

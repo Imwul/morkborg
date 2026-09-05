@@ -150,6 +150,44 @@ export function rollMisery(
   };
 }
 export const MAX_CAMPAIGN_DAY = 9999999;
+/** Dawn checks are mechanical day markers, separate from prose Session dates. */
+export function dawnForDay(c: Campaign, day = c.campaignDay) {
+  return c.timeline.find(
+    (event) =>
+      event.type === 'custom' &&
+      event.title.startsWith('Dawn · ') &&
+      event.inWorldDate === `Day ${day}` &&
+      event.sourceRefs.some(
+        (ref) =>
+          ref.bookId === CALENDAR_SOURCE.bookId &&
+          ref.tableTitle === CALENDAR_SOURCE.tableTitle &&
+          typeof ref.roll === 'number',
+      ),
+  );
+}
+/** Check this day's dawn once, including Day 1 and resumed campaign days. */
+export function recordCurrentDawn(
+  c: Campaign,
+  registry: OracleRegistry,
+  rng: RandomSource = random,
+) {
+  const existing = dawnForDay(c);
+  if (existing) return { event: existing, alreadyChecked: true };
+  checkActiveCampaign(c);
+  if (!c.apocalypseDie || !APOCALYPSE_DICE.includes(c.apocalypseDie))
+    throw new Error('그룹이 정한 종말 주사위를 먼저 선택하세요.');
+  const value = rollDie(c.apocalypseDie, rng);
+  const next = value === 1 ? rollMisery(c, registry, rng) : null;
+  const event = recordEvent(c, {
+    type: 'custom',
+    title: `Dawn · d${c.apocalypseDie} = ${value}`,
+    inWorldDate: `Day ${c.campaignDay}`,
+    description: value === 1 ? 'Misery가 발생했습니다.' : '새벽이 밝았습니다.',
+    sourceRefs: [{ ...CALENDAR_SOURCE, roll: value }],
+  });
+  if (next) recordMisery(c, next);
+  return { event, alreadyChecked: false };
+}
 /** Correct a resumed campaign's clock without rolling or rewriting existing records. */
 export function setCampaignDay(c: Campaign, day: number): void {
   if (!Number.isInteger(day) || day < 1 || day > MAX_CAMPAIGN_DAY)
@@ -188,6 +226,18 @@ export function recordDawn(
   });
   const misery = next ? recordMisery(c, next) : null;
   return { event, roll: value, misery };
+}
+
+/** A stale day-completion handler must never advance a second dawn. */
+export function recordNextJourneyDawn(
+  c: Campaign,
+  expectedDay: number,
+  registry: OracleRegistry,
+  rng: RandomSource = random,
+) {
+  if (c.campaignDay !== expectedDay)
+    throw new Error('이미 다음 날로 이동했습니다. 현재 날짜를 확인하세요.');
+  return recordDawn(c, registry, rng);
 }
 
 export type TravelAction = 'road' | 'forage' | 'camp' | 'off-road';
@@ -238,10 +288,15 @@ export function rollTravel(
   action: TravelAction,
   registry: OracleRegistry,
   rng: RandomSource = random,
+  options: { includeWeather?: boolean } = {},
 ): OracleResult {
   const ids =
     action === 'road'
-      ? ['core.weather', 'feretory.roadType', 'feretory.roadEvent']
+      ? [
+          ...(options.includeWeather === false ? [] : ['core.weather']),
+          'feretory.roadType',
+          'feretory.roadEvent',
+        ]
       : action === 'forage'
         ? ['feretory.forage']
         : action === 'camp'
@@ -268,15 +323,15 @@ export function rollTravel(
     rolls,
   };
 }
+export const ONE_OFF_ROAD_EVENTS = [10, 11, 12, 16, 18, 19];
 export function travelNeedsReplacement(
   c: Campaign,
   reading: OracleResult,
 ): boolean {
-  const replaceAfterUse = [10, 11, 12, 16, 18, 19];
   return reading.rolls.some(
     (r) =>
       r.oracleId === 'feretory.roadEvent' &&
-      replaceAfterUse.includes(r.roll) &&
+      ONE_OFF_ROAD_EVENTS.includes(r.roll) &&
       c.timeline.some(
         (e) =>
           e.type === 'travel' &&

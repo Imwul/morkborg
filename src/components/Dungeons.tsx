@@ -1,3 +1,5 @@
+import { DungeonCrawlWorkspace } from './DungeonCrawlWorkspace';
+import { rerollSpecialRoom } from '../generators/specialRooms';
 import {
   ArrowLeft,
   ArrowUp,
@@ -86,7 +88,7 @@ export function Dungeons({
       dungeonPreview: false,
       dungeonId: dungeon.id,
       roomId: null,
-      dungeonTab: 'overview',
+      dungeonTab: 'crawl',
       section: 'dungeons',
     });
   const remove = (dungeon: Dungeon) =>
@@ -174,6 +176,7 @@ export function Dungeons({
       </>
     );
   const tabs: DungeonTab[] = [
+    'crawl',
     'overview',
     'rooms',
     'monsters',
@@ -242,6 +245,7 @@ export function Dungeons({
           >
             {
               {
+                crawl: 'DUNGEON CRAWL',
                 overview: '개요',
                 rooms: '방',
                 monsters: '몬스터',
@@ -264,6 +268,9 @@ export function Dungeons({
           </Button>
         ))}
       </div>
+      {tab === 'crawl' && (
+        <DungeonCrawlWorkspace campaign={c} dungeon={d} notify={notify} />
+      )}
       {tab === 'overview' && (
         <>
           <div className="section-toolbar">
@@ -367,7 +374,8 @@ export function Dungeons({
                 const target = next.dungeons.find((x) => x.id === d.id)!;
                 const room = target.rooms.find((r) => r.id === roomId);
                 if (room) {
-                  rerollRoomContents(room, target.region);
+                  if (room.kind === 'special') rerollSpecialRoom(target, room);
+                  else rerollRoomContents(room, target.region);
                   target.updatedAt = now();
                 }
               })
@@ -422,7 +430,7 @@ export function Dungeons({
           />
         </div>
       )}
-      {tab !== 'notes' && (
+      {tab !== 'notes' && tab !== 'crawl' && (
         <div className="notes-block dungeon-inline-notes">
           <label className="eyebrow" htmlFor="dungeon-notes-inline">
             던전 노트
@@ -489,6 +497,10 @@ function Rooms({
     });
   }
   function remove(r: DungeonRoom) {
+    if (r.kind === 'special' || d.crawl?.specialRoomIds.includes(r.id)) {
+      notify('특별한 방은 네 개를 유지합니다. 내용을 편집하거나 재굴림하세요.');
+      return;
+    }
     confirm(
       `${r.name || '이 방'}을 삭제할까요?`,
       '이 방의 몬스터·NPC·조우 배치를 Dungeon-only로 옮깁니다. 수량과 배치 메모는 유지됩니다.',
@@ -498,7 +510,9 @@ function Rooms({
   return (
     <>
       <div className="section-toolbar">
-        <span className="eyebrow">{d.rooms.length}개 방 / 탐험 경로</span>
+        <span className="eyebrow">
+          {d.rooms.length}개 방 / 준비된 방과 발견한 방
+        </span>
         <div className="actions">
           <Button className="btn" onClick={() => add(true)}>
             <Plus size={15} /> 빈 방 추가
@@ -573,7 +587,12 @@ function Rooms({
                         const target = next.dungeons
                           .find((x) => x.id === d.id)!
                           .rooms.find((r) => r.id === selected.id)!;
-                        rerollRoomContents(target, d.region);
+                        if (target.kind === 'special')
+                          rerollSpecialRoom(
+                            next.dungeons.find((item) => item.id === d.id)!,
+                            target,
+                          );
+                        else rerollRoomContents(target, d.region);
                       }),
                   )
                 }

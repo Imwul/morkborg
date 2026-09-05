@@ -70,7 +70,7 @@ export function Monsters({
   const room = dungeon?.rooms.find((r) => r.id === target?.roomId);
   const generationMode =
     c.workspace.monsterGenerationMode ??
-    (selected?.generation?.system === 'feretory' ? 'tma' : 'epk');
+    (selected && usesFeretory(selected) ? 'tma' : 'epk');
   const generationRegion =
     c.workspace.monsterRegion ??
     selected?.region ??
@@ -145,14 +145,11 @@ export function Monsters({
         ),
     );
   }
-  function linked(
-    key: 'appearance' | 'morale' | 'armor' | 'attack',
-    attackId?: string,
-  ) {
+  function linked() {
     confirm(
       'FERETORY의 연동 결과를 다시 굴릴까요?',
-      '같은 A/B/C 주사위로 외형·사기·방어구·피해와 HP를 정합니다. 선택한 항목과 연결된 자동값을 갱신하며, 이름과 다른 직접 수정값은 유지합니다. 공격명은 직접 작성합니다.',
-      () => edit((m) => rerollMonsterLinked(m, key, attackId)),
+      '3d12를 한 번 굴려 외형·사기·방어구·피해를 함께 정하고, 피해 주사위를 한 번 더 굴려 ×2한 값이 HP입니다. 연결된 자동값을 함께 갱신하며 이름·욕망·특수능력과 직접 수정한 값은 유지합니다.',
+      () => edit((m) => rerollMonsterLinked(m, 'all')),
     );
   }
   function scalar(spec: FieldSpec, roll?: () => void) {
@@ -433,7 +430,8 @@ export function Monsters({
         {isFeretory && (
           <p>
             공격명과 피해를 분리해 기록합니다. FERETORY The Monster Approaches의
-            피해 재굴림은 외형·능력치의 자동값과 연동됩니다.
+            A/B/C 재굴림은 외형·능력치의 자동값을 함께 바꿉니다. HP 항목의
+            재굴림은 현재 피해 주사위만 다시 굴립니다.
           </p>
         )}
       </SourceDisclosure>
@@ -499,6 +497,25 @@ export function Monsters({
           )}
           {scalar({ key: 'concept', label: '종류 / 개념' })}
         </div>
+        {isFeretory && (
+          <div className="monster-linked-roll">
+            <div>
+              <strong>
+                A {selected.generation?.rolls.A} · B{' '}
+                {selected.generation?.rolls.B} · C{' '}
+                {selected.generation?.rolls.C}
+              </strong>
+              <p>같은 3d12 → 외형·사기·피해·방어구 · HP는 피해 주사위 1회 ×2</p>
+            </div>
+            <Button
+              className="btn small"
+              disabled={!rules.pack}
+              onClick={linked}
+            >
+              <Dices size={14} /> A/B/C + 능력치 재굴림
+            </Button>
+          </div>
+        )}
         <div className="monster-stats-grid">
           {scalar(
             {
@@ -512,14 +529,8 @@ export function Monsters({
               ? () => edit((m) => rerollMonsterField(m, 'hp'))
               : undefined,
           )}
-          {scalar(
-            { key: 'morale', label: '사기 · Morale', type: 'line' },
-            isFeretory ? () => linked('morale') : undefined,
-          )}
-          {scalar(
-            { key: 'armor', label: '방어구' },
-            isFeretory ? () => linked('armor') : undefined,
-          )}
+          {scalar({ key: 'morale', label: '사기 · Morale', type: 'line' })}
+          {scalar({ key: 'armor', label: '방어구' })}
         </div>
         <section className="character-section monster-combat">
           <div className="section-title">
@@ -547,18 +558,6 @@ export function Monsters({
               <div className="character-item monster-attack" key={a.id}>
                 <div className="section-title">
                   <h3>공격 {i + 1}</h3>
-                  {rules.pack &&
-                    isFeretory &&
-                    a.tableId === 'feretory.stats' && (
-                      <Button
-                        className="btn small"
-                        aria-label={`공격 ${i + 1} 재굴림`}
-                        onClick={() => linked('attack', a.id)}
-                      >
-                        <Dices size={14} />
-                        피해 재굴림
-                      </Button>
-                    )}
                 </div>
                 {(['name', 'damage', 'description'] as const).map((key) => (
                   <Field
@@ -603,10 +602,7 @@ export function Monsters({
           )}
         </section>
         <div className="monster-identity-grid monster-story">
-          {scalar(
-            { key: 'appearance', label: '외형' },
-            isFeretory ? () => linked('appearance') : undefined,
-          )}
+          {scalar({ key: 'appearance', label: '외형' })}
           {scalar(
             { key: 'wants', label: '욕망 / 목표' },
             isFeretory

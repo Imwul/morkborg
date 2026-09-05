@@ -1,5 +1,6 @@
 import { PLAY_REFERENCE_RULES } from './playReferenceRules';
 import { shortBookTitle } from './sourceDisplay';
+import { FERETORY_MONSTER_SUMMARY } from '../generators/feretory';
 import { findVerifiedReferenceAlias } from './referenceAliases';
 import type { SourceConfidence } from './referenceSources';
 import type { OracleDefinition, OracleRegistry, OracleRoll } from './oracle';
@@ -259,8 +260,7 @@ const RULES: RuleSeed[] = [
   {
     id: 'feretory.monster-approaches',
     title: 'The Monster Approaches',
-    summary:
-      'A/B/C 세 굴림으로 외형과 능력치를 함께 정합니다. 지역별 Eat Prey Kill 표와는 별개입니다.',
+    summary: FERETORY_MONSTER_SUMMARY,
     book: 'feretory',
     pages: [2, 3],
     contexts: ['monster'],
@@ -416,9 +416,11 @@ export function buildReferenceRegistry(
     add({
       ...defaultEntry(id, 'oracle', oracleLibraryTitle(canonical, table.title)),
       summary:
-        (paired
-          ? '두 의미 표를 순서대로 굴려 하나의 답을 만듭니다.'
-          : table.description) ??
+        (canonical.startsWith('feretory.') && rollIds.length === 3
+          ? FERETORY_MONSTER_SUMMARY
+          : paired
+            ? '두 의미 표를 순서대로 굴려 하나의 답을 만듭니다.'
+            : table.description) ??
         (table.rollable === false
           ? '원문의 조건·선택을 확인하는 참조 표입니다.'
           : `${table.originalDice ?? table.dice} · ${table.entries.length}개 결과`),
@@ -856,7 +858,7 @@ const tokens = (text: string) =>
     .split(/\s+/)
     .filter(Boolean)
     .map((t) => aliases[t] ?? t);
-/** Only bare play intents receive these shortcuts; qualified source queries do not. */
+/** Only exact play intents receive shortcuts; other source queries keep normal ranking. */
 const COMMON_REFERENCE_QUERIES: Record<string, string> = {
   morale: 'rule:core.reaction-morale',
   reaction: 'oracle:core.reaction',
@@ -866,6 +868,10 @@ const COMMON_REFERENCE_QUERIES: Record<string, string> = {
   npc: 'procedure:workbench.npc',
   'stock room': 'procedure:workbench.stock-room',
   'stock a room': 'procedure:workbench.stock-room',
+  'feretory monster': 'oracle:feretory.A',
+  'fer monster': 'oracle:feretory.A',
+  'the monster approaches': 'oracle:feretory.A',
+  'monster approaches': 'oracle:feretory.A',
 };
 export function searchReferences(
   registry: ReferenceRegistry,
@@ -953,7 +959,7 @@ const CONTEXT_IDS: Record<ReferenceContext, string[]> = {
     'oracle:core.treasures',
   ],
   monster: [
-    'rule:feretory.monster-approaches',
+    'oracle:feretory.A',
     'oracle:core.reaction',
     'oracle:core.failedMorale',
     'oracle:feretory.trait',
@@ -1024,10 +1030,21 @@ export function contextReferences(
   return ids
     .map((id) => registry.byId[id])
     .filter((e): e is ReferenceEntry => !!e && e.available)
+    .filter(
+      (entry, index, all) =>
+        all.findIndex((other) => other.id === entry.id) === index,
+    )
     .slice(0, Math.max(1, Math.min(8, limit)));
 }
 
 const SEMANTIC_RELATED: Record<string, string[]> = {
+  'oracle:feretory.A': [
+    'oracle:feretory.desire',
+    'oracle:feretory.trait',
+    'oracle:core.reaction',
+    'oracle:core.failedMorale',
+    'rule:feretory.monster-approaches',
+  ],
   'oracle:core.reaction': [
     'rule:core.reaction-morale',
     'procedure:workbench.npc',

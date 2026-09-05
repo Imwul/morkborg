@@ -1,0 +1,165 @@
+.dungeon-crawl {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+}
+.crawl-overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 3px solid currentColor;
+  padding-bottom: 0.8rem;
+}
+.crawl-overview h2 {
+  margin: 0.3rem 0;
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+}
+.crawl-overview > strong {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+.crawl-preparation {
+  margin: 1rem 0;
+  border: 1px solid var(--border, #45443c);
+  padding: 0.75rem;
+}
+.crawl-preparation > summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+.crawl-preparation small {
+  opacity: 0.65;
+  margin-left: 0.5rem;
+}
+.crawl-preparation ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+.crawl-preparation li {
+  border-top: 2px solid currentColor;
+  padding: 0.65rem;
+  min-width: 0;
+}
+.crawl-preparation li > span {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+.crawl-preparation li summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.crawl-preparation p {
+  white-space: pre-line;
+}
+.crawl-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.crawl-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+}
+.crawl-settings select {
+  padding: 0.4rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+.crawl-path {
+  display: flex;
+  gap: 0.4rem;
+  overflow: auto;
+  padding: 0.6rem 0;
+  margin: 0.5rem 0;
+}
+.crawl-path button {
+  flex-shrink: 0;
+  border: 1px solid currentColor;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.75rem;
+}
+.crawl-path [aria-current='step'] {
+  background: var(--foreground, #ecebdd);
+  color: var(--background, #111);
+}
+.crawl-room {
+  border: 2px solid var(--border, #555);
+  padding: 1rem;
+  margin: 1rem 0;
+  background: rgba(125, 125, 100, 0.035);
+}
+.crawl-step {
+  padding: 1rem;
+  border-left: 4px solid var(--border, #666);
+  margin: 1rem 0;
+}
+.crawl-step h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.6rem;
+}
+.crawl-step p {
+  margin: 0.4rem 0 0.8rem;
+}
+.crawl-step small {
+  display: block;
+  margin-top: 0.5rem;
+  opacity: 0.65;
+}
+.crawl-next:empty {
+  display: none;
+}
+.crawl-danger {
+  border-color: #c76170;
+}
+.crawl-outcome {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid currentColor;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.crawl-outcome > span,
+.crawl-outcome small {
+  font-size: 0.75rem;
+}
+.crawl-outcome.miss {
+  color: #d27080;
+}
+.crawl-outcome.strong {
+  border-width: 2px;
+}
+.crawl-tools {
+  margin-top: 1.5rem;
+  border-top: 3px solid currentColor;
+  padding-top: 0.6rem;
+}
+@media (max-width: 600px) {
+  .crawl-preparation ol {
+    grid-template-columns: 1fr;
+  }
+  .crawl-room {
+    padding: 0.55rem;
+  }
+  .crawl-overview {
+    align-items: flex-start;
+  }
+  .crawl-overview > strong {
+    font-size: 0.8rem;
+  }
+  .crawl-outcome {
+    align-items: flex-start;
+  }
+  .crawl-settings > label {
+    flex: 1;
+  }
+  .crawl-path {
+    max-width: 100%;
+  }
+}

@@ -60,6 +60,7 @@ import {
 import { type Confirm } from './components/Library';
 import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
+import { useOracleRegistry } from './storage/oracleStore';
 import { useRules, loadRules } from './storage/rulesStore';
 import { PrivateDataTools } from './components/PrivateDataTools';
 import { TranslationDataNotice } from './components/TranslationDataNotice';
@@ -73,6 +74,11 @@ import {
   ReferenceDesk,
   ReferenceSearchButton,
 } from './components/ReferenceWorkbench';
+const CityCrawlWorkspace = lazy(() =>
+  import('./components/CityCrawlWorkspace').then((module) => ({
+    default: module.CityCrawlWorkspace,
+  })),
+);
 const ContentLibrary = lazy(() =>
   import('./components/ContentLibrary').then((module) => ({
     default: module.ContentLibrary,
@@ -175,6 +181,7 @@ interface Confirmation {
 export default function App() {
   useEffect(startPublishedDataUpdates, []);
   const rules = useRules();
+  const oracles = useOracleRegistry();
   const { save, error, blocked, recovery } = useSave();
   const c =
     save.view === 'campaign'
@@ -197,6 +204,12 @@ export default function App() {
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
   const [oracleOpen, setOracleOpen] = useState(true);
+  const [cityOpen, setCityOpen] = useState(false);
+  function openCity() {
+    setOracleOpen(true);
+    setCityOpen(true);
+    setDrawer(false);
+  }
   const [legacyOracleOpen, setLegacyOracleOpen] = useState(false);
   const [captureKind, setCaptureKind] = useState<CaptureKind | null>(null);
   const [fateOpen, setFateOpen] = useState(false);
@@ -210,6 +223,7 @@ export default function App() {
   }
   const [oracleContext, setOracleContext] = useState<NotesTarget | null>(null);
   function openOracles() {
+    setCityOpen(false);
     if (!oracleOpen) setOracleContext(c ? contextNotesTarget(c) : null);
     setOracleOpen(true);
     setLegacyOracleOpen(false);
@@ -291,7 +305,9 @@ export default function App() {
         ].find((e) => e.id === c.workspace.selected[contentKind])?.name
       : undefined;
   const recordPageTitle = oracleOpen
-    ? 'ORACLES'
+    ? cityOpen
+      ? 'CITY CRAWL'
+      : 'REFERENCE DESK'
     : dungeonPageTitle ||
       characterPageTitle ||
       monsterPageTitle ||
@@ -328,6 +344,7 @@ export default function App() {
   }
   function navigate(section: Section) {
     setOracleOpen(false);
+    setCityOpen(false);
     if (c)
       changeWorkspace(
         c.id,
@@ -359,6 +376,7 @@ export default function App() {
   }
   function home() {
     setOracleOpen(false);
+    setCityOpen(false);
     transact((next) => {
       next.view = 'campaigns';
     });
@@ -366,6 +384,7 @@ export default function App() {
   }
   function openCampaign(campaign: Campaign) {
     setOracleOpen(false);
+    setCityOpen(false);
     transact((next) => {
       openCampaignLibrary(next, campaign.id);
       next.campaigns.find(
@@ -409,6 +428,7 @@ export default function App() {
         importCampaigns(next, campaigns);
       });
       setOracleOpen(false);
+      setCityOpen(false);
       setImportError('');
       setImportText(null);
       notify(`${campaigns.length}개 캠페인을 복원했습니다.`);
@@ -442,11 +462,13 @@ export default function App() {
   );
   return (
     <ReferenceProvider
+      onCity={openCity}
       campaign={c}
       notify={notify}
       onCampaignOpen={(patch) => {
         if (c) {
           setOracleOpen(false);
+          setCityOpen(false);
           changeWorkspace(c.id, patch);
         }
       }}
@@ -481,10 +503,16 @@ export default function App() {
               </button>
               <nav aria-label="캠페인 메뉴">
                 <button
-                  className={`nav-item ${oracleOpen ? 'active' : ''}`}
+                  className={`nav-item ${oracleOpen && !cityOpen ? 'active' : ''}`}
                   onClick={openOracles}
                 >
                   <Dices size={17} /> REFERENCE DESK
+                </button>
+                <button
+                  className={`nav-item ${cityOpen ? 'active' : ''}`}
+                  onClick={openCity}
+                >
+                  <Castle size={17} /> CITY CRAWL
                 </button>
                 {nav
                   .filter(
@@ -508,6 +536,7 @@ export default function App() {
                         className={`nav-item ${!oracleOpen && c.workspace.section === item.key ? 'active' : ''}`}
                         onClick={() => {
                           setOracleOpen(false);
+                          setCityOpen(false);
                           navigate(item.key);
                         }}
                       >
@@ -542,6 +571,7 @@ export default function App() {
                           className={`nav-item ${!oracleOpen && c.workspace.section === item.key ? 'active' : ''}`}
                           onClick={() => {
                             setOracleOpen(false);
+                            setCityOpen(false);
                             navigate(item.key);
                           }}
                         >
@@ -584,12 +614,20 @@ export default function App() {
               </button>
               {fateLink}
               <button
-                className={`nav-item ${oracleOpen ? 'active' : ''}`}
+                className={`nav-item ${oracleOpen && !cityOpen ? 'active' : ''}`}
                 onClick={openOracles}
               >
                 <Dices size={17} /> REFERENCE DESK
               </button>
             </>
+          )}
+          {!c && (
+            <button
+              className={`nav-item ${cityOpen ? 'active' : ''}`}
+              onClick={openCity}
+            >
+              <Castle size={17} /> CITY CRAWL
+            </button>
           )}
           <div className="sidebar-bottom">
             <Skull size={30} />
@@ -616,7 +654,9 @@ export default function App() {
               </Button>
               <span>
                 {oracleOpen
-                  ? 'PLAY REFERENCE & ORACLES'
+                  ? cityOpen
+                    ? 'CITY CRAWL'
+                    : 'PLAY REFERENCE & ORACLES'
                   : (c?.title ?? '보관한 자료')}
               </span>
             </div>
@@ -713,7 +753,9 @@ export default function App() {
                 <span>/</span>
                 <span aria-current="page">
                   {oracleOpen
-                    ? 'ORACLES'
+                    ? cityOpen
+                      ? 'CITY CRAWL'
+                      : 'REFERENCE DESK'
                     : c.workspace.section === 'notes'
                       ? '캠페인 노트'
                       : c.workspace.section === 'characters'
@@ -737,11 +779,21 @@ export default function App() {
               </nav>
             )}
             <DeferredView
-              resetKey={`${c?.id ?? 'standalone'}:${oracleOpen ? (legacyOracleOpen ? 'oracles' : 'desk') : (c?.workspace.section ?? 'campaigns')}`}
+              resetKey={`${c?.id ?? 'standalone'}:${oracleOpen ? (cityOpen ? 'city' : legacyOracleOpen ? 'oracles' : 'desk') : (c?.workspace.section ?? 'campaigns')}`}
             >
-              {c && !oracleOpen && <ObjectPlayTools campaign={c} />}
+              {c &&
+                !oracleOpen &&
+                !(
+                  c.workspace.section === 'dungeons' &&
+                  c.workspace.dungeonTab === 'crawl'
+                ) && <ObjectPlayTools campaign={c} />}
               {oracleOpen ? (
-                legacyOracleOpen ? (
+                cityOpen ? (
+                  <CityCrawlWorkspace
+                    registry={oracles.registry}
+                    region={d?.region}
+                  />
+                ) : legacyOracleOpen ? (
                   <Oracles
                     campaign={c}
                     context={oracleContext}
@@ -951,7 +1003,11 @@ export default function App() {
                       </h1>
                     </div>
                   </div>
-                  <CampaignProcedures campaign={c} notify={notify} />
+                  <CampaignProcedures
+                    campaign={c}
+                    notify={notify}
+                    onCity={openCity}
+                  />
                 </section>
               ) : ['threads', 'rumors', 'relics', 'journal'].includes(
                   c.workspace.section,

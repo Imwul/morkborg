@@ -78,7 +78,7 @@ export function DungeonSheet({
           ))}
       </div>
       <div className="sheet-room-index">
-        <span>ROOMS / 탐험 경로</span>
+        <span>ROOMS / 준비 · 발견</span>
         <strong>{String(d.rooms.length).padStart(2, '0')} ENTRIES</strong>
       </div>
       <div className="sheet-room-grid">
@@ -90,7 +90,7 @@ export function DungeonSheet({
           >
             <div className="sheet-room-heading">
               <span className="room-number">
-                <small>ROOM</small>
+                <small>{room.kind === 'special' ? 'SPECIAL' : 'ROOM'}</small>
                 <strong>{String(i + 1).padStart(2, '0')}</strong>
               </span>
               <div>

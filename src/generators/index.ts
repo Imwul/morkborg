@@ -1,3 +1,4 @@
+import { prepareSpecialRooms } from './specialRooms';
 import { emptyChronicle } from '../domain/chronicle';
 import type {
   BaseEntity,
@@ -371,7 +372,7 @@ export function rerollRoomContents(room: DungeonRoom, region: RegionId): void {
 export function createDungeonCandidate(
   campaignId: string,
   region: RegionId,
-  roomCount = 4,
+  _roomCount = 4,
 ): Dungeon {
   const candidate = createDungeon(campaignId, dungeonTitle(), region);
   candidate.sources = {
@@ -379,10 +380,7 @@ export function createDungeonCandidate(
     title:
       sourceCitation('core.titleA') + ' + ' + sourceCitation('core.titleB'),
   };
-  candidate.rooms = Array.from(
-    { length: Math.max(0, Math.min(12, roomCount)) },
-    () => createRoom(region),
-  );
+  candidate.rooms = prepareSpecialRooms(candidate);
   return candidate;
 }
 export function createCampaign(title: string, subtitle = ''): Campaign {

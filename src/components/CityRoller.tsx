@@ -22,18 +22,41 @@ import {
 } from '../domain/cityProcedures';
 import { rollOracle, selectOracleEntry } from '../generators/oracleRoller';
 
+export type CityRollerMove =
+  | CityMove
+  | 'merchant'
+  | 'micro'
+  | 'settlement'
+  | 'discovery';
+const moveLabels: Record<CityRollerMove, string> = {
+  crawl: 'City Crawl · 거리 탐색',
+  directions: 'Get Directions · 길 묻기',
+  pray: 'Pray · 기도',
+  stash: 'Stash Item · 숨긴 물건 회수',
+  merchant: '상인 반응 · 2d6 + Presence',
+  micro: 'Micro-crawl · d4 거리',
+  settlement: '정착지 규모 · Dérive 거리 수',
+  discovery: '여행 중 정착지 발견 · 1-in-8',
+};
+
 export function CityRoller({
   registry,
   onReading,
+  allowedMoves = Object.keys(moveLabels) as CityRollerMove[],
+  initialMove = allowedMoves[0] ?? 'crawl',
 }: {
   registry: OracleRegistry;
   onReading: (reading: ReferenceReading) => void;
+  allowedMoves?: readonly CityRollerMove[];
+  initialMove?: CityRollerMove;
 }) {
   const [mode, setMode] = useState<CityMode>('city');
-  const [move, setMove] = useState<
-    CityMove | 'merchant' | 'micro' | 'settlement' | 'discovery'
-  >('crawl');
-  const [dr, setDr] = useState(10),
+  const [move, setMove] = useState<CityRollerMove>(initialMove);
+  const [dr, setDr] = useState(
+      initialMove in CITY_MOVE_DEFAULTS
+        ? CITY_MOVE_DEFAULTS[initialMove as CityMove].dr
+        : 10,
+    ),
     [modifier, setModifier] = useState(0),
     [allMet, setAllMet] = useState(false);
   const [place, setPlace] =
@@ -193,14 +216,11 @@ export function CityRoller({
                 setDr(CITY_MOVE_DEFAULTS[next as CityMove].dr);
             }}
           >
-            <option value="crawl">City Crawl · 거리 탐색</option>
-            <option value="directions">Get Directions · 길 묻기</option>
-            <option value="pray">Pray · 기도</option>
-            <option value="stash">Stash Item · 숨긴 물건 회수</option>
-            <option value="merchant">상인 반응 · 2d6 + Presence</option>
-            <option value="micro">Micro-crawl · d4 거리</option>
-            <option value="settlement">정착지 규모 · Dérive 거리 수</option>
-            <option value="discovery">여행 중 정착지 발견 · 1-in-8</option>
+            {allowedMoves.map((choice) => (
+              <option key={choice} value={choice}>
+                {moveLabels[choice]}
+              </option>
+            ))}
           </select>
         </label>
         {move === 'crawl' && (
@@ -283,7 +303,7 @@ export function CityRoller({
           모든 목표에 이미 도달함
         </label>
       )}
-      <Button onClick={run}>ROLL CITY</Button>
+      <Button onClick={run}>ROLL · {moveLabels[move].split(' · ')[0]}</Button>
       {last?.metadata.directionsOptions &&
         !last.metadata.selectedDirections && (
           <div className="ref-related">
@@ -306,13 +326,23 @@ export function CityRoller({
       {error && <p role="alert">{error}</p>}
       <details className="sheet-source">
         <summary>사용 조건</summary>
-        <p>
-          거리 사이 이동은 약 5분. City Crawl은 목표 달성 수에 따른 보정을 쓰지
-          않습니다. Dérive에서는 Strong·Weak Hit 모두 새 거리입니다. 실패한
-          상황은 해결한 뒤 새 거리를 굴리세요. Micro-crawl은 d4개 거리를 직접
-          생성합니다.
-        </p>
-        <p>능력치·보급·시간의 실제 변화는 직접 적용합니다.</p>
+        {allowedMoves.includes('crawl') ? (
+          <>
+            <p>
+              거리 사이 이동은 약 5분. City Crawl은 목표 달성 수에 따른 보정을
+              쓰지 않습니다. Dérive에서는 Strong·Weak Hit 모두 새 거리입니다.
+              실패한 상황은 해결한 뒤 새 거리를 굴리세요. Micro-crawl은 d4개
+              거리를 직접 생성합니다.
+            </p>
+            <p>능력치·보급·시간의 실제 변화는 직접 적용합니다.</p>
+          </>
+        ) : (
+          <p>
+            길 묻기 DR12 Presence · 기도 DR14 Presence + 성소 보정 · 숨긴 물건
+            회수 DR10 현재 Omens. 각 d20을 DR와 따로 비교합니다. 도움은 선택한
+            하나만 적용하고, 보급·능력치의 실제 변경은 직접 적용합니다.
+          </p>
+        )}
       </details>
     </div>
   );

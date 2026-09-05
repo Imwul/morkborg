@@ -1,3 +1,4 @@
+import { remapDungeonCrawl } from './dungeonCrawl';
 import {
   chronicleIds,
   pruneChronicleReferences,
@@ -151,6 +152,7 @@ export function cloneCampaign(
         d.encounterTables[kind] = d.encounterTables[kind].map((ref) =>
           ref ? replace(ref) : null,
         );
+    remapDungeonCrawl(d, replace);
     reassign(d);
     for (const room of d.rooms) {
       room.id = replace(room.id);
@@ -187,9 +189,13 @@ export function cloneDungeon(source: Dungeon): Dungeon {
   d.title += ' — copy';
   d.createdAt = now();
   d.updatedAt = now();
+  const roomMap = new Map<string, string>();
   d.rooms.forEach((r) => {
-    r.id = id();
+    const next = id();
+    roomMap.set(r.id, next);
+    r.id = next;
   });
+  remapDungeonCrawl(d, (key) => roomMap.get(key) ?? key);
   return d;
 }
 export function assignEntity(
@@ -277,7 +283,7 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
     dungeonPreview: false,
     dungeonId: candidate.id,
     roomId: null,
-    dungeonTab: 'overview',
+    dungeonTab: 'crawl',
   });
 }
 

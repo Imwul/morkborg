@@ -1,0 +1,179 @@
+.city-crawl-workspace {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.city-workspace-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.city-workspace-heading h2 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+.city-workspace-heading p {
+  margin: 0;
+  font-size: 0.84rem;
+  opacity: 0.75;
+}
+.city-workspace-heading small {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+.city-crawl-sheet {
+  border: 1px solid currentColor;
+  padding: 1rem;
+  min-width: 0;
+}
+.city-crawl-sheet > header {
+  border-bottom: 2px solid currentColor;
+  margin: -1rem -1rem 1rem;
+  padding: 0.8rem 1rem;
+}
+.city-crawl-sheet > header small {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+.city-crawl-sheet h3 {
+  font-size: 1.3rem;
+  margin: 0.2rem 0 0;
+}
+.city-crawl-current > header {
+  background: var(--foreground, #141411);
+  color: var(--background, #f6f3e9);
+}
+.city-crawl-current[data-phase='blocked'] > header {
+  border-left: 0.4rem solid #ee1873;
+}
+.city-crawl-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: end;
+  margin: 0.65rem 0;
+}
+.city-crawl-controls > label {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  font-size: 0.72rem;
+}
+.city-crawl-controls > label:first-child {
+  flex: 1 1 13rem;
+}
+.city-crawl-controls select {
+  min-height: 2.5rem;
+  max-width: 100%;
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+  padding: 0.4rem;
+}
+.city-crawl-controls input[type='number'] {
+  width: 7rem;
+}
+.city-crawl-controls .ref-check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.city-crawl-options {
+  margin: 0.7rem 0;
+  border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  padding-top: 0.55rem;
+}
+.city-crawl-options > summary {
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.city-crawl-options p,
+.city-crawl-instruction {
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+.city-crawl-options .ref-check {
+  margin-top: 0.6rem;
+}
+.city-crawl-next {
+  padding-top: 0.8rem;
+  margin-top: 0.8rem;
+  border-top: 2px solid currentColor;
+}
+.city-crawl-next p {
+  font-size: 0.83rem;
+}
+.city-crawl-next button {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+  min-height: 2.5rem;
+}
+.city-crawl-move {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.6rem;
+}
+.city-crawl-move > span,
+.city-crawl-move > small {
+  display: block;
+}
+.city-crawl-move > span {
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+.city-crawl-move > small,
+.city-crawl-move summary {
+  font-size: 0.7rem;
+}
+.city-crawl-move summary {
+  margin-top: 0.45rem;
+  cursor: pointer;
+}
+.city-workspace-tools {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+}
+.city-support-moves > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+.city-support-moves > summary strong {
+  font-size: 0.85rem;
+}
+.city-support-moves > summary small {
+  font-size: 0.63rem;
+  opacity: 0.7;
+}
+.city-support-moves > .city-roller {
+  margin-top: 0.9rem;
+}
+.city-crawl-error {
+  border-left: 0.25rem solid #ee1873;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+}
+@media (max-width: 540px) {
+  .city-crawl-sheet {
+    padding: 0.7rem;
+  }
+  .city-crawl-sheet > header {
+    margin: -0.7rem -0.7rem 0.7rem;
+    padding: 0.7rem;
+  }
+  .city-crawl-controls {
+    align-items: stretch;
+  }
+  .city-crawl-controls > label {
+    flex-basis: 100%;
+  }
+  .city-crawl-setup > button,
+  .city-crawl-next > button {
+    width: 100%;
+  }
+}

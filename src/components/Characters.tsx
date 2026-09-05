@@ -65,6 +65,8 @@ const traitLabels: Record<string, string> = {
   'core.bodies': 'Broken Bodies · 외모',
   'core.badHabits': 'Bad Habits · 나쁜 버릇',
   'core.troublingTales': 'Troubling Tales · 불길한 과거',
+  'feretory.philosopherDejection': '비탄의 원인 · d8',
+  'feretory.philosopherRoots': '출신 배경 · d6',
 };
 const abilityLabels = [
   '근력 · Strength',

@@ -1,5 +1,7 @@
 import { SourceText } from './SourceText';
 import { shortBookTitle } from '../domain/sourceDisplay';
+import { FERETORY_MONSTER_SUMMARY } from '../generators/feretory';
+import { feretoryResultBlock } from '../domain/referenceReading';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -85,6 +87,8 @@ export function Oracles({
     rollIds.includes(table.id),
   );
   const isPair = rollIds.length === 2;
+  const isFeretory = selected?.id === 'feretory.A';
+  const monsterResult = result ? feretoryResultBlock(result) : undefined;
   const filtered = useMemo(
     () =>
       filterOracles(library, {
@@ -286,7 +290,9 @@ export function Oracles({
                 <div className="oracle-card-meta">
                   <span>
                     {t.rollable === false ? '참조' : t.dice}
-                    {oracleLibraryRollIds(t.id).length === 2 ? ' × 2' : ''}
+                    {oracleLibraryRollIds(t.id).length > 1
+                      ? ` × ${oracleLibraryRollIds(t.id).length}`
+                      : ''}
                   </span>
                   <Button
                     className="icon-btn"
@@ -351,9 +357,9 @@ export function Oracles({
               <BookOpen size={34} strokeWidth={1} />
               <h2>어떤 답을 찾고 있나요?</h2>
               <p>
-                목록에서 표를 선택하세요. Action과 Descriptor는 각 원문 표에서
-                한 번씩, 나머지는 한 번 굴립니다. 결과를 기록하기 전까지
-                캠페인은 바뀌지 않습니다.
+                목록에서 표를 선택하세요. 연결된 표는 한 번에 함께 굴리고, The
+                Monster Approaches는 A/B/C와 능력치를 함께 생성합니다. 결과를
+                기록하기 전까지 캠페인은 바뀌지 않습니다.
               </p>
             </div>
           ) : (
@@ -381,9 +387,16 @@ export function Oracles({
               {selected && (
                 <>
                   <p className="oracle-dice">
-                    {selected.originalDice || selected.dice || '직접 참조'}
+                    {isFeretory
+                      ? '3d12 · A/B/C + HP 추가 굴림'
+                      : selected.originalDice || selected.dice || '직접 참조'}
                     {isPair ? ' · 각 표에서 한 번씩' : ''}
                   </p>
+                  {isFeretory && (
+                    <p className="oracle-rule-note">
+                      {FERETORY_MONSTER_SUMMARY}
+                    </p>
+                  )}
                   <SourceDisclosure key={selected.id} label="출처 · 표 정보">
                     {sourceTables.map((table) => (
                       <p key={table.id}>
@@ -408,60 +421,77 @@ export function Oracles({
                 onClick={roll}
               >
                 <Dices size={19} />
-                {isPair
+                {isFeretory
                   ? result
-                    ? '두 결과 다시 굴리기'
-                    : '두 결과 굴리기'
-                  : result
-                    ? '다시 굴리기'
-                    : '굴리기'}
+                    ? '몬스터 다시 생성'
+                    : '몬스터 생성'
+                  : isPair
+                    ? result
+                      ? '두 결과 다시 굴리기'
+                      : '두 결과 굴리기'
+                    : result
+                      ? '다시 굴리기'
+                      : '굴리기'}
               </Button>
               {result && (
                 <div
                   className={`oracle-result ${isPair ? '' : 'oracle-result-single'}`}
                   aria-live="polite"
                 >
-                  {result.rolls.map((r, i) => (
-                    <div key={i}>
-                      <span className="eyebrow">
-                        {result.rolls.length > 1 ? `${r.title} / ` : ''}ROLL:{' '}
-                        {r.roll}
-                        {r.diceValues.length > 1
-                          ? ` (${r.diceValues.join(', ')})`
-                          : ''}
-                      </span>
-                      <p className="oracle-result-text" lang="en">
-                        {r.text}
-                      </p>
-                      <Translation
-                        text={r.text}
-                        translation={
-                          typeof r.metadata?.ko === 'string'
-                            ? r.metadata.ko
-                            : undefined
-                        }
+                  {monsterResult ? (
+                    <div>
+                      <span className="eyebrow">{monsterResult.dice}</span>
+                      <p className="oracle-result-text">{monsterResult.text}</p>
+                      <Translation text={monsterResult.text} />
+                      <SourceDisclosure
+                        source={result.rolls
+                          .map((roll) => roll.source)
+                          .join('; ')}
                       />
-                      <SourceDisclosure source={r.source} />
-                      {r.metadata &&
-                        Object.keys(r.metadata).some(
-                          (k) =>
-                            ![
-                              'min',
-                              'max',
-                              'range',
-                              'roll',
-                              'page',
-                              'ko',
-                            ].includes(k),
-                        ) && (
-                          <OracleConditions
-                            metadata={r.metadata}
-                            registry={registry}
-                            select={select}
-                          />
-                        )}
                     </div>
-                  ))}
+                  ) : (
+                    result.rolls.map((r, i) => (
+                      <div key={i}>
+                        <span className="eyebrow">
+                          {result.rolls.length > 1 ? `${r.title} / ` : ''}ROLL:{' '}
+                          {r.roll}
+                          {r.diceValues.length > 1
+                            ? ` (${r.diceValues.join(', ')})`
+                            : ''}
+                        </span>
+                        <p className="oracle-result-text" lang="en">
+                          {r.text}
+                        </p>
+                        <Translation
+                          text={r.text}
+                          translation={
+                            typeof r.metadata?.ko === 'string'
+                              ? r.metadata.ko
+                              : undefined
+                          }
+                        />
+                        <SourceDisclosure source={r.source} />
+                        {r.metadata &&
+                          Object.keys(r.metadata).some(
+                            (k) =>
+                              ![
+                                'min',
+                                'max',
+                                'range',
+                                'roll',
+                                'page',
+                                'ko',
+                              ].includes(k),
+                          ) && (
+                            <OracleConditions
+                              metadata={r.metadata}
+                              registry={registry}
+                              select={select}
+                            />
+                          )}
+                      </div>
+                    ))
+                  )}
                 </div>
               )}
               {result && (

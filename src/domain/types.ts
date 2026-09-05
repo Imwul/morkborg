@@ -35,6 +35,7 @@ export type Section =
   | 'about';
 export type LibraryKind = 'characters' | 'monsters' | 'encounters' | 'npcs';
 export type DungeonTab =
+  | 'crawl'
   | 'overview'
   | 'rooms'
   | 'monsters'
@@ -203,6 +204,9 @@ export interface Assignment {
   encounterIds: string[];
 }
 export interface DungeonRoom extends Assignment, Provenance, HiddenInformation {
+  kind?: 'special' | 'generic';
+  specialDetailIds?: string[];
+  exits?: number;
   playState?: RoomPlayState;
   id: string;
   name: string;
@@ -216,6 +220,7 @@ export interface DungeonRoom extends Assignment, Provenance, HiddenInformation {
 export interface Dungeon extends Assignment, Provenance, HiddenInformation {
   /** Fixed d6 faces prepared once for this dungeon; independent of room placements. */
   encounterTables?: DungeonEncounterTables;
+  crawl?: import('./dungeonCrawl').DungeonCrawlState;
   playState?: DungeonPlayState;
   id: string;
   campaignId: string;

@@ -342,6 +342,23 @@ select:focus-visible {
 .footer-source-key strong {
   color: var(--ink);
 }
+.monster-linked-roll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px;
+  background: var(--group-tint);
+  border-bottom: var(--rule-thin);
+}
+.monster-linked-roll strong {
+  font: 700 14px var(--font-mono);
+}
+.monster-linked-roll p {
+  margin-top: 4px;
+  font: 12px/1.6 var(--font-ui);
+}
 
 /* Generator: title, premise, dossier, then a numbered route through the rooms. */
 .dungeon-workbench .dungeon-heading {

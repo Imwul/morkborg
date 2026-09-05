@@ -1,6 +1,7 @@
 import type { ReferenceEvidence } from './referenceSources';
 import type { SourceReference } from './types';
 import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
+import { FERETORY_TABLE_IDS } from '../generators/feretory';
 export interface ReferenceReading {
   title: string;
   blocks: { title: string; text: string; dice?: string; kind?: 'creature' }[];
@@ -10,6 +11,27 @@ export interface ReferenceReading {
   oracle?: OracleResult;
   relatedIds?: string[];
   fixedLookups?: { oracleId: string; roll: number }[];
+}
+/** Keep one creature together while retaining every original die in OracleResult. */
+export function feretoryResultBlock(
+  result: OracleResult,
+): ReferenceReading['blocks'][number] | undefined {
+  const hp = result.rolls.find((roll) => roll.oracleId === 'feretory.hp');
+  const appearance = FERETORY_TABLE_IDS.map((id) =>
+    result.rolls.find((roll) => roll.oracleId === id),
+  );
+  if (!hp || appearance.some((roll) => !roll)) return;
+  return {
+    title: 'The Monster Approaches',
+    kind: 'creature',
+    text: [hp.text, appearance.map((roll) => roll!.text).join('; ')].join(
+      '\n\n',
+    ),
+    dice:
+      appearance
+        .map((roll, index) => `${['A', 'B', 'C'][index]} d12 = ${roll!.roll}`)
+        .join(' · ') + ` · HP ${hp.dice} = ${hp.roll} × 2`,
+  };
 }
 export function copyReferenceReading(
   reading: ReferenceReading,
