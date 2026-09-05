@@ -1,3 +1,6 @@
+import { PLAY_REFERENCE_RULES } from './playReferenceRules';
+import { findVerifiedReferenceAlias } from './referenceAliases';
+import type { SourceConfidence } from './referenceSources';
 import type { OracleDefinition, OracleRegistry, OracleRoll } from './oracle';
 import type { RegionId, SourceReference } from './types';
 import type { RulesPack } from '../storage/rulesStore';
@@ -37,6 +40,8 @@ export interface ReferenceSourceStep {
   label: string;
   source: SourceReference;
   via?: string;
+  role?: 'primary' | 'routing';
+  confidence?: SourceConfidence;
 }
 export interface ReferenceEntry {
   id: string;
@@ -187,6 +192,8 @@ interface RuleSeed {
   pages: number[];
   contexts: ReferenceContext[];
   oracles?: string[];
+  printedPage?: number | string;
+  seeFullRule?: boolean;
 }
 /** Concise navigation summaries; the source tables remain the only copy of their results. */
 const RULES: RuleSeed[] = [
@@ -294,7 +301,7 @@ const RULES: RuleSeed[] = [
     id: 'sd.dungeonCrawling',
     title: 'Dungeon Crawling · 던전 탐색',
     summary:
-      '두 d20을 각각 Dungeon DR과 비교합니다. 특별한 방 발견 수와 Strong/Weak/Fail 절차는 원문을 따릅니다.',
+      '각 방에서 두 d20 + 발견한 Special Room 수를 Dungeon DR과 각각 비교합니다. Strong은 다음 Special Room, 네 번째가 절정이며 이후 Strong은 Weak로 처리합니다. Weak는 일반 방. Fail의 위험을 해결한 뒤 방을 만듭니다.',
     book: 'sd',
     pages: [9, 19],
     contexts: ['dungeon', 'room'],
@@ -488,13 +495,19 @@ export function buildReferenceRegistry(
         : null,
     });
   }
-  for (const seed of RULES) {
+  for (const seed of [...RULES, ...PLAY_REFERENCE_RULES]) {
     const book = oracles.books.find((b) => b.id === seed.book),
       ref: SourceReference = {
         bookId: seed.book,
         bookTitle: book?.title ?? seed.book,
         tableTitle: seed.title,
         pdfPage: seed.pages,
+        printedPage: seed.printedPage,
+        ...(seed.seeFullRule
+          ? {
+              note: '짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요.',
+            }
+          : {}),
       };
     const sourceRefs = [ref];
     if (seed.id === 'sd.stockCommon')
@@ -684,6 +697,9 @@ export function buildReferenceRegistry(
         ...(tool.next ?? []),
         ...tool.related,
         ...tool.ids.map((id) => `oracle:${id}`),
+        ...(tool.id === 'workbench.stock-room'
+          ? ['oracle:sd.usefulItems', 'oracle:core.treasures']
+          : []),
       ],
       available,
       action: available ? { kind: 'procedure', procedureId: tool.id } : null,
@@ -750,6 +766,8 @@ export function buildReferenceRegistry(
       sourceChain: ref
         ? [
             {
+              role: 'routing',
+              confidence: 'verified',
               label: 'Sölitary Depths · regional Monsters',
               source: ref,
               via: 'printedCrossReference',
@@ -786,7 +804,16 @@ export function buildReferenceRegistry(
   for (const book of oracles.books)
     add({
       ...defaultEntry(`book:${book.id}`, 'book', book.title),
-      summary: book.fileName ?? '',
+      summary: (['oracle', 'procedure', 'rule', 'creature'] as const)
+        .map((kind) => {
+          const count = entries.filter(
+            (e) =>
+              e.kind === kind && e.sourceRefs.some((s) => s.bookId === book.id),
+          ).length;
+          return count ? `${kind.toUpperCase()} ${count}` : '';
+        })
+        .filter(Boolean)
+        .join(' · '),
       keywords: [book.id, book.title],
       sourceRefs: [{ bookId: book.id, bookTitle: book.title }],
       relatedIds: entries
@@ -832,6 +859,7 @@ const tokens = (text: string) =>
 const COMMON_REFERENCE_QUERIES: Record<string, string> = {
   morale: 'rule:core.reaction-morale',
   reaction: 'oracle:core.reaction',
+  broken: 'rule:core.broken',
   'useful item': 'oracle:sd.usefulItems',
   'useful items': 'oracle:sd.usefulItems',
   npc: 'procedure:workbench.npc',
@@ -996,6 +1024,56 @@ export function contextReferences(
     .filter((e): e is ReferenceEntry => !!e && e.available)
     .slice(0, Math.max(1, Math.min(8, limit)));
 }
+
+const SEMANTIC_RELATED: Record<string, string[]> = {
+  'oracle:core.reaction': [
+    'rule:core.reaction-morale',
+    'procedure:workbench.npc',
+    'oracle:core.failedMorale',
+  ],
+  'rule:core.reaction-morale': [
+    'oracle:core.reaction',
+    'oracle:core.failedMorale',
+    'rule:core.violence',
+  ],
+  'oracle:core.failedMorale': [
+    'rule:core.reaction-morale',
+    'oracle:core.reaction',
+    'rule:core.violence',
+    'rule:feretory.monster-approaches',
+  ],
+  'procedure:workbench.npc': [
+    'oracle:core.reaction',
+    'oracle:reclvse.npcMotivation',
+    'rule:core.reaction-morale',
+  ],
+  'oracle:core.corpsePlundering': [
+    'oracle:sd.usefulItems',
+    'oracle:core.treasures',
+  ],
+  'rule:core.broken': [
+    'rule:core.rest',
+    'rule:core.violence',
+    'rule:core.omens',
+  ],
+  'rule:core.rest': ['rule:core.broken', 'rule:core.powers'],
+};
+function semanticRelated(entry: ReferenceEntry): string[] {
+  if (SEMANTIC_RELATED[entry.id]) return SEMANTIC_RELATED[entry.id];
+  if (
+    entry.action?.kind === 'regional-monster' ||
+    entry.id === 'procedure:workbench.epk'
+  )
+    return [
+      'rule:core.reaction-morale',
+      'oracle:core.failedMorale',
+      'oracle:core.reaction',
+      'oracle:core.corpsePlundering',
+      'oracle:core.treasures',
+    ];
+  return [];
+}
+
 export function relatedReferences(
   registry: ReferenceRegistry,
   id: string,
@@ -1003,19 +1081,17 @@ export function relatedReferences(
 ): ReferenceEntry[] {
   const entry = registry.byId[id];
   if (!entry) return [];
-  const choices = unique([
-    ...entry.relatedIds,
-    ...entry.contexts.flatMap((context) =>
-      contextReferences(registry, context, entry.regionIds[0], 8).map(
-        (e) => e.id,
-      ),
-    ),
-  ]);
+  const choices = unique([...semanticRelated(entry), ...entry.relatedIds]);
   return choices
     .filter((candidate) => candidate !== entry.id)
     .map((id) => registry.byId[id])
     .filter((e): e is ReferenceEntry => !!e)
-    .sort((a, b) => Number(b.available) - Number(a.available))
+    .sort(
+      (a, b) =>
+        Number(a.kind === 'book' || a.kind === 'region') -
+          Number(b.kind === 'book' || b.kind === 'region') ||
+        Number(b.available) - Number(a.available),
+    )
     .slice(0, Math.max(1, Math.min(8, limit)));
 }
 export interface RegionalReferenceResult {
@@ -1029,7 +1105,7 @@ export interface RegionalReferenceResult {
   reason?: string;
 }
 const creatureName = (name: string) =>
-  fold(name).replace(/ /g, '').replace(/s$/, '');
+  name.normalize('NFC').trim().toLocaleLowerCase();
 /** Follow this rolled entry's printed reference. Never substitute a random EPK regional pool. */
 export function rollRegionalReference(
   region: RegionId,
@@ -1087,40 +1163,34 @@ export function rollRegionalReference(
   const printedPage =
     Number(/(?:Feretory|Heretic|MB)\s*(?:p\.?\s*)?(\d+)/i.exec(printed)?.[1]) ||
     null;
-  // An explicit, source-audited alias may bridge a named Core example or another
-  // edition's page number. Scope it to this exact regional table and citation.
   const referenceAlias = (candidate: Record<string, unknown>) => {
+    const alias = findVerifiedReferenceAlias(candidate, {
+      tableId: table.id,
+      name,
+      printedCrossReference: printed,
+      bookId,
+      printedPage,
+    });
+    // Evidence must still describe this exact target, including the target edition's page.
     if (
-      bookId !== 'core' ||
-      !printedPage ||
-      !Array.isArray(candidate.referenceAliases)
+      alias?.evidence &&
+      !alias.evidence.some(
+        (evidence) =>
+          evidence.bookId === candidate.book &&
+          evidence.pdfPage === candidate.pdfPage &&
+          (evidence.printedPage === undefined ||
+            evidence.printedPage === candidate.printedPage),
+      )
     )
       return undefined;
-    return candidate.referenceAliases.find(
-      (alias): alias is Record<string, unknown> =>
-        !!alias &&
-        typeof alias === 'object' &&
-        alias.sourceVerified === true &&
-        alias.bookId === bookId &&
-        alias.tableId === table.id &&
-        alias.printedPage === printedPage &&
-        typeof alias.name === 'string' &&
-        creatureName(alias.name) === creatureName(name) &&
-        typeof alias.printedCrossReference === 'string' &&
-        fold(alias.printedCrossReference) === fold(printed),
-    );
+    return alias;
   };
-  const candidates = (rules?.creatures ?? []).filter(
-    (candidate) =>
-      candidate.book === bookId &&
-      typeof candidate.name === 'string' &&
-      typeof candidate.hp === 'number' &&
-      candidate.presetEligible !== false,
-  );
+  const candidates = (rules?.creatures ?? []).filter(eligibleCreature);
   const matches = candidates.filter(
     (candidate) =>
       referenceAlias(candidate) ||
-      (creatureName(candidate.name as string) === creatureName(name) &&
+      (candidate.book === bookId &&
+        creatureName(candidate.name as string) === creatureName(name) &&
         (bookId === 'feretory'
           ? candidate.section === 'Eat Prey Kill' &&
             candidate.printedPage === printedPage
@@ -1131,16 +1201,24 @@ export function rollRegionalReference(
   );
   const preset = matches.length === 1 ? matches[0] : null;
   const alias = preset ? referenceAlias(preset) : undefined;
+  sourceChain[0].role = 'routing';
+  sourceChain[0].confidence =
+    alias?.category === 'citation-typo' ? 'conflicting-citation' : 'verified';
+  if (alias?.category === 'citation-typo')
+    sourceChain[0].source.note = alias.note;
   if (preset)
     sourceChain.push({
+      role: 'primary',
+      confidence: 'verified',
       label: String(preset.section ?? preset.context ?? preset.name),
       source: {
-        bookId: bookId!,
-        bookTitle: registry.books.find((b) => b.id === bookId)?.title,
+        bookId: String(preset.book),
+        bookTitle: registry.books.find((b) => b.id === preset.book)?.title,
         pdfPage:
           typeof preset.pdfPage === 'number' ? preset.pdfPage : undefined,
         printedPage:
-          typeof preset.printedPage === 'number'
+          typeof preset.printedPage === 'number' ||
+          typeof preset.printedPage === 'string'
             ? preset.printedPage
             : printedPage,
         entryId: typeof preset.id === 'string' ? preset.id : null,
@@ -1154,6 +1232,8 @@ export function rollRegionalReference(
   else if (printed)
     sourceChain.push({
       label: printed,
+      role: 'primary',
+      confidence: 'unavailable-source',
       source: {
         bookId: bookId ?? undefined,
         printedPage,

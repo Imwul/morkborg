@@ -1,9 +1,12 @@
+import type { ReferenceEvidence } from './referenceSources';
 import type { SourceReference } from './types';
 import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
 export interface ReferenceReading {
   title: string;
   blocks: { title: string; text: string; dice?: string }[];
+  copyContent?: { title: string; blocks: { title: string; text: string }[] };
   sourceRefs: SourceReference[];
+  evidence?: ReferenceEvidence[];
   oracle?: OracleResult;
   relatedIds?: string[];
   fixedLookups?: { oracleId: string; roll: number }[];
@@ -12,10 +15,13 @@ export function copyReferenceReading(
   reading: ReferenceReading,
   withSource = false,
 ) {
+  const content = reading.copyContent ?? reading;
   const body = [
-    reading.title,
-    ...reading.blocks.map((block) =>
-      [block.title, block.text].filter(Boolean).join('\n'),
+    content.title,
+    ...content.blocks.map((block) =>
+      [block.title === content.title ? '' : block.title, block.text]
+        .filter(Boolean)
+        .join('\n'),
     ),
   ].join('\n\n');
   if (!withSource) return body;
@@ -24,7 +30,7 @@ export function copyReferenceReading(
       ref.bookTitle ?? ref.bookId,
       ref.tableTitle,
       ref.pdfPage == null ? '' : `PDF ${[ref.pdfPage].flat().join(', ')}`,
-      ref.printedPage == null ? '' : `p. ${ref.printedPage}`,
+      ref.printedPage == null ? '' : `인쇄 p. ${ref.printedPage}`,
       ref.note,
     ]
       .filter(Boolean)

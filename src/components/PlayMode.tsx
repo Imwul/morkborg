@@ -28,9 +28,10 @@ import {
 import { SourceDisclosure } from './SourceDisclosure';
 import { CampaignProcedures } from './CampaignProcedures';
 import { DungeonState, RoomState, PlacementState } from './ObjectPlayTools';
-import { EventLedger, stateLabels } from './Chronicle';
+import { EventLedger } from './Chronicle';
+import { stateLabels } from './ChronicleFields';
 import { openObject } from './ChronicleLinks';
-import { captureContext, type CaptureKind } from './QuickCapture';
+import { captureContext, type CaptureKind } from '../domain/captureContext';
 
 function QuickDice({ campaign: c }: { campaign: Campaign }) {
   const [sides, setSides] = useState(20),

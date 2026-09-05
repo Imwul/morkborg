@@ -1,0 +1,477 @@
+{
+  "count": 36,
+  "resolved": 36,
+  "aliased": 29,
+  "conflicting": 3,
+  "missing": [],
+  "routes": [
+    {
+      "region": "galgenbeck",
+      "face": 1,
+      "target": {
+        "id": null,
+        "name": "Bent",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "galgenbeck",
+      "face": 2,
+      "target": {
+        "id": null,
+        "name": "Seth",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "galgenbeck",
+      "face": 3,
+      "target": {
+        "id": "feretory.epk.flayed-vultures",
+        "name": "Flayed Vultures",
+        "book": "feretory",
+        "pdfPage": 14,
+        "printedPage": 12
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "galgenbeck",
+      "face": 4,
+      "target": {
+        "id": "feretory.epk.antideer",
+        "name": "Antideer",
+        "book": "feretory",
+        "pdfPage": 14,
+        "printedPage": 12
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "galgenbeck",
+      "face": 5,
+      "target": {
+        "id": "core-full.rotblack.mongrel",
+        "name": "Mongrel",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "galgenbeck",
+      "face": 6,
+      "target": {
+        "id": "feretory.epk.feral-horses",
+        "name": "Feral Horses",
+        "book": "feretory",
+        "pdfPage": 14,
+        "printedPage": 12
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "sarkash",
+      "face": 1,
+      "target": {
+        "id": "feretory.epk.skelelk",
+        "name": "Skelelk",
+        "book": "feretory",
+        "pdfPage": 15,
+        "printedPage": 13
+      },
+      "alias": true,
+      "category": "alternate-name"
+    },
+    {
+      "region": "sarkash",
+      "face": 2,
+      "target": {
+        "id": null,
+        "name": "Nodh",
+        "book": "core",
+        "pdfPage": 61,
+        "printedPage": 61
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "sarkash",
+      "face": 3,
+      "target": {
+        "id": "feretory.epk.mulch-squirrels",
+        "name": "Mulch-Squirrels",
+        "book": "feretory",
+        "pdfPage": 15,
+        "printedPage": 13
+      },
+      "alias": true,
+      "category": "spelling-variant"
+    },
+    {
+      "region": "sarkash",
+      "face": 4,
+      "target": {
+        "id": "feretory.epk.carrion-owls",
+        "name": "Carrion Owls",
+        "book": "feretory",
+        "pdfPage": 15,
+        "printedPage": 13
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "sarkash",
+      "face": 5,
+      "target": {
+        "id": "core-full.rotblack.mongrel",
+        "name": "Mongrel",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "sarkash",
+      "face": 6,
+      "target": {
+        "id": "core.outcast.prowler",
+        "name": "Prowler",
+        "book": "core",
+        "pdfPage": 67,
+        "printedPage": 67
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "graven-tosk",
+      "face": 1,
+      "target": {
+        "id": null,
+        "name": "Rotted Skeleton",
+        "book": "heretic",
+        "pdfPage": 23,
+        "printedPage": 21
+      },
+      "alias": true,
+      "category": "spelling-variant"
+    },
+    {
+      "region": "graven-tosk",
+      "face": 2,
+      "target": {
+        "id": null,
+        "name": "Nodh",
+        "book": "core",
+        "pdfPage": 61,
+        "printedPage": 61
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "graven-tosk",
+      "face": 3,
+      "target": {
+        "id": "core.outcast.pale-one",
+        "name": "Pale one",
+        "book": "core",
+        "pdfPage": 66,
+        "printedPage": 66
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "graven-tosk",
+      "face": 4,
+      "target": {
+        "id": "feretory.epk.giant-skull-moth",
+        "name": "Giant Skull Moth",
+        "book": "feretory",
+        "pdfPage": 16,
+        "printedPage": 14
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "graven-tosk",
+      "face": 5,
+      "target": {
+        "id": null,
+        "name": "Fogbound Skeleton",
+        "book": "heretic",
+        "pdfPage": 25,
+        "printedPage": 23
+      },
+      "alias": true,
+      "category": "alternate-name"
+    },
+    {
+      "region": "graven-tosk",
+      "face": 6,
+      "target": {
+        "id": null,
+        "name": "Belze",
+        "book": "core",
+        "pdfPage": 60,
+        "printedPage": 60
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "kergus",
+      "face": 1,
+      "target": {
+        "id": null,
+        "name": "Seth",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "kergus",
+      "face": 2,
+      "target": {
+        "id": "core-full.rotblack.mongrel",
+        "name": "Mongrel",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "kergus",
+      "face": 3,
+      "target": {
+        "id": null,
+        "name": "Fogbound Skeleton",
+        "book": "heretic",
+        "pdfPage": 25,
+        "printedPage": 23
+      },
+      "alias": true,
+      "category": "citation-typo"
+    },
+    {
+      "region": "kergus",
+      "face": 4,
+      "target": {
+        "id": "core-full.rotblack.dusk-gnoum",
+        "name": "Dusk Gnoum",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "kergus",
+      "face": 5,
+      "target": {
+        "id": "feretory.epk.blubber-gulls",
+        "name": "Blubber Gulls",
+        "book": "feretory",
+        "pdfPage": 18,
+        "printedPage": 16
+      },
+      "alias": true,
+      "category": "spelling-variant"
+    },
+    {
+      "region": "kergus",
+      "face": 6,
+      "target": {
+        "id": "core.outcast.earthbound",
+        "name": "Earthbound",
+        "book": "core",
+        "pdfPage": 64,
+        "printedPage": 64
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "wastland",
+      "face": 1,
+      "target": {
+        "id": null,
+        "name": "Bent",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "wastland",
+      "face": 2,
+      "target": {
+        "id": null,
+        "name": "Bent",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "wastland",
+      "face": 3,
+      "target": {
+        "id": null,
+        "name": "Aland",
+        "book": "core",
+        "pdfPage": 62,
+        "printedPage": 62
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "wastland",
+      "face": 4,
+      "target": {
+        "id": "core-full.rotblack.guards-sharpened-teeth",
+        "name": "Guards with Sharpened Teeth",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "wastland",
+      "face": 5,
+      "target": {
+        "id": "core-full.rotblack.mongrel",
+        "name": "Mongrel",
+        "book": "core-full",
+        "pdfPage": 79,
+        "printedPage": "III"
+      },
+      "alias": true,
+      "category": "exact-source"
+    },
+    {
+      "region": "wastland",
+      "face": 6,
+      "target": {
+        "id": null,
+        "name": "Seth",
+        "book": "core",
+        "pdfPage": 58,
+        "printedPage": 58
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "valley-undead",
+      "face": 1,
+      "target": {
+        "id": "feretory.epk.grubstopper",
+        "name": "Grubstopper",
+        "book": "feretory",
+        "pdfPage": 21,
+        "printedPage": 19
+      },
+      "alias": true,
+      "category": "alternate-name"
+    },
+    {
+      "region": "valley-undead",
+      "face": 2,
+      "target": {
+        "id": "feretory.epk.gravelings",
+        "name": "Gravelings",
+        "book": "feretory",
+        "pdfPage": 21,
+        "printedPage": 19
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "valley-undead",
+      "face": 3,
+      "target": {
+        "id": "core.outcast.prowler",
+        "name": "Prowler",
+        "book": "core",
+        "pdfPage": 67,
+        "printedPage": 67
+      },
+      "alias": true,
+      "category": null
+    },
+    {
+      "region": "valley-undead",
+      "face": 4,
+      "target": {
+        "id": "feretory.epk.phantom-rats",
+        "name": "Phantom Rats",
+        "book": "feretory",
+        "pdfPage": 21,
+        "printedPage": 19
+      },
+      "alias": false,
+      "category": null
+    },
+    {
+      "region": "valley-undead",
+      "face": 5,
+      "target": {
+        "id": null,
+        "name": "Fogbound Skeleton",
+        "book": "heretic",
+        "pdfPage": 25,
+        "printedPage": 23
+      },
+      "alias": true,
+      "category": "citation-typo"
+    },
+    {
+      "region": "valley-undead",
+      "face": 6,
+      "target": {
+        "id": null,
+        "name": "Rotted Skeleton",
+        "book": "heretic",
+        "pdfPage": 23,
+        "printedPage": 21
+      },
+      "alias": true,
+      "category": "citation-typo"
+    }
+  ]
+}

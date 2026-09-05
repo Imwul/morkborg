@@ -1,0 +1,32 @@
+{
+  "basis": "Baseline rendered module attribution before minification; diagnostic only, not additive to final compressed sizes.",
+  "renderedMainFamilies": {
+    "application": 591271,
+    "react-dom": 459807,
+    "base-ui-react": 116163,
+    "tailwind-merge": 55910,
+    "base-ui-utils": 25138,
+    "lucide-react": 18805
+  },
+  "duplicateDependencyVersionsFound": false,
+  "iconCatalog": "Named imports, tree-shaken.",
+  "sharedExportFixes": [
+    "ChronicleFields extracted from Chronicle",
+    "captureContext extracted from QuickCapture"
+  ],
+  "optionalScreensAbsentFromFinalInitialStaticClosure": [
+    "Chronicle",
+    "PlayMode",
+    "MythicPanel",
+    "Characters",
+    "Monsters",
+    "Dungeons",
+    "ContentLibrary",
+    "Oracles",
+    "QuickCapture",
+    "Sources",
+    "CampaignProcedures",
+    "ObjectPlayTools"
+  ],
+  "privateTablePayloadInGraph": false
+}

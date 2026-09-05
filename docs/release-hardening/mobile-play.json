@@ -1,0 +1,18 @@
+{
+  "pointerClicks": 6,
+  "queryEntries": 1,
+  "sourceRevealExtraClick": 1,
+  "layout": {
+    "dialogClient": 310,
+    "dialogScroll": 310,
+    "document": 345,
+    "minButtonHeight": 44,
+    "minButtonWidth": 44,
+    "viewport": 360
+  },
+  "searchAutofocus": true,
+  "copyConfirmed": true,
+  "backRestored": true,
+  "recentResultsCollapsed": true,
+  "pinsUsableInsideInspector": true
+}

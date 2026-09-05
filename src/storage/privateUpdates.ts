@@ -77,11 +77,16 @@ export function mergeOracleTranslations(
         ...table,
         entries: table.entries.map((entry) => {
           const match = entries.get(entry.id);
-          return match?.text === entry.text &&
-            typeof match.metadata?.ko === 'string'
+          return match?.text === entry.text && match.metadata
             ? {
                 ...entry,
-                metadata: { ...entry.metadata, ko: match.metadata.ko },
+                metadata: {
+                  ...match.metadata,
+                  ...entry.metadata,
+                  ...(typeof match.metadata.ko === 'string'
+                    ? { ko: match.metadata.ko }
+                    : {}),
+                },
               }
             : entry;
         }),
@@ -90,22 +95,71 @@ export function mergeOracleTranslations(
   };
 }
 
+/** Only an exact, verified routing binding can update earlier audit metadata. */
+function verifiedAliasBinding(value: unknown): string | undefined {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return;
+  const alias = value as Record<string, unknown>;
+  if (
+    alias.sourceVerified !== true ||
+    typeof alias.tableId !== 'string' || !alias.tableId ||
+    typeof alias.bookId !== 'string' || !alias.bookId ||
+    typeof alias.name !== 'string' || !alias.name.trim() ||
+    typeof alias.printedCrossReference !== 'string' || !alias.printedCrossReference.trim() ||
+    typeof alias.note !== 'string' || !alias.note.trim()
+  ) return;
+  return JSON.stringify([
+    alias.tableId, alias.bookId, alias.name.normalize('NFC').trim(),
+    alias.printedCrossReference.normalize('NFC').trim(), alias.printedPage ?? null,
+  ]);
+}
+function mergeSourceAliases(previous: unknown[], incoming: unknown[]): unknown[] {
+  const merged = new Map<string, unknown>();
+  for (const alias of [...previous, ...incoming]) {
+    const binding = verifiedAliasBinding(alias);
+    const key = binding ? 'verified:' + binding : 'raw:' + (JSON.stringify(alias) ?? 'undefined');
+    const existing = merged.get(key);
+    merged.set(key, binding && existing && typeof existing === 'object' && alias && typeof alias === 'object'
+      ? {...existing, ...alias} : alias);
+  }
+  return [...merged.values()];
+}
+
 export function mergePrivateLibraryUpdate(
   current: RulesPack,
   incoming: RulesPack,
 ): RulesPack {
   const translated = mergeRuleTranslations(current, incoming);
-  const identity = (r: Record<string, unknown>) =>
-    r.id ?? `${String(r.book)}:${String(r.pdfPage)}:${String(r.name)}`;
+  const sameSource = (
+    a: Record<string, unknown>,
+    b: Record<string, unknown>,
+  ) =>
+    typeof a.id === 'string' && typeof b.id === 'string'
+      ? a.id === b.id
+      : a.book === b.book && a.pdfPage === b.pdfPage && a.name === b.name;
+  const enrich = (existing: Record<string, unknown>) => {
+    const match = incoming.creatures.find((record) =>
+      sameSource(existing, record),
+    );
+    if (!match) return existing;
+    // Add newly audited source fields without replacing edited stats, names or notes.
+    const result = { ...match, ...existing };
+    for (const key of ['referenceAliases', 'sourceAliases']) {
+      const previous: unknown[] = Array.isArray(existing[key])
+        ? existing[key]
+        : [];
+      const next: unknown[] = Array.isArray(match[key]) ? match[key] : [];
+      if (previous.length || next.length)
+        result[key] = mergeSourceAliases(previous, next);
+    }
+    return result;
+  };
   return {
     ...translated,
     creatures: [
-      ...current.creatures,
+      ...current.creatures.map(enrich),
       ...incoming.creatures.filter(
         (record) =>
-          !current.creatures.some(
-            (existing) => identity(existing) === identity(record),
-          ),
+          !current.creatures.some((existing) => sameSource(existing, record)),
       ),
     ],
     notes: {

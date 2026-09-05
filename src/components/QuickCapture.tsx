@@ -21,14 +21,8 @@ import {
 import { createNPC } from '../generators/content';
 import { editCampaign } from '../storage/saveStore';
 import { LinkChips, LinkPicker } from './ChronicleLinks';
+import { captureContext, type CaptureKind } from '../domain/captureContext';
 
-export type CaptureKind =
-  | 'event'
-  | 'npc'
-  | 'rumor'
-  | 'relic'
-  | 'note'
-  | 'death';
 const labels: Record<CaptureKind, string> = {
   event: '사건',
   npc: 'NPC',
@@ -37,27 +31,6 @@ const labels: Record<CaptureKind, string> = {
   note: '노트',
   death: '죽음',
 };
-export function captureContext(c: Campaign): ObjectLink[] {
-  const play = c.workspace.section === 'play';
-  const dungeonId = play
-    ? c.workspace.playDungeonId
-    : c.workspace.section === 'dungeons'
-      ? c.workspace.dungeonId
-      : null;
-  const roomId = play
-    ? c.workspace.playRoomId
-    : c.workspace.dungeonTab === 'rooms'
-      ? c.workspace.roomId
-      : null;
-  const d = c.dungeons.find((d) => d.id === dungeonId);
-  if (!d) return [];
-  return [
-    { kind: 'dungeon', id: d.id },
-    ...(d.rooms.some((r) => r.id === roomId)
-      ? [{ kind: 'room' as const, id: roomId!, dungeonId: d.id }]
-      : []),
-  ];
-}
 export function QuickCapture({
   campaign: c,
   initialKind = 'event',

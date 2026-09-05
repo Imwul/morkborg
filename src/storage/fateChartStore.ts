@@ -48,6 +48,23 @@ export async function loadFateChart() {
   state = { ...state, loading: true, error: null };
   listeners.forEach((f) => f());
   inFlight = (async () => {
+    if (typeof window !== 'undefined' && !import.meta.env?.DEV) {
+      try {
+        await loadPublishedData();
+      } catch {
+        /* The clear unavailable state below also covers a failed runtime chunk. */
+      }
+      if (!state.chart) {
+        state = {
+          ...state,
+          loading: false,
+          error:
+            '검증된 룰북 자료를 불러오지 못했습니다. 서버 자료를 다시 확인하거나 개인 자료를 가져오세요.',
+        };
+        listeners.forEach((listener) => listener());
+      }
+      return;
+    }
     try {
       const local =
         typeof indexedDB === 'undefined'

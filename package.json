@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json && vite build && node scripts/check-public-build.mjs",
-    "preview": "vite preview --host 127.0.0.1",
+    "preview": "node scripts/check-public-build.mjs && vite preview --host 127.0.0.1",
     "test": "tsx --test tests/*.test.ts",
     "lint": "oxlint src",
     "data:publish": "node scripts/publish-private-update.mjs"

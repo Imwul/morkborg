@@ -1,0 +1,139 @@
+{
+  "outcomes": [
+    {
+      "region": "galgenbeck",
+      "roll": 5,
+      "routingPdfPage": 26,
+      "routingPrintedPage": 23,
+      "creature": "Mongrel",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "sarkash",
+      "roll": 5,
+      "routingPdfPage": 27,
+      "routingPrintedPage": 24,
+      "creature": "Mongrel",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "kergus",
+      "roll": 2,
+      "routingPdfPage": 33,
+      "routingPrintedPage": 30,
+      "creature": "Mongrel",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "kergus",
+      "roll": 3,
+      "routingPdfPage": 33,
+      "routingPrintedPage": 30,
+      "creature": "Fogbound Skeletons",
+      "originalCitation": "Feretory p. 23/GLW p. 9",
+      "disposition": "citation-typo",
+      "targetBook": "heretic",
+      "targetPdfPage": 25,
+      "targetPrintedPage": 23,
+      "confidence": "conflicting-citation",
+      "targetVerified": true
+    },
+    {
+      "region": "kergus",
+      "roll": 4,
+      "routingPdfPage": 33,
+      "routingPrintedPage": 30,
+      "creature": "Dusk Gnoums",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "wastland",
+      "roll": 4,
+      "routingPdfPage": 32,
+      "routingPrintedPage": 29,
+      "creature": "Guards with Sharpened Teeth",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "wastland",
+      "roll": 5,
+      "routingPdfPage": 32,
+      "routingPrintedPage": 29,
+      "creature": "Mongrel",
+      "originalCitation": "Rotblack Sludge p. III",
+      "disposition": "source-present-not-routed",
+      "targetBook": "core-full",
+      "targetPdfPage": 79,
+      "targetPrintedPage": "III",
+      "confidence": "verified",
+      "targetVerified": true
+    },
+    {
+      "region": "valley-undead",
+      "roll": 5,
+      "routingPdfPage": 30,
+      "routingPrintedPage": 27,
+      "creature": "Fogbound Skeletons",
+      "originalCitation": "Feretory p. 23/GLW p. 9",
+      "disposition": "citation-typo",
+      "targetBook": "heretic",
+      "targetPdfPage": 25,
+      "targetPrintedPage": 23,
+      "confidence": "conflicting-citation",
+      "targetVerified": true
+    },
+    {
+      "region": "valley-undead",
+      "roll": 6,
+      "routingPdfPage": 30,
+      "routingPrintedPage": 27,
+      "creature": "Rotted Skeletons",
+      "originalCitation": "Feretory p. 21/GLW p. 7",
+      "disposition": "citation-typo",
+      "targetBook": "heretic",
+      "targetPdfPage": 23,
+      "targetPrintedPage": 21,
+      "confidence": "conflicting-citation",
+      "targetVerified": true
+    }
+  ],
+  "grift": {
+    "status": "unavailable-source",
+    "book": "depths",
+    "checkedPdfPages": [
+      1,
+      36
+    ],
+    "note": "No Grift region or Grift reference anywhere in supplied Sölitary Depths. FERETORY contains a distinct Grift hunting table."
+  }
+}

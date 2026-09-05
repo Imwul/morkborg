@@ -1,0 +1,74 @@
+{
+  "baseline": "18 clicks + full-page reload; same Reaction and Action + Theme pins",
+  "steps": [
+    {
+      "action": "Open Sarkash",
+      "clicks": 1
+    },
+    {
+      "action": "Generate regional monster",
+      "clicks": 1
+    },
+    {
+      "action": "Inspect source",
+      "clicks": 1
+    },
+    {
+      "action": "Roll related Failed Morale",
+      "clicks": 1
+    },
+    {
+      "action": "Roll Reaction",
+      "clicks": 1
+    },
+    {
+      "action": "Close, open Stock Room parameters",
+      "clicks": 2
+    },
+    {
+      "action": "Roll Common encounter",
+      "clicks": 1
+    },
+    {
+      "action": "Related NPC generation",
+      "clicks": 1
+    },
+    {
+      "action": "Pinned Action + Theme inside inspector",
+      "clicks": 1
+    },
+    {
+      "action": "Copy",
+      "clicks": 1
+    },
+    {
+      "action": "Back to exact NPC reading",
+      "clicks": 1
+    },
+    {
+      "action": "Reroll NPC",
+      "clicks": 1
+    },
+    {
+      "action": "Recent menu \u2192 Failed Morale",
+      "clicks": 2
+    },
+    {
+      "action": "Pin Failed Morale",
+      "clicks": 1
+    }
+  ],
+  "pointerClicks": 16,
+  "keyboard": 0,
+  "reload": 1,
+  "npcRestored": true,
+  "removed": "Close before pinned Action + Theme; close before Recent",
+  "classification": {
+    "essentialChoice": 12,
+    "informationReveal": 1,
+    "navigationOverhead": 3,
+    "implementationOverhead": 0,
+    "baselineNavigationOverhead": 5,
+    "note": "Context/table selection, roll, copy and pin are intentional choices. Source is an information reveal. Remaining navigation is one close, Back and opening Recent. Two prior closes were removed."
+  }
+}

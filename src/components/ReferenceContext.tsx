@@ -7,7 +7,7 @@ import type { RegionId } from '../domain/types';
 export interface DeskContext {
   entries: ReferenceEntry[];
   byId: Record<string, ReferenceEntry>;
-  activate: (id: string, roll?: boolean) => void;
+  activate: (id: string, roll?: boolean, region?: RegionId) => void;
   openSearch: (query?: string, scope?: 'all' | 'pinned' | 'recent') => void;
   contextual: (context: ContextKind, region?: RegionId) => ReferenceEntry[];
   pinnedIds: string[];

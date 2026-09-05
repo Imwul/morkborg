@@ -1,0 +1,833 @@
+/* Owner: Reference Desk, search, result inspector, source navigation and contextual tools.
+   Shared application surfaces remain in art-direction.css; no reference overrides there. */
+.reference-desk {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-bottom: 54px;
+}
+.desk-heading {
+  position: relative;
+  padding: 18px 170px 20px 0;
+  border-top: var(--rule-heavy, 5px solid #13130e);
+}
+.desk-heading h1 {
+  font-family: var(--font-ui);
+  font-weight: 900;
+  font-size: clamp(42px, 4.3vw, 66px);
+  line-height: 1.04;
+  letter-spacing: -0.07em;
+  margin: 15px 0 18px;
+}
+.desk-heading h1 em {
+  font-style: normal;
+  background: var(--acid);
+  color: var(--ink);
+  padding: 0 0.08em 0.05em;
+  box-decoration-break: clone;
+  clip-path: polygon(0 1%, 100% 0, 99.7% 94%, 0.5% 100%);
+}
+.desk-heading p {
+  margin: 14px 0 0;
+  font-size: 15px;
+}
+.desk-sigil {
+  position: absolute;
+  right: 32px;
+  top: 20px;
+  font-family: serif;
+  font-size: 130px;
+  line-height: 1;
+  transform: rotate(-9deg);
+  pointer-events: none;
+}
+.desk-search {
+  margin: 10px 0 30px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 10px 8px 18px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+.desk-search input {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  font-size: 17px;
+}
+.desk-search button {
+  flex-shrink: 0;
+}
+.desk-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+  gap: 34px;
+}
+.desk-columns h2 {
+  font-family: var(--font-ui);
+  font-size: 25px;
+  font-weight: 900;
+  margin: 0 0 15px;
+  letter-spacing: -0.06em;
+}
+.desk-columns aside {
+  border-left: 1px solid var(--border);
+  padding-left: 25px;
+  min-width: 0;
+}
+.desk-columns aside h3 {
+  font: 700 13px var(--font-mono);
+  border-top: 4px solid var(--ink);
+  margin: 25px 0 8px;
+  padding-top: 14px;
+}
+.reference-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+.reference-row > button:first-child {
+  padding: 12px 8px 12px 0;
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-align: left;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.reference-row strong {
+  display: block;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+.reference-row small {
+  display: block;
+  font: 12px var(--font-mono);
+  line-height: 1.4;
+  color: var(--muted-ink);
+  margin-top: 6px;
+}
+.reference-row b {
+  font: 700 12px var(--font-mono);
+  flex-shrink: 0;
+}
+.reference-row:hover {
+  background: color-mix(in srgb, var(--acid) 13%, transparent);
+}
+.ref-pin {
+  min-width: 44px;
+  min-height: 44px;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font: 700 12px var(--font-mono);
+}
+.ref-pin[aria-pressed='true'] {
+  color: var(--ink);
+  background: var(--acid);
+}
+.desk-regions {
+  margin-top: 28px;
+  padding-top: 15px;
+  border-top: 4px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 15px;
+}
+.desk-regions > span {
+  width: 100%;
+  margin-bottom: 4px;
+}
+.desk-regions button {
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.ref-text-action,
+.recent-reference {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.ref-text-action {
+  font: 700 12px var(--font-mono);
+  padding: 8px 0;
+}
+.recent-reference {
+  width: 100%;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 14px;
+}
+.recent-reference svg {
+  flex-shrink: 0;
+}
+.desk-index {
+  margin-top: 28px;
+  padding: 14px 0;
+  border-top: 1px solid var(--ink);
+}
+.desk-index summary {
+  cursor: pointer;
+  min-height: 32px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.desk-index > button {
+  min-height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+}
+.desk-book-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+}
+.reference-dock {
+  position: fixed;
+  z-index: 35;
+  bottom: 16px;
+  left: calc(var(--nav-width, 208px) + 18px);
+  display: flex;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--paper);
+  box-shadow: 4px 4px 0 var(--acid);
+}
+.reference-dock button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  min-height: 44px;
+  color: inherit;
+  border: 0;
+  border-right: 1px solid #6f6f60;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+}
+.reference-dock button:last-child {
+  border-right: 0;
+}
+.quick-capture-launcher {
+  left: auto !important;
+  right: 20px;
+  bottom: 74px;
+}
+.universal-search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  width: min(380px, 40vw);
+  color: var(--muted-ink);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.universal-search-trigger span {
+  flex: 1;
+  font-size: 14px;
+}
+.universal-search-trigger kbd {
+  font-size: 12px;
+  border: 1px solid var(--border);
+  padding: 2px 5px;
+}
+.reference-search-dialog,
+.reference-inspector {
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--paper);
+  color: var(--ink);
+  width: min(780px, calc(100vw - 32px));
+  max-width: 780px;
+  max-height: 88dvh;
+  overflow-y: auto;
+  gap: 10px;
+  padding: 26px;
+  border: 2px solid var(--ink);
+  border-top: 8px solid var(--ink);
+  border-radius: 0;
+}
+.reference-search-dialog > h2,
+.reference-inspector > h2 {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.08;
+  margin: 12px 32px 5px 0;
+  overflow-wrap: anywhere;
+}
+.reference-search-dialog > input {
+  min-height: 44px;
+  margin: 12px 0 5px;
+  font-size: 16px;
+}
+.reference-results {
+  max-height: 60dvh;
+  overflow-y: auto;
+}
+.reference-owned {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  color: inherit;
+  background: transparent;
+}
+.reference-owned small {
+  display: block;
+  font-size: 12px;
+}
+.reference-inspector-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 28px;
+}
+.reference-inspector-top button {
+  min-height: 44px;
+  font-size: 12px;
+}
+.reference-summary {
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+.reference-roll {
+  min-height: 44px;
+  margin: 8px 0 12px;
+  min-width: 135px;
+  font: 900 17px var(--font-mono);
+  border-radius: 0;
+}
+.reference-reading {
+  margin: 12px 0 18px;
+  border-top: 5px solid var(--ink);
+}
+.reference-reading section {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.reference-reading small {
+  font: 12px var(--font-mono);
+  color: var(--muted-ink);
+  overflow-wrap: anywhere;
+}
+.reference-reading h3 {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.1;
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+.reference-reading p {
+  margin: 8px 0 0;
+  font-size: 17px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ref-copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0;
+}
+.ref-copy-actions button {
+  font-size: 12px;
+  min-height: 44px;
+}
+.ref-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0;
+}
+.ref-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1 1 120px;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 650;
+}
+.ref-controls select,
+.ref-controls input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  height: 44px;
+  font-size: 14px;
+}
+.ref-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 14px;
+}
+.ref-check input {
+  width: 18px;
+  height: 18px;
+}
+.ref-related {
+  border-top: 4px solid var(--ink);
+  padding-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  margin-top: 20px;
+}
+.ref-related > small {
+  width: 100%;
+  font: 700 12px var(--font-mono);
+}
+.ref-related button {
+  min-height: 44px;
+  padding: 8px 0;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.reference-hub-list details {
+  margin: 12px 0;
+  border-top: 1px solid var(--ink);
+}
+.reference-hub-list summary {
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  font: 700 14px var(--font-mono);
+}
+.reference-hub-list summary b {
+  margin-left: 8px;
+}
+.context-references {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 12px;
+  padding: 6px 0 12px;
+  border-bottom: 1px solid var(--ink);
+}
+.context-references small {
+  font: 700 12px var(--font-mono);
+  color: var(--muted-ink);
+}
+.context-references button,
+.source-roll-link {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  color: inherit;
+  min-height: 44px;
+  font-size: 13px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.source-roll-link {
+  margin: 5px 10px 0 0;
+}
+.optional-record-nav summary {
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #b9b9ac;
+}
+.optional-record-nav .nav-group-label {
+  display: none;
+}
+@media (min-width: 1900px) {
+  .reference-desk {
+    max-width: 1660px;
+    margin: 0 auto;
+    padding: 38px 52px 70px;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .desk-columns {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 64px;
+  }
+  .desk-quick-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 30px;
+  }
+  .desk-heading h1 {
+    font-size: 72px;
+  }
+}
+@media (max-width: 900px) {
+  .desk-columns {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .desk-columns aside {
+    border-left: 0;
+    border-top: 4px solid var(--ink);
+    padding: 20px 0 0;
+  }
+  .desk-heading {
+    padding-right: 110px;
+  }
+  .desk-sigil {
+    right: 0;
+    font-size: 95px;
+  }
+  .reference-dock {
+    left: 18px;
+  }
+}
+@media (max-width: 600px) {
+  .desk-heading {
+    padding: 12px 0;
+  }
+  .desk-heading h1 {
+    font-size: 40px;
+    margin: 15px 0 20px;
+  }
+  .desk-sigil {
+    display: none;
+  }
+  .desk-heading p {
+    font-size: 14px;
+    max-width: 260px;
+  }
+  .desk-search {
+    gap: 6px;
+    padding: 5px;
+    margin-bottom: 23px;
+  }
+  .desk-search > svg {
+    display: none;
+  }
+  .desk-search input {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .desk-search button {
+    min-width: 48px;
+    padding: 8px;
+  }
+  .desk-columns h2 {
+    font-size: 23px;
+  }
+  .reference-row strong {
+    font-size: 15px;
+  }
+  .reference-row small {
+    font-size: 12px;
+  }
+  .desk-regions {
+    gap: 5px 14px;
+  }
+  .desk-regions button {
+    font-size: 24px;
+  }
+  .desk-book-list {
+    grid-template-columns: 1fr;
+  }
+  .universal-search-trigger {
+    width: auto;
+  }
+  .universal-search-trigger span {
+    font-size: 12px;
+  }
+  .universal-search-trigger kbd {
+    display: none;
+  }
+  .reference-search-dialog,
+  .reference-inspector {
+    padding: 18px 14px;
+    width: calc(100vw - 16px);
+    max-height: 92dvh;
+  }
+  .reference-dock {
+    bottom: 12px;
+    left: 12px;
+  }
+  .reference-dock button {
+    padding: 0 10px;
+  }
+  .reference-reading h3 {
+    font-size: 15px;
+  }
+  .reference-reading p {
+    font-size: 16px;
+  }
+  .ref-controls label {
+    flex-basis: 100px;
+  }
+  .topbar-title > span {
+    display: none;
+  }
+}
+.reference-static-table {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.reference-static-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.reference-static-table caption {
+  text-align: left;
+  font-weight: 750;
+  margin-bottom: 10px;
+}
+.reference-static-table th,
+.reference-static-table td {
+  border-top: 1px solid var(--border);
+  padding: 10px 5px;
+  vertical-align: top;
+  text-align: left;
+}
+.reference-static-table th {
+  width: 58px;
+  font-family: var(--font-mono);
+}
+.dock-pinned {
+  display: flex;
+}
+.dock-pinned > button {
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-left: 1px solid #6f6f60;
+  color: var(--acid);
+}
+.copy-feedback {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 0;
+}
+.reading-identity {
+  font: 900 38px var(--font-display);
+  margin: 16px 0 0;
+}
+@media (max-width: 600px) {
+  .reference-dock > button span {
+    display: none;
+  }
+  .reference-dock > button {
+    min-width: 44px;
+    justify-content: center;
+  }
+  .dock-pinned > button {
+    max-width: 86px;
+    padding: 0 8px;
+  }
+  .reference-dock {
+    max-width: calc(100vw - 24px);
+  }
+  .fate-launcher {
+    bottom: 66px;
+  }
+}
+
+.reference-primary-action {
+  align-self: center;
+  min-height: 44px;
+  padding: 8px 10px;
+  font: 800 11px var(--font-mono);
+  background: var(--ink);
+  color: var(--acid);
+  border: 0;
+  cursor: pointer;
+}
+.reference-primary-action:hover {
+  background: var(--acid);
+  color: var(--ink);
+}
+.reference-inner-tray {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--paper);
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: -6px 25px 8px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ink);
+}
+.reference-inner-tray button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: 700 11px var(--font-mono);
+  min-height: 44px;
+  padding: 8px;
+  cursor: pointer;
+}
+.reference-inner-pins {
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex: 1 1 100%;
+  gap: 4px;
+  overflow-x: auto;
+}
+.reference-inner-pins button {
+  white-space: nowrap;
+  background: var(--ink);
+  color: var(--acid);
+  min-height: 36px;
+}
+.reference-reading .short-answer h3 {
+  font: 700 12px var(--font-mono);
+  color: var(--muted-ink);
+}
+.reference-reading .short-answer p {
+  font: 850 clamp(24px, 3.4vw, 38px)/1.2 var(--font-ui);
+  letter-spacing: -0.035em;
+}
+.reference-rule-reading p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+.source-role {
+  display: block;
+  font: 700 11px var(--font-mono);
+  margin-bottom: 6px;
+}
+.source-reference[data-confidence='conflicting-citation'] {
+  border-left: 3px solid var(--ink);
+  padding-left: 12px;
+}
+.reference-recent-rolls {
+  margin: 12px 0;
+  border-bottom: 2px solid var(--ink);
+}
+.reference-recent-rolls summary {
+  min-height: 44px;
+  padding: 10px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+.reference-recent-rolls button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 0;
+  min-height: 44px;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+.reference-recent-rolls strong {
+  display: block;
+  font-size: 13px;
+}
+.reference-recent-rolls span {
+  display: block;
+  font-size: 14px;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+.region-quick-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--ink);
+}
+.region-quick-tools small {
+  width: 100%;
+  font: 700 11px var(--font-mono);
+}
+.region-quick-tools button {
+  min-height: 44px;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .reference-inner-tray {
+    min-width: 0;
+    margin-right: 20px;
+    gap: 0;
+  }
+  .reference-inner-tray button {
+    min-height: 44px;
+    padding: 6px;
+  }
+  .reference-primary-action {
+    font-size: 10px;
+    padding: 7px;
+  }
+  .reference-row {
+    gap: 3px;
+  }
+  .reference-row > button:first-child {
+    gap: 6px;
+  }
+  .reference-row .ref-pin {
+    min-width: 44px;
+  }
+  .reference-rule-reading p {
+    font-size: 16px;
+  }
+}
+
+.reference-inspector > [data-slot='dialog-close'],
+.reference-search-dialog > [data-slot='dialog-close'] {
+  width: 44px;
+  height: 44px;
+}

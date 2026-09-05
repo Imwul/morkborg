@@ -184,6 +184,9 @@ function harness(initial: PrivateData = {}) {
     advance() {
       time += PUBLISHED_DATA_INTERVAL;
     },
+    clearActive() {
+      active = {};
+    },
     manualImport(packs: PublishedPacks) {
       generation++;
       active = packs;
@@ -432,4 +435,107 @@ test('partial Oracle cache gains source selectors and overrides needed by the NP
     { min: 2, max: 6 },
   ]);
   assert.equal(h.writes, 1);
+});
+
+test('production reload activates a complete validated cache even when the endpoint is offline', async () => {
+  const h = harness({ ...fixture, serverConnection: connection() });
+  h.clearActive();
+  h.fetch(async () => {
+    throw new Error('offline');
+  });
+  await h.client.check();
+  assert.deepEqual(h.active, fixture);
+  assert.equal(h.activations, 1);
+  assert.equal(h.writes, 0);
+  assert.match(h.client.getState().error, /저장된 자료/);
+});
+test('a corrupted cached pack requests the full bundle even at the accepted revision', async () => {
+  const h = harness({
+    ...fixture,
+    library: { damaged: true },
+    serverConnection: connection(),
+  });
+  await h.client.check(false, true);
+  assert.equal(h.requests[0], '/api/rulebook-data?revision=0');
+  assert.deepEqual(h.active, fixture);
+  assert.equal(h.writes, 1);
+});
+test('incompatible cached packs never activate before a complete replacement passes validation', async () => {
+  const invalid = structuredClone(fixture);
+  invalid.oracles!.tables[0].tags = ['invalid-cross-reference'];
+  const h = harness({ ...invalid, serverConnection: connection() });
+  h.clearActive();
+  h.validate((packs) => {
+    if (packs.oracles!.tables[0].tags.includes('invalid-cross-reference'))
+      throw new Error('invalid registry');
+  });
+  await h.client.check();
+  assert.equal(h.requests[0], '/api/rulebook-data?revision=0');
+  assert.deepEqual(h.active, fixture);
+  assert.equal(h.activations, 1);
+});
+test('corrupt-cache metadata and older-server responses cannot claim latest or advance revision', async () => {
+  const corrupt = harness({
+    ...fixture,
+    library: { damaged: true },
+    serverConnection: connection(),
+  });
+  corrupt.fetch(async () => ({ schemaVersion: 1, revision: 10 }));
+  await corrupt.client.check();
+  assert.equal(corrupt.writes, 0);
+  assert.match(corrupt.client.getState().error, /손상/);
+  const stale = harness({ ...fixture, serverConnection: connection(11) });
+  await stale.client.check();
+  assert.equal(stale.writes, 0);
+  assert.match(stale.client.getState().error, /이전/);
+  assert.equal(stale.client.getState().message, '');
+});
+test('first-load endpoint failure offers recovery without claiming a usable saved pack', async () => {
+  const h = harness();
+  h.fetch(async () => {
+    throw new Error('503');
+  });
+  await h.client.check();
+  assert.equal(h.writes, 0);
+  assert.equal(h.activations, 0);
+  assert.match(h.client.getState().error, /개인 자료 가져오기/);
+  assert(!h.client.getState().error.includes('그대로 사용할'));
+});
+test('source updates enrich existing creatures and Oracle follow-ups while preserving manual data', () => {
+  const current = structuredClone(fixture),
+    incoming = structuredClone(fixture);
+  current.library!.creatures.push({
+    book: 'test',
+    name: 'Beast',
+    pdfPage: 1,
+    hp: 99,
+    notes: 'manual',
+    referenceAliases: [{ name: 'Custom' }],
+  });
+  incoming.library!.creatures.push({
+    book: 'test',
+    name: 'Beast',
+    pdfPage: 1,
+    hp: 4,
+    printedPage: 1,
+    referenceAliases: [{ name: 'Audited', sourceVerified: true }],
+  });
+  incoming.library!.creatures.push({ id: 'new', name: 'New source', hp: 5 });
+  incoming.oracles!.tables[0].entries[0].metadata!.followUpOracleIds = ['new'];
+  current.oracles!.tables[0].entries[0].metadata!.note = 'keep';
+  const merged = mergePublishedPacks(current, incoming);
+  assert.equal(merged.library!.creatures.length, 2);
+  assert.equal(merged.library!.creatures[0].hp, 99);
+  assert.equal(merged.library!.creatures[0].notes, 'manual');
+  assert.equal(merged.library!.creatures[0].printedPage, 1);
+  assert.deepEqual(merged.library!.creatures[0].referenceAliases, [
+    { name: 'Custom' },
+    { name: 'Audited', sourceVerified: true },
+  ]);
+  assert.deepEqual(
+    merged.oracles!.tables[0].entries[0].metadata!.followUpOracleIds,
+    ['new'],
+  );
+  assert.equal(merged.oracles!.tables[0].entries[0].metadata!.note, 'keep');
+  assert.deepEqual(mergePublishedPacks(merged, incoming), merged);
 });

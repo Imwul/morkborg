@@ -59,15 +59,11 @@ export function createPublishedDataClient(deps: Dependencies) {
   };
   const parseOne = (key: (typeof keys)[number], value: unknown) => {
     if (value === undefined) return {};
-    try {
-      return deps.parse({
-        kind: 'morkborg-private-data',
-        schemaVersion: 1,
-        [key]: value,
-      });
-    } catch {
-      return {};
-    }
+    return deps.parse({
+      kind: 'morkborg-private-data',
+      schemaVersion: 1,
+      [key]: value,
+    });
   };
   const check = (force = false, fillMissing = false): Promise<void> => {
     if (inFlight) return inFlight;
@@ -80,6 +76,9 @@ export function createPublishedDataClient(deps: Dependencies) {
       return Promise.resolve();
     const generation = deps.generation();
     inFlight = (async () => {
+      let usableCache = false;
+      let rejectedCache = false;
+      let versionMismatch = false;
       try {
         const expected: PrivateData = Object.fromEntries(
           await Promise.all(
@@ -92,10 +91,32 @@ export function createPublishedDataClient(deps: Dependencies) {
         const connection =
           publishedConnectionSchema.safeParse(expected.serverConnection).data ??
           defaultPublishedConnection;
-        const current: PublishedPacks = { ...deps.active() };
-        for (const key of keys)
-          Object.assign(current, parseOne(key, expected[key]));
-        const missing = keys.some((key) => !current[key]);
+        let current: PublishedPacks = {};
+        for (const source of [deps.active(), expected])
+          for (const key of keys) {
+            try {
+              Object.assign(current, parseOne(key, source[key]));
+            } catch {
+              rejectedCache = true;
+            }
+          }
+        if (keys.every((key) => !!current[key])) {
+          try {
+            deps.validate(current);
+            usableCache = true;
+          } catch {
+            rejectedCache = true;
+            current = {};
+          }
+        }
+        // Only a complete, jointly validated cache may activate on a production reload.
+        if (
+          usableCache &&
+          generation === deps.generation() &&
+          JSON.stringify(current) !== JSON.stringify(deps.active())
+        )
+          deps.activate(current);
+        const missing = !usableCache || rejectedCache;
         emit({ enabled: connection.enabled, revision: connection.revision });
         if (!connection.enabled && !force && !(fillMissing && missing)) return;
         lastCheck = now();
@@ -106,13 +127,20 @@ export function createPublishedDataClient(deps: Dependencies) {
           ),
         );
         if (generation !== deps.generation()) return;
-        if (!missing && response.revision <= connection.revision) {
+        if (response.revision < connection.revision) {
+          versionMismatch = true;
+          throw new Error(
+            'Server revision is older than the accepted revision.',
+          );
+        }
+        if (!missing && response.revision === connection.revision) {
           emit({ connected: true, message: '최신 자료입니다.' });
           return;
         }
         const incoming = deps.parse(response.bundle);
         if (keys.some((key) => !incoming[key]))
           throw new Error('Incomplete server bundle.');
+        deps.validate(incoming);
         // With updates paused, a missing pack can still be loaded for first use.
         const merged =
           !connection.enabled && !force
@@ -143,8 +171,14 @@ export function createPublishedDataClient(deps: Dependencies) {
       } catch {
         if (generation === deps.generation())
           emit({
-            error:
-              '서버 자료를 확인하지 못했습니다. 저장된 자료는 그대로 사용할 수 있습니다.',
+            connected: false,
+            error: versionMismatch
+              ? '서버 자료의 버전이 저장된 버전보다 이전입니다. 자료를 바꾸지 않았습니다. 서버 배포를 확인하세요.'
+              : usableCache
+                ? '서버 자료를 확인하지 못했습니다. 저장된 자료는 그대로 사용할 수 있습니다.'
+                : rejectedCache
+                  ? '저장된 자료가 손상되었거나 서로 맞지 않습니다. 서버 자료 다시 확인 또는 개인 자료 가져오기로 복구하세요.'
+                  : '룰북 자료를 불러오지 못했습니다. 서버 자료 다시 확인 또는 개인 자료 가져오기를 사용하세요.',
           });
       } finally {
         emit({ busy: false });

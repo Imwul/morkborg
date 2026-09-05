@@ -1,3 +1,17 @@
+import { id } from '../generators/random';
+import { executeReference, refsForOracle } from '../domain/referenceExecution';
+import {
+  referenceAction,
+  referenceShortName,
+  referenceRegion,
+} from '../domain/referenceActions';
+import {
+  emptyReferenceSession,
+  availableRecentRolls,
+  retainReferenceReading,
+  restoreReferenceRoll,
+} from '../domain/referenceSession';
+import { sourceEvidence } from '../domain/referenceSources';
 import { useEffect, useMemo, useState, useRef, type ReactNode } from 'react';
 import {
   ArrowLeft,
@@ -17,21 +31,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import type {
-  Campaign,
-  RegionId,
-  Monster,
-  SourceReference,
-  Workspace,
-} from '../domain/types';
-import type { OracleRegistry, OracleResult } from '../domain/oracle';
+import type { Campaign, RegionId, Workspace } from '../domain/types';
+import type { OracleResult } from '../domain/oracle';
 import {
   buildReferenceRegistry,
   searchReferences,
   relatedReferences,
   contextReferences,
-  rollRegionalReference,
-  findReferenceCreature,
   type ReferenceEntry,
   type ReferenceContext as ContextKind,
 } from '../domain/references';
@@ -44,22 +50,7 @@ import {
   recentlyUsed,
   toggleReferencePin,
 } from '../storage/referencePreferences';
-import {
-  selectOracleEntry,
-  sourceLabel,
-  rollProcedure,
-} from '../generators/oracleRoller';
-import { id } from '../generators/random';
-import {
-  generateEatPreyKillMonster,
-  loadMonsterPreset,
-} from '../generators/monster';
-import {
-  encounterTable,
-  createEncounter,
-  createNPC,
-} from '../generators/content';
-import { rollCityReference } from '../domain/cityReference';
+import { selectOracleEntry, sourceLabel } from '../generators/oracleRoller';
 import {
   copyReferenceReading,
   oracleReadingText,
@@ -73,65 +64,7 @@ import { SourceDisclosure } from './SourceDisclosure';
 import { CityRoller } from './CityRoller';
 import { PrivateDataTools } from './PrivateDataTools';
 
-function refsForOracle(
-  result: OracleResult,
-  registry: OracleRegistry,
-): SourceReference[] {
-  return result.rolls.map((roll) => {
-    const table = registry.tables.find(
-      (t) =>
-        t.id ===
-        (typeof roll.metadata?.sourceTableId === 'string'
-          ? roll.metadata.sourceTableId
-          : roll.oracleId),
-    );
-    if (!table)
-      return { tableTitle: roll.title, note: roll.source, roll: roll.roll };
-    return {
-      bookId: table.sourceBookId,
-      bookTitle: registry.books.find((b) => b.id === table.sourceBookId)?.title,
-      tableId: table.id,
-      tableTitle: roll.entryId == null ? roll.title : table.title,
-      ...(roll.entryId == null
-        ? { note: roll.dice + ' · 절차의 수량 판정' }
-        : {}),
-      pdfPage: table.sourcePage,
-      printedPage: table.printedPage,
-      roll: roll.roll,
-      entryId: roll.entryId,
-    };
-  });
-}
-function monsterBlocks(m: Monster): ReferenceReading['blocks'] {
-  return [
-    {
-      title: m.name,
-      text: [
-        `HP ${m.hp} · Morale ${m.morale} · Armor ${m.armor || '—'}`,
-        ...m.attacks.map(
-          (a) =>
-            `${a.name} ${a.damage}${a.description ? ' · ' + a.description : ''}`,
-        ),
-        ...m.special.map((s) => s.text),
-        ...m.weakness.map((s) => `Weakness: ${s.text}`),
-        ...m.loot.map((s) => `Loot: ${s.text}`),
-        m.behavior,
-        m.wants,
-        m.description,
-      ]
-        .filter(Boolean)
-        .join('\n'),
-    },
-  ];
-}
-const isOneClick = (entry: ReferenceEntry) =>
-  entry.available &&
-  (entry.action?.kind === 'oracle' ||
-    entry.action?.kind === 'regional-monster' ||
-    (entry.action?.kind === 'procedure' &&
-      !['workbench.city', 'workbench.stock-room'].includes(
-        entry.action.procedureId,
-      )));
+const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
 export function ReferenceProvider({
   children,
@@ -154,9 +87,8 @@ export function ReferenceProvider({
   const [selectedId, setSelectedId] = useState<string | null>(null),
     [trail, setTrail] = useState<string[]>([]);
   const lastReferenceId = useRef<string | null>(null);
-  const [readings, setReadings] = useState<Record<string, ReferenceReading>>(
-    {},
-  );
+  const [session, setSession] = useState(emptyReferenceSession);
+  const readings = session.readings;
   const [searchOpen, setSearchOpen] = useState(false),
     [query, setQuery] = useState(''),
     [scope, setScope] = useState<'all' | 'pinned' | 'recent'>('all');
@@ -169,11 +101,26 @@ export function ReferenceProvider({
     [stockKind, setStockKind] = useState<'common' | 'rare' | 'room'>('common'),
     [stockDR, setStockDR] = useState(10);
   const inspectorRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (searchOpen) searchInputRef.current?.focus();
+  }, [searchOpen, scope]);
   useEffect(() => {
     inspectorRef.current?.scrollTo({ top: 0 });
   }, [selectedId]);
   const selected = selectedId ? index.byId[selectedId] : null;
-  const reading = selectedId ? readings[selectedId] : undefined;
+  const hubRegion =
+    selected?.action?.kind === 'region' ? selected.action.region : undefined;
+  const reading: ReferenceReading | undefined =
+    selected?.action?.kind === 'rule'
+      ? {
+          title: selected.title,
+          blocks: [{ title: '', text: selected.summary }],
+          sourceRefs: selected.sourceRefs,
+        }
+      : selectedId
+        ? readings[selectedId]
+        : undefined;
   function savePrefs(next: typeof prefs) {
     setPrefs(next);
     try {
@@ -185,188 +132,44 @@ export function ReferenceProvider({
   function touchEntry(entryId: string) {
     savePrefs(recentlyUsed(prefs, entryId));
   }
-  function acceptReading(entryId: string, result: ReferenceReading) {
-    setReadings((r) => ({ ...r, [entryId]: result }));
+  function acceptReading(
+    entryId: string,
+    result: ReferenceReading,
+    rolled = true,
+  ) {
+    setSession((state) =>
+      retainReferenceReading(state, entryId, result, rolled),
+    );
     touchEntry(entryId);
   }
-  function perform(entry: ReferenceEntry) {
+  function perform(entry: ReferenceEntry, contextRegion = region) {
     try {
       setFailure('');
-      const action = entry.action;
-      if (!action || !entry.available) return;
-      let output: ReferenceReading | undefined;
-      if (action.kind === 'creature') {
-        const preset = findReferenceCreature(rules.pack, action.creatureId);
-        if (!preset) throw new Error('확인된 생물 원문 자료를 불러오세요.');
-        const monster = loadMonsterPreset(id(), preset);
-        output = {
-          title: entry.title,
-          blocks: monsterBlocks(monster),
-          sourceRefs: entry.sourceRefs,
-        };
-      } else if (action.kind === 'regional-monster') {
-        if (!rules.pack) throw new Error('몬스터 원문 자료를 불러오세요.');
-        const r = rollRegionalReference(
-          action.region,
-          oracles.registry,
-          rules.pack,
-        );
-        const blocks = [
-          {
-            title: r.reading.title,
-            text: r.reading.text,
-            dice: `${r.reading.dice} = ${r.reading.roll}${r.quantity == null ? '' : ' · 수량 ' + r.quantity}`,
-          },
-        ];
-        if (r.preset)
-          blocks.push(
-            ...monsterBlocks(loadMonsterPreset(id(), r.preset)).map((b) => ({
-              ...b,
-              dice: b.dice ?? '',
-            })),
-          );
-        if (r.unresolved)
-          blocks.push({
-            title: '원문 참조',
-            text: r.reason ?? '이 항목은 원문 지시를 확인하세요.',
-            dice: '',
-          });
-        output = {
-          title: entry.title,
-          blocks,
-          sourceRefs: r.sourceChain.map((step) => step.source),
-        };
-      } else if (
-        action.kind === 'procedure' &&
-        action.procedureId === 'workbench.npc'
-      ) {
-        const npc = createNPC(id(), region, false, oracles.registry);
-        output = {
-          title: npc.name,
-          blocks: [
-            {
-              title: npc.archetype,
-              text: [
-                npc.appearance,
-                npc.behaviour,
-                npc.personality,
-                npc.wants,
-                `Reaction: ${npc.reaction}`,
-              ]
-                .filter(Boolean)
-                .join('\n'),
-            },
-          ],
-          sourceRefs: npc.sourceRefs,
-        };
-      } else if (
-        action.kind === 'procedure' &&
-        action.procedureId === 'workbench.epk'
-      ) {
-        const monster = generateEatPreyKillMonster(id(), region);
-        output = {
-          title: monster.name,
-          blocks: monsterBlocks(monster),
-          sourceRefs: [
-            {
-              bookId: 'feretory',
-              bookTitle: 'MÖRK BORG CULT: FERETORY',
-              tableTitle: 'Eat Prey Kill',
-              note: monster.sources?.hp,
-            },
-          ],
-        };
-      } else if (
-        action.kind === 'procedure' &&
-        action.procedureId === 'workbench.stock-room'
-      ) {
-        const encounter = createEncounter(
-          id(),
-          region,
-          stockKind,
-          stockDR,
-          false,
-          oracles.registry,
-        );
-        output = {
-          title: entry.title,
-          blocks: [
-            {
-              title: `${stockKind.toUpperCase()} · ${region}`,
-              text:
-                encounter.text ||
-                '굴림이 원문 표 범위 밖입니다. 직접 참조하세요.',
-              dice: `${stockKind === 'rare' ? 'd8 + DR ' + stockDR : encounterTable(stockKind, region, oracles.registry) === 'sd.stockCreatures' ? 'd12' : (oracles.registry.tables.find((t) => t.id === encounterTable(stockKind, region, oracles.registry))?.dice ?? '')} = ${encounter.generation?.rolls?.result ?? ''}`,
-            },
-          ],
-          sourceRefs: encounter.sourceRefs,
-        };
-      } else if (action.kind === 'oracle' || action.kind === 'procedure') {
-        const procedure =
-          action.kind === 'oracle'
-            ? { id: entry.id, title: entry.title, oracleIds: action.oracleIds }
-            : oracles.registry.procedures.find(
-                (p) => p.id === action.procedureId,
-              );
-        if (!procedure) return;
-        const specialCityId =
-          action.kind === 'procedure' && action.procedureId === 'aitc.street'
-            ? 'aitc.street'
-            : action.kind === 'oracle' &&
-                action.oracleIds[0] === 'aitc.notable-artefact-type'
-              ? 'aitc.notable-artefact-type'
-              : null;
-        const result = specialCityId
-          ? rollCityReference(
-              {
-                procedureId: specialCityId,
-                cityOrMetropolis: cityLarge,
-                includeExits: cityExits,
-              },
-              oracles.registry,
-            )
-          : rollProcedure(procedure, oracles.registry);
-        output = {
-          title: result.title,
-          blocks: result.rolls.map((r) => ({
-            title: r.title,
-            text: oracleReadingText(r),
-            dice: `${r.dice} = ${r.roll}`,
-          })),
-          sourceRefs: refsForOracle(result, oracles.registry),
-          oracle: result,
-          relatedIds: [
-            ...new Set(
-              result.rolls.flatMap((roll) =>
-                Array.isArray(roll.metadata?.followUpOracleIds)
-                  ? roll.metadata.followUpOracleIds
-                      .filter((key): key is string => typeof key === 'string')
-                      .map((key) => `oracle:${key}`)
-                  : [],
-              ),
-            ),
-          ],
-          fixedLookups: result.rolls.flatMap((roll) =>
-            Array.isArray(roll.metadata?.fixedLookups)
-              ? roll.metadata.fixedLookups.filter(
-                  (value): value is { oracleId: string; roll: number } =>
-                    !!value &&
-                    typeof value.oracleId === 'string' &&
-                    Number.isInteger(value.roll),
-                )
-              : [],
-          ),
-        };
-      }
-      if (output) acceptReading(entry.id, output);
+      const output = executeReference(entry, {
+        registry: oracles.registry,
+        rules: rules.pack,
+        region: contextRegion,
+        stockKind,
+        stockDR,
+        cityLarge,
+        cityExits,
+      });
+      if (output)
+        acceptReading(entry.id, output, entry.action?.kind !== 'creature');
     } catch (e) {
       setFailure(e instanceof Error ? e.message : '원문 자료를 확인하세요.');
     }
   }
-  function activate(entryId: string, roll = false) {
+  function activate(entryId: string, roll = false, contextRegion?: RegionId) {
     const entry = index.byId[entryId];
     if (!entry) return;
     entryId = entry.id;
+    if (contextRegion) setRegion(contextRegion);
+    if (
+      entry.action?.kind === 'region' ||
+      entry.action?.kind === 'regional-monster'
+    )
+      setRegion(entry.action.region);
     const previous = selectedId ?? lastReferenceId.current;
     if (previous && previous !== entryId)
       setTrail((t) => [...t, previous].slice(-20));
@@ -377,7 +180,8 @@ export function ReferenceProvider({
     setCopyFallback(null);
     setCopied('');
     touchEntry(entryId);
-    if (roll || entry.action?.kind === 'creature') perform(entry);
+    if (roll || entry.action?.kind === 'creature')
+      perform(entry, contextRegion);
   }
   function openSearch(value = '', nextScope: typeof scope = 'all') {
     setQuery(value);
@@ -462,11 +266,14 @@ export function ReferenceProvider({
           <Search size={16} />
           <span>검색</span>
         </button>
-        <button onClick={() => openSearch('', 'pinned')}>
+        <button
+          aria-label={`고정한 참조 ${prefs.pinnedIds.length}`}
+          onClick={() => openSearch('', 'pinned')}
+        >
           <Pin size={15} />
           <span>고정 {prefs.pinnedIds.length}</span>
         </button>
-        <button onClick={() => openSearch('', 'recent')}>
+        <button aria-label="최근 참조" onClick={() => openSearch('', 'recent')}>
           <History size={16} />
           <span>최근</span>
         </button>
@@ -481,78 +288,147 @@ export function ReferenceProvider({
                 title={entry.title}
                 onClick={() => activate(entry.id, isOneClick(entry))}
               >
-                {entry.title}
+                {referenceShortName(entry)}
               </button>
             ))}
         </div>
       </div>
-      <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
-        <DialogContent className="reference-search-dialog">
-          <DialogTitle>
-            {scope === 'all'
-              ? '무엇이 필요합니까?'
-              : scope === 'pinned'
-                ? '고정한 참조'
-                : '최근 사용한 참조'}
-          </DialogTitle>
-          <DialogDescription>
-            Oracle · 규칙 · 지역 · 생물 · 책을 한곳에서 찾으세요.
-          </DialogDescription>
-          <Input
-            aria-label="통합 참조 검색"
-            placeholder="reaction, Sarkash monster, corpse…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && found[0]) {
-                e.preventDefault();
-                activate(found[0].id, isOneClick(found[0]));
-              }
-              if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                (
-                  e.currentTarget
-                    .closest('[role="dialog"]')
-                    ?.querySelector(
-                      '.reference-row button',
-                    ) as HTMLButtonElement | null
-                )?.focus();
-              }
-            }}
-          />
-          <div className="reference-results">
-            {found.map((entry) => (
-              <ReferenceRow key={entry.id} entry={entry} />
-            ))}
-            {owned.length > 0 && <p className="eyebrow">보관한 캠페인 자료</p>}
-            {owned.map((entry, n) => (
-              <button
-                className="reference-owned"
-                key={n}
-                onClick={() => {
-                  setSearchOpen(false);
-                  setSelectedId(null);
-                  onCampaignOpen(entry.patch);
-                }}
-              >
-                <strong>{entry.title}</strong>
-                <small>{entry.detail}</small>
-              </button>
-            ))}
-            {!found.length && !owned.length && <p>일치하는 참조가 없습니다.</p>}
-          </div>
-        </DialogContent>
-      </Dialog>
       <Dialog
-        open={!!selected}
+        open={searchOpen || !!selected}
         onOpenChange={(open) => {
           if (!open) {
+            setSearchOpen(false);
             setSelectedId(null);
           }
         }}
       >
-        <DialogContent ref={inspectorRef} className="reference-inspector">
-          {selected && (
+        <DialogContent
+          ref={inspectorRef}
+          initialFocus={() =>
+            searchOpen ? searchInputRef.current : inspectorRef.current
+          }
+          className={
+            searchOpen ? 'reference-search-dialog' : 'reference-inspector'
+          }
+        >
+          <nav className="reference-inner-tray" aria-label="참조 도구 모음">
+            <button aria-label="창 안에서 검색" onClick={() => openSearch()}>
+              <Search size={15} /> SEARCH
+            </button>
+            <button onClick={() => openSearch('', 'recent')}>
+              <History size={15} /> RECENT
+            </button>
+            <button onClick={() => openSearch('', 'pinned')}>
+              <Pin size={15} /> PINNED
+            </button>
+            <div className="reference-inner-pins">
+              {prefs.pinnedIds
+                .map((key) => index.byId[key])
+                .filter(Boolean)
+                .slice(0, 6)
+                .map((entry) => (
+                  <button
+                    key={entry.id}
+                    title={entry.title}
+                    onClick={() => activate(entry.id, isOneClick(entry))}
+                  >
+                    {referenceShortName(entry)}
+                  </button>
+                ))}
+            </div>
+          </nav>
+          {searchOpen && (
+            <>
+              {selected && (
+                <button
+                  className="ref-text-action"
+                  onClick={() => setSearchOpen(false)}
+                >
+                  <ArrowLeft size={14} /> 결과로 돌아가기
+                </button>
+              )}
+              <DialogTitle>
+                {scope === 'all'
+                  ? '무엇이 필요합니까?'
+                  : scope === 'pinned'
+                    ? '고정한 참조'
+                    : '최근 사용한 참조'}
+              </DialogTitle>
+              <DialogDescription>
+                Oracle · 규칙 · 지역 · 생물 · 책을 한곳에서 찾으세요.
+              </DialogDescription>
+              <Input
+                ref={searchInputRef}
+                aria-label="통합 참조 검색"
+                placeholder="reaction, Sarkash monster, corpse…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && found[0]) {
+                    e.preventDefault();
+                    activate(found[0].id, isOneClick(found[0]));
+                  }
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    (
+                      e.currentTarget
+                        .closest('[role="dialog"]')
+                        ?.querySelector(
+                          '.reference-row button',
+                        ) as HTMLButtonElement | null
+                    )?.focus();
+                  }
+                }}
+              />
+              {scope === 'recent' && session.rolls.length > 0 && (
+                <details className="reference-recent-rolls">
+                  <summary>최근 결과 · 이 탭에서만</summary>
+                  {availableRecentRolls(session, index.byId).map((item) => (
+                    <button
+                      key={item.sequence}
+                      onClick={() => {
+                        activate(item.referenceId);
+                        setSession((state) =>
+                          restoreReferenceRoll(state, item.sequence),
+                        );
+                      }}
+                    >
+                      <strong>
+                        {referenceShortName(index.byId[item.referenceId])}
+                      </strong>
+                      <span>{item.reading.blocks[0]?.text.slice(0, 110)}</span>
+                    </button>
+                  ))}
+                </details>
+              )}
+              <div className="reference-results">
+                {found.map((entry) => (
+                  <ReferenceRow key={entry.id} entry={entry} />
+                ))}
+                {owned.length > 0 && (
+                  <p className="eyebrow">보관한 캠페인 자료</p>
+                )}
+                {owned.map((entry, n) => (
+                  <button
+                    className="reference-owned"
+                    key={n}
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSelectedId(null);
+                      onCampaignOpen(entry.patch);
+                    }}
+                  >
+                    <strong>{entry.title}</strong>
+                    <small>{entry.detail}</small>
+                  </button>
+                ))}
+                {!found.length && !owned.length && (
+                  <p>일치하는 참조가 없습니다.</p>
+                )}
+              </div>
+            </>
+          )}
+          {!searchOpen && selected && (
             <>
               <div className="reference-inspector-top">
                 <Button
@@ -562,6 +438,7 @@ export function ReferenceProvider({
                     const previous = trail.at(-1);
                     if (previous) {
                       setSelectedId(previous);
+                      setRegion(referenceRegion(index.byId[previous], region));
                       lastReferenceId.current = previous;
                       setTrail((t) => t.slice(0, -1));
                       setFailure('');
@@ -592,11 +469,12 @@ export function ReferenceProvider({
               <DialogTitle>{selected.title}</DialogTitle>
               <DialogDescription>
                 {selected.kind.toUpperCase()} ·{' '}
+                {regions.find((r) => r.id === region)?.name} ·{' '}
                 {selected.canonicalIds.length
                   ? `${selected.canonicalIds.length}개 연결 표`
                   : '빠른 참조'}
               </DialogDescription>
-              <p className="reference-summary">
+              <p className="reference-summary" hidden={plainRule}>
                 {procedureId === 'aitc.street'
                   ? '거리 묘사·종류·내용을 함께 굴립니다. City·Metropolis의 내용은 d2회이며, 출구는 선택할 수 있습니다.'
                   : selected.summary}
@@ -613,6 +491,44 @@ export function ReferenceProvider({
                     }
                   />
                 )}
+              {selected.action?.kind === 'region' && (
+                <div className="region-quick-tools">
+                  <small>QUICK TOOLS · {selected.title}</small>
+                  {index.byId[
+                    `rule:regional-monsters:${selected.action.region}`
+                  ]?.available && (
+                    <button
+                      onClick={() =>
+                        activate(
+                          `rule:regional-monsters:${hubRegion}`,
+                          true,
+                          hubRegion,
+                        )
+                      }
+                    >
+                      Common Encounter · 지역 대안 ↗
+                    </button>
+                  )}
+                  {[
+                    'procedure:workbench.stock-room',
+                    'rule:sd.stockCommon',
+                    'rule:feretory.roads',
+                    'procedure:workbench.npc',
+                  ]
+                    .map((key) => index.byId[key])
+                    .filter(Boolean)
+                    .map((entry) => (
+                      <button
+                        key={entry.id}
+                        onClick={() =>
+                          activate(entry.id, isOneClick(entry), hubRegion)
+                        }
+                      >
+                        {referenceShortName(entry)} ↗
+                      </button>
+                    ))}
+                </div>
+              )}
               {city && (
                 <div className="ref-related city-start-tools">
                   {[
@@ -767,15 +683,27 @@ export function ReferenceProvider({
                 </p>
               )}
               {reading && (
-                <article className="reference-reading">
+                <article
+                  className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''}`}
+                  aria-label="참조 결과"
+                >
                   {reading.title !== selected.title &&
                     !reading.blocks.some(
                       (block) => block.title === reading.title,
                     ) && <h3 className="reading-identity">{reading.title}</h3>}
                   {reading.blocks.map((block, n) => (
-                    <section key={n}>
-                      <small>{block.dice}</small>
-                      <h3>{block.title}</h3>
+                    <section
+                      key={n}
+                      className={
+                        !plainRule &&
+                        block.text.length < 160 &&
+                        !block.text.includes('\n')
+                          ? 'short-answer'
+                          : ''
+                      }
+                    >
+                      {block.dice && <small>{block.dice}</small>}
+                      {block.title && <h3>{block.title}</h3>}
                       <p>{block.text}</p>
                     </section>
                   ))}
@@ -823,13 +751,33 @@ export function ReferenceProvider({
                 key={selected.id}
                 label="SOURCE · 출처 경로"
                 refs={reading?.sourceRefs ?? selected.sourceRefs}
+                evidence={
+                  reading?.evidence ??
+                  (!reading && selected.sourceChain.some((step) => step.role)
+                    ? selected.sourceChain.map((step) => ({
+                        source: step.source,
+                        role: step.role ?? 'primary',
+                        confidence:
+                          step.confidence ??
+                          (selected.available
+                            ? 'verified'
+                            : 'unavailable-source'),
+                      }))
+                    : sourceEvidence(
+                        reading?.sourceRefs ?? selected.sourceRefs,
+                        selected.available,
+                      ))
+                }
               >
-                {selected.sourceChain.map((step, n) => (
-                  <p key={n}>
-                    {step.label}
-                    {step.via ? ` → ${step.via}` : ''}
-                  </p>
-                ))}
+                {!reading &&
+                  selected.sourceChain
+                    .filter((step) => step.via)
+                    .map((step, n) => (
+                      <p key={n}>
+                        {step.label}
+                        {step.via ? ` → ${step.via}` : ''}
+                      </p>
+                    ))}
                 {selected.canonicalIds
                   .map((key) => index.byId[`oracle:${key}`])
                   .filter(
@@ -967,21 +915,34 @@ export function ReferenceProvider({
 
 export function ReferenceRow({ entry }: { entry: ReferenceEntry }) {
   const desk = useReferenceDesk();
-  const quick = isOneClick(entry);
+  const action = referenceAction(entry);
   return (
     <div className="reference-row">
-      <button onClick={() => desk?.activate(entry.id, quick)}>
+      <button
+        className="reference-inspect-action"
+        aria-label={`${entry.title} OPEN`}
+        onClick={() => desk?.activate(entry.id)}
+      >
         <span>
-          <strong>{entry.title}</strong>
+          <strong>{referenceShortName(entry)}</strong>
           <small>
-            {entry.kind.toUpperCase()}
-            {entry.sourceRefs[0]?.bookTitle
+            {entry.kind === 'book' ? entry.summary : entry.kind.toUpperCase()}
+            {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle
               ? ` · ${entry.sourceRefs[0].bookTitle}`
               : ''}
           </small>
         </span>
-        <b>{quick ? 'ROLL' : 'OPEN'} ↗</b>
+        {action.label === 'OPEN' && <b>OPEN ↗</b>}
       </button>
+      {action.label !== 'OPEN' && (
+        <button
+          className="reference-primary-action"
+          aria-label={`${entry.title} ${action.label}`}
+          onClick={() => desk?.activate(entry.id, action.immediate)}
+        >
+          {action.label}
+        </button>
+      )}
       <button
         className="ref-pin"
         aria-label={`${entry.title} ${desk?.pinnedIds.includes(entry.id) ? '고정 해제' : '고정'}`}
@@ -1022,7 +983,7 @@ export function ContextReferences({
       {entries.map((entry) => (
         <button
           key={entry.id}
-          onClick={() => desk?.activate(entry.id, isOneClick(entry))}
+          onClick={() => desk?.activate(entry.id, isOneClick(entry), region)}
         >
           {entry.title}
         </button>

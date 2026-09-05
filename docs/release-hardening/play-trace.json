@@ -1,0 +1,145 @@
+{
+  "setup": "Two existing frequent pins; initial screen is Desk. Pin setup costs two pointer clicks on a new browser and is excluded consistently with prior trace.",
+  "keyboardCounting": "Each shortcut, whole query entry, or Enter counts once; individual characters are not counted.",
+  "steps": [
+    {
+      "step": 1,
+      "pointer": 0,
+      "keyboard": 0,
+      "transitions": 0,
+      "action": "Reference Desk is the initial screen"
+    },
+    {
+      "step": 2,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Reaction ROLL"
+    },
+    {
+      "step": 3,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Pinned Action + Theme"
+    },
+    {
+      "step": 4,
+      "pointer": 0,
+      "keyboard": 3,
+      "transitions": 2,
+      "action": "Cmd K + query + Enter generates regional monster"
+    },
+    {
+      "step": 5,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 0,
+      "action": "Source disclosure"
+    },
+    {
+      "step": 6,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Related Morale rule"
+    },
+    {
+      "step": 7,
+      "pointer": 1,
+      "keyboard": 3,
+      "transitions": 2,
+      "action": "Search Stock Room, keep Common/Sarkash, ROLL"
+    },
+    {
+      "step": 8,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Related Useful Item ROLL"
+    },
+    {
+      "step": 9,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 0,
+      "action": "COPY"
+    },
+    {
+      "step": 10,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Back restores Stock Room reading"
+    },
+    {
+      "step": 11,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 0,
+      "action": "Pin Stock Room"
+    },
+    {
+      "step": 12,
+      "pointer": 2,
+      "keyboard": 0,
+      "transitions": 2,
+      "action": "RECENT \u2192 Reaction ROLL"
+    },
+    {
+      "step": 13,
+      "pointer": 0,
+      "keyboard": 2,
+      "transitions": 1,
+      "action": "Cmd K + corpse query"
+    },
+    {
+      "step": 14,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Corpse ROLL from search"
+    },
+    {
+      "step": 15,
+      "pointer": 0,
+      "keyboard": 2,
+      "transitions": 1,
+      "action": "Cmd K + broken query"
+    },
+    {
+      "step": 16,
+      "pointer": 1,
+      "keyboard": 0,
+      "transitions": 1,
+      "action": "Broken quick rule OPEN, no dice"
+    },
+    {
+      "step": 17,
+      "pointer": 0,
+      "keyboard": 0,
+      "transitions": 1,
+      "navigation": 1,
+      "action": "Full page reload"
+    },
+    {
+      "step": 18,
+      "pointer": 0,
+      "keyboard": 0,
+      "transitions": 0,
+      "action": "Stock Room pin and Broken/Corpse recents persist"
+    }
+  ],
+  "totals": {
+    "pointer": 13,
+    "keyboard": 10,
+    "transitions": 16,
+    "navigation": 1
+  },
+  "classification": {
+    "essentialChoice": "Selecting a requested table/region, executing its roll, entering a query, copying and pinning. Stock retains source-defined parameter choice.",
+    "informationReveal": "Opening the monster source chain and reading Broken; retained.",
+    "navigationOverhead": "Opening search, opening Recent and Back; Cmd+K combines closing the current view and opening search.",
+    "implementationOverhead": "No save dialog, Campaign selection or Session creation. Reload is an explicit persistence test, counted separately."
+  }
+}

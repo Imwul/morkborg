@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCipheriv, createHash, randomBytes } from 'node:crypto';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createServer } from 'node:http';
@@ -159,4 +159,60 @@ test('HTTP handler is read-only, sends no-store JSON and hides configuration fai
     );
     await a.cleanup();
   }
+});
+
+test('production preview shares the real API handler and never serves plaintext or SPA for API errors', async () => {
+  const { publishedMiddleware } =
+    await import('../server/publishedMiddleware.ts');
+  const a = await assets();
+  let key: string | undefined = a.key;
+  const middleware = publishedMiddleware(() => ({ root: a.root, key }));
+  const server = createServer((req, res) =>
+    middleware(req, res, () => {
+      res.setHeader('Content-Type', 'text/html');
+      res.end('<main>SPA fixture</main>');
+    }),
+  );
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert(address && typeof address === 'object');
+  const base = `http://127.0.0.1:${address.port}`;
+  try {
+    const first = await fetch(base + '/api/rulebook-data');
+    assert.equal(first.status, 200);
+    assert.equal((await first.json()).revision, 123);
+    for (const path of [
+      '/api/missing',
+      '/api/rulebook-data/extra',
+      '/rules/library.json',
+      '/outputs/private-update-publisher.json',
+    ])
+      assert.equal((await fetch(base + path)).status, 404);
+    const direct = await fetch(base + '/campaign/room/fixture');
+    assert.equal(direct.status, 200);
+    assert.match(await direct.text(), /SPA fixture/);
+    key = undefined;
+    const failed = await fetch(base + '/api/rulebook-data');
+    assert.equal(failed.status, 503);
+    assert.equal(failed.headers.get('cache-control'), 'private, no-store');
+    assert(!String(await failed.text()).includes(a.root));
+  } finally {
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+    await a.cleanup();
+  }
+});
+
+
+test('release SPA rewrite excludes API, asset and private paths while retaining direct navigation', async () => {
+  const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+  assert.equal(config.buildCommand, 'npm run build');
+  assert.equal(config.outputDirectory, 'dist');
+  assert.equal(config.functions['api/rulebook-data.ts'].includeFiles, 'public/private-updates/**');
+  const rewrites = config.rewrites.map((route: { source: string; destination: string }) => ({
+    matches: new RegExp(`^${route.source}$`), destination: route.destination,
+  }));
+  for (const path of ['/', '/campaign/fixture/room/fixture', '/reference/sarkash'])
+    assert(rewrites.some((route: { matches: RegExp; destination: string }) => route.matches.test(path) && route.destination === '/index.html'));
+  for (const path of ['/api', '/api/rulebook-data', '/api/missing', '/assets/index.js', '/private-updates/latest.json', '/rules/library.json', '/outputs/private-update-publisher.json', '/work/private.json'])
+    assert(!rewrites.some((route: { matches: RegExp }) => route.matches.test(path)), path);
 });

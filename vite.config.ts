@@ -4,32 +4,46 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/postcss';
 import { fileURLToPath, URL } from 'node:url';
-import { handlePublishedRequest } from './server/publishedRulebook';
+import { publishedMiddleware } from './server/publishedMiddleware.ts';
 export default defineConfig({
   plugins: [
     react(),
     {
       name: 'local-rulebook-service',
       configureServer(server) {
-        server.middlewares.use('/api/rulebook-data', (request, response) => {
-          let key = process.env.MORKBORG_DATA_KEY;
-          if (!key) {
-            try {
-              key = JSON.parse(
-                readFileSync(
-                  resolve('outputs/private-update-publisher.json'),
-                  'utf8',
-                ),
-              ).key;
-            } catch {
-              /* The handler returns a generic unavailable response. */
+        server.middlewares.use(
+          publishedMiddleware(() => {
+            let key = process.env.MORKBORG_DATA_KEY;
+            if (!key) {
+              try {
+                const local: unknown = JSON.parse(
+                  readFileSync(
+                    resolve('outputs/private-update-publisher.json'),
+                    'utf8',
+                  ),
+                );
+                if (
+                  local &&
+                  typeof local === 'object' &&
+                  'key' in local &&
+                  typeof local.key === 'string'
+                )
+                  key = local.key;
+              } catch {
+                /* The API reports a generic unavailable response. */
+              }
             }
-          }
-          void handlePublishedRequest(request, response, {
+            return { root: process.cwd(), key };
+          }, false),
+        );
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use(
+          publishedMiddleware(() => ({
             root: process.cwd(),
-            key,
-          });
-        });
+            key: process.env.MORKBORG_DATA_KEY,
+          })),
+        );
       },
     },
     {

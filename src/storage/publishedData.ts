@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { createPublishedRuntime } from './publishedDataRuntime';
 import { readPrivateData, writePrivateData } from './privateData';
 import { privateImportGeneration } from './privateUpdateConnection';
 import {
@@ -44,10 +45,7 @@ async function fetchPublishedJSON(path: string) {
 }
 
 // Load store adapters lazily so their initial loaders can all share this request.
-let client: Promise<ReturnType<typeof createPublishedDataClient>> | null = null;
-function getClient() {
-  if (!client)
-    client = (async () => {
+const runWithClient = createPublishedRuntime(async () => {
       const [imports, rules, oracles, fate, updates, registry, validation] =
         await Promise.all([
           import('./privateDataImport'),
@@ -99,17 +97,21 @@ function getClient() {
           listeners.forEach((listener) => listener());
         },
       });
-    })();
-  return client;
-}
+}, () => {
+  state = {
+    ...state, busy: false, connected: false, message: '',
+    error: '자료를 준비하지 못했습니다. 네트워크를 확인한 뒤 지금 확인을 다시 누르세요.',
+  };
+  listeners.forEach((listener) => listener());
+});
 export async function loadPublishedData() {
-  await (await getClient()).check(false, true);
+  await runWithClient((ready) => ready.check(false, true));
 }
 export async function checkPublishedData(force = false) {
-  await (await getClient()).check(force);
+  await runWithClient((ready) => ready.check(force));
 }
 export async function setPublishedUpdatesEnabled(enabled: boolean) {
-  await (await getClient()).setEnabled(enabled);
+  await runWithClient((ready) => ready.setEnabled(enabled));
 }
 export function startPublishedDataUpdates() {
   void checkPublishedData();
@@ -117,7 +119,7 @@ export function startPublishedDataUpdates() {
     if (document.visibilityState === 'visible') void checkPublishedData();
   };
   const imported = () => {
-    void getClient().then((ready) => ready.afterImport());
+    void runWithClient((ready) => ready.afterImport());
   };
   document.addEventListener('visibilitychange', check);
   window.addEventListener('online', check);

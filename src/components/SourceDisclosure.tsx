@@ -1,3 +1,8 @@
+import {
+  sourceEvidence,
+  SOURCE_STATUS,
+  type ReferenceEvidence,
+} from '../domain/referenceSources';
 import type { ReactNode } from 'react';
 import type { SourceReference } from '../domain/types';
 import { useReferenceDesk } from './ReferenceContext';
@@ -6,31 +11,45 @@ export function SourceDisclosure({
   source,
   label = '출처',
   children,
+  evidence,
 }: {
   refs?: SourceReference[];
+  evidence?: ReferenceEvidence[];
   source?: string;
   label?: string;
   children?: ReactNode;
 }) {
   const desk = useReferenceDesk();
-  if (!refs.length && !source && !children) return null;
+  const items = evidence ?? sourceEvidence(refs);
+  if (!items.length && !source && !children) return null;
   return (
     <details className="sheet-source source-disclosure">
       <summary>{label}</summary>
       <div className="source-disclosure-body">
         {source && <p>{source}</p>}
-        {refs.map((ref, i) => (
-          <div className="source-reference" key={i}>
+        {items.map(({ source: ref, role, confidence, note }, i) => (
+          <div
+            className="source-reference"
+            key={i}
+            data-confidence={confidence}
+          >
+            <small className="source-role">
+              {role === 'routing' ? 'ROUTED BY' : 'PRIMARY'} ·{' '}
+              {SOURCE_STATUS[confidence]}
+            </small>
+            {note && <p>{note}</p>}
             {ref.bookTitle && <strong>{ref.bookTitle}</strong>}
             {ref.tableTitle && <span>{ref.tableTitle}</span>}
             {ref.pdfPage != null && (
               <span>
                 PDF {[ref.pdfPage].flat().join(', ')}쪽
-                {ref.printedPage != null ? ' / p. ' + ref.printedPage : ''}
+                {ref.printedPage != null
+                  ? ' / p. ' + ref.printedPage + ' (인쇄)'
+                  : ''}
               </span>
             )}
             {ref.pdfPage == null && ref.printedPage != null && (
-              <span>p. {ref.printedPage}</span>
+              <span>인쇄 p. {ref.printedPage}</span>
             )}
             {ref.roll != null && <span>굴림 {ref.roll}</span>}
             {ref.note && <p>{ref.note}</p>}

@@ -30,7 +30,7 @@ import {
 } from '../generators/oracleRoller';
 import { editCampaign } from '../storage/saveStore';
 import { saveOracleEvent, linkToSession } from '../domain/chronicleOperations';
-import { captureContext } from './QuickCapture';
+import { captureContext } from '../domain/captureContext';
 import { loadOraclePack, useOracleRegistry } from '../storage/oracleStore';
 import { loadRules } from '../storage/rulesStore';
 import { scalarText } from '../generators/tables';

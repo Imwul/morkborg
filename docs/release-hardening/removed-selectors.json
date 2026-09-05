@@ -1,0 +1,1980 @@
+[
+  {
+    "file": "src/style.css",
+    "line": 270,
+    "endLine": 277,
+    "selector": ".cover-number",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".cover-number",
+        "absentClass": "cover-number"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 515,
+    "endLine": 524,
+    "selector": ".search-wrap",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-wrap",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 525,
+    "endLine": 538,
+    "selector": ".search-wrap input",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-wrap input",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 539,
+    "endLine": 544,
+    "selector": ".search-wrap kbd",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-wrap kbd",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 545,
+    "endLine": 557,
+    "selector": ".search-results",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 558,
+    "endLine": 568,
+    "selector": ".search-results > button",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results > button",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 569,
+    "endLine": 571,
+    "selector": ".search-results > button:hover",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results > button:hover",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 572,
+    "endLine": 577,
+    "selector": ".search-results strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results strong",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 578,
+    "endLine": 585,
+    "selector": ".search-results span,.search-results p",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results span",
+        "absentClass": "search-results"
+      },
+      {
+        "selector": ".search-results p",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 586,
+    "endLine": 588,
+    "selector": ".search-results p",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".search-results p",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 589,
+    "endLine": 597,
+    "selector": ".context-bar",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-bar",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 598,
+    "endLine": 606,
+    "selector": ".context-label",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-label",
+        "absentClass": "context-label"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 607,
+    "endLine": 619,
+    "selector": ".context-bar select",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-bar select",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 620,
+    "endLine": 625,
+    "selector": ".context-region",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-region",
+        "absentClass": "context-region"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 626,
+    "endLine": 628,
+    "selector": ".context-slash",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-slash",
+        "absentClass": "context-slash"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 629,
+    "endLine": 631,
+    "selector": ".context-bar > .icon-btn",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-bar > .icon-btn",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 740,
+    "endLine": 749,
+    "selector": ".campaign-glance",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".campaign-glance",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 750,
+    "endLine": 758,
+    "selector": ".campaign-glance > span",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".campaign-glance > span",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 759,
+    "endLine": 764,
+    "selector": ".campaign-glance strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".campaign-glance strong",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 765,
+    "endLine": 769,
+    "selector": ".overview-columns",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".overview-columns",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 807,
+    "endLine": 817,
+    "selector": ".notebook-row",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".notebook-row",
+        "absentClass": "notebook-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 818,
+    "endLine": 820,
+    "selector": ".notebook-row > svg:last-child",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".notebook-row > svg:last-child",
+        "absentClass": "notebook-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 821,
+    "endLine": 826,
+    "selector": ".notebook-row h3",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".notebook-row h3",
+        "absentClass": "notebook-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 827,
+    "endLine": 834,
+    "selector": ".notebook-row p",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".notebook-row p",
+        "absentClass": "notebook-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 841,
+    "endLine": 843,
+    "selector": ".company-title",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".company-title",
+        "absentClass": "company-title"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 856,
+    "endLine": 873,
+    "selector": ".overview-notes",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".overview-notes",
+        "absentClass": "overview-notes"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 874,
+    "endLine": 885,
+    "selector": ".recent-row",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".recent-row",
+        "absentClass": "recent-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 886,
+    "endLine": 890,
+    "selector": ".recent-row strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".recent-row strong",
+        "absentClass": "recent-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 891,
+    "endLine": 894,
+    "selector": ".recent-row .eyebrow",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".recent-row .eyebrow",
+        "absentClass": "recent-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 908,
+    "endLine": 915,
+    "selector": ".dungeon-card",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".dungeon-card",
+        "absentClass": "dungeon-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 916,
+    "endLine": 918,
+    "selector": ".dungeon-card .card-title",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".dungeon-card .card-title",
+        "absentClass": "dungeon-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 919,
+    "endLine": 921,
+    "selector": ".dungeon-card .card-meta",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".dungeon-card .card-meta",
+        "absentClass": "dungeon-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1051,
+    "endLine": 1055,
+    "selector": ".dungeon-overview-layout",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".dungeon-overview-layout",
+        "absentClass": "dungeon-overview-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1165,
+    "endLine": 1175,
+    "selector": ".room-index-row",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-index-row",
+        "absentClass": "room-index-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1176,
+    "endLine": 1181,
+    "selector": ".room-index-row > span",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-index-row > span",
+        "absentClass": "room-index-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1182,
+    "endLine": 1187,
+    "selector": ".room-index-row > strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-index-row > strong",
+        "absentClass": "room-index-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1188,
+    "endLine": 1191,
+    "selector": ".room-index-row > svg",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-index-row > svg",
+        "absentClass": "room-index-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1198,
+    "endLine": 1201,
+    "selector": ".dungeon-index > .btn",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".dungeon-index > .btn",
+        "absentClass": "dungeon-index"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1202,
+    "endLine": 1206,
+    "selector": ".index-contents",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".index-contents",
+        "absentClass": "index-contents"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1207,
+    "endLine": 1215,
+    "selector": ".index-contents > p",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".index-contents > p",
+        "absentClass": "index-contents"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1216,
+    "endLine": 1227,
+    "selector": ".contents-link",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".contents-link",
+        "absentClass": "contents-link"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1473,
+    "endLine": 1477,
+    "selector": ".room-stock",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-stock",
+        "absentClass": "room-stock"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1478,
+    "endLine": 1480,
+    "selector": ".room-stock > .actions",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-stock > .actions",
+        "absentClass": "room-stock"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1481,
+    "endLine": 1483,
+    "selector": ".room-stock > .actions .btn",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".room-stock > .actions .btn",
+        "absentClass": "room-stock"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1667,
+    "endLine": 1671,
+    "selector": ".region-description",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".region-description",
+        "absentClass": "region-description"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1772,
+    "endLine": 1775,
+    "selector": ".context-bar",
+    "scope": [
+      "@media (max-width: 1200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1776,
+    "endLine": 1778,
+    "selector": ".context-label",
+    "scope": [
+      "@media (max-width: 1200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-label",
+        "absentClass": "context-label"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1779,
+    "endLine": 1781,
+    "selector": ".context-bar",
+    "scope": [
+      "@media (max-width: 1200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1782,
+    "endLine": 1785,
+    "selector": ".overview-columns",
+    "scope": [
+      "@media (max-width: 1200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1789,
+    "endLine": 1792,
+    "selector": ".dungeon-overview-layout",
+    "scope": [
+      "@media (max-width: 1200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-overview-layout",
+        "absentClass": "dungeon-overview-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1821,
+    "endLine": 1823,
+    "selector": ".dungeon-overview-layout",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-overview-layout",
+        "absentClass": "dungeon-overview-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1824,
+    "endLine": 1827,
+    "selector": ".dungeon-index",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-index",
+        "absentClass": "dungeon-index"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1858,
+    "endLine": 1860,
+    "selector": ".overview-columns",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1864,
+    "endLine": 1866,
+    "selector": ".search-wrap",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1867,
+    "endLine": 1869,
+    "selector": ".search-wrap kbd",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap kbd",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1873,
+    "endLine": 1875,
+    "selector": ".context-region",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-region",
+        "absentClass": "context-region"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1880,
+    "endLine": 1882,
+    "selector": ".campaign-glance",
+    "scope": [
+      "@media (max-width: 1000px)"
+    ],
+    "branches": [
+      {
+        "selector": ".campaign-glance",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1927,
+    "endLine": 1930,
+    "selector": ".search-wrap",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1931,
+    "endLine": 1933,
+    "selector": ".search-wrap input",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap input",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1934,
+    "endLine": 1936,
+    "selector": ".search-wrap > svg",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap > svg",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1940,
+    "endLine": 1943,
+    "selector": ".context-bar",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1944,
+    "endLine": 1946,
+    "selector": ".context-label",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-label",
+        "absentClass": "context-label"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1947,
+    "endLine": 1952,
+    "selector": ".context-bar select",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar select",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1953,
+    "endLine": 1955,
+    "selector": ".context-bar #destination-dungeon",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar #destination-dungeon",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1956,
+    "endLine": 1959,
+    "selector": ".context-bar #destination-room",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar #destination-room",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 1960,
+    "endLine": 1962,
+    "selector": ".context-slash",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-slash",
+        "absentClass": "context-slash"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2013,
+    "endLine": 2015,
+    "selector": ".dungeon-fields",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-fields",
+        "absentClass": "dungeon-fields"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2082,
+    "endLine": 2085,
+    "selector": ".campaign-glance",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".campaign-glance",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2086,
+    "endLine": 2088,
+    "selector": ".campaign-glance > span",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".campaign-glance > span",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2089,
+    "endLine": 2091,
+    "selector": ".campaign-glance strong",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".campaign-glance strong",
+        "absentClass": "campaign-glance"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2114,
+    "endLine": 2116,
+    "selector": ".context-bar > .icon-btn",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar > .icon-btn",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2163,
+    "endLine": 2165,
+    "selector": ".overview-columns",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2179,
+    "endLine": 2181,
+    "selector": ".topbar .search-results",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".topbar .search-results",
+        "absentClass": "search-results"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2182,
+    "endLine": 2184,
+    "selector": ".notebook-row h3",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".notebook-row h3",
+        "absentClass": "notebook-row"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2296,
+    "endLine": 2298,
+    "selector": ".context-label",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".context-label",
+        "absentClass": "context-label"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2527,
+    "endLine": 2530,
+    "selector": ".context-bar",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2531,
+    "endLine": 2534,
+    "selector": ".context-bar .context-label,.context-bar #destination-dungeon",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar .context-label",
+        "absentClass": "context-bar"
+      },
+      {
+        "selector": ".context-bar #destination-dungeon",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2535,
+    "endLine": 2540,
+    "selector": ".context-bar #destination-dungeon,.context-bar #destination-room",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar #destination-dungeon",
+        "absentClass": "context-bar"
+      },
+      {
+        "selector": ".context-bar #destination-room",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/style.css",
+    "line": 2541,
+    "endLine": 2544,
+    "selector": ".context-bar > .icon-btn",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar > .icon-btn",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 333,
+    "endLine": 335,
+    "selector": ".context-bar select",
+    "scope": [
+      "@media (min-width: 1600px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-bar select",
+        "absentClass": "context-bar"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 336,
+    "endLine": 338,
+    "selector": ".context-region",
+    "scope": [
+      "@media (min-width: 1600px)"
+    ],
+    "branches": [
+      {
+        "selector": ".context-region",
+        "absentClass": "context-region"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 339,
+    "endLine": 341,
+    "selector": ".search-wrap",
+    "scope": [
+      "@media (min-width: 1600px)"
+    ],
+    "branches": [
+      {
+        "selector": ".search-wrap",
+        "absentClass": "search-wrap"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 342,
+    "endLine": 345,
+    "selector": ".dungeon-overview-layout",
+    "scope": [
+      "@media (min-width: 1600px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-overview-layout",
+        "absentClass": "dungeon-overview-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 371,
+    "endLine": 373,
+    "selector": ".dungeon-overview-layout",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".dungeon-overview-layout",
+        "absentClass": "dungeon-overview-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 386,
+    "endLine": 390,
+    "selector": ".room-stock",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".room-stock",
+        "absentClass": "room-stock"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 391,
+    "endLine": 394,
+    "selector": ".room-stock > .eyebrow,.room-stock > .actions",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".room-stock > .eyebrow",
+        "absentClass": "room-stock"
+      },
+      {
+        "selector": ".room-stock > .actions",
+        "absentClass": "room-stock"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 395,
+    "endLine": 398,
+    "selector": ".overview-columns",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 399,
+    "endLine": 404,
+    "selector": ".overview-columns > section",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns > section",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 405,
+    "endLine": 409,
+    "selector": ".overview-columns > section > .section-title,.overview-columns > section > .notebook-empty,.overview-columns > section > .empty-copy",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".overview-columns > section > .section-title",
+        "absentClass": "overview-columns"
+      },
+      {
+        "selector": ".overview-columns > section > .notebook-empty",
+        "absentClass": "overview-columns"
+      },
+      {
+        "selector": ".overview-columns > section > .empty-copy",
+        "absentClass": "overview-columns"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 551,
+    "endLine": 553,
+    "selector": ".candidate-fields",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-fields",
+        "absentClass": "candidate-fields"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 554,
+    "endLine": 556,
+    "selector": ".candidate-rooms-heading",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-rooms-heading",
+        "absentClass": "candidate-rooms-heading"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 557,
+    "endLine": 561,
+    "selector": ".candidate-rooms-heading span",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-rooms-heading span",
+        "absentClass": "candidate-rooms-heading"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 562,
+    "endLine": 567,
+    "selector": ".candidate-rooms",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-rooms",
+        "absentClass": "candidate-rooms"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 568,
+    "endLine": 573,
+    "selector": ".candidate-room",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 574,
+    "endLine": 579,
+    "selector": ".candidate-room summary",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room summary",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 580,
+    "endLine": 584,
+    "selector": ".candidate-room summary strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room summary strong",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 585,
+    "endLine": 588,
+    "selector": ".candidate-room summary > span:last-child",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room summary > span:last-child",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 589,
+    "endLine": 592,
+    "selector": ".candidate-room[open]",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room[open]",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 593,
+    "endLine": 596,
+    "selector": ".candidate-room[open] summary",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room[open] summary",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 621,
+    "endLine": 623,
+    "selector": ".candidate-rooms",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-rooms",
+        "absentClass": "candidate-rooms"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 641,
+    "endLine": 643,
+    "selector": ".candidate-rooms",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-rooms",
+        "absentClass": "candidate-rooms"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 644,
+    "endLine": 646,
+    "selector": ".candidate-room",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-room",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 647,
+    "endLine": 650,
+    "selector": ".candidate-room summary",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-room summary",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 651,
+    "endLine": 653,
+    "selector": ".candidate-room summary strong",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-room summary strong",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 654,
+    "endLine": 656,
+    "selector": ".candidate-room summary > span:last-child",
+    "scope": [
+      "@media (max-width: 720px)"
+    ],
+    "branches": [
+      {
+        "selector": ".candidate-room summary > span:last-child",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 770,
+    "endLine": 772,
+    "selector": ".candidate-room > .btn",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".candidate-room > .btn",
+        "absentClass": "candidate-room"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 773,
+    "endLine": 776,
+    "selector": ".modified-time",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".modified-time",
+        "absentClass": "modified-time"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 866,
+    "endLine": 868,
+    "selector": ".character-card",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-card",
+        "absentClass": "character-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 869,
+    "endLine": 871,
+    "selector": ".character-card .card-title",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-card .card-title",
+        "absentClass": "character-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 872,
+    "endLine": 876,
+    "selector": ".character-card-hp",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-card-hp",
+        "absentClass": "character-card-hp"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 877,
+    "endLine": 881,
+    "selector": ".life-status",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".life-status",
+        "absentClass": "life-status"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 882,
+    "endLine": 885,
+    "selector": ".life-status.dead",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".life-status.dead",
+        "absentClass": "life-status"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 886,
+    "endLine": 888,
+    "selector": ".character-card.is-dead",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-card.is-dead",
+        "absentClass": "character-card"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 907,
+    "endLine": 911,
+    "selector": ".character-identity-grid",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-identity-grid",
+        "absentClass": "character-identity-grid"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 941,
+    "endLine": 946,
+    "selector": ".character-stat-layout",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-stat-layout",
+        "absentClass": "character-stat-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 966,
+    "endLine": 970,
+    "selector": ".character-item-grid",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".character-item-grid",
+        "absentClass": "character-item-grid"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 992,
+    "endLine": 994,
+    "selector": ".character-stat-layout",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".character-stat-layout",
+        "absentClass": "character-stat-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 995,
+    "endLine": 997,
+    "selector": ".character-item-grid",
+    "scope": [
+      "@media (min-width: 2200px)"
+    ],
+    "branches": [
+      {
+        "selector": ".character-item-grid",
+        "absentClass": "character-item-grid"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1003,
+    "endLine": 1005,
+    "selector": ".character-stat-layout",
+    "scope": [
+      "@media (max-width: 1500px)"
+    ],
+    "branches": [
+      {
+        "selector": ".character-stat-layout",
+        "absentClass": "character-stat-layout"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1081,
+    "endLine": 1086,
+    "selector": ".placement-heading",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-heading",
+        "absentClass": "placement-heading"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1087,
+    "endLine": 1090,
+    "selector": ".placement-monster-link",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-monster-link",
+        "absentClass": "placement-monster-link"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1091,
+    "endLine": 1098,
+    "selector": ".placement-monster-link strong",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-monster-link strong",
+        "absentClass": "placement-monster-link"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1099,
+    "endLine": 1103,
+    "selector": ".placement-monster-link span",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-monster-link span",
+        "absentClass": "placement-monster-link"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1104,
+    "endLine": 1113,
+    "selector": ".placement-destination",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-destination",
+        "absentClass": "placement-destination"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1114,
+    "endLine": 1116,
+    "selector": ".placement-destination svg",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".placement-destination svg",
+        "absentClass": "placement-destination"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1227,
+    "endLine": 1229,
+    "selector": ".placement-monster-link strong",
+    "scope": [
+      "@media (max-width: 600px)"
+    ],
+    "branches": [
+      {
+        "selector": ".placement-monster-link strong",
+        "absentClass": "placement-monster-link"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1383,
+    "endLine": 1385,
+    "selector": ".oracle-procedure",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".oracle-procedure",
+        "absentClass": "oracle-procedure"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1895,
+    "endLine": 1898,
+    "selector": ".fate-source",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".fate-source",
+        "absentClass": "fate-source"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1899,
+    "endLine": 1902,
+    "selector": ".fate-source summary",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".fate-source summary",
+        "absentClass": "fate-source"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 1903,
+    "endLine": 1905,
+    "selector": ".fate-source p",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".fate-source p",
+        "absentClass": "fate-source"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 2320,
+    "endLine": 2326,
+    "selector": ".oracle-result-ko",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".oracle-result-ko",
+        "absentClass": "oracle-result-ko"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  },
+  {
+    "file": "src/workspace.css",
+    "line": 2327,
+    "endLine": 2329,
+    "selector": ".oracle-reference-row .oracle-result-ko",
+    "scope": [],
+    "branches": [
+      {
+        "selector": ".oracle-reference-row .oracle-result-ko",
+        "absentClass": "oracle-result-ko"
+      }
+    ],
+    "proof": "Each selector branch requires a class absent from every application TS/JS token and outside all dynamic class-prefix families."
+  }
+]

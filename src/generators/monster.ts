@@ -247,7 +247,7 @@ export function loadMonsterPreset(
     | { pdfPage?: number }
     | undefined;
   const depthsReference = scalarText(record.depthsReference);
-  const source = `${record.book === 'feretory' ? 'MÖRK BORG CULT: FERETORY · Eat Prey Kill' : record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}${depthsReference ? ` · ${depthsReference}` : ''}`;
+  const source = `${record.book === 'feretory' ? 'MÖRK BORG CULT: FERETORY · Eat Prey Kill' : record.book === 'heretic' ? 'MÖRK BORG CULT: HERETIC' : record.book === 'core-full' ? 'MÖRK BORG — Full Edition' : 'MÖRK BORG BARE BONES EDITION'} · PDF ${scalarText(record.pdfPage)}쪽${additional?.pdfPage ? ` · 추가 PDF ${additional.pdfPage}쪽` : ''}${depthsReference ? ` · ${depthsReference}` : ''}`;
   for (const key of [
     'name',
     'concept',
@@ -341,8 +341,8 @@ const epkRegionKeys: Record<RegionId, string> = {
   wastland: 'wastland',
   'valley-undead': 'valley',
 };
-export function eatPreyKillCreatures(region: RegionId) {
-  return (getRules()?.creatures ?? []).filter(
+export function eatPreyKillCreatures(region: RegionId, rules = getRules()) {
+  return (rules?.creatures ?? []).filter(
     (record) =>
       record.book === 'feretory' &&
       record.section === 'Eat Prey Kill' &&
@@ -351,14 +351,17 @@ export function eatPreyKillCreatures(region: RegionId) {
       record.presetEligible !== false,
   );
 }
+export function rollEatPreyKillPreset(region: RegionId, rules = getRules()) {
+  const records = eatPreyKillCreatures(region, rules);
+  if (!records.length)
+    throw new Error('Eat Prey Kill 지역 자료를 먼저 갱신하세요.');
+  return pick(records);
+}
 export function generateEatPreyKillMonster(
   campaignId: string,
   region: RegionId,
 ): Monster {
-  const records = eatPreyKillCreatures(region);
-  if (!records.length)
-    throw new Error('Eat Prey Kill 지역 자료를 먼저 갱신하세요.');
-  const record = pick(records);
+  const record = rollEatPreyKillPreset(region);
   const monster = loadMonsterPreset(campaignId, record);
   monster.region = region;
   monster.generation = {

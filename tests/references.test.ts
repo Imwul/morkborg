@@ -166,6 +166,25 @@ function fixture() {
         printedPage: 13,
         pdfPage: 15,
         presetEligible: true,
+        referenceAliases: [
+          {
+            name: 'Skelelks',
+            tableId: 'depths.region.sarkash.monsters',
+            bookId: 'feretory',
+            printedPage: 13,
+            printedCrossReference: 'Feretory p. 13/EPK p.5',
+            sourceVerified: true,
+            note: 'Explicit fixture alias for the audited plural source heading.',
+            evidence: [
+              {
+                bookId: 'feretory',
+                pdfPage: 15,
+                printedPage: 13,
+                note: 'Fixture target identity.',
+              },
+            ],
+          },
+        ],
       },
       {
         id: 'different-epk',

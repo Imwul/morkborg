@@ -15,7 +15,7 @@ import {
 } from '../domain/chronicleOperations';
 import { editCampaign } from '../storage/saveStore';
 import { Backlinks } from './ChronicleLinks';
-import { VisibilityFields, stateLabels } from './Chronicle';
+import { VisibilityFields, stateLabels } from './ChronicleFields';
 
 export function RoomState({
   campaign: c,

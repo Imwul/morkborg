@@ -1,0 +1,114 @@
+{
+  "books": 9,
+  "canonicalTables": 552,
+  "oracleEntries": 12216,
+  "referenceCount": 757,
+  "referenceKinds": {
+    "oracle": 550,
+    "procedure": 62,
+    "rule": 44,
+    "creature": 85,
+    "region": 7,
+    "book": 9
+  },
+  "bookCoverage": [
+    {
+      "id": "core",
+      "title": "MÖRK BORG BARE BONES EDITION",
+      "tables": 49,
+      "references": 77,
+      "quickRules": 12
+    },
+    {
+      "id": "feretory",
+      "title": "MÖRK BORG CULT: FERETORY",
+      "tables": 46,
+      "references": 103,
+      "quickRules": 4
+    },
+    {
+      "id": "reclvse",
+      "title": "RECLVSE — A Solo Engine for Mörk Borg",
+      "tables": 219,
+      "references": 226,
+      "quickRules": 4
+    },
+    {
+      "id": "sd",
+      "title": "Sölitary Defilement",
+      "tables": 27,
+      "references": 43,
+      "quickRules": 11
+    },
+    {
+      "id": "depths",
+      "title": "Sölitary Depths",
+      "tables": 58,
+      "references": 74,
+      "quickRules": 3
+    },
+    {
+      "id": "heretic",
+      "title": "MÖRK BORG CULT: HERETIC",
+      "tables": 37,
+      "references": 54,
+      "quickRules": 1
+    },
+    {
+      "id": "mythic2",
+      "title": "Mythic Game Master Emulator Second Edition",
+      "tables": 52,
+      "references": 100,
+      "quickRules": 2
+    },
+    {
+      "id": "core-full",
+      "title": "MÖRK BORG — Full Edition",
+      "tables": 5,
+      "references": 8,
+      "quickRules": 0
+    },
+    {
+      "id": "aitc",
+      "title": "ALÖNE IN THE CROWD",
+      "tables": 59,
+      "references": 67,
+      "quickRules": 0
+    }
+  ],
+  "city": {
+    "tables": 59,
+    "entries": 436,
+    "procedures": 6
+  },
+  "validationIssues": [],
+  "missingReferenceLinks": [],
+  "unavailable": [
+    {
+      "id": "rule:regional-monsters:grift",
+      "title": "Grift · Regional Monsters"
+    }
+  ],
+  "nonstandardCreatures": [
+    {
+      "name": "Rotten Nurse",
+      "book": "heretic",
+      "pdfPage": 64
+    },
+    {
+      "name": "Lentil Lice",
+      "book": "feretory",
+      "pdfPage": 17
+    },
+    {
+      "name": "Cursed Trout",
+      "book": "feretory",
+      "pdfPage": 20
+    },
+    {
+      "name": "Carcasswan",
+      "book": "feretory",
+      "pdfPage": 20
+    }
+  ]
+}

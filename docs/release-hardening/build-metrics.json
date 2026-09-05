@@ -1,0 +1,147 @@
+{
+  "method": "Vite returned final build output, raw bytes and Node gzipSync defaults; static closure follows every static import, excluding optional dynamic screens.",
+  "baseline": {
+    "sourceFingerprint": "6b5327115aa302d7a7d1a3d7380df43c0e353278c78ed05d37f72551521c2caa",
+    "main": [
+      {
+        "fileName": "assets/index-CVQ5fXOc.js",
+        "bytes": 635721,
+        "gzipBytes": 191279
+      }
+    ],
+    "initialStatic": {
+      "chunkCount": 7,
+      "bytes": 757913,
+      "gzipBytes": 230570,
+      "files": [
+        "assets/fateChartStore-vNBoByx2.js",
+        "assets/index-CVQ5fXOc.js",
+        "assets/oracleStore-CWDvjjHQ.js",
+        "assets/oracleValidation-s5RNYIF-.js",
+        "assets/oracles-DJW5Kegq.js",
+        "assets/publishedData-xZD0TiwP.js",
+        "assets/rulesStore-B4Ee3fnW.js"
+      ]
+    },
+    "compiledCss": [
+      {
+        "fileName": "assets/index-C3YYYSc0.css",
+        "bytes": 167925,
+        "gzipBytes": 31875
+      }
+    ],
+    "sourceCss": {
+      "files": [
+        {
+          "file": "src/art-direction.css",
+          "lines": 2719,
+          "bytes": 64562,
+          "importantCount": 41
+        },
+        {
+          "file": "src/style.css",
+          "lines": 2561,
+          "bytes": 45057,
+          "importantCount": 105
+        },
+        {
+          "file": "src/workspace.css",
+          "lines": 3490,
+          "bytes": 69929,
+          "importantCount": 61
+        }
+      ],
+      "totalLines": 8770,
+      "totalBytes": 179548,
+      "importantCount": 207
+    },
+    "optionalScreensInInitialClosure": [
+      "src/components/ContentLibrary.tsx",
+      "src/components/Chronicle.tsx",
+      "src/components/ObjectPlayTools.tsx",
+      "src/components/Dungeons.tsx",
+      "src/components/Monsters.tsx",
+      "src/components/Characters.tsx",
+      "src/components/Sources.tsx",
+      "src/components/QuickCapture.tsx",
+      "src/components/Oracles.tsx",
+      "src/components/MythicPanel.tsx",
+      "src/components/CampaignProcedures.tsx",
+      "src/components/PlayMode.tsx"
+    ]
+  },
+  "final": {
+    "sourceFingerprint": "f131540b664473d1478aeaa8d6ac40822ec9915d7fbd21782c828b58e1cf4c24",
+    "main": [
+      {
+        "fileName": "assets/index-BKQigZkI.js",
+        "bytes": 299734,
+        "gzipBytes": 94083
+      }
+    ],
+    "initialStatic": {
+      "chunkCount": 17,
+      "bytes": 624377,
+      "gzipBytes": 200665,
+      "files": [
+        "assets/ChronicleLinks-QgBmL76r.js",
+        "assets/PrivateDataTools-DDxmntYg.js",
+        "assets/arrow-left-DSkQxtpp.js",
+        "assets/copy-iwzlgoak.js",
+        "assets/createLucideIcon-Dt6_JHAy.js",
+        "assets/dialog-ruNB8lO4.js",
+        "assets/dices-Ci-OCNpP.js",
+        "assets/fateChartStore-AR4sZ75g.js",
+        "assets/index-BKQigZkI.js",
+        "assets/mythic-CoyZ6Z54.js",
+        "assets/oracleStore-BE_kcu1Y.js",
+        "assets/oracleValidation-Dbw0J7HH.js",
+        "assets/oracles-DU_f_Cw_.js",
+        "assets/privateDataImport-CuYVLgMn.js",
+        "assets/publishedData-wFDMTird.js",
+        "assets/rulesStore-cVw0W1HI.js",
+        "assets/saveStore-Dfr0AUkR.js"
+      ]
+    },
+    "compiledCss": [
+      {
+        "fileName": "assets/index-Dx6vWwg6.css",
+        "bytes": 154394,
+        "gzipBytes": 29399
+      }
+    ],
+    "sourceCss": {
+      "files": [
+        {
+          "file": "src/art-direction.css",
+          "lines": 2631,
+          "bytes": 53700,
+          "importantCount": 40
+        },
+        {
+          "file": "src/reference.css",
+          "lines": 833,
+          "bytes": 16097,
+          "importantCount": 1
+        },
+        {
+          "file": "src/style.css",
+          "lines": 1848,
+          "bytes": 32048,
+          "importantCount": 87
+        },
+        {
+          "file": "src/workspace.css",
+          "lines": 3049,
+          "bytes": 60485,
+          "importantCount": 58
+        }
+      ],
+      "totalLines": 8361,
+      "totalBytes": 162330,
+      "importantCount": 186
+    },
+    "optionalScreensInInitialClosure": []
+  },
+  "reproduce": "node scripts/measure-reference-build.mjs . result.json (run separately in baseline and candidate checkouts with the same locked dependencies)"
+}

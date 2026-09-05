@@ -1,9 +1,11 @@
 import test from 'node:test';
+import { findVerifiedReferenceAlias } from '../src/domain/referenceAliases.ts';
 import assert from 'node:assert/strict';
 import { createCipheriv, randomBytes } from 'node:crypto';
 import {
   decryptPrivateUpdate,
   mergeOracleTranslations,
+  mergePrivateLibraryUpdate,
   updateAAD,
 } from '../src/storage/privateUpdates.ts';
 import { parseUpdateConnection } from '../src/storage/privateUpdateConnection.ts';
@@ -258,4 +260,37 @@ test('publisher recovers the established key from a linked bundle and refuses si
   } finally {
     rmSync(cwd, { recursive: true, force: true });
   }
+});
+
+
+test('A refreshed audit updates one exact alias binding without making cached creature routing ambiguous', () => {
+  const query = {tableId: 'fixture.region.monsters', name: 'Routed Beast', bookId: 'printed-source', printedPage: 23, printedCrossReference: 'Printed Source 23'};
+  const oldAlias = {...query, sourceVerified: true, note: 'Earlier audit', category: 'exact-source', manualAnnotation: 'keep'};
+  const refreshed = {...query, sourceVerified: true, note: 'Verified correction', category: 'citation-typo', evidence: [{bookId:'actual-source',pdfPage:25}]};
+  const otherBinding = {...refreshed, tableId: 'fixture.other.monsters'};
+  const customAlias = {name:'My local name',note:'keep'};
+  const current: RulesPack = {schemaVersion:1,books:[],tables:{},outcasts:[],notes:{manual:'keep'},creatures:[{id:'fixture.beast',book:'actual-source',name:'My edited beast',hp:99,notes:'Manual creature note',referenceAliases:[oldAlias,customAlias],sourceAliases:[oldAlias]}]};
+  const incoming: RulesPack = {...current,creatures:[{id:'fixture.beast',book:'actual-source',name:'Original beast',hp:4,referenceAliases:[refreshed,otherBinding],sourceAliases:[refreshed]}]};
+  const snapshot=JSON.stringify(current);
+  const merged=mergePrivateLibraryUpdate(current,incoming);
+  const creature=merged.creatures[0];
+  assert.equal(creature.hp,99); assert.equal(creature.name,'My edited beast'); assert.equal(creature.notes,'Manual creature note');
+  assert.equal((creature.referenceAliases as unknown[]).length,3);
+  const resolved=findVerifiedReferenceAlias(creature,query);
+  assert.equal(resolved?.note,'Verified correction'); assert.equal(resolved?.category,'citation-typo');
+  assert.deepEqual(resolved?.evidence,refreshed.evidence);
+  assert.equal((resolved as unknown as Record<string,unknown>).manualAnnotation,'keep');
+  assert.equal((creature.sourceAliases as unknown[]).length,1);
+  assert.deepEqual(mergePrivateLibraryUpdate(merged,incoming),merged);
+  assert.equal(JSON.stringify(current),snapshot);
+});
+
+test('Changed or unverified source bindings never overwrite an existing verified alias', () => {
+  const query={tableId:'fixture.region.monsters',name:'Beast',bookId:'fixture',printedPage:23,printedCrossReference:'Fixture 23'};
+  const alias={...query,sourceVerified:true,note:'Verified original'};
+  const current: RulesPack={schemaVersion:1,books:[],tables:{},outcasts:[],notes:{},creatures:[{id:'fixture.beast',referenceAliases:[alias]}]};
+  const incoming: RulesPack={...current,creatures:[{id:'fixture.beast',referenceAliases:[{...alias,sourceVerified:false,note:'Unverified edit'},{...alias,printedPage:24,note:'Different source binding'}]}]};
+  const result=mergePrivateLibraryUpdate(current,incoming).creatures[0];
+  assert.deepEqual(findVerifiedReferenceAlias(result,query),alias);
+  assert.equal((result.referenceAliases as unknown[]).length,3);
 });

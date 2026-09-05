@@ -5,6 +5,7 @@ import { getSnapshot, transact } from './storage/saveStore';
 import './style.css';
 import './workspace.css';
 import './art-direction.css';
+import './reference.css';
 const navigation = performance.getEntriesByType('navigation')[0] as
   | PerformanceNavigationTiming
   | undefined;

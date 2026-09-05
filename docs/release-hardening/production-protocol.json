@@ -1,0 +1,36 @@
+{
+  "index": {
+    "status": 200,
+    "contentType": "text/html",
+    "cacheControl": "no-cache"
+  },
+  "directRoute": {
+    "status": 200,
+    "contentType": "text/html",
+    "cacheControl": "no-cache"
+  },
+  "privatePlaintext": {
+    "status": 404,
+    "cacheControl": "no-store"
+  },
+  "unknownApi": {
+    "status": 404,
+    "cacheControl": "no-store"
+  },
+  "workingFiles": {
+    "status": 404,
+    "cacheControl": "no-store"
+  },
+  "firstApi": {
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "cacheControl": "private, no-store",
+    "fullBundle": true
+  },
+  "refreshMetadata": {
+    "status": 200,
+    "hasBundle": false,
+    "revisionMatches": true,
+    "cacheControl": "private, no-store"
+  }
+}

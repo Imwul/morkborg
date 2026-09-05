@@ -3,5 +3,14 @@
     "api/rulebook-data.ts": {
       "includeFiles": "public/private-updates/**"
     }
-  }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!api(?:/|$)|assets(?:/|$)|private-updates(?:/|$)|rules(?:/|$)|outputs(?:/|$)|work(?:/|$)).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

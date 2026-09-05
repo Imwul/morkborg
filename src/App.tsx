@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 import {
   BookOpen,
   Play,
@@ -56,14 +56,7 @@ import {
   importCampaigns,
   openCampaignLibrary,
 } from './domain/operations';
-import { ContentLibrary } from './components/ContentLibrary';
 import { type Confirm } from './components/Library';
-import { Dungeons } from './components/Dungeons';
-import { Monsters } from './components/Monsters';
-import { Characters } from './components/Characters';
-import { Sources } from './components/Sources';
-import { Oracles } from './components/Oracles';
-import { MythicPanel } from './components/MythicPanel';
 import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
 import { useRules, loadRules } from './storage/rulesStore';
@@ -71,22 +64,90 @@ import { PrivateDataTools } from './components/PrivateDataTools';
 import { TranslationDataNotice } from './components/TranslationDataNotice';
 import { startPublishedDataUpdates } from './storage/publishedData';
 import { registerCodexTools } from './webmcp';
-import {
-  Sessions,
-  Timeline,
-  CampaignRecords,
-  CampaignHome,
-  type RecordSection,
-} from './components/Chronicle';
-import { PlayMode } from './components/PlayMode';
-import { QuickCapture, type CaptureKind } from './components/QuickCapture';
-import { ObjectPlayTools } from './components/ObjectPlayTools';
-import { CampaignProcedures } from './components/CampaignProcedures';
+import type { RecordSection } from './components/Chronicle';
+import type { CaptureKind } from './domain/captureContext';
+import { DeferredView } from './components/DeferredView';
 import {
   ReferenceProvider,
   ReferenceDesk,
   ReferenceSearchButton,
 } from './components/ReferenceWorkbench';
+const ContentLibrary = lazy(() =>
+  import('./components/ContentLibrary').then((module) => ({
+    default: module.ContentLibrary,
+  })),
+);
+const Dungeons = lazy(() =>
+  import('./components/Dungeons').then((module) => ({
+    default: module.Dungeons,
+  })),
+);
+const Monsters = lazy(() =>
+  import('./components/Monsters').then((module) => ({
+    default: module.Monsters,
+  })),
+);
+const Characters = lazy(() =>
+  import('./components/Characters').then((module) => ({
+    default: module.Characters,
+  })),
+);
+const Sources = lazy(() =>
+  import('./components/Sources').then((module) => ({
+    default: module.Sources,
+  })),
+);
+const Oracles = lazy(() =>
+  import('./components/Oracles').then((module) => ({
+    default: module.Oracles,
+  })),
+);
+const MythicPanel = lazy(() =>
+  import('./components/MythicPanel').then((module) => ({
+    default: module.MythicPanel,
+  })),
+);
+const PlayMode = lazy(() =>
+  import('./components/PlayMode').then((module) => ({
+    default: module.PlayMode,
+  })),
+);
+const ObjectPlayTools = lazy(() =>
+  import('./components/ObjectPlayTools').then((module) => ({
+    default: module.ObjectPlayTools,
+  })),
+);
+const CampaignProcedures = lazy(() =>
+  import('./components/CampaignProcedures').then((module) => ({
+    default: module.CampaignProcedures,
+  })),
+);
+const QuickCapture = lazy(() =>
+  import('./components/QuickCapture').then((module) => ({
+    default: module.QuickCapture,
+  })),
+);
+const Sessions = lazy(() =>
+  import('./components/Chronicle').then((module) => ({
+    default: module.Sessions,
+  })),
+);
+const Timeline = lazy(() =>
+  import('./components/Chronicle').then((module) => ({
+    default: module.Timeline,
+  })),
+);
+const CampaignRecords = lazy(() =>
+  import('./components/Chronicle').then((module) => ({
+    default: module.CampaignRecords,
+  })),
+);
+const CampaignHome = lazy(() =>
+  import('./components/Chronicle').then((module) => ({
+    default: module.CampaignHome,
+  })),
+);
+
 const nav = [
   { key: 'overview', label: '보관한 자료', icon: BookOpen, group: 'CAMPAIGN' },
   { key: 'play', label: 'PLAY · 플레이', icon: Play, group: '' },
@@ -138,9 +199,11 @@ export default function App() {
   const [legacyOracleOpen, setLegacyOracleOpen] = useState(false);
   const [captureKind, setCaptureKind] = useState<CaptureKind | null>(null);
   const [fateOpen, setFateOpen] = useState(false);
+  const [fateRequested, setFateRequested] = useState(false);
   const fateLauncherRef = useRef<HTMLButtonElement>(null);
   const mythicState = (c ? c.mythic : save.mythic) ?? defaultMythicState();
   function openFate() {
+    setFateRequested(true);
     setFateOpen(true);
     setDrawer(false);
   }
@@ -169,6 +232,7 @@ export default function App() {
         !e.repeat
       ) {
         e.preventDefault();
+        setFateRequested(true);
         setFateOpen((open) => !open);
         setDrawer(false);
       }
@@ -233,8 +297,8 @@ export default function App() {
       contentPageTitle;
   useEffect(() => {
     document.title = campaignTitle
-      ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Campaign Codex`
-      : 'MÖRK BORG — Campaign Codex';
+      ? `${recordPageTitle ? recordPageTitle + ' — ' : ''}${campaignTitle} — Reference Desk`
+      : 'MÖRK BORG — Reference Desk';
   }, [campaignTitle, recordPageTitle]);
   function openForm(kind: 'campaign' | 'dungeon' | 'rename' | null) {
     if (kind === 'dungeon') {
@@ -671,290 +735,295 @@ export default function App() {
                 </span>
               </nav>
             )}
-            {c && !oracleOpen && <ObjectPlayTools campaign={c} />}
-            {oracleOpen ? (
-              legacyOracleOpen ? (
-                <Oracles
-                  campaign={c}
-                  context={oracleContext}
-                  onClose={() => setLegacyOracleOpen(false)}
-                  notify={notify}
-                />
-              ) : (
-                <ReferenceDesk onLibrary={() => setLegacyOracleOpen(true)} />
-              )
-            ) : !c ? (
-              <>
-                <div className="eyebrow">끔찍한 것들의 연대기 / 제1권</div>
-                <div className="page-heading">
-                  <div>
-                    <h1>
-                      나의 캠페인<span className="acid">.</span>
-                    </h1>
-                    <p>모든 파멸의 이야기는 빈 페이지에서 시작됩니다.</p>
-                  </div>
-                  <Button
-                    className="btn primary"
-                    onClick={() => openForm('campaign')}
-                  >
-                    <Plus /> 새 캠페인
-                  </Button>
-                </div>
-                <div className="campaign-grid">
-                  {save.campaigns.map((campaign, i) => (
-                    <article className="campaign-card" key={campaign.id}>
-                      <div className="card-meta">
-                        <span>연대기 {String(i + 1).padStart(2, '0')}</span>
-                        <BookOpen size={21} />
-                      </div>
-                      <button
-                        className="card-title"
-                        onClick={() => openCampaign(campaign)}
-                      >
-                        {campaign.title}
-                      </button>
-                      {(campaign.description || campaign.subtitle) && (
-                        <details className="card-details">
-                          <summary>설명</summary>
-                          <p>{campaign.description || campaign.subtitle}</p>
-                        </details>
-                      )}
-                      <div className="card-counts">
-                        <span>{campaign.dungeons.length} 던전</span>
-                        <span>
-                          {campaign.dungeons.reduce(
-                            (n, d) => n + d.rooms.length,
-                            0,
-                          )}
-                          개 방
-                        </span>
-                      </div>
-                      <div className="card-actions">
-                        <Button
-                          className="btn ghost"
-                          onClick={() => openCampaign(campaign)}
-                        >
-                          캠페인 열기 <ArrowRight size={16} />
-                        </Button>
-                        <Button
-                          className="icon-btn"
-                          aria-label={`${campaign.title} 이름 변경`}
-                          title="이름 변경"
-                          onClick={() => renameCampaign(campaign)}
-                        >
-                          <Pencil size={16} />
-                        </Button>
-                        <Button
-                          className="icon-btn"
-                          aria-label={`${campaign.title} 내보내기`}
-                          onClick={() => exportCampaign(campaign)}
-                        >
-                          <Download size={16} />
-                        </Button>
-                        <Button
-                          className="icon-btn"
-                          aria-label={`${campaign.title} 복제`}
-                          onClick={() => duplicate(campaign)}
-                        >
-                          <Copy size={16} />
-                        </Button>
-                        <Button
-                          className="icon-btn danger"
-                          aria-label={`${campaign.title} 삭제`}
-                          onClick={() => remove(campaign)}
-                        >
-                          <Trash2 size={16} />
-                        </Button>
-                      </div>
-                    </article>
-                  ))}
-                  <article className="new-campaign">
+            <DeferredView
+              resetKey={`${c?.id ?? 'standalone'}:${oracleOpen ? (legacyOracleOpen ? 'oracles' : 'desk') : (c?.workspace.section ?? 'campaigns')}`}
+            >
+              {c && !oracleOpen && <ObjectPlayTools campaign={c} />}
+              {oracleOpen ? (
+                legacyOracleOpen ? (
+                  <Oracles
+                    campaign={c}
+                    context={oracleContext}
+                    onClose={() => setLegacyOracleOpen(false)}
+                    notify={notify}
+                  />
+                ) : (
+                  <ReferenceDesk onLibrary={() => setLegacyOracleOpen(true)} />
+                )
+              ) : !c ? (
+                <>
+                  <div className="eyebrow">끔찍한 것들의 연대기 / 제1권</div>
+                  <div className="page-heading">
+                    <div>
+                      <h1>
+                        나의 캠페인<span className="acid">.</span>
+                      </h1>
+                      <p>모든 파멸의 이야기는 빈 페이지에서 시작됩니다.</p>
+                    </div>
                     <Button
                       className="btn primary"
                       onClick={() => openForm('campaign')}
                     >
                       <Plus /> 새 캠페인
-                      <ArrowRight size={17} />
                     </Button>
-                  </article>
-                  {!save.campaigns.length && (
-                    <article className="field-guide">
-                      <span className="eyebrow">심판의 메모</span>
-                      <h2>
-                        주사위를 굴리고,
-                        <br />
-                        중요한 것을 남기세요.
-                      </h2>
-                      <div>
-                        <b>01</b>
-                        <p>
-                          <strong>기록할 세계를 만드세요.</strong>
-                          <br />
-                          캠페인을 열고 이름을 붙이세요.
-                        </p>
-                      </div>
-                      <div>
-                        <b>02</b>
-                        <p>
-                          <strong>위험한 것들을 채우세요.</strong>
-                          <br />
-                          지역을 선택하고 던전과 방을 굴리세요.
-                        </p>
-                      </div>
-                      <div>
-                        <b>03</b>
-                        <p>
-                          <strong>모든 것에는 자리가 있습니다.</strong>
-                          <br />
-                          마음에 드는 후보를 선택하고 기록을 이어가세요.
-                        </p>
-                      </div>
+                  </div>
+                  <div className="campaign-grid">
+                    {save.campaigns.map((campaign, i) => (
+                      <article className="campaign-card" key={campaign.id}>
+                        <div className="card-meta">
+                          <span>연대기 {String(i + 1).padStart(2, '0')}</span>
+                          <BookOpen size={21} />
+                        </div>
+                        <button
+                          className="card-title"
+                          onClick={() => openCampaign(campaign)}
+                        >
+                          {campaign.title}
+                        </button>
+                        {(campaign.description || campaign.subtitle) && (
+                          <details className="card-details">
+                            <summary>설명</summary>
+                            <p>{campaign.description || campaign.subtitle}</p>
+                          </details>
+                        )}
+                        <div className="card-counts">
+                          <span>{campaign.dungeons.length} 던전</span>
+                          <span>
+                            {campaign.dungeons.reduce(
+                              (n, d) => n + d.rooms.length,
+                              0,
+                            )}
+                            개 방
+                          </span>
+                        </div>
+                        <div className="card-actions">
+                          <Button
+                            className="btn ghost"
+                            onClick={() => openCampaign(campaign)}
+                          >
+                            캠페인 열기 <ArrowRight size={16} />
+                          </Button>
+                          <Button
+                            className="icon-btn"
+                            aria-label={`${campaign.title} 이름 변경`}
+                            title="이름 변경"
+                            onClick={() => renameCampaign(campaign)}
+                          >
+                            <Pencil size={16} />
+                          </Button>
+                          <Button
+                            className="icon-btn"
+                            aria-label={`${campaign.title} 내보내기`}
+                            onClick={() => exportCampaign(campaign)}
+                          >
+                            <Download size={16} />
+                          </Button>
+                          <Button
+                            className="icon-btn"
+                            aria-label={`${campaign.title} 복제`}
+                            onClick={() => duplicate(campaign)}
+                          >
+                            <Copy size={16} />
+                          </Button>
+                          <Button
+                            className="icon-btn danger"
+                            aria-label={`${campaign.title} 삭제`}
+                            onClick={() => remove(campaign)}
+                          >
+                            <Trash2 size={16} />
+                          </Button>
+                        </div>
+                      </article>
+                    ))}
+                    <article className="new-campaign">
                       <Button
-                        className="btn ghost"
-                        onClick={() => setImportText('')}
+                        className="btn primary"
+                        onClick={() => openForm('campaign')}
                       >
-                        <Upload size={16} /> 캠페인 가져오기
+                        <Plus /> 새 캠페인
+                        <ArrowRight size={17} />
                       </Button>
                     </article>
+                    {!save.campaigns.length && (
+                      <article className="field-guide">
+                        <span className="eyebrow">심판의 메모</span>
+                        <h2>
+                          주사위를 굴리고,
+                          <br />
+                          중요한 것을 남기세요.
+                        </h2>
+                        <div>
+                          <b>01</b>
+                          <p>
+                            <strong>기록할 세계를 만드세요.</strong>
+                            <br />
+                            캠페인을 열고 이름을 붙이세요.
+                          </p>
+                        </div>
+                        <div>
+                          <b>02</b>
+                          <p>
+                            <strong>위험한 것들을 채우세요.</strong>
+                            <br />
+                            지역을 선택하고 던전과 방을 굴리세요.
+                          </p>
+                        </div>
+                        <div>
+                          <b>03</b>
+                          <p>
+                            <strong>모든 것에는 자리가 있습니다.</strong>
+                            <br />
+                            마음에 드는 후보를 선택하고 기록을 이어가세요.
+                          </p>
+                        </div>
+                        <Button
+                          className="btn ghost"
+                          onClick={() => setImportText('')}
+                        >
+                          <Upload size={16} /> 캠페인 가져오기
+                        </Button>
+                      </article>
+                    )}
+                  </div>
+                  {save.campaigns.length > 0 && (
+                    <Button
+                      className="btn ghost import-link"
+                      onClick={() => setImportText('')}
+                    >
+                      <Upload size={16} /> 캠페인 가져오기
+                    </Button>
                   )}
-                </div>
-                {save.campaigns.length > 0 && (
-                  <Button
-                    className="btn ghost import-link"
-                    onClick={() => setImportText('')}
-                  >
-                    <Upload size={16} /> 캠페인 가져오기
-                  </Button>
-                )}
-              </>
-            ) : c.workspace.section === 'overview' ? (
-              <>
-                <CampaignHome
+                </>
+              ) : c.workspace.section === 'overview' ? (
+                <>
+                  <CampaignHome
+                    campaign={c}
+                    onCapture={() => setCaptureKind('event')}
+                  />
+                  <div className="campaign-home-actions">
+                    <Button
+                      className="btn ghost small"
+                      onClick={() => openForm('rename')}
+                    >
+                      <Pencil size={14} />
+                      캠페인 수정
+                    </Button>
+                    <Button
+                      className="btn ghost small"
+                      onClick={() => duplicate(c)}
+                    >
+                      <Copy size={14} />
+                      복제
+                    </Button>
+                    <Button
+                      className="btn ghost small danger"
+                      onClick={() => remove(c)}
+                    >
+                      캠페인 삭제
+                    </Button>
+                  </div>
+                </>
+              ) : c.workspace.section === 'sessions' ? (
+                <Sessions
                   campaign={c}
                   onCapture={() => setCaptureKind('event')}
                 />
-                <div className="campaign-home-actions">
-                  <Button
-                    className="btn ghost small"
-                    onClick={() => openForm('rename')}
-                  >
-                    <Pencil size={14} />
-                    캠페인 수정
-                  </Button>
-                  <Button
-                    className="btn ghost small"
-                    onClick={() => duplicate(c)}
-                  >
-                    <Copy size={14} />
-                    복제
-                  </Button>
-                  <Button
-                    className="btn ghost small danger"
-                    onClick={() => remove(c)}
-                  >
-                    캠페인 삭제
-                  </Button>
-                </div>
-              </>
-            ) : c.workspace.section === 'sessions' ? (
-              <Sessions
-                campaign={c}
-                onCapture={() => setCaptureKind('event')}
-              />
-            ) : c.workspace.section === 'timeline' ? (
-              <Timeline
-                campaign={c}
-                onCapture={() => setCaptureKind('event')}
-              />
-            ) : c.workspace.section === 'play' ? (
-              <PlayMode
-                campaign={c}
-                onCapture={(kind = 'event') => setCaptureKind(kind)}
-                onOracles={openOracles}
-                notify={notify}
-              />
-            ) : c.workspace.section === 'procedures' ? (
-              <section className="chronicle-page">
-                <div className="chronicle-heading">
-                  <div>
-                    <span className="eyebrow">THE DYING WORLD</span>
-                    <h1>
-                      재앙과 여정<span className="acid">.</span>
-                    </h1>
+              ) : c.workspace.section === 'timeline' ? (
+                <Timeline
+                  campaign={c}
+                  onCapture={() => setCaptureKind('event')}
+                />
+              ) : c.workspace.section === 'play' ? (
+                <PlayMode
+                  campaign={c}
+                  onCapture={(kind = 'event') => setCaptureKind(kind)}
+                  onOracles={openOracles}
+                  notify={notify}
+                />
+              ) : c.workspace.section === 'procedures' ? (
+                <section className="chronicle-page">
+                  <div className="chronicle-heading">
+                    <div>
+                      <span className="eyebrow">THE DYING WORLD</span>
+                      <h1>
+                        재앙과 여정<span className="acid">.</span>
+                      </h1>
+                    </div>
                   </div>
-                </div>
-                <CampaignProcedures campaign={c} notify={notify} />
-              </section>
-            ) : ['threads', 'rumors', 'relics', 'journal'].includes(
-                c.workspace.section,
-              ) ? (
-              <CampaignRecords
-                key={`${c.id}:${c.workspace.section}`}
-                campaign={c}
-                section={c.workspace.section as RecordSection}
-              />
-            ) : c.workspace.section === 'about' ? (
-              <Sources campaign={c} notify={notify} />
-            ) : c.workspace.section === 'dungeons' ? (
-              <Dungeons
-                campaign={c}
-                create={() => openForm('dungeon')}
-                confirm={confirm}
-                notify={notify}
-              />
-            ) : c.workspace.section === 'notes' ? (
-              <>
-                <div className="eyebrow">캠페인 / 여백의 기록</div>
-                <div className="page-heading">
-                  <div>
-                    <h1>
-                      종말에 맞서는 기록<span className="acid">.</span>
-                    </h1>
-                    <p>
-                      미해결 사건, 주워들은 거짓말, 그리고 일행을 기다리는 계획.
-                    </p>
+                  <CampaignProcedures campaign={c} notify={notify} />
+                </section>
+              ) : ['threads', 'rumors', 'relics', 'journal'].includes(
+                  c.workspace.section,
+                ) ? (
+                <CampaignRecords
+                  key={`${c.id}:${c.workspace.section}`}
+                  campaign={c}
+                  section={c.workspace.section as RecordSection}
+                />
+              ) : c.workspace.section === 'about' ? (
+                <Sources campaign={c} notify={notify} />
+              ) : c.workspace.section === 'dungeons' ? (
+                <Dungeons
+                  campaign={c}
+                  create={() => openForm('dungeon')}
+                  confirm={confirm}
+                  notify={notify}
+                />
+              ) : c.workspace.section === 'notes' ? (
+                <>
+                  <div className="eyebrow">캠페인 / 여백의 기록</div>
+                  <div className="page-heading">
+                    <div>
+                      <h1>
+                        종말에 맞서는 기록<span className="acid">.</span>
+                      </h1>
+                      <p>
+                        미해결 사건, 주워들은 거짓말, 그리고 일행을 기다리는
+                        계획.
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="notebook">
-                  <Textarea
-                    className="notebook-input"
-                    aria-label="캠페인 노트"
-                    value={c.notes}
-                    onChange={(e) =>
-                      editCampaign(c.id, (next) => {
-                        next.notes = e.target.value;
-                      })
-                    }
-                    placeholder="사건이 시작되는 곳부터 기록하세요…"
-                  />
-                </div>
-              </>
-            ) : c.workspace.section === 'characters' ? (
-              <Characters campaign={c} confirm={confirm} notify={notify} />
-            ) : c.workspace.section === 'monsters' ? (
-              <Monsters
-                key={`${c.id}:${c.workspace.selected.monsters ?? 'library'}`}
-                campaign={c}
-                confirm={confirm}
-                notify={notify}
-              />
-            ) : (
-              <ContentLibrary
-                key={
-                  c.id +
-                  ':' +
-                  c.workspace.section +
-                  ':' +
-                  (c.workspace.selected[
-                    c.workspace.section === 'npcs' ? 'npcs' : 'encounters'
-                  ] ?? 'library')
-                }
-                campaign={c}
-                kind={c.workspace.section === 'npcs' ? 'npcs' : 'encounters'}
-                confirm={confirm}
-                notify={notify}
-              />
-            )}
+                  <div className="notebook">
+                    <Textarea
+                      className="notebook-input"
+                      aria-label="캠페인 노트"
+                      value={c.notes}
+                      onChange={(e) =>
+                        editCampaign(c.id, (next) => {
+                          next.notes = e.target.value;
+                        })
+                      }
+                      placeholder="사건이 시작되는 곳부터 기록하세요…"
+                    />
+                  </div>
+                </>
+              ) : c.workspace.section === 'characters' ? (
+                <Characters campaign={c} confirm={confirm} notify={notify} />
+              ) : c.workspace.section === 'monsters' ? (
+                <Monsters
+                  key={`${c.id}:${c.workspace.selected.monsters ?? 'library'}`}
+                  campaign={c}
+                  confirm={confirm}
+                  notify={notify}
+                />
+              ) : (
+                <ContentLibrary
+                  key={
+                    c.id +
+                    ':' +
+                    c.workspace.section +
+                    ':' +
+                    (c.workspace.selected[
+                      c.workspace.section === 'npcs' ? 'npcs' : 'encounters'
+                    ] ?? 'library')
+                  }
+                  campaign={c}
+                  kind={c.workspace.section === 'npcs' ? 'npcs' : 'encounters'}
+                  confirm={confirm}
+                  notify={notify}
+                />
+              )}
+            </DeferredView>
             <footer className="page-footer">
               <button onClick={() => setAbout(true)}>
                 MÖRK BORG 비공식 보조 도구 ↗
@@ -1356,25 +1425,40 @@ export default function App() {
             </button>
           )}
         {c && captureKind && (
-          <QuickCapture
-            key={`${c.id}:${captureKind}`}
-            campaign={c}
-            initialKind={captureKind}
-            onClose={() => setCaptureKind(null)}
-            notify={notify}
-          />
+          <DeferredView
+            overlay
+            label="빠른 기록"
+            resetKey={`${c.id}:${captureKind}`}
+          >
+            <QuickCapture
+              key={`${c.id}:${captureKind}`}
+              campaign={c}
+              initialKind={captureKind}
+              onClose={() => setCaptureKind(null)}
+              notify={notify}
+            />
+          </DeferredView>
         )}
-        <MythicPanel
-          key={c?.id ?? 'standalone'}
-          open={fateOpen}
-          onOpenChange={setFateOpen}
-          campaign={c}
-          state={mythicState}
-          context={oracleOpen ? oracleContext : null}
-          saveError={error}
-          notify={notify}
-          launcherRef={fateLauncherRef}
-        />
+        {fateRequested && (
+          <DeferredView
+            overlay
+            active={fateOpen}
+            label="Mythic Fate"
+            resetKey={c?.id ?? 'standalone'}
+          >
+            <MythicPanel
+              key={c?.id ?? 'standalone'}
+              open={fateOpen}
+              onOpenChange={setFateOpen}
+              campaign={c}
+              state={mythicState}
+              context={oracleOpen ? oracleContext : null}
+              saveError={error}
+              notify={notify}
+              launcherRef={fateLauncherRef}
+            />
+          </DeferredView>
+        )}
         {toast && (
           <output className="toast">
             <Check size={17} />

@@ -1,0 +1,113 @@
+{
+  "old": {
+    "issues": 0,
+    "resolved": 22,
+    "unresolved": [
+      {
+        "region": "sarkash",
+        "face": 1
+      },
+      {
+        "region": "sarkash",
+        "face": 3
+      },
+      {
+        "region": "sarkash",
+        "face": 5
+      },
+      {
+        "region": "wastland",
+        "face": 4
+      },
+      {
+        "region": "wastland",
+        "face": 5
+      },
+      {
+        "region": "valley-undead",
+        "face": 1
+      },
+      {
+        "region": "valley-undead",
+        "face": 5
+      },
+      {
+        "region": "valley-undead",
+        "face": 6
+      },
+      {
+        "region": "kergus",
+        "face": 2
+      },
+      {
+        "region": "kergus",
+        "face": 3
+      },
+      {
+        "region": "kergus",
+        "face": 4
+      },
+      {
+        "region": "kergus",
+        "face": 5
+      },
+      {
+        "region": "galgenbeck",
+        "face": 5
+      },
+      {
+        "region": "graven-tosk",
+        "face": 5
+      }
+    ],
+    "conflicting": []
+  },
+  "incoming": {
+    "issues": 0,
+    "resolved": 36,
+    "unresolved": [],
+    "conflicting": [
+      {
+        "region": "valley-undead",
+        "face": 5,
+        "book": "heretic"
+      },
+      {
+        "region": "valley-undead",
+        "face": 6,
+        "book": "heretic"
+      },
+      {
+        "region": "kergus",
+        "face": 3,
+        "book": "heretic"
+      }
+    ]
+  },
+  "merged": {
+    "issues": 0,
+    "resolved": 36,
+    "unresolved": [],
+    "conflicting": [
+      {
+        "region": "valley-undead",
+        "face": 5,
+        "book": "heretic"
+      },
+      {
+        "region": "valley-undead",
+        "face": 6,
+        "book": "heretic"
+      },
+      {
+        "region": "kergus",
+        "face": 3,
+        "book": "heretic"
+      }
+    ]
+  },
+  "sameNewAndMerged": true,
+  "oldCreatureCount": 86,
+  "newCreatureCount": 89,
+  "mergedCreatureCount": 89
+}
