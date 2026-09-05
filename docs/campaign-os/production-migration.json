@@ -1,0 +1,40 @@
+{
+  "exportBytes": 29106,
+  "exportSha256": "1576ade6d8bca2642adc3ba5a8a495c4cb7e0fbd1d031cf427e36b601c888215",
+  "inputSchema": 5,
+  "outputSchema": 6,
+  "originalScalarLeaves": 445,
+  "changedOriginalPaths": [],
+  "missingOriginalPaths": [],
+  "addedPaths": [
+    "campaign.sessions",
+    "campaign.timeline",
+    "campaign.threads",
+    "campaign.rumors",
+    "campaign.relics",
+    "campaign.journalNotes",
+    "campaign.miseries",
+    "campaign.currentSessionId",
+    "campaign.campaignDay"
+  ],
+  "counts": {
+    "characters": 1,
+    "dungeons": 2,
+    "rooms": 8,
+    "monsters": 1,
+    "npcs": 1,
+    "encounters": 1,
+    "monsterPlacements": 0,
+    "npcPlacements": 1,
+    "encounterPlacements": 1,
+    "allOwnedIds": 32
+  },
+  "backupByteExact": true,
+  "originalKeyUnchanged": true,
+  "importMatchesStorageMigration": true,
+  "reloadMatches": true,
+  "cloneIdsAllFresh": true,
+  "cloneIdsUnique": true,
+  "relationIssues": [],
+  "backupFailureStopsCommit": true
+}

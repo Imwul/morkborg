@@ -1,3 +1,14 @@
+import {
+  chronicleSchemaFields,
+  hiddenInformationSchema,
+  dungeonPlayStateSchema,
+  roomPlayStateSchema,
+  placementPlayStateSchema,
+} from './chronicleSchema';
+import {
+  chronicleRelationIssues,
+  chronicleIds,
+} from '../domain/chronicleOperations';
 import { z } from 'zod';
 import {
   REGION_IDS,
@@ -127,6 +138,8 @@ const monster = z.object({
 });
 const monsterTarget = z.object({ dungeonId: uuid, roomId: uuid.nullable() });
 const monsterPlacement = monsterTarget.extend({
+  ...hiddenInformationSchema,
+  playState: placementPlayStateSchema.optional(),
   id: uuid,
   monsterId: uuid,
   quantity: z.number().int().min(1).max(999999),
@@ -151,6 +164,8 @@ const sourceReference = z.object({
   entryId: text.nullable().optional(),
 });
 const contentPlacement = monsterTarget.extend({
+  ...hiddenInformationSchema,
+  playState: placementPlayStateSchema.optional(),
   id: uuid,
   entityId: uuid,
   quantity: z.number().int().min(1).max(999999),
@@ -170,6 +185,8 @@ const encounterCategory = z.enum([
   'discovery',
 ]);
 const npc = z.object({
+  ...hiddenInformationSchema,
+  status: z.enum(['alive', 'dead']).optional(),
   campaignId: uuid,
   region: z.enum(REGION_IDS).optional(),
   personality: text,
@@ -183,6 +200,7 @@ const npc = z.object({
   specialAbility: text.default(''),
 });
 const encounter = z.object({
+  ...hiddenInformationSchema,
   ...base,
   ...fields('encounters'),
   campaignId: uuid,
@@ -200,6 +218,8 @@ const refs = {
   encounterIds: z.array(uuid),
 };
 const room = z.object({
+  ...hiddenInformationSchema,
+  playState: roomPlayStateSchema.optional(),
   ...provenance,
   id: uuid,
   notes: text,
@@ -207,6 +227,8 @@ const room = z.object({
   ...Object.fromEntries(roomFields.map((f) => [f.key, text])),
 });
 const dungeon = z.object({
+  ...hiddenInformationSchema,
+  playState: dungeonPlayStateSchema.optional(),
   ...provenance,
   id: uuid,
   campaignId: uuid,
@@ -226,6 +248,7 @@ const selection = z.object({
   encounters: uuid.nullable(),
 });
 const campaign = z.object({
+  ...chronicleSchemaFields,
   mythic: mythicStateSchema.optional(),
   id: uuid,
   title: text.min(1),
@@ -250,7 +273,19 @@ const campaign = z.object({
     encounters: encounter.nullable(),
   }),
   workspace: z.object({
+    sessionId: uuid.nullable().optional(),
+    chronicleId: uuid.nullable().optional(),
+    playDungeonId: uuid.nullable().optional(),
+    playRoomId: uuid.nullable().optional(),
     section: z.enum([
+      'sessions',
+      'timeline',
+      'threads',
+      'rumors',
+      'relics',
+      'journal',
+      'play',
+      'procedures',
       'overview',
       'characters',
       'dungeons',
@@ -306,6 +341,7 @@ export function validateCampaign(input: unknown): Campaign {
   }
   const c = parsed.data as unknown as Campaign;
   const all = [
+    ...chronicleIds(c),
     c.id,
     ...[...c.dungeons, ...(c.dungeonDraft ? [c.dungeonDraft] : [])].flatMap(
       (d) => [d.id, ...d.rooms.map((r) => r.id)],
@@ -363,6 +399,9 @@ export function validateCampaign(input: unknown): Campaign {
     for (const e of [...c[kind], ...(c.drafts[kind] ? [c.drafts[kind]!] : [])])
       if (e.campaignId !== c.id)
         throw new Error('Content belongs to another campaign.');
+  const chronicleIssues = chronicleRelationIssues(c);
+  if (chronicleIssues.length)
+    throw new Error('Invalid chronicle relation: ' + chronicleIssues[0]);
   const contentIssues = contentRelationIssues(c);
   if (contentIssues.length)
     throw new Error('Invalid content relation: ' + contentIssues[0]);
@@ -475,6 +514,7 @@ export function validateSave(input: unknown): AppSave {
         z.literal(3),
         z.literal(4),
         z.literal(5),
+        z.literal(6),
       ]),
       campaigns: z.array(z.unknown()),
       mythic: mythicStateSchema.optional(),
@@ -484,7 +524,7 @@ export function validateSave(input: unknown): AppSave {
     .safeParse(input);
   if (!shape.success)
     throw new Error(
-      'Unsupported or damaged save file. Expected schema version 1, 2, 3, 4 or 5.',
+      'Unsupported or damaged save file. Expected schema version 1, 2, 3, 4, 5 or 6.',
     );
   const campaigns = shape.data.campaigns.map(validateCampaign);
   const all = campaigns.map((c) => c.id);
@@ -493,7 +533,7 @@ export function validateSave(input: unknown): AppSave {
   if (shape.data.activeCampaignId && !all.includes(shape.data.activeCampaignId))
     throw new Error('Active campaign is missing.');
   return {
-    schemaVersion: 5,
+    schemaVersion: 6,
     ...(shape.data.mythic ? { mythic: shape.data.mythic } : {}),
     campaigns,
     activeCampaignId: shape.data.activeCampaignId,
@@ -514,10 +554,11 @@ export function parseImport(raw: string): Campaign[] {
       value.schemaVersion !== 2 &&
       value.schemaVersion !== 3 &&
       value.schemaVersion !== 4 &&
-      value.schemaVersion !== 5)
+      value.schemaVersion !== 5 &&
+      value.schemaVersion !== 6)
   )
     throw new Error(
-      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3, 4 또는 5 JSON을 사용하세요.',
+      '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3, 4, 5 또는 6 JSON을 사용하세요.',
     );
   if ('campaign' in value) return [validateCampaign(value.campaign)];
   const save = validateSave(value);

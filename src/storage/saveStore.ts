@@ -5,6 +5,7 @@ import { applyCampaignEdit, updateWorkspace } from '../domain/operations';
 import {
   STORAGE_KEY,
   PREVIOUS_STORAGE_KEY,
+  V4_STORAGE_KEY,
   V2_STORAGE_KEY,
   V3_STORAGE_KEY,
   LEGACY_STORAGE_KEY,
@@ -42,6 +43,7 @@ try {
     recovery =
       localAdapter.read() ??
       localStorage.getItem(PREVIOUS_STORAGE_KEY) ??
+      localStorage.getItem(V4_STORAGE_KEY) ??
       localStorage.getItem(V3_STORAGE_KEY) ??
       localStorage.getItem(V2_STORAGE_KEY) ??
       localStorage.getItem(LEGACY_STORAGE_KEY);

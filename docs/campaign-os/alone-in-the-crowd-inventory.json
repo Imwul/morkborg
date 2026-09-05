@@ -1,0 +1,536 @@
+[
+  {
+    "id": "aitc.city-crawl-failure",
+    "title": "City Crawl — Failure",
+    "dice": "d4",
+    "entries": 3,
+    "pdfPage": 7,
+    "printedPage": 5,
+    "rollable": true
+  },
+  {
+    "id": "aitc.directions-reaction",
+    "title": "Get Directions — Weak Hit Reaction",
+    "dice": "2d6",
+    "entries": 4,
+    "pdfPage": 7,
+    "printedPage": 5,
+    "rollable": true
+  },
+  {
+    "id": "aitc.pray-strong",
+    "title": "Pray — Strong Hit",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 7,
+    "printedPage": 5,
+    "rollable": true
+  },
+  {
+    "id": "aitc.pray-failure",
+    "title": "Pray — Failure",
+    "dice": "d6",
+    "entries": 3,
+    "pdfPage": 7,
+    "printedPage": 5,
+    "rollable": true
+  },
+  {
+    "id": "aitc.stash-weak",
+    "title": "Stash Item — Weak Hit",
+    "dice": "d6",
+    "entries": 3,
+    "pdfPage": 8,
+    "printedPage": 6,
+    "rollable": true
+  },
+  {
+    "id": "aitc.animals",
+    "title": "Animals",
+    "dice": "d8",
+    "entries": 8,
+    "pdfPage": 8,
+    "printedPage": 6,
+    "rollable": true
+  },
+  {
+    "id": "aitc.civic-buildings",
+    "title": "Civic Buildings",
+    "dice": "d6",
+    "entries": 6,
+    "pdfPage": 8,
+    "printedPage": 6,
+    "rollable": true
+  },
+  {
+    "id": "aitc.city-gate-reaction",
+    "title": "City Gate — Guards Reaction",
+    "dice": "d6",
+    "entries": 3,
+    "pdfPage": 8,
+    "printedPage": 6,
+    "rollable": true
+  },
+  {
+    "id": "aitc.festival-adjective",
+    "title": "Festivals — Adjective",
+    "dice": "d10",
+    "entries": 10,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.festival-subject",
+    "title": "Festivals — Subject",
+    "dice": "d10",
+    "entries": 10,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.gatherings",
+    "title": "Gatherings",
+    "dice": "d6",
+    "entries": 6,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.funeral-mourners",
+    "title": "Gatherings — Funeral Mourners",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.contest",
+    "title": "Gatherings — Contest",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.spectacle",
+    "title": "Gatherings — Spectacle",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.riot-complication",
+    "title": "Gatherings — Riot Complication",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 9,
+    "printedPage": 7,
+    "rollable": true
+  },
+  {
+    "id": "aitc.hazards",
+    "title": "Hazards",
+    "dice": "d6",
+    "entries": 6,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.holy-places-small",
+    "title": "Holy Places — Villages and Smaller",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.holy-places-large",
+    "title": "Holy Places — Cities and Larger",
+    "dice": "d6",
+    "entries": 6,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.interior-hovel",
+    "title": "Interior Locations — Hovel",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.interior-townhouse",
+    "title": "Interior Locations — Townhouse",
+    "dice": "d8",
+    "entries": 8,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.interior-mansion",
+    "title": "Interior Locations — Mansion",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": true
+  },
+  {
+    "id": "aitc.merchant-disposition",
+    "title": "Merchant Dispositions",
+    "dice": "2d6+Presence",
+    "entries": 6,
+    "pdfPage": 10,
+    "printedPage": 8,
+    "rollable": false
+  },
+  {
+    "id": "aitc.notable-artefact-type",
+    "title": "Notable Artefacts — Type",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.notable-artefact-concerning",
+    "title": "Notable Artefacts — Book/Manuscript Concerning",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.notable-artefact-composition",
+    "title": "Notable Artefacts — Depicting Composition",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.notable-artefact-adjective",
+    "title": "Notable Artefacts — Depicting Descriptor",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.notable-artefact-subject",
+    "title": "Notable Artefacts — Depicting Subject / Effect",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.sculpture-size",
+    "title": "Notable Artefacts — Sculpture Size",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.settlement-descriptor",
+    "title": "Settlement Descriptor",
+    "dice": "d20",
+    "entries": 20,
+    "pdfPage": 11,
+    "printedPage": 9,
+    "rollable": true
+  },
+  {
+    "id": "aitc.settlement-name-prefix",
+    "title": "Settlement Name — Prefix",
+    "dice": "d66",
+    "entries": 36,
+    "pdfPage": 12,
+    "printedPage": 10,
+    "rollable": true
+  },
+  {
+    "id": "aitc.settlement-name-suffix",
+    "title": "Settlement Name — Suffix",
+    "dice": "d66",
+    "entries": 36,
+    "pdfPage": 12,
+    "printedPage": 10,
+    "rollable": true
+  },
+  {
+    "id": "aitc.settlement-size",
+    "title": "Settlement Size",
+    "dice": "d20",
+    "entries": 6,
+    "pdfPage": 12,
+    "printedPage": 10,
+    "rollable": true
+  },
+  {
+    "id": "aitc.special-structures-small",
+    "title": "Special Structures — Villages and Smaller",
+    "dice": "d4",
+    "entries": 2,
+    "pdfPage": 12,
+    "printedPage": 10,
+    "rollable": true
+  },
+  {
+    "id": "aitc.special-structures-large",
+    "title": "Special Structures — Towns and Larger",
+    "dice": "d6",
+    "entries": 3,
+    "pdfPage": 12,
+    "printedPage": 10,
+    "rollable": true
+  },
+  {
+    "id": "aitc.taverns",
+    "title": "Taverns",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 13,
+    "printedPage": 11,
+    "rollable": true
+  },
+  {
+    "id": "aitc.unexpected-events",
+    "title": "Unexpected Events",
+    "dice": "d6",
+    "entries": 6,
+    "pdfPage": 13,
+    "printedPage": 11,
+    "rollable": true
+  },
+  {
+    "id": "aitc.falling-object",
+    "title": "Unexpected Events — Falling Object",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 13,
+    "printedPage": 11,
+    "rollable": true
+  },
+  {
+    "id": "aitc.hunting-party",
+    "title": "Unexpected Events — Hunting Party",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 13,
+    "printedPage": 11,
+    "rollable": true
+  },
+  {
+    "id": "aitc.businesses",
+    "title": "Businesses",
+    "dice": "d20",
+    "entries": 20,
+    "pdfPage": 14,
+    "printedPage": 12,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-encounters",
+    "title": "NPC Encounters",
+    "dice": "d66",
+    "entries": 31,
+    "pdfPage": [
+      15,
+      16
+    ],
+    "printedPage": "13–14",
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-musician",
+    "title": "NPC Encounter 13 — Musician",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-cursed-toy",
+    "title": "NPC Encounter 14 — Cursed Toy",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-prophet",
+    "title": "NPC Encounter 15 — Prophet",
+    "dice": "d6",
+    "entries": 3,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-soldier",
+    "title": "NPC Encounter 23 — Soldier Reaction Modifier",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-beggar",
+    "title": "NPC Encounter 24 — Beggar",
+    "dice": "d4",
+    "entries": 3,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-wound",
+    "title": "NPC Encounter 26 — Wounded Person",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 15,
+    "printedPage": 13,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-servant",
+    "title": "NPC Encounter 45 — Servant",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-mugger",
+    "title": "NPC Encounter 46 — Mugger",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-pilgrim",
+    "title": "NPC Encounter 51 — Pilgrim",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-imp",
+    "title": "NPC Encounter 53 — Demonologist’s Imp",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-fence-weapon",
+    "title": "NPC Encounter 55 — Fence Weapon",
+    "dice": "d4",
+    "entries": 3,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-poet",
+    "title": "NPC Encounter 56 — Poet",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-armour",
+    "title": "NPC Encounters — Default Armour",
+    "dice": "d2",
+    "entries": 2,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.npc-damage",
+    "title": "NPC Encounters — Default Damage",
+    "dice": "d4",
+    "entries": 3,
+    "pdfPage": 16,
+    "printedPage": 14,
+    "rollable": true
+  },
+  {
+    "id": "aitc.street-adjective",
+    "title": "Street Adjective",
+    "dice": "d20",
+    "entries": 20,
+    "pdfPage": 17,
+    "printedPage": 15,
+    "rollable": true
+  },
+  {
+    "id": "aitc.street-type",
+    "title": "Street Type",
+    "dice": "d12",
+    "entries": 12,
+    "pdfPage": 17,
+    "printedPage": 15,
+    "rollable": true
+  },
+  {
+    "id": "aitc.street-exits",
+    "title": "Street Exits",
+    "dice": "d4",
+    "entries": 4,
+    "pdfPage": 17,
+    "printedPage": 15,
+    "rollable": true
+  },
+  {
+    "id": "aitc.street-contents",
+    "title": "Street Contents",
+    "dice": "d12",
+    "entries": 11,
+    "pdfPage": 17,
+    "printedPage": 15,
+    "rollable": true
+  },
+  {
+    "id": "aitc.backtracking",
+    "title": "Backtracking",
+    "dice": "d8",
+    "entries": 3,
+    "pdfPage": 17,
+    "printedPage": 15,
+    "rollable": true
+  }
+]

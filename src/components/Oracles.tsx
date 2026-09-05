@@ -29,6 +29,8 @@ import {
   sourceLabel,
 } from '../generators/oracleRoller';
 import { editCampaign } from '../storage/saveStore';
+import { saveOracleEvent, linkToSession } from '../domain/chronicleOperations';
+import { captureContext } from './QuickCapture';
 import { loadOraclePack, useOracleRegistry } from '../storage/oracleStore';
 import { loadRules } from '../storage/rulesStore';
 import { scalarText } from '../generators/tables';
@@ -61,6 +63,7 @@ export function Oracles({
   }, [selectedId]);
   const [history, setHistory] = useState<OracleResult[]>([]),
     [result, setResult] = useState<OracleResult | null>(null);
+  const [savedEventId, setSavedEventId] = useState('');
   const [failure, setFailure] = useState(''),
     [includeSource, setIncludeSource] = useState(true);
   const destinations = campaign ? notesDestinations(campaign) : [];
@@ -460,9 +463,43 @@ export function Oracles({
               )}
               {result && (
                 <section className="oracle-send">
-                  <h3>결과를 노트에 남기기</h3>
+                  <h3>결과 기록</h3>
                   {campaign ? (
                     <>
+                      <Button
+                        className="btn primary"
+                        disabled={savedEventId === result.id}
+                        onClick={() => {
+                          try {
+                            editCampaign(campaign.id, (c) => {
+                              const event = saveOracleEvent(c, result);
+                              const contextLinks = captureContext(c);
+                              event.links.push(...contextLinks);
+                              if (event.sessionId)
+                                for (const link of contextLinks)
+                                  linkToSession(c, event.sessionId, link);
+                            });
+                            setSavedEventId(result.id);
+                            notify(
+                              campaign.currentSessionId
+                                ? '현재 세션에 사건을 저장했습니다.'
+                                : '캠페인 연대기에 사건을 저장했습니다.',
+                            );
+                          } catch (e) {
+                            setFailure(
+                              e instanceof Error
+                                ? e.message
+                                : '사건 저장에 실패했습니다.',
+                            );
+                          }
+                        }}
+                      >
+                        {savedEventId === result.id
+                          ? '사건 저장됨'
+                          : campaign.currentSessionId
+                            ? '세션 사건으로 저장'
+                            : '연대기에 사건 저장'}
+                      </Button>
                       <label>
                         기록할 곳
                         <select

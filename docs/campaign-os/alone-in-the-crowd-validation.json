@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "tables": 59,
+  "rollableTables": 58,
+  "referenceTables": 1,
+  "entries": 436,
+  "procedures": 6,
+  "exhaustiveDiceOutcomes": 483,
+  "followUpReferences": 165,
+  "registryIssues": [],
+  "dependencyErrors": [],
+  "checks": [
+    "Existing OraclePack Zod schema",
+    "Full dice-domain coverage without overlap",
+    "Unique stable IDs",
+    "Source book/pages",
+    "Canonical follow-up IDs",
+    "Procedure min/max roll paths",
+    "Independent Festival d10 columns",
+    "Printed settlement-size ranges and modifiers",
+    "NPC two-page d66 and 61–66 fallback",
+    "Twenty bounded Business cells",
+    "Presence-dependent merchant reference",
+    "Repeated Terrace entries retained",
+    "Conditional artefact branches",
+    "No publisher-connection material"
+  ]
+}

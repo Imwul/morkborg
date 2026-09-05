@@ -1,3 +1,4 @@
+import { pruneChronicleReferences } from './chronicleOperations';
 import type {
   Campaign,
   ContentKind,
@@ -211,6 +212,7 @@ export function deleteContent(
         (id) => id !== entityId,
       );
   syncContentRefs(c);
+  pruneChronicleReferences(c);
 }
 export function removeParticipantReferences(
   c: Campaign,

@@ -1,3 +1,9 @@
+import {
+  chronicleIds,
+  pruneChronicleReferences,
+  remapChronicle,
+  recordEvent,
+} from './chronicleOperations';
 import type {
   AppSave,
   Campaign,
@@ -6,9 +12,6 @@ import type {
   Assignment,
   Workspace,
   Character,
-  Monster,
-  NPC,
-  Encounter,
 } from './types';
 import {
   addMonsterPlacement,
@@ -161,6 +164,7 @@ export function cloneCampaign(
     if (c.workspace.selected[kind])
       c.workspace.selected[kind] = replace(c.workspace.selected[kind]!);
   }
+  remapChronicle(c, replace);
   return c;
 }
 export function cloneDungeon(source: Dungeon): Dungeon {
@@ -206,6 +210,7 @@ export function deleteEntity(
   if (c.drafts[kind]?.id === entityId) c.drafts[kind] = null;
   if (c.workspace.selected[kind] === entityId)
     c.workspace.selected[kind] = null;
+  pruneChronicleReferences(c);
 }
 export function removeAssignment(
   c: Campaign,
@@ -227,6 +232,7 @@ export function removeAssignment(
     );
     d.updatedAt = now();
     syncMonsterRefs(c);
+    pruneChronicleReferences(c);
     return;
   }
   const key = contentPlacementKey(kind);
@@ -240,6 +246,7 @@ export function removeAssignment(
   );
   d.updatedAt = now();
   syncContentRefs(c);
+  pruneChronicleReferences(c);
 }
 
 export function selectDungeonCandidate(c: Campaign, title: string): void {
@@ -262,6 +269,7 @@ export function selectDungeonCandidate(c: Campaign, title: string): void {
 
 export function campaignIds(c: Campaign): string[] {
   return [
+    ...chronicleIds(c),
     c.id,
     ...c.monsterPlacements.map((p) => p.id),
     ...c.npcPlacements.map((p) => p.id),
@@ -339,10 +347,17 @@ export function applyCampaignEdit(
   action: (campaign: Campaign) => void,
   timestamp = now(),
 ): void {
-  const content = (d: Dungeon | Character | Monster | NPC | Encounter) =>
+  const content = (d: { id: string; updatedAt: string }) =>
     JSON.stringify({ ...d, updatedAt: undefined });
   const before = new Map(
     [
+      ...c.sessions,
+      ...c.timeline,
+      ...c.threads,
+      ...c.rumors,
+      ...c.relics,
+      ...c.journalNotes,
+      ...c.miseries,
       ...c.dungeons,
       ...(c.dungeonDraft ? [c.dungeonDraft] : []),
       ...c.monsters,
@@ -355,8 +370,59 @@ export function applyCampaignEdit(
       ...(c.drafts.characters ? [c.drafts.characters] : []),
     ].map((d) => [d.id, content(d)]),
   );
+  const deathStates = new Map(
+    [...c.characters, ...c.npcs].map((entity) => [entity.id, entity.status]),
+  );
+  const priorSessions = new Map(
+    c.sessions.map((session) => [session.id, structuredClone(session)]),
+  );
+  const existingEvents = new Set(c.timeline.map((event) => event.id));
   action(c);
+  for (const kind of ['character', 'npc'] as const)
+    for (const entity of kind === 'character' ? c.characters : c.npcs) {
+      if (
+        deathStates.has(entity.id) &&
+        deathStates.get(entity.id) !== 'dead' &&
+        entity.status === 'dead' &&
+        !c.timeline.some(
+          (event) =>
+            !existingEvents.has(event.id) &&
+            event.type ===
+              (kind === 'character' ? 'character-death' : 'npc-death') &&
+            event.links.some(
+              (link) => link.kind === kind && link.id === entity.id,
+            ),
+        )
+      )
+        recordEvent(c, {
+          type: kind === 'character' ? 'character-death' : 'npc-death',
+          title: `${entity.name} died`,
+          links: [{ kind, id: entity.id, relation: 'died' }],
+        });
+    }
+  for (const session of c.sessions) {
+    const prior = priorSessions.get(session.id);
+    if (!prior) continue;
+    for (const event of c.timeline)
+      if (event.type === 'session' && event.sessionId === session.id) {
+        if (event.title === prior.title) {
+          event.title = session.title;
+          event.date = session.date;
+          event.inWorldDate = session.inWorldDate;
+        } else if (event.title === `${prior.title} — ended`) {
+          event.title = `${session.title} — ended`;
+          event.description = session.summary;
+        }
+      }
+  }
   for (const d of [
+    ...c.sessions,
+    ...c.timeline,
+    ...c.threads,
+    ...c.rumors,
+    ...c.relics,
+    ...c.journalNotes,
+    ...c.miseries,
     ...c.dungeons,
     ...(c.dungeonDraft ? [c.dungeonDraft] : []),
     ...c.monsters,

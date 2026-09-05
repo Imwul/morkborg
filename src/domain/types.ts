@@ -1,3 +1,10 @@
+import type {
+  ChronicleState,
+  HiddenInformation,
+  DungeonPlayState,
+  RoomPlayState,
+  PlacementPlayState,
+} from './chronicle';
 import type { MythicState } from './mythic';
 export const REGION_IDS = [
   'galgenbeck',
@@ -10,6 +17,14 @@ export const REGION_IDS = [
 ] as const;
 export type RegionId = (typeof REGION_IDS)[number];
 export type Section =
+  | 'sessions'
+  | 'timeline'
+  | 'threads'
+  | 'rumors'
+  | 'relics'
+  | 'journal'
+  | 'play'
+  | 'procedures'
   | 'overview'
   | 'characters'
   | 'dungeons'
@@ -105,13 +120,15 @@ export interface MonsterTarget {
   dungeonId: string;
   roomId: string | null;
 }
-export interface MonsterPlacement extends MonsterTarget {
+export interface MonsterPlacement extends MonsterTarget, HiddenInformation {
+  playState?: PlacementPlayState;
   id: string;
   monsterId: string;
   quantity: number;
   notes: string;
 }
-export interface NPC extends BaseEntity {
+export interface NPC extends BaseEntity, HiddenInformation {
+  status?: 'alive' | 'dead';
   campaignId: string;
   region?: RegionId;
   personality: string;
@@ -133,7 +150,7 @@ export interface NPC extends BaseEntity {
   damage: string;
   possession: string;
 }
-export interface Encounter extends BaseEntity {
+export interface Encounter extends BaseEntity, HiddenInformation {
   campaignId: string;
   region?: RegionId;
   category: EncounterCategory;
@@ -172,7 +189,8 @@ export interface EncounterParticipant {
   entityId: string;
   quantity: number;
 }
-export interface ContentPlacement extends MonsterTarget {
+export interface ContentPlacement extends MonsterTarget, HiddenInformation {
+  playState?: PlacementPlayState;
   id: string;
   entityId: string;
   quantity: number;
@@ -184,7 +202,8 @@ export interface Assignment {
   npcIds: string[];
   encounterIds: string[];
 }
-export interface DungeonRoom extends Assignment, Provenance {
+export interface DungeonRoom extends Assignment, Provenance, HiddenInformation {
+  playState?: RoomPlayState;
   id: string;
   name: string;
   description: string;
@@ -194,7 +213,8 @@ export interface DungeonRoom extends Assignment, Provenance {
   encounter: string;
   notes: string;
 }
-export interface Dungeon extends Assignment, Provenance {
+export interface Dungeon extends Assignment, Provenance, HiddenInformation {
+  playState?: DungeonPlayState;
   id: string;
   campaignId: string;
   title: string;
@@ -222,6 +242,10 @@ export interface EntityMap {
   encounters: Encounter;
 }
 export interface Workspace {
+  sessionId?: string | null;
+  chronicleId?: string | null;
+  playDungeonId?: string | null;
+  playRoomId?: string | null;
   section: Section;
   dungeonTab: DungeonTab;
   dungeonPreview?: boolean;
@@ -239,7 +263,7 @@ export interface Workspace {
   encounterCategory?: EncounterCategory | 'random';
   encounterDR?: number;
 }
-export interface Campaign {
+export interface Campaign extends ChronicleState {
   /** Added lazily to older v4 campaigns; absent means the standard Chaos5 defaults. */
   mythic?: MythicState;
   id: string;
@@ -264,7 +288,7 @@ export interface Campaign {
 export interface AppSave {
   /** Standalone Fate state when no campaign is open. */
   mythic?: MythicState;
-  schemaVersion: 5;
+  schemaVersion: 6;
   campaigns: Campaign[];
   activeCampaignId: string | null;
   view: 'campaigns' | 'campaign';

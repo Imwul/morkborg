@@ -1,0 +1,42 @@
+{
+  "browserWorkflow": "real UI export -> full-page navigation -> UI export -> UI paste import -> UI export",
+  "reloadByteExact": true,
+  "beforeSha256": "95b10708b8cfe76a0a45da6ac47cb7e663dc30ef8d13958dfc6be120a14ea2d0",
+  "exportBytes": 58271,
+  "counts": {
+    "characters": 2,
+    "dungeons": 2,
+    "rooms": 8,
+    "monsters": 1,
+    "npcs": 2,
+    "encounters": 1,
+    "sessions": 1,
+    "sessionEncounters": 1,
+    "events": 14,
+    "threads": 1,
+    "rumors": 1,
+    "relics": 1,
+    "miseries": 1
+  },
+  "importedCounts": {
+    "characters": 2,
+    "dungeons": 2,
+    "rooms": 8,
+    "monsters": 1,
+    "npcs": 2,
+    "encounters": 1,
+    "sessions": 1,
+    "sessionEncounters": 1,
+    "events": 14,
+    "threads": 1,
+    "rumors": 1,
+    "relics": 1,
+    "miseries": 1
+  },
+  "ownedIds": 69,
+  "allImportedIdsFresh": true,
+  "allImportedIdsUnique": true,
+  "importRelationIssues": [],
+  "oldLeavesCompared": 897,
+  "unexpectedChangedPaths": []
+}

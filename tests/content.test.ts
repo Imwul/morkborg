@@ -608,7 +608,7 @@ test('v4 migration preserves old NPC/Encounter text, sources, drafts, target and
   storage.setItem(PREVIOUS_STORAGE_KEY, raw);
   const migrated = loadStoredSave(storage).save,
     out = migrated.campaigns[0];
-  assert.equal(migrated.schemaVersion, 5);
+  assert.equal(migrated.schemaVersion, 6);
   assert.equal(out.encounters[0].text, 'Exact old encounter');
   assert.equal(out.encounters[0].sourceRefs[0].note, 'Original source');
   assert.equal(out.npcPlacements.length, 1);

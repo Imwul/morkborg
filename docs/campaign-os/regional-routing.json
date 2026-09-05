@@ -1,0 +1,197 @@
+{
+  "checkedOutcomes": 36,
+  "resolved": 27,
+  "unresolved": [
+    {
+      "region": "galgenbeck",
+      "roll": 5,
+      "oracleId": "depths.region.tveland.monsters",
+      "entryId": "depths.region.tveland.monsters:5-5",
+      "sourceName": "Mongrel",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "sarkash",
+      "roll": 5,
+      "oracleId": "depths.region.sarkash.monsters",
+      "entryId": "depths.region.sarkash.monsters:5-5",
+      "sourceName": "Mongrel",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "kergus",
+      "roll": 2,
+      "oracleId": "depths.region.kergus.monsters",
+      "entryId": "depths.region.kergus.monsters:2-2",
+      "sourceName": "Mongrel",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "kergus",
+      "roll": 3,
+      "oracleId": "depths.region.kergus.monsters",
+      "entryId": "depths.region.kergus.monsters:3-3",
+      "sourceName": "Fogbound Skeletons",
+      "printedCrossReference": "Feretory p. 23/GLW p. 9",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "source-reference-discrepancy"
+    },
+    {
+      "region": "kergus",
+      "roll": 4,
+      "oracleId": "depths.region.kergus.monsters",
+      "entryId": "depths.region.kergus.monsters:4-4",
+      "sourceName": "Dusk Gnoums",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "wastland",
+      "roll": 4,
+      "oracleId": "depths.region.wastland.monsters",
+      "entryId": "depths.region.wastland.monsters:4-4",
+      "sourceName": "Guards with Sharpened Teeth",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "wastland",
+      "roll": 5,
+      "oracleId": "depths.region.wastland.monsters",
+      "entryId": "depths.region.wastland.monsters:5-5",
+      "sourceName": "Mongrel",
+      "printedCrossReference": "Rotblack Sludge p. III",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "no-exact-loaded-preset"
+    },
+    {
+      "region": "valley-undead",
+      "roll": 5,
+      "oracleId": "depths.region.valley_unfortunate_undead.monsters",
+      "entryId": "depths.region.valley_unfortunate_undead.monsters:5-5",
+      "sourceName": "Fogbound Skeletons",
+      "printedCrossReference": "Feretory p. 23/GLW p. 9",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "source-reference-discrepancy"
+    },
+    {
+      "region": "valley-undead",
+      "roll": 6,
+      "oracleId": "depths.region.valley_unfortunate_undead.monsters",
+      "entryId": "depths.region.valley_unfortunate_undead.monsters:6-6",
+      "sourceName": "Rotted Skeletons",
+      "printedCrossReference": "Feretory p. 21/GLW p. 7",
+      "resolved": false,
+      "resolvedId": null,
+      "resolvedName": null,
+      "reasonCode": "source-reference-discrepancy"
+    }
+  ],
+  "perRegion": {
+    "galgenbeck": {
+      "resolved": 5,
+      "total": 6
+    },
+    "sarkash": {
+      "resolved": 5,
+      "total": 6
+    },
+    "graven-tosk": {
+      "resolved": 6,
+      "total": 6
+    },
+    "kergus": {
+      "resolved": 3,
+      "total": 6
+    },
+    "wastland": {
+      "resolved": 4,
+      "total": 6
+    },
+    "valley-undead": {
+      "resolved": 4,
+      "total": 6
+    }
+  },
+  "directSearch": {
+    "Meatroach": [
+      {
+        "id": "creature:feretory:feretory.epk.meatroach",
+        "title": "Meatroach",
+        "available": true,
+        "sourceRefs": [
+          {
+            "bookId": "feretory",
+            "bookTitle": "MÖRK BORG CULT: FERETORY",
+            "tableTitle": "Eat Prey Kill · Meatroach",
+            "pdfPage": 16,
+            "printedPage": 14,
+            "entryId": "feretory.epk.meatroach"
+          }
+        ],
+        "presetName": "Meatroach"
+      }
+    ],
+    "Prowler": [
+      {
+        "id": "creature:core:core.outcast.prowler",
+        "title": "Prowler · Outcast",
+        "available": true,
+        "sourceRefs": [
+          {
+            "bookId": "core",
+            "bookTitle": "MÖRK BORG BARE BONES EDITION",
+            "tableTitle": "Outcasts · Prowler · Outcast",
+            "pdfPage": 67,
+            "printedPage": 67,
+            "entryId": "core.outcast.prowler"
+          }
+        ],
+        "presetName": "Prowler"
+      }
+    ],
+    "Goblin": [
+      {
+        "id": "creature:core:58:seth",
+        "title": "Seth · Goblin",
+        "available": true,
+        "sourceRefs": [
+          {
+            "bookId": "core",
+            "bookTitle": "MÖRK BORG BARE BONES EDITION",
+            "tableTitle": "Seth · Goblin",
+            "pdfPage": 58,
+            "printedPage": 58,
+            "entryId": "creature:core:58:seth"
+          }
+        ],
+        "presetName": "Seth"
+      }
+    ]
+  },
+  "creatureEntries": 82
+}

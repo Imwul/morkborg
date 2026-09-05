@@ -340,6 +340,7 @@ export function Dungeons({
               </div>
             )}
           <DungeonSheet
+            campaign={c}
             dungeon={d}
             ready={!!rules.pack}
             patch={patch}

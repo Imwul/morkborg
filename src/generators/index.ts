@@ -1,3 +1,4 @@
+import { emptyChronicle } from '../domain/chronicle';
 import type {
   BaseEntity,
   Campaign,
@@ -386,6 +387,7 @@ export function createDungeonCandidate(
 }
 export function createCampaign(title: string, subtitle = ''): Campaign {
   return {
+    ...emptyChronicle(),
     id: id(),
     title,
     subtitle,

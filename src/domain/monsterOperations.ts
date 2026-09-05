@@ -1,3 +1,4 @@
+import { pruneChronicleReferences } from './chronicleOperations';
 import type {
   Campaign,
   Monster,
@@ -161,6 +162,7 @@ export function removeMonsterPlacement(c: Campaign, placementId: string): void {
   const d = c.dungeons.find((d) => d.id === p?.dungeonId);
   if (d) d.updatedAt = now();
   syncMonsterRefs(c);
+  pruneChronicleReferences(c);
 }
 export function cloneMonster(
   source: Monster,
@@ -196,6 +198,7 @@ export function deleteMonster(c: Campaign, monsterId: string): void {
     for (const a of [c.dungeonDraft, ...c.dungeonDraft.rooms])
       a.monsterIds = a.monsterIds.filter((id) => id !== monsterId);
   syncMonsterRefs(c);
+  pruneChronicleReferences(c);
 }
 export function materializeDraftMonsterRefs(
   c: Campaign,
@@ -236,6 +239,7 @@ export function deleteRoom(
     c.workspace.monsterTarget.roomId = null;
   syncMonsterRefs(c);
   syncContentRefs(c);
+  pruneChronicleReferences(c);
 }
 export function deleteDungeon(c: Campaign, dungeonId: string): void {
   for (const key of ['npcPlacements', 'encounterPlacements'] as const)
@@ -255,6 +259,7 @@ export function deleteDungeon(c: Campaign, dungeonId: string): void {
   }
   if (c.workspace.monsterTarget?.dungeonId === dungeonId)
     c.workspace.monsterTarget = null;
+  pruneChronicleReferences(c);
 }
 export function duplicateDungeon(c: Campaign, dungeonId: string) {
   const source = c.dungeons.find((d) => d.id === dungeonId);

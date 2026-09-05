@@ -115,7 +115,7 @@ test('v2 migration preserves existing characters, draft, dungeon rooms, selectio
   storage.setItem('morkborg-codex:pre-v2-backup', 'older backup');
   const result = loadStoredSave(storage);
   const migrated = result.save.campaigns[0];
-  assert.equal(result.save.schemaVersion, 5);
+  assert.equal(result.save.schemaVersion, 6);
   assert.deepEqual(migrated.dungeons, c.dungeons);
   assert.equal(migrated.characters[0].id, legacy.id);
   assert.equal(migrated.characters[0].className, legacy.archetype);

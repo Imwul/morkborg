@@ -627,7 +627,7 @@ test('v3 to v5 migration preserves prose and all existing records with exact bac
   const migrated = loadStoredSave(storage);
   const out = migrated.save.campaigns[0],
     mon = out.monsters[0];
-  assert.equal(migrated.save.schemaVersion, 5);
+  assert.equal(migrated.save.schemaVersion, 6);
   assert.equal(out.monsterPlacements.length, 2);
   assert.ok(
     out.monsterPlacements.every((p) => p.roomId !== null && p.quantity === 1),

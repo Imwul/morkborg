@@ -462,22 +462,19 @@ export function Characters({
         aria-label="캐릭터 전체 시트"
       >
         <header className="character-sheet-header">
-          <span>MÖRK BORG</span>
+          <span>
+            THE UNFORTUNATE
+            <br />
+            캐릭터 기록
+          </span>
           <h1>
-            Character Sheet<small>캐릭터 시트</small>
+            {selected.name || '이름 없는 자'}
+            <small>{selected.className || 'Character Sheet'}</small>
           </h1>
           <span>
             {saved ? '기록됨 · 자동 저장' : '주사위가 부른 자 · 생성 후보'}
           </span>
         </header>
-        <div className="character-sheet-persona">
-          {scalar({ key: 'name', label: 'Name · 이름' })}
-          {scalar({ key: 'className', label: 'Class · 직업' }, false)}
-          {scalar({ key: 'description', label: 'Description · 묘사' }, false)}
-          {items('traits')}
-          {items('background')}
-          {(selected.classFeatures?.length ?? 0) > 0 && items('classFeatures')}
-        </div>
         <aside className="character-sheet-spine">
           <div className="sheet-skull">
             <Skull size={68} strokeWidth={1.2} />
@@ -563,6 +560,14 @@ export function Characters({
             </select>
           </label>
         </aside>
+        <div className="character-sheet-persona">
+          {scalar({ key: 'name', label: 'Name · 이름' })}
+          {scalar({ key: 'className', label: 'Class · 직업' }, false)}
+          {scalar({ key: 'description', label: 'Description · 묘사' }, false)}
+          {items('traits')}
+          {items('background')}
+          {(selected.classFeatures?.length ?? 0) > 0 && items('classFeatures')}
+        </div>
         <div className="character-sheet-kit">
           {items('weapons')}
           {scalar({ key: 'armor', label: 'Armor · 방어구' })}

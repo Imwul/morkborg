@@ -1,0 +1,100 @@
+[
+  {
+    "actions": [
+      {
+        "height": 82,
+        "label": "ReactionORACLE · MÖRK BORG BARE BONES EDITIONROLL ↗",
+        "width": 265
+      },
+      {
+        "height": 82,
+        "label": "Reaction 고정 해제",
+        "width": 44
+      },
+      {
+        "height": 82,
+        "label": "RECLVSE · Action + ThemePROCEDURE · RECLVSE — A Solo Engine for Mörk BorgROLL ↗",
+        "width": 265
+      },
+      {
+        "height": 82,
+        "label": "RECLVSE · Action + Theme 고정 해제",
+        "width": 44
+      },
+      {
+        "height": 82,
+        "label": "Stock a Room · 조우 표 선택PROCEDURE · Sölitary DefilementOPEN ↗",
+        "width": 265
+      },
+      {
+        "height": 82,
+        "label": "Stock a Room · 조우 표 선택 고정",
+        "width": 44
+      },
+      {
+        "height": 82,
+        "label": "NPC · 단서 조합PROCEDURE · MÖRK BORG BARE BONES EDITIONROLL ↗",
+        "width": 265
+      },
+      {
+        "height": 82,
+        "label": "NPC · 단서 조합 고정",
+        "width": 44
+      },
+      {
+        "height": 101,
+        "label": "Alöne in the Crowd · 도시 도구PROCEDURE · Alöne in the CrowdOPEN ↗",
+        "width": 265
+      },
+      {
+        "height": 101,
+        "label": "Alöne in the Crowd · 도시 도구 고정",
+        "width": 44
+      },
+      {
+        "height": 101,
+        "label": "Reaction / Morale · 반응과 사기RULE · MÖRK BORG BARE BONES EDITIONOPEN ↗",
+        "width": 265
+      },
+      {
+        "height": 101,
+        "label": "Reaction / Morale · 반응과 사기 고정",
+        "width": 44
+      },
+      {
+        "height": 82,
+        "label": "ReactionORACLE · MÖRK BORG BARE BONES EDITIONROLL ↗",
+        "width": 265
+      },
+      {
+        "height": 82,
+        "label": "Reaction 고정 해제",
+        "width": 44
+      },
+      {
+        "height": 82,
+        "label": "RECLVSE · Action + ThemePROCEDURE · RECLVSE — A Solo Engine for Mörk BorgROLL ↗",
+        "width": 265
+      }
+    ],
+    "contentWidth": 345,
+    "scrollWidth": 345,
+    "viewport": 360
+  },
+  {
+    "contentWidth": 563,
+    "scrollWidth": 753,
+    "viewport": 768
+  },
+  {
+    "contentWidth": 1217,
+    "scrollWidth": 1425,
+    "viewport": 1440
+  },
+  {
+    "contentWidth": 1504,
+    "deskWidth": 1280,
+    "scrollWidth": 3440,
+    "viewport": 3440
+  }
+]
