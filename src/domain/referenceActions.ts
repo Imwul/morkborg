@@ -24,7 +24,7 @@ export function referenceAction(entry: ReferenceEntry) {
 const SHORT_NAMES: Record<string, string> = {
   'oracle:core.reaction': 'Reaction',
   'procedure:reclvse.action-theme': 'Action + Theme',
-  'procedure:workbench.stock-room': 'Stock Room',
+  'procedure:workbench.stock-room': 'Encounter Prep',
   'procedure:workbench.npc': 'NPC',
   'procedure:workbench.city': 'City',
   'rule:core.reaction-morale': 'Morale',

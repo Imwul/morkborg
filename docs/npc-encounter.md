@@ -1,5 +1,7 @@
 # NPC·Encounter Library와 배치 — 2026-09-04
 
+2026-09-05 추가: 던전별 Common 6 / Rare 6 고정 조우표가 구현되었습니다. 아래 초기 구현 기록의 여섯 칸 준비 미지원 항목은 [현재 조우표 동작](dungeon-encounters/README.md)으로 대체됩니다.
+
 Campaign 안에서 NPC·Encounter를 생성·편집·저장하고, 같은 정의를 여러 Dungeon/Room에 배치합니다. 기존 생성표는 Oracle Registry를 통해 읽으며 새 결과 문구나 NPC 전투 수치를 만들지 않습니다.
 
 ## 사용한 원문 표

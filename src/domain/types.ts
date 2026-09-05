@@ -214,6 +214,8 @@ export interface DungeonRoom extends Assignment, Provenance, HiddenInformation {
   notes: string;
 }
 export interface Dungeon extends Assignment, Provenance, HiddenInformation {
+  /** Fixed d6 faces prepared once for this dungeon; independent of room placements. */
+  encounterTables?: DungeonEncounterTables;
   playState?: DungeonPlayState;
   id: string;
   campaignId: string;
@@ -234,6 +236,12 @@ export interface Dungeon extends Assignment, Provenance, HiddenInformation {
   notes: string;
   createdAt: string;
   updatedAt: string;
+}
+export type DungeonEncounterKind = 'common' | 'rare';
+export interface DungeonEncounterTables {
+  common: (string | null)[];
+  rare: (string | null)[];
+  dungeonDR: number;
 }
 export interface EntityMap {
   characters: Character;

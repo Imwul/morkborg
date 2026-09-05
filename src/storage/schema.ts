@@ -227,6 +227,13 @@ const room = z.object({
   ...Object.fromEntries(roomFields.map((f) => [f.key, text])),
 });
 const dungeon = z.object({
+  encounterTables: z
+    .object({
+      common: z.array(uuid.nullable()).length(6),
+      rare: z.array(uuid.nullable()).length(6),
+      dungeonDR: z.number().int().min(6).max(14),
+    })
+    .optional(),
   ...hiddenInformationSchema,
   playState: dungeonPlayStateSchema.optional(),
   ...provenance,
@@ -414,6 +421,15 @@ export function validateCampaign(input: unknown): Campaign {
   ]) {
     if (d.campaignId !== c.id)
       throw new Error('Dungeon belongs to another campaign.');
+    if (d.encounterTables)
+      for (const ref of [
+        ...d.encounterTables.common,
+        ...d.encounterTables.rare,
+      ])
+        if (ref && !c.encounters.some((e) => e.id === ref))
+          throw new Error(
+            'Dungeon encounter table contains a missing encounter.',
+          );
     for (const target of [d, ...d.rooms])
       for (const kind of kinds) {
         const key =

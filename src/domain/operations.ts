@@ -146,6 +146,11 @@ export function cloneCampaign(
   ]) {
     d.id = replace(d.id);
     d.campaignId = c.id;
+    if (d.encounterTables)
+      for (const kind of ['common', 'rare'] as const)
+        d.encounterTables[kind] = d.encounterTables[kind].map((ref) =>
+          ref ? replace(ref) : null,
+        );
     reassign(d);
     for (const room of d.rooms) {
       room.id = replace(room.id);
@@ -168,6 +173,15 @@ export function cloneCampaign(
   return c;
 }
 export function cloneDungeon(source: Dungeon): Dungeon {
+  if (
+    source.encounterTables &&
+    [...source.encounterTables.common, ...source.encounterTables.rare].some(
+      Boolean,
+    )
+  )
+    throw new Error(
+      '준비된 조우표가 있는 던전은 duplicateDungeon으로 복제하세요.',
+    );
   const d = structuredClone(source);
   d.id = id();
   d.title += ' — copy';

@@ -51,6 +51,11 @@ import type { Confirm } from './Library';
 import { singular } from './Library';
 import { DungeonDraft } from './DungeonDraft';
 import { DungeonSheet } from './DungeonSheet';
+import {
+  DungeonEncounterTables,
+  DungeonEncounterRoller,
+  dungeonEncounterCount,
+} from './DungeonEncounterTables';
 export function Dungeons({
   campaign: c,
   create,
@@ -241,7 +246,7 @@ export function Dungeons({
                 rooms: '방',
                 monsters: '몬스터',
                 npcs: 'NPC',
-                encounters: '조우',
+                encounters: '조우표',
                 notes: '노트',
               }[t]
             }
@@ -253,7 +258,7 @@ export function Dungeons({
                   : t === 'npcs'
                     ? d.npcIds.length
                     : t === 'encounters'
-                      ? d.encounterIds.length
+                      ? `${dungeonEncounterCount(d)}/12`
                       : ''}
             </span>
           </Button>
@@ -385,6 +390,15 @@ export function Dungeons({
           dungeon={d}
           notify={notify}
           only="monsters"
+        />
+      )}
+      {tab === 'encounters' && (
+        <DungeonEncounterTables
+          key={d.id}
+          campaign={c}
+          dungeon={d}
+          confirm={confirm}
+          notify={notify}
         />
       )}
       {(['npcs', 'encounters'] as const).includes(tab as 'npcs') && (
@@ -592,6 +606,12 @@ function Rooms({
                 />
               ))}
             </div>
+            <DungeonEncounterRoller
+              key={`encounter-roll:${selected.id}`}
+              campaign={c}
+              dungeon={d}
+              roomId={selected.id}
+            />
             <RoomContents
               key={selected.id}
               campaign={c}

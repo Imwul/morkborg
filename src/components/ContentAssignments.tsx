@@ -212,7 +212,13 @@ export function RoomContents({
       }
     >
       <div className="section-title">
-        <h2>{only ? contentLabels[only] : 'Contents'}</h2>
+        <h2>
+          {only === 'encounters'
+            ? '배치한 조우'
+            : only
+              ? contentLabels[only]
+              : 'Contents'}
+        </h2>
         <Button
           className="btn small"
           onClick={() => {

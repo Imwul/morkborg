@@ -316,7 +316,7 @@ const RULES: RuleSeed[] = [
     id: 'sd.stockCommon',
     title: 'Common Encounters · 일반 조우 준비',
     summary:
-      'SD의 예시는 일반 조우 여섯 칸을 Stock Creatures d12로 준비합니다. Depths PDF 24 / p. 21은 해당 지역 Monsters d6를 대안으로 제시합니다.',
+      '던전마다 Common 여섯 칸을 준비해 고정하고, 조우 시 d6로 선택합니다. SD의 예시는 Stock Creatures d12로 각 칸을 준비합니다. Depths PDF 24 / p. 21은 지역 Monsters d6를 준비 대안으로 제시합니다.',
     book: 'sd',
     pages: [19],
     contexts: ['dungeon', 'monster'],
@@ -326,7 +326,7 @@ const RULES: RuleSeed[] = [
     id: 'sd.stockRare',
     title: 'Rare Encounters · 희귀 조우 준비',
     summary:
-      'Stock Creatures에 d8 + Dungeon DR. 표를 넘는 결과의 처리 규칙은 원문에 명시되어 있지 않습니다.',
+      '던전마다 Rare 여섯 칸을 Stock Creatures d8 + Dungeon DR로 준비해 고정하고, 조우 시 d6로 선택합니다. 준비 굴림이 원문 표 범위를 넘으면 직접 확인합니다.',
     book: 'sd',
     pages: [19],
     contexts: ['dungeon', 'monster'],
@@ -632,10 +632,10 @@ export function buildReferenceRegistry(
   const workbench = [
     {
       id: 'workbench.stock-room',
-      title: 'Stock a Room · 조우 표 선택',
+      title: 'Encounter Candidate · 조우 후보 준비',
       contexts: ['room', 'dungeon'] as ReferenceContext[],
       summary:
-        'Common: 지역 Monsters d6 또는 SD Stock Creatures d12. Rare: SD d8+DR. Room: RECLVSE roomEncounter. 변형을 직접 선택합니다.',
+        '준비할 후보 하나를 생성합니다. Common: 지역 Monsters d6 또는 SD Stock Creatures d12. Rare: SD d8+DR. Room: RECLVSE roomEncounter. 던전에서는 Common 6 / Rare 6을 먼저 고정한 뒤 저장된 표를 d6로 조회합니다.',
       ids: ['sd.stockCreatures', 'reclvse.roomEncounter'],
       related: ['rule:sd.stockCommon', 'rule:sd.stockRare'],
       next: ['procedure:workbench.npc', 'oracle:core.reaction'],

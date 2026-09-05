@@ -64,12 +64,6 @@ export function DungeonSheet({
       </div>
       <div className="dungeon-dossier-lead">
         <div className="dossier-premise">{dungeonField(premise)}</div>
-        <div className="dossier-colophon" aria-hidden="true">
-          <span className="dossier-sigil">
-            <i />
-          </span>
-          <span>HERE THE RECORD DARKENS</span>
-        </div>
       </div>
       <div className="sheet-dungeon-fields">
         {dungeonFields

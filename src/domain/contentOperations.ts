@@ -205,6 +205,19 @@ export function deleteContent(
     c.workspace.selected[kind] = null;
   c[key] = c[key].filter((p) => p.entityId !== entityId);
   if (kind === 'npcs') removeParticipantReferences(c, 'npc', entityId);
+  if (kind === 'encounters')
+    for (const d of [
+      ...c.dungeons,
+      ...(c.dungeonDraft ? [c.dungeonDraft] : []),
+    ])
+      if (d.encounterTables)
+        for (const category of ['common', 'rare'] as const)
+          if (d.encounterTables[category].includes(entityId)) {
+            d.encounterTables[category] = d.encounterTables[category].map(
+              (ref) => (ref === entityId ? null : ref),
+            );
+            d.updatedAt = now();
+          }
   for (const d of c.dungeons) if (affected.has(d.id)) d.updatedAt = now();
   if (c.dungeonDraft)
     for (const a of [c.dungeonDraft, ...c.dungeonDraft.rooms])

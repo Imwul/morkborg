@@ -972,9 +972,11 @@ export function ReferenceSearchButton() {
 export function ContextReferences({
   context,
   region,
+  onDungeonEncounters,
 }: {
   context: ContextKind;
   region?: RegionId;
+  onDungeonEncounters?: () => void;
 }) {
   const desk = useReferenceDesk();
   const entries = desk?.contextual(context, region) ?? [];
@@ -985,9 +987,15 @@ export function ContextReferences({
       {entries.map((entry) => (
         <button
           key={entry.id}
-          onClick={() => desk?.activate(entry.id, isOneClick(entry), region)}
+          onClick={() =>
+            entry.id === 'procedure:workbench.stock-room' && onDungeonEncounters
+              ? onDungeonEncounters()
+              : desk?.activate(entry.id, isOneClick(entry), region)
+          }
         >
-          {entry.title}
+          {entry.id === 'procedure:workbench.stock-room' && onDungeonEncounters
+            ? '던전 조우표 · Common 6 / Rare 6'
+            : entry.title}
         </button>
       ))}
     </div>
@@ -1018,9 +1026,6 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
           <em>주사위를 굴려.</em>
         </h1>
         <p>Oracle, 생물, 규칙, 다음 표까지. 기록은 당신의 종이에.</p>
-        <span className="desk-sigil" aria-hidden="true">
-          ✳
-        </span>
       </header>
       <form
         className="desk-search"

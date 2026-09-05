@@ -13,7 +13,7 @@ import {
   setPlacementState,
   linkToSession,
 } from '../domain/chronicleOperations';
-import { editCampaign } from '../storage/saveStore';
+import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { Backlinks } from './ChronicleLinks';
 import { VisibilityFields, stateLabels } from './ChronicleFields';
 
@@ -186,6 +186,16 @@ export function ObjectPlayTools({ campaign: c }: { campaign: Campaign }) {
   return (
     <>
       <ContextReferences
+        onDungeonEncounters={
+          d
+            ? () =>
+                changeWorkspace(c.id, {
+                  section: 'dungeons',
+                  dungeonId: d.id,
+                  dungeonTab: 'encounters',
+                })
+            : undefined
+        }
         context={
           link.kind === 'encounter'
             ? 'room'

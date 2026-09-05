@@ -6,6 +6,7 @@ import type {
   MonsterTarget,
 } from './types';
 import {
+  cloneContent,
   removeParticipantReferences,
   syncContentRefs,
 } from './contentOperations';
@@ -272,6 +273,20 @@ export function duplicateDungeon(c: Campaign, dungeonId: string) {
     updatedAt: now(),
   });
   const roomMap = new Map<string, string>();
+  const encounterMap = new Map<string, string>();
+  if (d.encounterTables)
+    for (const kind of ['common', 'rare'] as const)
+      d.encounterTables[kind] = d.encounterTables[kind].map((ref) => {
+        if (!ref) return null;
+        if (!encounterMap.has(ref)) {
+          const original = c.encounters.find((e) => e.id === ref);
+          if (!original) throw new Error('복제할 조우표의 항목이 없습니다.');
+          const copy = cloneContent(original);
+          c.encounters.push(copy);
+          encounterMap.set(ref, copy.id);
+        }
+        return encounterMap.get(ref)!;
+      });
   for (const r of d.rooms) {
     const next = id();
     roomMap.set(r.id, next);
@@ -293,6 +308,10 @@ export function duplicateDungeon(c: Campaign, dungeonId: string) {
           ...structuredClone(p),
           id: id(),
           dungeonId: d.id,
+          entityId:
+            key === 'encounterPlacements'
+              ? (encounterMap.get(p.entityId) ?? p.entityId)
+              : p.entityId,
           roomId: p.roomId ? roomMap.get(p.roomId)! : null,
         })),
     );

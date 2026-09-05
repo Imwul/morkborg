@@ -400,9 +400,7 @@ select:focus-visible {
   letter-spacing: 0;
 }
 .dungeon-dossier-lead {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 145px;
-  gap: 28px;
+  display: block;
   padding: 8px 0 22px;
   border-bottom: var(--rule-heavy);
 }
@@ -417,50 +415,6 @@ select:focus-visible {
 }
 .dossier-premise .field-label label {
   font: 12px var(--font-ui);
-}
-.dossier-colophon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  border-left: var(--rule-thin);
-  color: var(--muted-ink);
-  font: 8px/1.5 var(--font-mono);
-  text-align: center;
-  letter-spacing: 0.08em;
-}
-/* Original abstract ink mark; no borrowed illustration or religious insignia. */
-.dossier-sigil {
-  position: relative;
-  display: block;
-  width: 54px;
-  height: 60px;
-}
-.dossier-sigil::before {
-  content: '';
-  position: absolute;
-  inset: 6px 5px;
-  border: 2px solid var(--ink);
-  border-radius: 48% 42% 51% 43%;
-  transform: rotate(-19deg);
-}
-.dossier-sigil::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 68px;
-  left: 27px;
-  top: -4px;
-  background: var(--ink);
-  transform: rotate(24deg);
-}
-.dossier-sigil i {
-  position: absolute;
-  inset: 20px 0;
-  border-top: 4px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-  transform: rotate(-14deg);
 }
 .sheet-dungeon-fields {
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2138,13 +2092,6 @@ ol.ledger-list {
   .dungeon-workbench .title-input {
     font-size: 60px !important;
   }
-  .dungeon-dossier-lead {
-    grid-template-columns: minmax(0, 1fr) 90px;
-    gap: 18px;
-  }
-  .dossier-colophon > span:last-child {
-    display: none;
-  }
   .sheet-dungeon-fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0 20px;
@@ -2401,9 +2348,6 @@ ol.ledger-list {
   .dungeon-dossier-lead {
     display: block;
     padding-bottom: 18px;
-  }
-  .dossier-colophon {
-    display: none;
   }
   .dossier-premise .field-value {
     font-size: 24px;

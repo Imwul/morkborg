@@ -7,7 +7,7 @@
 }
 .desk-heading {
   position: relative;
-  padding: 18px 170px 20px 0;
+  padding: 18px 0 20px;
   border-top: var(--rule-heavy, 5px solid #13130e);
 }
 .desk-heading h1 {
@@ -29,16 +29,6 @@
 .desk-heading p {
   margin: 14px 0 0;
   font-size: 15px;
-}
-.desk-sigil {
-  position: absolute;
-  right: 32px;
-  top: 20px;
-  font-family: serif;
-  font-size: 130px;
-  line-height: 1;
-  transform: rotate(-9deg);
-  pointer-events: none;
 }
 .desk-search {
   margin: 10px 0 30px;
@@ -514,13 +504,6 @@
     border-top: 4px solid var(--ink);
     padding: 20px 0 0;
   }
-  .desk-heading {
-    padding-right: 110px;
-  }
-  .desk-sigil {
-    right: 0;
-    font-size: 95px;
-  }
   .reference-dock {
     left: 18px;
   }
@@ -532,9 +515,6 @@
   .desk-heading h1 {
     font-size: 40px;
     margin: 15px 0 20px;
-  }
-  .desk-sigil {
-    display: none;
   }
   .desk-heading p {
     font-size: 14px;
