@@ -51,6 +51,26 @@
   cursor: pointer;
   font-weight: 700;
 }
+.crawl-special-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 0.4rem 0 0.6rem;
+}
+.crawl-special-block {
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  padding: 0.55rem;
+  background: color-mix(in srgb, var(--foreground, #ecebdd) 8%, transparent);
+}
+.crawl-special-block h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.74rem;
+  opacity: 0.8;
+}
+.crawl-special-block p {
+  margin: 0.22rem 0;
+  white-space: pre-line;
+}
 .crawl-preparation p {
   white-space: pre-line;
 }
@@ -111,8 +131,8 @@
   margin-top: 0.5rem;
   opacity: 0.65;
 }
-.crawl-next:empty {
-  display: none;
+.crawl-next {
+  margin-top: 1.2rem;
 }
 .crawl-danger {
   border-color: #c76170;

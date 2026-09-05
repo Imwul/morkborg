@@ -109,13 +109,15 @@ export function cityCrawlMoveReading(
     table && follow ? selectOracleEntry(table, follow.roll) : undefined;
   const links = oracleFollowUpLinks(entry?.metadata);
   return {
-    title: result.mode === 'derive' ? 'Dérive' : 'City Crawl',
+    title: result.mode === 'derive' ? 'Dérive' : '도시 크롤',
     blocks: [
       {
         title:
           result.outcome === 'fail'
-            ? 'MISS'
-            : `${result.outcome.toUpperCase()} HIT`,
+            ? '실패'
+            : result.outcome === 'strong'
+              ? '강한 성공'
+              : '약한 성공',
         text: result.description,
         dice: `2d20 [${result.diceValues.join(', ')}] + ${result.modifier} → [${result.modifiedValues.join(', ')}] vs DR${result.dr}`,
       },
@@ -155,7 +157,7 @@ function createStreet(
     phase: 'scene',
     streetNumber: state.streetNumber + 1,
     reading: {
-      title: `STREET ${String(state.streetNumber + 1).padStart(2, '0')}`,
+      title: `거리 ${String(state.streetNumber + 1).padStart(2, '0')}`,
       blocks: result.rolls.map((roll) => ({
         title: roll.title,
         text: oracleReadingText(roll),
@@ -216,17 +218,17 @@ export function startCityCrawl(
     config: { ...config },
     phase: 'ready',
     streetNumber: 0,
-    reading: { title: 'City Crawl', blocks: [], sourceRefs: [] },
+    reading: { title: '도시 크롤', blocks: [], sourceRefs: [] },
   };
   if (config.mode === 'micro') {
     const count = rollMicroCrawl(rng);
     state.totalStreets = count.streets;
     state.setup = {
-      title: 'Micro-crawl',
+      title: '마이크로 크롤',
       blocks: [
         {
           title: `${count.streets}개 거리`,
-          text: '거리의 상황을 해결한 뒤 다음 거리로 이동합니다. City Crawl Move는 굴리지 않습니다.',
+          text: '거리의 상황을 해결한 뒤 다음 거리로 이동합니다. 도시 크롤 판정은 굴리지 않습니다.',
           dice: `d4 = ${count.roll}`,
         },
       ],

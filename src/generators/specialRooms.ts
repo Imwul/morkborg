@@ -8,13 +8,17 @@ import { id, weightedPick, random, type RandomSource } from './random';
 
 const roles = ['변질된 경계', '금기의 흔적', '대가의 문턱', '심장부'];
 function textOf(entry: RuleEntry, rng: RandomSource): string {
+  const label =
+    typeof entry.meta?.ko === 'string' && entry.meta.ko.trim().length
+      ? entry.meta.ko
+      : entry.text;
   const continuation = entry.followup?.length
     ? weightedPick(
         entry.followup.map((value) => ({ value, weight: value.weight })),
         rng,
       )
     : undefined;
-  return entry.text + (continuation ? ': ' + textOf(continuation, rng) : '');
+  return label + (continuation ? ': ' + textOf(continuation, rng) : '');
 }
 function emptyRoom(): DungeonRoom {
   return {
@@ -56,7 +60,7 @@ function specialRoom(
       .filter(
         (item) =>
           !used.has(item.key) &&
-          (used.size % 2 === 0 || Number(item.entry.meta.d4) >= 3),
+          (used.size % 2 === 0 || Number(item.entry.meta?.d4) >= 3),
       );
     const chosen = weightedPick(
       candidates.map((value) => {
@@ -103,15 +107,24 @@ function specialRoom(
       )
     : undefined;
   const regional = regionalEntry
-    ? { value: textOf(regionalEntry, rng), source: sourceCitation(localTable) }
+    ? {
+        value: textOf(regionalEntry, rng),
+        source: sourceCitation(localTable),
+      }
     : null;
   const regionalTexture = regional
     ? String(regional.value)
     : regionById(d.region).description;
   const room = emptyRoom();
-  const primary = details[1].entry.meta.ko;
-  room.name = `${typeof primary === 'string' ? primary : details[1].entry.text} · ${roles[index]}`;
-  room.description = details.map((item) => item.text).join('\n\n');
+  const primary = details[1].entry.meta?.ko;
+  const primaryName =
+    typeof primary === 'string' && primary.trim().length
+      ? primary
+      : details[1].entry.text;
+  room.name = `${roles[index]} · ${primaryName}`;
+  room.description = details
+    .map((item, lineIndex) => `단서 ${lineIndex + 1}: ${item.text}`)
+    .join('\n\n');
   // Connecting prose is an editable application interpretation, never attributed as a printed result.
   const anchors = [
     d.distinctiveFeature || d.formerPurpose,
@@ -120,12 +133,12 @@ function specialRoom(
     d.premise || d.motive,
   ];
   const bindings = [
-    `이 경계의 두 흔적은 던전의 성격인 “${anchors[0]}”가 침식한 결과다.`,
-    `두 흔적은 “${anchors[1]}”가 이곳에서 행한 금기의 증거다.`,
-    `두 흔적 사이에서 “${anchors[2]}”가 모습을 드러낸다. 대가나 우회로는 상황에 맞게 해석한다.`,
-    `두 흔적이 맞물린 중심에서 “${anchors[3]}”의 진상이 드러난다.`,
+    `던전의 성격인 “${anchors[0]}”에 맞는 두 단서입니다.`,
+    `“${anchors[1]}”의 기운이 여기에서 두드러집니다.`,
+    `위험 신호는 “${anchors[2]}” 쪽으로 드러납니다.`,
+    `이 방의 중심부는 “${anchors[3]}”의 결말로 이동합니다.`,
   ];
-  room.feature = `${d.title} · ${regionById(d.region).name}\n지역의 흔적: ${regionalTexture}\n${bindings[index]}`;
+  room.feature = `${d.title} · ${regionById(d.region).name}\n지역의 흔적: ${regionalTexture}\n${bindings[index % bindings.length]}`;
   room.specialDetailIds = details.map((item) => item.key);
   room.sources = {
     name: '앱 해석 · 원문 방의 단서에서 이름 구성',
@@ -134,7 +147,7 @@ function specialRoom(
       ' · 서로 다른 단서 2개 · 준비된 네 방 전체에서 중복 제외',
     feature:
       (regional ? regional.source + ' · 지역의 흔적\n' : '') +
-      '앱 해석 · 던전 제목·지역·성격에 연결한 편집 가능한 제안. DNGNGEN의 네 특별한 방 구성에서 착안; 원문의 추가 규칙이 아님.',
+      '앱 해석 · 던전 제목·지역·성격을 묶은 특수 방 제안. 원문 규칙이 아니라 탐색용 요약입니다.',
   };
   return room;
 }

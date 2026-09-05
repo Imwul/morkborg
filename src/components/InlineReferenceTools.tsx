@@ -13,6 +13,8 @@ import type { RegionId } from '../domain/types';
 import { SourceDisclosure } from './SourceDisclosure';
 import { useReferenceDesk } from './ReferenceContext';
 import { fixedReferenceReading } from '../domain/referenceFixedLookup';
+import { ReferenceReadingText } from './ReferenceReadingText';
+import { Translation } from './Translation';
 import './inline-reference-tools.css';
 
 export function ReferenceReadingBlock({
@@ -28,6 +30,14 @@ export function ReferenceReadingBlock({
   const [fallback, setFallback] = useState('');
   const { registry } = useOracleRegistry();
   const desk = useReferenceDesk();
+  const sourceRows = [
+    ...(reading.oracle?.rolls ?? []),
+    ...reading.sourceRefs.flatMap((ref) => {
+      const table = registry.tables.find((table) => table.id === ref.tableId);
+      const entry = table?.entries.find((entry) => entry.id === ref.entryId);
+      return entry ? [entry] : [];
+    }),
+  ];
   const [fixedResult, setFixedResult] = useState<{
     parent: ReferenceReading;
     reading: ReferenceReading;
@@ -60,7 +70,10 @@ export function ReferenceReadingBlock({
   return (
     <article className="inline-reading" aria-label={reading.title}>
       <header>
-        <h4>{reading.title}</h4>
+        <h4>
+          {reading.title}
+          <Translation text={reading.title} />
+        </h4>
         <div className="inline-actions">
           {onReroll && (
             <Button size="sm" variant="outline" onClick={onReroll}>
@@ -90,10 +103,20 @@ export function ReferenceReadingBlock({
           }
         >
           {block.title && block.title !== reading.title && (
-            <strong>{block.title}</strong>
+            <strong>
+              {block.title}
+              <Translation text={block.title} />
+            </strong>
           )}
           {block.dice && <small>{block.dice}</small>}
-          <p>{block.text}</p>
+          <ReferenceReadingText
+            text={block.text}
+            source={sourceRows.find(
+              (row) =>
+                block.text === row.text ||
+                block.text.startsWith(`${row.text}\n\n`),
+            )}
+          />
         </section>
       ))}
       {copyState && <output>{copyState}</output>}

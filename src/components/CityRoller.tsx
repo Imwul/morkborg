@@ -29,12 +29,12 @@ export type CityRollerMove =
   | 'settlement'
   | 'discovery';
 const moveLabels: Record<CityRollerMove, string> = {
-  crawl: 'City Crawl · 거리 탐색',
-  directions: 'Get Directions · 길 묻기',
-  pray: 'Pray · 기도',
-  stash: 'Stash Item · 숨긴 물건 회수',
-  merchant: '상인 반응 · 2d6 + Presence',
-  micro: 'Micro-crawl · d4 거리',
+  crawl: '도시 크롤 · 거리 탐색',
+  directions: '방향 찾기',
+  pray: '기도',
+  stash: '숨긴 물건 회수',
+  merchant: '상인 반응',
+  micro: '마이크로 크롤 · d4 거리',
   settlement: '정착지 규모 · Dérive 거리 수',
   discovery: '여행 중 정착지 발견 · 1-in-8',
 };
@@ -74,10 +74,10 @@ export function CityRoller({
     const followLinks = oracleFollowUpLinks(entry?.metadata);
     onReading({
       title: {
-        crawl: 'City Crawl',
-        directions: 'Get Directions',
-        pray: 'Pray',
-        stash: 'Stash Item',
+        crawl: '도시 크롤',
+        directions: '방향 찾기',
+        pray: '기도',
+        stash: '숨긴 물건 회수',
       }[result.move],
       blocks: [
         {
@@ -127,7 +127,7 @@ export function CityRoller({
       if (move === 'merchant') {
         const r = rollMerchantDisposition(modifier);
         onReading({
-          title: 'Merchant Disposition',
+          title: '상인 반응',
           blocks: [
             {
               title: r.description,
@@ -142,10 +142,10 @@ export function CityRoller({
       } else if (move === 'micro') {
         const r = rollMicroCrawl();
         onReading({
-          title: 'Micro-crawl',
+          title: '마이크로 크롤',
           blocks: [
             {
-              title: `${r.streets} STREETS`,
+              title: `${r.streets}개 거리`,
               text: '거리 묘사 표로 각 거리를 굴리세요. 거리 출구는 선택 사항입니다.',
               dice: `d4 = ${r.roll}`,
             },
@@ -155,7 +155,7 @@ export function CityRoller({
       } else if (move === 'discovery') {
         const r = encounterSettlementChance();
         onReading({
-          title: '정착지 발견 · 여행일마다',
+          title: '여행일 정착지 발견',
           blocks: [
             {
               title: r.description,
@@ -175,7 +175,7 @@ export function CityRoller({
         const size = rollOracle(table, registry),
           r = rollSettlementStreets(size.roll);
         onReading({
-          title: 'Settlement Size / Dérive',
+          title: '정착지 규모 / Dérive',
           blocks: [
             {
               title: size.text,
@@ -233,7 +233,7 @@ export function CityRoller({
                 if (e.target.value === 'derive') setDr(10);
               }}
             >
-              <option value="city">City Crawl · 목표 탐색</option>
+              <option value="city">도시 크롤 · 목표 탐색</option>
               <option value="derive">Dérive · 배회</option>
             </select>
           </label>
@@ -254,11 +254,17 @@ export function CityRoller({
         )}
         {(move in CITY_MOVE_DEFAULTS || move === 'merchant') && (
           <label>
-            {move === 'stash'
-              ? '현재 Omens'
-              : move === 'crawl'
-                ? '길 안내 보정'
-                : 'Presence 보정'}
+            {move === 'crawl'
+              ? '거리 탐색 보정'
+              : move === 'stash'
+                ? '현재 오멘'
+                : move === 'directions'
+                  ? '현재 존재치 보정'
+                  : move === 'pray'
+                    ? '기본 보정(+성소 효과)'
+                    : move === 'merchant'
+                      ? '상인 반응 보정'
+                      : '현재 존재치 보정'}
             <Input
               type="number"
               value={modifier}
@@ -303,7 +309,7 @@ export function CityRoller({
           모든 목표에 이미 도달함
         </label>
       )}
-      <Button onClick={run}>ROLL · {moveLabels[move].split(' · ')[0]}</Button>
+      <Button onClick={run}>주사위 굴리기 · {moveLabels[move]}</Button>
       {last?.metadata.directionsOptions &&
         !last.metadata.selectedDirections && (
           <div className="ref-related">
@@ -329,17 +335,17 @@ export function CityRoller({
         {allowedMoves.includes('crawl') ? (
           <>
             <p>
-              거리 사이 이동은 약 5분. City Crawl은 목표 달성 수에 따른 보정을
-              쓰지 않습니다. Dérive에서는 Strong·Weak Hit 모두 새 거리입니다.
-              실패한 상황은 해결한 뒤 새 거리를 굴리세요. Micro-crawl은 d4개
+              거리 사이 이동은 약 5분. 도시 크롤은 목표 달성 수에 따른 보정을
+              쓰지 않습니다. Dérive에서는 강한 성공·약한 성공 모두 새 거리입니다.
+              실패한 상황은 해결한 뒤 새 거리를 굴리세요. 마이크로 크롤은 d4개
               거리를 직접 생성합니다.
             </p>
             <p>능력치·보급·시간의 실제 변화는 직접 적용합니다.</p>
           </>
         ) : (
           <p>
-            길 묻기 DR12 Presence · 기도 DR14 Presence + 성소 보정 · 숨긴 물건
-            회수 DR10 현재 Omens. 각 d20을 DR와 따로 비교합니다. 도움은 선택한
+            방향 찾기 DR12 존재치 · 기도 DR14 존재치 + 성소 보정 · 숨긴 물건
+            회수 DR10 현재 오멘. 각 d20을 DR와 따로 비교합니다. 도움은 선택한
             하나만 적용하고, 보급·능력치의 실제 변경은 직접 적용합니다.
           </p>
         )}

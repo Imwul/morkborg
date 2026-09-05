@@ -25,6 +25,19 @@ import {
 } from './InlineReferenceTools';
 import './city-crawl.css';
 
+const CITY_MODE_LABELS: Record<
+  CityCrawlConfig['mode'],
+  '도시 크롤 · 목표 찾기' | '마이크로 크롤 · d4개 거리' | 'Dérive · 정착지 배회'
+> = {
+  city: '도시 크롤 · 목표 찾기',
+  micro: '마이크로 크롤 · d4개 거리',
+  derive: 'Dérive · 정착지 배회',
+};
+const CITY_MOVE_STAMPS: Record<'strong' | 'weak' | 'fail', string> = {
+  strong: '강한 성공',
+  weak: '약한 성공',
+  fail: '실패',
+};
 export function CityCrawlWorkspace({
   registry,
   region = 'galgenbeck',
@@ -78,10 +91,10 @@ export function CityCrawlWorkspace({
   }
   const modeName =
     currentConfig.mode === 'micro'
-      ? 'MICRO-CRAWL'
+      ? '마이크로 크롤'
       : currentConfig.mode === 'derive'
         ? 'DÉRIVE'
-        : 'CITY CRAWL';
+        : '도시 크롤';
   const objective = state?.move?.metadata.streetAction === 'next-objective';
   const followUps = state?.reading.relatedIds ?? [];
   return (
@@ -89,14 +102,14 @@ export function CityCrawlWorkspace({
       <header className="city-workspace-heading">
         <div>
           <small>ALÖNE IN THE CROWD · AitC</small>
-          <h2>City Crawl</h2>
+          <h2>도시 크롤</h2>
           <p>도시 진입 → 현재 거리·목표 → 상황 해결 → 다음 거리</p>
         </div>
       </header>
       {!state ? (
         <section className="city-crawl-sheet city-crawl-setup">
           <header>
-            <small>01 · ENTER</small>
+            <small>01 · 시작</small>
             <h3>도시 탐험 시작</h3>
           </header>
           <div className="city-crawl-controls">
@@ -111,9 +124,17 @@ export function CityCrawlWorkspace({
                   })
                 }
               >
-                <option value="city">City Crawl · 목표 찾기</option>
-                <option value="micro">Micro-crawl · d4개 거리</option>
-                <option value="derive">Dérive · 정착지 배회</option>
+                {(
+                  [
+                    'city',
+                    'micro',
+                    'derive',
+                  ] as const satisfies ReadonlyArray<CityCrawlConfig['mode']>
+                ).map((mode) => (
+                  <option key={mode} value={mode}>
+                    {CITY_MODE_LABELS[mode]}
+                  </option>
+                ))}
               </select>
             </label>
             {config.mode === 'city' && (
@@ -141,8 +162,8 @@ export function CityCrawlWorkspace({
             {config.mode === 'micro'
               ? 'd4로 거리 수를 정하고 첫 거리를 함께 만듭니다.'
               : config.mode === 'derive'
-                ? '정착지 규모와 거리 수를 정합니다. DR10, Strong·Weak Hit 모두 새 거리입니다.'
-                : 'Strong Hit는 다음 목표, Weak Hit는 새 거리. Miss는 먼저 이동을 막은 상황을 해결합니다.'}
+                ? '정착지 규모와 거리 수를 정합니다. DR10에서 강/약한 성공 모두 새 거리를 만듭니다.'
+                : '강한 성공은 다음 목표 도달, 약한 성공은 새 거리. 실패는 먼저 이동을 막은 상황을 해결합니다.'}
           </p>
           <details className="city-crawl-options">
             <summary>거리 생성 옵션</summary>
@@ -158,7 +179,7 @@ export function CityCrawlWorkspace({
                     })
                   }
                 />{' '}
-                City / Metropolis · 거리 내용 d2회
+                도시 / 대도시 · 거리 내용 2회 굴림
               </label>
             )}
             <label className="ref-check">
@@ -169,17 +190,17 @@ export function CityCrawlWorkspace({
                   setConfig({ ...config, includeExits: event.target.checked })
                 }
               />{' '}
-              거리 출구 d4도 굴리기
+              거리 출구도 d4로 굴리기
             </label>
           </details>
           <Button
             onClick={() => perform(() => startCityCrawl(config, registry))}
           >
             {config.mode === 'micro'
-              ? 'ROLL d4 + 첫 거리'
+              ? 'd4로 거리 수 굴리고 첫 거리 생성'
               : config.mode === 'derive'
-                ? '규모 + DÉRIVE 시작'
-                : 'ROLL CITY CRAWL'}
+                ? '규모 정하고 DÉRIVE 시작'
+                : '도시 크롤 시작'}
           </Button>
         </section>
       ) : (
@@ -192,8 +213,8 @@ export function CityCrawlWorkspace({
               <small>
                 {modeName} ·{' '}
                 {state.totalStreets != null
-                  ? `${state.streetNumber} / ${state.totalStreets} STREETS`
-                  : `STREET ${String(state.streetNumber).padStart(2, '0')}`}
+                  ? `${state.streetNumber} / ${state.totalStreets} 거리`
+                  : `${state.streetNumber}번째 거리`}
               </small>
               <h3>
                 {state.phase === 'blocked'
@@ -217,9 +238,7 @@ export function CityCrawlWorkspace({
           {state.move && state.reading.oracle && (
             <div className="city-crawl-move">
               <span>
-                {state.move.outcome === 'fail'
-                  ? 'MISS · 장애 해결 후 새 거리'
-                  : `${state.move.outcome.toUpperCase()} HIT · 새 거리`}
+                {CITY_MOVE_STAMPS[state.move.outcome]} · 새 거리
               </span>
               <small>
                 2d20 [{state.move.diceValues.join(', ')}] +{' '}
@@ -259,8 +278,7 @@ export function CityCrawlWorkspace({
             {state.phase === 'blocked' && (
               <>
                 <p>
-                  장애·조우를 해결하면 City Crawl을 다시 굴리지 않고 새 거리를
-                  만듭니다.
+                  장애·조우를 해결하면 도시 크롤을 다시 굴리지 않고 새 거리로 이동합니다.
                 </p>
                 <Button
                   onClick={() =>
@@ -289,15 +307,14 @@ export function CityCrawlWorkspace({
                 {currentConfig.mode !== 'micro' && (
                   <div className="city-crawl-controls">
                     <label>
-                      이번 이동의 길 안내 보정
+                      이번 이동의 거리 탐색 보정
                       <Input
                         type="number"
                         value={config.modifier}
                         onChange={(event) =>
                           setConfig({
                             ...config,
-                            modifier:
-                              Math.trunc(Number(event.target.value)) || 0,
+                            modifier: Math.trunc(Number(event.target.value)) || 0,
                           })
                         }
                       />
@@ -322,7 +339,7 @@ export function CityCrawlWorkspace({
                 <Button onClick={nextStreet}>
                   {currentConfig.mode === 'micro'
                     ? '다음 거리 만들기'
-                    : '다음 거리 · ROLL CITY CRAWL'}
+                    : '다음 거리로 이동'}
                 </Button>
               </>
             )}
@@ -330,7 +347,7 @@ export function CityCrawlWorkspace({
               <p>
                 {currentConfig.mode === 'derive'
                   ? '정착지 가장자리에 도달했습니다.'
-                  : 'Micro-crawl의 모든 거리를 통과했습니다.'}
+                  : '마이크로 크롤의 모든 거리를 통과했습니다.'}
               </p>
             )}
           </div>

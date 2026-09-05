@@ -103,7 +103,7 @@ export const CITY_MOVE_DEFAULTS: Record<
 };
 function requireInteger(value: number, label: string) {
   if (!Number.isSafeInteger(value))
-    throw new Error(`${label} must be a finite integer.`);
+    throw new Error(`${label}는 정수여야 합니다.`);
 }
 function followUp(
   tableId: string,
@@ -132,16 +132,16 @@ export function rollCityMove(
   rng: RandomSource = random,
 ): CityMoveResult {
   requireInteger(input.dr, 'DR');
-  requireInteger(input.modifier, 'Modifier');
-  if (input.dr < 1) throw new Error('DR must be positive.');
+  requireInteger(input.modifier, '가산치');
+  if (input.dr < 1) throw new Error('DR은 1 이상이어야 합니다.');
   if (!(input.move in CITY_MOVE_DEFAULTS))
-    throw new Error('Unknown city Move.');
+    throw new Error('지원하지 않는 도시 절차입니다.');
   const mode = input.mode ?? 'city';
   if (!['micro', 'derive', 'city'].includes(mode))
-    throw new Error('Unknown crawl mode.');
+    throw new Error('알 수 없는 이동 모드입니다.');
   if (input.move === 'crawl' && mode === 'micro')
     throw new Error(
-      'Micro-crawl generates d4 streets directly; use rollMicroCrawl instead of a City Crawl Move.',
+      '마이크로 크롤은 d4로 거리 수를 먼저 정하고 진행하세요. 도시 크롤 판정을 먼저 굴리지 마세요.',
     );
   const diceValues: [number, number] = [rollDie(20, rng), rollDie(20, rng)];
   const modifiedValues = diceValues.map((value) => value + input.modifier) as [
@@ -296,7 +296,7 @@ export function rollMerchantDisposition(
   presence: number,
   rng: RandomSource = random,
 ) {
-  requireInteger(presence, 'Presence');
+  requireInteger(presence, '존재치');
   const diceValues: [number, number] = [rollDie(6, rng), rollDie(6, rng)];
   const roll = diceValues[0] + diceValues[1];
   const modifiedRoll = roll + presence;
@@ -344,7 +344,7 @@ export function rollMerchantDisposition(
   };
 }
 export function settlementStreetDice(sizeRoll: number) {
-  requireInteger(sizeRoll, 'Settlement size roll');
+  requireInteger(sizeRoll, '정착지 규모 주사위');
   if (sizeRoll < 1 || sizeRoll > 20)
     throw new Error('Settlement Size requires a d20 result.');
   const sizes = [

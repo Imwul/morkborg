@@ -68,12 +68,12 @@ export function rollCityReference(
     if (input.cityOrMetropolis)
       rolls.push({
         oracleId: 'aitc.street.contents-count',
-        title: 'Street contents · count',
+        title: '거리 내용 · 개수',
         dice: 'd2',
         roll: count,
         diceValues: [count],
         entryId: null,
-        text: `City / metropolis: ${count} contents result${count === 1 ? '' : 's'}.`,
+        text: `도시 / 대도시: 거리 내용 ${count}개.`,
         source: sourceLabel(contents, registry),
         metadata: {
           sourceTableId: contents.id,
@@ -104,7 +104,7 @@ export function rollCityReference(
       id: id(),
       title:
         registry.procedures.find((p) => p.id === input.procedureId)?.title ??
-        'Street reference',
+        '거리 참조',
       rolls,
     };
   }
