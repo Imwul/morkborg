@@ -322,8 +322,25 @@ select:focus-visible {
   display: block;
 }
 .page-footer {
+  flex-wrap: wrap;
+  row-gap: 12px;
   border-top: var(--rule-thin);
   color: var(--muted-ink);
+}
+.footer-source-key {
+  flex-basis: 100%;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.footer-source-key strong {
+  color: var(--ink);
 }
 
 /* Generator: title, premise, dossier, then a numbered route through the rooms. */

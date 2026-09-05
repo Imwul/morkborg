@@ -38,6 +38,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import type { Campaign, Section } from './domain/types';
+import { BOOK_ABBREVIATIONS } from './domain/sourceDisplay';
 import { createCampaign, dungeonTitle } from './generators';
 import {
   useSave,
@@ -1029,6 +1030,21 @@ export default function App() {
                 MÖRK BORG 비공식 보조 도구 ↗
               </button>
               <span>당신의 세계는 이 기기에 저장됩니다.</span>
+              {/* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Keep this horizontal scroll region reachable by keyboard. */}
+              <section
+                className="footer-source-key"
+                tabIndex={0}
+                aria-label="출처 약칭 참고 — 가로로 스크롤하여 전체 보기"
+              >
+                출처 약칭 ·{' '}
+                {BOOK_ABBREVIATIONS.map((book, index) => (
+                  <span key={book.id}>
+                    {index > 0 && ' · '}
+                    <strong>{book.short}</strong> = {book.title}
+                  </span>
+                ))}
+              </section>
+              {/* oxlint-enable jsx-a11y/no-noninteractive-tabindex */}
             </footer>
           </main>
         </div>
