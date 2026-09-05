@@ -1,4 +1,5 @@
 import { PLAY_REFERENCE_RULES } from './playReferenceRules';
+import { shortBookTitle } from './sourceDisplay';
 import { findVerifiedReferenceAlias } from './referenceAliases';
 import type { SourceConfidence } from './referenceSources';
 import type { OracleDefinition, OracleRegistry, OracleRoll } from './oracle';
@@ -905,6 +906,7 @@ export function searchReferences(
             ...entry.contexts,
             ...entry.sourceRefs.flatMap((s) => [
               s.bookTitle ?? '',
+              shortBookTitle(s.bookId, s.bookTitle),
               s.tableTitle ?? '',
             ]),
           ].join(' '),

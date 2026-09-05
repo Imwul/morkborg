@@ -1,3 +1,4 @@
+import { SourceText } from './SourceText';
 import { useState } from 'react';
 import {
   ArrowLeft,
@@ -229,7 +230,7 @@ export function EventLedger({
                       <p key={i}>
                         {r.title} · {r.dice}: {r.roll}
                         <br />
-                        {r.source}
+                        <SourceText text={r.source} />
                       </p>
                     ))}
                   </div>

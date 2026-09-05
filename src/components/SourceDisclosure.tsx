@@ -6,6 +6,8 @@ import {
 import type { ReactNode } from 'react';
 import type { SourceReference } from '../domain/types';
 import { useReferenceDesk } from './ReferenceContext';
+import { BookLabel, SourceText } from './SourceText';
+import { compactSourceText, shortBookTitle } from '../domain/sourceDisplay';
 export function SourceDisclosure({
   refs = [],
   source,
@@ -21,12 +23,28 @@ export function SourceDisclosure({
 }) {
   const desk = useReferenceDesk();
   const items = evidence ?? sourceEvidence(refs);
+  const fullTitles = [
+    ...new Map(
+      items.flatMap(({ source: ref }) => {
+        const short = shortBookTitle(ref.bookId, ref.bookTitle);
+        return ref.bookTitle && short !== ref.bookTitle
+          ? [[ref.bookTitle, short] as const]
+          : [];
+      }),
+    ),
+  ];
+  const fullSource =
+    source && compactSourceText(source) !== source ? source : undefined;
   if (!items.length && !source && !children) return null;
   return (
     <details className="sheet-source source-disclosure">
       <summary>{label}</summary>
       <div className="source-disclosure-body">
-        {source && <p>{source}</p>}
+        {source && (
+          <p>
+            <SourceText text={source} />
+          </p>
+        )}
         {items.map(({ source: ref, role, confidence, note }, i) => (
           <div
             className="source-reference"
@@ -37,9 +55,17 @@ export function SourceDisclosure({
               {role === 'routing' ? 'ROUTED BY' : 'PRIMARY'} ·{' '}
               {SOURCE_STATUS[confidence]}
             </small>
-            {note && <p>{note}</p>}
-            {ref.bookTitle && <strong>{ref.bookTitle}</strong>}
-            {ref.tableTitle && <span>{ref.tableTitle}</span>}
+            {note && (
+              <p>
+                <SourceText text={note} />
+              </p>
+            )}
+            {ref.bookTitle && (
+              <strong>
+                <BookLabel bookId={ref.bookId} title={ref.bookTitle} />
+              </strong>
+            )}
+            {ref.tableTitle && <SourceText text={ref.tableTitle} />}
             {ref.pdfPage != null && (
               <span>
                 PDF {[ref.pdfPage].flat().join(', ')}쪽
@@ -52,7 +78,11 @@ export function SourceDisclosure({
               <span>인쇄 p. {ref.printedPage}</span>
             )}
             {ref.roll != null && <span>굴림 {ref.roll}</span>}
-            {ref.note && <p>{ref.note}</p>}
+            {ref.note && (
+              <p>
+                <SourceText text={ref.note} />
+              </p>
+            )}
             {ref.tableId && desk?.byId[`oracle:${ref.tableId}`] && (
               <button
                 type="button"
@@ -84,6 +114,17 @@ export function SourceDisclosure({
           </div>
         ))}
         {children}
+        {(fullSource || fullTitles.length > 0) && (
+          <details className="source-full-titles">
+            <summary>원제·전체 출처 표기</summary>
+            {fullSource && <p>{fullSource}</p>}
+            {fullTitles.map(([title, short]) => (
+              <p key={title}>
+                {short} · {title}
+              </p>
+            ))}
+          </details>
+        )}
       </div>
     </details>
   );

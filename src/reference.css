@@ -825,3 +825,26 @@
   width: 44px;
   height: 44px;
 }
+.book-abbreviation {
+  text-decoration: none;
+}
+.source-full-titles {
+  margin-top: 10px;
+  font-size: 12px;
+}
+.source-full-titles > summary {
+  cursor: pointer;
+}
+.source-abbreviation-key > div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.source-abbreviation-key dt {
+  font-weight: 700;
+}
+.source-abbreviation-key dd {
+  margin: 0;
+}

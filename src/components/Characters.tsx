@@ -1,3 +1,4 @@
+import { SourceText } from './SourceText';
 import { useState } from 'react';
 import {
   ArrowLeft,
@@ -593,10 +594,10 @@ export function Characters({
       <details className="sheet-source">
         <summary>캐릭터 생성 규칙과 출처</summary>
         <p>
-          {selected.classSource} · 직업의 무기·방어구 지시가 기본 굴림보다
-          우선합니다. 원문에서 고르도록 한 항목은 앱이 무작위로 선택합니다. Pale
-          One의 표기는 최종 능력 보정치에 적용합니다. 전투·능력 사용 때 굴리는
-          주사위는 그대로 남깁니다.
+          <SourceText text={selected.classSource} /> · 직업의 무기·방어구 지시가
+          기본 굴림보다 우선합니다. 원문에서 고르도록 한 항목은 앱이 무작위로
+          선택합니다. Pale One의 표기는 최종 능력 보정치에 적용합니다. 전투·능력
+          사용 때 굴리는 주사위는 그대로 남깁니다.
         </p>
       </details>
       <section className="notes-block">

@@ -1,3 +1,5 @@
+import { SourceText } from './SourceText';
+import { shortBookTitle } from '../domain/sourceDisplay';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -89,7 +91,7 @@ export function Oracles({
         source: prefs.source,
         favorites: favoritesOnly ? prefs.favoriteIds : undefined,
       }).filter((t) =>
-        `${t.title} ${library.books.find((b) => b.id === t.sourceBookId)?.title}`
+        `${t.title} ${library.books.find((b) => b.id === t.sourceBookId)?.title} ${shortBookTitle(t.sourceBookId)}`
           .toLocaleLowerCase()
           .includes(query.trim().toLocaleLowerCase()),
       ),
@@ -246,7 +248,7 @@ export function Oracles({
                 <option value="">모든 책</option>
                 {registry.books.map((b) => (
                   <option key={b.id} value={b.id}>
-                    {b.title}
+                    {shortBookTitle(b.id, b.title)}
                   </option>
                 ))}
               </select>
@@ -385,7 +387,8 @@ export function Oracles({
                   <SourceDisclosure key={selected.id} label="출처 · 표 정보">
                     {sourceTables.map((table) => (
                       <p key={table.id}>
-                        {sourceLabel(table, registry)} · {table.entries.length}
+                        <SourceText text={sourceLabel(table, registry)} /> ·{' '}
+                        {table.entries.length}
                         항목
                       </p>
                     ))}

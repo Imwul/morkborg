@@ -1,4 +1,6 @@
 import { Translation } from './Translation';
+import { SourceText } from './SourceText';
+import { shortBookTitle, BOOK_ABBREVIATIONS } from '../domain/sourceDisplay';
 import { useState } from 'react';
 import { BookOpen, Dices, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -69,6 +71,17 @@ export function Sources({
         </div>
       </details>
       <PrivateDataTools backup />
+      <details className="sheet-source">
+        <summary>출처 약칭 · 원제</summary>
+        <dl className="source-abbreviation-key">
+          {BOOK_ABBREVIATIONS.map((book) => (
+            <div key={book.id}>
+              <dt>{book.short}</dt>
+              <dd>{book.title}</dd>
+            </div>
+          ))}
+        </dl>
+      </details>
       {pack && (
         <>
           <div className="section-title">
@@ -87,7 +100,7 @@ export function Sources({
               >
                 {pack.books.map((b) => (
                   <option key={b.id} value={b.id}>
-                    {b.title}
+                    {shortBookTitle(b.id, b.title)}
                   </option>
                 ))}
               </select>
@@ -111,7 +124,8 @@ export function Sources({
           {selected && (
             <div className="table-source">
               <p className="source-citation">
-                {sourceCitation(table)} · {String(selected.dice)}
+                <SourceText text={sourceCitation(table)} /> ·{' '}
+                {String(selected.dice)}
               </p>
               <ol>
                 {selected.entries.map((e, i) => (

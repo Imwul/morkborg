@@ -1,4 +1,5 @@
 import type { ReferenceEntry } from './references';
+import { compactSourceText, shortBookTitle } from './sourceDisplay';
 
 /** Inspection never changes dice. The adjacent primary action runs only confirmed defaults. */
 export function referenceAction(entry: ReferenceEntry) {
@@ -32,7 +33,10 @@ const SHORT_NAMES: Record<string, string> = {
   'oracle:core.corpsePlundering': 'Corpse',
 };
 export const referenceShortName = (entry: ReferenceEntry) =>
-  SHORT_NAMES[entry.id] ?? entry.title;
+  SHORT_NAMES[entry.id] ??
+  (entry.kind === 'book'
+    ? shortBookTitle(entry.id.slice(5), entry.title)
+    : compactSourceText(entry.title));
 
 export function referenceRegion(
   entry: ReferenceEntry | undefined,

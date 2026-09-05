@@ -61,6 +61,8 @@ import {
 import { searchCampaign } from '../domain/campaignSearch';
 import { regions } from '../data/regions';
 import { SourceDisclosure } from './SourceDisclosure';
+import { BookLabel, SourceText } from './SourceText';
+import { compactSourceText } from '../domain/sourceDisplay';
 import { CityRoller } from './CityRoller';
 import { PrivateDataTools } from './PrivateDataTools';
 
@@ -542,9 +544,10 @@ export function ReferenceProvider({
                     .map((entry) => (
                       <button
                         key={entry.id}
+                        title={entry.title}
                         onClick={() => activate(entry.id, isOneClick(entry))}
                       >
-                        {entry.title} ↗
+                        {referenceShortName(entry)} ↗
                       </button>
                     ))}
                 </div>
@@ -776,8 +779,13 @@ export function ReferenceProvider({
                     .filter((step) => step.via)
                     .map((step, n) => (
                       <p key={n}>
-                        {step.label}
-                        {step.via ? ` → ${step.via}` : ''}
+                        <SourceText text={step.label} />
+                        {step.via && (
+                          <>
+                            {' '}
+                            → <SourceText text={step.via} />
+                          </>
+                        )}
                       </p>
                     ))}
                 {selected.canonicalIds
@@ -899,9 +907,11 @@ export function ReferenceProvider({
                     .map((entry) => (
                       <button
                         key={entry.id}
+                        title={entry.title}
+                        aria-label={entry.title}
                         onClick={() => activate(entry.id, isOneClick(entry))}
                       >
-                        {entry.title}
+                        {referenceShortName(entry)}
                         <ArrowUpRight size={12} />
                       </button>
                     ))}
@@ -929,9 +939,16 @@ export function ReferenceRow({ entry }: { entry: ReferenceEntry }) {
           <strong>{referenceShortName(entry)}</strong>
           <small>
             {entry.kind === 'book' ? entry.summary : entry.kind.toUpperCase()}
-            {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle
-              ? ` · ${entry.sourceRefs[0].bookTitle}`
-              : ''}
+            {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle && (
+              <>
+                {' '}
+                ·{' '}
+                <BookLabel
+                  bookId={entry.sourceRefs[0].bookId}
+                  title={entry.sourceRefs[0].bookTitle}
+                />
+              </>
+            )}
           </small>
         </span>
         {action.label === 'OPEN' && <b>OPEN ↗</b>}
@@ -995,7 +1012,7 @@ export function ContextReferences({
         >
           {entry.id === 'procedure:workbench.stock-room' && onDungeonEncounters
             ? '던전 조우표 · Common 6 / Rare 6'
-            : entry.title}
+            : compactSourceText(entry.title)}
         </button>
       ))}
     </div>
@@ -1097,9 +1114,11 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
               <button
                 className="recent-reference"
                 key={entry.id}
+                title={entry.title}
+                aria-label={entry.title}
                 onClick={() => desk.activate(entry.id, isOneClick(entry))}
               >
-                {entry.title}
+                {referenceShortName(entry)}
                 {isOneClick(entry) ? (
                   <Dices size={14} />
                 ) : (

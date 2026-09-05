@@ -1,3 +1,4 @@
+import { SourceText } from './SourceText';
 import { useState } from 'react';
 import {
   ArrowLeft,
@@ -407,7 +408,9 @@ export function Monsters({
               특성을 함께 불러옵니다. 수치가 없는 참조 항목은 자동 전투 개체에서
               제외합니다.
             </p>
-            <p>{selected.sources?.name}</p>
+            <p>
+              <SourceText text={selected.sources?.name} />
+            </p>
             <p>
               Sölitary Depths의 일치하는 지역 항목에는 원문 PDF·쪽수 참조를 함께
               보관합니다. Galgenbeck은 Tveland를 참조하며, Grift는 Eat Prey
@@ -421,7 +424,11 @@ export function Monsters({
             행동·약점·전리품은 직접 작성합니다.
           </p>
         ) : (
-          <p>{selected.sources?.name || '직접 작성한 몬스터입니다.'}</p>
+          <p>
+            <SourceText
+              text={selected.sources?.name || '직접 작성한 몬스터입니다.'}
+            />
+          </p>
         )}
         {isFeretory && (
           <p>
