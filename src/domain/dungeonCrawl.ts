@@ -11,6 +11,11 @@ import {
   oracleRollProvenance,
 } from './oracleProvenance';
 import type { RoomComponent } from './generationProvenance';
+import {
+  sourceProcedure,
+  generationAuthorities,
+  uniqueAuthorities,
+} from './generationAuthority';
 import { prepareSpecialRooms } from '../generators/specialRooms';
 export interface DungeonCrawlRoll {
   dice: [number, number];
@@ -116,6 +121,10 @@ export function rollGenericCrawlRoom(
       provenance: {
         ...oracleRollProvenance(roll)!,
         procedureId: 'sd.generic-room',
+        authority: uniqueAuthorities([
+          ...generationAuthorities(oracleRollProvenance(roll)),
+          sourceProcedure('sd.generic-room'),
+        ]),
       },
     }),
   );
@@ -126,6 +135,7 @@ export function rollGenericCrawlRoom(
     }),
     classification: 'APP_DERIVED' as const,
     procedureId: 'sd.generic-room',
+    authority: [sourceProcedure('sd.generic-room')],
     transformation: `Read further exits from the source matrix column ${discovered} Special Rooms discovered; printed dash = 0.`,
   };
   components.push({

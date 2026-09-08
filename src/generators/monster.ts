@@ -8,6 +8,7 @@ import { id, now, rollDie, random, type RandomSource } from './random';
 import { feretoryRolls, feretoryStats, type FeretoryRolls } from './feretory';
 export { feretoryRolls, feretoryStats, type FeretoryRolls } from './feretory';
 import { entries, scalarText } from './tables';
+import { appPolicy, sourceProcedure } from '../domain/generationAuthority';
 import { getRules, sourceCitation } from '../storage/rulesStore';
 import {
   editedProvenance,
@@ -85,6 +86,7 @@ function linkedProvenance(
     sourceText: parts.flatMap((p) => p.sourceText ?? []),
     rolls: parts.flatMap((p) => p.rolls ?? []),
     procedureId: 'feretory.monster-approaches',
+    authority: [sourceProcedure('feretory.monster-approaches')],
   };
   return {
     appearance: {
@@ -191,6 +193,7 @@ export function generateMonster(campaignId: string, blank = false): Monster {
         status: 'VERIFIED',
         sourceRefs: [],
         procedureId: 'app.structural-identifier',
+        authority: [appPolicy('app.structural-identifier')],
         transformation:
           'Neutral structural label; not a generated source creature name.',
       },
@@ -281,6 +284,7 @@ export function rerollMonsterField(
           },
         ],
         procedureId: 'feretory.monster-approaches',
+        authority: [sourceProcedure('feretory.monster-approaches')],
         transformation: `HP = d${die} result ${value} ×2. Prose conflicts with printed 2dN example.`,
       },
     };

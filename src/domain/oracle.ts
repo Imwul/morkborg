@@ -2,6 +2,7 @@ import type {
   GeneratedValueProvenance,
   GeneratorStep,
   SourceStatus,
+  GenerationAuthorityKind,
 } from './generationProvenance';
 import type { SourceReference } from './types';
 
@@ -80,6 +81,7 @@ export interface OracleProcedure {
   /** Original pack step groups, retained without converting them into narrative. */
   steps?: { label: string; oracleIds: string[] }[];
   generatorSteps?: GeneratorStep[];
+  authority?: GenerationAuthorityKind;
 }
 export interface OraclePack {
   schemaVersion: 1;

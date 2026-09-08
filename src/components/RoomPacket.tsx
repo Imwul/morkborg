@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { RotateCcw } from 'lucide-react';
 import type { Dungeon, DungeonRoom } from '../domain/types';
 import {
   editedProvenance,
@@ -13,6 +14,15 @@ import { Field } from './Field';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { Translation } from './Translation';
 import type { Confirm } from './Library';
+
+const rollableComponents = new Set([
+  'sample',
+  'detail',
+  'adjective',
+  'type',
+  'contents',
+  'exits',
+]);
 
 export function RoomPacket({
   dungeon,
@@ -99,7 +109,8 @@ export function RoomPacket({
             ) : (
               <span>{room.description || '직접 작성'}</span>
             )}
-            <small>OPEN ›</small>
+            <small className="room-packet-open">OPEN ›</small>
+            <small className="room-packet-close">CLOSE ‹</small>
           </span>
         </summary>
         <div className="room-packet-body">
@@ -171,7 +182,10 @@ export function RoomPacket({
             />
           )}
           {components.map((item) => (
-            <section className="room-component" key={item.key}>
+            <section
+              className={`room-component${editing ? '' : ' room-component-reading'}`}
+              key={item.key}
+            >
               {editing ? (
                 <Field
                   spec={{ key: item.key, label: item.label }}
@@ -184,15 +198,7 @@ export function RoomPacket({
                     )
                   }
                   onReroll={
-                    ready &&
-                    [
-                      'sample',
-                      'detail',
-                      'adjective',
-                      'type',
-                      'contents',
-                      'exits',
-                    ].includes(item.key)
+                    ready && rollableComponents.has(item.key)
                       ? () => roll(item.key)
                       : undefined
                   }
@@ -201,14 +207,31 @@ export function RoomPacket({
               ) : (
                 <>
                   <small>{item.label}</small>
+                  {ready && rollableComponents.has(item.key) && (
+                    <button
+                      className="room-component-reroll"
+                      aria-label={`${item.label} 재굴림`}
+                      title={
+                        item.key === 'sample'
+                          ? '방과 표가 지시하는 추가 항목 재굴림 · 수동 수정한 추가 항목은 보존'
+                          : `${item.label} 재굴림`
+                      }
+                      onClick={() => roll(item.key)}
+                    >
+                      <RotateCcw size={16} aria-hidden="true" />
+                    </button>
+                  )}
                   <p>{item.sourceText}</p>
                 </>
               )}
-              {editing && item.key === 'sample' && (
-                <small className="dependent-roll-note">
-                  이 표가 지시하는 추가 항목도 함께 굴립니다. 수동 수정한 추가
-                  항목은 보존합니다.
-                </small>
+              {item.key === 'sample' && (
+                <details className="dependent-roll-note">
+                  <summary>재굴림 범위</summary>
+                  <p>
+                    이 표가 지시하는 추가 항목도 함께 굴립니다. 수동 수정한 추가
+                    항목은 보존합니다.
+                  </p>
+                </details>
               )}
             </section>
           ))}
@@ -225,6 +248,7 @@ export function RoomPacket({
             </details>
           )}
           <GenerationDisclosure
+            label="SOURCE"
             values={{
               ...(room.fieldProvenance?.name
                 ? { name: room.fieldProvenance.name }

@@ -161,15 +161,6 @@ export function Dungeons({
                 dungeon.rooms.length +
                 '개 방'
               }
-              metadata={
-                <time dateTime={dungeon.updatedAt}>
-                  수정{' '}
-                  {new Date(dungeon.updatedAt).toLocaleString('ko-KR', {
-                    dateStyle: 'short',
-                    timeStyle: 'short',
-                  })}
-                </time>
-              }
               onOpen={() => open(dungeon)}
               actions={[
                 { label: '복제', onSelect: () => duplicate(dungeon) },
@@ -184,7 +175,6 @@ export function Dungeons({
           <button className="create-card" onClick={create}>
             <Plus size={29} strokeWidth={1} />
             <span>새 던전</span>
-            <p>무언가 아래에서 기다립니다.</p>
           </button>
         </div>
       </>

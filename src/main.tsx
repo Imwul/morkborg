@@ -6,6 +6,7 @@ import './style.css';
 import './workspace.css';
 import './art-direction.css';
 import './reference.css';
+import './components/source-authority.css';
 const navigation = performance.getEntriesByType('navigation')[0] as
   | PerformanceNavigationTiming
   | undefined;

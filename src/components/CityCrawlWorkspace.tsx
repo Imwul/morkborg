@@ -101,7 +101,6 @@ export function CityCrawlWorkspace({
     <section className="city-crawl-workspace">
       <header className="city-workspace-heading">
         <div>
-          <small>ALÖNE IN THE CROWD · AitC</small>
           <h2>도시 크롤</h2>
           <p>도시 진입 → 현재 거리·목표 → 상황 해결 → 다음 거리</p>
         </div>
@@ -375,7 +374,6 @@ export function CityCrawlWorkspace({
         <details className="city-crawl-sheet city-support-moves">
           <summary>
             <strong>길 묻기 · 기도 · 숨긴 물건 회수</strong>
-            <small>AitC 5–6 / 상인 반응 8쪽</small>
           </summary>
           <CityRoller
             registry={registry}

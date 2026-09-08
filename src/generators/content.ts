@@ -15,6 +15,11 @@ import {
   sourceReferenceForRoll,
 } from './creatureProvenance';
 import { oracleValueProvenance } from '../domain/oracleProvenance';
+import {
+  appPolicy,
+  generationAuthorities,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 
 export const contentRegistry = creatureRegistry;
 export const regionOracleKeys: Partial<Record<RegionId, string>> = {
@@ -104,6 +109,12 @@ export function rerollNPC(
     ...npc.fieldProvenance,
     [field]: {
       ...provenanceForRoll(registry, results[0]),
+      authority: uniqueAuthorities([
+        ...results.flatMap((result) =>
+          generationAuthorities(provenanceForRoll(registry, result)),
+        ),
+        appPolicy('workbench.npc'),
+      ]),
       sourceRefs: results.map((r) => reference(registry, r, field)),
       sourceText: results.map((r) => r.text),
       rolls: results.flatMap((r) => provenanceForRoll(registry, r).rolls ?? []),

@@ -105,7 +105,7 @@ test('Rule inspection never rolls while procedural choices remain explicit', () 
     action: { kind: 'procedure' as const, procedureId: 'workbench.stock-room' },
   };
   assert.equal(referenceAction({ ...stock, available: true }).immediate, false);
-  assert.equal(referenceAction({ ...stock, available: true }).label, 'RUN');
+  assert.equal(referenceAction({ ...stock, available: true }).label, 'OPEN');
   assert.equal(
     referenceAction({ ...index.byId['oracle:core.reaction'], available: false })
       .immediate,
@@ -362,7 +362,10 @@ test('Documented regional Common stocking follows the same source route and quan
   })!;
   assert.equal(rolls, 2); // one regional d6, one row-defined quantity d2
   assert.match(result.copyContent!.title, /× 1/);
-  assert.match(result.blocks[1].text, /HP 8/);
+  assert.equal(result.blocks.length, 1);
+  assert.equal(result.blocks[0].title, 'Example creature × 1');
+  assert.match(result.blocks[0].text, /HP 8/);
+  assert.equal(result.oracle?.rolls[0].text, 'Example creature');
   assert.equal(result.evidence?.[0].source.pdfPage, 23);
   assert.equal(result.evidence?.[0].role, 'primary');
   assert.equal(result.evidence?.[1].source.pdfPage, 27);

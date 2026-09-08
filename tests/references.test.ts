@@ -290,9 +290,14 @@ test('Room, Monster, NPC and Dungeon context shelves contain four to eight relev
     assert.equal(new Set(shelf.map((e) => e.id)).size, shelf.length);
     assert(shelf.every((e) => e.available));
   }
-  assert.equal(
-    contextReferences(ref, 'monster', 'sarkash')[0].action?.kind,
-    'regional-monster',
+  assert.deepEqual(
+    contextReferences(ref, 'monster', 'sarkash').map((entry) => entry.id),
+    [
+      'oracle:core.reaction',
+      'rule:core.reaction-morale',
+      'oracle:core.corpsePlundering',
+      'oracle:core.treasures',
+    ],
   );
   assert.equal(
     contextReferences(ref, 'npc', 'sarkash')[0].id,

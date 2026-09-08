@@ -17,6 +17,7 @@ import {
 } from './sourceCorrections';
 import { applyOracleSourceEvidence } from './sourceEvidence';
 import { referenceGeneratorProcedure } from '../../domain/referenceGeneratorProcedures';
+import { procedureAuthority } from '../../domain/generationAuthority';
 const noPack = {};
 const registryCache = new WeakMap<object, WeakMap<object, OracleRegistry>>();
 
@@ -234,6 +235,9 @@ export function buildOracleRegistry(
     ),
     procedures: procedures.map((procedure) => ({
       ...procedure,
+      ...(procedureAuthority(procedure.id)
+        ? { authority: procedureAuthority(procedure.id) }
+        : {}),
       sourceRefs:
         procedure.sourceRefs ??
         (procedure.sourceBookId

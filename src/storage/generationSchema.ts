@@ -56,6 +56,16 @@ export const generatedValueSchema = z.object({
   regionWeighting: z.enum(REGION_IDS).optional(),
   unresolvedSourceIds: z.array(z.string()).optional(),
   derivedFrom: z.array(z.string().min(1)).optional(),
+  authority: z
+    .array(
+      z.object({
+        kind: z.enum(['SOURCE_PROCEDURE', 'APP_POLICY']),
+        id: z.string().min(1),
+        description: z.string().optional(),
+        sourceRefs: z.array(sourceReferenceSchema).optional(),
+      }),
+    )
+    .optional(),
 });
 export const roomComponentSchema = z.object({
   key: z.string(),

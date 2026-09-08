@@ -1,5 +1,10 @@
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 import { SourceDisclosure } from './SourceDisclosure';
+import {
+  appPolicy,
+  generationAuthorities,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 
 /** One result-level disclosure; shared book/table citations appear once, individual traces remain inspectable. */
 export function GenerationDisclosure({
@@ -41,7 +46,15 @@ export function GenerationDisclosure({
               : 'PARTIALLY VERIFIED'}
         </span>
       )}
-      <SourceDisclosure refs={refs} label={label} hideWarning>
+      <SourceDisclosure
+        refs={refs}
+        label={label}
+        hideWarning
+        authorities={uniqueAuthorities([
+          ...entries.flatMap(([, value]) => generationAuthorities(value)),
+          appPolicy('app.result-grouping'),
+        ])}
+      >
         <div className="generation-fields">
           {entries.map(([field, provenance]) => (
             <section key={field}>
@@ -50,9 +63,9 @@ export function GenerationDisclosure({
                 <p className="source-edit-notice">
                   {provenance.origin === 'source-edited'
                     ? provenance.derivedFrom?.length
-                      ? 'Composed from edited components · 구성 요소 수정 반영'
-                      : 'Originally generated from · Edited manually / 수동 수정됨'
-                    : 'USER AUTHORED · 직접 작성'}
+                      ? 'MANUAL · Composed from edited components · 구성 요소 수정 반영'
+                      : 'MANUAL · Originally generated from · Edited manually / 수동 수정됨'
+                    : 'MANUAL · USER AUTHORED · 직접 작성'}
                 </p>
               )}
               {!!provenance.unresolvedSourceIds?.length && (
@@ -61,16 +74,18 @@ export function GenerationDisclosure({
                   {provenance.unresolvedSourceIds.join(', ')}
                 </p>
               )}
-              {provenance.procedureId && (
-                <small>PROCEDURE · {provenance.procedureId}</small>
-              )}
+              {provenance.procedureId &&
+                !generationAuthorities(provenance).some(
+                  (item) => item.id === provenance.procedureId,
+                ) && (
+                  <small>
+                    PROCEDURE AUTHORITY UNAVAILABLE · {provenance.procedureId}
+                  </small>
+                )}
               {provenance.transformation &&
                 provenance.transformation !== 'none' && (
                   <p>{provenance.transformation}</p>
                 )}
-              {provenance.regionWeighting && (
-                <p>Region weighting applied: {provenance.regionWeighting}</p>
-              )}
               {provenance.origin === 'source-edited' && (
                 <p>{provenance.sourceText?.join(' · ')}</p>
               )}

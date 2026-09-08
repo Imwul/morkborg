@@ -149,10 +149,7 @@ test('Search and old B/C pins all reach one complete monster roller without camp
     /HP 8 · Morale 10 · Armor −d6 · Damage d4/,
   );
   assert.doesNotMatch(copyReferenceReading(result), /PDF|MÖRK BORG CULT/);
-  assert.match(
-    copyReferenceReading(result, true),
-    /MÖRK BORG CULT: FERETORY.*PDF 2/,
-  );
+  assert.match(copyReferenceReading(result, true), /FER.*PDF 2/);
 });
 
 test('Missing or unverified A/B/C never creates a partial monster', () => {

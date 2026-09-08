@@ -274,6 +274,9 @@ export function applyClassCreation(
           transformation:
             'Printed class procedure combines these source name fragments in order.',
           procedureId: `character.class:${def.id}`,
+          authority: [
+            { kind: 'SOURCE_PROCEDURE', id: `character.class:${def.id}` },
+          ],
         },
       });
     } else if (spec.tableId)
@@ -385,6 +388,7 @@ function classProvenance(
     sourceText,
     transformation,
     procedureId: `character.class:${def.id}`,
+    authority: [{ kind: 'SOURCE_PROCEDURE', id: `character.class:${def.id}` }],
   };
 }
 export function classCharacterNameResult(def: CharacterClassDefinition) {
@@ -441,6 +445,7 @@ export function buildCharacterProcedures(): GeneratorProcedure[] {
   return [
     {
       id: 'character.core-classless',
+      authority: 'SOURCE_PROCEDURE',
       title: 'Core character creation',
       sourceRefs: [
         {
@@ -489,6 +494,7 @@ export function buildCharacterProcedures(): GeneratorProcedure[] {
     },
     ...characterClasses().map((def) => ({
       id: `character.class:${def.id}`,
+      authority: 'SOURCE_PROCEDURE' as const,
       title: def.name,
       sourceRefs: [
         {

@@ -9,6 +9,13 @@ import { sourceCitation, type RuleEntry } from '../storage/rulesStore';
 import { id, random, rollDie, type RandomSource } from './random';
 import { rollTable, sourceEntryRange, sourceReferenceFor } from './tables';
 import { DUNGEON_PROCEDURES } from './dungeonProcedures';
+import {
+  appPolicy,
+  SPECIAL_ROOM_AUTHORITIES,
+  sourceProcedure,
+  generationAuthorities,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 
 const procedure = DUNGEON_PROCEDURES.find(
   (item) => item.id === 'core.sample-room',
@@ -35,6 +42,7 @@ function emptyRoom(index: number): DungeonRoom {
         status: 'VERIFIED',
         sourceRefs: [],
         procedureId: 'app.structural-identifier',
+        authority: [appPolicy('app.structural-identifier')],
         transformation:
           'Neutral structural identifier: ROOM + one-based preparation slot; not fictional source text.',
       },
@@ -65,9 +73,7 @@ function generateComponents(rng: RandomSource): RoomComponent[] {
   const result = rollTable('core.rooms', undefined, rng);
   const provenance = result.provenance!;
   provenance.procedureId = procedure.id;
-  provenance.sourceRefs.push(
-    ...procedure.sourceRefs.filter((ref) => ref.role === 'routing'),
-  );
+  provenance.authority = structuredClone(SPECIAL_ROOM_AUTHORITIES);
   const rootRoll = provenance.rolls![0];
   const entry = getCanonicalRuleTable('core.rooms')!.entries.find(
     (entry, index) => {
@@ -156,6 +162,12 @@ export function syncRoomComponents(room: DungeonRoom): void {
               ),
               rolls: descriptors.flatMap((item) => item.provenance.rolls ?? []),
               procedureId: 'sd.generic-room',
+              authority: uniqueAuthorities([
+                ...descriptors.flatMap((item) =>
+                  generationAuthorities(item.provenance),
+                ),
+                sourceProcedure('sd.generic-room'),
+              ]),
               derivedFrom: ['adjective', 'type'],
               transformation:
                 'Display two independent source descriptor fragments with ·.',
@@ -201,6 +213,7 @@ export function syncRoomComponents(room: DungeonRoom): void {
             ) === i,
         ),
       procedureId: procedure.id,
+      authority: structuredClone(SPECIAL_ROOM_AUTHORITIES),
       transformation:
         'Display source components separated by ·. No connective prose.',
       datasetVersion: components[0]?.provenance.datasetVersion,
@@ -278,6 +291,10 @@ export function rerollRoomComponent(
     const provenance = {
       ...result.provenance!,
       procedureId: 'sd.generic-room',
+      authority: uniqueAuthorities([
+        ...generationAuthorities(result.provenance),
+        sourceProcedure('sd.generic-room'),
+      ]),
     };
     const table = getCanonicalRuleTable(tableId)!;
     const roll = provenance.rolls![0];

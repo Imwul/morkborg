@@ -40,6 +40,13 @@ export function oracleValueProvenance(
       ? (classification ?? 'SOURCE_VERBATIM')
       : 'APP_DERIVED',
     origin: 'source',
+    authority: [
+      {
+        kind: 'SOURCE_PROCEDURE',
+        id: `oracle:${table.id}`,
+        description: `${table.dice} · 원문 표의 주사위와 구간 조회.`,
+      },
+    ],
     status: !entry ? 'PARTIAL' : (status ?? table.sourceStatus ?? 'PARTIAL'),
     sourceRefs: [
       {

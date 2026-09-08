@@ -1,0 +1,35 @@
+.source-authority-group {
+  padding-block: 0.65rem;
+  border-top: 1px solid var(--border, #555);
+}
+.source-authority-group h5 {
+  margin: 0 0 0.4rem;
+  font: 700 0.75rem/1.4 var(--font-mono, monospace);
+  letter-spacing: 0.08em;
+}
+.source-authority-entry + .source-authority-entry {
+  margin-top: 0.65rem;
+}
+.source-authority-entry > strong {
+  display: block;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.source-authority-entry p {
+  margin: 0.25rem 0;
+}
+.source-authority-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.65rem;
+  align-items: baseline;
+  font-size: 0.8rem;
+}
+.source-authority-proof .source-roll-link {
+  min-height: 2.75rem;
+  padding: 0.3rem 0.5rem;
+}
+.source-authority-proof .source-roll-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

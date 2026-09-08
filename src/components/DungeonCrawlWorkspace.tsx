@@ -291,7 +291,7 @@ export function DungeonCrawlWorkspace({
             title="입구 · 건물 · 재질 · 소리"
             ids={entranceTopic.ids}
             region={d.region}
-            description="SD p.10–11의 묘사 표입니다. 규모·형태·재질·소리·냄새 중 필요한 부분만 굴려 해석하세요. 모든 표를 굴릴 필요는 없습니다."
+            description="규모·형태·재질·소리·냄새 중 필요한 부분만 굴려 해석하세요. 모든 표를 굴릴 필요는 없습니다."
             initiallyOpen
           />
           {(d.entrance || d.entranceCondition) && (

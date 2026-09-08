@@ -5,7 +5,14 @@ import {
 } from '../domain/referenceSources';
 import type { ReactNode } from 'react';
 import type { SourceReference } from '../domain/types';
-import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import type {
+  GeneratedValueProvenance,
+  GenerationAuthority,
+} from '../domain/generationProvenance';
+import {
+  generationAuthorities,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 import { useReferenceDesk } from './ReferenceContext';
 import { SourceText } from './SourceText';
 import {
@@ -21,6 +28,7 @@ export function SourceDisclosure({
   evidence,
   provenance,
   hideWarning = false,
+  authorities = [],
 }: {
   refs?: SourceReference[];
   evidence?: ReferenceEvidence[];
@@ -29,13 +37,28 @@ export function SourceDisclosure({
   children?: ReactNode;
   provenance?: GeneratedValueProvenance;
   hideWarning?: boolean;
+  authorities?: GenerationAuthority[];
 }) {
   const desk = useReferenceDesk();
-  const items =
+  const authorityItems = uniqueAuthorities([
+    ...authorities,
+    ...generationAuthorities(provenance),
+  ]);
+  const preparation = authorityItems.some(
+    (item) => item.id === 'sd.dungeon-preparation',
+  );
+  const items = (
     evidence ??
-    sourceEvidence(
-      provenance?.sourceRefs.length ? provenance.sourceRefs : refs,
-    );
+    sourceEvidence(provenance?.sourceRefs.length ? provenance.sourceRefs : refs)
+  ).filter(
+    ({ source: ref }) =>
+      !(
+        preparation &&
+        ref.bookId === 'sd' &&
+        !ref.tableId &&
+        [ref.pdfPage].flat().includes(19)
+      ),
+  );
   const fullTitles = [
     ...new Map(
       items.flatMap(({ source: ref }) => {
@@ -48,7 +71,14 @@ export function SourceDisclosure({
   ];
   const fullSource =
     source && compactSourceText(source) !== source ? source : undefined;
-  if (!items.length && !source && !children && !provenance) return null;
+  if (
+    !items.length &&
+    !source &&
+    !children &&
+    !provenance &&
+    !authorityItems.length
+  )
+    return null;
   return (
     <>
       {!hideWarning &&
@@ -78,23 +108,92 @@ export function SourceDisclosure({
           )}
           {provenance?.origin === 'source-edited' && (
             <p className="source-edit-notice">
-              Edited manually · 수동 수정됨. 아래는 처음 생성했을 때의
+              MANUAL · Edited manually · 수동 수정됨. 아래는 처음 생성했을 때의
               출처입니다.
             </p>
           )}
-          {provenance?.origin === 'manual' && <p>USER AUTHORED · 직접 작성</p>}
-          {provenance?.procedureId && (
-            <p>PROCEDURE · {provenance.procedureId}</p>
+          {provenance?.origin === 'manual' && (
+            <p>MANUAL · USER AUTHORED · 직접 작성</p>
           )}
+          {provenance?.procedureId &&
+            !authorityItems.some(
+              (item) => item.id === provenance.procedureId,
+            ) && (
+              <p>PROCEDURE AUTHORITY UNAVAILABLE · {provenance.procedureId}</p>
+            )}
           {provenance?.transformation && <p>{provenance.transformation}</p>}
-          {provenance?.regionWeighting && (
-            <p>Region weighting applied: {provenance.regionWeighting}</p>
-          )}
           {source && (
             <p>
               <SourceText text={source} />
             </p>
           )}
+          {(['SOURCE_PROCEDURE', 'APP_POLICY'] as const).map((kind) => {
+            const group = authorityItems.filter((item) => item.kind === kind);
+            return (
+              group.length > 0 && (
+                <section
+                  key={kind}
+                  className="source-authority-group"
+                  aria-label={kind.replace('_', ' ')}
+                >
+                  <h5>{kind.replace('_', ' ')}</h5>
+                  {group.map((item) => (
+                    <div key={item.id} className="source-authority-entry">
+                      <strong>{item.id}</strong>
+                      {item.description && <p>{item.description}</p>}
+                      {item.sourceRefs
+                        ?.filter(
+                          (ref) =>
+                            !items.some(
+                              (existing) =>
+                                ref.tableId &&
+                                existing.source.tableId === ref.tableId &&
+                                existing.source.bookId === ref.bookId,
+                            ),
+                        )
+                        .map((ref, index) => (
+                          <div key={index} className="source-authority-proof">
+                            <span>
+                              {ref.bookTitle ??
+                                BOOK_ABBREVIATIONS.find(
+                                  (book) => book.id === ref.bookId,
+                                )?.title ??
+                                ref.bookId}
+                            </span>
+                            {ref.pdfPage != null && (
+                              <span>
+                                PDF {[ref.pdfPage].flat().join(', ')}쪽
+                                {ref.printedPage != null
+                                  ? ` / p. ${ref.printedPage} (인쇄)`
+                                  : ''}
+                              </span>
+                            )}
+                            {ref.tableId &&
+                              !items.some(
+                                (item) => item.source.tableId === ref.tableId,
+                              ) &&
+                              desk?.byId[`oracle:${ref.tableId}`] && (
+                                <button
+                                  type="button"
+                                  className="source-roll-link"
+                                  onClick={() => {
+                                    const id =
+                                      desk.byId[`oracle:${ref.tableId}`].id;
+                                    if (desk.openTable) desk.openTable(id);
+                                    else desk.activate(id);
+                                  }}
+                                >
+                                  이 표 열기 ↗
+                                </button>
+                              )}
+                          </div>
+                        ))}
+                    </div>
+                  ))}
+                </section>
+              )
+            );
+          })}
           {items.map(({ source: ref, role, confidence, note }, i) => (
             <div
               className="source-reference"
@@ -142,12 +241,13 @@ export function SourceDisclosure({
                 <button
                   type="button"
                   className="source-roll-link"
-                  onClick={() => desk.activate(`oracle:${ref.tableId}`)}
+                  onClick={() => {
+                    const id = desk.byId[`oracle:${ref.tableId}`].id;
+                    if (desk.openTable) desk.openTable(id);
+                    else desk.activate(id);
+                  }}
                 >
-                  {desk.byId[`oracle:${ref.tableId}`].available &&
-                  desk.byId[`oracle:${ref.tableId}`].action?.kind === 'oracle'
-                    ? '이 표 열기 ↗'
-                    : '이 표 열기 ↗'}
+                  이 표 열기 ↗
                 </button>
               )}
               {ref.bookId && desk?.byId[`book:${ref.bookId}`] && (

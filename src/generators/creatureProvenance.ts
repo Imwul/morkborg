@@ -13,6 +13,13 @@ import { random, type RandomSource } from './random';
 import { scalarText } from './tables';
 import creatureEvidence from './creatureSourceEvidence.json';
 import { oracleValueProvenance } from '../domain/oracleProvenance';
+import {
+  generationAuthorities,
+  procedureAuthority,
+  sourceProcedure,
+  appPolicy,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 
 const compact = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
@@ -65,6 +72,16 @@ export function provenanceForRoll(
     return compact({
       ...result.metadata.provenance,
       ...(procedureId ? { procedureId } : {}),
+      authority: uniqueAuthorities([
+        ...generationAuthorities(result.metadata.provenance),
+        ...(procedureId &&
+        procedureAuthority(procedureId) === 'SOURCE_PROCEDURE'
+          ? [sourceProcedure(procedureId)]
+          : []),
+        ...(procedureId && procedureAuthority(procedureId) === 'APP_POLICY'
+          ? [appPolicy(procedureId)]
+          : []),
+      ]),
     });
   return compact({
     classification: 'SOURCE_VERBATIM',
@@ -72,6 +89,12 @@ export function provenanceForRoll(
     status: result.entryId ? 'VERIFIED' : 'UNAVAILABLE',
     sourceRefs: [sourceReferenceForRoll(registry, result)],
     sourceText: [result.text],
+    authority: [
+      sourceProcedure(`oracle:${result.oracleId}`),
+      ...(procedureId && procedureAuthority(procedureId) === 'SOURCE_PROCEDURE'
+        ? [sourceProcedure(procedureId)]
+        : []),
+    ],
     rolls: [
       {
         tableId: result.oracleId,
@@ -235,6 +258,14 @@ export function provenanceForCreatureRecord(
     sourceRefs,
     sourceText: [String(value)],
     procedureId: 'creature.source-record',
+    authority: [
+      {
+        kind: 'APP_POLICY',
+        id: 'creature.source-record',
+        description:
+          '검증된 생물 기록의 필드를 조회합니다. 원문이 지시한 새로운 무작위 생성 절차가 아닙니다.',
+      },
+    ],
     transformation: composed
       ? 'Source statblock fields kept together; typography and concise source summary normalized.'
       : 'none',
@@ -243,6 +274,7 @@ export function provenanceForCreatureRecord(
 export const CREATURE_PROCEDURES: GeneratorProcedure[] = [
   {
     id: 'feretory.monster-approaches',
+    authority: 'SOURCE_PROCEDURE',
     title: 'The Monster Approaches',
     sourceRefs: [
       {
@@ -291,6 +323,7 @@ export const CREATURE_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'sd.common-stocking',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Common encounter stocking',
     sourceRefs: [
       {
@@ -306,6 +339,7 @@ export const CREATURE_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'sd.rare-stocking',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Rare encounter stocking',
     sourceRefs: [
       {

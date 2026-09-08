@@ -62,9 +62,7 @@ export function DungeonActionMoves({
   }
   return (
     <details className="inline-tools dungeon-action-moves">
-      <summary>
-        도망 · 탐색 · 휴식 · 위험 판정<small>SD / DEP</small>
-      </summary>
+      <summary>도망 · 탐색 · 휴식 · 위험 판정</summary>
       <div className="procedure-controls">
         <label htmlFor={`${uid}-action`}>
           행동
@@ -177,7 +175,7 @@ export function DungeonActionMoves({
       {action === 'resupply' && (
         <p className="inline-tools-note">
           던전에서는 상황과 능력에 맞는 General Adventuring Move를 사용합니다.
-          여행 중 하루 채집은 Journey의 FER Forage를 사용하세요.
+          여행 중 하루 채집은 Journey의 채집을 사용하세요.
         </p>
       )}
       {action === 'trap-save' && (

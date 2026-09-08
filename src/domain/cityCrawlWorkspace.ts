@@ -35,7 +35,7 @@ export interface CityCrawlState {
 
 export const CITY_REFERENCE_GROUPS = [
   {
-    title: '거리와 사건 · AitC 15 / 7–8 / 11쪽',
+    title: '거리와 사건',
     description: '한 거리의 묘사·내용·되돌아가기와 그 안에서 일어나는 일.',
     ids: [
       'procedure:aitc.street',
@@ -47,7 +47,7 @@ export const CITY_REFERENCE_GROUPS = [
     ],
   },
   {
-    title: 'NPC / NPC 조우 · SD 12 / AitC 13–14쪽',
+    title: 'NPC / NPC 조우',
     description:
       'NPC는 인물을 만듭니다. NPC 조우는 도시에서 마주친 상황을 만듭니다.',
     ids: [
@@ -59,7 +59,7 @@ export const CITY_REFERENCE_GROUPS = [
     ],
   },
   {
-    title: '건물과 장소 · AitC 6–12쪽',
+    title: '건물과 장소',
     description: '거리 결과가 가리키는 장소를 여기서 바로 펼칩니다.',
     ids: [
       'oracle:aitc.civic-buildings',
@@ -73,7 +73,7 @@ export const CITY_REFERENCE_GROUPS = [
     ],
   },
   {
-    title: '여관 · AitC 11 / FER 54–55쪽',
+    title: '여관',
     description:
       '여관 유형과 Grey Galth Inn의 주인·손님·메뉴. 정찬 4s / 저렴한 식사 2s 중 선택한 메뉴의 d6을 굴립니다.',
     ids: [
@@ -87,7 +87,7 @@ export const CITY_REFERENCE_GROUPS = [
     ],
   },
   {
-    title: '정착지 · AitC 9–10쪽',
+    title: '정착지',
     description:
       '규모·이름·성격을 한 묶음으로 생성하거나 필요한 표만 굴립니다.',
     ids: [

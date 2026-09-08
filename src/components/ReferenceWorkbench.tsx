@@ -11,6 +11,7 @@ import {
   retainReferenceReading,
   restoreReferenceRoll,
 } from '../domain/referenceSession';
+import { authoritiesForReading } from '../domain/generationAuthority';
 import { sourceEvidence } from '../domain/referenceSources';
 import { useEffect, useMemo, useState, useRef, type ReactNode } from 'react';
 import {
@@ -91,6 +92,7 @@ export function ReferenceProvider({
   const [prefs, setPrefs] = useState(readReferencePreferences);
   const [selectedId, setSelectedId] = useState<string | null>(null),
     [trail, setTrail] = useState<string[]>([]);
+  const [tableView, setTableView] = useState(false);
   const lastReferenceId = useRef<string | null>(null);
   const [session, setSession] = useState(emptyReferenceSession);
   const readings = session.readings;
@@ -187,6 +189,7 @@ export function ReferenceProvider({
       setTrail((t) => [...t, previous].slice(-20));
     lastReferenceId.current = entryId;
     setSelectedId(entryId);
+    setTableView(false);
     setSearchOpen(false);
     setFailure('');
     setCopyFallback(null);
@@ -259,6 +262,18 @@ export function ReferenceProvider({
     ['oracle', 'procedure', 'regional-monster'].includes(
       selected.action?.kind ?? '',
     );
+  async function copyReading(withSource = false) {
+    if (!reading) return;
+    const text = copyReferenceReading(reading, withSource);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(
+        withSource ? '출처와 함께 복사했습니다.' : '결과를 복사했습니다.',
+      );
+    } catch {
+      setCopyFallback(text);
+    }
+  }
   return (
     <ReferenceContext.Provider
       value={{
@@ -266,6 +281,11 @@ export function ReferenceProvider({
         byId: index.byId,
         activate,
         openSearch,
+        search: (value, limit = 8) => searchReferences(index, value, { limit }),
+        openTable: (entryId) => {
+          activate(entryId);
+          setTableView(true);
+        },
         contextual: (context, r) => contextReferences(index, context, r, 6),
         pinnedIds: prefs.pinnedIds,
         recentIds: prefs.recentIds,
@@ -294,7 +314,6 @@ export function ReferenceProvider({
           {prefs.pinnedIds
             .map((key) => index.byId[key])
             .filter(Boolean)
-            .slice(0, 2)
             .map((entry) => (
               <button
                 key={entry.id}
@@ -325,6 +344,27 @@ export function ReferenceProvider({
           }
         >
           <nav className="reference-inner-tray" aria-label="참조 도구 모음">
+            {!searchOpen && !!trail.length && (
+              <button
+                aria-label="이전 참조"
+                onClick={() => {
+                  const previous = trail.at(-1);
+                  if (previous) {
+                    setSelectedId(previous);
+                    setTableView(false);
+                    setRegion(referenceRegion(index.byId[previous], region));
+                    lastReferenceId.current = previous;
+                    setTrail((t) => t.slice(0, -1));
+                    setFailure('');
+                    setCopied('');
+                    setCopyFallback(null);
+                    touchEntry(previous);
+                  }
+                }}
+              >
+                <ArrowLeft size={15} />
+              </button>
+            )}
             <button aria-label="창 안에서 검색" onClick={() => openSearch()}>
               <Search size={15} /> SEARCH
             </button>
@@ -338,7 +378,6 @@ export function ReferenceProvider({
               {prefs.pinnedIds
                 .map((key) => index.byId[key])
                 .filter(Boolean)
-                .slice(0, 6)
                 .map((entry) => (
                   <button
                     key={entry.id}
@@ -367,7 +406,7 @@ export function ReferenceProvider({
                     ? '고정한 참조'
                     : '최근 사용한 참조'}
               </DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="sr-only">
                 Oracle · 규칙 · 지역 · 생물 · 책을 한곳에서 찾으세요.
               </DialogDescription>
               <Input
@@ -444,25 +483,7 @@ export function ReferenceProvider({
           {!searchOpen && selected && (
             <>
               <div className="reference-inspector-top">
-                <Button
-                  variant="ghost"
-                  disabled={!trail.length}
-                  onClick={() => {
-                    const previous = trail.at(-1);
-                    if (previous) {
-                      setSelectedId(previous);
-                      setRegion(referenceRegion(index.byId[previous], region));
-                      lastReferenceId.current = previous;
-                      setTrail((t) => t.slice(0, -1));
-                      setFailure('');
-                      setCopied('');
-                      setCopyFallback(null);
-                      touchEntry(previous);
-                    }
-                  }}
-                >
-                  <ArrowLeft size={15} /> 이전 참조
-                </Button>
+                <DialogTitle>{referenceShortName(selected)}</DialogTitle>
                 <button
                   className="ref-pin"
                   aria-label={
@@ -479,24 +500,29 @@ export function ReferenceProvider({
                   {prefs.pinnedIds.includes(selected.id) ? 'PINNED' : 'PIN'}
                 </button>
               </div>
-              <DialogTitle>{selected.title}</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="sr-only">
                 {selected.kind.toUpperCase()} ·{' '}
                 {regions.find((r) => r.id === region)?.name} ·{' '}
                 {selected.canonicalIds.length
                   ? `${selected.canonicalIds.length}개 연결 표`
                   : '빠른 참조'}
               </DialogDescription>
-              <p className="reference-summary" hidden={plainRule}>
-                {procedureId === 'aitc.street'
-                  ? '거리 묘사·종류·내용을 함께 굴립니다. City·Metropolis의 내용은 d2회이며, 출구는 선택할 수 있습니다.'
-                  : selected.summary}
-              </p>
+              {!reading &&
+                !plainRule &&
+                !tableView &&
+                selected.kind !== 'region' && (
+                  <p className="reference-summary">
+                    {procedureId === 'aitc.street'
+                      ? '거리 묘사·종류·내용을 함께 굴립니다. City·Metropolis의 내용은 d2회이며, 출구는 선택할 수 있습니다.'
+                      : selected.summary}
+                  </p>
+                )}
               {selected.action?.kind === 'region' &&
                 index.byId[
                   `rule:regional-monsters:${selected.action.region}`
                 ] && (
                   <ReferenceRow
+                    showMetadata={false}
                     entry={
                       index.byId[
                         `rule:regional-monsters:${selected.action.region}`
@@ -507,21 +533,6 @@ export function ReferenceProvider({
               {selected.action?.kind === 'region' && (
                 <div className="region-quick-tools">
                   <small>QUICK TOOLS · {selected.title}</small>
-                  {index.byId[
-                    `rule:regional-monsters:${selected.action.region}`
-                  ]?.available && (
-                    <button
-                      onClick={() =>
-                        activate(
-                          `rule:regional-monsters:${hubRegion}`,
-                          true,
-                          hubRegion,
-                        )
-                      }
-                    >
-                      Common Encounter · 지역 대안 ↗
-                    </button>
-                  )}
                   {[
                     'procedure:workbench.stock-room',
                     'rule:sd.stockCommon',
@@ -563,8 +574,8 @@ export function ReferenceProvider({
                     ))}
                 </div>
               )}
-              {selected.kind === 'oracle' && (
-                <details className="reference-static-table">
+              {tableView && selected.kind === 'oracle' && (
+                <details className="reference-static-table" open>
                   <summary>TABLE · 원문 표 보기</summary>
                   {selected.canonicalIds
                     .flatMap((key) =>
@@ -614,97 +625,135 @@ export function ReferenceProvider({
                     ))}
                 </details>
               )}
+              {tableView && reading && (
+                <button
+                  className="ref-text-action"
+                  onClick={() => setTableView(false)}
+                >
+                  <ArrowLeft size={14} /> 결과로 돌아가기
+                </button>
+              )}
+              {tableView && roller && (
+                <button
+                  className="ref-text-action"
+                  onClick={() => {
+                    setTableView(false);
+                    perform(selected);
+                  }}
+                >
+                  ROLL
+                </button>
+              )}
               {!selected.available && (
                 <output>
                   이 참조에 필요한 원문 자료가 준비되지 않았습니다.
                 </output>
               )}
-              {[
-                'workbench.npc',
-                'workbench.epk',
-                'workbench.stock-room',
-              ].includes(procedureId) && (
-                <div className="ref-controls">
-                  <label>
-                    지역
-                    <select
-                      value={region}
-                      onChange={(e) => setRegion(e.target.value as RegionId)}
-                    >
-                      {regions.map((r) => (
-                        <option key={r.id} value={r.id}>
-                          {r.name}
+              <details
+                className="reference-options"
+                open={!reading || undefined}
+                hidden={
+                  tableView ||
+                  ![
+                    'workbench.npc',
+                    'workbench.epk',
+                    'workbench.stock-room',
+                    'aitc.street',
+                  ].includes(procedureId)
+                }
+              >
+                <summary>굴림 설정</summary>
+                {[
+                  'workbench.npc',
+                  'workbench.epk',
+                  'workbench.stock-room',
+                ].includes(procedureId) && (
+                  <div className="ref-controls">
+                    <label>
+                      지역
+                      <select
+                        value={region}
+                        onChange={(e) => setRegion(e.target.value as RegionId)}
+                      >
+                        {regions.map((r) => (
+                          <option key={r.id} value={r.id}>
+                            {r.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    {procedureId === 'workbench.stock-room' && (
+                      <>
+                        <label>
+                          절차
+                          <select
+                            value={stockKind}
+                            onChange={(e) =>
+                              setStockKind(e.target.value as typeof stockKind)
+                            }
+                          >
+                            <option value="common">
+                              Common · 지역 / SD d12
+                            </option>
+                            <option value="rare">Rare · SD d8 + DR</option>
+                            <option value="room">Room · RECLVSE</option>
+                          </select>
+                        </label>
+                        <label>
+                          Dungeon DR
+                          <Input
+                            type="number"
+                            min={1}
+                            max={30}
+                            value={stockDR}
+                            onChange={(e) =>
+                              setStockDR(
+                                Math.max(
+                                  1,
+                                  Math.trunc(Number(e.target.value)) || 1,
+                                ),
+                              )
+                            }
+                          />
+                        </label>
+                      </>
+                    )}
+                  </div>
+                )}
+                {procedureId === 'aitc.street' && (
+                  <div className="ref-controls">
+                    <label>
+                      정착지 규모
+                      <select
+                        value={cityLarge ? 'large' : 'small'}
+                        onChange={(e) =>
+                          setCityLarge(e.target.value === 'large')
+                        }
+                      >
+                        <option value="small">Town 이하 · 내용 1회</option>
+                        <option value="large">
+                          City / Metropolis · 내용 d2회
                         </option>
-                      ))}
-                    </select>
-                  </label>
-                  {procedureId === 'workbench.stock-room' && (
-                    <>
-                      <label>
-                        절차
-                        <select
-                          value={stockKind}
-                          onChange={(e) =>
-                            setStockKind(e.target.value as typeof stockKind)
-                          }
-                        >
-                          <option value="common">Common · 지역 / SD d12</option>
-                          <option value="rare">Rare · SD d8 + DR</option>
-                          <option value="room">Room · RECLVSE</option>
-                        </select>
-                      </label>
-                      <label>
-                        Dungeon DR
-                        <Input
-                          type="number"
-                          min={1}
-                          max={30}
-                          value={stockDR}
-                          onChange={(e) =>
-                            setStockDR(
-                              Math.max(
-                                1,
-                                Math.trunc(Number(e.target.value)) || 1,
-                              ),
-                            )
-                          }
-                        />
-                      </label>
-                    </>
-                  )}
-                </div>
-              )}
-              {procedureId === 'aitc.street' && (
-                <div className="ref-controls">
-                  <label>
-                    정착지 규모
-                    <select
-                      value={cityLarge ? 'large' : 'small'}
-                      onChange={(e) => setCityLarge(e.target.value === 'large')}
-                    >
-                      <option value="small">Town 이하 · 내용 1회</option>
-                      <option value="large">
-                        City / Metropolis · 내용 d2회
-                      </option>
-                    </select>
-                  </label>
-                  <label className="ref-check">
-                    <input
-                      type="checkbox"
-                      checked={cityExits}
-                      onChange={(e) => setCityExits(e.target.checked)}
-                    />{' '}
-                    출구도 굴리기
-                  </label>
-                </div>
-              )}
+                      </select>
+                    </label>
+                    <label className="ref-check">
+                      <input
+                        type="checkbox"
+                        checked={cityExits}
+                        onChange={(e) => setCityExits(e.target.checked)}
+                      />{' '}
+                      출구도 굴리기
+                    </label>
+                  </div>
+                )}
+              </details>
               {city && (
                 <CityRoller
                   registry={oracles.registry}
                   onReading={(value) => acceptReading(selected.id, value)}
                 />
               )}
-              {roller && (
+              {roller && !reading && !tableView && (
                 <Button
                   className="reference-roll"
                   disabled={!selected.available}
@@ -719,8 +768,9 @@ export function ReferenceProvider({
                   {failure}
                 </p>
               )}
-              {reading && (
+              {reading && !tableView && (
                 <article
+                  key={`${selected.id}:${session.sequence}`}
                   className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''}`}
                   aria-label="참조 결과"
                 >
@@ -741,8 +791,14 @@ export function ReferenceProvider({
                             : ''
                       }
                     >
-                      {block.dice && <small>{block.dice}</small>}
-                      {block.title && <h3>{block.title}</h3>}
+                      {block.title &&
+                        !(
+                          reading.blocks.length === 1 &&
+                          [
+                            selected.title,
+                            referenceShortName(selected),
+                          ].includes(block.title)
+                        ) && <h3>{block.title}</h3>}
                       {block.kind === 'creature' &&
                       block.text.split('\n').length > 2 ? (
                         <>
@@ -758,31 +814,24 @@ export function ReferenceProvider({
                     </section>
                   ))}
                   <div className="ref-copy-actions">
-                    {[false, true].map((withSource) => (
+                    {roller && (
                       <Button
-                        key={String(withSource)}
                         variant="ghost"
-                        onClick={async () => {
-                          const text = copyReferenceReading(
-                            reading,
-                            withSource,
-                          );
-                          try {
-                            await navigator.clipboard.writeText(text);
-                            setCopied(
-                              withSource
-                                ? '출처와 함께 복사했습니다.'
-                                : '결과를 복사했습니다.',
-                            );
-                          } catch {
-                            setCopyFallback(text);
-                          }
-                        }}
+                        onClick={() => perform(selected)}
+                        className="result-reroll"
                       >
-                        <Copy size={14} />
-                        {withSource ? 'COPY WITH SOURCE' : 'COPY'}
+                        <Dices size={16} /> REROLL
                       </Button>
-                    ))}
+                    )}
+                    <Button variant="ghost" onClick={() => copyReading()}>
+                      <Copy size={14} /> COPY
+                    </Button>
+                    <details className="result-more-actions">
+                      <summary aria-label="결과 추가 동작">⋯</summary>
+                      <button onClick={() => copyReading(true)}>
+                        COPY WITH SOURCE
+                      </button>
+                    </details>
                   </div>
                 </article>
               )}
@@ -799,7 +848,17 @@ export function ReferenceProvider({
               )}
               <SourceDisclosure
                 key={selected.id}
-                label="SOURCE · 출처 경로"
+                label="SOURCE"
+                authorities={
+                  reading
+                    ? authoritiesForReading(
+                        reading,
+                        selected.action?.kind === 'procedure'
+                          ? selected.action.procedureId
+                          : undefined,
+                      )
+                    : undefined
+                }
                 refs={reading?.sourceRefs ?? selected.sourceRefs}
                 evidence={
                   reading?.evidence ??
@@ -819,6 +878,27 @@ export function ReferenceProvider({
                       ))
                 }
               >
+                {selected.kind === 'oracle' && !tableView && (
+                  <button
+                    className="ref-text-action"
+                    onClick={() => setTableView(true)}
+                  >
+                    TABLE · 원문 표 열기
+                  </button>
+                )}
+                {reading?.blocks.some((block) => block.dice) && (
+                  <section className="reference-roll-trace">
+                    <h4>ROLL</h4>
+                    {reading.blocks
+                      .filter((block) => block.dice)
+                      .map((block, n) => (
+                        <p key={n}>
+                          {block.title ? `${block.title} · ` : ''}
+                          {block.dice}
+                        </p>
+                      ))}
+                  </section>
+                )}
                 {!reading &&
                   selected.sourceChain
                     .filter((step) => step.via)
@@ -970,52 +1050,68 @@ export function ReferenceProvider({
   );
 }
 
-export function ReferenceRow({ entry }: { entry: ReferenceEntry }) {
+export function ReferenceRow({
+  entry,
+  showMetadata = true,
+}: {
+  entry: ReferenceEntry;
+  showMetadata?: boolean;
+}) {
   const desk = useReferenceDesk();
   const action = referenceAction(entry);
   return (
     <div className="reference-row">
       <button
-        className="reference-inspect-action"
-        aria-label={`${entry.title} OPEN`}
-        onClick={() => desk?.activate(entry.id)}
+        className="reference-select-action"
+        aria-label={`${entry.title} ${action.label}`}
+        onClick={() => desk?.activate(entry.id, action.immediate)}
       >
         <span>
           <strong>{referenceShortName(entry)}</strong>
-          <small>
-            {entry.kind === 'book' ? entry.summary : entry.kind.toUpperCase()}
-            {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle && (
-              <>
-                {' '}
-                ·{' '}
-                <BookLabel
-                  bookId={entry.sourceRefs[0].bookId}
-                  title={entry.sourceRefs[0].bookTitle}
-                />
-              </>
-            )}
-          </small>
+          {showMetadata && (
+            <small>
+              {entry.kind.toUpperCase()}
+              {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle && (
+                <>
+                  {' '}
+                  ·{' '}
+                  <BookLabel
+                    bookId={entry.sourceRefs[0].bookId}
+                    title={entry.sourceRefs[0].bookTitle}
+                  />
+                </>
+              )}
+            </small>
+          )}
         </span>
-        {action.label === 'OPEN' && <b>OPEN ↗</b>}
+        <b className="reference-action-label">{action.label}</b>
       </button>
-      {action.label !== 'OPEN' && (
+      {action.immediate && (
         <button
-          className="reference-primary-action"
-          aria-label={`${entry.title} ${action.label}`}
-          onClick={() => desk?.activate(entry.id, action.immediate)}
+          className="reference-inspect-action"
+          aria-label={`${entry.title} DETAILS`}
+          title="굴리지 않고 참조 열기"
+          onClick={() => desk?.activate(entry.id)}
         >
-          {action.label}
+          ⓘ
         </button>
       )}
-      <button
-        className="ref-pin"
-        aria-label={`${entry.title} ${desk?.pinnedIds.includes(entry.id) ? '고정 해제' : '고정'}`}
-        aria-pressed={desk?.pinnedIds.includes(entry.id) ?? false}
-        onClick={() => desk?.togglePin(entry.id)}
-      >
-        <Pin size={15} />
-      </button>
     </div>
+  );
+}
+
+export function QuickReferenceButton({ entry }: { entry: ReferenceEntry }) {
+  const desk = useReferenceDesk();
+  const action = referenceAction(entry);
+  return (
+    <button
+      className="quick-reference-action"
+      aria-label={`${entry.title} ${action.label}`}
+      onClick={() => desk?.activate(entry.id, action.immediate)}
+    >
+      <span>{referenceShortName(entry)}</span>
+      <small>{action.label}</small>
+    </button>
   );
 }
 export function ReferenceSearchButton() {
@@ -1071,44 +1167,69 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
   const [query, setQuery] = useState('');
-  const quickIds = [
+  const found = query.trim() ? (desk?.search(query, 8) ?? []) : [];
+  const entries = (ids: string[]) =>
+    ids
+      .map((id) => desk?.byId[id])
+      .filter((entry): entry is ReferenceEntry => !!entry);
+  const quick = entries([
     'oracle:core.reaction',
     'procedure:reclvse.action-theme',
     'procedure:workbench.stock-room',
     'procedure:workbench.npc',
-    'procedure:workbench.city',
-    'rule:core.reaction-morale',
-  ];
-  const quick = quickIds
-    .map((key) => desk?.byId[key])
-    .filter((entry): entry is ReferenceEntry => !!entry);
+  ]);
   return (
     <section className="reference-desk">
       <header className="desk-heading">
-        <span className="eyebrow">MÖRK BORG / PLAY REFERENCE</span>
-        <h1>
-          책은 덮고.
-          <br />
-          <em>주사위를 굴려.</em>
-        </h1>
-        <p>Oracle, 생물, 규칙, 다음 표까지. 기록은 당신의 종이에.</p>
+        <h1>REFERENCE DESK</h1>
+        <span className="eyebrow">MÖRK BORG</span>
       </header>
       <form
         className="desk-search"
         onSubmit={(event) => {
           event.preventDefault();
-          desk?.openSearch(query);
+          if (found[0]) desk?.activate(found[0].id, isOneClick(found[0]));
         }}
       >
-        <Search size={23} />
+        <Search size={21} />
         <Input
           aria-label="작업대 검색"
           placeholder="reaction / Sarkash monster / corpse"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown') {
+              event.preventDefault();
+              (
+                event.currentTarget
+                  .closest('.reference-desk')
+                  ?.querySelector(
+                    '.desk-search-results button',
+                  ) as HTMLButtonElement | null
+              )?.focus();
+            }
+          }}
         />
-        <Button type="submit">찾기</Button>
+        {query ? (
+          <button
+            type="button"
+            aria-label="검색 지우기"
+            onClick={() => setQuery('')}
+          >
+            ×
+          </button>
+        ) : (
+          <kbd>⌘ K</kbd>
+        )}
       </form>
+      {query.trim() && (
+        <section className="desk-search-results" aria-label="검색 결과">
+          {found.map((entry) => (
+            <ReferenceRow key={entry.id} entry={entry} />
+          ))}
+          {!found.length && <p>일치하는 참조가 없습니다.</p>}
+        </section>
+      )}
       {source.loading && <output>룰북 자료를 불러오는 중…</output>}
       {source.error && (
         <div role="alert">
@@ -1116,66 +1237,55 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
           <PrivateDataTools />
         </div>
       )}
-      <div className="desk-columns">
-        <section>
-          <h2>지금 필요한 것.</h2>
-          <div className="desk-quick-grid">
-            {quick.map((entry) => (
-              <ReferenceRow key={entry.id} entry={entry} />
+      <div className="desk-personal-tools">
+        <section aria-label="고정한 표">
+          <h2>
+            PINNED <span>{desk?.pinnedIds.length ?? 0}</span>
+          </h2>
+          <div className="desk-pinned-actions">
+            {entries(desk?.pinnedIds ?? []).map((entry) => (
+              <QuickReferenceButton key={entry.id} entry={entry} />
             ))}
           </div>
-          <div className="desk-regions">
-            <span className="eyebrow">WHERE ARE YOU?</span>
-            {regions.map((r) => (
-              <button
-                key={r.id}
-                onClick={() => desk?.activate(`region:${r.id}`)}
-              >
-                {r.name}
-                <ArrowUpRight size={14} />
-              </button>
-            ))}
-          </div>
-        </section>
-        <aside>
-          <h2>곁에 두는 표.</h2>
-          {desk?.pinnedIds.length ? (
-            desk.pinnedIds
-              .map((key) => desk.byId[key])
-              .filter(Boolean)
-              .slice(0, 6)
-              .map((entry) => <ReferenceRow key={entry.id} entry={entry} />)
-          ) : (
-            <p>표 옆의 핀을 눌러 여기에 두세요.</p>
+          {!desk?.pinnedIds.length && (
+            <p className="desk-empty-hint">자주 쓰는 표는 결과에서 PIN.</p>
           )}
-          <button
-            className="ref-text-action"
-            onClick={() => desk?.openSearch('', 'pinned')}
-          >
-            PINNED {desk?.pinnedIds.length} ›
+        </section>
+        <section aria-label="최근 사용한 표">
+          <h2>
+            RECENT{' '}
+            <button onClick={() => desk?.openSearch('', 'recent')}>
+              전체 ›
+            </button>
+          </h2>
+          <div className="desk-recent-actions">
+            {entries(desk?.recentIds ?? [])
+              .slice(0, 5)
+              .map((entry) => (
+                <QuickReferenceButton key={entry.id} entry={entry} />
+              ))}
+          </div>
+          {!desk?.recentIds.length && (
+            <p className="desk-empty-hint">다시 쓸 표가 여기에 남습니다.</p>
+          )}
+        </section>
+      </div>
+      <section className="desk-play-tools" aria-label="자주 쓰는 도구">
+        <h2>QUICK TOOLS</h2>
+        <div className="desk-quick-grid">
+          {quick.map((entry) => (
+            <ReferenceRow key={entry.id} entry={entry} showMetadata={false} />
+          ))}
+        </div>
+      </section>
+      <div className="desk-regions">
+        <span className="eyebrow">REGION</span>
+        {regions.map((r) => (
+          <button key={r.id} onClick={() => desk?.activate(`region:${r.id}`)}>
+            {r.name}
+            <ArrowUpRight size={14} />
           </button>
-          <h3>RECENT</h3>
-          {desk?.recentIds
-            .map((key) => desk.byId[key])
-            .filter(Boolean)
-            .slice(0, 5)
-            .map((entry) => (
-              <button
-                className="recent-reference"
-                key={entry.id}
-                title={entry.title}
-                aria-label={entry.title}
-                onClick={() => desk.activate(entry.id, isOneClick(entry))}
-              >
-                {referenceShortName(entry)}
-                {isOneClick(entry) ? (
-                  <Dices size={14} />
-                ) : (
-                  <ArrowUpRight size={14} />
-                )}
-              </button>
-            ))}
-        </aside>
+        ))}
       </div>
       <details className="desk-index">
         <summary>

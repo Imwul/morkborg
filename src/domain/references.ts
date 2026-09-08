@@ -979,20 +979,17 @@ const CONTEXT_IDS: Record<ReferenceContext, string[]> = {
     'procedure:workbench.stock-room',
     'procedure:sd.room-description',
     'oracle:sd.room.contents',
-    'oracle:sd.room.exits',
-    'procedure:sd.material',
-    'procedure:sd.sound',
-    'oracle:depths.traps.regular',
+    'oracle:core.reaction',
     'oracle:core.treasures',
+    'oracle:sd.usefulItems',
+    'oracle:sd.room.exits',
+    'oracle:depths.traps.regular',
   ],
   monster: [
-    'oracle:feretory.A',
     'oracle:core.reaction',
-    'oracle:core.failedMorale',
-    'oracle:feretory.trait',
-    'oracle:feretory.desire',
-    'oracle:depths.enemyCombatModifiers',
-    'rule:depths.rareMonster',
+    'rule:core.reaction-morale',
+    'oracle:core.corpsePlundering',
+    'oracle:core.treasures',
   ],
   npc: [
     'procedure:workbench.npc',
@@ -1045,13 +1042,11 @@ export function contextReferences(
   limit = 6,
 ): ReferenceEntry[] {
   const regional = region
-    ? context === 'monster'
-      ? [`rule:regional-monsters:${region}`]
-      : context === 'npc'
-        ? [`oracle:${regionTableId(region, 'npc_professions')}`]
-        : context === 'dungeon'
-          ? [`oracle:${regionTableId(region, 'feature')}`]
-          : []
+    ? context === 'npc'
+      ? [`oracle:${regionTableId(region, 'npc_professions')}`]
+      : context === 'dungeon'
+        ? [`oracle:${regionTableId(region, 'feature')}`]
+        : []
     : [];
   const ids = unique([...regional, ...CONTEXT_IDS[context]]);
   return ids
@@ -1061,7 +1056,7 @@ export function contextReferences(
       (entry, index, all) =>
         all.findIndex((other) => other.id === entry.id) === index,
     )
-    .slice(0, Math.max(1, Math.min(8, limit)));
+    .slice(0, Math.max(1, Math.min(context === 'monster' ? 4 : 8, limit)));
 }
 
 const SEMANTIC_RELATED: Record<string, string[]> = {

@@ -12,6 +12,10 @@ import type {
 import type { SourceReference } from '../domain/types';
 import type { RulesPack } from '../storage/rulesStore';
 import { creatureReferenceId } from '../domain/references';
+import {
+  APP_GENERATION_POLICIES,
+  procedureAuthority,
+} from '../domain/generationAuthority';
 
 export interface GenerationIssue {
   severity: 'error' | 'warning';
@@ -60,6 +64,7 @@ export function createGenerationValidationContext(
       allProcedures.set(procedure.id, {
         id: procedure.id,
         title: procedure.title,
+        ...(procedure.authority ? { authority: procedure.authority } : {}),
         sourceRefs:
           procedure.sourceRefs ??
           procedure.oracleIds.flatMap((id) => {
@@ -353,6 +358,27 @@ export function validateGeneratedValue(
     if (p.classification !== 'USER_AUTHORED')
       fail('false-verbatim-after-edit', `${p.origin} / ${p.classification}`);
     return issues; // Historical source IDs may be missing; manual saved values always remain readable.
+  }
+  for (const authority of p.authority ?? []) {
+    if (authority.kind === 'APP_POLICY') {
+      if (!(authority.id in APP_GENERATION_POLICIES))
+        fail('unknown-app-policy', authority.id);
+    } else {
+      const known = authority.id.startsWith('oracle:')
+        ? context.tables.has(authority.id.slice('oracle:'.length))
+        : procedureAuthority(authority.id) === 'SOURCE_PROCEDURE' ||
+          context.procedures.get(authority.id)?.authority ===
+            'SOURCE_PROCEDURE';
+      if (!known) fail('unknown-source-procedure-authority', authority.id);
+      if (procedureAuthority(authority.id) === 'APP_POLICY')
+        fail('app-policy-claimed-as-source', authority.id);
+    }
+    for (const ref of authority.sourceRefs ?? []) {
+      if (ref.bookId && !context.books.has(ref.bookId))
+        fail('unknown-authority-book', ref.bookId);
+      if (ref.tableId && !context.tables.has(ref.tableId))
+        fail('unknown-authority-table', ref.tableId);
+    }
   }
   if (p.classification === 'USER_AUTHORED')
     fail('manual-origin-required', p.origin);

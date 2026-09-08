@@ -14,6 +14,7 @@ import type { OracleDefinition } from '../domain/oracle';
 import { random, rollDie, weightedPick, type RandomSource } from './random';
 import { regionWeightFactor, REGION_WEIGHT_TABLES } from './regionWeights';
 import { VERIFIED_DUNGEON_TABLES } from './dungeonProcedures';
+import { appPolicy, sourceProcedure } from '../domain/generationAuthority';
 export function scalarText(value: unknown): string {
   return typeof value === 'string' || typeof value === 'number'
     ? String(value)
@@ -246,6 +247,10 @@ export function rollTable(
       sourceRefs: [sourceRef],
       sourceText: texts,
       rolls,
+      authority: [
+        sourceProcedure(`oracle:${tableId}`, [sourceRef]),
+        ...(selected.weighted ? [appPolicy('app.region-weighting')] : []),
+      ],
       ...(['core.status', 'core.danger', 'core.rooms'].includes(tableId)
         ? {
             procedureId:

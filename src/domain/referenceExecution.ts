@@ -19,6 +19,7 @@ import {
   encounterTable,
 } from '../generators/content';
 import { rollCityReference } from './cityReference';
+import { appPolicy, sourceProcedure } from './generationAuthority';
 import {
   oracleReadingText,
   feretoryResultBlock,
@@ -129,38 +130,50 @@ export function executeReference(
       rules,
       options.rng,
     );
-    const blocks: ReferenceReading['blocks'] = [
-      {
-        title: r.reading.title,
-        text: r.reading.text,
-        dice: `${r.reading.dice} = ${r.reading.roll}${r.quantity == null ? '' : ' · 수량 ' + r.quantity}`,
-      },
-    ];
-    if (r.preset)
-      blocks.push(
-        ...monsterBlocks(loadMonsterPreset(id(), r.preset)).map((b) => ({
-          ...b,
-          dice: b.dice ?? '',
-        })),
-      );
-    if (r.unresolved)
-      blocks.push({
-        title: '원문 참조',
-        text: r.reason ?? '이 항목은 원문 지시를 확인하세요.',
-        dice: '',
-      });
+    const sourceName = r.preset
+      ? String(r.preset.name)
+      : typeof r.reading.metadata?.name === 'string'
+        ? r.reading.metadata.name
+        : '';
+    const identity = `${sourceName}${r.quantity == null ? '' : ' × ' + r.quantity}`;
+    const dice = `${r.reading.dice} = ${r.reading.roll}${r.quantityRoll ? ` · ${r.quantityRoll.dice} = ${r.quantityRoll.roll}` : r.quantity == null ? '' : ' · 수량 ' + r.quantity}`;
+    const blocks: ReferenceReading['blocks'] = r.preset
+      ? monsterBlocks(loadMonsterPreset(id(), r.preset)).map((block) => ({
+          ...block,
+          title: identity,
+          dice,
+        }))
+      : [
+          {
+            title: sourceName ? identity : r.reading.title,
+            text: sourceName ? 'SOURCE UNAVAILABLE' : r.reading.text,
+            dice,
+          },
+        ];
     output = {
       title: entry.title,
       blocks,
+      // The complete printed route remains inspectable, separate from its mechanical display.
+      oracle: { id: id(), title: r.reading.title, rolls: [r.reading] },
       ...(r.preset
         ? {
             copyContent: {
-              title: `${String(r.preset.name)}${r.quantity == null ? '' : ' × ' + r.quantity}`,
-              blocks: blocks.slice(1).map((block) => ({ ...block, title: '' })),
+              title: identity,
+              blocks: blocks.map((block) => ({ ...block, title: '' })),
             },
           }
         : {}),
       sourceRefs: r.sourceChain.map((step) => step.source),
+      authority: [
+        sourceProcedure(
+          `oracle:${r.reading.oracleId}`,
+          r.sourceChain
+            .filter((step) => step.role === 'routing')
+            .map((step) => step.source),
+          `${r.reading.dice} · 원문의 지역 표가 지정한 생물 출처로 연결합니다.`,
+        ),
+        appPolicy('app.result-grouping'),
+      ],
       evidence: r.sourceChain
         .map((step) => ({
           source: step.source,

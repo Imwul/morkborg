@@ -1,7 +1,7 @@
 import type { ReferenceEntry } from './references';
 import { compactSourceText, shortBookTitle } from './sourceDisplay';
 
-/** Inspection never changes dice. The adjacent primary action runs only confirmed defaults. */
+/** The primary action runs only confirmed defaults; reference inspection never changes dice. */
 export function referenceAction(entry: ReferenceEntry) {
   const action = entry.action;
   if (!entry.available || !action)
@@ -10,14 +10,16 @@ export function referenceAction(entry: ReferenceEntry) {
     return { label: 'GENERATE', immediate: true } as const;
   if (action.kind === 'oracle')
     return { label: 'ROLL', immediate: true } as const;
+  if (action.kind === 'creature')
+    return { label: 'OPEN', immediate: true } as const;
   if (action.kind === 'procedure') {
+    if (['workbench.city', 'workbench.stock-room'].includes(action.procedureId))
+      return { label: 'OPEN', immediate: false } as const;
     return {
       label: ['workbench.npc', 'workbench.epk'].includes(action.procedureId)
         ? 'GENERATE'
         : 'RUN',
-      immediate: !['workbench.city', 'workbench.stock-room'].includes(
-        action.procedureId,
-      ),
+      immediate: true,
     } as const;
   }
   return { label: 'OPEN', immediate: false } as const;

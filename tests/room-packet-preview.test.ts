@@ -60,7 +60,7 @@ function genericRoom(): DungeonRoom {
     ],
   };
 }
-function renderPreview(room: DungeonRoom) {
+function renderPacket(room: DungeonRoom, ready = false, expanded = false) {
   return renderToStaticMarkup(
     createElement(RoomPacket, {
       dungeon: createDungeon(
@@ -71,10 +71,14 @@ function renderPreview(room: DungeonRoom) {
       ),
       room,
       index: 0,
-      ready: false,
+      ready,
+      expanded,
       update: () => {},
     }),
-  ).split('</summary>')[0];
+  );
+}
+function renderPreview(room: DungeonRoom) {
+  return renderPacket(room).split('</summary>')[0];
 }
 
 test('generic packet preview avoids repeating an untouched composed title and labels numeric exits', () => {
@@ -158,4 +162,63 @@ test('Special Room preview retains source fragments and its correct identity wit
     /room-component-sample">Sample fixture · source fragment<\/span>/,
   );
   assert.deepEqual(room, snapshot);
+});
+
+test('expanded Room exposes each independent reroll and one closed Source without entering edit mode', () => {
+  const room = genericRoom(),
+    snapshot = structuredClone(room),
+    html = renderPacket(room, true, true);
+  assert.match(html, /<details open="">/);
+  for (const label of ['ADJECTIVE', 'TYPE', 'CONTENTS', 'EXITS'])
+    assert.match(
+      html,
+      new RegExp(`class="room-component-reroll" aria-label="${label} 재굴림"`),
+    );
+  assert.equal((html.match(/class="room-component-reroll"/g) ?? []).length, 4);
+  assert.match(html, /aria-pressed="false">EDIT/);
+  assert.doesNotMatch(html, /<(input|textarea)\b/);
+  assert.equal((html.match(/<summary>SOURCE<\/summary>/g) ?? []).length, 1);
+  assert.match(html, /<details class="sheet-source source-disclosure">/);
+  assert.deepEqual(room, snapshot);
+});
+
+test('unavailable source data and preserved manual-only components do not expose misleading rerolls', () => {
+  const room = genericRoom();
+  assert.doesNotMatch(
+    renderPacket(room, false, true),
+    /class="room-component-reroll"/,
+  );
+  room.components!.push({
+    key: 'manual-detail',
+    label: 'MANUAL DETAIL',
+    sourceText: 'Preserved user annotation',
+    provenance: editedProvenance(source()),
+  });
+  const html = renderPacket(room, true, true);
+  assert.match(html, /Preserved user annotation/);
+  assert.doesNotMatch(html, /aria-label="MANUAL DETAIL 재굴림"/);
+  assert.equal((html.match(/class="room-component-reroll"/g) ?? []).length, 4);
+});
+
+test('Special Room parent reroll communicates its dependent scope without displaying edit controls', () => {
+  const room = genericRoom();
+  room.kind = 'special';
+  room.components = [
+    {
+      key: 'sample',
+      label: 'ROOM',
+      sourceText: 'Sample fixture',
+      provenance: source(),
+    },
+  ];
+  const html = renderPacket(room, true, true);
+  assert.match(
+    html,
+    /aria-label="ROOM 재굴림" title="방과 표가 지시하는 추가 항목 재굴림 · 수동 수정한 추가 항목은 보존"/,
+  );
+  assert.match(
+    html,
+    /<details class="dependent-roll-note"><summary>재굴림 범위<\/summary>/,
+  );
+  assert.doesNotMatch(html, /<(input|textarea)\b/);
 });

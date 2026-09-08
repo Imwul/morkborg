@@ -8,6 +8,14 @@ export type GenerationClassification =
   | 'UNSOURCED';
 export type ValueOrigin = 'source' | 'source-edited' | 'manual';
 export type SourceStatus = 'VERIFIED' | 'PARTIAL' | 'CONFLICT' | 'UNAVAILABLE';
+export type GenerationAuthorityKind = 'SOURCE_PROCEDURE' | 'APP_POLICY';
+/** Authority explains who chose the procedure, independently from where its words came from. */
+export interface GenerationAuthority {
+  kind: GenerationAuthorityKind;
+  id: string;
+  description?: string;
+  sourceRefs?: SourceReference[];
+}
 export interface RollTrace {
   tableId: string;
   dice: string;
@@ -29,6 +37,7 @@ export interface GeneratedValueProvenance {
   unresolvedSourceIds?: string[];
   /** Component keys used by an automatic display mirror; direct user edits detach it. */
   derivedFrom?: string[];
+  authority?: GenerationAuthority[];
 }
 export interface GeneratorStep {
   id: string;
@@ -44,6 +53,7 @@ export interface GeneratorProcedure {
   title: string;
   sourceRefs: SourceReference[];
   steps: GeneratorStep[];
+  authority?: GenerationAuthorityKind;
 }
 export interface RoomComponent {
   key: string;

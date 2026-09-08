@@ -48,7 +48,6 @@ import {
   QuantityControl,
   RoomSelector,
 } from './MonsterAssignments';
-import { placementCaption } from './ContentAssignments';
 import type { Confirm } from './Library';
 
 export function Monsters({
@@ -338,12 +337,18 @@ export function Monsters({
               secondary={
                 [
                   m.hp !== '' ? `HP ${m.hp}` : '',
-                  m.morale ? `Morale ${m.morale}` : '',
+                  m.morale !== '' ? `Morale ${m.morale}` : '',
+                  m.armor ? `Armor ${m.armor}` : '',
                 ]
                   .filter(Boolean)
                   .join(' · ') || 'SOURCE UNAVAILABLE'
               }
-              metadata={placementCaption(c, 'monsters', m.id)}
+              metadata={m.attacks
+                .map((attack) =>
+                  [attack.name, attack.damage].filter(Boolean).join(' '),
+                )
+                .filter(Boolean)
+                .join(' · ')}
               onOpen={() => select(m.id)}
               actions={[
                 { label: '복제', onSelect: () => duplicate(m) },

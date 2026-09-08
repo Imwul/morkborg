@@ -428,6 +428,8 @@ export function Characters({
                 ch.hp +
                 ' / ' +
                 ch.maxHp +
+                ' · Omens ' +
+                ch.omens +
                 (ch.status === 'dead' ? ' · 사망' : '')
               }
               onOpen={() => {

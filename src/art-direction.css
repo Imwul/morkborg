@@ -260,14 +260,20 @@ select:focus-visible {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 14px 24px;
 }
+.dungeon-grid,
+.character-library,
+.compact-library-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
 .compact-card {
-  border: 1px solid var(--border);
+  border: 0;
+  border-bottom: 1px solid var(--border);
   border-top: 3px solid var(--ink);
   background: var(--group-paper);
 }
 .compact-card-main {
-  min-height: 100px;
-  padding: 16px 44px 16px 16px;
+  min-height: 92px;
+  padding: 14px 52px 14px 16px;
 }
 .compact-card-title {
   font-size: 24px;
@@ -2868,6 +2874,14 @@ ol.ledger-list {
   color: #aaa79e;
   font-size: 0.75rem;
 }
+.room-packet-preview > .room-packet-close,
+.room-packet > details[open] > summary .room-component-preview,
+.room-packet > details[open] > summary .room-packet-open {
+  display: none;
+}
+.room-packet > details[open] > summary .room-packet-close {
+  display: block;
+}
 .room-packet-body {
   padding: 0 1.2rem 1.2rem;
   border-top: 1px solid #4b4a43;
@@ -2881,14 +2895,52 @@ ol.ledger-list {
   font-size: 0.78rem;
   letter-spacing: 0.07em;
 }
+.room-component-reading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  column-gap: 0.6rem;
+}
+.room-component-reading > small,
+.room-component-reading > p {
+  grid-column: 1;
+}
+.room-component-reroll {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.room-component-reroll:hover {
+  background: #eeeadd;
+  color: #1b1b18;
+}
 .room-component p {
   margin: 0.35rem 0;
   font-size: 1rem;
   line-height: 1.55;
 }
 .room-component .dependent-roll-note {
-  display: block;
+  grid-column: 1 / -1;
   letter-spacing: 0;
+  font-size: 0.78rem;
+  color: #aaa79e;
+}
+.dependent-roll-note > summary {
+  width: fit-content;
+  min-height: 44px;
+  align-content: center;
+  cursor: pointer;
+}
+.room-component .dependent-roll-note p {
+  font-size: inherit;
 }
 .packet-actions {
   display: flex;
@@ -2905,6 +2957,14 @@ ol.ledger-list {
   color: inherit;
   background: transparent;
   border: 1px solid #6d6a60;
+}
+.packet-actions button {
+  border: 0;
+}
+.packet-actions button:hover,
+.packet-actions button[aria-pressed='true'] {
+  background: #eeeadd;
+  color: #1b1b18;
 }
 .room-context-link {
   border: 0;

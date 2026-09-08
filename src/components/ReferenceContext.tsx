@@ -9,6 +9,8 @@ export interface DeskContext {
   byId: Record<string, ReferenceEntry>;
   activate: (id: string, roll?: boolean, region?: RegionId) => void;
   openSearch: (query?: string, scope?: 'all' | 'pinned' | 'recent') => void;
+  search: (query: string, limit?: number) => ReferenceEntry[];
+  openTable?: (id: string) => void;
   contextual: (context: ContextKind, region?: RegionId) => ReferenceEntry[];
   pinnedIds: string[];
   recentIds: string[];

@@ -1,5 +1,11 @@
 import { prepareSpecialRooms, syncRoomComponents } from './specialRooms';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import {
+  appPolicy,
+  sourceProcedure,
+  generationAuthorities,
+  uniqueAuthorities,
+} from '../domain/generationAuthority';
 import { emptyChronicle } from '../domain/chronicle';
 import type {
   Campaign,
@@ -63,6 +69,7 @@ export function dungeonTitleRoll(): RuleRoll {
       ],
       rolls: [...first.provenance!.rolls!, ...second.provenance!.rolls!],
       procedureId: 'core.dungeon-title',
+      authority: [sourceProcedure('core.dungeon-title')],
       transformation: 'Printed The + first d12 column + second d12 column.',
       datasetVersion: first.provenance!.datasetVersion,
     },
@@ -100,7 +107,12 @@ const roomTable: Record<string, string> = {
 export function generateDungeonRoll(key: string, region: RegionId): RuleRoll {
   const table = dungeonTable[key];
   if (!table) return structuredClone(blankRoll);
-  return rollTable(table, region);
+  const result = rollTable(table, region);
+  result.provenance!.authority = uniqueAuthorities([
+    ...generationAuthorities(result.provenance),
+    appPolicy('app.dungeon-dossier'),
+  ]);
+  return result;
 }
 export function generateDungeonField(key: string, region: RegionId): string {
   return scalarText(generateDungeonRoll(key, region).value);
@@ -126,6 +138,11 @@ export function generateRoomRoll(key: string, region: RegionId): RuleRoll {
         ],
         rolls: [...adjective.provenance!.rolls!, ...type.provenance!.rolls!],
         procedureId: 'sd.generic-room',
+        authority: uniqueAuthorities([
+          sourceProcedure('sd.generic-room'),
+          ...generationAuthorities(adjective.provenance),
+          ...generationAuthorities(type.provenance),
+        ]),
         derivedFrom: ['adjective', 'type'],
         transformation:
           'Display the two printed descriptor results with ·; slash-separated alternatives stay unchanged.',
@@ -196,6 +213,7 @@ export function generateEntityRoll(
           status: 'VERIFIED',
           sourceRefs: [],
           procedureId: 'app.structural-identifier',
+          authority: [appPolicy('app.structural-identifier')],
           transformation: 'Neutral structural label; manual name allowed.',
         },
       };

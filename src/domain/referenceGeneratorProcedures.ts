@@ -1,6 +1,13 @@
 import type { GeneratorProcedure } from './generationProvenance';
 import type { OracleRegistry, OracleResult } from './oracle';
 import type { SourceReference } from './types';
+import {
+  appPolicy,
+  generationAuthorities,
+  procedureAuthority,
+  sourceProcedure,
+  uniqueAuthorities,
+} from './generationAuthority';
 
 const source = (
   bookId: string,
@@ -13,6 +20,7 @@ const source = (
 export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   {
     id: 'aitc.street',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Street Descriptors',
     sourceRefs: [
       source('aitc', [5, 17], '3, 15', 'Micro-Crawl / Street Descriptors'),
@@ -53,6 +61,7 @@ export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'aitc.notable-artefact-type',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Notable Artefacts',
     sourceRefs: [source('aitc', 11, 9, 'Notable Artefacts')],
     steps: [
@@ -107,6 +116,7 @@ export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'feretory.road',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Roads to Damnation · travel',
     sourceRefs: [
       source('sd', 17, 15, 'Daily travel flowchart'),
@@ -144,6 +154,7 @@ export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'feretory.forage',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Spending a day foraging',
     sourceRefs: [source('feretory', 8, 6, 'Foraging / The village is')],
     steps: [
@@ -160,6 +171,7 @@ export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'feretory.campsite',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Nightly campsite events',
     sourceRefs: [source('feretory', 9, 7, 'Nightly campsite events')],
     steps: [
@@ -177,6 +189,7 @@ export const REFERENCE_GENERATOR_PROCEDURES: GeneratorProcedure[] = [
   },
   {
     id: 'sd.camping',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Camping, Resting, Catching Breath',
     sourceRefs: [source('sd', 8, 6, 'Camping, Resting, Catching Breath')],
     steps: [
@@ -247,6 +260,10 @@ export function traceReferenceProcedure(
     !registry?.procedures.some((procedure) => procedure.id === procedureId)
   )
     return result;
+  const procedure =
+    referenceGeneratorProcedure(procedureId) ??
+    registry?.procedures.find((item) => item.id === procedureId);
+  const authority = procedure?.authority ?? procedureAuthority(procedureId);
   return {
     ...result,
     rolls: result.rolls.map((roll) => ({
@@ -254,7 +271,20 @@ export function traceReferenceProcedure(
       metadata: {
         ...roll.metadata,
         ...(roll.metadata?.provenance
-          ? { provenance: { ...roll.metadata.provenance, procedureId } }
+          ? {
+              provenance: {
+                ...roll.metadata.provenance,
+                procedureId,
+                authority: uniqueAuthorities([
+                  ...generationAuthorities(roll.metadata.provenance),
+                  ...(authority === 'SOURCE_PROCEDURE'
+                    ? [sourceProcedure(procedureId, procedure?.sourceRefs)]
+                    : authority === 'APP_POLICY'
+                      ? [appPolicy(procedureId)]
+                      : []),
+                ]),
+              },
+            }
           : {}),
       },
     })),

@@ -96,6 +96,12 @@ function mechanicalProvenance(
     sourceText,
     transformation,
     procedureId: def ? `character.class:${def.id}` : 'character.core-classless',
+    authority: [
+      {
+        kind: 'SOURCE_PROCEDURE',
+        id: def ? `character.class:${def.id}` : 'character.core-classless',
+      },
+    ],
     ...(dice && values
       ? {
           rolls: [

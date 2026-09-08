@@ -2736,8 +2736,9 @@ button:disabled {
 .compact-overflow > summary {
   list-style: none;
   cursor: pointer;
-  font: bold 22px/32px var(--font-ui);
-  width: 32px;
+  font: bold 22px/44px var(--font-ui);
+  width: 44px;
+  min-height: 44px;
   text-align: center;
 }
 .compact-overflow > summary::-webkit-details-marker {
@@ -2745,7 +2746,7 @@ button:disabled {
 }
 .compact-overflow[open] > summary {
   background: #000;
-  color: #ffe900;
+  color: #fff;
 }
 .compact-menu {
   position: absolute;
@@ -2761,11 +2762,16 @@ button:disabled {
   text-align: left;
   padding: 9px 12px;
   font-size: 14px;
+  min-height: 44px;
 }
 .compact-menu button:hover,
 .compact-menu button:focus-visible {
-  background: #ffe900;
+  background: #ebe7d9;
   color: #000;
+}
+.compact-overflow > summary:focus-visible {
+  outline: 2px solid var(--ink, #000);
+  outline-offset: 2px;
 }
 .source-disclosure {
   font-size: 12px;

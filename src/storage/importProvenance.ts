@@ -79,7 +79,12 @@ export function markUnresolvedImportedSources(
     if (item.classification && Array.isArray(item.sourceRefs)) {
       const provenance = item as unknown as GeneratedValueProvenance;
       const missing = new Set<string>();
-      for (const ref of provenance.sourceRefs) {
+      for (const ref of [
+        ...provenance.sourceRefs,
+        ...(provenance.authority ?? []).flatMap(
+          (authority) => authority.sourceRefs ?? [],
+        ),
+      ]) {
         if (ref.tableId && !known(ref.tableId)) missing.add(ref.tableId);
         else if (ref.tableId && ref.entryId)
           checkEntry(ref.tableId, ref.entryId, missing);

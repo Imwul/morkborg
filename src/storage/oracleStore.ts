@@ -73,6 +73,7 @@ const schema = z.object({
         .optional(),
       printedPage: z.union([z.number(), z.string(), z.null()]).optional(),
       sourceNote: z.string().optional(),
+      authority: z.enum(['SOURCE_PROCEDURE', 'APP_POLICY']).optional(),
       additionalPages: z.array(z.number().int().positive()).optional(),
       steps: z
         .array(z.object({ label: z.string(), oracleIds: z.array(z.string()) }))

@@ -1,5 +1,6 @@
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { hasManualEdits } from '../domain/generationProvenance';
+import { encounterCardTitle } from '../domain/encounterDisplay';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -45,7 +46,6 @@ import {
   contentLabels,
   contentTitle,
   openPlacedContent,
-  placementCaption,
 } from './ContentAssignments';
 import type { Confirm } from './Library';
 const npcFields: FieldSpec[] = [
@@ -307,16 +307,27 @@ export function ContentLibrary({
           {c[kind].map((entity) => (
             <CompactCard
               key={entity.id}
-              title={contentTitle(entity)}
+              title={
+                'category' in entity
+                  ? encounterCardTitle(entity, registry)
+                  : contentTitle(entity)
+              }
               secondary={
                 'archetype' in entity
-                  ? [entity.behaviour, entity.archetype]
-                      .filter(Boolean)
-                      .join(' · ')
+                  ? entity.archetype || entity.behaviour
                   : encounterCategories.find((x) => x.id === entity.category)
                       ?.label
               }
-              metadata={placementCaption(c, kind, entity.id)}
+              metadata={
+                'archetype' in entity
+                  ? [
+                      entity.hp !== '' ? `HP ${entity.hp}` : '',
+                      entity.morale !== '' ? `Morale ${entity.morale}` : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')
+                  : undefined
+              }
               onOpen={() => select(entity.id)}
               actions={[
                 { label: '복제', onSelect: () => duplicate(entity) },

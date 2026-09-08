@@ -12,6 +12,7 @@ type DungeonProcedure = GeneratorProcedure & {
 export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
   {
     id: 'core.dungeon-title',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Dungeon title',
     sourceRefs: [
       { bookId: 'core', tableId: 'core.titleA', pdfPage: 71, printedPage: 71 },
@@ -35,6 +36,7 @@ export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
   },
   {
     id: 'core.dungeon-status',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Dungeon Status',
     sourceRefs: [
       { bookId: 'core', tableId: 'core.status', pdfPage: 71, printedPage: 71 },
@@ -53,6 +55,7 @@ export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
   },
   {
     id: 'core.imminent-danger',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Imminent Danger',
     sourceRefs: [
       { bookId: 'core', tableId: 'core.danger', pdfPage: 72, printedPage: 72 },
@@ -70,6 +73,7 @@ export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
   },
   {
     id: 'core.sample-room',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Sample Room',
     sourceRefs: [
       {
@@ -78,13 +82,6 @@ export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
         pdfPage: [73, 74],
         printedPage: '73–74',
         role: 'primary',
-      },
-      {
-        bookId: 'sd',
-        pdfPage: 19,
-        printedPage: 17,
-        role: 'routing',
-        note: 'Four preparation slots. Selecting the Core Sample Rooms table for these slots is an explicit application preparation choice; SD does not mandate this table.',
       },
     ],
     steps: [
@@ -111,10 +108,11 @@ export const DUNGEON_PROCEDURES: DungeonProcedure[] = [
         condition: 'Sample selector 43; use only its inline altar subtable.',
       },
     ],
-    note: 'One sample result per room. Independent repetitions are valid. No generated role, regional trait, prose, second detail, or uniqueness reroll. Four slots come from SD; no source claim is made for DNGNGEN content.',
+    note: 'One sample result and only its printed conditional detail. Using this table for SD preparation slots is a separate APP POLICY; SD does not mandate Core Sample Rooms.',
   },
   {
     id: 'sd.generic-room',
+    authority: 'SOURCE_PROCEDURE',
     title: 'Dungeon Room Descriptors',
     sourceRefs: [{ bookId: 'sd', pdfPage: 15, printedPage: 13 }],
     steps: [
