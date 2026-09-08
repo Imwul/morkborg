@@ -707,7 +707,7 @@
         "depths-depths-region-lake-onda-npc-professions",
         "depths-hex-encounters",
         "depths-lake-onda-route",
-        "depths-cursed-trout-source"
+        "feretory:creature-cursed-trout"
       ],
       "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
     },
@@ -976,7 +976,7 @@
         "aitc-item-bone-saw",
         "aitc-item-algae-flakes",
         "aitc-item-dried-mushrooms",
-        "aitc-item-gunpowder-and-blackpowder-weapons"
+        "heretic:blackpowder-rule"
       ],
       "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
     },

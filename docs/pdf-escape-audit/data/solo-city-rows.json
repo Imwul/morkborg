@@ -15405,8 +15405,8 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "n/a",
-    "problem": "The solo-variant reference names the option but omits the maximum-four limit and the choice to reroll one or both dice.",
-    "minimalFix": "Add a concise source-specific reference; keep existing tables canonical.",
+    "problem": "At HEAD 479cbd7, the reference now mentions rerolling one or two dice, but still omits the explicit maximum of four Omens and their role as a Move stat. It introduces stage-escalation/cap wording that is not the Omens rule on the supplied page.",
+    "minimalFix": "Correct the existing SD reminder: maximum four Omens; reroll one or both Move dice; Omens also serves as a stat. Remove the unsupported stage-escalation wording, keeping the separate daily Misery die rule distinct.",
     "solutionType": [
       "QUICK_RULE"
     ],
@@ -15419,7 +15419,7 @@
         "src/domain/playReferenceRules.ts:114"
       ],
       "tableIds": [],
-      "notes": "Fresh supplied PDF page inspected against current private canonical registry and rendering code at a50d2425. Code/data audit; no per-row browser interaction is claimed."
+      "notes": "Fresh supplied PDF page inspected against current private canonical registry and rendering code at a50d2425. Code/data audit; no per-row browser interaction is claimed. Current-HEAD browser recheck and newly rendered SD PDF5/printed3 confirm the remaining PARTIAL state; the one/two-die option itself is now present."
     }
   },
   {

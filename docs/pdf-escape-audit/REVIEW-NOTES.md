@@ -1,5 +1,7 @@
 # Independent artifact review
 
+> Completion recheck: current application HEAD `479cbd765b4168eeaeee27f921bf4b0a6615c51b`. The original page/browser observations below retain their audit baseline. [CURRENT-HEAD-RECHECK.md](CURRENT-HEAD-RECHECK.md) records the newer rolled Power effects, English casting ranking and remaining Omens/search gaps. Final matrix/coverage use that recheck; historical browser results are not claimed to be current failures.
+
 Baseline: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. This is a bounded review of audit artifacts, not another application change or a complete second reading of every supplement. Core sources were independently read in full; other agents' findings were checked for schema, identity, source-scope and aggregation consistency as they arrived.
 
 ## Checks completed
@@ -34,14 +36,20 @@ Long-form material and appropriate paper worksheets must not inflate an implemen
 
 ## Review findings and dispositions
 
-These findings were identified against intermediate files and corrected by their owners. Final aggregation must still use completed source inventories rather than treating this snapshot as a final all-book coverage total.
+These findings were identified against intermediate files and corrected by their owners. The completed all-book aggregation now supersedes this intermediate snapshot; its correction history is retained below.
 
 1. `mythic-extra-rows.json` arrived with audit `bookId: mythic2`, while `source-inventory.json` and `mythic-rows.json` use `mythic`. **Corrected:** the additional rows now use `mythic`. Canonical Oracle IDs retain `mythic2`.
 2. The main Mythic rows changed 52 RESOLVED score triples to null, while the current schema permits null only for PDF_APPROPRIATE. **Corrected:** ROW-SCHEMA now explicitly permits null score triples for RESOLVED as well as PDF_APPROPRIATE. The cross-validator follows the clarified schema; implementation ranking excludes both.
 3. `mythic-art-and-forms` already includes the Adventure Journal at PDF77; `mythic-paper-journal` counted the identical appendix reprint at PDF193 as another need. Both fresh page texts have the same fields/instructions. **Corrected:** PDF77 was removed from the general art/form need and added beside PDF193 to the one Journal need. Both page locations remain inspectable. Other appendix sheets reviewed already group their reprints under one need: Keyed Scenes 154/224 and Adventure Features 161/225.
 
-Latest cross-validation snapshot: **951 source-location rows, 705 unique needs, zero schema/source-ID errors and zero duplicate-classification conflicts** across Core, FERETORY/HERETIC/small aids and both Mythic row files. This snapshot does not yet contain the separately assigned solo/city supplement rows, so it is not the final coverage denominator.
+Historical intermediate cross-validation snapshot: **951 source-location rows, 705 unique needs, zero schema/source-ID errors and zero duplicate-classification conflicts** across Core, FERETORY/HERETIC/small aids and both Mythic row files. This intermediate snapshot excluded the separately reviewed solo/city rows and is not the final coverage denominator.
 
-Private audit utility: `outputs/pdf-escape-audit/core-review/cross_validate.py` checks the current row files and writes `cross-validation.json`. It intentionally fails on unresolved schema/source-ID discrepancies instead of silently accepting unknown audit books. Its snapshot counts are not final MASTER totals while agents are still delivering files.
+Private audit utility: `outputs/pdf-escape-audit/core-review/cross_validate.py` checks the current row files and writes `cross-validation.json`. It intentionally fails on unresolved schema/source-ID discrepancies instead of silently accepting unknown audit books. Its intermediate counts are superseded by the committed all-book validator and final MASTER totals.
 
 No production code, private source data, saved Campaigns, UI, generator, schema, Git history, remote or deployment was changed by this review.
+
+## Completion review
+
+The final validator covers all 1,520 source rows, 1,268 unique main-book needs, 1,220 play-relevant needs and 793 physical pages across 14 supplied documents. Two page-ledger links still used pre-dedup row IDs (Cursed Trout and Alöne Gunsmith); they now resolve to the shared FERETORY/HERETIC need IDs. No need was regenerated or silently removed.
+
+Current-HEAD checks also caught that adding 마법 to the priority map did not make it a searchable candidate. The browser still returns no result. English Power ranking and rolled Power effects are credited as corrected by the existing HEAD; table/named lookup and Omens precision remain explicit findings. See [validation result](data/artifact-validation.json) and [current recheck](CURRENT-HEAD-RECHECK.md).

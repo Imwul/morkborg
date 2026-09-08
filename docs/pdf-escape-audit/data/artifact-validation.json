@@ -1,0 +1,19 @@
+{
+  "auditedApplicationHead": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
+  "result": "PASS",
+  "sourceRows": 1520,
+  "uniqueMainNeeds": 1268,
+  "playRelevant": 1220,
+  "sourcesWithCompletePageAccounting": 14,
+  "physicalPagesAccounted": 793,
+  "canonicalTables": 562,
+  "tableViews": 562,
+  "missingSourceOrTableIds": 0,
+  "duplicateRowIds": 0,
+  "conflictingNeedClassifications": 0,
+  "brokenReportLinks": 0,
+  "currentQueries": 1136,
+  "currentBrowserQueries": 20,
+  "productionFilesChangedFromAuditedHead": 0,
+  "boundary": "Artifact/schema/page-accounting checks. Not a claim of exhaustive browser testing or application test/lint/build results."
+}

@@ -1,6 +1,6 @@
 # Canonical table access audit
 
-Baseline `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`; documentation only. This is an inventory of **all 562 installed canonical tables / 12,276 root entries**, not a new set of play-need rows. It refines the preliminary metadata detector in `app-inventory.json`: a hidden metadata key is not automatically missing playable information.
+Baseline `479cbd765b4168eeaeee27f921bf4b0a6615c51b`; documentation only. This is an inventory of **all 562 installed canonical tables / 12,276 root entries**, not a new set of play-need rows. It refines the preliminary metadata detector in `app-inventory.json`: a hidden metadata key is not automatically missing playable information.
 
 The complete inventory is in [JSON](data/table-access.json) and [CSV](data/table-access.csv). Each table records its actual reference destination, grouped canonical IDs, source pages, search rank, roll/reroll/view/manual-reading capabilities, non-roll reason, inspected omissions and related existing audit need IDs. No private full table text is embedded in these tracked inventory files.
 
@@ -12,8 +12,8 @@ The complete inventory is in [JSON](data/table-access.json) and [CSV](data/table
 | Automatic ROLL and REROLL | 544 canonical tables, through 534 distinct views |
 | Deliberately view-only tables | 18 |
 | TABLE and SOURCE reachable with installed data | 562 / 562 |
-| Exact table-title query: expected destination first | 551 / 562 |
-| Exact table-title query: expected destination within five | 562 / 562; all remaining 11 are second |
+| Exact table-title query: expected destination first | 550 / 562 |
+| Exact table-title query: expected destination within five | 562 / 562; 11 second and 1 third |
 | Reading a table and choosing an entry on paper | All tables; see selector/field exceptions below |
 | Generic clickable row → chosen result / free manual die input | Neither exists in Table Inspector |
 | Tables with a lowercase inline followup disclosure | 3 tables / 5 parent entries |
@@ -21,11 +21,11 @@ The complete inventory is in [JSON](data/table-access.json) and [CSV](data/table
 | TABLE-specific missing source selectors/context headings | 7 tables / 64 parent entries, counted separately |
 | Repeated identical TABLE caused by a repeated procedural step | 1: `heretic.gravesLootBodies` |
 
-The 11 second-place results are mostly reasonable: armor/broken quick rules and regional monster workflows rank before the raw table. Other collisions are Trait, Names, Powers and the two Sound components. A title being searchable does not mean an individual named item or spell is searchable; those row-level gaps are in the book audits.
+The 12 non-first results are mostly reasonable: armor/broken quick rules and regional monster workflows rank before the raw table. Other collisions are Trait, Names, Powers and the two Sound components. A title being searchable does not mean an individual named item or spell is searchable; those row-level gaps are in the book audits.
 
 ## ROLL is not VIEW
 
-**ROLL** executes the selected reference’s canonical table or table group. **REROLL** executes the same whole group again. These are one-click actions on an available reference; they are not a guarantee that every secondary source procedure is automated. The generic result includes `entry.text` and only the textual metadata keys `effectRule`, `conditional`, `condition`, and `procedureNote`. Other specialized workbenches may supply more complete procedure results.
+**ROLL** executes the selected reference’s canonical table or table group. **REROLL** executes the same whole group again. These are one-click actions on an available reference; they are not a guarantee that every secondary source procedure is automated. The generic result includes `entry.text` and only the textual metadata keys `effect`, `effectRule`, `conditional`, `condition`, and `procedureNote`. Other specialized workbenches may supply more complete procedure results.
 
 **TABLE** deliberately shows all rows without rolling. The current path from an opened reference is `SOURCE → TABLE`; from another object’s opened Source, `이 표 열기` calls `openTable` directly and preserves the underlying object context. TABLE renders the dice/range column, the English entry text, and an optional nested child-text disclosure. It does not call the generic result formatter or render arbitrary mechanical metadata. A table can consequently be readable and incomplete at the same time.
 
@@ -56,7 +56,7 @@ These 55 rows are **table-view omissions**, not 55 new missing source needs:
 |---|---:|---|---|
 | Core Weapons | 10 | Damage; ammunition on ranged weapons | Generic result also shows only name. |
 | Core Armor | 4 | Tier, reduction, test penalties, prices/examples | Generic result also shows only category. |
-| Core Sacred and Unclean Powers | 20 | Actual Power effect | Generic result also shows only name. |
+| Core Sacred and Unclean Powers | 20 | Actual Power effect | Generic result now appends the stored effect; TABLE still omits it. |
 | HER Graves Knowledge | 6 | True/false/maybe qualifier | Generic result also omits truth. |
 | AITC Holy Places, small/large | 10 | Staffed-place conditional guidance | Generic result appends conditional. Common full guidance is also in the table description. |
 | AITC Notable Artefact Type | 2 | Picture/sculpture usage and loss conditions | Source-specific artifact result includes `effectRule`. |

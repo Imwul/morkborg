@@ -1,5 +1,7 @@
 # Sölitary Defilement: PDF escape audit
 
+> Completion recheck: current application HEAD `479cbd765b4168eeaeee27f921bf4b0a6615c51b`. The original page/browser observations below retain their audit baseline. [CURRENT-HEAD-RECHECK.md](CURRENT-HEAD-RECHECK.md) records the newer rolled Power effects, English casting ranking and remaining Omens/search gaps. Final matrix/coverage use that recheck; historical browser results are not claimed to be current failures.
+
 Baseline: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. Audit only; no application changes. 40/40 physical pages accounted for.
 
 Source: `Solitary Defilement Rules.pdf`; SHA-256 `c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e`. Printed folios are recorded separately from PDF indexes. RECLVSE’s decorative doubled chapter numerals are not folios.

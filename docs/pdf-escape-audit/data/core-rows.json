@@ -1383,10 +1383,9 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "n/a",
-    "problem": "The complete casting rule is available under Using Powers, but ordinary Powers search puts Mythic, RECLVSE, Fletcher and Omens ahead of it. None of the top five exposes the Core casting rule.",
-    "minimalFix": "Rank Core casting for Powers/권능/마법 and link the existing rule from scroll results.",
+    "problem": "At HEAD 479cbd7, Powers/power/casting/권능 rank the complete Core casting rule first. However 마법 still returns no results: the priority shortcut is applied only after token filtering, and no matching alias/keyword admits the rule. The English ranking defect is fixed; Korean discovery remains indirect.",
+    "minimalFix": "Add 마법 to the existing casting reference aliases/keywords (the priority map already names it); link scroll results to that rule. Do not repeat the completed English ranking change.",
     "solutionType": [
-      "SEARCH_RANKING",
       "SEARCH_ALIAS",
       "RESULT_LINK"
     ],
@@ -1396,10 +1395,10 @@
     "evidence": {
       "code": [
         "src/domain/playReferenceRules.ts:91",
-        "src/domain/references.ts:937"
+        "src/domain/references.ts:885"
       ],
       "tableIds": [],
-      "notes": "Fresh root browser search: Powers top results Mythic Powers, RECLVSE Powers, Fletcher Powers, Omens, Mythic pair. Complete existing mechanics are indirect, not missing. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Current-HEAD domain and actual browser checks confirm Powers/power/casting/권능 first, 마법 empty. The Powers rule itself contains complete normal mechanics. Context remains no because declared ObjectPlayTools is not a mounted Character control."
     }
   },
   {
@@ -1429,10 +1428,9 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "n/a",
-    "problem": "The complete casting rule is available under Using Powers, but ordinary Powers search puts Mythic, RECLVSE, Fletcher and Omens ahead of it. None of the top five exposes the Core casting rule.",
-    "minimalFix": "Rank Core casting for Powers/권능/마법 and link the existing rule from scroll results.",
+    "problem": "At HEAD 479cbd7, Powers/power/casting/권능 rank the complete Core casting rule first. However 마법 still returns no results: the priority shortcut is applied only after token filtering, and no matching alias/keyword admits the rule. The English ranking defect is fixed; Korean discovery remains indirect.",
+    "minimalFix": "Add 마법 to the existing casting reference aliases/keywords (the priority map already names it); link scroll results to that rule. Do not repeat the completed English ranking change.",
     "solutionType": [
-      "SEARCH_RANKING",
       "SEARCH_ALIAS",
       "RESULT_LINK"
     ],
@@ -1442,10 +1440,10 @@
     "evidence": {
       "code": [
         "src/domain/playReferenceRules.ts:91",
-        "src/domain/references.ts:937"
+        "src/domain/references.ts:885"
       ],
       "tableIds": [],
-      "notes": "Fresh root browser search: Powers top results Mythic Powers, RECLVSE Powers, Fletcher Powers, Omens, Mythic pair. Complete existing mechanics are indirect, not missing. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Current-HEAD domain and actual browser checks confirm Powers/power/casting/권능 first, 마법 empty. The Powers rule itself contains complete normal mechanics. Context remains no because declared ObjectPlayTools is not a mounted Character control."
     }
   },
   {
@@ -1704,13 +1702,13 @@
     "priority": 25,
     "appPath": "Reference Desk > rule:core.omens",
     "searchQueries": [
-      "The five permitted Omen expenditures"
+      "Omens"
     ],
-    "searchable": "indirect",
+    "searchable": "yes",
     "contextLinked": "partial",
     "tableView": "n/a",
-    "problem": "The named Omens rule contains refill and daily Powers only. Maximum damage, reroll, d6 damage reduction, Crit/Fumble neutralization and DR-4 expenditures are absent from source-backed reference content.",
-    "minimalFix": "Add the five source options to the existing Omens rule.",
+    "problem": "At HEAD 479cbd7, the five options are now summarized, but DR-4 is described as a retry rather than lowering one test DR. Crit/Fumble is rendered as 치명타/실패, which does not distinguish a fumble from an ordinary failed test. The reroll option does not state that another person’s roll is eligible. The entry therefore remains PARTIAL for confident use.",
+    "minimalFix": "Correct the existing five-option reminder against the source: distinguish Fumble from ordinary failure, describe the one-test DR reduction without promising a retry, and retain the reroll scope.",
     "solutionType": [
       "QUICK_RULE"
     ],
@@ -1722,7 +1720,7 @@
         "src/domain/references.ts:244"
       ],
       "tableIds": [],
-      "notes": "Read BB37 and Full42 independently; repository search found no equivalent expenditure rule. Context check: Reference Desk Broken > RELATED opens Omens, whose spending content is incomplete."
+      "notes": "Current browser Omens opening and newly rendered BB PDF37 agree on the remaining wording gap; Full PDF42/printed38 is the alternate source. The five options are no longer absent. No production correction made during this audit."
     }
   },
   {
@@ -1744,13 +1742,13 @@
     "priority": 25,
     "appPath": "Reference Desk > rule:core.omens",
     "searchQueries": [
-      "The five permitted Omen expenditures"
+      "Omens"
     ],
-    "searchable": "indirect",
+    "searchable": "yes",
     "contextLinked": "partial",
     "tableView": "n/a",
-    "problem": "The named Omens rule contains refill and daily Powers only. Maximum damage, reroll, d6 damage reduction, Crit/Fumble neutralization and DR-4 expenditures are absent from source-backed reference content.",
-    "minimalFix": "Add the five source options to the existing Omens rule.",
+    "problem": "At HEAD 479cbd7, the five options are now summarized, but DR-4 is described as a retry rather than lowering one test DR. Crit/Fumble is rendered as 치명타/실패, which does not distinguish a fumble from an ordinary failed test. The reroll option does not state that another person’s roll is eligible. The entry therefore remains PARTIAL for confident use.",
+    "minimalFix": "Correct the existing five-option reminder against the source: distinguish Fumble from ordinary failure, describe the one-test DR reduction without promising a retry, and retain the reroll scope.",
     "solutionType": [
       "QUICK_RULE"
     ],
@@ -1762,7 +1760,7 @@
         "src/domain/references.ts:244"
       ],
       "tableIds": [],
-      "notes": "Read BB37 and Full42 independently; repository search found no equivalent expenditure rule. Context check: Reference Desk Broken > RELATED opens Omens, whose spending content is incomplete."
+      "notes": "Current browser Omens opening and newly rendered BB PDF37 agree on the remaining wording gap; Full PDF42/printed38 is the alternate source. The five options are no longer absent. No production correction made during this audit."
     }
   },
   {
@@ -3704,8 +3702,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3726,7 +3724,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets; d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets; d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3753,8 +3751,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3775,7 +3773,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets; d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets; d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3802,8 +3800,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3824,7 +3822,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one chosen target;10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one chosen target;10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3851,8 +3849,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3873,7 +3871,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one chosen target;10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one chosen target;10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3900,8 +3898,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3922,7 +3920,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:3-3; effect retained in metadata, English source primary. Checked mechanical signature: d10×10 feet;d6 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:3-3; effect retained in metadata, English source primary. Checked mechanical signature: d10×10 feet;d6 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3949,8 +3947,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -3971,7 +3969,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:3-3; effect retained in metadata, English source primary. Checked mechanical signature: d10×10 feet;d6 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:3-3; effect retained in metadata, English source primary. Checked mechanical signature: d10×10 feet;d6 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -3998,8 +3996,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4020,7 +4018,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:4-4; effect retained in metadata, English source primary. Checked mechanical signature: Presence+d10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:4-4; effect retained in metadata, English source primary. Checked mechanical signature: Presence+d10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4047,8 +4045,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4069,7 +4067,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:4-4; effect retained in metadata, English source primary. Checked mechanical signature: Presence+d10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:4-4; effect retained in metadata, English source primary. Checked mechanical signature: Presence+d10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4096,8 +4094,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4118,7 +4116,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one target;d6 rounds;d4 HP each round. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one target;d6 rounds;d4 HP each round. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4145,8 +4143,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4167,7 +4165,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one target;d6 rounds;d4 HP each round. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one target;d6 rounds;d4 HP each round. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4194,8 +4192,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4216,7 +4214,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d2 bolts;d6 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d2 bolts;d6 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4243,8 +4241,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4265,7 +4263,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d2 bolts;d6 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d2 bolts;d6 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4292,8 +4290,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4314,7 +4312,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:7-7; effect retained in metadata, English source primary. Checked mechanical signature: d6 rounds or damaged;attack/defence DR6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:7-7; effect retained in metadata, English source primary. Checked mechanical signature: d6 rounds or damaged;attack/defence DR6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4341,8 +4339,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4363,7 +4361,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:7-7; effect retained in metadata, English source primary. Checked mechanical signature: d6 rounds or damaged;attack/defence DR6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB34 and rendered Full39/printed35. Canonical entry core.unclean:7-7; effect retained in metadata, English source primary. Checked mechanical signature: d6 rounds or damaged;attack/defence DR6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4390,8 +4388,8 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact name finds a related summon table, not the complete Power reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4412,7 +4410,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:8-8; effect retained in metadata, English source primary. Checked mechanical signature: d6 branch1–3/4–6;d4 skeletons/zombies. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:8-8; effect retained in metadata, English source primary. Checked mechanical signature: d6 branch1–3/4–6;d4 skeletons/zombies. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4439,8 +4437,8 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact name finds a related summon table, not the complete Power reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4461,7 +4459,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:8-8; effect retained in metadata, English source primary. Checked mechanical signature: d6 branch1–3/4–6;d4 skeletons/zombies. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:8-8; effect retained in metadata, English source primary. Checked mechanical signature: d6 branch1–3/4–6;d4 skeletons/zombies. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4488,8 +4486,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4510,7 +4508,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;one hour;DR14 save. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;one hour;DR14 save. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4537,8 +4535,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4559,7 +4557,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;one hour;DR14 save. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;one hour;DR14 save. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4586,8 +4584,8 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4608,7 +4606,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:10-10; effect retained in metadata, English source primary. Checked mechanical signature: all within30 feet;4d10 total HP, not each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:10-10; effect retained in metadata, English source primary. Checked mechanical signature: all within30 feet;4d10 total HP, not each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4635,8 +4633,8 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4657,7 +4655,7 @@
       "tableIds": [
         "core.unclean"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:10-10; effect retained in metadata, English source primary. Checked mechanical signature: all within30 feet;4d10 total HP, not each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.unclean:10-10; effect retained in metadata, English source primary. Checked mechanical signature: all within30 feet;4d10 total HP, not each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4684,8 +4682,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4706,7 +4704,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets;d10 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets;d10 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4733,8 +4731,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4755,7 +4753,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets;d10 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:1-1; effect retained in metadata, English source primary. Checked mechanical signature: d2 targets;d10 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4782,8 +4780,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4804,7 +4802,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one target;one roll;+d6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one target;one roll;+d6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4831,8 +4829,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4853,7 +4851,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one target;one roll;+d6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:2-2; effect retained in metadata, English source primary. Checked mechanical signature: one target;one roll;+d6. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4880,8 +4878,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4902,7 +4900,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:3-3; effect retained in metadata, English source primary. Checked mechanical signature: three questions;deceased target. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:3-3; effect retained in metadata, English source primary. Checked mechanical signature: three questions;deceased target. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4929,8 +4927,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -4951,7 +4949,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:3-3; effect retained in metadata, English source primary. Checked mechanical signature: three questions;deceased target. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:3-3; effect retained in metadata, English source primary. Checked mechanical signature: three questions;deceased target. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -4978,8 +4976,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5000,7 +4998,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:4-4; effect retained in metadata, English source primary. Checked mechanical signature: one target;2d6 extra HP;10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:4-4; effect retained in metadata, English source primary. Checked mechanical signature: one target;2d6 extra HP;10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5027,8 +5025,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5049,7 +5047,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:4-4; effect retained in metadata, English source primary. Checked mechanical signature: one target;2d6 extra HP;10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:4-4; effect retained in metadata, English source primary. Checked mechanical signature: one target;2d6 extra HP;10 rounds. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5076,8 +5074,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5098,7 +5096,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one dead target;no more than one week. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one dead target;no more than one week. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5125,8 +5123,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5147,7 +5145,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one dead target;no more than one week. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:5-5; effect retained in metadata, English source primary. Checked mechanical signature: one dead target;no more than one week. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5174,8 +5172,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5196,7 +5194,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d20 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d20 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5223,8 +5221,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5245,7 +5243,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d20 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:6-6; effect retained in metadata, English source primary. Checked mechanical signature: d20 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5272,8 +5270,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5294,7 +5292,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:7-7; effect retained in metadata, English source primary. Checked mechanical signature: 3d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:7-7; effect retained in metadata, English source primary. Checked mechanical signature: 3d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5321,8 +5319,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5343,7 +5341,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:7-7; effect retained in metadata, English source primary. Checked mechanical signature: 3d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:7-7; effect retained in metadata, English source primary. Checked mechanical signature: 3d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5370,8 +5368,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5392,7 +5390,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:8-8; effect retained in metadata, English source primary. Checked mechanical signature: all traps in path;2d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:8-8; effect retained in metadata, English source primary. Checked mechanical signature: all traps in path;2d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5419,8 +5417,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5441,7 +5439,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:8-8; effect retained in metadata, English source primary. Checked mechanical signature: all traps in path;2d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:8-8; effect retained in metadata, English source primary. Checked mechanical signature: all traps in path;2d10 minutes. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5468,8 +5466,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5490,7 +5488,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5517,8 +5515,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5539,7 +5537,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:9-9; effect retained in metadata, English source primary. Checked mechanical signature: d4 targets;d8 each. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5566,8 +5564,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5588,7 +5586,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:10-10; effect retained in metadata, English source primary. Checked mechanical signature: one target;single command. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:10-10; effect retained in metadata, English source primary. Checked mechanical signature: one target;single command. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {
@@ -5615,8 +5613,8 @@
     "searchable": "no",
     "contextLinked": "no",
     "tableView": "no",
-    "problem": "Exact effect is stored in entry.metadata.effect. Reference Desk ROLL and TABLE show the name without effect; a generated Character scroll includes it. Exact named Power is not an indexed reference.",
-    "minimalFix": "Render existing effect in result/TABLE and index an OPEN action for this canonical Power entry; preserve all target, duration, range and dice terms.",
+    "problem": "At HEAD 479cbd7, generic ROLL now displays the stored effect. TABLE still displays names only, and this exact Power has no indexed definition. A generated Character scroll is another available route; it does not solve deliberate named lookup or table selection.",
+    "minimalFix": "Expose the existing effect in TABLE and index a direct OPEN route to this canonical Power entry; link generated occurrences to it while preserving the source mechanics. Do not reimplement the already working rolled-effect rendering.",
     "solutionType": [
       "POWER_REFERENCE",
       "TABLE_VIEW",
@@ -5637,7 +5635,7 @@
       "tableIds": [
         "core.sacred"
       ],
-      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:10-10; effect retained in metadata, English source primary. Checked mechanical signature: one target;single command. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool."
+      "notes": "Individually compared full effect, numeric terms and conditions with BB35 and rendered Full39/printed35. Canonical entry core.sacred:10-10; effect retained in metadata, English source primary. Checked mechanical signature: one target;single command. Context check: No verified mounted contextual reference link for this need. Stored/generated content or declared routing alone is not counted as a context tool. Current-HEAD closure: all 20 metadata.effect values reach oracleReadingText; both scroll tables were reopened in the browser and remain name-only. Exact-name queries were rerun. Historical no-effect-on-ROLL finding superseded."
     }
   },
   {

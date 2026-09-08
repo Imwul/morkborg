@@ -1,5 +1,5 @@
 {
-  "head": "a50d2425deb9a4e9c7e7abb0983dd4c34c68c116",
+  "head": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
   "books": [
     {
       "id": "core",
@@ -24441,7 +24441,7 @@
       "relatedIds": [
         "book:core"
       ],
-      "summaryCharacters": 93
+      "summaryCharacters": 159
     },
     {
       "id": "rule:core.improvement",
@@ -24851,7 +24851,7 @@
       "relatedIds": [
         "book:sd"
       ],
-      "summaryCharacters": 72
+      "summaryCharacters": 155
     },
     {
       "id": "rule:depths.rareMonster",

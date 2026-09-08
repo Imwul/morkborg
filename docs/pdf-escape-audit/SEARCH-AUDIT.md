@@ -1,5 +1,7 @@
 # Universal search: fresh probe audit
 
+> Completion recheck: current application HEAD `479cbd765b4168eeaeee27f921bf4b0a6615c51b`. The original page/browser observations below retain their audit baseline. [CURRENT-HEAD-RECHECK.md](CURRENT-HEAD-RECHECK.md) records the newer rolled Power effects, English casting ranking and remaining Omens/search gaps. Final matrix/coverage use that recheck; historical browser results are not claimed to be current failures.
+
 Baseline: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. Read-only audit. No ranking, aliases, UI, source data or generators were changed. This report uses fresh domain search snapshots and actual browser observations against that code, rather than previous coverage reports.
 
 ## Probe scope and exact counts

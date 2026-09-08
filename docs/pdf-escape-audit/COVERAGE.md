@@ -17,7 +17,7 @@ Nine books: **1,516 source-specific rows → 1,268 unique needs** after removing
 
 ## By book
 
-Each book retains its own source occurrence. Do **not** add these columns to get global unique coverage: Core editions and three supplement creatures share needs.
+Each book retains its own source occurrence. Do **not** add these columns to get global unique coverage: Core editions, repeated creatures and cross-book routes share needs.
 
 | Book | PDF pages | Play-relevant | Resolved | Indirect | Partial | Missing | PDF appropriate | Source unavailable |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -50,7 +50,7 @@ Each workflow deduplicates its own needs. A Power may also be Character/Combat m
 
 ## Severity
 
-No P0 was identified: the ordinary Core combat loop can proceed through existing rules. That does not make the product complete. Missing Power effects, Omens uses and weapon mechanics remain regular P1 interruptions. Optional-system P1 is conditional on actually using that system, especially RECLVSE; it is not a claim that every MÖRK BORG session uses it.
+No P0 was identified: the ordinary Core combat loop can proceed through existing rules. That does not make the product complete. Named Power lookup/table effects, imprecise Omens guidance and weapon mechanics remain regular P1 interruptions. Optional-system P1 is conditional on actually using that system, especially RECLVSE; it is not a claim that every MÖRK BORG session uses it.
 
 | Severity | Unique implementation gaps |
 | --- | --- |
@@ -151,7 +151,7 @@ Categories overlap; a link and an alias can solve the same need. These counts ar
 | QUICK_RULE | 160 |
 | RESULT_LINK | 206 |
 | SEARCH_ALIAS | 275 |
-| SEARCH_RANKING | 3 |
+| SEARCH_RANKING | 2 |
 | TABLE_INDEX | 16 |
 | TABLE_VIEW | 55 |
 

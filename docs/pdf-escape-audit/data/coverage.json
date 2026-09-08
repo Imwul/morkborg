@@ -1,10 +1,10 @@
 {
-  "head": "a50d2425deb9a4e9c7e7abb0983dd4c34c68c116",
+  "head": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
   "inputSha256": {
-    "core-rows.json": "f0b0d8dbe48aba3e24e3631fb08dac8a0d4cdb4b38ede4400d3907261a948c65",
+    "core-rows.json": "1cd3bcf2ae49549a383df401b4d42046a215e8084f9ba0c1d914c204a0e9c820",
     "supplement-rows.json": "55980e90123394601613beaebd9b1908cea5a71f033f3714b69f5667a9062c16",
-    "solo-city-rows.json": "b9fc0678b19575607cbcc2d7856fb4831f09082bb445c18ebdfcb4a2351fe321",
-    "mythic-rows.json": "3efdabd30d57a0dfb19dfbfb0b356f2a74ec1070ff2dc4b93d40e163db3b7351",
+    "solo-city-rows.json": "9f6e9cb7c02fe1eead73961b37602890ff55ef40a918429c12fbee162252f89d",
+    "mythic-rows.json": "0034694deeb648831a9b07165bd549af7aa85737ed189a6b3cebbe10c749f5b6",
     "mythic-extra-rows.json": "b6a0b3ae305ef836a9f02404811c923c508d83423ec53d952228b8940a24802e"
   },
   "allSourceRowsIncludingAuxiliary": 1520,
@@ -274,7 +274,7 @@
     "QUICK_RULE": 160,
     "RESULT_LINK": 206,
     "SEARCH_ALIAS": 275,
-    "SEARCH_RANKING": 3,
+    "SEARCH_RANKING": 2,
     "TABLE_INDEX": 16,
     "TABLE_VIEW": 55
   },

@@ -1,5 +1,7 @@
 # Play workflows and the notebook test
 
+> Completion recheck: current application HEAD `479cbd765b4168eeaeee27f921bf4b0a6615c51b`. The original page/browser observations below retain their audit baseline. [CURRENT-HEAD-RECHECK.md](CURRENT-HEAD-RECHECK.md) records the newer rolled Power effects, English casting ranking and remaining Omens/search gaps. Final matrix/coverage use that recheck; historical browser results are not claimed to be current failures.
+
 Baseline: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. Actual application at an isolated local `127.0.0.1:5174` instance with the supplied private data loaded. No Session was created or required. A fresh isolated browser context protected the user's normal Campaign, preferences and browser storage. Only a disposable QA Campaign, Character and Dungeon were saved in that context; production code and normal user data were untouched.
 
 The test asked whether **visible application output** was sufficient to continue. Repository/PDF knowledge was used afterwards to diagnose the cause; it was never credited as an answer available to the player. This is a representative scripted play review, not a usability study with a recruited human participant or a claim that a physical notebook was actually written in.
@@ -74,7 +76,7 @@ Encounter → **initiative** → **attack/defense** → **damage/armor** → **c
 The actual PDF escapes are narrower:
 
 - A weapon obtained outside a generated Character sheet has a searchable table name but no visible damage in Desk. Core BB PDF18 / Full PDF23 (printed19); additional purchase weapons BB25 / Full29 (printed25).
-- Spending an Omen requires the five options absent from the quick rule. BB37 / Full43 (printed39).
+- Spending an Omen requires the five options absent from the quick rule. BB37 / Full42 (printed38).
 - Unarmed/improvised damage and explicit round timing are missing small reference details. BB30 / Full33 (printed29).
 - Exact or situational queries such as `healing`, armor-item names and several Korean phrases fail despite related generic rules existing. See individual queries before calling a rule absent.
 - Some supplied creature variants/companions are omitted from indexed statblocks, so a successfully generated encounter can still send the player to FERETORY/HERETIC.

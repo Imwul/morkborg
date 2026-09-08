@@ -1,0 +1,206 @@
+{
+  "head": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
+  "startedAt": "2026-09-08T12:03:30.204Z",
+  "endedAt": "2026-09-08T12:03:36.561Z",
+  "method": "Fresh isolated browser at current HEAD using prior disposable QA storage. Clicks count activations after query entry; source/table/copy are separate. Private text/screenshots remain ignored.",
+  "records": [
+    {
+      "query": "Powers",
+      "buttons": [
+        "Using Powers · 권능 사용 판정 OPEN",
+        "Powers ROLL",
+        "Powers ROLL",
+        "Fletcher — Powers ROLL",
+        "Omens / Powers · 징조와 권능 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "power",
+      "buttons": [
+        "Using Powers · 권능 사용 판정 OPEN",
+        "Faction Power Level ROLL",
+        "Defiler — Archetype Skills ROLL",
+        "Fanatic — Archetype Skills ROLL",
+        "Fletcher — Powers ROLL"
+      ],
+      "noResults": false,
+      "clicks": 0
+    },
+    {
+      "query": "casting",
+      "buttons": [
+        "Using Powers · 권능 사용 판정 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 0
+    },
+    {
+      "query": "권능",
+      "buttons": [
+        "Using Powers · 권능 사용 판정 OPEN",
+        "Omens / Powers · 징조와 권능 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 0
+    },
+    {
+      "query": "마법",
+      "buttons": [],
+      "noResults": true,
+      "clicks": 0
+    },
+    {
+      "query": "Daemon of Capillaries",
+      "buttons": [],
+      "noResults": true,
+      "clicks": 0
+    },
+    {
+      "query": "healing",
+      "buttons": [],
+      "noResults": true,
+      "clicks": 0
+    },
+    {
+      "query": "피 0",
+      "buttons": [],
+      "noResults": true,
+      "clicks": 0
+    },
+    {
+      "query": "Omens",
+      "buttons": [
+        "Omens / Powers · 징조와 권능 OPEN",
+        "Strange Omens ROLL",
+        "Creature Difficulty Modification — Spend Omens OPEN",
+        "SD Camping · 숨 돌리기와 야영 OPEN",
+        "SD General Move · 일반 모험 판정 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "solo variant",
+      "buttons": [
+        "Sölitary Defilement · 선택적 솔로 변형 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "sacred scroll",
+      "buttons": [
+        "Sacred Scrolls ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "tableRows": 10
+    },
+    {
+      "query": "unclean scroll",
+      "buttons": [
+        "Unclean Scrolls ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "tableRows": 10
+    },
+    {
+      "query": "weapons",
+      "buttons": [
+        "Weapons ROLL",
+        "Weapons Table ROLL",
+        "NPC Encounter 55 — Fence Weapon ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "tableRows": 10
+    },
+    {
+      "query": "reaction",
+      "buttons": [
+        "Reaction ROLL",
+        "City Gate — Guards Reaction ROLL",
+        "Get Directions — Weak Hit Reaction ROLL",
+        "NPC Encounter 23 — Soldier Reaction Modifier ROLL",
+        "Reaction / Morale · 반응과 사기 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1,
+      "copyClicks": 1,
+      "clipboardNonempty": true,
+      "mobileNoOverflow": true
+    },
+    {
+      "query": "morale",
+      "buttons": [
+        "Reaction / Morale · 반응과 사기 OPEN",
+        "Beasts — Morale ROLL",
+        "Failed Morale ROLL",
+        "Hirelings — Broken Morale ROLL",
+        "NPC Encounter 23 — Soldier Reaction Modifier ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "broken",
+      "buttons": [
+        "Broken / Death · 무력화와 죽음 OPEN",
+        "Broken ROLL",
+        "Broken — Injury ROLL",
+        "Broken Bodies ROLL",
+        "Hirelings — Broken Morale ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "armor",
+      "buttons": [
+        "Armor / Shield · 방어구와 방패 OPEN",
+        "Armor ROLL",
+        "Armor Table ROLL",
+        "Beasts — Armor Tier ROLL"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "rest",
+      "buttons": [
+        "Rest · 휴식 OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "Prowler",
+      "buttons": [
+        "Prowler · Outcast OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    },
+    {
+      "query": "Sarkash monster",
+      "buttons": [
+        "Sarkash · Regional Monsters GENERATE",
+        "Sarkash — Monsters ROLL",
+        "Eat Prey Kill · Sarkash ROLL",
+        "Sarkash OPEN",
+        "Carrion Owls OPEN"
+      ],
+      "noResults": false,
+      "clicks": 1
+    }
+  ]
+}

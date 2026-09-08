@@ -1,6 +1,6 @@
 # Current application inventory
 
-Audited HEAD: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. This inventory was rebuilt from the currently installed private bundle through the actual `parseRulesPack → buildOracleRegistry → buildReferenceRegistry` adapters. Earlier implementation reports were not treated as evidence. Full metadata inventory: [data/app-inventory.json](data/app-inventory.json); reproducible read-only audit tool: [tools/inspect_registry.ts](tools/inspect_registry.ts).
+Audited HEAD: `479cbd765b4168eeaeee27f921bf4b0a6615c51b`. This inventory was rebuilt from the currently installed private bundle through the actual `parseRulesPack → buildOracleRegistry → buildReferenceRegistry` adapters. Earlier implementation reports were not treated as evidence. Full metadata inventory: [data/app-inventory.json](data/app-inventory.json); reproducible read-only audit tool: [tools/inspect_registry.ts](tools/inspect_registry.ts).
 
 | Current surface/data | Actual extent | Important boundary |
 | --- | --- | --- |
@@ -9,7 +9,7 @@ Audited HEAD: `a50d2425deb9a4e9c7e7abb0983dd4c34c68c116`. This inventory was reb
 | Oracle procedure registry | 59 definitions | Meaning pairs, source-defined combined rolls, and other explicit procedures. Reference procedures also contain workbench/navigation actions; the two counts should not be added. |
 | Character generator | 12 classes plus classless | Six Core, four FERETORY, two HERETIC. RECLVSE's own playable classes are not the same class system and are not included in this total. |
 | Creature payload | 89 creature records | 88 reference entries, including Core outcast adapters. Some separate `outcasts` records and intentionally nonnumeric-HP creatures are not indexed. This is not a count of all supplied creatures. |
-| Powers, weapons, equipment | Primarily rows inside Oracle tables or generated Character fields | No first-class `Power`, `Item` or `Class` reference kind. Twenty Core Power effects and ten weapon damage values are present as metadata but omitted from Desk result/table rendering. |
+| Powers, weapons, equipment | Primarily rows inside Oracle tables or generated Character fields | No first-class `Power`, `Item` or `Class` reference kind. Twenty Core Power effects now render in rolled Desk results, but remain absent from TABLE and exact-name definitions. Ten weapon damage values remain omitted from generic result/TABLE. See CURRENT-HEAD-RECHECK.md. |
 | Rules | Core combat/rest/carrying/casting/Calendar; SD moves; Depths travel/traps; selected FER/HER/RCL/AitC/Mythic reminders | A short rule may be sufficient without automation. Missing portions are individually assessed in the master matrix. |
 | Source system | 9 book identities, PDF/printed pages, primary/routing/policy disclosure, generated roll metadata | Provenance and mechanical completeness are separate. Seeing a book/page does not resolve a missing effect. |
 

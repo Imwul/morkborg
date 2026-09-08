@@ -34,6 +34,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -86,6 +87,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -138,6 +140,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -201,6 +204,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -266,6 +270,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -318,6 +323,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -370,6 +376,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -460,6 +467,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -512,6 +520,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -564,6 +573,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -641,6 +651,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -743,6 +754,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -853,6 +865,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1042,6 +1055,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1186,6 +1200,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1365,12 +1380,13 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
       "procedureNote"
     ],
-    "assessment": "Ten Power names display; their effect metadata does not render in TABLE or generic ROLL.",
+    "assessment": "TABLE shows ten Power names without effects. At HEAD 479cbd7, generic ROLL now appends the stored effect; exact-name lookup and TABLE remain incomplete.",
     "relatedNeedIds": [
       "core-power-daemon-of-capillaries",
       "core-power-death",
@@ -1548,12 +1564,13 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
       "procedureNote"
     ],
-    "assessment": "Ten Power names display; their effect metadata does not render in TABLE or generic ROLL.",
+    "assessment": "TABLE shows ten Power names without effects. At HEAD 479cbd7, generic ROLL now appends the stored effect; exact-name lookup and TABLE remain incomplete.",
     "relatedNeedIds": [
       "core-power-aegis-of-sorrow",
       "core-power-bestial-speech",
@@ -1609,6 +1626,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1664,6 +1682,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1719,6 +1738,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1773,6 +1793,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1827,6 +1848,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1881,6 +1903,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1933,6 +1956,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -1985,6 +2009,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2037,6 +2062,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2090,6 +2116,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2143,6 +2170,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2195,6 +2223,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2247,6 +2276,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2306,6 +2336,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2358,6 +2389,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2419,6 +2451,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2471,6 +2504,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2523,6 +2557,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2575,6 +2610,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2627,6 +2663,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2679,6 +2716,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2731,6 +2769,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2783,6 +2822,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2835,6 +2875,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2887,6 +2928,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2939,6 +2981,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -2991,6 +3034,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3043,6 +3087,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3095,6 +3140,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3147,6 +3193,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3199,6 +3246,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3251,6 +3299,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3303,6 +3352,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3356,6 +3406,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3409,6 +3460,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3493,6 +3545,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3546,6 +3599,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3599,6 +3653,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3652,6 +3707,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3705,6 +3761,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3758,6 +3815,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3811,6 +3869,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3864,6 +3923,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3917,6 +3977,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -3970,6 +4031,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4048,6 +4110,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4101,6 +4164,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4154,6 +4218,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4206,6 +4271,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4258,6 +4324,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4310,6 +4377,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4362,6 +4430,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4415,6 +4484,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4468,6 +4538,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4520,6 +4591,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4572,6 +4644,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4624,6 +4697,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4676,6 +4750,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4728,6 +4803,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4780,6 +4856,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4832,6 +4909,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4884,6 +4962,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4936,6 +5015,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -4988,6 +5068,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5040,6 +5121,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5092,6 +5174,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5144,6 +5227,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5196,6 +5280,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5248,6 +5333,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5300,6 +5386,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5352,6 +5439,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5404,6 +5492,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5456,6 +5545,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5508,6 +5598,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5560,6 +5651,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5612,6 +5704,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5664,6 +5757,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5716,6 +5810,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5768,6 +5863,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5820,6 +5916,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5872,6 +5969,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5924,6 +6022,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -5976,6 +6075,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6028,6 +6128,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6080,6 +6181,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6132,6 +6234,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6184,6 +6287,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6236,6 +6340,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6288,6 +6393,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6340,6 +6446,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6392,6 +6499,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6445,6 +6553,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6498,6 +6607,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6551,6 +6661,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6605,6 +6716,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6712,6 +6824,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6795,6 +6908,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6847,6 +6961,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6900,6 +7015,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -6953,6 +7069,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7006,6 +7123,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7059,6 +7177,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7111,6 +7230,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7170,6 +7290,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7259,6 +7380,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7330,6 +7452,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7401,6 +7524,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7453,6 +7577,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7505,6 +7630,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7557,6 +7683,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7646,6 +7773,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7698,6 +7826,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7750,6 +7879,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7802,6 +7932,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7854,6 +7985,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7943,6 +8075,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -7995,6 +8128,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8047,6 +8181,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8099,6 +8234,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8151,6 +8287,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8240,6 +8377,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8292,6 +8430,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8344,6 +8483,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8396,6 +8536,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8448,6 +8589,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8537,6 +8679,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8591,6 +8734,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8643,6 +8787,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8695,6 +8840,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8747,6 +8893,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8836,6 +8983,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8888,6 +9036,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8940,6 +9089,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -8992,6 +9142,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9044,6 +9195,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9133,6 +9285,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9186,6 +9339,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9238,6 +9392,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9290,6 +9445,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9342,6 +9498,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9431,6 +9588,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9483,6 +9641,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9535,6 +9694,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9587,6 +9747,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9639,6 +9800,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9728,6 +9890,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -9780,6 +9943,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10003,6 +10167,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10227,6 +10392,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10522,6 +10688,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10818,6 +10985,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10878,6 +11046,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -10937,6 +11106,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11148,6 +11318,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11219,6 +11390,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11314,6 +11486,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11367,6 +11540,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11419,6 +11593,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11472,6 +11647,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11525,6 +11701,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11578,6 +11755,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11631,6 +11809,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11684,6 +11863,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11736,6 +11916,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11788,6 +11969,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11840,6 +12022,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11923,6 +12106,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -11977,6 +12161,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12030,6 +12215,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12157,6 +12343,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12210,6 +12397,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12262,6 +12450,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12314,6 +12503,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12366,6 +12556,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12418,6 +12609,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12470,6 +12662,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12523,6 +12716,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12577,6 +12771,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12631,6 +12826,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12684,6 +12880,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12736,6 +12933,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12788,6 +12986,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12840,6 +13039,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12892,6 +13092,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12944,6 +13145,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -12996,6 +13198,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13049,6 +13252,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13101,6 +13305,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13153,6 +13358,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13205,6 +13411,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13257,6 +13464,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13309,6 +13517,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13361,6 +13570,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13413,6 +13623,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13465,6 +13676,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13517,6 +13729,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13569,6 +13782,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13621,6 +13835,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13673,6 +13888,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13725,6 +13941,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13777,6 +13994,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13829,6 +14047,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13881,6 +14100,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13933,6 +14153,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -13985,6 +14206,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14037,6 +14259,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14089,6 +14312,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14141,6 +14365,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14193,6 +14418,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14245,6 +14471,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14298,6 +14525,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14350,6 +14578,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14402,6 +14631,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14454,6 +14684,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14506,6 +14737,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14558,6 +14790,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14598,9 +14831,9 @@
     "manualReadingChoice": true,
     "selectRowToResult": false,
     "manualDieInput": false,
-    "tableTitleSearchRank": 1,
+    "tableTitleSearchRank": 2,
     "tableTitleQuery": "Powers",
-    "tableTitleSearchTop": "oracle:mythic2.meaning.powers",
+    "tableTitleSearchTop": "rule:core.casting",
     "tableViewCopies": 1,
     "nonRollableReason": null,
     "rawMechanicsMetadata": [],
@@ -14610,6 +14843,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14662,6 +14896,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14714,6 +14949,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14766,6 +15002,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14818,6 +15055,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14870,6 +15108,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14922,6 +15161,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -14974,6 +15214,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15026,6 +15267,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15078,6 +15320,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15137,6 +15380,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15189,6 +15433,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15241,6 +15486,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15295,6 +15541,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15349,6 +15596,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15403,6 +15651,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15455,6 +15704,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15507,6 +15757,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15559,6 +15810,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15611,6 +15863,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15663,6 +15916,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15715,6 +15969,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15767,6 +16022,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15820,6 +16076,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15874,6 +16131,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15927,6 +16185,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -15979,6 +16238,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16031,6 +16291,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16083,6 +16344,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16135,6 +16397,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16188,6 +16451,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16241,6 +16505,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16293,6 +16558,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16345,6 +16611,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16397,6 +16664,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16449,6 +16717,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16501,6 +16770,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16553,6 +16823,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16605,6 +16876,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16657,6 +16929,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16709,6 +16982,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16761,6 +17035,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16813,6 +17088,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16865,6 +17141,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16917,6 +17194,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -16969,6 +17247,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17021,6 +17300,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17073,6 +17353,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17125,6 +17406,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17178,6 +17460,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17231,6 +17514,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17283,6 +17567,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17336,6 +17621,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17389,6 +17675,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17441,6 +17728,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17493,6 +17781,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17545,6 +17834,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17598,6 +17888,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17650,6 +17941,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17702,6 +17994,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17754,6 +18047,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17806,6 +18100,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17858,6 +18153,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17910,6 +18206,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -17962,6 +18259,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18014,6 +18312,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18066,6 +18365,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18118,6 +18418,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18170,6 +18471,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18222,6 +18524,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18274,6 +18577,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18326,6 +18630,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18378,6 +18683,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18430,6 +18736,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18482,6 +18789,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18534,6 +18842,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18587,6 +18896,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18640,6 +18950,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18693,6 +19004,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18745,6 +19057,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18798,6 +19111,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18851,6 +19165,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18903,6 +19218,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -18955,6 +19271,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19007,6 +19324,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19059,6 +19377,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19111,6 +19430,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19163,6 +19483,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19215,6 +19536,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19267,6 +19589,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19319,6 +19642,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19371,6 +19695,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19423,6 +19748,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19475,6 +19801,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19527,6 +19854,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19579,6 +19907,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19631,6 +19960,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19683,6 +20013,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19735,6 +20066,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19787,6 +20119,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19839,6 +20172,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19891,6 +20225,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19943,6 +20278,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -19995,6 +20331,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20047,6 +20384,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20099,6 +20437,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20151,6 +20490,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20203,6 +20543,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20255,6 +20596,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20307,6 +20649,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20359,6 +20702,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20411,6 +20755,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20463,6 +20808,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20515,6 +20861,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20567,6 +20914,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20619,6 +20967,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20671,6 +21020,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20723,6 +21073,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20775,6 +21126,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20828,6 +21180,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20880,6 +21233,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20932,6 +21286,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -20985,6 +21340,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21038,6 +21394,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21091,6 +21448,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21144,6 +21502,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21204,6 +21563,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21258,6 +21618,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21310,6 +21671,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21362,6 +21724,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21414,6 +21777,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21464,6 +21828,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21516,6 +21881,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21569,6 +21935,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21626,6 +21993,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21683,6 +22051,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21740,6 +22109,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21797,6 +22167,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21850,6 +22221,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21902,6 +22274,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -21954,6 +22327,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22006,6 +22380,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22058,6 +22433,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22101,9 +22477,9 @@
     "manualReadingChoice": true,
     "selectRowToResult": false,
     "manualDieInput": false,
-    "tableTitleSearchRank": 2,
+    "tableTitleSearchRank": 3,
     "tableTitleQuery": "Powers",
-    "tableTitleSearchTop": "oracle:mythic2.meaning.powers",
+    "tableTitleSearchTop": "rule:core.casting",
     "tableViewCopies": 1,
     "nonRollableReason": null,
     "rawMechanicsMetadata": [],
@@ -22113,6 +22489,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22166,6 +22543,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22218,6 +22596,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22270,6 +22649,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22322,6 +22702,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22374,6 +22755,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22426,6 +22808,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22478,6 +22861,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22533,6 +22917,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22585,6 +22970,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22640,6 +23026,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22692,6 +23079,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22744,6 +23132,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22797,6 +23186,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22850,6 +23240,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22903,6 +23294,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -22956,6 +23348,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23009,6 +23402,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23062,6 +23456,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23115,6 +23510,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23168,6 +23564,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23220,6 +23617,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23273,6 +23671,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23326,6 +23725,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23379,6 +23779,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23432,6 +23833,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23492,6 +23894,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23544,6 +23947,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23599,6 +24003,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23655,6 +24060,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23708,6 +24114,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23761,6 +24168,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23813,6 +24221,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23865,6 +24274,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23917,6 +24327,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -23969,6 +24380,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24021,6 +24433,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24076,6 +24489,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24132,6 +24546,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24185,6 +24600,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24237,6 +24653,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24290,6 +24707,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24340,6 +24758,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24392,6 +24811,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24445,6 +24865,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24498,6 +24919,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24551,6 +24973,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24604,6 +25027,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24657,6 +25081,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24710,6 +25135,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24771,6 +25197,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24829,6 +25256,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24887,6 +25315,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -24945,6 +25374,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25003,6 +25433,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25061,6 +25492,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25114,6 +25546,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25167,6 +25600,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25219,6 +25653,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25271,6 +25706,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25324,6 +25760,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25377,6 +25814,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25430,6 +25868,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25490,6 +25929,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25542,6 +25982,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25595,6 +26036,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25647,6 +26089,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25707,6 +26150,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25794,6 +26238,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25846,6 +26291,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25898,6 +26344,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -25950,6 +26397,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26195,6 +26643,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26247,6 +26696,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26300,6 +26750,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26353,6 +26804,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26405,6 +26857,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26458,6 +26911,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26510,6 +26964,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26563,6 +27018,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26616,6 +27072,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26668,6 +27125,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26720,6 +27178,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26772,6 +27231,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26824,6 +27284,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26876,6 +27337,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26928,6 +27390,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -26980,6 +27443,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27032,6 +27496,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27085,6 +27550,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27147,6 +27613,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27200,6 +27667,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27255,6 +27723,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27308,6 +27777,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27361,6 +27831,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27415,6 +27886,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27468,6 +27940,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27521,6 +27994,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27574,6 +28048,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27627,6 +28102,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27680,6 +28156,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27733,6 +28210,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27786,6 +28264,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27839,6 +28318,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27892,6 +28372,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27945,6 +28426,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -27998,6 +28480,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28051,6 +28534,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28104,6 +28588,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28157,6 +28642,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28210,6 +28696,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28263,6 +28750,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28316,6 +28804,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28369,6 +28858,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28421,6 +28911,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28474,6 +28965,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28554,6 +29046,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28625,6 +29118,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28693,6 +29187,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28745,6 +29240,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28804,6 +29300,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28863,6 +29360,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -28922,6 +29420,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29020,6 +29519,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29072,6 +29572,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29124,6 +29625,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29176,6 +29678,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29268,6 +29771,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29320,6 +29824,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29372,6 +29877,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29424,6 +29930,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29491,6 +29998,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29563,6 +30071,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29669,6 +30178,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29801,6 +30311,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29853,6 +30364,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29905,6 +30417,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -29957,6 +30470,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30024,6 +30538,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30120,6 +30635,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30173,6 +30689,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30226,6 +30743,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30278,6 +30796,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30330,6 +30849,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30383,6 +30903,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30436,6 +30957,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30489,6 +31011,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30542,6 +31065,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30595,6 +31119,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30670,6 +31195,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30750,6 +31276,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30827,6 +31354,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30917,6 +31445,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -30969,6 +31498,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31021,6 +31551,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31194,6 +31725,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31378,6 +31910,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31436,6 +31969,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31488,6 +32022,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31541,6 +32076,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31593,6 +32129,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31652,6 +32189,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31704,6 +32242,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31756,6 +32295,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31808,6 +32348,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31860,6 +32401,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31912,6 +32454,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -31964,6 +32507,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32016,6 +32560,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32068,6 +32613,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32121,6 +32667,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32174,6 +32721,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32227,6 +32775,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32280,6 +32829,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32390,6 +32940,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32456,6 +33007,7 @@
     "topLevelDescriptionNotInsideTable": true,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32510,6 +33062,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32564,6 +33117,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32618,6 +33172,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32672,6 +33227,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32726,6 +33282,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32780,6 +33337,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32834,6 +33392,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32888,6 +33447,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32943,6 +33503,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": false,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
@@ -32995,6 +33556,7 @@
     "topLevelDescriptionNotInsideTable": false,
     "sourceNoteAvailableBeforeRoll": true,
     "genericRollAppendsMetadata": [
+      "effect",
       "effectRule",
       "conditional",
       "condition",
