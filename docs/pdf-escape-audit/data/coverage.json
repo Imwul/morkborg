@@ -3,30 +3,30 @@
   "inputSha256": {
     "core-rows.json": "f0b0d8dbe48aba3e24e3631fb08dac8a0d4cdb4b38ede4400d3907261a948c65",
     "supplement-rows.json": "55980e90123394601613beaebd9b1908cea5a71f033f3714b69f5667a9062c16",
-    "solo-city-rows.json": "4c82655ca31efd5768c22303ecadefb1c9761d7f7da94b64db0143ebccc318bb",
+    "solo-city-rows.json": "b9fc0678b19575607cbcc2d7856fb4831f09082bb445c18ebdfcb4a2351fe321",
     "mythic-rows.json": "3efdabd30d57a0dfb19dfbfb0b356f2a74ec1070ff2dc4b93d40e163db3b7351",
     "mythic-extra-rows.json": "b6a0b3ae305ef836a9f02404811c923c508d83423ec53d952228b8940a24802e"
   },
   "allSourceRowsIncludingAuxiliary": 1520,
   "mainBookSourceRows": 1516,
-  "mainBookUniqueNeedsIncludingPdfAppropriate": 1270,
-  "mainBookUniquePlayRelevant": 1222,
-  "duplicateSourceRowsRemoved": 246,
+  "mainBookUniqueNeedsIncludingPdfAppropriate": 1268,
+  "mainBookUniquePlayRelevant": 1220,
+  "duplicateSourceRowsRemoved": 248,
   "classifications": {
     "RESOLVED": 616,
     "PRESENT_BUT_INDIRECT": 219,
     "PARTIAL": 116,
     "MISSING": 266,
     "PDF_APPROPRIATE": 48,
-    "SOURCE_UNAVAILABLE": 5
+    "SOURCE_UNAVAILABLE": 3
   },
   "classificationPercentOfAllUnique": {
-    "RESOLVED": 48.5,
-    "PRESENT_BUT_INDIRECT": 17.24,
-    "PARTIAL": 9.13,
-    "MISSING": 20.94,
-    "PDF_APPROPRIATE": 3.78,
-    "SOURCE_UNAVAILABLE": 0.39
+    "RESOLVED": 48.58,
+    "PRESENT_BUT_INDIRECT": 17.27,
+    "PARTIAL": 9.15,
+    "MISSING": 20.98,
+    "PDF_APPROPRIATE": 3.79,
+    "SOURCE_UNAVAILABLE": 0.24
   },
   "implementationGapSeverity": {
     "P1": 70,
@@ -105,12 +105,12 @@
       "pdfPages": 36,
       "sourceRows": 74,
       "playRelevant": 71,
-      "RESOLVED": 56,
+      "RESOLVED": 57,
       "PRESENT_BUT_INDIRECT": 9,
       "PARTIAL": 4,
       "MISSING": 1,
       "PDF_APPROPRIATE": 3,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     },
     {
       "bookId": "reclvse",
@@ -147,9 +147,9 @@
       "RESOLVED": 58,
       "PRESENT_BUT_INDIRECT": 31,
       "PARTIAL": 1,
-      "MISSING": 11,
+      "MISSING": 12,
       "PDF_APPROPRIATE": 3,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     }
   ],
   "byWorkflow": [
@@ -188,14 +188,14 @@
     },
     {
       "workflow": "Monster",
-      "audited": 185,
-      "playRelevant": 185,
+      "audited": 184,
+      "playRelevant": 184,
       "RESOLVED": 98,
       "PRESENT_BUT_INDIRECT": 30,
       "PARTIAL": 14,
       "MISSING": 42,
       "PDF_APPROPRIATE": 0,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     },
     {
       "workflow": "NPC",
@@ -226,31 +226,31 @@
       "RESOLVED": 64,
       "PRESENT_BUT_INDIRECT": 57,
       "PARTIAL": 8,
-      "MISSING": 39,
+      "MISSING": 40,
       "PDF_APPROPRIATE": 0,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     },
     {
       "workflow": "Travel",
-      "audited": 205,
-      "playRelevant": 205,
+      "audited": 204,
+      "playRelevant": 204,
       "RESOLVED": 116,
       "PRESENT_BUT_INDIRECT": 8,
       "PARTIAL": 33,
       "MISSING": 47,
       "PDF_APPROPRIATE": 0,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     },
     {
       "workflow": "Equipment",
-      "audited": 287,
-      "playRelevant": 287,
+      "audited": 286,
+      "playRelevant": 286,
       "RESOLVED": 4,
       "PRESENT_BUT_INDIRECT": 153,
       "PARTIAL": 41,
       "MISSING": 88,
       "PDF_APPROPRIATE": 0,
-      "SOURCE_UNAVAILABLE": 1
+      "SOURCE_UNAVAILABLE": 0
     },
     {
       "workflow": "Powers",
@@ -281,8 +281,6 @@
   "sourceUnavailable": [
     "heretic-table-curseCure",
     "heretic-staff-awful-light",
-    "depths-cursed-trout-source",
-    "aitc-item-gunpowder-and-blackpowder-weapons",
     "mythic-extra-crafter-source"
   ],
   "p0": [],

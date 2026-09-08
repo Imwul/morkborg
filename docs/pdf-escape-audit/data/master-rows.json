@@ -53698,9 +53698,17 @@
     "bookId": "depths",
     "book": "Sölitary Depths",
     "pdfPage": [
-      25
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
     ],
-    "printedPage": "22",
+    "printedPage": "22, 23, 24, 25, 26, 27, 28, 29, 30",
     "section": "Hex travel: encounter level and regional routing",
     "content": "Hex travel: encounter level and regional routing",
     "type": "Procedure",
@@ -53871,33 +53879,31 @@
   },
   {
     "id": "depths-cursed-trout-source",
-    "needId": "depths-cursed-trout-source",
+    "needId": "feretory:creature-cursed-trout",
     "bookId": "depths",
     "book": "Sölitary Depths",
     "pdfPage": [
       29
     ],
     "printedPage": "26",
-    "section": "Lake Onda — Cursed Trout stats",
-    "content": "Lake Onda — Cursed Trout stats",
+    "section": "Lake Onda — Cursed Trout encounter effect",
+    "content": "Lake Onda — Cursed Trout encounter effect",
     "type": "Source reference",
-    "classification": "SOURCE_UNAVAILABLE",
-    "severity": "P2",
+    "classification": "RESOLVED",
+    "severity": null,
     "frequency": 2,
-    "friction": 5,
-    "priority": 10,
-    "appPath": "Reference Desk → oracle:depths.region.lake_onda.monsters",
+    "friction": 1,
+    "priority": 2,
+    "appPath": "Reference Desk → creature:feretory:feretory.epk.cursed-trout",
     "searchQueries": [
-      "Lake Onda — Cursed Trout stats"
+      "Lake Onda — Cursed Trout encounter effect"
     ],
-    "searchable": "indirect",
+    "searchable": "yes",
     "contextLinked": "no",
     "tableView": "n/a",
-    "problem": "The regional route identifies Cursed Trout, but the supplied route does not supply a complete verified stat block. This is source availability, not permission to synthesize stats.",
-    "minimalFix": "Keep the name and source-unavailable explanation; resolve only if a supplied authoritative stat source becomes available.",
-    "solutionType": [
-      "SOURCE_MISSING"
-    ],
+    "problem": "The supplied FERETORY PDF20 / printed18 defines the complete insomnia effect and intentionally gives no HP, Morale, armor or attack. The available fixed Cursed Trout reference preserves that effect. Missing combat stats are source-faithful, not a missing book or PDF-escape need. The indirect regional-table route is audited separately.",
+    "minimalFix": "None.",
+    "solutionType": [],
     "workflows": [
       "Monster",
       "Travel"
@@ -53910,7 +53916,7 @@
       "tableIds": [
         "depths.region.lake_onda.monsters"
       ],
-      "notes": "Fresh supplied PDF page inspected against current private canonical registry and rendering code at a50d2425. Code/data audit; no per-row browser interaction is claimed."
+      "notes": "DEPTHS PDF29 / print26 names the FER18 / EPK10 route. Independently rechecked against supplied FER PDF20 / print18 by the creature and registry auditors; current reference-index has available=true and original effect text. No source stats should be invented."
     }
   },
   {
@@ -55284,7 +55290,7 @@
   },
   {
     "id": "aitc-item-gunpowder-and-blackpowder-weapons",
-    "needId": "aitc-item-gunpowder-and-blackpowder-weapons",
+    "needId": "heretic:blackpowder-rule",
     "bookId": "aitc",
     "book": "Alöne in the Crowd",
     "pdfPage": [
@@ -55294,7 +55300,7 @@
     "section": "Gunpowder and blackpowder weapons",
     "content": "Gunpowder and blackpowder weapons",
     "type": "Source reference",
-    "classification": "SOURCE_UNAVAILABLE",
+    "classification": "MISSING",
     "severity": "P2",
     "frequency": 3,
     "friction": 5,
@@ -55306,10 +55312,11 @@
     "searchable": "indirect",
     "contextLinked": "no",
     "tableView": "yes",
-    "problem": "The gunsmith explicitly routes to MBC Blackpowder Weapons, which is not among the supplied sources.",
-    "minimalFix": "Keep an explicit missing-source link.",
+    "problem": "The Gunsmith explicitly routes to MBC Blackpowder Weapons. That source IS supplied: HERETIC PDF46 / printed44, Ian McClung’s Blackpowder Weapons for the Rich and Foolhardy. The app lacks the usable firearm rules/prices reference, so this is a routing/reference gap rather than an unavailable source.",
+    "minimalFix": "Link Gunsmith to the supplied HERETIC Blackpowder rule and fixed weapon/ammunition references; do not duplicate the source item set.",
     "solutionType": [
-      "SOURCE_MISSING"
+      "RESULT_LINK",
+      "ITEM_REFERENCE"
     ],
     "workflows": [
       "City",

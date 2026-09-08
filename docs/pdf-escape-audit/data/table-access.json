@@ -8544,9 +8544,9 @@
     ],
     "assessment": "Source identity and quantity are in row text; quantityDice metadata is redundant for reading. Regional monster workflow resolves definitions separately; generic TABLE identity is not a stat block.",
     "relatedNeedIds": [
-      "depths-cursed-trout-source",
       "depths-depths-region-lake-onda-monsters",
-      "depths-lake-onda-route"
+      "depths-lake-onda-route",
+      "feretory:creature-cursed-trout"
     ],
     "evidence": [
       "src/components/ReferenceWorkbench.tsx:577",
@@ -31210,11 +31210,11 @@
       "aitc-item-defixione",
       "aitc-item-dried-mushrooms",
       "aitc-item-embalming-fluid",
-      "aitc-item-gunpowder-and-blackpowder-weapons",
       "aitc-item-horse-powder",
       "aitc-item-pick-me-up",
       "aitc-item-poppet",
-      "aitc-item-uric-vigour"
+      "aitc-item-uric-vigour",
+      "heretic:blackpowder-rule"
     ],
     "evidence": [
       "src/components/ReferenceWorkbench.tsx:577",
