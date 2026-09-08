@@ -80,7 +80,13 @@ export function copyReferenceReading(
 
 /** Conditions belong beside the rolled effect, including when copied to a notebook. */
 export function oracleReadingText(roll: Pick<OracleRoll, 'text' | 'metadata'>) {
-  const notes = ['effectRule', 'conditional', 'condition', 'procedureNote']
+  const notes = [
+    'effect',
+    'effectRule',
+    'conditional',
+    'condition',
+    'procedureNote',
+  ]
     .map((key) => roll.metadata?.[key])
     .filter(
       (value): value is string => typeof value === 'string' && !!value.trim(),

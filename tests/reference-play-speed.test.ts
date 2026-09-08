@@ -44,6 +44,8 @@ local(
       ['NPC', 'procedure:workbench.npc', 'GENERATE', true],
       ['Omens', 'rule:core.omens', 'OPEN', false],
       ['Miseries', 'oracle:core.miseries', 'ROLL', true],
+      ['powers', 'rule:core.casting', 'OPEN', false],
+      ['casting', 'rule:core.casting', 'OPEN', false],
     ] as const;
     for (const [query, id, label, immediate] of expected) {
       const first = searchReferences(references, query)[0];

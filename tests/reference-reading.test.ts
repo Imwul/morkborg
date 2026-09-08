@@ -11,6 +11,7 @@ test('Source conditions remain beside an artefact effect and survive both copy f
   const text = oracleReadingText({
     text: 'Synthetic effect +2',
     metadata: {
+      effect: 'Power effect includes immediate blast radius.',
       effectRule: 'Consume the fictional medium before applying this effect.',
       procedureNote: 'The effect ends if the fictional object is lost.',
       conditional: 'Only this selected branch.',
@@ -24,6 +25,7 @@ test('Source conditions remain beside an artefact effect and survive both copy f
   for (const withSource of [false, true]) {
     const copied = copyReferenceReading(reading, withSource);
     assert.match(copied, /Synthetic effect \+2/);
+    assert.match(copied, /Power effect includes immediate blast radius/);
     assert.match(copied, /Consume the fictional medium/);
     assert.match(copied, /effect ends/);
     assert.match(copied, /Only this selected branch/);
@@ -36,6 +38,7 @@ test('Metadata text avoids duplicate conditions and ignores structured navigatio
       text: 'Existing condition.',
       metadata: {
         condition: 'Existing condition.',
+        effect: 'Existing condition.',
         effectRule: 'Additional condition.',
         procedureNote: 'Additional condition.',
         followUpOracleIds: ['test.next'],
