@@ -33,25 +33,34 @@ test(
   async () => {
     assert.equal(getRules(), null);
     const originalFetch = globalThis.fetch;
-    let finish!: (response: Response) => void;
+    let finish: ((response: Response) => void) | undefined;
     globalThis.fetch = () =>
       new Promise((resolve) => {
         finish = resolve;
       });
     const loading = loadOraclePack();
-    let writes = 0;
-    const result = await importPrivateData([data.oracles], async (saved) => {
-      writes++;
-      assert.deepEqual(Object.keys(saved), ['oracles']);
-    });
-    assert.equal(writes, 1);
-    assert.equal(result.oracles!.tables.length, 300);
-    const imported = getOraclePack();
-    finish(new Response('', { status: 404 }));
-    await loading;
-    globalThis.fetch = originalFetch;
-    assert.equal(getOraclePack(), imported);
-    assert.equal(getRules(), null);
+    try {
+      let writes = 0;
+      const result = await importPrivateData([data.oracles], async (saved) => {
+        writes++;
+        assert.deepEqual(Object.keys(saved), ['oracles']);
+      });
+      assert.equal(writes, 1);
+      assert.equal(result.oracles!.tables.length, 359);
+      assert.deepEqual(
+        result.oracles!.tables.map((table) => table.id),
+        data.oracles.tables.map((table: { id: string }) => table.id),
+      );
+      const imported = getOraclePack();
+      finish?.(new Response('', { status: 404 }));
+      await loading;
+      assert.equal(getOraclePack(), imported);
+      assert.equal(getRules(), null);
+    } finally {
+      globalThis.fetch = originalFetch;
+      finish?.(new Response('', { status: 404 }));
+      await loading;
+    }
   },
 );
 
@@ -62,8 +71,8 @@ test(
     const original = globalThis.fetch;
     const pending: Array<(response: Response) => void> = [];
     globalThis.fetch = () => new Promise((resolve) => pending.push(resolve));
+    const requests = [loadRules(), loadFateChart(), loadOraclePack()];
     try {
-      const requests = [loadRules(), loadFateChart(), loadOraclePack()];
       assert.equal(pending.length, 2);
       let writes = 0;
       await importPrivateData([bundle], async (value) => {
@@ -81,7 +90,16 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        503,
+        562,
+      );
+      const expected = parsePrivateData(bundle);
+      assert.deepEqual(
+        buildOracleRegistry(getRules(), getOraclePack()).tables.map(
+          (table) => table.id,
+        ),
+        buildOracleRegistry(expected.library!, expected.oracles!).tables.map(
+          (table) => table.id,
+        ),
       );
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.filter(
@@ -97,6 +115,8 @@ test(
       );
     } finally {
       globalThis.fetch = original;
+      pending.forEach((resolve) => resolve(new Response('', { status: 404 })));
+      await Promise.all(requests);
     }
   },
 );

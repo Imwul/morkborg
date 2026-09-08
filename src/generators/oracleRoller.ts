@@ -8,6 +8,7 @@ import type {
 import { id, random, rollDie, type RandomSource } from './random';
 import { oracleValueProvenance } from '../domain/oracleProvenance';
 import { traceReferenceProcedure } from '../domain/referenceGeneratorProcedures';
+import { assertOracleEntryDependenciesAvailable } from '../domain/oracleDependencies';
 import {
   FERETORY_TABLE_IDS,
   FERETORY_MONSTER_TITLE,
@@ -100,6 +101,7 @@ export function rollOracle(
     throw new Error('이 표는 원문과 사용 조건을 확인한 뒤 직접 참조하세요.');
   const rolled = rollOracleDice(table.dice, rng);
   const entry = selectOracleEntry(table, rolled.value);
+  assertOracleEntryDependenciesAvailable(entry, registry);
   return {
     oracleId: table.id,
     title: table.title,

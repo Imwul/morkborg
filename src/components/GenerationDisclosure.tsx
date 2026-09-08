@@ -49,7 +49,9 @@ export function GenerationDisclosure({
               {provenance.origin !== 'source' && (
                 <p className="source-edit-notice">
                   {provenance.origin === 'source-edited'
-                    ? 'Originally generated from · Edited manually / 수동 수정됨'
+                    ? provenance.derivedFrom?.length
+                      ? 'Composed from edited components · 구성 요소 수정 반영'
+                      : 'Originally generated from · Edited manually / 수동 수정됨'
                     : 'USER AUTHORED · 직접 작성'}
                 </p>
               )}

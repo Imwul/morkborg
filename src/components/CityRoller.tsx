@@ -21,6 +21,7 @@ import {
   type CityMoveResult,
 } from '../domain/cityProcedures';
 import { rollOracle, selectOracleEntry } from '../generators/oracleRoller';
+import { oracleEntryDependencyWarning } from '../domain/oracleDependencies';
 
 export type CityRollerMove =
   | CityMove
@@ -70,6 +71,7 @@ export function CityRoller({
       follow && registry.tables.find((entry) => entry.id === follow.tableId);
     const entry =
       table && follow ? selectOracleEntry(table, follow.roll) : undefined;
+    const dependencyWarning = oracleEntryDependencyWarning(entry, registry);
     const benefit = result.metadata.selectedDirections;
     const followLinks = oracleFollowUpLinks(entry?.metadata);
     onReading({
@@ -81,10 +83,11 @@ export function CityRoller({
       }[result.move],
       blocks: [
         {
-          title: `${result.outcome.toUpperCase()} HIT`.replace(
-            'FAIL HIT',
-            'FAIL',
-          ),
+          title: {
+            strong: 'STRONG HIT · 강한 성공',
+            weak: 'WEAK HIT · 약한 성공',
+            fail: 'FAIL · 실패',
+          }[result.outcome],
           text: result.description,
           dice: `2d20 [${result.diceValues.join(', ')}] + ${result.modifier} → [${result.modifiedValues.join(', ')}] vs DR${result.dr}`,
         },
@@ -93,8 +96,10 @@ export function CityRoller({
               {
                 title: table?.title ?? '후속 판정',
                 text: entry
-                  ? oracleReadingText(entry)
-                  : '연결된 원문 표를 불러오세요.',
+                  ? [oracleReadingText(entry), dependencyWarning]
+                      .filter(Boolean)
+                      .join('\n\n')
+                  : `SOURCE DATA UNAVAILABLE: ${follow.tableId} · 연결된 원문 표를 불러오세요.`,
                 dice: `${follow.dice} = ${follow.roll}`,
               },
             ]
@@ -336,9 +341,9 @@ export function CityRoller({
           <>
             <p>
               거리 사이 이동은 약 5분. 도시 크롤은 목표 달성 수에 따른 보정을
-              쓰지 않습니다. Dérive에서는 강한 성공·약한 성공 모두 새 거리입니다.
-              실패한 상황은 해결한 뒤 새 거리를 굴리세요. 마이크로 크롤은 d4개
-              거리를 직접 생성합니다.
+              쓰지 않습니다. Dérive에서는 강한 성공·약한 성공 모두 새
+              거리입니다. 실패한 상황은 해결한 뒤 새 거리를 굴리세요. 마이크로
+              크롤은 d4개 거리를 직접 생성합니다.
             </p>
             <p>능력치·보급·시간의 실제 변화는 직접 적용합니다.</p>
           </>

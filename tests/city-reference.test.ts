@@ -14,6 +14,7 @@ const tables: [string, string, number][] = [
   ['aitc.notable-artefact-adjective', 'd12', 11],
   ['aitc.notable-artefact-subject', 'd12', 11],
   ['aitc.sculpture-size', 'd2', 11],
+  ['test.follow-up', 'd2', 3],
 ];
 // Synthetic entries keep this test suite independent of the private source pack.
 const registry = (): OracleRegistry => ({
@@ -36,7 +37,10 @@ const registry = (): OracleRegistry => ({
         min: index + 1,
         max: index + 1,
         text: `Private entry ${id}:${index + 1}`,
-        metadata: { followUpOracleIds: ['test.follow-up'] },
+        metadata:
+          id === 'test.follow-up'
+            ? {}
+            : { followUpOracleIds: ['test.follow-up'] },
       })),
     }),
   ),
@@ -119,6 +123,7 @@ test('Books and manuscripts use only the concerning branch', () => {
       [
         'aitc.notable-artefact-type',
         'aitc.notable-artefact-concerning',
+        'test.follow-up',
       ].includes(t.id),
     );
     const result = rollCityReference(

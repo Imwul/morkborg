@@ -125,11 +125,9 @@ export function CityCrawlWorkspace({
                 }
               >
                 {(
-                  [
-                    'city',
-                    'micro',
-                    'derive',
-                  ] as const satisfies ReadonlyArray<CityCrawlConfig['mode']>
+                  ['city', 'micro', 'derive'] as const satisfies ReadonlyArray<
+                    CityCrawlConfig['mode']
+                  >
                 ).map((mode) => (
                   <option key={mode} value={mode}>
                     {CITY_MODE_LABELS[mode]}
@@ -179,7 +177,7 @@ export function CityCrawlWorkspace({
                     })
                   }
                 />{' '}
-                도시 / 대도시 · 거리 내용 2회 굴림
+                도시 / 대도시 · 거리 내용 d2회 (1–2회)
               </label>
             )}
             <label className="ref-check">
@@ -237,9 +235,7 @@ export function CityCrawlWorkspace({
           )}
           {state.move && state.reading.oracle && (
             <div className="city-crawl-move">
-              <span>
-                {CITY_MOVE_STAMPS[state.move.outcome]} · 새 거리
-              </span>
+              <span>{CITY_MOVE_STAMPS[state.move.outcome]} · 새 거리</span>
               <small>
                 2d20 [{state.move.diceValues.join(', ')}] +{' '}
                 {state.move.modifier} vs DR{state.move.dr}
@@ -278,7 +274,8 @@ export function CityCrawlWorkspace({
             {state.phase === 'blocked' && (
               <>
                 <p>
-                  장애·조우를 해결하면 도시 크롤을 다시 굴리지 않고 새 거리로 이동합니다.
+                  장애·조우를 해결하면 도시 크롤을 다시 굴리지 않고 새 거리로
+                  이동합니다.
                 </p>
                 <Button
                   onClick={() =>
@@ -314,7 +311,8 @@ export function CityCrawlWorkspace({
                         onChange={(event) =>
                           setConfig({
                             ...config,
-                            modifier: Math.trunc(Number(event.target.value)) || 0,
+                            modifier:
+                              Math.trunc(Number(event.target.value)) || 0,
                           })
                         }
                       />

@@ -37,6 +37,21 @@ export function RoomPacket({
     after: DungeonRoom;
   } | null>(null);
   const components = room.components ?? [];
+  const titleProvenance = room.fieldProvenance?.name;
+  const descriptors = components.filter((item) =>
+    ['adjective', 'type'].includes(item.key),
+  );
+  const repeatedSourceTitle =
+    (titleProvenance?.derivedFrom?.join('|') === 'adjective|type' ||
+      (titleProvenance?.origin === 'source' &&
+        titleProvenance.classification === 'SOURCE_COMPOSED' &&
+        descriptors.every((item) => item.provenance.origin === 'source'))) &&
+    descriptors.length === 2 &&
+    room.name === descriptors.map((item) => item.sourceText).join(' · ');
+  const structuralTitle =
+    titleProvenance?.origin === 'source' &&
+    titleProvenance.procedureId === 'app.structural-identifier' &&
+    /^ROOM \d+$/.test(room.name);
   const roll = (key: string) => {
     const run = () => {
       const before = structuredClone(room);
@@ -57,7 +72,7 @@ export function RoomPacket({
   return (
     <article
       className="room-packet"
-      aria-label={`Special Room ${index + 1}`}
+      aria-label={`${room.kind === 'special' ? 'Special Room' : 'Room'} ${index + 1}`}
       data-room-id={room.id}
     >
       <details open={expanded || undefined}>
@@ -67,14 +82,18 @@ export function RoomPacket({
             {String(index + 1).padStart(2, '0')}
           </span>
           <span className="room-packet-preview">
-            {!/^ROOM \d+$/.test(room.name) && <strong>{room.name}</strong>}
+            {room.name && !repeatedSourceTitle && !structuralTitle && (
+              <strong>{room.name}</strong>
+            )}
             {components.length ? (
               components.map((item) => (
                 <span
                   key={item.key}
                   className={`room-component-preview room-component-${item.key}`}
                 >
-                  {item.sourceText}
+                  {item.key === 'exits'
+                    ? `EXITS ${item.sourceText}`
+                    : item.sourceText}
                 </span>
               ))
             ) : (

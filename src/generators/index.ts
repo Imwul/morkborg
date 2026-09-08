@@ -126,6 +126,7 @@ export function generateRoomRoll(key: string, region: RegionId): RuleRoll {
         ],
         rolls: [...adjective.provenance!.rolls!, ...type.provenance!.rolls!],
         procedureId: 'sd.generic-room',
+        derivedFrom: ['adjective', 'type'],
         transformation:
           'Display the two printed descriptor results with ·; slash-separated alternatives stay unchanged.',
         ...(adjective.provenance!.regionWeighting

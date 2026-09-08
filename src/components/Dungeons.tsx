@@ -272,7 +272,12 @@ export function Dungeons({
         ))}
       </div>
       {tab === 'crawl' && (
-        <DungeonCrawlWorkspace campaign={c} dungeon={d} notify={notify} />
+        <DungeonCrawlWorkspace
+          campaign={c}
+          dungeon={d}
+          notify={notify}
+          confirm={confirm}
+        />
       )}
       {tab === 'overview' && (
         <>

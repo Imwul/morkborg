@@ -22,6 +22,7 @@ export function mergeRuleTranslations(
 ): RulesPack {
   const key = (text: string) =>
     text.normalize('NFC').replace(/\s+/g, ' ').trim();
+  const fillMissing = incoming.notes.translationUpdatePolicy === 'fill-missing';
   const update = (entries: RuleEntry[], source: RuleEntry[]): RuleEntry[] => {
     const byText = new Map<string, RuleEntry[]>();
     const counts = new Map<string, number>();
@@ -51,7 +52,14 @@ export function mergeRuleTranslations(
         ...entry,
         meta: {
           ...entry.meta,
-          ...(typeof match?.meta.ko === 'string' ? { ko: match.meta.ko } : {}),
+          ...(typeof match?.meta.ko === 'string' &&
+          !(
+            fillMissing &&
+            typeof entry.meta.ko === 'string' &&
+            entry.meta.ko.trim()
+          )
+            ? { ko: match.meta.ko }
+            : {}),
         },
         ...(entry.followup
           ? { followup: update(entry.followup, match?.followup ?? []) }
@@ -66,7 +74,11 @@ export function mergeRuleTranslations(
       translations: {
         ...Object(current.notes.translations),
         ...Object(incoming.notes.translations),
+        ...(fillMissing ? Object(current.notes.translations) : {}),
       },
+      ...(incoming.notes.aitcTranslationEdition
+        ? { aitcTranslationEdition: incoming.notes.aitcTranslationEdition }
+        : {}),
       ...(incoming.notes.translationEdition
         ? { translationEdition: incoming.notes.translationEdition }
         : {}),

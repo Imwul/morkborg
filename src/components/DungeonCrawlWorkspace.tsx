@@ -1,7 +1,14 @@
 import { DungeonActionMoves } from './DungeonActionMoves';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import type { Campaign, Dungeon } from '../domain/types';
+import type { Campaign, Dungeon, DungeonRoom } from '../domain/types';
+import { roomFields } from '../domain/types';
+import { editedProvenance } from '../domain/generationProvenance';
+import { RoomPacket } from './RoomPacket';
+import { Field } from './Field';
+import { GenerationDisclosure } from './GenerationDisclosure';
+import { ReferenceReadingText } from './ReferenceReadingText';
+import type { Confirm } from './Library';
 import {
   prepareDungeonCrawl,
   dungeonRoomFollowUps,
@@ -18,10 +25,7 @@ import { useOracleRegistry } from '../storage/oracleStore';
 import { useRules } from '../storage/rulesStore';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import { now } from '../generators/random';
-import {
-  InlineReferenceTools,
-  ReferenceReadingBlock,
-} from './InlineReferenceTools';
+import { InlineReferenceTools } from './InlineReferenceTools';
 import { SourceDisclosure } from './SourceDisclosure';
 import {
   DungeonEncounterRoller,
@@ -43,29 +47,103 @@ const specialOutcome = {
   miss: '실패',
 } as const;
 
-function splitRoomLines(text: string) {
-  return text
-    .split('\n\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => line.replace(/^단서\s*\d+\s*:\s*/, ''));
-}
+const entranceTopic = DUNGEON_REFERENCE_TOPICS[0];
 
-function formatSourceLines(value: string) {
-  return value
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean);
+/** Saved legacy/additional fields remain readable and editable without regenerating them. */
+function CrawlRoomPacket({
+  dungeon,
+  room,
+  index,
+  ready,
+  confirm,
+  update,
+}: {
+  dungeon: Dungeon;
+  room: DungeonRoom;
+  index: number;
+  ready: boolean;
+  confirm: Confirm;
+  update: (action: (room: DungeonRoom) => void) => void;
+}) {
+  const fields = roomFields.filter(({ key }) => {
+    if (key === 'name' || (key === 'description' && room.components?.length))
+      return false;
+    if (
+      key === 'feature' &&
+      room.components?.some((component) => component.key === 'exits')
+    )
+      return false;
+    const value = room[key as keyof DungeonRoom];
+    return typeof value === 'string' && value !== '';
+  });
+  return (
+    <div className="crawl-room-packet">
+      <RoomPacket
+        dungeon={dungeon}
+        room={room}
+        index={index}
+        ready={ready}
+        confirm={confirm}
+        update={update}
+      />
+      {fields.length > 0 && (
+        <details className="crawl-saved-fields">
+          <summary>
+            {room.components?.length ? '추가 기록' : '보존된 방 기록 · 편집'}
+          </summary>
+          {fields.map((field) => (
+            <Field
+              key={field.key}
+              spec={field}
+              value={room[field.key as keyof DungeonRoom] as string}
+              showTools={false}
+              hideSource
+              onChange={(value) =>
+                update((target) => {
+                  Object.assign(target, { [field.key]: String(value) });
+                  target.fieldProvenance = {
+                    ...target.fieldProvenance,
+                    [field.key]: editedProvenance(
+                      target.fieldProvenance?.[field.key],
+                    ),
+                  };
+                })
+              }
+            />
+          ))}
+          <GenerationDisclosure
+            values={Object.fromEntries(
+              fields.flatMap(({ key }) =>
+                room.fieldProvenance?.[key]
+                  ? [[key, room.fieldProvenance[key]]]
+                  : [],
+              ),
+            )}
+          />
+          <SourceDisclosure
+            label="이전 출처 기록"
+            source={fields
+              .filter(({ key }) => !room.fieldProvenance?.[key])
+              .map(({ key }) => room.sources?.[key])
+              .filter(Boolean)
+              .join(' + ')}
+          />
+        </details>
+      )}
+    </div>
+  );
 }
 
 export function DungeonCrawlWorkspace({
   campaign: c,
   dungeon: d,
   notify,
+  confirm,
 }: {
   campaign: Campaign;
   dungeon: Dungeon;
   notify: (message: string) => void;
+  confirm: Confirm;
 }) {
   const { registry } = useOracleRegistry(),
     { pack } = useRules();
@@ -91,6 +169,15 @@ export function DungeonCrawlWorkspace({
     setViewRoomId(null);
     update((target) => advanceDungeonCrawl(target, registry));
   }
+  function updateRoom(roomId: string, action: (room: DungeonRoom) => void) {
+    update((target) => {
+      const savedRoom = target.rooms.find((item) => item.id === roomId);
+      if (!savedRoom) throw new Error('저장된 방을 찾을 수 없습니다.');
+      action(savedRoom);
+    });
+  }
+  const showEntrance =
+    !state || state.phase === 'entrance' || viewRoomId === 'entrance';
   const roll = state?.lastRoll;
   const followUps = room ? dungeonRoomFollowUps(room, registry) : { ids: [] };
   function prepareEncounters() {
@@ -118,7 +205,9 @@ export function DungeonCrawlWorkspace({
         </p>
         <ol>
           {(state
-            ? state.specialRoomIds.map((key) => d.rooms.find((item) => item.id === key)!)
+            ? state.specialRoomIds.map((key) =>
+                d.rooms.find((item) => item.id === key)!,
+              )
             : d.rooms.filter((item) => item.kind === 'special')
           )
             .filter(Boolean)
@@ -130,44 +219,14 @@ export function DungeonCrawlWorkspace({
                     ? '발견'
                     : '준비'}
                 </span>
-                <details>
-                  <summary>{item.name}</summary>
-                  <div className="crawl-special-grid">
-                    <div className="crawl-special-block">
-                      <h4>묘사 단서 묶음</h4>
-                      {splitRoomLines(item.description).map((line, idx) => (
-                        <p key={`${item.id}-line-${idx}`}>
-                          <strong>단서 {idx + 1}.</strong> {line}
-                        </p>
-                      ))}
-                    </div>
-                    {item.feature && (
-                      <div className="crawl-special-block">
-                        <h4>
-                          {item.kind === 'special'
-                            ? '앱 해석 · 던전 연결'
-                            : '특성'}
-                        </h4>
-                        {formatSourceLines(item.feature).map(
-                          (line, idx) =>
-                            line && <p key={`${item.id}-feature-${idx}`}>{line}</p>,
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() =>
-                      changeWorkspace(c.id, {
-                        dungeonTab: 'rooms',
-                        roomId: item.id,
-                      })
-                    }
-                  >
-                    방 편집
-                  </Button>
-                </details>
+                <CrawlRoomPacket
+                  dungeon={d}
+                  room={item}
+                  index={index}
+                  ready={!!pack}
+                  confirm={confirm}
+                  update={(action) => updateRoom(item.id, action)}
+                />
               </li>
             ))}
         </ol>
@@ -225,6 +284,44 @@ export function DungeonCrawlWorkspace({
           </select>
         </label>
       </div>
+      {showEntrance && (
+        <section className="crawl-entrance" aria-label="입구 묘사 준비">
+          <span className="eyebrow">입구 묘사 준비</span>
+          <InlineReferenceTools
+            title="입구 · 건물 · 재질 · 소리"
+            ids={entranceTopic.ids}
+            region={d.region}
+            description="SD p.10–11의 묘사 표입니다. 규모·형태·재질·소리·냄새 중 필요한 부분만 굴려 해석하세요. 모든 표를 굴릴 필요는 없습니다."
+            initiallyOpen
+          />
+          {(d.entrance || d.entranceCondition) && (
+            <details className="crawl-saved-entrance">
+              <summary>개요에 저장된 입구</summary>
+              {[d.entrance, d.entranceCondition]
+                .filter(Boolean)
+                .map((text, index) => (
+                  <ReferenceReadingText key={index} text={text} />
+                ))}
+              <GenerationDisclosure
+                values={Object.fromEntries(
+                  ['entrance', 'entranceCondition'].flatMap((key) =>
+                    d.fieldProvenance?.[key]
+                      ? [[key, d.fieldProvenance[key]]]
+                      : [],
+                  ),
+                )}
+              />
+              <SourceDisclosure
+                source={['entrance', 'entranceCondition']
+                  .filter((key) => !d.fieldProvenance?.[key])
+                  .map((key) => d.sources?.[key])
+                  .filter(Boolean)
+                  .join(' + ')}
+              />
+            </details>
+          )}
+        </section>
+      )}
       {!state ? (
         <div className="crawl-step">
           <h3>입구에서 시작</h3>
@@ -272,18 +369,6 @@ export function DungeonCrawlWorkspace({
               );
             })}
           </nav>
-          {(state.phase === 'entrance' || viewRoomId === 'entrance') && (
-            <article className="crawl-room">
-              <span className="eyebrow">입구</span>
-              <h3>{d.entrance || '던전 입구'}</h3>
-              <p>{d.entranceCondition}</p>
-              <SourceDisclosure
-                source={[d.sources?.entrance, d.sources?.entranceCondition]
-                  .filter(Boolean)
-                  .join(' + ')}
-              />
-            </article>
-          )}
           {roll && (
             <output className={`crawl-outcome ${roll.outcome}`}>
               <strong>
@@ -297,7 +382,9 @@ export function DungeonCrawlWorkspace({
                 2d20 [{roll.dice.join(', ')}] + {roll.bonus} / DR {roll.dr}
               </span>
               {roll.exhausted && (
-                <small>특별한 방을 모두 발견하여 강한 성공 → 약한 성공 전환</small>
+                <small>
+                  특별한 방을 모두 발견하여 강한 성공 → 약한 성공 전환
+                </small>
               )}
               <SourceDisclosure refs={crawlSources} />
             </output>
@@ -333,44 +420,14 @@ export function DungeonCrawlWorkspace({
             </article>
           )}
           {room && viewRoomId !== 'entrance' && (
-            <article className="crawl-room" key={room.id}>
-              <span className="eyebrow">
-                {room.kind === 'special' ? '특수방' : '방'} ·{' '}
-                {state.visitedRoomIds.indexOf(room.id) + 1}
-              </span>
-              <ReferenceReadingBlock
-                reading={{
-                  title: room.name,
-                  blocks: [
-                    { title: '묘사', text: room.description },
-                    ...['feature', 'danger', 'treasure', 'encounter'].flatMap(
-                      (key) => {
-                        const value = room[key as keyof typeof room];
-                        return typeof value === 'string' && value
-                          ? [
-                              {
-                                title: (
-                                  {
-                                    feature:
-                                      room.kind === 'special'
-                                        ? '던전과의 연결 · 앱 해석'
-                                        : '출구 / 특징',
-                                    danger: '위험',
-                                    treasure: '보물',
-                                    encounter: '조우',
-                                  } as Record<string, string>
-                                )[key],
-                                text: value,
-                              },
-                            ]
-                          : [];
-                      },
-                    ),
-                  ],
-                  sourceRefs: Object.entries(room.sources ?? {}).map(
-                    ([key, source]) => ({ tableTitle: key, note: source }),
-                  ),
-                }}
+            <article className="crawl-current-room" key={room.id}>
+              <CrawlRoomPacket
+                dungeon={d}
+                room={room}
+                index={Math.max(0, state.visitedRoomIds.indexOf(room.id))}
+                ready={!!pack}
+                confirm={confirm}
+                update={(action) => updateRoom(room.id, action)}
               />
               {followUps.encounterKind && (
                 <div className="crawl-room-followup">
@@ -413,7 +470,7 @@ export function DungeonCrawlWorkspace({
                   })
                 }
               >
-                배치 · 방 편집
+                배치 관리
               </Button>
             </article>
           )}
@@ -473,7 +530,9 @@ export function DungeonCrawlWorkspace({
           region={d.region}
           threatRating={state?.threatRating ?? 12}
         />
-        {DUNGEON_REFERENCE_TOPICS.map((topic) => (
+        {DUNGEON_REFERENCE_TOPICS.filter(
+          (topic) => !showEntrance || topic !== entranceTopic,
+        ).map((topic) => (
           <InlineReferenceTools
             key={topic.title}
             {...topic}

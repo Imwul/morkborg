@@ -15,6 +15,23 @@ export interface PlayReferenceRuleSeed {
 /** Short, source-specific reminders. These do not change character or campaign rules. */
 export const PLAY_REFERENCE_RULES: PlayReferenceRuleSeed[] = [
   {
+    id: 'feretory.three-dead-skulls',
+    title: 'Three Dead Skulls · Grey Galth Inn 도박',
+    summary:
+      'Grey Galth Inn 도박의 원문 참조입니다. 최소 판돈 d6×10s, 3d6을 굴려 조합을 확인합니다. 추가 판돈 10–30s로 원하는 주사위를 한 번 다시 굴릴 수 있습니다. 추가 재굴림·배당·속임수·싸움 조건은 FER 인쇄 55쪽에서 확인하세요. 이 항목은 도박 절차를 자동 실행하지 않습니다.',
+    book: 'feretory',
+    pages: [56, 57],
+    printedPage: '54–55',
+    contexts: ['city', 'npc'],
+    oracles: [
+      'feretory.patronTraits',
+      'feretory.moreLostSouls',
+      'feretory.selectMenu',
+      'feretory.cheapMenu',
+    ],
+    seeFullRule: true,
+  },
+  {
     id: 'core.tests',
     title: 'Core Tests · 능력 판정',
     summary:

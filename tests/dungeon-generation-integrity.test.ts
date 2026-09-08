@@ -5,7 +5,7 @@ import { buildOracleRegistry } from '../src/data/oracles/index.ts';
 import type { OraclePack } from '../src/domain/oracle.ts';
 import type { DungeonRoom } from '../src/domain/types.ts';
 import { rollGenericCrawlRoom } from '../src/domain/dungeonCrawl.ts';
-import { cloneCampaign } from '../src/domain/operations.ts';
+import { cloneCampaign, applyCampaignEdit } from '../src/domain/operations.ts';
 import { parseImport } from '../src/storage/schema.ts';
 import { setRules, type RulesPack } from '../src/storage/rulesStore.ts';
 import { setOraclePack } from '../src/storage/oracleStore.ts';
@@ -228,6 +228,121 @@ sourceTest(
     room.components![0].provenance.status = 'CONFLICT';
     syncRoomComponents(room);
     assert.equal(room.fieldProvenance!.name.status, 'CONFLICT');
+  },
+);
+sourceTest(
+  'editing a generic descriptor keeps the automatic title synchronized through sibling rerolls and JSON reload',
+  () => {
+    const campaign = createCampaign('Room dependency QA');
+    const dungeon = createDungeon(
+      campaign.id,
+      'Manual dungeon',
+      'sarkash',
+      true,
+    );
+    dungeon.rooms.push(
+      rollGenericCrawlRoom(
+        buildOracleRegistry(fixture!.library, fixture!.oracles),
+        2,
+        () => 0,
+      ),
+    );
+    campaign.dungeons.push(dungeon);
+    applyCampaignEdit(campaign, (next) =>
+      editRoomComponent(
+        next.dungeons[0].rooms[0],
+        'adjective',
+        'QA · manual adjective',
+      ),
+    );
+    let room = campaign.dungeons[0].rooms[0];
+    assert.deepEqual(room.fieldProvenance!.name.derivedFrom, [
+      'adjective',
+      'type',
+    ]);
+    const restored = parseImport(
+      JSON.stringify({ schemaVersion: 6, campaign }),
+    )[0];
+    assert.deepEqual(
+      restored.dungeons[0].rooms[0].fieldProvenance!.name.derivedFrom,
+      ['adjective', 'type'],
+    );
+    applyCampaignEdit(restored, (next) =>
+      rerollRoomComponent(
+        next.dungeons[0],
+        next.dungeons[0].rooms[0],
+        'type',
+        () => 0.999999,
+      ),
+    );
+    room = restored.dungeons[0].rooms[0];
+    assert.equal(room.components![0].sourceText, 'QA · manual adjective');
+    assert.equal(
+      room.name,
+      room
+        .components!.filter((item) => ['adjective', 'type'].includes(item.key))
+        .map((item) => item.sourceText)
+        .join(' · '),
+    );
+    assert.deepEqual(room.fieldProvenance!.name.derivedFrom, [
+      'adjective',
+      'type',
+    ]);
+    assert.equal(room.components![0].provenance.origin, 'source-edited');
+    assert.equal(
+      room.fieldProvenance!.name.classification,
+      'USER_AUTHORED',
+      'The mirror contains an edited component; it must not claim unchanged source text',
+    );
+  },
+);
+sourceTest(
+  'explicit title edits detach automatic dependencies while unresolved old edited titles stay intact',
+  () => {
+    const campaign = createCampaign('Manual title QA');
+    const dungeon = createDungeon(
+      campaign.id,
+      'Manual dungeon',
+      'sarkash',
+      true,
+    );
+    dungeon.rooms.push(
+      rollGenericCrawlRoom(
+        buildOracleRegistry(fixture!.library, fixture!.oracles),
+        2,
+        () => 0,
+      ),
+    );
+    campaign.dungeons.push(dungeon);
+    applyCampaignEdit(campaign, (next) => {
+      next.dungeons[0].rooms[0].name = 'Explicit manual title';
+    });
+    const room = dungeon.rooms[0];
+    assert.equal(room.fieldProvenance!.name.derivedFrom, undefined);
+    assert.equal(room.fieldProvenance!.name.origin, 'source-edited');
+    rerollRoomComponent(dungeon, room, 'type', () => 0.999999);
+    assert.equal(room.name, 'Explicit manual title');
+    const restored = parseImport(
+      JSON.stringify({ schemaVersion: 6, campaign }),
+    )[0];
+    assert.equal(
+      restored.dungeons[0].rooms[0].fieldProvenance!.name.derivedFrom,
+      undefined,
+    );
+    const oldTitle = structuredClone(
+      restored.dungeons[0].rooms[0].fieldProvenance!.name,
+    );
+    rerollRoomComponent(
+      restored.dungeons[0],
+      restored.dungeons[0].rooms[0],
+      'adjective',
+      () => 0,
+    );
+    assert.equal(restored.dungeons[0].rooms[0].name, 'Explicit manual title');
+    assert.deepEqual(
+      restored.dungeons[0].rooms[0].fieldProvenance!.name,
+      oldTitle,
+    );
   },
 );
 sourceTest(

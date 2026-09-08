@@ -55,6 +55,7 @@ export const generatedValueSchema = z.object({
   datasetVersion: z.string().optional(),
   regionWeighting: z.enum(REGION_IDS).optional(),
   unresolvedSourceIds: z.array(z.string()).optional(),
+  derivedFrom: z.array(z.string().min(1)).optional(),
 });
 export const roomComponentSchema = z.object({
   key: z.string(),

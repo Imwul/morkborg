@@ -27,6 +27,8 @@ export interface GeneratedValueProvenance {
   datasetVersion?: string;
   regionWeighting?: RegionId;
   unresolvedSourceIds?: string[];
+  /** Component keys used by an automatic display mirror; direct user edits detach it. */
+  derivedFrom?: string[];
 }
 export interface GeneratorStep {
   id: string;
@@ -55,18 +57,21 @@ export interface RoomComponent {
 export function editedProvenance(
   prior?: GeneratedValueProvenance,
 ): GeneratedValueProvenance {
-  return prior
-    ? {
-        ...structuredClone(prior),
-        origin: prior.origin === 'manual' ? 'manual' : 'source-edited',
-        classification: 'USER_AUTHORED',
-      }
-    : {
-        origin: 'manual',
-        classification: 'USER_AUTHORED',
-        status: 'UNAVAILABLE',
-        sourceRefs: [],
-      };
+  if (prior) {
+    const edited: GeneratedValueProvenance = {
+      ...structuredClone(prior),
+      origin: prior.origin === 'manual' ? 'manual' : 'source-edited',
+      classification: 'USER_AUTHORED',
+    };
+    delete edited.derivedFrom;
+    return edited;
+  }
+  return {
+    origin: 'manual',
+    classification: 'USER_AUTHORED',
+    status: 'UNAVAILABLE',
+    sourceRefs: [],
+  };
 }
 
 export function hasManualEdits(value: unknown): boolean {

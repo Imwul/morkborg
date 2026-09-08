@@ -12,6 +12,7 @@ import {
   type CityMoveResult,
 } from './cityProcedures';
 import { rollOracle, selectOracleEntry } from '../generators/oracleRoller';
+import { oracleEntryDependencyWarning } from './oracleDependencies';
 import { random, type RandomSource } from '../generators/random';
 
 export interface CityCrawlConfig {
@@ -74,7 +75,7 @@ export const CITY_REFERENCE_GROUPS = [
   {
     title: '여관 · AitC 11 / FER 54–55쪽',
     description:
-      '여관 유형과 Grey Galth Inn의 주인·손님·메뉴. 메뉴는 가격을 보고 하나를 선택합니다.',
+      '여관 유형과 Grey Galth Inn의 주인·손님·메뉴. 정찬 4s / 저렴한 식사 2s 중 선택한 메뉴의 d6을 굴립니다.',
     ids: [
       'oracle:aitc.taverns',
       'oracle:feretory.innkeeperTwitch',
@@ -82,7 +83,7 @@ export const CITY_REFERENCE_GROUPS = [
       'oracle:feretory.moreLostSouls',
       'oracle:feretory.selectMenu',
       'oracle:feretory.cheapMenu',
-      'oracle:feretory.threeDeadSkulls',
+      'rule:feretory.three-dead-skulls',
     ],
   },
   {
@@ -108,6 +109,7 @@ export function cityCrawlMoveReading(
     registry.tables.find((candidate) => candidate.id === follow.tableId);
   const entry =
     table && follow ? selectOracleEntry(table, follow.roll) : undefined;
+  const dependencyWarning = oracleEntryDependencyWarning(entry, registry);
   const links = oracleFollowUpLinks(entry?.metadata);
   return {
     title: result.mode === 'derive' ? 'Dérive' : '도시 크롤',
@@ -127,8 +129,10 @@ export function cityCrawlMoveReading(
             {
               title: table?.title ?? '이동을 막은 상황 · d4 영감',
               text: entry
-                ? oracleReadingText(entry)
-                : '원문 표를 불러와 결과를 확인하세요.',
+                ? [oracleReadingText(entry), dependencyWarning]
+                    .filter(Boolean)
+                    .join('\n\n')
+                : `SOURCE DATA UNAVAILABLE: ${follow.tableId} · 원문 표를 불러와 결과를 확인하세요.`,
               dice: `${follow.dice} = ${follow.roll}`,
             },
           ]

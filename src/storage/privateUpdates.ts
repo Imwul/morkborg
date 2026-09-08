@@ -77,14 +77,47 @@ export function mergeOracleTranslations(
         ...table,
         entries: table.entries.map((entry) => {
           const match = entries.get(entry.id);
+          const asMetadata = (value: unknown): Record<string, unknown> =>
+            value && typeof value === 'object' && !Array.isArray(value)
+              ? (value as Record<string, unknown>)
+              : {};
+          const incomingTranslation = asMetadata(match?.metadata?.translation);
+          const currentTranslation = asMetadata(entry.metadata?.translation);
+          const fillMissing =
+            incomingTranslation.updatePolicy === 'fill-missing';
+          const preserveKo =
+            fillMissing &&
+            typeof entry.metadata?.ko === 'string' &&
+            entry.metadata.ko.trim();
+          const effectiveMetadata = { ...match?.metadata, ...entry.metadata };
+          const matchingGuidance = Object.fromEntries(
+            Object.entries(asMetadata(incomingTranslation.guidance)).filter(
+              ([field, ko]) =>
+                typeof ko === 'string' &&
+                typeof match?.metadata?.[field] === 'string' &&
+                effectiveMetadata[field] === match.metadata[field],
+            ),
+          );
           return match?.text === entry.text && match.metadata
             ? {
                 ...entry,
                 metadata: {
                   ...match.metadata,
                   ...entry.metadata,
-                  ...(typeof match.metadata.ko === 'string'
+                  ...(typeof match.metadata.ko === 'string' && !preserveKo
                     ? { ko: match.metadata.ko }
+                    : {}),
+                  ...(Object.keys(incomingTranslation).length
+                    ? {
+                        translation: {
+                          ...incomingTranslation,
+                          ...currentTranslation,
+                          guidance: {
+                            ...matchingGuidance,
+                            ...asMetadata(currentTranslation.guidance),
+                          },
+                        },
+                      }
                     : {}),
                 },
               }
@@ -101,25 +134,47 @@ function verifiedAliasBinding(value: unknown): string | undefined {
   const alias = value as Record<string, unknown>;
   if (
     alias.sourceVerified !== true ||
-    typeof alias.tableId !== 'string' || !alias.tableId ||
-    typeof alias.bookId !== 'string' || !alias.bookId ||
-    typeof alias.name !== 'string' || !alias.name.trim() ||
-    typeof alias.printedCrossReference !== 'string' || !alias.printedCrossReference.trim() ||
-    typeof alias.note !== 'string' || !alias.note.trim()
-  ) return;
+    typeof alias.tableId !== 'string' ||
+    !alias.tableId ||
+    typeof alias.bookId !== 'string' ||
+    !alias.bookId ||
+    typeof alias.name !== 'string' ||
+    !alias.name.trim() ||
+    typeof alias.printedCrossReference !== 'string' ||
+    !alias.printedCrossReference.trim() ||
+    typeof alias.note !== 'string' ||
+    !alias.note.trim()
+  )
+    return;
   return JSON.stringify([
-    alias.tableId, alias.bookId, alias.name.normalize('NFC').trim(),
-    alias.printedCrossReference.normalize('NFC').trim(), alias.printedPage ?? null,
+    alias.tableId,
+    alias.bookId,
+    alias.name.normalize('NFC').trim(),
+    alias.printedCrossReference.normalize('NFC').trim(),
+    alias.printedPage ?? null,
   ]);
 }
-function mergeSourceAliases(previous: unknown[], incoming: unknown[]): unknown[] {
+function mergeSourceAliases(
+  previous: unknown[],
+  incoming: unknown[],
+): unknown[] {
   const merged = new Map<string, unknown>();
   for (const alias of [...previous, ...incoming]) {
     const binding = verifiedAliasBinding(alias);
-    const key = binding ? 'verified:' + binding : 'raw:' + (JSON.stringify(alias) ?? 'undefined');
+    const key = binding
+      ? 'verified:' + binding
+      : 'raw:' + (JSON.stringify(alias) ?? 'undefined');
     const existing = merged.get(key);
-    merged.set(key, binding && existing && typeof existing === 'object' && alias && typeof alias === 'object'
-      ? {...existing, ...alias} : alias);
+    merged.set(
+      key,
+      binding &&
+        existing &&
+        typeof existing === 'object' &&
+        alias &&
+        typeof alias === 'object'
+        ? { ...existing, ...alias }
+        : alias,
+    );
   }
   return [...merged.values()];
 }

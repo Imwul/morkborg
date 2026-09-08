@@ -1,6 +1,10 @@
 import { ORACLE_CATEGORIES, type OracleRegistry } from '../domain/oracle';
 import { diceDomain } from '../generators/oracleRoller';
-export function validateOracleRegistry(registry: OracleRegistry): string[] {
+import { isVerifiedPendingLibraryDependency } from '../domain/oracleDependencies';
+export function validateOracleRegistry(
+  registry: OracleRegistry,
+  options: { libraryAbsent?: boolean } = {},
+): string[] {
   const issues: string[] = [],
     ids = new Set<string>(),
     entryIds = new Set<string>();
@@ -84,7 +88,11 @@ export function validateOracleRegistry(registry: OracleRegistry): string[] {
         for (const id of followUps)
           if (
             typeof id !== 'string' ||
-            !registry.tables.some((candidate) => candidate.id === id)
+            (!registry.tables.some((candidate) => candidate.id === id) &&
+              !(
+                options.libraryAbsent &&
+                isVerifiedPendingLibraryDependency(table, id)
+              ))
           )
             issues.push(
               `${entry.id}: missing canonical follow-up ${String(id)}`,
@@ -96,11 +104,15 @@ export function validateOracleRegistry(registry: OracleRegistry): string[] {
             (candidate) => candidate.id === lookup?.oracleId,
           );
           if (
-            !target ||
             !Number.isInteger(lookup?.roll) ||
-            !target.entries.some(
-              (row) => row.min <= lookup.roll && row.max >= lookup.roll,
-            )
+            (target
+              ? !target.entries.some(
+                  (row) => row.min <= lookup.roll && row.max >= lookup.roll,
+                )
+              : !(
+                  options.libraryAbsent &&
+                  isVerifiedPendingLibraryDependency(table, lookup?.oracleId)
+                ))
           )
             issues.push(`${entry.id}: invalid fixed source lookup`);
         }

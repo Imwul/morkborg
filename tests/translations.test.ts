@@ -28,6 +28,7 @@ test(
   privateData,
   () => {
     let count = 0;
+    let preservedNames = 0;
     const check = (entries: RuleEntry[]) => {
       for (const e of entries) {
         assert.equal(typeof e.meta.ko, 'string', e.text);
@@ -39,10 +40,25 @@ test(
     Object.values(getRules()!.tables).forEach((t) => check(t.entries));
     for (const t of getOraclePack()!.tables)
       for (const e of t.entries) {
-        assert.equal(typeof e.metadata?.ko, 'string', t.id + ':' + e.text);
-        if (e.text) assert.ok(e.metadata?.ko);
+        if (
+          t.id === 'aitc.settlement-name-prefix' ||
+          t.id === 'aitc.settlement-name-suffix'
+        ) {
+          const policy = e.metadata?.translation as
+            | Record<string, unknown>
+            | undefined;
+          assert.equal(policy?.properNamePreserved, true, e.id);
+          assert.equal(policy?.origin, 'app', e.id);
+          assert.equal(e.metadata?.ko, undefined, e.id);
+          assert.ok(e.text, e.id);
+          preservedNames++;
+        } else {
+          assert.equal(typeof e.metadata?.ko, 'string', t.id + ':' + e.text);
+          if (e.text) assert.ok(e.metadata?.ko);
+        }
         count++;
       }
+    assert.equal(preservedNames, 72);
     assert.ok(count > 11000);
   },
 );
@@ -105,6 +121,10 @@ test(
     });
     assert.equal(hasRuleTranslations(old), false);
     const upgraded = mergeRuleTranslations(old, latest);
+    assert.equal(
+      upgraded.notes.aitcTranslationEdition,
+      latest.notes.aitcTranslationEdition,
+    );
     assert.equal(upgraded.notes.customNote, 'keep this');
     assert.equal(upgraded.tables['core.sparks'].entries[0].weight, 7);
     assert.equal(
@@ -120,6 +140,7 @@ test(
       const copy = structuredClone(pack);
       delete copy.notes.translationEdition;
       delete copy.notes.translations;
+      delete copy.notes.aitcTranslationEdition;
       Object.values(copy.tables).forEach((table) => strip(table.entries));
       return copy;
     };

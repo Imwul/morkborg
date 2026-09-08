@@ -100,16 +100,49 @@ function refresh() {
   for (const table of Object.values(rules?.tables ?? {}))
     addRuleEntries(table.entries);
   for (const t of oracle?.tables ?? [])
-    for (const e of t.entries)
+    for (const e of t.entries) {
       if (typeof e.metadata?.ko === 'string')
         entries.push([e.text, e.metadata.ko]);
+      const translation = e.metadata?.translation;
+      if (
+        translation &&
+        typeof translation === 'object' &&
+        !Array.isArray(translation)
+      ) {
+        const guidance = (translation as Record<string, unknown>).guidance;
+        if (
+          guidance &&
+          typeof guidance === 'object' &&
+          !Array.isArray(guidance)
+        )
+          for (const [field, ko] of Object.entries(guidance)) {
+            const source = e.metadata?.[field];
+            if (typeof source === 'string' && typeof ko === 'string')
+              entries.push([source, ko]);
+          }
+      }
+    }
+  const translatedKeys = new Set(
+    entries
+      .filter(([, helper]) => /[가-힣]/u.test(helper))
+      .map(([source]) => normalize(source)),
+  );
   if (
     translations &&
     typeof translations === 'object' &&
     !Array.isArray(translations)
   )
     for (const [en, ko] of Object.entries(translations))
-      if (typeof ko === 'string') entries.push([en, ko]);
+      if (typeof ko === 'string') {
+        // A legacy identity mapping is not a translation and must not mask a
+        // newly supplied contextual helper (for example, an NPC result).
+        if (
+          normalize(en) === normalize(ko) &&
+          translatedKeys.has(normalize(en))
+        )
+          continue;
+        entries.push([en, ko]);
+      }
   // Explicit UI vocabulary wins over a word's unrelated meaning in another table.
   entries.push(...Object.entries(vocabulary));
   for (const [en, ko] of entries) {

@@ -83,11 +83,12 @@ export async function importPrivateData(
     Object.assign(merged, parsed);
   }
   if (!Object.keys(merged).length) throw new Error('자료 파일을 선택하세요.');
+  const library = merged.library ?? getRules();
   const registry = buildOracleRegistry(
-    merged.library ?? getRules(),
+    library,
     merged.oracles ?? getOraclePack(),
   );
-  const issues = validateOracleRegistry(registry);
+  const issues = validateOracleRegistry(registry, { libraryAbsent: !library });
   if (issues.length)
     throw new Error(
       'Oracle 자료를 확인하세요: ' + issues.slice(0, 3).join('; '),

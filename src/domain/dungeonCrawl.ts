@@ -157,6 +157,7 @@ export function rollGenericCrawlRoom(
         origin: 'source',
         status: 'VERIFIED',
         procedureId: 'sd.generic-room',
+        derivedFrom: ['adjective', 'type'],
         sourceRefs: components
           .slice(0, 2)
           .flatMap((component) => component.provenance.sourceRefs),

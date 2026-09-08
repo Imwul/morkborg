@@ -14,19 +14,27 @@ export function ReferenceReadingText({
   const paragraphs = hasSource
     ? [source.text, ...text.slice(source.text.length).split(/\n\s*\n/)]
     : text.split(/\n\s*\n/);
+  const helper = source?.metadata?.translation;
+  const preserveName =
+    helper &&
+    typeof helper === 'object' &&
+    !Array.isArray(helper) &&
+    (helper as Record<string, unknown>).properNamePreserved === true;
+  const explicitHelper =
+    typeof source?.metadata?.ko === 'string' && source.metadata.ko.trim()
+      ? source.metadata.ko
+      : undefined;
   return paragraphs
     .filter((paragraph) => paragraph.trim())
     .map((paragraph, index) => (
       <p key={index}>
         {paragraph}
-        <Translation
-          text={paragraph}
-          translation={
-            hasSource && index === 0 && typeof source.metadata?.ko === 'string'
-              ? source.metadata.ko
-              : undefined
-          }
-        />
+        {!(hasSource && index === 0 && preserveName && !explicitHelper) && (
+          <Translation
+            text={paragraph}
+            translation={hasSource && index === 0 ? explicitHelper : undefined}
+          />
+        )}
       </p>
     ));
 }

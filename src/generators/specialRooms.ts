@@ -122,7 +122,8 @@ export function syncRoomComponents(room: DungeonRoom): void {
     const preserveName =
       !!room.name &&
       !!room.fieldProvenance?.name &&
-      room.fieldProvenance.name.origin !== 'source';
+      room.fieldProvenance.name.origin !== 'source' &&
+      room.fieldProvenance.name.derivedFrom?.join('|') !== 'adjective|type';
     if (!preserveName)
       room.name = descriptors.map((item) => item.sourceText).join(' · ');
     room.description = contents?.sourceText ?? '';
@@ -155,6 +156,7 @@ export function syncRoomComponents(room: DungeonRoom): void {
               ),
               rolls: descriptors.flatMap((item) => item.provenance.rolls ?? []),
               procedureId: 'sd.generic-room',
+              derivedFrom: ['adjective', 'type'],
               transformation:
                 'Display two independent source descriptor fragments with ·.',
             },

@@ -27,7 +27,7 @@
   cursor: pointer;
   font-weight: 800;
 }
-.crawl-preparation small {
+.crawl-preparation > summary small {
   opacity: 0.65;
   margin-left: 0.5rem;
 }
@@ -50,26 +50,6 @@
 .crawl-preparation li summary {
   cursor: pointer;
   font-weight: 700;
-}
-.crawl-special-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem;
-  margin: 0.4rem 0 0.6rem;
-}
-.crawl-special-block {
-  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-  padding: 0.55rem;
-  background: color-mix(in srgb, var(--foreground, #ecebdd) 8%, transparent);
-}
-.crawl-special-block h4 {
-  margin: 0 0 0.35rem;
-  font-size: 0.74rem;
-  opacity: 0.8;
-}
-.crawl-special-block p {
-  margin: 0.22rem 0;
-  white-space: pre-line;
 }
 .crawl-preparation p {
   white-space: pre-line;
@@ -108,11 +88,27 @@
   background: var(--foreground, #ecebdd);
   color: var(--background, #111);
 }
-.crawl-room {
-  border: 2px solid var(--border, #555);
-  padding: 1rem;
+.crawl-entrance,
+.crawl-current-room {
   margin: 1rem 0;
-  background: rgba(125, 125, 100, 0.035);
+  min-width: 0;
+}
+.crawl-room-packet {
+  min-width: 0;
+}
+.crawl-saved-entrance,
+.crawl-saved-fields {
+  margin: 0.65rem 0;
+  border-top: 1px solid var(--border, #555);
+  padding: 0.65rem 0;
+}
+.crawl-saved-entrance > summary,
+.crawl-saved-fields > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.crawl-preparation .room-packet {
+  margin-top: 0.5rem;
 }
 .crawl-step {
   padding: 1rem;
@@ -163,9 +159,6 @@
 @media (max-width: 600px) {
   .crawl-preparation ol {
     grid-template-columns: 1fr;
-  }
-  .crawl-room {
-    padding: 0.55rem;
   }
   .crawl-overview {
     align-items: flex-start;
