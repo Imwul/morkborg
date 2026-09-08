@@ -25,6 +25,26 @@ const vocabulary: Record<string, string> = {
   Toughness: '체력',
   Morale: '사기',
   Powers: '권능',
+  'Encounter Level': '조우 수준',
+  Encounter: '조우',
+  'No encounter': '조우 없음',
+  'Mental Torture Prison': '정신 고문의 감옥',
+  'SOURCE UNAVAILABLE · No independent creature stat block supplied.':
+    '별도의 생물 능력치가 원문에 제시되어 있지 않습니다.',
+  'Roll two regional monsters; monster reactions −3.':
+    '지역 몬스터를 두 번 굴립니다. 몬스터 반응 굴림에 −3을 적용합니다.',
+  'Roll the printed NPC quantity; group shares one NPC type and one reaction roll.':
+    '원문에 적힌 주사위로 NPC 수를 정합니다. 집단은 한 가지 NPC 유형과 한 번의 반응 굴림을 공유합니다.',
+  'Monster reaction rolls −3.': '몬스터 반응 굴림에 −3을 적용합니다.',
+  'Unmarked region: choose the closest, or randomly choose one of the two closest.':
+    '표시되지 않은 지역이라면 가장 가까운 지역을 고르거나, 가장 가까운 두 지역 중 하나를 무작위로 고릅니다.',
+  'RECLVSE · RESOLUTION': '기본 판정',
+  'RECLVSE · COMBAT': '전투',
+  'RECLVSE · RECOVERY': '회복',
+  'RECLVSE · OMENS / POWERS': '오멘 / 권능',
+  'RECLVSE · CALENDAR': '달력',
+  'RECLVSE · TRAVEL / CAMP': '여행 / 야영',
+  'RECLVSE · DUNGEON': '던전',
   Bite: '물기',
   Shield: '방패',
   Lockpicks: '자물쇠 따개',
@@ -99,10 +119,31 @@ function refresh() {
   };
   for (const table of Object.values(rules?.tables ?? {}))
     addRuleEntries(table.entries);
+  const addCreature = (record: Record<string, unknown>) => {
+    if (record.ko && typeof record.ko === 'object')
+      for (const [field, ko] of Object.entries(record.ko))
+        if (typeof record[field] === 'string' && typeof ko === 'string' && ko)
+          entries.push([record[field], ko]);
+    for (const field of ['variants', 'participants', 'companions'])
+      if (Array.isArray(record[field])) record[field].forEach(addCreature);
+  };
+  for (const record of [
+    ...(rules?.creatures ?? []),
+    ...(rules?.outcasts ?? []),
+  ])
+    addCreature(record);
   for (const t of oracle?.tables ?? [])
     for (const e of t.entries) {
       if (typeof e.metadata?.ko === 'string')
         entries.push([e.text, e.metadata.ko]);
+      if (Array.isArray(e.metadata?.blocks))
+        for (const block of e.metadata.blocks) {
+          if (
+            typeof block?.text === 'string' &&
+            typeof block.translation?.ko === 'string'
+          )
+            entries.push([block.text, block.translation.ko]);
+        }
       const translation = e.metadata?.translation;
       if (
         translation &&

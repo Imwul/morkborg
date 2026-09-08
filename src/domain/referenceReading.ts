@@ -4,12 +4,18 @@ import type { SourceReference } from './types';
 import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
 import { FERETORY_TABLE_IDS } from '../generators/feretory';
 import { BOOK_ABBREVIATIONS, shortBookTitle } from './sourceDisplay';
+export interface ReferenceTextBlock {
+  title: string;
+  text: string;
+  /** App-authored language helper; canonical English remains the generator input. */
+  translation?: { ko?: string; titleKo?: string };
+}
 export interface ReferenceReading {
   rareMonster?: import('./depthsProcedures').RareMonsterTrace;
   childReferenceIds?: string[];
   authority?: GenerationAuthority[];
   title: string;
-  blocks: { title: string; text: string; dice?: string; kind?: 'creature' }[];
+  blocks: (ReferenceTextBlock & { dice?: string; kind?: 'creature' })[];
   copyContent?: { title: string; blocks: { title: string; text: string }[] };
   sourceRefs: SourceReference[];
   evidence?: ReferenceEvidence[];

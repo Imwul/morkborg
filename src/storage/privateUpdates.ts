@@ -98,12 +98,34 @@ export function mergeOracleTranslations(
                 effectiveMetadata[field] === match.metadata[field],
             ),
           );
+          const currentBlocks = entry.metadata?.blocks;
+          const incomingBlocks = match?.metadata?.blocks;
+          const translatedBlocks =
+            Array.isArray(currentBlocks) && Array.isArray(incomingBlocks)
+              ? currentBlocks.map((block, index) => {
+                  const incomingBlock = incomingBlocks[index];
+                  if (
+                    !block ||
+                    block.text !== incomingBlock?.text ||
+                    block.title !== incomingBlock?.title
+                  )
+                    return block;
+                  return {
+                    ...block,
+                    translation: {
+                      ...asMetadata(incomingBlock.translation),
+                      ...asMetadata(block.translation),
+                    },
+                  };
+                })
+              : undefined;
           return match?.text === entry.text && match.metadata
             ? {
                 ...entry,
                 metadata: {
                   ...match.metadata,
                   ...entry.metadata,
+                  ...(translatedBlocks ? { blocks: translatedBlocks } : {}),
                   ...(typeof match.metadata.ko === 'string' && !preserveKo
                     ? { ko: match.metadata.ko }
                     : {}),

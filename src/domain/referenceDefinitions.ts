@@ -3,6 +3,8 @@ import type { SourceReference } from './types';
 import type { RulesPack } from '../storage/rulesStore';
 import type { CharacterClassDefinition } from '../generators/characterClasses';
 
+import type { ReferenceTextBlock } from './referenceReading';
+
 export interface ReferenceDefinition {
   id: string;
   title: string;
@@ -17,7 +19,7 @@ export interface ReferenceDefinition {
     | 'Move'
     | 'Procedure'
     | 'Travel';
-  blocks: { title: string; text: string }[];
+  blocks: ReferenceTextBlock[];
   sourceRefs: SourceReference[];
   canonicalIds: string[];
   relatedIds: string[];
@@ -87,7 +89,7 @@ export function buildReferenceDefinitions(
         if (!m || typeof m.referenceId !== 'string' || !Array.isArray(m.blocks))
           continue;
         const blocks = m.blocks.filter(
-          (b): b is { title: string; text: string } =>
+          (b): b is ReferenceTextBlock =>
             !!b && typeof b.title === 'string' && typeof b.text === 'string',
         );
         result.push({

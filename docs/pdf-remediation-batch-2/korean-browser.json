@@ -1,0 +1,618 @@
+{
+  "at": "2026-09-08T15:41:30.657Z",
+  "url": "http://127.0.0.1:5175",
+  "records": [
+    {
+      "referenceId": "rule:reclvse.resolution",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.advantage",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.critical-die",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.ask-oracle",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.omens",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.invoke-power",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.guarding",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.combat-criticals",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.morale",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.recovery",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.infection",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.medicine-kit",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.calendar",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.travel",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.journey-length",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.road",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.move-area",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.weather",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.hunt",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.butcher",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.camp",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.night-encounter",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.hold-bearing",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.forage",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.tend-wounds",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.short-rest",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.starvation",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.passage",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.search-room",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.face-trap",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:reclvse.room-encounter",
+      "blocks": 5,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:sd.omens",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:sd.powers",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:sd.microcrawl",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:sd.begin-adventure",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:sd.conclude-adventure",
+      "blocks": 4,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:heretic.blackpowder",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:pistolet",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:culverin",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:arquebus",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:dragon",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:basilisk-gun",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:blunderbuss",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:heavy-arquebus",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:pepperbox-pistolet",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:blackpowder-bomb",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:ribauldequin",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:cannon",
+      "blocks": 2,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "definition:heretic.blackpowder:ammunition",
+      "blocks": 1,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:mythic.event-focus",
+      "blocks": 3,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:mythic.lists",
+      "blocks": 4,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:mythic.altered-scene",
+      "blocks": 4,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "rule:mythic.npc-behavior",
+      "blocks": 3,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "procedure:depths.rare-monster",
+      "blocks": 4,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "referenceId": "procedure:depths.encounter-level",
+      "blocks": 3,
+      "english": true,
+      "korean": true,
+      "sourceClosed": true
+    },
+    {
+      "check": "Card source → bilingual table → Back preserves cards",
+      "passed": true
+    },
+    {
+      "check": "Rotten Nurse bilingual definition",
+      "passed": true
+    },
+    {
+      "check": "Mikhael bilingual definition",
+      "passed": true
+    },
+    {
+      "check": "Carcasswan bilingual definition",
+      "passed": true
+    },
+    {
+      "check": "Lentil Lice bilingual definition",
+      "passed": true
+    },
+    {
+      "check": "Source ambiguity has Korean explanation",
+      "passed": true
+    },
+    {
+      "check": "Bilingual private data survives reload",
+      "passed": true
+    },
+    {
+      "check": "Existing Batch 2 cache receives bilingual blocks through the real API update",
+      "passed": true
+    }
+  ],
+  "visual": [
+    {
+      "name": "camp",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/camp-360.png"
+    },
+    {
+      "name": "camp",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/camp-768.png"
+    },
+    {
+      "name": "camp",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/camp-1440.png"
+    },
+    {
+      "name": "camp",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/camp-3440.png"
+    },
+    {
+      "name": "groups",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "13px",
+      "path": "outputs/batch-2-korean/groups-360.png"
+    },
+    {
+      "name": "groups",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "13px",
+      "path": "outputs/batch-2-korean/groups-768.png"
+    },
+    {
+      "name": "groups",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "13px",
+      "path": "outputs/batch-2-korean/groups-1440.png"
+    },
+    {
+      "name": "groups",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "13px",
+      "path": "outputs/batch-2-korean/groups-3440.png"
+    },
+    {
+      "name": "blackpowder",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/blackpowder-360.png"
+    },
+    {
+      "name": "blackpowder",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/blackpowder-768.png"
+    },
+    {
+      "name": "blackpowder",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/blackpowder-1440.png"
+    },
+    {
+      "name": "blackpowder",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/blackpowder-3440.png"
+    },
+    {
+      "name": "mythic",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/mythic-360.png"
+    },
+    {
+      "name": "mythic",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/mythic-768.png"
+    },
+    {
+      "name": "mythic",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/mythic-1440.png"
+    },
+    {
+      "name": "mythic",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/mythic-3440.png"
+    },
+    {
+      "name": "encounter",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/encounter-360.png"
+    },
+    {
+      "name": "encounter",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/encounter-768.png"
+    },
+    {
+      "name": "encounter",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/encounter-1440.png"
+    },
+    {
+      "name": "encounter",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/encounter-3440.png"
+    },
+    {
+      "name": "cards",
+      "width": 344,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/cards-360.png"
+    },
+    {
+      "name": "cards",
+      "width": 736,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/cards-768.png"
+    },
+    {
+      "name": "cards",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/cards-1440.png"
+    },
+    {
+      "name": "cards",
+      "width": 780,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "koreanSize": "14px",
+      "path": "outputs/batch-2-korean/cards-3440.png"
+    }
+  ],
+  "errors": []
+}

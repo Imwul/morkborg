@@ -9,6 +9,8 @@ import {
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { useReferenceDesk } from './ReferenceContext';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
+import { ReferenceReadingText } from './ReferenceReadingText';
+import { Translation } from './Translation';
 
 export function ReferenceTable({
   table,
@@ -24,7 +26,9 @@ export function ReferenceTable({
   return (
     <section className="reference-table-section">
       {table.description && (
-        <p className="table-use-context">{table.description}</p>
+        <div className="table-use-context">
+          <ReferenceReadingText text={table.description} />
+        </div>
       )}
       {exits && <p>Special Rooms Uncovered</p>}
       <table>
@@ -46,6 +50,17 @@ export function ReferenceTable({
         <tbody>
           {table.entries.map((entry) => {
             const notes = tableEntryNotes(entry);
+            const blocks = Array.isArray(entry.metadata?.blocks)
+              ? entry.metadata.blocks.filter(
+                  (b) =>
+                    b &&
+                    typeof b.title === 'string' &&
+                    typeof b.text === 'string',
+                )
+              : [];
+            const blockNotes = new Set(
+              blocks.map((b) => [b.title, b.text].filter(Boolean).join('\n')),
+            );
             const columns = entry.metadata?.bySpecialRoomsUncovered as
               | Record<string, { printedValue: string }>
               | undefined;
@@ -71,9 +86,27 @@ export function ReferenceTable({
                         }
                       >
                         {entry.text} ›
+                        <Translation
+                          text={entry.text}
+                          translation={
+                            typeof entry.metadata?.ko === 'string'
+                              ? entry.metadata.ko
+                              : undefined
+                          }
+                        />
                       </button>
                     ) : (
-                      <ReferenceLinkedText text={entry.text} />
+                      <>
+                        <ReferenceLinkedText text={entry.text} />
+                        <Translation
+                          text={entry.text}
+                          translation={
+                            typeof entry.metadata?.ko === 'string'
+                              ? entry.metadata.ko
+                              : undefined
+                          }
+                        />
+                      </>
                     )
                   ) : (
                     tableSelector(entry)
@@ -86,12 +119,34 @@ export function ReferenceTable({
                 ) : (
                   <td>
                     {!namedSelector && (
-                      <ReferenceLinkedText text={entry.text} />
+                      <ReferenceReadingText text={entry.text} source={entry} />
                     )}
                     {!!notes.length && (
                       <details className="table-entry-detail">
-                        <summary>{notes[0].split('\n')[0]}</summary>
-                        <p>{notes.join('\n\n')}</p>
+                        <summary>
+                          {notes[0].split('\n')[0]}
+                          <Translation text={notes[0].split('\n')[0]} />
+                        </summary>
+                        {blocks.map((block, n) => (
+                          <section key={n}>
+                            <strong>
+                              {block.title}
+                              <Translation
+                                text={block.title}
+                                translation={block.translation?.titleKo}
+                              />
+                            </strong>
+                            <ReferenceReadingText
+                              text={block.text}
+                              translation={block.translation?.ko}
+                            />
+                          </section>
+                        ))}
+                        <ReferenceReadingText
+                          text={notes
+                            .filter((note) => !blockNotes.has(note))
+                            .join('\n\n')}
+                        />
                       </details>
                     )}
                     {Array.isArray(entry.metadata?.followup) && (
@@ -101,7 +156,15 @@ export function ReferenceTable({
                           {(entry.metadata.followup as RuleEntry[]).map(
                             (child, i) => (
                               <li key={i}>
-                                <b>{followUpSelector(child)}</b> {child.text}
+                                <b>{followUpSelector(child)}</b>
+                                <ReferenceReadingText
+                                  text={child.text}
+                                  translation={
+                                    typeof child.meta.ko === 'string'
+                                      ? child.meta.ko
+                                      : undefined
+                                  }
+                                />
                               </li>
                             ),
                           )}

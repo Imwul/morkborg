@@ -1,6 +1,7 @@
 import { useReferenceDesk } from './ReferenceContext';
 import { oracleFollowUpLinks } from '../domain/referenceReading';
 import { referenceAction } from '../domain/referenceActions';
+import { Translation } from './Translation';
 /** Only explicit source outcome relations; no narrative inference or keyword routing. */
 export function ReferenceNextSteps({
   ids = [],
@@ -24,6 +25,7 @@ export function ReferenceNextSteps({
           onClick={() => desk?.activate(e!.id, referenceAction(e!).immediate)}
         >
           {e!.title} ›
+          <Translation text={e!.title} />
         </button>
       ))}
     </div>

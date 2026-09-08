@@ -15,6 +15,7 @@ import {
 } from '../domain/generationAuthority';
 import { useReferenceDesk } from './ReferenceContext';
 import { SourceText } from './SourceText';
+import { Translation } from './Translation';
 import {
   BOOK_ABBREVIATIONS,
   compactSourceText,
@@ -140,7 +141,12 @@ export function SourceDisclosure({
                   {group.map((item) => (
                     <div key={item.id} className="source-authority-entry">
                       <strong>{item.id}</strong>
-                      {item.description && <p>{item.description}</p>}
+                      {item.description && (
+                        <p>
+                          {item.description}
+                          <Translation text={item.description} />
+                        </p>
+                      )}
                       {item.sourceRefs
                         ?.filter(
                           (ref) =>
@@ -209,6 +215,7 @@ export function SourceDisclosure({
               {note && (
                 <p>
                   <SourceText text={note} />
+                  <Translation text={note} />
                 </p>
               )}
               {(ref.bookTitle || ref.bookId) && (
@@ -235,6 +242,7 @@ export function SourceDisclosure({
               {ref.note && (
                 <p>
                   <SourceText text={ref.note} />
+                  <Translation text={ref.note} />
                 </p>
               )}
               {ref.tableId && desk?.byId[`oracle:${ref.tableId}`] && (

@@ -77,6 +77,8 @@ import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { ReferenceTable } from './ReferenceTable';
+import { ReferenceReadingText } from './ReferenceReadingText';
+import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
 
@@ -510,7 +512,10 @@ export function ReferenceProvider({
           {!searchOpen && selected && (
             <>
               <div className="reference-inspector-top">
-                <DialogTitle>{referenceShortName(selected)}</DialogTitle>
+                <DialogTitle>
+                  {referenceShortName(selected)}
+                  <Translation text={selected.title} />
+                </DialogTitle>
                 <button
                   className="ref-pin"
                   aria-label={
@@ -671,7 +676,11 @@ export function ReferenceProvider({
                         key={entry.id}
                         onClick={() => activate(entry.id, isOneClick(entry))}
                       >
-                        {entry.title} <span>›</span>
+                        <span>
+                          {entry.title}
+                          <Translation text={entry.title} />
+                        </span>{' '}
+                        <span>›</span>
                       </button>
                     ))}
                 </nav>
@@ -679,7 +688,7 @@ export function ReferenceProvider({
               {!tableView && procedureId === 'depths.encounter-level' && (
                 <div className="ref-controls depths-controls">
                   <label>
-                    Depths region
+                    Depths region · 지역
                     <select
                       value={encounterRegion}
                       onChange={(e) => setEncounterRegion(e.target.value)}
@@ -694,6 +703,7 @@ export function ReferenceProvider({
                   <p>
                     Unmarked region: choose the closest, or randomly choose one
                     of the two closest.
+                    <Translation text="Unmarked region: choose the closest, or randomly choose one of the two closest." />
                   </p>
                 </div>
               )}
@@ -701,8 +711,8 @@ export function ReferenceProvider({
                 <div className="rare-card-controls">
                   <span>
                     {rareDeck
-                      ? `${rareDeck.length} cards left`
-                      : 'New 52-card deck'}
+                      ? `${rareDeck.length} cards left · 남은 카드 ${rareDeck.length}장`
+                      : 'New 52-card deck · 새 덱 52장'}
                   </span>
                   <button
                     onClick={() => {
@@ -721,8 +731,18 @@ export function ReferenceProvider({
                     <summary>절차 읽기 ›</summary>
                     {selected.definition.blocks.map((block, n) => (
                       <section key={n}>
-                        <h4>{block.title}</h4>
-                        <p>{block.text}</p>
+                        <h4>
+                          {block.title}
+                          <Translation
+                            text={block.title}
+                            translation={block.translation?.titleKo}
+                          />
+                        </h4>
+                        <ReferenceReadingText
+                          text={block.text}
+                          translation={block.translation?.ko}
+                          excludeId={selected.id}
+                        />
                       </section>
                     ))}
                   </details>
@@ -877,12 +897,12 @@ export function ReferenceProvider({
                             <span>
                               {
                                 [
-                                  'Look',
-                                  'Feature',
-                                  'HP / Armor',
-                                  'Morale',
-                                  'Attack',
-                                  'Special',
+                                  'Look · 외형',
+                                  'Feature · 특징',
+                                  'HP / Armor · 방어구',
+                                  'Morale · 사기',
+                                  'Attack · 공격',
+                                  'Special · 특수',
                                 ][n]
                               }
                             </span>
@@ -894,7 +914,10 @@ export function ReferenceProvider({
                       !reading.blocks.some(
                         (block) => block.title === reading.title,
                       ) && (
-                        <h3 className="reading-identity">{reading.title}</h3>
+                        <h3 className="reading-identity">
+                          {reading.title}
+                          <Translation text={reading.title} />
+                        </h3>
                       )}
                     {reading.blocks.map((block, n) => (
                       <section
@@ -923,34 +946,64 @@ export function ReferenceProvider({
                                 text={block.title}
                                 excludeId={selected.id}
                               />
+                              <Translation
+                                text={block.title}
+                                translation={
+                                  block.translation?.titleKo ??
+                                  (reading.rareMonster
+                                    ? (
+                                        {
+                                          INTENTION: '의도',
+                                          SPECIAL: '특수 능력',
+                                        } as Record<string, string>
+                                      )[block.title]
+                                    : procedureId ===
+                                          'depths.encounter-level' &&
+                                        block.title === 'NEXT'
+                                      ? '다음 절차'
+                                      : undefined)
+                                }
+                              />
                             </h3>
                           )}
                         {block.kind === 'creature' &&
                         block.text.split('\n').length > 2 ? (
                           <>
-                            <p>
-                              {block.text.split('\n').slice(0, 2).join('\n')}
-                            </p>
+                            <ReferenceReadingText
+                              text={block.text
+                                .split('\n')
+                                .slice(0, 2)
+                                .join('\n')}
+                              excludeId={selected.id}
+                              splitLines
+                            />
                             <details className="reading-more">
-                              <summary>MORE ›</summary>
-                              <p>
-                                {block.text.split('\n').slice(2).join('\n')}
-                              </p>
+                              <summary>MORE · 자세히 ›</summary>
+                              <ReferenceReadingText
+                                text={block.text
+                                  .split('\n')
+                                  .slice(2)
+                                  .join('\n')}
+                                excludeId={selected.id}
+                                splitLines
+                              />
                             </details>
                           </>
                         ) : (
-                          <p>
-                            <ReferenceLinkedText
-                              text={block.text}
-                              excludeId={selected.id}
-                            />
-                          </p>
+                          <ReferenceReadingText
+                            text={block.text}
+                            translation={block.translation?.ko}
+                            excludeId={selected.id}
+                            splitLines={!!reading.rareMonster}
+                          />
                         )}
                       </section>
                     ))}
                     {!!reading.childReferenceIds?.length && (
                       <details className="reading-participants">
-                        <summary>VARIANTS / PARTICIPANTS ›</summary>
+                        <summary>
+                          VARIANTS / PARTICIPANTS · 변종 / 참가자 ›
+                        </summary>
                         <div className="reference-rule-group">
                           {reading.childReferenceIds
                             .map((key) => index.byId[key])
@@ -961,6 +1014,7 @@ export function ReferenceProvider({
                                 onClick={() => activate(entry.id, true)}
                               >
                                 {entry.title} ›
+                                <Translation text={entry.title} />
                               </button>
                             ))}
                         </div>
@@ -1226,6 +1280,7 @@ export function ReferenceProvider({
                         onClick={() => activate(entry.id, isOneClick(entry))}
                       >
                         {referenceShortName(entry)}
+                        <Translation text={entry.title} />
                         <ArrowUpRight size={12} />
                       </button>
                     ))}
@@ -1257,6 +1312,7 @@ export function ReferenceRow({
       >
         <span>
           <strong>{referenceShortName(entry)}</strong>
+          <Translation text={entry.title} />
           {showMetadata && (
             <small>
               {entry.definition?.kind ?? entry.kind.toUpperCase()}

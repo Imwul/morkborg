@@ -819,6 +819,24 @@
   font-size: 18px;
   line-height: 1.7;
 }
+.reference-inspector .generated-translation {
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: normal;
+  color: #514b3f;
+  margin-top: 0.35rem;
+}
+.reference-inspector h3 > .generated-translation,
+.reference-inspector h4 > .generated-translation,
+.reference-rule-group .generated-translation,
+.reference-table-section summary .generated-translation {
+  font-size: 13px;
+}
+.reference-inspector .rare-card-strip span {
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
 .source-role {
   display: block;
   font: 700 11px var(--font-mono);
