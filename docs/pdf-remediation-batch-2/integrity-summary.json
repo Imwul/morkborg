@@ -1,0 +1,129 @@
+{
+  "canonicalTables": 572,
+  "referenceEntries": 991,
+  "newCatalogs": [
+    {
+      "id": "reclvse.playReferences",
+      "book": "reclvse",
+      "pages": [
+        9,
+        11,
+        12,
+        18,
+        42,
+        43,
+        49,
+        51,
+        52,
+        53,
+        68,
+        85
+      ],
+      "entries": 31,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "sd.playReferences",
+      "book": "sd",
+      "pages": [
+        5,
+        7,
+        20
+      ],
+      "entries": 5,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "heretic.blackpowder",
+      "book": "heretic",
+      "pages": 46,
+      "entries": 13,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "mythic2.playReferences",
+      "book": "mythic2",
+      "pages": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        45,
+        46,
+        47,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "entries": 4,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "depths.playReferences",
+      "book": "depths",
+      "pages": [
+        16,
+        17,
+        18,
+        19,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "entries": 2,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "depths.encounterLevels",
+      "book": "depths",
+      "pages": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "entries": 8,
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "id": "reclvse.unspokens",
+      "book": "reclvse",
+      "pages": 10,
+      "entries": 36,
+      "sourceStatus": "VERIFIED"
+    }
+  ],
+  "newDefinitions": 55,
+  "unresolvedGeneratedSourceFields": 0,
+  "rareMonsterSamples": 10000,
+  "browserChecks": 87,
+  "viewports": 20,
+  "remainingClassifications": {
+    "PARTIAL": 35,
+    "PRESENT_BUT_INDIRECT": 171,
+    "MISSING": 192,
+    "SOURCE_UNAVAILABLE": 3
+  }
+}

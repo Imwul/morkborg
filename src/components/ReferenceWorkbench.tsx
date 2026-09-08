@@ -11,7 +11,17 @@ import {
   retainReferenceReading,
   restoreReferenceRoll,
 } from '../domain/referenceSession';
-import { authoritiesForReading } from '../domain/generationAuthority';
+import {
+  authoritiesForReading,
+  sourceProcedure,
+  appPolicy,
+} from '../domain/generationAuthority';
+import {
+  encounterRegions,
+  cardIdentity,
+  nextRareLook,
+  type PlayingCard,
+} from '../domain/depthsProcedures';
 import { sourceEvidence } from '../domain/referenceSources';
 import { useEffect, useMemo, useState, useRef, type ReactNode } from 'react';
 import {
@@ -65,6 +75,7 @@ import { BookLabel, SourceText } from './SourceText';
 import { compactSourceText } from '../domain/sourceDisplay';
 import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { ReferenceTable } from './ReferenceTable';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
@@ -105,6 +116,8 @@ export function ReferenceProvider({
     [copyFallback, setCopyFallback] = useState<string | null>(null);
   const [cityLarge, setCityLarge] = useState(false),
     [cityExits, setCityExits] = useState(true);
+  const [encounterRegion, setEncounterRegion] = useState('sarkash');
+  const [rareDeck, setRareDeck] = useState<PlayingCard[] | undefined>();
   const [region, setRegion] = useState<RegionId>('sarkash'),
     [stockKind, setStockKind] = useState<'common' | 'rare' | 'room'>('common'),
     [stockDR, setStockDR] = useState(10);
@@ -127,6 +140,14 @@ export function ReferenceProvider({
             { title: '', text: selected.summary },
           ],
           sourceRefs: selected.sourceRefs,
+          authority: [
+            ...(selected.definition
+              ? [sourceProcedure(selected.id, selected.sourceRefs)]
+              : []),
+            ...(selected.referenceGroupIds
+              ? [appPolicy('app.reference-groups')]
+              : []),
+          ],
         }
       : selectedId
         ? readings[selectedId]
@@ -163,7 +184,10 @@ export function ReferenceProvider({
         stockDR,
         cityLarge,
         cityExits,
+        encounterRegion,
+        rareDeck,
       });
+      if (output?.rareMonster) setRareDeck(output.rareMonster.remaining);
       if (output)
         acceptReading(entry.id, output, entry.action?.kind !== 'creature');
     } catch (e) {
@@ -262,7 +286,7 @@ export function ReferenceProvider({
     selected &&
     !city &&
     !plainRule &&
-    ['oracle', 'procedure', 'regional-monster'].includes(
+    ['oracle', 'procedure', 'regional-monster', 'regional-table'].includes(
       selected.action?.kind ?? '',
     );
   async function copyReading(withSource = false) {
@@ -512,6 +536,7 @@ export function ReferenceProvider({
               </DialogDescription>
               {!reading &&
                 !plainRule &&
+                !procedureId.startsWith('depths.') &&
                 !city &&
                 !tableView &&
                 selected.kind !== 'region' && (
@@ -636,6 +661,72 @@ export function ReferenceProvider({
                   이 참조에 필요한 원문 자료가 준비되지 않았습니다.
                 </output>
               )}
+              {!tableView && selected.referenceGroupIds && (
+                <nav className="reference-rule-group" aria-label="참조 묶음">
+                  {selected.referenceGroupIds
+                    .map((key) => index.byId[key])
+                    .filter(Boolean)
+                    .map((entry) => (
+                      <button
+                        key={entry.id}
+                        onClick={() => activate(entry.id, isOneClick(entry))}
+                      >
+                        {entry.title} <span>›</span>
+                      </button>
+                    ))}
+                </nav>
+              )}
+              {!tableView && procedureId === 'depths.encounter-level' && (
+                <div className="ref-controls depths-controls">
+                  <label>
+                    Depths region
+                    <select
+                      value={encounterRegion}
+                      onChange={(e) => setEncounterRegion(e.target.value)}
+                    >
+                      {encounterRegions(oracles.registry).map((r) => (
+                        <option key={r.key} value={r.key}>
+                          {r.name} · EL {r.level}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <p>
+                    Unmarked region: choose the closest, or randomly choose one
+                    of the two closest.
+                  </p>
+                </div>
+              )}
+              {!tableView && procedureId === 'depths.rare-monster' && (
+                <div className="rare-card-controls">
+                  <span>
+                    {rareDeck
+                      ? `${rareDeck.length} cards left`
+                      : 'New 52-card deck'}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setRareDeck(undefined);
+                      setFailure('');
+                    }}
+                  >
+                    SHUFFLE · 새 던전
+                  </button>
+                </div>
+              )}
+              {!tableView &&
+                procedureId.startsWith('depths.') &&
+                selected.definition && (
+                  <details className="reference-procedure-rule">
+                    <summary>절차 읽기 ›</summary>
+                    {selected.definition.blocks.map((block, n) => (
+                      <section key={n}>
+                        <h4>{block.title}</h4>
+                        <p>{block.text}</p>
+                      </section>
+                    ))}
+                  </details>
+                )}
               <details
                 className="reference-options"
                 open={!reading || undefined}
@@ -758,7 +849,7 @@ export function ReferenceProvider({
                   onClick={() => perform(selected)}
                 >
                   <Dices size={20} />
-                  {reading ? 'REROLL' : 'ROLL'}
+                  {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
                 </Button>
               )}
               {failure && (
@@ -766,85 +857,173 @@ export function ReferenceProvider({
                   {failure}
                 </p>
               )}
-              {reading && !tableView && (
-                <article
-                  key={`${selected.id}:${session.sequence}`}
-                  className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''}`}
-                  aria-label="참조 결과"
-                >
-                  {reading.title !== selected.title &&
-                    !reading.blocks.some(
-                      (block) => block.title === reading.title,
-                    ) && <h3 className="reading-identity">{reading.title}</h3>}
-                  {reading.blocks.map((block, n) => (
-                    <section
-                      key={n}
-                      className={
-                        block.kind === 'creature'
-                          ? 'creature-answer'
-                          : !plainRule &&
-                              block.text.length < 160 &&
-                              !block.text.includes('\n')
-                            ? 'short-answer'
-                            : ''
-                      }
-                    >
-                      {block.title &&
-                        !(
-                          reading.blocks.length === 1 &&
-                          [
-                            selected.title,
-                            referenceShortName(selected),
-                          ].includes(block.title)
-                        ) && (
-                          <h3>
+              {reading &&
+                !tableView &&
+                !!reading.blocks.some((b) => b.text) && (
+                  <article
+                    key={`${selected.id}:${session.sequence}`}
+                    className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
+                    aria-label="참조 결과"
+                  >
+                    {reading.rareMonster && (
+                      <ol
+                        className="rare-card-strip"
+                        aria-label="Rare monster cards"
+                      >
+                        {reading.rareMonster.cards.map((card, n) => (
+                          <li key={n}>
+                            <small>CARD {n + 1}</small>
+                            <strong>{cardIdentity(card)}</strong>
+                            <span>
+                              {
+                                [
+                                  'Look',
+                                  'Feature',
+                                  'HP / Armor',
+                                  'Morale',
+                                  'Attack',
+                                  'Special',
+                                ][n]
+                              }
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                    {reading.title !== selected.title &&
+                      !reading.blocks.some(
+                        (block) => block.title === reading.title,
+                      ) && (
+                        <h3 className="reading-identity">{reading.title}</h3>
+                      )}
+                    {reading.blocks.map((block, n) => (
+                      <section
+                        key={n}
+                        className={
+                          block.kind === 'creature'
+                            ? 'creature-answer'
+                            : !plainRule &&
+                                !reading.rareMonster &&
+                                block.text.length < 160 &&
+                                !block.text.includes('\n')
+                              ? 'short-answer'
+                              : ''
+                        }
+                      >
+                        {block.title &&
+                          !(
+                            reading.blocks.length === 1 &&
+                            [
+                              selected.title,
+                              referenceShortName(selected),
+                            ].includes(block.title)
+                          ) && (
+                            <h3>
+                              <ReferenceLinkedText
+                                text={block.title}
+                                excludeId={selected.id}
+                              />
+                            </h3>
+                          )}
+                        {block.kind === 'creature' &&
+                        block.text.split('\n').length > 2 ? (
+                          <>
+                            <p>
+                              {block.text.split('\n').slice(0, 2).join('\n')}
+                            </p>
+                            <details className="reading-more">
+                              <summary>MORE ›</summary>
+                              <p>
+                                {block.text.split('\n').slice(2).join('\n')}
+                              </p>
+                            </details>
+                          </>
+                        ) : (
+                          <p>
                             <ReferenceLinkedText
-                              text={block.title}
+                              text={block.text}
                               excludeId={selected.id}
                             />
-                          </h3>
+                          </p>
                         )}
-                      {block.kind === 'creature' &&
-                      block.text.split('\n').length > 2 ? (
-                        <>
-                          <p>{block.text.split('\n').slice(0, 2).join('\n')}</p>
-                          <details className="reading-more">
-                            <summary>MORE ›</summary>
-                            <p>{block.text.split('\n').slice(2).join('\n')}</p>
-                          </details>
-                        </>
-                      ) : (
-                        <p>
-                          <ReferenceLinkedText
-                            text={block.text}
-                            excludeId={selected.id}
-                          />
-                        </p>
-                      )}
-                    </section>
-                  ))}
-                  <div className="ref-copy-actions">
-                    {roller && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => perform(selected)}
-                        className="result-reroll"
-                      >
-                        <Dices size={16} /> REROLL
-                      </Button>
+                      </section>
+                    ))}
+                    {!!reading.childReferenceIds?.length && (
+                      <details className="reading-participants">
+                        <summary>VARIANTS / PARTICIPANTS ›</summary>
+                        <div className="reference-rule-group">
+                          {reading.childReferenceIds
+                            .map((key) => index.byId[key])
+                            .filter(Boolean)
+                            .map((entry) => (
+                              <button
+                                key={entry.id}
+                                onClick={() => activate(entry.id, true)}
+                              >
+                                {entry.title} ›
+                              </button>
+                            ))}
+                        </div>
+                      </details>
                     )}
-                    <Button variant="ghost" onClick={() => copyReading()}>
-                      <Copy size={14} /> COPY
-                    </Button>
-                    <details className="result-more-actions">
-                      <summary aria-label="결과 추가 동작">⋯</summary>
-                      <button onClick={() => copyReading(true)}>
-                        COPY WITH SOURCE
-                      </button>
-                    </details>
-                  </div>
-                </article>
-              )}
+                    {reading.rareMonster && (
+                      <details className="rare-look-choice">
+                        <summary>Look이 던전과 맞지 않을 때</summary>
+                        <button
+                          onClick={() => {
+                            try {
+                              acceptReading(
+                                selected.id,
+                                nextRareLook(reading, oracles.registry),
+                                false,
+                              );
+                            } catch (e) {
+                              setFailure((e as Error).message);
+                            }
+                          }}
+                        >
+                          원문의 다음 Look 선택
+                        </button>
+                      </details>
+                    )}
+                    {procedureId === 'depths.encounter-level' && (
+                      <ReferenceNextSteps ids={reading.relatedIds} />
+                    )}
+                    <ReferenceNextSteps
+                      ids={selected.definition?.nextReferenceIds}
+                    />
+                    {reading.oracle?.rolls
+                      .filter((roll) =>
+                        Array.isArray(roll.metadata?.followUpReferenceIds),
+                      )
+                      .map((roll, n) => (
+                        <ReferenceNextSteps key={n} metadata={roll.metadata} />
+                      ))}
+                    <div className="ref-copy-actions">
+                      {roller && (
+                        <Button
+                          variant="ghost"
+                          onClick={() => perform(selected)}
+                          className="result-reroll"
+                        >
+                          <Dices size={16} />{' '}
+                          {procedureId === 'depths.rare-monster'
+                            ? 'DRAW'
+                            : 'REROLL'}
+                        </Button>
+                      )}
+                      <Button variant="ghost" onClick={() => copyReading()}>
+                        <Copy size={14} /> COPY
+                      </Button>
+                      <details className="result-more-actions">
+                        <summary aria-label="결과 추가 동작">⋯</summary>
+                        <button onClick={() => copyReading(true)}>
+                          COPY WITH SOURCE
+                        </button>
+                      </details>
+                    </div>
+                  </article>
+                )}
               {copied && <output className="copy-feedback">{copied}</output>}
               {copyFallback != null && (
                 <label>

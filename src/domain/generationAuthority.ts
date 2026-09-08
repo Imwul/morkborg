@@ -9,6 +9,10 @@ import type { ReferenceReading } from './referenceReading';
 
 /** Metadata only: application choices are never represented as quotations or source routing. */
 export const APP_GENERATION_POLICIES: Record<string, string> = {
+  'app.reference-groups':
+    'Rules are grouped for navigation. Grouping does not combine independent source procedures.',
+  'app.card-session':
+    'The deck is retained in this open browser session. DRAW takes the next pile without replacement. A new dungeon starts with SHUFFLE. No campaign or monster is saved automatically.',
   'app.table-selection':
     '사용자가 원문 표에서 직접 고른 결과입니다. 주사위를 굴리거나 캠페인에 자동 저장하지 않았습니다.',
   'app.dungeon-dossier':
@@ -29,6 +33,8 @@ export const APP_GENERATION_POLICIES: Record<string, string> = {
     '검증된 생물 기록을 조회해 필드를 표시하는 앱 동작입니다. 새로운 능력치를 생성하는 룰북 절차가 아닙니다.',
 };
 const sourceIds = new Set([
+  'depths.rare-monster',
+  'depths.encounter-level',
   ...sourceProcedureIds,
   'core.dungeon-title',
   'core.dungeon-status',

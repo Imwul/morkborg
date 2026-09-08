@@ -1,0 +1,53 @@
+{
+  "testedAt": "2026-09-08T15:07:56.577Z",
+  "records": [
+    {
+      "test": "Mythic panel: manual d10=2 → Interrupt → Focus + two Meaning words → next reference",
+      "setupClicks": 4,
+      "diceTextEntry": true,
+      "eventRollClicks": 1,
+      "nextReferenceClicks": 1,
+      "passed": true
+    },
+    {
+      "test": "Mythic panel: manual d10=3 → Altered → source-defined scene follow-through",
+      "resolveClicks": 1,
+      "nextReferenceClicks": 1,
+      "passed": true
+    },
+    {
+      "test": "Actual Mythic panel responsive follow-through",
+      "width": 360,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "test": "Actual Mythic panel responsive follow-through",
+      "width": 768,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "test": "Actual Mythic panel responsive follow-through",
+      "width": 1440,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "test": "Actual Mythic panel responsive follow-through",
+      "width": 3440,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "test": "Mobile card source → table → Back",
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "backClicks": 1,
+      "cardsUnchanged": true,
+      "overflow": false,
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -3,6 +3,7 @@ import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { shortBookTitle } from '../domain/sourceDisplay';
 import { FERETORY_MONSTER_SUMMARY } from '../generators/feretory';
 import { feretoryResultBlock } from '../domain/referenceReading';
+import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Dices, Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -463,6 +464,7 @@ export function Oracles({
                         <p className="oracle-result-text" lang="en">
                           <ReferenceLinkedText text={r.text} />
                         </p>
+                        <ReferenceNextSteps metadata={r.metadata} />
                         <details className="packet-translation">
                           <summary>한국어 도움말</summary>
                           <Translation

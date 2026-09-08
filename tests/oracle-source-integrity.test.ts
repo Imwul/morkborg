@@ -44,7 +44,7 @@ local(
   () => {
     assert.deepEqual(unresolvedOracleSources(registry), []);
     assert.deepEqual(validateOracleRegistry(registry), []);
-    assert.equal(registry.tables.length, 565);
+    assert.equal(registry.tables.length, 572);
   },
 );
 local(

@@ -5,6 +5,8 @@ import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
 import { FERETORY_TABLE_IDS } from '../generators/feretory';
 import { BOOK_ABBREVIATIONS, shortBookTitle } from './sourceDisplay';
 export interface ReferenceReading {
+  rareMonster?: import('./depthsProcedures').RareMonsterTrace;
+  childReferenceIds?: string[];
   authority?: GenerationAuthority[];
   title: string;
   blocks: { title: string; text: string; dice?: string; kind?: 'creature' }[];
@@ -109,15 +111,22 @@ export function oracleFollowUpLinks(
   metadata?: Record<string, unknown>,
 ): Pick<ReferenceReading, 'relatedIds' | 'fixedLookups'> {
   return {
-    relatedIds: Array.isArray(metadata?.followUpOracleIds)
-      ? [
-          ...new Set(
-            metadata.followUpOracleIds.filter(
-              (key): key is string => typeof key === 'string',
+    relatedIds: [
+      ...(Array.isArray(metadata?.followUpReferenceIds)
+        ? metadata.followUpReferenceIds.filter(
+            (v): v is string => typeof v === 'string',
+          )
+        : []),
+      ...(Array.isArray(metadata?.followUpOracleIds)
+        ? [
+            ...new Set(
+              metadata.followUpOracleIds.filter(
+                (key): key is string => typeof key === 'string',
+              ),
             ),
-          ),
-        ].map((key) => `oracle:${key}`)
-      : [],
+          ].map((key) => `oracle:${key}`)
+        : []),
+    ],
     fixedLookups: Array.isArray(metadata?.fixedLookups)
       ? metadata.fixedLookups.filter(
           (value): value is { oracleId: string; roll: number } =>

@@ -1,0 +1,2418 @@
+{
+  "baselineHead": "285f85157f1b3df4d59b60953a0714561e15d35d",
+  "auditHead": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
+  "testedAt": "2026-09-08T15:14:26.245Z",
+  "targets": 59,
+  "byRank": {
+    "5": {
+      "before": {
+        "MISSING": 12
+      },
+      "after": {
+        "RESOLVED": 12
+      }
+    },
+    "6": {
+      "before": {
+        "PARTIAL": 1,
+        "MISSING": 17
+      },
+      "after": {
+        "RESOLVED": 18
+      }
+    },
+    "7": {
+      "before": {
+        "MISSING": 13
+      },
+      "after": {
+        "RESOLVED": 13
+      }
+    },
+    "10": {
+      "before": {
+        "PARTIAL": 2
+      },
+      "after": {
+        "RESOLVED": 2
+      }
+    },
+    "11": {
+      "before": {
+        "PARTIAL": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      }
+    },
+    "12": {
+      "before": {
+        "PARTIAL": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      }
+    },
+    "14": {
+      "before": {
+        "MISSING": 3
+      },
+      "after": {
+        "RESOLVED": 3
+      }
+    },
+    "15": {
+      "before": {
+        "PARTIAL": 2
+      },
+      "after": {
+        "RESOLVED": 2
+      }
+    },
+    "17": {
+      "before": {
+        "PARTIAL": 3
+      },
+      "after": {
+        "RESOLVED": 3
+      }
+    },
+    "18": {
+      "before": {
+        "PARTIAL": 2,
+        "MISSING": 2
+      },
+      "after": {
+        "RESOLVED": 4
+      }
+    }
+  },
+  "rows": [
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-advantage-and-disadvantage",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        12
+      ],
+      "referenceIds": [
+        "rule:reclvse.advantage"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 12,
+          "printedPage": 12,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.advantage",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Advantage / Disadvantage",
+      "top3": [
+        {
+          "id": "rule:reclvse.advantage",
+          "title": "RECLVSE Advantage / Disadvantage"
+        },
+        {
+          "id": "rule:reclvse.short-rest",
+          "title": "Short Rest"
+        },
+        {
+          "id": "rule:reclvse.weather",
+          "title": "Weather Move"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-critical-die",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        12
+      ],
+      "referenceIds": [
+        "rule:reclvse.critical-die"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 12,
+          "printedPage": 12,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.critical-die",
+          "note": "The source does not specify how designation interacts with discarding a die under advantage/disadvantage. No extra die-selection rule is added.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Critical Die",
+      "top3": [
+        {
+          "id": "rule:reclvse.critical-die",
+          "title": "RECLVSE Critical Die"
+        },
+        {
+          "id": "rule:reclvse.omens",
+          "title": "RECLVSE Omens"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "The source does not specify how designation interacts with discarding a die under advantage/disadvantage. No extra die-selection rule is added."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-ask-the-oracle",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        85
+      ],
+      "referenceIds": [
+        "rule:reclvse.ask-oracle"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 85,
+          "printedPage": 85,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.ask-oracle",
+          "note": "Both printed phrasings are preserved. This read-only reference does not silently resolve the boundary.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Ask the Oracle",
+      "top3": [
+        {
+          "id": "rule:reclvse.ask-oracle",
+          "title": "RECLVSE Ask the Oracle"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Both printed phrasings are preserved. This read-only reference does not silently resolve the boundary."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-reclvse-omens",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        18
+      ],
+      "referenceIds": [
+        "rule:reclvse.omens"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 18,
+          "printedPage": 18,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.omens",
+          "note": "The source says success for a failed Move; it does not choose a Strong/Weak band.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Omens",
+      "top3": [
+        {
+          "id": "rule:reclvse.omens",
+          "title": "RECLVSE Omens"
+        },
+        {
+          "id": "group:reclvse.omens-powers",
+          "title": "RECLVSE · OMENS / POWERS"
+        },
+        {
+          "id": "oracle:reclvse.strange_omens",
+          "title": "Strange Omens"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "The source says success for a failed Move; it does not choose a Strong/Weak band."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-invoke-a-power",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        18
+      ],
+      "referenceIds": [
+        "rule:reclvse.invoke-power"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 18,
+          "printedPage": 18,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.invoke-power",
+          "note": "PDF18 points to p68 for Corruption; the actual supplied Corruption table is PDF/printed36. This link follows the verified table, not the erroneous page number.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Invoke a Power",
+      "top3": [
+        {
+          "id": "rule:reclvse.invoke-power",
+          "title": "RECLVSE Invoke a Power"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "PDF18 points to p68 for Corruption; the actual supplied Corruption table is PDF/printed36. This link follows the verified table, not the erroneous page number."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-guarding",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        42
+      ],
+      "referenceIds": [
+        "rule:reclvse.guarding"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 42,
+          "printedPage": 42,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.guarding",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Guarding",
+      "top3": [
+        {
+          "id": "rule:reclvse.guarding",
+          "title": "RECLVSE Guarding"
+        },
+        {
+          "id": "rule:reclvse.combat-criticals",
+          "title": "RECLVSE Combat Criticals / Fumbles"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-criticals-and-fumbles-in-combat",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        42
+      ],
+      "referenceIds": [
+        "rule:reclvse.combat-criticals"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 42,
+          "printedPage": 42,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.combat-criticals",
+          "note": "These are the explicit combat rules on p42. The general p12 statement that combat is unchanged from Core does not describe every difference on this page.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Combat Criticals / Fumbles",
+      "top3": [
+        {
+          "id": "rule:reclvse.combat-criticals",
+          "title": "RECLVSE Combat Criticals / Fumbles"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "These are the explicit combat rules on p42. The general p12 statement that combat is unchanged from Core does not describe every difference on this page."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-reclvse-morale",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        42
+      ],
+      "referenceIds": [
+        "rule:reclvse.morale"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 42,
+          "printedPage": 42,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.morale",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Morale",
+      "top3": [
+        {
+          "id": "rule:reclvse.morale",
+          "title": "RECLVSE Morale"
+        },
+        {
+          "id": "oracle:reclvse.creatureMorale",
+          "title": "Beasts — Morale"
+        },
+        {
+          "id": "oracle:reclvse.hirelingMorale",
+          "title": "Hirelings — Broken Morale"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-below-zero-death-and-recovery",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        43
+      ],
+      "referenceIds": [
+        "rule:reclvse.recovery"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 43,
+          "printedPage": 43,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.recovery",
+          "note": "Use the detailed p42 Ruined table or the conflicting summary intentionally; no automatic death/recovery override is applied.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        },
+        {
+          "bookId": "reclvse",
+          "pdfPage": 42,
+          "printedPage": 42,
+          "status": "VERIFIED",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Below Zero / Death / Recovery",
+      "top3": [
+        {
+          "id": "rule:reclvse.recovery",
+          "title": "RECLVSE Below Zero / Death / Recovery"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Use the detailed p42 Ruined table or the conflicting summary intentionally; no automatic death/recovery override is applied."
+      ]
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-infection",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        43
+      ],
+      "referenceIds": [
+        "rule:reclvse.infection"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 43,
+          "printedPage": 43,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.infection",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Infection",
+      "top3": [
+        {
+          "id": "rule:reclvse.infection",
+          "title": "RECLVSE Infection"
+        },
+        {
+          "id": "rule:reclvse.medicine-kit",
+          "title": "RECLVSE Medicine Kit"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-rule-medicine-kit",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        43
+      ],
+      "referenceIds": [
+        "rule:reclvse.medicine-kit"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 43,
+          "printedPage": 43,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.medicine-kit",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Medicine Kit",
+      "top3": [
+        {
+          "id": "rule:reclvse.medicine-kit",
+          "title": "RECLVSE Medicine Kit"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 5,
+      "needId": "reclvse-unspokens-calendar",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        9
+      ],
+      "referenceIds": [
+        "rule:reclvse.calendar"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 9,
+          "printedPage": 9,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.calendar",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Calendar · The Unspokens",
+      "top3": [
+        {
+          "id": "rule:reclvse.calendar",
+          "title": "RECLVSE Calendar · The Unspokens"
+        },
+        {
+          "id": "rule:reclvse.weather",
+          "title": "Weather Move"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-travel-road",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        49
+      ],
+      "referenceIds": [
+        "rule:reclvse.road"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.road",
+          "note": "The instruction “Ignore Strong Hit” does not specify conversion or rerolling; preserved without adding an outcome.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Travel the Road",
+      "top3": [
+        {
+          "id": "rule:reclvse.road",
+          "title": "Travel the Road"
+        },
+        {
+          "id": "rule:reclvse.road-travel",
+          "title": "RECLVSE Travel the Road · 길 이동"
+        },
+        {
+          "id": "rule:feretory.travel-distances",
+          "title": "Traveling the Dying Lands · Road travel times"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "The instruction “Ignore Strong Hit” does not specify conversion or rerolling; preserved without adding an outcome."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-determine-journey-length",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        49
+      ],
+      "referenceIds": [
+        "rule:reclvse.journey-length"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.journey-length",
+          "note": "Weak Hit base duration is not explicitly stated; no duration calculator invents it.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Determine Length of Journey",
+      "top3": [
+        {
+          "id": "rule:reclvse.journey-length",
+          "title": "Determine Length of Journey"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Weak Hit base duration is not explicitly stated; no duration calculator invents it."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-move-through-an-area",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        49
+      ],
+      "referenceIds": [
+        "rule:reclvse.move-area"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.move-area",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Move Through the Area",
+      "top3": [
+        {
+          "id": "rule:reclvse.move-area",
+          "title": "Move Through the Area"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-reclvse-daily-travel-loop",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        49
+      ],
+      "referenceIds": [
+        "rule:reclvse.travel"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.travel",
+          "note": "Grouping is app navigation. The daily order is printed on p49 and summarized on p53.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Travel · Daily Loop",
+      "top3": [
+        {
+          "id": "rule:reclvse.travel",
+          "title": "RECLVSE Travel · Daily Loop"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Grouping is app navigation. The daily order is printed on p49 and summarized on p53."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-weather-move",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        51
+      ],
+      "referenceIds": [
+        "rule:reclvse.weather"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.weather",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Weather Move",
+      "top3": [
+        {
+          "id": "rule:reclvse.weather",
+          "title": "Weather Move"
+        },
+        {
+          "id": "rule:reclvse.night-encounter",
+          "title": "Night Encounter"
+        },
+        {
+          "id": "rule:reclvse.travel",
+          "title": "RECLVSE Travel · Daily Loop"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-hunt",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        51
+      ],
+      "referenceIds": [
+        "rule:reclvse.hunt"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.hunt",
+          "note": "Source points to its p77 or FERETORY printed12–21 for prey; the latter verified Eat Prey Kill is linked.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Hunt",
+      "top3": [
+        {
+          "id": "rule:reclvse.hunt",
+          "title": "Hunt"
+        },
+        {
+          "id": "oracle:feretory.hunting.bergen",
+          "title": "Eat Prey Kill · Bergen Chrypt"
+        },
+        {
+          "id": "oracle:feretory.hunting.gravenTosk",
+          "title": "Eat Prey Kill · Graven-Tosk"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Source points to its p77 or FERETORY printed12–21 for prey; the latter verified Eat Prey Kill is linked."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-butcher-a-kill",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        51
+      ],
+      "referenceIds": [
+        "rule:reclvse.butcher"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.butcher",
+          "note": "The source leaves appropriate yield and half-ration rounding to interpretation.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Butcher the Kill",
+      "top3": [
+        {
+          "id": "rule:reclvse.butcher",
+          "title": "Butcher the Kill"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "The source leaves appropriate yield and half-ration rounding to interpretation."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-make-camp",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        51
+      ],
+      "referenceIds": [
+        "rule:reclvse.camp"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.camp",
+          "note": "p49’s daily structure triggers Night Encounter for all outdoor camping; p51 lists it only on Weak/Miss.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Make Camp",
+      "top3": [
+        {
+          "id": "rule:reclvse.camp",
+          "title": "Make Camp"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "p49’s daily structure triggers Night Encounter for all outdoor camping; p51 lists it only on Weak/Miss."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-night-encounter",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        51
+      ],
+      "referenceIds": [
+        "rule:reclvse.night-encounter"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.night-encounter",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Night Encounter",
+      "top3": [
+        {
+          "id": "rule:reclvse.night-encounter",
+          "title": "Night Encounter"
+        },
+        {
+          "id": "rule:reclvse.camp",
+          "title": "Make Camp"
+        },
+        {
+          "id": "rule:reclvse.travel",
+          "title": "RECLVSE Travel · Daily Loop"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-hold-your-bearing",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        52
+      ],
+      "referenceIds": [
+        "rule:reclvse.hold-bearing"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 52,
+          "printedPage": 52,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.hold-bearing",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Hold Your Bearing",
+      "top3": [
+        {
+          "id": "rule:reclvse.hold-bearing",
+          "title": "Hold Your Bearing"
+        },
+        {
+          "id": "rule:reclvse.road-travel",
+          "title": "RECLVSE Travel the Road · 길 이동"
+        },
+        {
+          "id": "rule:reclvse.road",
+          "title": "Travel the Road"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-foraging-move",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        52
+      ],
+      "referenceIds": [
+        "rule:reclvse.forage"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 52,
+          "printedPage": 52,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.forage",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Foraging",
+      "top3": [
+        {
+          "id": "rule:reclvse.forage",
+          "title": "Foraging"
+        },
+        {
+          "id": "oracle:feretory.forage",
+          "title": "Spending a Day Foraging"
+        },
+        {
+          "id": "rule:sd.resupply",
+          "title": "SD Resupply · 재보급"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-tend-wounds",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        53
+      ],
+      "referenceIds": [
+        "rule:reclvse.tend-wounds"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.tend-wounds",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Tend Wounds",
+      "top3": [
+        {
+          "id": "rule:reclvse.tend-wounds",
+          "title": "Tend Wounds"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-short-rest-move",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        53
+      ],
+      "referenceIds": [
+        "rule:reclvse.short-rest"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.short-rest",
+          "note": "This p53 Move differs from the automatic d4 short rest on p43; they are separate source alternatives.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Short Rest",
+      "top3": [
+        {
+          "id": "rule:reclvse.short-rest",
+          "title": "Short Rest"
+        },
+        {
+          "id": "rule:reclvse.recovery",
+          "title": "RECLVSE Below Zero / Death / Recovery"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "This p53 Move differs from the automatic d4 short rest on p43; they are separate source alternatives."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-starvation",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        53
+      ],
+      "referenceIds": [
+        "rule:reclvse.starvation"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.starvation",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "RECLVSE Travel Fatigue and Starvation",
+      "top3": [
+        {
+          "id": "rule:reclvse.starvation",
+          "title": "RECLVSE Travel Fatigue and Starvation"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-navigate-the-passage",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        68
+      ],
+      "referenceIds": [
+        "rule:reclvse.passage"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 68,
+          "printedPage": 68,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.passage",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Navigate the Passage",
+      "top3": [
+        {
+          "id": "rule:reclvse.passage",
+          "title": "Navigate the Passage"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-search-the-room",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        68
+      ],
+      "referenceIds": [
+        "rule:reclvse.search-room"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 68,
+          "printedPage": 68,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.search-room",
+          "note": "The printed Equipment p63 cross-reference is wrong: p63 is Connections. The source also explicitly permits Loot p39, linked here. No Equipment table is substituted.",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Search the Room",
+      "top3": [
+        {
+          "id": "rule:reclvse.search-room",
+          "title": "Search the Room"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "The printed Equipment p63 cross-reference is wrong: p63 is Connections. The source also explicitly permits Loot p39, linked here. No Equipment table is substituted."
+      ]
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-face-the-trap",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        68
+      ],
+      "referenceIds": [
+        "rule:reclvse.face-trap"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 68,
+          "printedPage": 68,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.face-trap",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Face the Trap",
+      "top3": [
+        {
+          "id": "rule:reclvse.face-trap",
+          "title": "Face the Trap"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 6,
+      "needId": "reclvse-rule-room-encounter",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "RECLVSE",
+      "originalAuditPages": [
+        68
+      ],
+      "referenceIds": [
+        "rule:reclvse.room-encounter"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.playReferences",
+          "tableTitle": "RECLVSE — Rules and Moves",
+          "pdfPage": 68,
+          "printedPage": 68,
+          "status": "VERIFIED",
+          "entryId": "reclvse.playReferences:rule-reclvse.room-encounter",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+        }
+      ],
+      "query": "Room Encounter",
+      "top3": [
+        {
+          "id": "rule:reclvse.room-encounter",
+          "title": "Room Encounter"
+        },
+        {
+          "id": "oracle:reclvse.roomEncounter",
+          "title": "10C. Encounter"
+        },
+        {
+          "id": "procedure:workbench.stock-room",
+          "title": "Encounter Candidate · 조우 후보 준비"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-rule",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "rule:heretic.blackpowder"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:rule-heretic.blackpowder",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "HERETIC Blackpowder",
+      "top3": [
+        {
+          "id": "rule:heretic.blackpowder",
+          "title": "HERETIC Blackpowder"
+        },
+        {
+          "id": "definition:heretic.blackpowder:blackpowder-bomb",
+          "title": "Blackpowder Bomb"
+        },
+        {
+          "id": "oracle:heretic.blackpowder",
+          "title": "Blackpowder Weapons for the Rich and Foolhardy"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-pistolet",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:pistolet"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-pistolet",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Pistolet",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:pistolet",
+          "title": "Pistolet"
+        },
+        {
+          "id": "definition:heretic.blackpowder:pepperbox-pistolet",
+          "title": "Pepperbox Pistolet"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-culverin",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:culverin"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-culverin",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Culverin",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:culverin",
+          "title": "Culverin"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-arquebus",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:arquebus"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-arquebus",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Arquebus",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:arquebus",
+          "title": "Arquebus"
+        },
+        {
+          "id": "definition:heretic.blackpowder:heavy-arquebus",
+          "title": "Heavy Arquebus"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-dragon",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:dragon"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-dragon",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Dragon",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:dragon",
+          "title": "Dragon"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-basilisk-gun",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:basilisk-gun"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-basilisk-gun",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Basilisk Gun",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:basilisk-gun",
+          "title": "Basilisk Gun"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-blunderbuss",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:blunderbuss"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-blunderbuss",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Blunderbuss",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:blunderbuss",
+          "title": "Blunderbuss"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-heavy-arquebus",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:heavy-arquebus"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-heavy-arquebus",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Heavy Arquebus",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:heavy-arquebus",
+          "title": "Heavy Arquebus"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-pepperbox-pistolet",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:pepperbox-pistolet"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-pepperbox-pistolet",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Pepperbox Pistolet",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:pepperbox-pistolet",
+          "title": "Pepperbox Pistolet"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-blackpowder-bomb",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:blackpowder-bomb"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-blackpowder-bomb",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Blackpowder Bomb",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:blackpowder-bomb",
+          "title": "Blackpowder Bomb"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-ribauldequin",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:ribauldequin"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-ribauldequin",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Ribauldequin",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:ribauldequin",
+          "title": "Ribauldequin"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-cannon",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:cannon"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-cannon",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Cannon",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:cannon",
+          "title": "Cannon"
+        },
+        {
+          "id": "definition:heretic.blackpowder:ammunition",
+          "title": "Ammunition"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 7,
+      "needId": "heretic:blackpowder-ammunition",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        46
+      ],
+      "referenceIds": [
+        "definition:heretic.blackpowder:ammunition"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "tableId": "heretic.blackpowder",
+          "tableTitle": "Blackpowder Weapons for the Rich and Foolhardy",
+          "pdfPage": 46,
+          "printedPage": 44,
+          "status": "VERIFIED",
+          "entryId": "heretic.blackpowder:definition-heretic.blackpowder-ammunition",
+          "bookTitle": "MÖRK BORG CULT: HERETIC"
+        }
+      ],
+      "query": "Ammunition",
+      "top3": [
+        {
+          "id": "definition:heretic.blackpowder:ammunition",
+          "title": "Ammunition"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 10,
+      "needId": "sd-omens-variant",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Sölitary Defilement",
+      "originalAuditPages": [
+        5
+      ],
+      "referenceIds": [
+        "rule:sd.omens"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.playReferences",
+          "tableTitle": "Sölitary Defilement — Variants and Adventure Moves",
+          "pdfPage": 5,
+          "printedPage": 3,
+          "status": "VERIFIED",
+          "entryId": "sd.playReferences:rule-sd.omens",
+          "bookTitle": "Sölitary Defilement"
+        },
+        {
+          "bookId": "sd",
+          "pdfPage": 7,
+          "printedPage": 5,
+          "status": "VERIFIED",
+          "bookTitle": "Sölitary Defilement"
+        }
+      ],
+      "query": "Omens · Sölitary Defilement variant",
+      "top3": [
+        {
+          "id": "rule:sd.omens",
+          "title": "Omens · Sölitary Defilement variant"
+        },
+        {
+          "id": "rule:sd.conclude-adventure",
+          "title": "Conclude Adventure · Sölitary Defilement"
+        },
+        {
+          "id": "rule:sd.solo-variant",
+          "title": "Sölitary Defilement · 선택적 솔로 변형"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 10,
+      "needId": "sd-powers-variant",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Sölitary Defilement",
+      "originalAuditPages": [
+        5
+      ],
+      "referenceIds": [
+        "rule:sd.powers"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.playReferences",
+          "tableTitle": "Sölitary Defilement — Variants and Adventure Moves",
+          "pdfPage": 5,
+          "printedPage": 3,
+          "status": "VERIFIED",
+          "entryId": "sd.playReferences:rule-sd.powers",
+          "bookTitle": "Sölitary Defilement"
+        }
+      ],
+      "query": "Powers · Sölitary Defilement variant",
+      "top3": [
+        {
+          "id": "rule:sd.powers",
+          "title": "Powers · Sölitary Defilement variant"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 11,
+      "needId": "depths-rare-five-card",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Sölitary Depths",
+      "originalAuditPages": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "referenceIds": [
+        "procedure:depths.rare-monster"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "depths",
+          "tableId": "depths.playReferences",
+          "tableTitle": "Sölitary Depths — Encounter Procedures",
+          "pdfPage": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "printedPage": "13, 14, 15, 16",
+          "status": "VERIFIED",
+          "entryId": "depths.playReferences:procedure-depths.rare-monster",
+          "bookTitle": "Sölitary Depths"
+        }
+      ],
+      "query": "Rare Monster Five Cards",
+      "top3": [
+        {
+          "id": "procedure:depths.rare-monster",
+          "title": "Rare Monster · Five Cards"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 12,
+      "needId": "depths-hex-encounters",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Sölitary Depths",
+      "originalAuditPages": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "referenceIds": [
+        "procedure:depths.encounter-level"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "depths",
+          "tableId": "depths.playReferences",
+          "tableTitle": "Sölitary Depths — Encounter Procedures",
+          "pdfPage": [
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33
+          ],
+          "printedPage": "22, 23, 24, 25, 26, 27, 28, 29, 30",
+          "status": "VERIFIED",
+          "entryId": "depths.playReferences:procedure-depths.encounter-level",
+          "bookTitle": "Sölitary Depths"
+        }
+      ],
+      "query": "Depths Encounter Level",
+      "top3": [
+        {
+          "id": "procedure:depths.encounter-level",
+          "title": "Depths Encounter Level"
+        },
+        {
+          "id": "rule:depths.hex-travel",
+          "title": "Depths Travel · 헥스와 지역 조우"
+        },
+        {
+          "id": "oracle:depths.encounterLevels",
+          "title": "Regional Encounter Levels"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 14,
+      "needId": "sd-microcrawl",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "Sölitary Defilement",
+      "originalAuditPages": [
+        20
+      ],
+      "referenceIds": [
+        "rule:sd.microcrawl"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.playReferences",
+          "tableTitle": "Sölitary Defilement — Variants and Adventure Moves",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "status": "VERIFIED",
+          "entryId": "sd.playReferences:rule-sd.microcrawl",
+          "bookTitle": "Sölitary Defilement"
+        }
+      ],
+      "query": "Outdoor Micro-crawl · Sölitary Defilement",
+      "top3": [
+        {
+          "id": "rule:sd.microcrawl",
+          "title": "Outdoor Micro-crawl · Sölitary Defilement"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 14,
+      "needId": "sd-begin-adventure",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "Sölitary Defilement",
+      "originalAuditPages": [
+        7
+      ],
+      "referenceIds": [
+        "rule:sd.begin-adventure"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.playReferences",
+          "tableTitle": "Sölitary Defilement — Variants and Adventure Moves",
+          "pdfPage": 7,
+          "printedPage": 5,
+          "status": "VERIFIED",
+          "entryId": "sd.playReferences:rule-sd.begin-adventure",
+          "bookTitle": "Sölitary Defilement"
+        }
+      ],
+      "query": "Begin Adventure · Sölitary Defilement",
+      "top3": [
+        {
+          "id": "rule:sd.begin-adventure",
+          "title": "Begin Adventure · Sölitary Defilement"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 14,
+      "needId": "sd-conclude-adventure",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "Sölitary Defilement",
+      "originalAuditPages": [
+        7
+      ],
+      "referenceIds": [
+        "rule:sd.conclude-adventure"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.playReferences",
+          "tableTitle": "Sölitary Defilement — Variants and Adventure Moves",
+          "pdfPage": 7,
+          "printedPage": 5,
+          "status": "VERIFIED",
+          "entryId": "sd.playReferences:rule-sd.conclude-adventure",
+          "bookTitle": "Sölitary Defilement"
+        }
+      ],
+      "query": "Conclude Adventure · Sölitary Defilement",
+      "top3": [
+        {
+          "id": "rule:sd.conclude-adventure",
+          "title": "Conclude Adventure · Sölitary Defilement"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 15,
+      "needId": "heretic:creature-rotten-nurse",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        64
+      ],
+      "referenceIds": [
+        "creature:heretic:64:rotten-nurse"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "bookTitle": "MÖRK BORG CULT: HERETIC",
+          "tableTitle": "Rotten Nurse · Undead nurse",
+          "pdfPage": 64,
+          "printedPage": 62,
+          "entryId": "creature:heretic:64:rotten-nurse"
+        }
+      ],
+      "query": "Rotten Nurse",
+      "top3": [
+        {
+          "id": "creature:heretic:64:rotten-nurse",
+          "title": "Rotten Nurse · Undead nurse"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 15,
+      "needId": "heretic:outcast-mikhael",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "originalAuditPages": [
+        40
+      ],
+      "referenceIds": [
+        "creature:heretic:heretic.outcast.mikhael"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "bookTitle": "MÖRK BORG CULT: HERETIC",
+          "tableTitle": "Outcasts · Mikhael",
+          "pdfPage": 40,
+          "printedPage": 38,
+          "entryId": "heretic.outcast.mikhael"
+        }
+      ],
+      "query": "Mikhael",
+      "top3": [
+        {
+          "id": "creature:heretic:heretic.outcast.mikhael",
+          "title": "Mikhael"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 17,
+      "needId": "feretory:creature-carcasswan",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "originalAuditPages": [
+        20
+      ],
+      "referenceIds": [
+        "creature:feretory:feretory.epk.carcasswan",
+        "creature:feretory:feretory.epk.carcasswan.lone",
+        "creature:feretory:feretory.epk.carcasswan.pair"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Carcasswan",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "entryId": "feretory.epk.carcasswan"
+        },
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Carcasswan (Lone)",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "entryId": "feretory.epk.carcasswan.lone"
+        },
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Carcasswan (Pair)",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "entryId": "feretory.epk.carcasswan.pair"
+        }
+      ],
+      "query": "Carcasswan",
+      "top3": [
+        {
+          "id": "creature:feretory:feretory.epk.carcasswan",
+          "title": "Carcasswan"
+        },
+        {
+          "id": "creature:feretory:feretory.epk.carcasswan.lone",
+          "title": "Carcasswan (Lone)"
+        },
+        {
+          "id": "creature:feretory:feretory.epk.carcasswan.pair",
+          "title": "Carcasswan (Pair)"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 17,
+      "needId": "feretory:epk-starved-peasants",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "originalAuditPages": [
+        17
+      ],
+      "referenceIds": [
+        "creature:feretory:feretory.epk.lentil-lice",
+        "creature:feretory:feretory.epk.lentil-lice.participants.1"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Lentil Lice",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "entryId": "feretory.epk.lentil-lice",
+          "status": "PARTIAL",
+          "note": "Creature identity is present in the supplied source; an independent creature stat block is unavailable."
+        },
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Starved peasants",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "entryId": "feretory.epk.lentil-lice.participants.1"
+        }
+      ],
+      "query": "Lentil Lice",
+      "top3": [
+        {
+          "id": "creature:feretory:feretory.epk.lentil-lice",
+          "title": "Lentil Lice"
+        },
+        {
+          "id": "region:grift",
+          "title": "Grift"
+        },
+        {
+          "id": "creature:feretory:feretory.epk.lentil-lice.participants.1",
+          "title": "Starved peasants"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": [
+        "Creature identity is present in the supplied source; an independent creature stat block is unavailable."
+      ]
+    },
+    {
+      "auditRank": 17,
+      "needId": "feretory:epk-regular-wolf",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "originalAuditPages": [
+        23
+      ],
+      "referenceIds": [
+        "creature:feretory:feretory.epk.uberwolf",
+        "creature:feretory:feretory.epk.uberwolf.companions.1"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Überwolf",
+          "pdfPage": 23,
+          "printedPage": 21,
+          "entryId": "feretory.epk.uberwolf"
+        },
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableTitle": "Eat Prey Kill · Regular wolf",
+          "pdfPage": 23,
+          "printedPage": 21,
+          "entryId": "feretory.epk.uberwolf.companions.1"
+        }
+      ],
+      "query": "Überwolf",
+      "top3": [
+        {
+          "id": "creature:feretory:feretory.epk.uberwolf",
+          "title": "Überwolf"
+        },
+        {
+          "id": "creature:feretory:feretory.epk.uberwolf.companions.1",
+          "title": "Regular wolf"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 18,
+      "needId": "mythic-event-focus",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "originalAuditPages": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "referenceIds": [
+        "rule:mythic.event-focus"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.playReferences",
+          "tableTitle": "Mythic — Event, Scene and NPC Follow-through",
+          "pdfPage": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            45,
+            47
+          ],
+          "printedPage": "36, 37, 38, 39, 40, 41, 42, 44, 46",
+          "status": "VERIFIED",
+          "entryId": "mythic2.playReferences:rule-mythic.event-focus",
+          "bookTitle": "Mythic Game Master Emulator Second Edition"
+        }
+      ],
+      "query": "Mythic Event Focus · Next Steps",
+      "top3": [
+        {
+          "id": "rule:mythic.event-focus",
+          "title": "Mythic Event Focus · Next Steps"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 18,
+      "needId": "mythic-lists",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "originalAuditPages": [
+        45,
+        46,
+        47
+      ],
+      "referenceIds": [
+        "rule:mythic.lists"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.playReferences",
+          "tableTitle": "Mythic — Event, Scene and NPC Follow-through",
+          "pdfPage": [
+            45,
+            46,
+            47,
+            112
+          ],
+          "printedPage": "44, 45, 46, 111",
+          "status": "VERIFIED",
+          "entryId": "mythic2.playReferences:rule-mythic.lists",
+          "bookTitle": "Mythic Game Master Emulator Second Edition"
+        }
+      ],
+      "query": "Mythic Lists",
+      "top3": [
+        {
+          "id": "rule:mythic.lists",
+          "title": "Mythic Lists"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 18,
+      "needId": "mythic-altered-followthrough",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "originalAuditPages": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73
+      ],
+      "referenceIds": [
+        "rule:mythic.altered-scene"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.playReferences",
+          "tableTitle": "Mythic — Event, Scene and NPC Follow-through",
+          "pdfPage": [
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "printedPage": "67, 68, 69, 70, 71, 72",
+          "status": "VERIFIED",
+          "entryId": "mythic2.playReferences:rule-mythic.altered-scene",
+          "bookTitle": "Mythic Game Master Emulator Second Edition"
+        }
+      ],
+      "query": "Mythic Altered Scene",
+      "top3": [
+        {
+          "id": "rule:mythic.altered-scene",
+          "title": "Mythic Altered Scene"
+        },
+        {
+          "id": "rule:mythic2.scene-test",
+          "title": "Mythic Scene Test · 예상 장면 확인"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    },
+    {
+      "auditRank": 18,
+      "needId": "mythic-npc-behavior",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "originalAuditPages": [
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "referenceIds": [
+        "rule:mythic.npc-behavior"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.playReferences",
+          "tableTitle": "Mythic — Event, Scene and NPC Follow-through",
+          "pdfPage": [
+            107,
+            108,
+            109,
+            110,
+            111,
+            112
+          ],
+          "printedPage": "106, 107, 108, 109, 110, 111",
+          "status": "VERIFIED",
+          "entryId": "mythic2.playReferences:rule-mythic.npc-behavior",
+          "bookTitle": "Mythic Game Master Emulator Second Edition"
+        }
+      ],
+      "query": "Mythic NPC Behavior",
+      "top3": [
+        {
+          "id": "rule:mythic.npc-behavior",
+          "title": "Mythic NPC Behavior"
+        }
+      ],
+      "scope": "The specific audited lookup/procedure; not every system or regional creature in the book.",
+      "sourceConstraints": []
+    }
+  ],
+  "remainingCarriedForward": 401
+}

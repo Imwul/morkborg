@@ -13,6 +13,9 @@ export interface ReferenceDefinition {
     | 'Equipment'
     | 'Class'
     | 'Class ability'
+    | 'Rule'
+    | 'Move'
+    | 'Procedure'
     | 'Travel';
   blocks: { title: string; text: string }[];
   sourceRefs: SourceReference[];
@@ -21,6 +24,10 @@ export interface ReferenceDefinition {
   /** Navigation identities, never generator inputs or replacements for source text. */
   matchTexts: string[];
   tableEntry?: { tableId: string; entryId: string };
+  referenceGroup?: string;
+  searchAliases?: string[];
+  procedureId?: string;
+  nextReferenceIds?: string[];
 }
 export const definitionId = (entryId: string) => `definition:${entryId}`;
 const str = (value: unknown) => (typeof value === 'string' ? value : '');
@@ -29,16 +36,21 @@ function ref(table: OracleDefinition, entry?: OracleEntry): SourceReference {
     bookId: table.sourceBookId,
     tableId: table.id,
     tableTitle: table.title,
-    pdfPage:
-      typeof entry?.metadata?.pdfPage === 'number'
+    pdfPage: Array.isArray(entry?.metadata?.pages)
+      ? (entry.metadata.pages as number[])
+      : typeof entry?.metadata?.pdfPage === 'number'
         ? entry.metadata.pdfPage
         : table.sourcePage,
     printedPage:
-      typeof entry?.metadata?.printedPage === 'number'
+      typeof entry?.metadata?.printedPage === 'number' ||
+      typeof entry?.metadata?.printedPage === 'string'
         ? entry.metadata.printedPage
         : table.printedPage,
     status: table.sourceStatus ?? 'VERIFIED',
     ...(entry ? { entryId: entry.id } : {}),
+    ...(typeof entry?.metadata?.sourceNote === 'string'
+      ? { note: entry.metadata.sourceNote }
+      : {}),
   };
 }
 
@@ -67,6 +79,69 @@ export function buildReferenceDefinitions(
       (table.canonicalTableId && table.canonicalTableId !== table.id)
     )
       continue;
+    // Verified read-only procedure catalogs live in the private canonical registry.
+    // Group names and search aliases are navigation metadata, never source text.
+    if (table.tags.includes('batch-2')) {
+      for (const entry of table.entries) {
+        const m = entry.metadata;
+        if (!m || typeof m.referenceId !== 'string' || !Array.isArray(m.blocks))
+          continue;
+        const blocks = m.blocks.filter(
+          (b): b is { title: string; text: string } =>
+            !!b && typeof b.title === 'string' && typeof b.text === 'string',
+        );
+        result.push({
+          id: m.referenceId,
+          title: entry.text,
+          kind: m.referenceKind as ReferenceDefinition['kind'],
+          blocks,
+          sourceRefs: [
+            ref(table, entry),
+            ...(Array.isArray(m.additionalSourceRefs)
+              ? (m.additionalSourceRefs as SourceReference[])
+              : []),
+          ],
+          canonicalIds: [table.id],
+          relatedIds: Array.isArray(m.relatedIds)
+            ? ([...m.relatedIds] as string[])
+            : [],
+          matchTexts:
+            m.referenceKind === 'Weapon' || m.referenceKind === 'Equipment'
+              ? [entry.text]
+              : [],
+          tableEntry: { tableId: table.id, entryId: entry.id },
+          referenceGroup:
+            typeof m.referenceGroup === 'string' ? m.referenceGroup : undefined,
+          searchAliases: Array.isArray(m.searchAliases)
+            ? (m.searchAliases as string[])
+            : [],
+          procedureId:
+            typeof m.procedureId === 'string' ? m.procedureId : undefined,
+        });
+      }
+      continue;
+    }
+    if (table.id === 'aitc.businesses') {
+      const entry = table.entries.find((e) => e.metadata?.title === 'Gunsmith');
+      if (entry)
+        result.push({
+          id: definitionId(entry.id),
+          title: 'Gunsmith',
+          kind: 'Rule',
+          blocks: [{ title: 'ALÖNE IN THE CROWD', text: entry.text }],
+          sourceRefs: [ref(table, entry)],
+          canonicalIds: [table.id],
+          relatedIds: ['rule:heretic.blackpowder'],
+          nextReferenceIds: Array.isArray(entry.metadata?.followUpReferenceIds)
+            ? entry.metadata.followUpReferenceIds.filter(
+                (id): id is string => typeof id === 'string',
+              )
+            : [],
+          matchTexts: ['Gunsmith'],
+          tableEntry: { tableId: table.id, entryId: entry.id },
+        });
+      continue;
+    }
     const kind: ReferenceDefinition['kind'] | undefined = [
       'core.sacred',
       'core.unclean',

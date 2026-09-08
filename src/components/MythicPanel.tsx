@@ -1,4 +1,5 @@
 import { SourceDisclosure } from './SourceDisclosure';
+import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { Translation } from './Translation';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { Dices, Minus, Plus } from 'lucide-react';
@@ -510,6 +511,7 @@ export function MythicPanel({
                       {r.title} · {r.roll}
                     </small>
                     <p>{r.text}</p>
+                    <ReferenceNextSteps metadata={r.metadata} />
                     <Translation
                       text={r.text}
                       translation={
@@ -523,6 +525,13 @@ export function MythicPanel({
                 ))}
               </div>
             )}
+            <ReferenceNextSteps
+              ids={
+                reading.answer === 'altered'
+                  ? ['rule:mythic.altered-scene']
+                  : []
+              }
+            />
             <SourceDisclosure label="원문 출처 / 판정 규칙">
               <p>{fateSource(reading)}</p>
               <p>

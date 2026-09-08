@@ -192,7 +192,10 @@ privateTest(
       Whip: 'd2',
       Zweihänder: 'd10',
     };
-    const weapons = defs.filter((e) => e.definition!.kind === 'Weapon');
+    const weapons = defs.filter(
+      (e) =>
+        e.definition!.kind === 'Weapon' && e.sourceRefs[0].bookId === 'core',
+    );
     assert.equal(weapons.length, 17);
     for (const [name, damage] of Object.entries(expected)) {
       const r = top(name);
@@ -237,7 +240,10 @@ privateTest(
 privateTest(
   'All 45 equipment catalog names and Shield resolve; name-only items retain price without invented uses',
   () => {
-    const gear = defs.filter((e) => e.definition!.kind === 'Equipment');
+    const gear = defs.filter(
+      (e) =>
+        e.definition!.kind === 'Equipment' && e.sourceRefs[0].bookId === 'core',
+    );
     assert.equal(gear.length, 46);
     for (const e of gear)
       assert.equal(

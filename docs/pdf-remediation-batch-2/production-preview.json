@@ -1,0 +1,33 @@
+{
+  "testedAt": "2026-09-08T14:53:07.778Z",
+  "url": "http://127.0.0.1:5175",
+  "productionDeployment": false,
+  "checks": [
+    {
+      "check": "Older Batch 1 cache receives new Batch 2 catalog through real local API",
+      "passed": true
+    },
+    {
+      "check": "Pin persists and runs five-card procedure in one click after reload",
+      "passed": true
+    },
+    {
+      "check": "Updated canonical Gunsmith outcome retains its blackpowder next reference",
+      "passed": true
+    },
+    {
+      "check": "Saved Character, Core Omens link and complete Campaign data remain unchanged",
+      "passed": true
+    },
+    {
+      "check": "Cached definitions and Campaign survive rulebook API outage",
+      "passed": true
+    },
+    {
+      "check": "Fresh browser without private source data cannot run the rare-monster procedure",
+      "passed": true
+    }
+  ],
+  "campaignSha256": "d1590198540d48680837e39c8e90eada626cc3512880107052b9ed1454d37388",
+  "errors": []
+}

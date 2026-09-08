@@ -338,6 +338,8 @@
 }
 .reference-search-dialog,
 .reference-inspector {
+  /* References opened from the Mythic drawer must remain the active dialog. */
+  z-index: 61;
   grid-template-columns: minmax(0, 1fr);
   background: var(--paper);
   color: var(--ink);
@@ -350,6 +352,13 @@
   border: 2px solid var(--ink);
   border-top: 8px solid var(--ink);
   border-radius: 0;
+}
+[data-slot='dialog-portal']:has(
+    > .reference-inspector,
+    > .reference-search-dialog
+  )
+  > [data-slot='dialog-overlay'] {
+  z-index: 60;
 }
 .reference-search-dialog > h2,
 .reference-inspector > h2 {
@@ -1244,4 +1253,95 @@
 }
 .table-followup b {
   margin-right: 0.5rem;
+}
+.reference-rule-group {
+  display: grid;
+  gap: 0;
+  margin: 0.75rem 0;
+}
+.reference-rule-group button {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  min-height: 44px;
+  padding: 0.65rem 0.2rem;
+  border: 0;
+  border-bottom: 1px solid var(--line, #555);
+  background: transparent;
+  overflow-wrap: anywhere;
+}
+.rare-card-strip {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.rare-card-strip li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-top: 2px solid currentColor;
+  padding: 0.5rem 0.15rem;
+}
+.rare-card-strip strong {
+  font-size: 1.75rem;
+}
+.rare-card-strip small,
+.rare-card-strip span {
+  font-size: 0.75rem;
+}
+.rare-card-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+.rare-card-controls button,
+.rare-look-choice button {
+  background: transparent;
+  min-height: 44px;
+  padding: 0.5rem;
+}
+.rare-look-choice summary,
+.reading-participants summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 0.7rem 0;
+}
+.depths-controls {
+  align-items: start;
+}
+.depths-controls p {
+  font-size: 0.85rem;
+  max-width: 28rem;
+}
+.reference-procedure-rule > summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 0.7rem;
+}
+.reference-procedure-rule p {
+  white-space: pre-line;
+  line-height: 1.5;
+}
+.rare-monster-reading > section:first-of-type h3 {
+  font: 900 clamp(20px, 2vw, 28px)/1.15 var(--font-display);
+}
+.rare-monster-reading > section {
+  padding-block: 0.6rem;
+}
+.rare-monster-reading > section:not(:first-of-type) h3 {
+  font: 700 11px/1.3 var(--font-mono);
+  letter-spacing: 0.06em;
+}
+.rare-monster-reading > section p {
+  margin-block: 0.4rem;
+}
+@media (max-width: 480px) {
+  .rare-card-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

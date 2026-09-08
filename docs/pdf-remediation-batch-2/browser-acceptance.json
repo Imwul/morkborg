@@ -1,0 +1,1006 @@
+{
+  "testedAt": "2026-09-08T14:50:40.585Z",
+  "method": "Actual isolated Chrome UI. Clicks counted after query input; typing and closing prior inspector excluded. Rerolls needed to sample a random branch are recorded separately.",
+  "records": [
+    {
+      "action": "Search RECLVSE Morale",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Morale OPEN",
+        "Beasts — Morale ROLL",
+        "Hirelings — Broken Morale ROLL"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Travel",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE · TRAVEL / CAMP OPEN",
+        "RECLVSE Travel · Daily Loop OPEN",
+        "RECLVSE Travel Fatigue and Starvation OPEN",
+        "RECLVSE Travel the Road · 길 이동 OPEN",
+        "Travel the Road OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Travel → Make Camp",
+      "clicks": 1,
+      "answerAvailable": true
+    },
+    {
+      "action": "Camp → Night Encounter",
+      "clicks": 2,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE OPEN",
+        "RECLVSE · Action + Theme RUN",
+        "RECLVSE · CALENDAR OPEN",
+        "RECLVSE · COMBAT OPEN",
+        "RECLVSE · DUNGEON OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search SD Omens",
+      "clicks": 1,
+      "topResults": [
+        "Omens · Sölitary Defilement variant OPEN",
+        "SD Camping · 숨 돌리기와 야영 OPEN",
+        "SD General Move · 일반 모험 판정 OPEN",
+        "SD Leaving the Road · 길을 잃는 판정 OPEN",
+        "SD Searching · 물건 찾기 OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search SD Powers",
+      "clicks": 1,
+      "topResults": [
+        "Powers · Sölitary Defilement variant OPEN",
+        "SD Camping · 숨 돌리기와 야영 OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Depths Encounter Level",
+      "clicks": 1,
+      "topResults": [
+        "Depths Encounter Level OPEN",
+        "Depths Travel · 헥스와 지역 조우 OPEN",
+        "Regional Encounter Levels OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Encounter Level: d20 check",
+      "clicks": 1,
+      "region": "Sarkash"
+    },
+    {
+      "action": "Encounter Level → regional monster",
+      "clicks": 1,
+      "qaRollAttemptsToReachMonsterBranch": 9,
+      "rolledDirectly": true
+    },
+    {
+      "action": "Search Rare Monster Five Cards",
+      "clicks": 1,
+      "topResults": [
+        "Rare Monster · Five Cards RUN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Rare monster → card/source trace",
+      "clicks": 1,
+      "cards": 5,
+      "primaryAndPolicySeparated": true
+    },
+    {
+      "action": "Source → canonical table → Back",
+      "clicks": 2,
+      "cardsPreserved": true
+    },
+    {
+      "action": "Copy rare monster",
+      "clicks": 1,
+      "playContentOnly": true
+    },
+    {
+      "action": "Draw next five-card pile",
+      "clicks": 1,
+      "noCardReuse": true
+    },
+    {
+      "action": "Search Arquebus",
+      "clicks": 1,
+      "topResults": [
+        "Arquebus OPEN",
+        "Heavy Arquebus OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Gunsmith",
+      "clicks": 1,
+      "topResults": [
+        "Gunsmith OPEN",
+        "HERETIC Blackpowder OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Alöne Gunsmith → HERETIC Blackpowder",
+      "clicks": 1,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Carcasswan",
+      "clicks": 1,
+      "topResults": [
+        "Carcasswan OPEN",
+        "Carcasswan (Lone) OPEN",
+        "Carcasswan (Pair) OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Carcasswan → solo variant",
+      "clicks": 2,
+      "identitiesSeparated": true,
+      "variants": [
+        "Carcasswan (Lone) ›",
+        "Carcasswan (Pair) ›"
+      ]
+    },
+    {
+      "action": "Search Lentil Lice",
+      "clicks": 1,
+      "topResults": [
+        "Lentil Lice OPEN",
+        "Grift OPEN",
+        "Starved peasants OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Lentil Lice → starving peasants",
+      "clicks": 2,
+      "identitiesSeparated": true
+    },
+    {
+      "action": "Search Überwolf",
+      "clicks": 1,
+      "topResults": [
+        "Überwolf OPEN",
+        "Regular wolf OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Überwolf → regular wolf",
+      "clicks": 2,
+      "identitiesSeparated": true
+    },
+    {
+      "action": "Search Mythic Event Focus",
+      "clicks": 1,
+      "topResults": [
+        "Mythic Event Focus · Next Steps OPEN",
+        "Prepared Adventure Event Focus Table ROLL",
+        "Random Event Focus Table ROLL",
+        "Mythic Altered Scene OPEN",
+        "Mythic Lists OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Mythic Event → roll Event Focus",
+      "clicks": 2,
+      "sourceDefinedNextVisible": true
+    },
+    {
+      "action": "Event Focus result → next procedure",
+      "clicks": 1,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search SD outdoor Micro-crawl",
+      "clicks": 1,
+      "topResults": [
+        "Outdoor Micro-crawl · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Begin Adventure",
+      "clicks": 1,
+      "topResults": [
+        "Begin Adventure · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Conclude Adventure",
+      "clicks": 1,
+      "topResults": [
+        "Conclude Adventure · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Rotten Nurse",
+      "clicks": 1,
+      "topResults": [
+        "Rotten Nurse · Undead nurse OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Rotten Nurse special rule, no invented stats",
+      "clicks": 0,
+      "specialRuleOnly": true
+    },
+    {
+      "action": "Search Mikhael",
+      "clicks": 1,
+      "topResults": [
+        "Mikhael OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Mikhael → full special rule",
+      "clicks": 1,
+      "correctOutcast": true
+    },
+    {
+      "action": "Search RECLVSE Resolution",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Resolution OPEN",
+        "RECLVSE · RESOLUTION OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Advantage / Disadvantage",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Advantage / Disadvantage OPEN",
+        "Short Rest OPEN",
+        "Weather Move OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Critical Die",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Critical Die OPEN",
+        "RECLVSE Omens OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Ask the Oracle",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Ask the Oracle OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Omens",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Omens OPEN",
+        "RECLVSE · OMENS / POWERS OPEN",
+        "Strange Omens ROLL"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Invoke a Power",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Invoke a Power OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Guarding",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Guarding OPEN",
+        "RECLVSE Combat Criticals / Fumbles OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Combat Criticals / Fumbles",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Combat Criticals / Fumbles OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Morale",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Morale OPEN",
+        "Beasts — Morale ROLL",
+        "Hirelings — Broken Morale ROLL"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Below Zero / Death / Recovery",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Below Zero / Death / Recovery OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Infection",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Infection OPEN",
+        "RECLVSE Medicine Kit OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Medicine Kit",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Medicine Kit OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Calendar · The Unspokens",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Calendar · The Unspokens OPEN",
+        "Weather Move OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Travel · Daily Loop",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Travel · Daily Loop OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Determine Length of Journey",
+      "clicks": 1,
+      "topResults": [
+        "Determine Length of Journey OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Travel the Road",
+      "clicks": 1,
+      "topResults": [
+        "Travel the Road OPEN",
+        "RECLVSE Travel the Road · 길 이동 OPEN",
+        "Traveling the Dying Lands · Road travel times OPEN",
+        "Events by the Road. Roll Daily ROLL",
+        "Leaving the Road, After Half a Day’s Journey, You Encounter… ROLL"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Move Through the Area",
+      "clicks": 1,
+      "topResults": [
+        "Move Through the Area OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Weather Move",
+      "clicks": 1,
+      "topResults": [
+        "Weather Move OPEN",
+        "Night Encounter OPEN",
+        "RECLVSE Travel · Daily Loop OPEN",
+        "Travel the Road OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Hunt",
+      "clicks": 1,
+      "topResults": [
+        "Hunt OPEN",
+        "Eat Prey Kill · 사냥 판정과 식량 OPEN",
+        "Eat Prey Kill · Bergen Chrypt ROLL",
+        "Eat Prey Kill · Graven-Tosk ROLL",
+        "Eat Prey Kill · Grift ROLL"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Butcher the Kill",
+      "clicks": 1,
+      "topResults": [
+        "Butcher the Kill OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Make Camp",
+      "clicks": 1,
+      "topResults": [
+        "Make Camp OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Night Encounter",
+      "clicks": 1,
+      "topResults": [
+        "Night Encounter OPEN",
+        "Make Camp OPEN",
+        "RECLVSE Travel · Daily Loop OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Hold Your Bearing",
+      "clicks": 1,
+      "topResults": [
+        "Hold Your Bearing OPEN",
+        "RECLVSE Travel the Road · 길 이동 OPEN",
+        "Travel the Road OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Foraging",
+      "clicks": 1,
+      "topResults": [
+        "Foraging OPEN",
+        "Spending a Day Foraging ROLL",
+        "SD Resupply · 재보급 OPEN",
+        "SD Travel Day · 하루 여행 순서 OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Tend Wounds",
+      "clicks": 1,
+      "topResults": [
+        "Tend Wounds OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Short Rest",
+      "clicks": 1,
+      "topResults": [
+        "Short Rest OPEN",
+        "RECLVSE Below Zero / Death / Recovery OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search RECLVSE Travel Fatigue and Starvation",
+      "clicks": 1,
+      "topResults": [
+        "RECLVSE Travel Fatigue and Starvation OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Navigate the Passage",
+      "clicks": 1,
+      "topResults": [
+        "Navigate the Passage OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Search the Room",
+      "clicks": 1,
+      "topResults": [
+        "Search the Room OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Face the Trap",
+      "clicks": 1,
+      "topResults": [
+        "Face the Trap OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Room Encounter",
+      "clicks": 1,
+      "topResults": [
+        "Room Encounter OPEN",
+        "10C. Encounter ROLL",
+        "Encounter Candidate · 조우 후보 준비 OPEN",
+        "Depths Encountering Enemies · 적에게 들켰는가 OPEN",
+        "Outdoor Micro-crawl · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Omens · Sölitary Defilement variant",
+      "clicks": 1,
+      "topResults": [
+        "Omens · Sölitary Defilement variant OPEN",
+        "Conclude Adventure · Sölitary Defilement OPEN",
+        "Sölitary Defilement · 선택적 솔로 변형 OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Powers · Sölitary Defilement variant",
+      "clicks": 1,
+      "topResults": [
+        "Powers · Sölitary Defilement variant OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Outdoor Micro-crawl · Sölitary Defilement",
+      "clicks": 1,
+      "topResults": [
+        "Outdoor Micro-crawl · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Begin Adventure · Sölitary Defilement",
+      "clicks": 1,
+      "topResults": [
+        "Begin Adventure · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Conclude Adventure · Sölitary Defilement",
+      "clicks": 1,
+      "topResults": [
+        "Conclude Adventure · Sölitary Defilement OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search HERETIC Blackpowder",
+      "clicks": 1,
+      "topResults": [
+        "HERETIC Blackpowder OPEN",
+        "Blackpowder Bomb OPEN",
+        "Blackpowder Weapons for the Rich and Foolhardy OPEN",
+        "Ammunition OPEN",
+        "Arquebus OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Pistolet",
+      "clicks": 1,
+      "topResults": [
+        "Pistolet OPEN",
+        "Pepperbox Pistolet OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Culverin",
+      "clicks": 1,
+      "topResults": [
+        "Culverin OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Arquebus",
+      "clicks": 1,
+      "topResults": [
+        "Arquebus OPEN",
+        "Heavy Arquebus OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Dragon",
+      "clicks": 1,
+      "topResults": [
+        "Dragon OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Basilisk Gun",
+      "clicks": 1,
+      "topResults": [
+        "Basilisk Gun OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Blunderbuss",
+      "clicks": 1,
+      "topResults": [
+        "Blunderbuss OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Heavy Arquebus",
+      "clicks": 1,
+      "topResults": [
+        "Heavy Arquebus OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Pepperbox Pistolet",
+      "clicks": 1,
+      "topResults": [
+        "Pepperbox Pistolet OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Blackpowder Bomb",
+      "clicks": 1,
+      "topResults": [
+        "Blackpowder Bomb OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Ribauldequin",
+      "clicks": 1,
+      "topResults": [
+        "Ribauldequin OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Cannon",
+      "clicks": 1,
+      "topResults": [
+        "Cannon OPEN",
+        "Ammunition OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Ammunition",
+      "clicks": 1,
+      "topResults": [
+        "Ammunition OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Mythic Event Focus · Next Steps",
+      "clicks": 1,
+      "topResults": [
+        "Mythic Event Focus · Next Steps OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Mythic Lists",
+      "clicks": 1,
+      "topResults": [
+        "Mythic Lists OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Mythic Altered Scene",
+      "clicks": 1,
+      "topResults": [
+        "Mythic Altered Scene OPEN",
+        "Mythic Scene Test · 예상 장면 확인 OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    },
+    {
+      "action": "Search Mythic NPC Behavior",
+      "clicks": 1,
+      "topResults": [
+        "Mythic NPC Behavior OPEN"
+      ],
+      "sourceClosed": true,
+      "answerAvailable": true
+    }
+  ],
+  "visual": [
+    {
+      "surface": "reclvse-groups",
+      "width": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 344,
+      "height": 556,
+      "contentHeight": 556,
+      "screenshot": "outputs/pdf-remediation-batch-2/reclvse-groups-360.png"
+    },
+    {
+      "surface": "reclvse-groups",
+      "width": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 736,
+      "height": 577,
+      "contentHeight": 577,
+      "screenshot": "outputs/pdf-remediation-batch-2/reclvse-groups-768.png"
+    },
+    {
+      "surface": "reclvse-groups",
+      "width": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 577,
+      "contentHeight": 577,
+      "screenshot": "outputs/pdf-remediation-batch-2/reclvse-groups-1440.png"
+    },
+    {
+      "surface": "reclvse-groups",
+      "width": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 577,
+      "contentHeight": 577,
+      "screenshot": "outputs/pdf-remediation-batch-2/reclvse-groups-3440.png"
+    },
+    {
+      "surface": "encounter-level",
+      "width": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 344,
+      "height": 586,
+      "contentHeight": 586,
+      "screenshot": "outputs/pdf-remediation-batch-2/encounter-level-360.png"
+    },
+    {
+      "surface": "encounter-level",
+      "width": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 736,
+      "height": 544,
+      "contentHeight": 544,
+      "screenshot": "outputs/pdf-remediation-batch-2/encounter-level-768.png"
+    },
+    {
+      "surface": "encounter-level",
+      "width": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 544,
+      "contentHeight": 544,
+      "screenshot": "outputs/pdf-remediation-batch-2/encounter-level-1440.png"
+    },
+    {
+      "surface": "encounter-level",
+      "width": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 544,
+      "contentHeight": 544,
+      "screenshot": "outputs/pdf-remediation-batch-2/encounter-level-3440.png"
+    },
+    {
+      "surface": "five-cards",
+      "width": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 344,
+      "height": 866,
+      "contentHeight": 1112,
+      "screenshot": "outputs/pdf-remediation-batch-2/five-cards-360.png"
+    },
+    {
+      "surface": "five-cards",
+      "width": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 736,
+      "height": 782,
+      "contentHeight": 945,
+      "screenshot": "outputs/pdf-remediation-batch-2/five-cards-768.png"
+    },
+    {
+      "surface": "five-cards",
+      "width": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 782,
+      "contentHeight": 954,
+      "screenshot": "outputs/pdf-remediation-batch-2/five-cards-1440.png"
+    },
+    {
+      "surface": "five-cards",
+      "width": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 782,
+      "contentHeight": 954,
+      "screenshot": "outputs/pdf-remediation-batch-2/five-cards-3440.png"
+    },
+    {
+      "surface": "blackpowder",
+      "width": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 344,
+      "height": 783,
+      "contentHeight": 783,
+      "screenshot": "outputs/pdf-remediation-batch-2/blackpowder-360.png"
+    },
+    {
+      "surface": "blackpowder",
+      "width": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 736,
+      "height": 668,
+      "contentHeight": 668,
+      "screenshot": "outputs/pdf-remediation-batch-2/blackpowder-768.png"
+    },
+    {
+      "surface": "blackpowder",
+      "width": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 668,
+      "contentHeight": 668,
+      "screenshot": "outputs/pdf-remediation-batch-2/blackpowder-1440.png"
+    },
+    {
+      "surface": "blackpowder",
+      "width": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 668,
+      "contentHeight": 668,
+      "screenshot": "outputs/pdf-remediation-batch-2/blackpowder-3440.png"
+    },
+    {
+      "surface": "mythic-follow-through",
+      "width": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 344,
+      "height": 866,
+      "contentHeight": 1333,
+      "screenshot": "outputs/pdf-remediation-batch-2/mythic-follow-through-360.png"
+    },
+    {
+      "surface": "mythic-follow-through",
+      "width": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 736,
+      "height": 782,
+      "contentHeight": 1083,
+      "screenshot": "outputs/pdf-remediation-batch-2/mythic-follow-through-768.png"
+    },
+    {
+      "surface": "mythic-follow-through",
+      "width": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 782,
+      "contentHeight": 991,
+      "screenshot": "outputs/pdf-remediation-batch-2/mythic-follow-through-1440.png"
+    },
+    {
+      "surface": "mythic-follow-through",
+      "width": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "inspectorWidth": 780,
+      "height": 782,
+      "contentHeight": 991,
+      "screenshot": "outputs/pdf-remediation-batch-2/mythic-follow-through-3440.png"
+    }
+  ],
+  "errors": []
+}

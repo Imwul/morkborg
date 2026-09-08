@@ -1,6 +1,7 @@
 import { markCopiedIdentity } from '../domain/duplicationProvenance';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { CreatureParticipants } from './CreatureParticipants';
 import { hasManualEdits } from '../domain/generationProvenance';
 import { SourceText } from './SourceText';
 import { useState } from 'react';
@@ -458,6 +459,7 @@ export function Monsters({
           ),
         }}
       />
+      <CreatureParticipants provenance={selected.fieldProvenance?.name} />
       <details className="object-editor">
         <summary>EDIT / MORE · 상세 · 한국어 · 편집</summary>
         {generationControls}

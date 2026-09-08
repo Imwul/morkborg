@@ -46,7 +46,7 @@ test(
         assert.deepEqual(Object.keys(saved), ['oracles']);
       });
       assert.equal(writes, 1);
-      assert.equal(result.oracles!.tables.length, 362);
+      assert.equal(result.oracles!.tables.length, 369);
       assert.deepEqual(
         result.oracles!.tables.map((table) => table.id),
         data.oracles.tables.map((table: { id: string }) => table.id),
@@ -90,7 +90,7 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        565,
+        572,
       );
       const expected = parsePrivateData(bundle);
       assert.deepEqual(

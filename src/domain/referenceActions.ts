@@ -6,14 +6,20 @@ export function referenceAction(entry: ReferenceEntry) {
   const action = entry.action;
   if (!entry.available || !action)
     return { label: 'OPEN', immediate: false } as const;
-  if (action.kind === 'regional-monster')
+  if (action.kind === 'regional-monster' || action.kind === 'regional-table')
     return { label: 'GENERATE', immediate: true } as const;
   if (action.kind === 'oracle')
     return { label: 'ROLL', immediate: true } as const;
   if (action.kind === 'creature')
     return { label: 'OPEN', immediate: true } as const;
   if (action.kind === 'procedure') {
-    if (['workbench.city', 'workbench.stock-room'].includes(action.procedureId))
+    if (
+      [
+        'workbench.city',
+        'workbench.stock-room',
+        'depths.encounter-level',
+      ].includes(action.procedureId)
+    )
       return { label: 'OPEN', immediate: false } as const;
     return {
       label: ['workbench.npc', 'workbench.epk'].includes(action.procedureId)

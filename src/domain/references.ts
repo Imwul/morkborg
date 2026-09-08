@@ -1,4 +1,5 @@
 import { PLAY_REFERENCE_RULES } from './playReferenceRules';
+import { referenceCreatureRecords } from './creatureReferences';
 import {
   buildReferenceDefinitions,
   type ReferenceDefinition,
@@ -45,6 +46,7 @@ export type ReferenceAction =
   | { kind: 'procedure'; procedureId: string }
   | { kind: 'rule'; ruleId: string }
   | { kind: 'regional-monster'; region: RegionId }
+  | { kind: 'regional-table'; tableId: string }
   | { kind: 'creature'; creatureId: string }
   | { kind: 'city'; move?: CityMove }
   | { kind: 'region'; region: RegionId };
@@ -63,6 +65,8 @@ export interface ReferenceEntry {
   keywords: string[];
   searchAliases?: { ko: string[]; en: string[] };
   definition?: ReferenceDefinition;
+  referenceGroupIds?: string[];
+  childReferenceIds?: string[];
   parentId?: string;
   contexts: ReferenceContext[];
   regionIds: RegionId[];
@@ -110,6 +114,7 @@ const eligibleCreature = (record: Record<string, unknown>) =>
 /** A documented creature without its own stats still has a source identity. */
 const inspectableCreature = (record: Record<string, unknown>) =>
   eligibleCreature(record) ||
+  record.specialRuleOnly === true ||
   (typeof record.name === 'string' &&
     !!record.name.trim() &&
     record.book === 'feretory' &&
@@ -134,11 +139,16 @@ export function findReferenceCreature(
   rules: RulesPack | null,
   creatureId: string,
 ): Record<string, unknown> | null {
-  const matches = (rules?.creatures ?? []).filter(
+  const matches = referenceCreatureRecords(rules).filter(
     (record) =>
       inspectableCreature(record) && creatureReferenceId(record) === creatureId,
   );
-  return matches.length === 1 ? matches[0] : null;
+  if (matches.length !== 1) return null;
+  return (
+    rules?.creatures.find(
+      (record) => creatureReferenceId(record) === creatureId,
+    ) ?? matches[0]
+  );
 }
 const regionIdsFor = (id: string): RegionId[] =>
   regions
@@ -602,7 +612,11 @@ export function buildReferenceRegistry(
       bookTitle: oracles.books.find((b) => b.id === source.bookId)?.title,
     }));
     add({
-      ...defaultEntry(definition.id, 'rule', definition.title),
+      ...defaultEntry(
+        definition.id,
+        definition.procedureId ? 'procedure' : 'rule',
+        definition.title,
+      ),
       definition,
       summary: definition.blocks
         .map((b) => [b.title, b.text].filter(Boolean).join('\n'))
@@ -613,7 +627,17 @@ export function buildReferenceRegistry(
           ? ['power', 'powers', 'scroll', 'scrolls', '스크롤', '파워', '마법']
           : []),
       ],
-      contexts: [definition.kind === 'Travel' ? 'travel' : 'character'],
+      searchAliases: definition.searchAliases?.length
+        ? { en: definition.searchAliases, ko: [] }
+        : undefined,
+      contexts:
+        definition.sourceRefs[0]?.bookId === 'reclvse'
+          ? definition.referenceGroup === 'dungeon'
+            ? ['dungeon', 'room']
+            : definition.referenceGroup === 'travel'
+              ? ['travel']
+              : ['character']
+          : [definition.kind === 'Travel' ? 'travel' : 'character'],
       sourceRefs,
       sourceChain: sourceRefs.map((source) => ({
         label: source.tableTitle ?? definition.title,
@@ -621,10 +645,13 @@ export function buildReferenceRegistry(
       })),
       canonicalIds: definition.canonicalIds,
       relatedIds: definition.relatedIds,
-      action: { kind: 'rule', ruleId: definition.id },
+      action: definition.procedureId
+        ? { kind: 'procedure', procedureId: definition.procedureId }
+        : { kind: 'rule', ruleId: definition.id },
     });
   }
-  for (const record of (rules?.creatures ?? []).filter(inspectableCreature)) {
+  const creatureRecords = referenceCreatureRecords(rules);
+  for (const record of creatureRecords.filter(inspectableCreature)) {
     const id = creatureReferenceId(record),
       bookId = stringValue(record.book),
       book = oracles.books.find((source) => source.id === bookId),
@@ -665,12 +692,18 @@ export function buildReferenceRegistry(
         .join(' · '),
       pdfPage: typeof record.pdfPage === 'number' ? record.pdfPage : undefined,
       printedPage:
-        typeof record.printedPage === 'number' ||
-        typeof record.printedPage === 'string'
-          ? record.printedPage
-          : undefined,
+        record.source &&
+        typeof record.source === 'object' &&
+        'printedPage' in record.source
+          ? (record.source.printedPage as number)
+          : typeof record.printedPage === 'number' ||
+              typeof record.printedPage === 'string'
+            ? record.printedPage
+            : undefined,
       entryId: typeof record.id === 'string' ? record.id : id,
-      ...(!eligibleCreature(record)
+      ...(!eligibleCreature(record) &&
+      !record.specialRuleOnly &&
+      !record.variantOnly
         ? {
             status: 'PARTIAL' as const,
             note: 'Creature identity is present in the supplied source; an independent creature stat block is unavailable.',
@@ -681,16 +714,17 @@ export function buildReferenceRegistry(
       !!book &&
       record.sourceVerified !== false &&
       !!(ref.pdfPage || ref.printedPage) &&
-      findReferenceCreature(rules, id) === record;
+      !!findReferenceCreature(rules, id);
     add({
       ...defaultEntry(
         id,
         'creature',
         concept && fold(concept) !== fold(name) ? `${name} · ${concept}` : name,
       ),
-      summary: eligibleCreature(record)
-        ? '제공된 책의 고정 능력치입니다. 생물의 원문 이름과 특수 규칙을 그대로 확인합니다.'
-        : 'SOURCE UNAVAILABLE · 확인된 생물의 이름과 설명만 제공합니다. 별도 능력치는 원문에 없습니다.',
+      summary:
+        eligibleCreature(record) || record.specialRuleOnly || record.variantOnly
+          ? '제공된 책의 고정 능력치입니다. 생물의 원문 이름과 특수 규칙을 그대로 확인합니다.'
+          : 'SOURCE UNAVAILABLE · 확인된 생물의 이름과 설명만 제공합니다. 별도 능력치는 원문에 없습니다.',
       keywords: unique([
         name,
         concept,
@@ -708,6 +742,11 @@ export function buildReferenceRegistry(
         record.section === 'Outcasts' ? ['monster', 'npc'] : ['monster'],
       regionIds: unique(regionIds),
       sourceRefs: [ref],
+      childReferenceIds: Array.isArray(record.childSourceIds)
+        ? creatureRecords
+            .filter((c) => (record.childSourceIds as unknown[]).includes(c.id))
+            .map(creatureReferenceId)
+        : [],
       sourceChain: [{ label: ref.tableTitle ?? name, source: ref }],
       relatedIds: [
         'oracle:core.reaction',
@@ -721,6 +760,37 @@ export function buildReferenceRegistry(
       action: available ? { kind: 'creature', creatureId: id } : null,
     });
   }
+  const groupNames: Record<string, string> = {
+    resolution: 'RESOLUTION',
+    combat: 'COMBAT',
+    recovery: 'RECOVERY',
+    'omens-powers': 'OMENS / POWERS',
+    calendar: 'CALENDAR',
+    travel: 'TRAVEL / CAMP',
+    dungeon: 'DUNGEON',
+  };
+  for (const [key, title] of Object.entries(groupNames)) {
+    const children = entries.filter(
+      (e) =>
+        e.definition?.referenceGroup === key &&
+        e.sourceRefs[0]?.bookId === 'reclvse',
+    );
+    if (!children.length) continue;
+    add({
+      ...defaultEntry(`group:reclvse.${key}`, 'rule', `RECLVSE · ${title}`),
+      referenceGroupIds: children.map((e) => e.id),
+      relatedIds: ['group:reclvse'],
+      action: { kind: 'rule', ruleId: `group:reclvse.${key}` },
+    });
+  }
+  if (entries.some((e) => e.id.startsWith('group:reclvse.')))
+    add({
+      ...defaultEntry('group:reclvse', 'rule', 'RECLVSE'),
+      referenceGroupIds: entries
+        .filter((e) => e.id.startsWith('group:reclvse.'))
+        .map((e) => e.id),
+      action: { kind: 'rule', ruleId: 'group:reclvse' },
+    });
   const workbench = [
     {
       id: 'workbench.stock-room',
@@ -959,9 +1029,71 @@ export function buildReferenceRegistry(
         .filter((e) => e.sourceRefs.some((s) => s.bookId === book.id))
         .map((e) => e.id),
     });
+  // The source's eight encounter regions include two outside the campaign region selector.
+  // Reuse the same verified regional router; do not add campaign regions or alternate pools.
+  for (const [key, name] of [
+    ['lake_onda', 'Lake Onda'],
+    ['bergen_chrypt', 'Bergen Chrypt'],
+  ]) {
+    const t = oracles.tables.find(
+      (t) => t.id === `depths.region.${key}.monsters` && t.sourceVerified,
+    );
+    if (t) {
+      const source = sourceFor(t, oracles);
+      add({
+        ...defaultEntry(
+          `rule:regional-monsters:${key}`,
+          'rule',
+          `${name} · Regional Monsters`,
+        ),
+        sourceRefs: [source],
+        sourceChain: [{ label: t.title, source, role: 'routing' }],
+        contexts: ['travel', 'monster'],
+        canonicalIds: [t.id],
+        relatedIds: [`oracle:${t.id}`, 'procedure:depths.encounter-level'],
+        action: { kind: 'regional-table', tableId: t.id },
+      });
+    }
+  }
   for (const entry of additions) add(entry);
   for (const entry of entries) {
-    entry.searchAliases = REFERENCE_SEARCH_ALIASES[entry.id];
+    entry.searchAliases =
+      REFERENCE_SEARCH_ALIASES[entry.id] ?? entry.searchAliases;
+    if (entry.id === 'rule:core.omens' || entry.id === 'rule:sd.solo-variant')
+      entry.relatedIds.unshift('rule:sd.omens');
+    if (entry.id === 'rule:core.casting' || entry.id === 'rule:sd.solo-variant')
+      entry.relatedIds.unshift('rule:sd.powers');
+    if (entry.id === 'rule:depths.rareMonster')
+      entry.relatedIds.unshift('procedure:depths.rare-monster');
+    if (entry.id === 'rule:depths.hex-travel' || entry.kind === 'region')
+      entry.relatedIds.unshift('procedure:depths.encounter-level');
+    if (entry.id === 'rule:reclvse.road-travel')
+      entry.relatedIds.unshift(
+        'rule:reclvse.road',
+        'rule:reclvse.hold-bearing',
+      );
+    if (entry.id === 'rule:reclvse.move-test')
+      entry.relatedIds.unshift('group:reclvse', 'rule:reclvse.resolution');
+    if (entry.id === 'rule:mythic2.scene-test')
+      entry.relatedIds.unshift('rule:mythic.altered-scene');
+    if (entry.id === 'oracle:mythic2.random-event-focus-table')
+      entry.relatedIds.unshift('rule:mythic.event-focus', 'rule:mythic.lists');
+    if (entry.id === 'oracle:mythic2.scene-adjustment-table')
+      entry.relatedIds.unshift('rule:mythic.altered-scene');
+    if (entry.id === 'rule:sd.travel-day')
+      entry.relatedIds.push('rule:sd.microcrawl', 'rule:sd.begin-adventure');
+    if (
+      entry.id.startsWith('rule:sd.') &&
+      !['rule:sd.omens', 'rule:sd.powers'].includes(entry.id)
+    )
+      entry.relatedIds.push('rule:sd.omens', 'rule:sd.powers');
+    if (entry.id === 'rule:heretic.blackpowder')
+      entry.referenceGroupIds = entries
+        .filter(
+          (e) =>
+            e.definition?.referenceGroup === 'blackpowder' && e.id !== entry.id,
+        )
+        .map((e) => e.id);
     if (
       [
         'rule:sd.travel-day',
@@ -1266,6 +1398,7 @@ function semanticRelated(entry: ReferenceEntry): string[] {
   if (SEMANTIC_RELATED[entry.id]) return SEMANTIC_RELATED[entry.id];
   if (
     entry.action?.kind === 'regional-monster' ||
+    entry.action?.kind === 'regional-table' ||
     entry.id === 'procedure:workbench.epk'
   )
     return [
@@ -1299,7 +1432,7 @@ export function relatedReferences(
     .slice(0, Math.max(1, Math.min(8, limit)));
 }
 export interface RegionalReferenceResult {
-  region: RegionId;
+  region?: RegionId;
   reading: OracleRoll;
   quantity: number | null;
   quantityRoll?: { dice: string; roll: number };
@@ -1317,8 +1450,22 @@ export function rollRegionalReference(
   rules: RulesPack | null,
   rng: RandomSource = random,
 ): RegionalReferenceResult {
-  const tableId = regionTableId(region, 'monsters'),
-    table = registry.tables.find((t) => t.id === tableId);
+  return rollRegionalTableReference(
+    regionTableId(region, 'monsters'),
+    registry,
+    rules,
+    rng,
+    region,
+  );
+}
+export function rollRegionalTableReference(
+  tableId: string | null,
+  registry: OracleRegistry,
+  rules: RulesPack | null,
+  rng: RandomSource = random,
+  region?: RegionId,
+): RegionalReferenceResult {
+  const table = registry.tables.find((t) => t.id === tableId);
   if (
     !table ||
     !table.sourceVerified ||

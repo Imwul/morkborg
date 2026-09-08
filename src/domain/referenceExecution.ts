@@ -3,8 +3,10 @@ import type { Monster, RegionId, SourceReference } from './types';
 import type { RulesPack } from '../storage/rulesStore';
 import {
   rollRegionalReference,
+  rollRegionalTableReference,
   regionTableId,
   findReferenceCreature,
+  creatureReferenceId,
   type ReferenceEntry,
 } from './references';
 import { rollProcedure } from '../generators/oracleRoller';
@@ -20,9 +22,16 @@ import {
 } from '../generators/content';
 import { rollCityReference } from './cityReference';
 import { appPolicy, sourceProcedure } from './generationAuthority';
+import { referenceCreatureRecords } from './creatureReferences';
+import {
+  drawRareMonster,
+  checkEncounterLevel,
+  type PlayingCard,
+} from './depthsProcedures';
 import {
   oracleReadingText,
   feretoryResultBlock,
+  oracleFollowUpLinks,
   type ReferenceReading,
 } from './referenceReading';
 export function refsForOracle(
@@ -93,6 +102,44 @@ function monsterBlocks(m: Monster): ReferenceReading['blocks'] {
     },
   ];
 }
+function creatureBlocks(
+  preset: Record<string, unknown>,
+  monster: Monster,
+): ReferenceReading['blocks'] {
+  if (
+    preset.book === 'heretic' &&
+    preset.name === 'Rotten Nurse' &&
+    preset.pdfPage === 64
+  )
+    return [
+      {
+        title: typeof preset.attack === 'string' ? preset.attack : '',
+        text:
+          typeof preset.specialAbility === 'string'
+            ? preset.specialAbility
+            : '',
+      },
+    ];
+  return monsterBlocks(monster).map((block) => ({
+    ...block,
+    text:
+      Array.isArray(preset.variants) && preset.variants.length
+        ? block.text.replace(/SOURCE UNAVAILABLE[^\n]*\n?/g, '')
+        : block.text,
+  }));
+}
+function creatureChildren(
+  preset: Record<string, unknown>,
+  rules: RulesPack | null,
+): string[] {
+  if (typeof preset.id !== 'string' || !preset.id) return [];
+  return referenceCreatureRecords(rules)
+    .filter(
+      (record) =>
+        record.parentSourceId === preset.id && record.book === preset.book,
+    )
+    .map(creatureReferenceId);
+}
 export interface ReferenceExecutionOptions {
   rng?: RandomSource;
   registry: OracleRegistry;
@@ -102,6 +149,8 @@ export interface ReferenceExecutionOptions {
   stockDR: number;
   cityLarge: boolean;
   cityExits: boolean;
+  encounterRegion?: string;
+  rareDeck?: PlayingCard[];
 }
 /** Executes a reference without mutating a Campaign, saving an object, or opening a dialog. */
 export function executeReference(
@@ -112,12 +161,30 @@ export function executeReference(
     options;
   const action = entry.action;
   if (!action || !entry.available) return;
+  if (
+    action.kind === 'procedure' &&
+    action.procedureId === 'depths.rare-monster'
+  )
+    return drawRareMonster(registry, options.rareDeck, options.rng);
+  if (
+    action.kind === 'procedure' &&
+    action.procedureId === 'depths.encounter-level'
+  )
+    return checkEncounterLevel(
+      registry,
+      options.encounterRegion ?? 'sarkash',
+      options.rng,
+    );
   if (entry.definition)
     return {
       title: entry.title,
       blocks: entry.definition.blocks,
       sourceRefs: entry.sourceRefs,
       relatedIds: entry.relatedIds,
+      authority: [
+        sourceProcedure(entry.id, entry.sourceRefs),
+        appPolicy('app.reference-groups'),
+      ],
     };
   let output: ReferenceReading | undefined;
   if (action.kind === 'creature') {
@@ -126,17 +193,24 @@ export function executeReference(
     const monster = loadMonsterPreset(id(), preset);
     output = {
       title: entry.title,
-      blocks: monsterBlocks(monster),
+      blocks: creatureBlocks(preset, monster),
       sourceRefs: entry.sourceRefs,
+      childReferenceIds: entry.childReferenceIds,
     };
-  } else if (action.kind === 'regional-monster') {
+  } else if (
+    action.kind === 'regional-monster' ||
+    action.kind === 'regional-table'
+  ) {
     if (!rules) throw new Error('몬스터 원문 자료를 불러오세요.');
-    const r = rollRegionalReference(
-      action.region,
-      registry,
-      rules,
-      options.rng,
-    );
+    const r =
+      action.kind === 'regional-table'
+        ? rollRegionalTableReference(
+            action.tableId,
+            registry,
+            rules,
+            options.rng,
+          )
+        : rollRegionalReference(action.region, registry, rules, options.rng);
     const sourceName = r.preset
       ? String(r.preset.name)
       : typeof r.reading.metadata?.name === 'string'
@@ -145,11 +219,13 @@ export function executeReference(
     const identity = `${sourceName}${r.quantity == null ? '' : ' × ' + r.quantity}`;
     const dice = `${r.reading.dice} = ${r.reading.roll}${r.quantityRoll ? ` · ${r.quantityRoll.dice} = ${r.quantityRoll.roll}` : r.quantity == null ? '' : ' · 수량 ' + r.quantity}`;
     const blocks: ReferenceReading['blocks'] = r.preset
-      ? monsterBlocks(loadMonsterPreset(id(), r.preset)).map((block) => ({
-          ...block,
-          title: identity,
-          dice,
-        }))
+      ? creatureBlocks(r.preset, loadMonsterPreset(id(), r.preset)).map(
+          (block) => ({
+            ...block,
+            title: identity,
+            dice,
+          }),
+        )
       : [
           {
             title: sourceName ? identity : r.reading.title,
@@ -160,6 +236,7 @@ export function executeReference(
     output = {
       title: entry.title,
       blocks,
+      childReferenceIds: r.preset ? creatureChildren(r.preset, rules) : [],
       // The complete printed route remains inspectable, separate from its mechanical display.
       oracle: { id: id(), title: r.reading.title, rolls: [r.reading] },
       ...(r.preset
@@ -223,7 +300,8 @@ export function executeReference(
     const monster = loadMonsterPreset(id(), preset);
     output = {
       title: monster.name,
-      blocks: monsterBlocks(monster),
+      blocks: creatureBlocks(preset, monster),
+      childReferenceIds: creatureChildren(preset, rules),
       sourceRefs: [
         {
           bookId: 'feretory',
@@ -240,7 +318,8 @@ export function executeReference(
           tableId:
             typeof preset.tableId === 'string' ? preset.tableId : undefined,
           entryId: typeof preset.id === 'string' ? preset.id : undefined,
-          ...(typeof preset.hp !== 'number'
+          ...(typeof preset.hp !== 'number' &&
+          !(Array.isArray(preset.variants) && preset.variants.length)
             ? {
                 status: 'PARTIAL',
                 note: 'Creature identity is source-backed. No independent creature statistics are supplied for this result.',
@@ -322,12 +401,8 @@ export function executeReference(
       oracle: result,
       relatedIds: [
         ...new Set(
-          result.rolls.flatMap((roll) =>
-            Array.isArray(roll.metadata?.followUpOracleIds)
-              ? roll.metadata.followUpOracleIds
-                  .filter((key): key is string => typeof key === 'string')
-                  .map((key) => `oracle:${key}`)
-              : [],
+          result.rolls.flatMap(
+            (roll) => oracleFollowUpLinks(roll.metadata).relatedIds ?? [],
           ),
         ),
       ],

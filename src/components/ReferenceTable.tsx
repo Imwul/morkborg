@@ -7,6 +7,8 @@ import {
   tableSelector,
 } from '../domain/referenceTable';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { useReferenceDesk } from './ReferenceContext';
+import { ReferenceNextSteps } from './ReferenceNextSteps';
 
 export function ReferenceTable({
   table,
@@ -18,6 +20,7 @@ export function ReferenceTable({
   onChoose: (table: OracleDefinition, entry: OracleEntry) => void;
 }) {
   const exits = table.id === 'sd.room.exits';
+  const desk = useReferenceDesk();
   return (
     <section className="reference-table-section">
       {table.description && (
@@ -59,7 +62,19 @@ export function ReferenceTable({
               >
                 <th scope="row">
                   {namedSelector ? (
-                    <ReferenceLinkedText text={entry.text} />
+                    typeof entry.metadata?.referenceId === 'string' &&
+                    desk?.byId[entry.metadata.referenceId] ? (
+                      <button
+                        className="ref-text-action"
+                        onClick={() =>
+                          desk.activate(String(entry.metadata!.referenceId))
+                        }
+                      >
+                        {entry.text} ›
+                      </button>
+                    ) : (
+                      <ReferenceLinkedText text={entry.text} />
+                    )
                   ) : (
                     tableSelector(entry)
                   )}
@@ -93,6 +108,7 @@ export function ReferenceTable({
                         </ul>
                       </details>
                     )}
+                    <ReferenceNextSteps metadata={entry.metadata} />
                     {canSelectTableEntry(table, entry) && (
                       <button
                         className="ref-text-action table-use-entry"

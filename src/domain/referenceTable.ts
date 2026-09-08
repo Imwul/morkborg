@@ -24,6 +24,12 @@ export function tableEntryNotes(entry: OracleEntry): string[] {
   const m = entry.metadata ?? {};
   const notes = oracleReadingText(entry).slice(entry.text.length).trim();
   const details = [notes];
+  if (Array.isArray(m.blocks))
+    details.push(
+      ...m.blocks
+        .filter((b) => b && typeof b.text === 'string')
+        .map((b) => [b.title, b.text].filter(Boolean).join('\n')),
+    );
   for (const key of [
     'damage',
     'ammunition',

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "reclvse.playReferences",
+    "fingerprint": "ba983ca8",
+    "book": "reclvse",
+    "pdfPage": [
+      9,
+      11,
+      12,
+      18,
+      42,
+      43,
+      49,
+      51,
+      52,
+      53,
+      68,
+      85
+    ],
+    "printedPage": "9–85",
+    "entries": 31
+  },
+  {
+    "id": "sd.playReferences",
+    "fingerprint": "85eb9f68",
+    "book": "sd",
+    "pdfPage": [
+      5,
+      7,
+      20
+    ],
+    "printedPage": "3, 5, 18",
+    "entries": 5
+  },
+  {
+    "id": "heretic.blackpowder",
+    "fingerprint": "cdf586cd",
+    "book": "heretic",
+    "pdfPage": 46,
+    "printedPage": 44,
+    "entries": 13
+  },
+  {
+    "id": "mythic2.playReferences",
+    "fingerprint": "d8de92ca",
+    "book": "mythic2",
+    "pdfPage": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      45,
+      46,
+      47,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "printedPage": "36–111",
+    "entries": 4
+  },
+  {
+    "id": "depths.playReferences",
+    "fingerprint": "a933b494",
+    "book": "depths",
+    "pdfPage": [
+      16,
+      17,
+      18,
+      19,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "printedPage": "13–30",
+    "entries": 2
+  },
+  {
+    "id": "depths.encounterLevels",
+    "fingerprint": "1221e62c",
+    "book": "depths",
+    "pdfPage": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "printedPage": "23–30",
+    "entries": 8
+  },
+  {
+    "id": "reclvse.unspokens",
+    "fingerprint": "5f03744c",
+    "book": "reclvse",
+    "pdfPage": 10,
+    "printedPage": null,
+    "entries": 36
+  },
+  {
+    "id": "mythic2.random-event-focus-table",
+    "fingerprint": "d7b864bd",
+    "book": "mythic2",
+    "pdfPage": 38,
+    "printedPage": 37,
+    "entries": 12
+  },
+  {
+    "id": "mythic2.scene-adjustment-table",
+    "fingerprint": "c24d6346",
+    "book": "mythic2",
+    "pdfPage": 71,
+    "printedPage": 70,
+    "entries": 7
+  },
+  {
+    "id": "aitc.businesses",
+    "fingerprint": "f071495d",
+    "book": "aitc",
+    "pdfPage": 14,
+    "printedPage": 12,
+    "entries": 20
+  }
+]
