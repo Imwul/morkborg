@@ -9,6 +9,7 @@ import {
 } from '../domain/referenceReading';
 import {
   CITY_MOVE_DEFAULTS,
+  CITY_MOVE_GUIDANCE,
   rollCityMove,
   resolveDirectionsChoice,
   rollMerchantDisposition,
@@ -207,27 +208,34 @@ export function CityRoller({
   }
   return (
     <div className="city-roller">
+      {move in CITY_MOVE_GUIDANCE && (
+        <p className="city-move-guidance">
+          {CITY_MOVE_GUIDANCE[move as CityMove]}
+        </p>
+      )}
       <div className="ref-controls">
-        <label>
-          도시 절차
-          <select
-            value={move}
-            onChange={(e) => {
-              const next = e.target.value as typeof move;
-              setMove(next);
-              setModifier(0);
-              setLast(null);
-              if (next in CITY_MOVE_DEFAULTS)
-                setDr(CITY_MOVE_DEFAULTS[next as CityMove].dr);
-            }}
-          >
-            {allowedMoves.map((choice) => (
-              <option key={choice} value={choice}>
-                {moveLabels[choice]}
-              </option>
-            ))}
-          </select>
-        </label>
+        {allowedMoves.length > 1 && (
+          <label>
+            도시 절차
+            <select
+              value={move}
+              onChange={(e) => {
+                const next = e.target.value as typeof move;
+                setMove(next);
+                setModifier(0);
+                setLast(null);
+                if (next in CITY_MOVE_DEFAULTS)
+                  setDr(CITY_MOVE_DEFAULTS[next as CityMove].dr);
+              }}
+            >
+              {allowedMoves.map((choice) => (
+                <option key={choice} value={choice}>
+                  {moveLabels[choice]}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         {move === 'crawl' && (
           <label>
             탐험 방식

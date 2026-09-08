@@ -40,6 +40,7 @@ import {
 import { CompactCard } from './CompactCard';
 import { SourceDisclosure } from './SourceDisclosure';
 import { Field } from './Field';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { QuantityControl, RoomSelector } from './MonsterAssignments';
 import {
   ContentPlacementRows,
@@ -484,14 +485,20 @@ export function ContentLibrary({
         {'archetype' in selected ? (
           <>
             <p className="content-reading-identity">
-              {[selected.archetype, selected.reaction]
-                .filter(Boolean)
-                .join(' · ')}
+              <ReferenceLinkedText
+                text={[selected.archetype, selected.reaction]
+                  .filter(Boolean)
+                  .join(' · ')}
+              />
             </p>
-            <p>{selected.appearance}</p>
+            <p>
+              <ReferenceLinkedText text={selected.appearance} />
+            </p>
           </>
         ) : (
-          <p className="encounter-reading-text">{selected.text}</p>
+          <p className="encounter-reading-text">
+            <ReferenceLinkedText text={selected.text} />
+          </p>
         )}
       </div>
       <GenerationDisclosure values={selected.fieldProvenance} />

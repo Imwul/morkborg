@@ -1,0 +1,2829 @@
+{
+  "applicationBase": "71c59c7bfd5d09f2c670dd3d9e650c2e8d8784e3",
+  "auditHead": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
+  "referenceEntries": 912,
+  "canonicalTables": 565,
+  "definitionCount": 132,
+  "counts": {
+    "Armor": 4,
+    "Power": 20,
+    "Class ability": 38,
+    "Weapon": 17,
+    "Equipment": 46,
+    "Class": 6,
+    "Travel": 1
+  },
+  "aliases": {
+    "entries": 19,
+    "ko": 59,
+    "en": 65
+  },
+  "unresolved": {
+    "definitions": [],
+    "oracleSources": []
+  },
+  "definitions": [
+    {
+      "id": "definition:core.armor:1-1",
+      "title": "No armor",
+      "kind": "Armor",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.armor",
+          "tableTitle": "Armor",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "status": "VERIFIED",
+          "entryId": "core.armor:1-1"
+        }
+      ],
+      "canonicalIds": [
+        "core.armor"
+      ],
+      "exactNameTopId": "definition:core.armor:1-1"
+    },
+    {
+      "id": "definition:core.armor:2-2",
+      "title": "Light armor",
+      "kind": "Armor",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.armor",
+          "tableTitle": "Armor",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "status": "VERIFIED",
+          "entryId": "core.armor:2-2"
+        }
+      ],
+      "canonicalIds": [
+        "core.armor"
+      ],
+      "exactNameTopId": "definition:core.armor:2-2"
+    },
+    {
+      "id": "definition:core.armor:3-3",
+      "title": "Medium armor",
+      "kind": "Armor",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.armor",
+          "tableTitle": "Armor",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "status": "VERIFIED",
+          "entryId": "core.armor:3-3"
+        }
+      ],
+      "canonicalIds": [
+        "core.armor"
+      ],
+      "exactNameTopId": "definition:core.armor:3-3"
+    },
+    {
+      "id": "definition:core.armor:4-4",
+      "title": "Heavy armor",
+      "kind": "Armor",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.armor",
+          "tableTitle": "Armor",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "status": "VERIFIED",
+          "entryId": "core.armor:4-4"
+        }
+      ],
+      "canonicalIds": [
+        "core.armor"
+      ],
+      "exactNameTopId": "definition:core.armor:4-4"
+    },
+    {
+      "id": "definition:core.unclean:1-1",
+      "title": "Palms Open the Southern Gate",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:1-1"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:1-1"
+    },
+    {
+      "id": "definition:core.unclean:2-2",
+      "title": "Tongue of Eris",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:2-2"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:2-2"
+    },
+    {
+      "id": "definition:core.unclean:3-3",
+      "title": "Te-le-kin-esis",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:3-3"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:3-3"
+    },
+    {
+      "id": "definition:core.unclean:4-4",
+      "title": "Lucy-Fires Levitation",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:4-4"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:4-4"
+    },
+    {
+      "id": "definition:core.unclean:5-5",
+      "title": "Daemon of Capillaries",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:5-5"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:5-5"
+    },
+    {
+      "id": "definition:core.unclean:6-6",
+      "title": "Nine Violet Signs Unknot the Storm",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:6-6"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:6-6"
+    },
+    {
+      "id": "definition:core.unclean:7-7",
+      "title": "Metzhuotl Blind Your Eye",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 34,
+          "printedPage": 34,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:7-7"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:7-7"
+    },
+    {
+      "id": "definition:core.unclean:8-8",
+      "title": "Foul Psychompomp",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:8-8"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:8-8"
+    },
+    {
+      "id": "definition:core.unclean:9-9",
+      "title": "Eyelid Blinds the Mind",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:9-9"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:9-9"
+    },
+    {
+      "id": "definition:core.unclean:10-10",
+      "title": "Death",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.unclean",
+          "tableTitle": "Unclean Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.unclean:10-10"
+        }
+      ],
+      "canonicalIds": [
+        "core.unclean"
+      ],
+      "exactNameTopId": "definition:core.unclean:10-10"
+    },
+    {
+      "id": "definition:core.sacred:1-1",
+      "title": "Grace of a Dead Saint",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:1-1"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:1-1"
+    },
+    {
+      "id": "definition:core.sacred:2-2",
+      "title": "Grace for a Sinner",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:2-2"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:2-2"
+    },
+    {
+      "id": "definition:core.sacred:3-3",
+      "title": "Whispers Pass the Gate",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:3-3"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:3-3"
+    },
+    {
+      "id": "definition:core.sacred:4-4",
+      "title": "Aegis of Sorrow",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:4-4"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:4-4"
+    },
+    {
+      "id": "definition:core.sacred:5-5",
+      "title": "Unmet Fate",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:5-5"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:5-5"
+    },
+    {
+      "id": "definition:core.sacred:6-6",
+      "title": "Bestial Speech",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:6-6"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:6-6"
+    },
+    {
+      "id": "definition:core.sacred:7-7",
+      "title": "False Dawn/Night’s Chariot",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:7-7"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:7-7"
+    },
+    {
+      "id": "definition:core.sacred:8-8",
+      "title": "Hermetic Step",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:8-8"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:8-8"
+    },
+    {
+      "id": "definition:core.sacred:9-9",
+      "title": "Roskoe’s Consuming Glare",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:9-9"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:9-9"
+    },
+    {
+      "id": "definition:core.sacred:10-10",
+      "title": "Enochian Syntax",
+      "kind": "Power",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.sacred",
+          "tableTitle": "Sacred Scrolls",
+          "pdfPage": 35,
+          "printedPage": 35,
+          "status": "VERIFIED",
+          "entryId": "core.sacred:10-10"
+        }
+      ],
+      "canonicalIds": [
+        "core.sacred"
+      ],
+      "exactNameTopId": "definition:core.sacred:10-10"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:1",
+      "title": "Red Poison",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:1"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:2",
+      "title": "Ezumiels Vapor",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:2"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:3",
+      "title": "Southern Frog Stew",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:3"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:4",
+      "title": "Elixir Vitalis",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:4"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:5",
+      "title": "Spider-Owl Soup",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:5"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:6",
+      "title": "Fernor’s Philtre",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:6"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:7",
+      "title": "Hyphos’ Enervating Snuff",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:7"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:7"
+    },
+    {
+      "id": "definition:core.occultHerbmasterDecoctions:8",
+      "title": "Black Poison",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.occultHerbmasterDecoctions",
+          "tableTitle": "Occult Herbmaster Decoctions",
+          "pdfPage": 57,
+          "printedPage": 57,
+          "status": "VERIFIED",
+          "entryId": "core.occultHerbmasterDecoctions:8"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "definition:core.occultHerbmasterDecoctions:8"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:1",
+      "title": "Crumpled Monster Mask",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:1"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:2",
+      "title": "The Brown Scimitar of Galgenbeck",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:2"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:3",
+      "title": "Wizard Teeth",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:3"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:4",
+      "title": "Old Sigûrd’s Sling",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:4"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:5",
+      "title": "Ancient Gore-Hound",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:5"
+    },
+    {
+      "id": "definition:core.fangedDeserterItem:6",
+      "title": "The Shoe of Death’s Horse",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.fangedDeserterItem",
+          "tableTitle": "Fanged Deserter — You Also Begin With",
+          "pdfPage": 47,
+          "printedPage": 47,
+          "status": "VERIFIED",
+          "entryId": "core.fangedDeserterItem:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "definition:core.fangedDeserterItem:6"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:1",
+      "title": "Coward’s Jab",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:1"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:2",
+      "title": "Filthy Fingersmith",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:2"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:3",
+      "title": "Abominable Gob Lobber",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:3"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:4",
+      "title": "Escaping Fate",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:4"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:5",
+      "title": "Excretal Stealth",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:5"
+    },
+    {
+      "id": "definition:core.gutterbornScumSpecialty:6",
+      "title": "Dodging Death",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gutterbornScumSpecialty",
+          "tableTitle": "Gutterborn Scum — Specialty",
+          "pdfPage": 49,
+          "printedPage": 49,
+          "status": "VERIFIED",
+          "entryId": "core.gutterbornScumSpecialty:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "definition:core.gutterbornScumSpecialty:6"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:1",
+      "title": "Master of Fate",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:1"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:2",
+      "title": "Book of Boiling Blood",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:2"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:3",
+      "title": "Speaker of Truths",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:3"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:4",
+      "title": "Initiate of the Invisible College",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:4"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:5",
+      "title": "Bard of the Undying",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:5"
+    },
+    {
+      "id": "definition:core.esotericHermitItem:6",
+      "title": "Hawk as Weapon",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.esotericHermitItem",
+          "tableTitle": "Esoteric Hermit — You Also Begin With",
+          "pdfPage": 51,
+          "printedPage": 51,
+          "status": "VERIFIED",
+          "entryId": "core.esotericHermitItem:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "definition:core.esotericHermitItem:6"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:1",
+      "title": "The Blade of Your Ancestors",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:1"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:2",
+      "title": "‘Poltroon’ the Court Jester",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:2"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:3",
+      "title": "Barbarister the Incredible Horse",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:3"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:4",
+      "title": "Hamfund the Squire",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:4"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:5",
+      "title": "The Snake-Skin Gift",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:5"
+    },
+    {
+      "id": "definition:core.wretchedRoyaltyItems:6",
+      "title": "Horn of the Schleswig Lords!",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.wretchedRoyaltyItems",
+          "tableTitle": "Wretched Royalty — You Begin With Two",
+          "pdfPage": 53,
+          "printedPage": 53,
+          "status": "VERIFIED",
+          "entryId": "core.wretchedRoyaltyItems:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "definition:core.wretchedRoyaltyItems:6"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:1",
+      "title": "Sacred Shepherd’s Crook",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:1"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:1"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:2",
+      "title": "Stolen Mitre",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:2"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:2"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:3",
+      "title": "List of Sins",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:3"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:3"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:4",
+      "title": "The Blasphemous Nechrubel Bible",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:4"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:4"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:5",
+      "title": "Stones Taken from Thel-Emas’ Lost Temple",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:5"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:5"
+    },
+    {
+      "id": "definition:core.hereticalPriestItem:6",
+      "title": "(Wrong Jesus) Crucifix",
+      "kind": "Class ability",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.hereticalPriestItem",
+          "tableTitle": "Heretical Priest — You Begin With One",
+          "pdfPage": 55,
+          "printedPage": 55,
+          "status": "VERIFIED",
+          "entryId": "core.hereticalPriestItem:6"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "definition:core.hereticalPriestItem:6"
+    },
+    {
+      "id": "definition:core.weaponCatalog:battle-axe",
+      "title": "Battle axe",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:battle-axe"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:battle-axe"
+    },
+    {
+      "id": "definition:core.weaponCatalog:bow",
+      "title": "Bow",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:bow"
+        },
+        {
+          "bookId": "core",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "tableId": "core.weapons",
+          "tableTitle": "Starting Weapons",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:bow"
+    },
+    {
+      "id": "definition:core.weaponCatalog:club",
+      "title": "Club",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:club"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:club"
+    },
+    {
+      "id": "definition:core.weaponCatalog:crossbow",
+      "title": "Crossbow",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:crossbow"
+        },
+        {
+          "bookId": "core",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "tableId": "core.weapons",
+          "tableTitle": "Starting Weapons",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:crossbow"
+    },
+    {
+      "id": "definition:core.weaponCatalog:flail",
+      "title": "Flail",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:flail"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:flail"
+    },
+    {
+      "id": "definition:core.weaponCatalog:femur",
+      "title": "Femur",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:femur"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:femur"
+    },
+    {
+      "id": "definition:core.weaponCatalog:handaxe",
+      "title": "Handaxe",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:handaxe"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:handaxe"
+    },
+    {
+      "id": "definition:core.weaponCatalog:knife",
+      "title": "Knife",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:knife"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:knife"
+    },
+    {
+      "id": "definition:core.weaponCatalog:mace",
+      "title": "Mace",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:mace"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:mace"
+    },
+    {
+      "id": "definition:core.weaponCatalog:shortbow",
+      "title": "Shortbow",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:shortbow"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:shortbow"
+    },
+    {
+      "id": "definition:core.weaponCatalog:shortsword",
+      "title": "Shortsword",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:shortsword"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:shortsword"
+    },
+    {
+      "id": "definition:core.weaponCatalog:sling",
+      "title": "Sling",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:sling"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:sling"
+    },
+    {
+      "id": "definition:core.weaponCatalog:staff",
+      "title": "Staff",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:staff"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:staff"
+    },
+    {
+      "id": "definition:core.weaponCatalog:sword",
+      "title": "Sword",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:sword"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:sword"
+    },
+    {
+      "id": "definition:core.weaponCatalog:warhammer",
+      "title": "Warhammer",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:warhammer"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:warhammer"
+    },
+    {
+      "id": "definition:core.weaponCatalog:whip",
+      "title": "Whip",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:whip"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:whip"
+    },
+    {
+      "id": "definition:core.weaponCatalog:zweih-nder",
+      "title": "Zweihänder",
+      "kind": "Weapon",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.weaponCatalog",
+          "tableTitle": "Weapons — Damage and Purchase",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "status": "VERIFIED",
+          "entryId": "core.weaponCatalog:zweih-nder"
+        }
+      ],
+      "canonicalIds": [
+        "core.weaponCatalog"
+      ],
+      "exactNameTopId": "definition:core.weaponCatalog:zweih-nder"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:backpack",
+      "title": "Backpack",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:backpack"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:backpack"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:bear-trap",
+      "title": "Bear trap",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:bear-trap"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:bear-trap"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:blanket",
+      "title": "Blanket",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:blanket"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:blanket"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:caltrops",
+      "title": "Caltrops",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:caltrops"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:caltrops"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:chalk",
+      "title": "Chalk",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:chalk"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:chalk"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:chewing-tobacco",
+      "title": "Chewing tobacco",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:chewing-tobacco"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:chewing-tobacco"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:crowbar",
+      "title": "Crowbar",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:crowbar"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:crowbar"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:crucifix-silver",
+      "title": "Crucifix, silver",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:crucifix-silver"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:crucifix-silver"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:crucifix-wood",
+      "title": "Crucifix, wood",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:crucifix-wood"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:crucifix-wood"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:dried-food",
+      "title": "Dried food",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:dried-food"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:dried-food"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:exquisite-perfume",
+      "title": "Exquisite perfume",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:exquisite-perfume"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:exquisite-perfume"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:firesteel",
+      "title": "Firesteel",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:firesteel"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:firesteel"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:grappling-hook",
+      "title": "Grappling hook",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:grappling-hook"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:grappling-hook"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:hammer",
+      "title": "Hammer",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:hammer"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:hammer"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:heavy-chain",
+      "title": "Heavy chain",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:heavy-chain"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:heavy-chain"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:iron-nails",
+      "title": "Iron nails",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:iron-nails"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:iron-nails"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:ladder",
+      "title": "Ladder",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:ladder"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:ladder"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:lantern-oil",
+      "title": "Lantern oil",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:lantern-oil"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:lantern-oil"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:lard",
+      "title": "Lard",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:lard"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:lard"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:large-iron-hook",
+      "title": "Large iron hook",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:large-iron-hook"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:large-iron-hook"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:lockpicks",
+      "title": "Lockpicks",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:lockpicks"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:lockpicks"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:magnesium-strip",
+      "title": "Magnesium strip",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:magnesium-strip"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:magnesium-strip"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:manacles",
+      "title": "Manacles",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:manacles"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:manacles"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:mattress",
+      "title": "Mattress",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:mattress"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:mattress"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:meat-cleaver",
+      "title": "Meat cleaver",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:meat-cleaver"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:meat-cleaver"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:medicine-box",
+      "title": "Medicine box",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:medicine-box"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:medicine-box"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:metal-file",
+      "title": "Metal file",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:metal-file"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:metal-file"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:mirror",
+      "title": "Mirror",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:mirror"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:mirror"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:muzzle",
+      "title": "Muzzle",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:muzzle"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:muzzle"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:noose",
+      "title": "Noose",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 24,
+          "printedPage": 24,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:noose"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:noose"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:oil-lamp",
+      "title": "Oil lamp",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:oil-lamp"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:oil-lamp"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:poison-black",
+      "title": "Poison (black)",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:poison-black"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:poison-black"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:poison-red",
+      "title": "Poison (red)",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:poison-red"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:poison-red"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:preserved-corpse",
+      "title": "Preserved corpse",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:preserved-corpse"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:preserved-corpse"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:rope",
+      "title": "Rope",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:rope"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:rope"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:small-wagon",
+      "title": "Small wagon",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:small-wagon"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:small-wagon"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:tent",
+      "title": "Tent",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:tent"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:tent"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:toolbox",
+      "title": "Toolbox",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:toolbox"
+        },
+        {
+          "bookId": "core",
+          "tableId": "core.gearB",
+          "tableTitle": "Starting Equipment — Second d12 Table",
+          "pdfPage": 22,
+          "printedPage": 22,
+          "status": "VERIFIED",
+          "entryId": "core.gearB:6-6"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:toolbox"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:torch",
+      "title": "Torch",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:torch"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:torch"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:sack",
+      "title": "Sack",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:sack"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:sack"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:salt",
+      "title": "Salt",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:salt"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:salt"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:scissors",
+      "title": "Scissors",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:scissors"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:scissors"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:scroll",
+      "title": "Scroll",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:scroll"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:scroll"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:sharp-needle",
+      "title": "Sharp needle",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:sharp-needle"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:sharp-needle"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:waterskin",
+      "title": "Waterskin",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 25,
+          "printedPage": 25,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:waterskin"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:waterskin"
+    },
+    {
+      "id": "definition:core.equipmentCatalog:shield",
+      "title": "Shield",
+      "kind": "Equipment",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.equipmentCatalog",
+          "tableTitle": "Equipment — Purchase and Use",
+          "pdfPage": 23,
+          "printedPage": 23,
+          "status": "VERIFIED",
+          "entryId": "core.equipmentCatalog:shield"
+        }
+      ],
+      "canonicalIds": [
+        "core.equipmentCatalog"
+      ],
+      "exactNameTopId": "definition:core.equipmentCatalog:shield"
+    },
+    {
+      "id": "class:fanged-deserter",
+      "title": "Fanged Deserter",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Fanged Deserter",
+          "pdfPage": [
+            50,
+            51
+          ],
+          "printedPage": "46–47",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.fangedDeserterItem"
+      ],
+      "exactNameTopId": "class:fanged-deserter"
+    },
+    {
+      "id": "class:gutterborn-scum",
+      "title": "Gutterborn Scum",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Gutterborn Scum",
+          "pdfPage": [
+            52,
+            53
+          ],
+          "printedPage": "48–49",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.gutterbornScumSpecialty"
+      ],
+      "exactNameTopId": "class:gutterborn-scum"
+    },
+    {
+      "id": "class:esoteric-hermit",
+      "title": "Esoteric Hermit",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Esoteric Hermit",
+          "pdfPage": [
+            54,
+            55
+          ],
+          "printedPage": "50–51",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.esotericHermitItem"
+      ],
+      "exactNameTopId": "class:esoteric-hermit"
+    },
+    {
+      "id": "class:wretched-royalty",
+      "title": "Wretched Royalty",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Wretched Royalty",
+          "pdfPage": [
+            56,
+            57
+          ],
+          "printedPage": "52–53",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.wretchedRoyaltyItems"
+      ],
+      "exactNameTopId": "class:wretched-royalty"
+    },
+    {
+      "id": "class:heretical-priest",
+      "title": "Heretical Priest",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Heretical Priest",
+          "pdfPage": [
+            58,
+            59
+          ],
+          "printedPage": "54–55",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.hereticalPriestItem"
+      ],
+      "exactNameTopId": "class:heretical-priest"
+    },
+    {
+      "id": "class:occult-herbmaster",
+      "title": "Occult Herbmaster",
+      "kind": "Class",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "core-full",
+          "tableTitle": "Occult Herbmaster",
+          "pdfPage": [
+            60,
+            61
+          ],
+          "printedPage": "56–57",
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "core.occultHerbmasterDecoctions"
+      ],
+      "exactNameTopId": "class:occult-herbmaster"
+    },
+    {
+      "id": "rule:feretory.travel-distances",
+      "title": "Traveling the Dying Lands · Road travel times",
+      "kind": "Travel",
+      "effectPresent": true,
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "tableId": "feretory.travelDistances",
+          "tableTitle": "Traveling the Dying Lands",
+          "pdfPage": 6,
+          "printedPage": 4,
+          "status": "VERIFIED"
+        }
+      ],
+      "canonicalIds": [
+        "feretory.travelDistances"
+      ],
+      "exactNameTopId": "rule:feretory.travel-distances"
+    }
+  ]
+}

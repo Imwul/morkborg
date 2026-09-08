@@ -1,5 +1,6 @@
 import { markCopiedIdentity } from '../domain/duplicationProvenance';
 import { GenerationDisclosure } from './GenerationDisclosure';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { hasManualEdits } from '../domain/generationProvenance';
 import { SourceText } from './SourceText';
 import { useState } from 'react';
@@ -424,13 +425,15 @@ export function Monsters({
         {selected.attacks.map((attack) => (
           <p key={attack.id}>
             <strong>
-              {[attack.name, attack.damage].filter(Boolean).join(' · ')}
+              <ReferenceLinkedText
+                text={[attack.name, attack.damage].filter(Boolean).join(' · ')}
+              />
             </strong>
           </p>
         ))}
         {selected.special[0] && (
           <p className="statblock-special-preview">
-            {selected.special[0].text}
+            <ReferenceLinkedText text={selected.special[0].text} />
           </p>
         )}
       </section>

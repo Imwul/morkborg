@@ -101,6 +101,16 @@ export const CITY_MOVE_DEFAULTS: Record<
     sourceRefs: [aitc(8, 'Stash Item: roll when retrieving')],
   },
 };
+/** Parent-rule reminders from AITC PDF 7–8, kept separate from conditional tables. */
+export const CITY_MOVE_GUIDANCE: Record<CityMove, string> = {
+  crawl:
+    'City DR vs 2d20; compare each die separately. Do not use modifiers based on Objectives reached. Strong: reach the next Objective (Weak if all are met). Weak: roll a new street. Fail: resolve what prevents leaving, then roll a new street. Get Directions can help find an Objective.',
+  directions:
+    'DR12 Presence vs 2d20. Strong: choose +4 to the next City Crawl seeking an Objective, or put the destination on the next street. Weak: roll the NPC reaction table and choose the offered help. Fail: no idea; no one helps.',
+  pray: 'DR14 Presence vs 2d20. Statue +0; Shrine/Tomb +1; Chapel/Church +2; Cathedral +3. Strong: roll the d4 blessing. Weak: nothing. Fail: roll the d6 response. Adapt the interpretation to the saint or deity.',
+  stash:
+    'Roll when returning to retrieve stashed items: DR10 Omens vs 2d20. Strong: the items remain. Weak: roll the d6 table for missing, damaged or stolen items. Fail: items missing, or scattered and broken.',
+};
 function requireInteger(value: number, label: string) {
   if (!Number.isSafeInteger(value))
     throw new Error(`${label}는 정수여야 합니다.`);

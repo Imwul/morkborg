@@ -1181,3 +1181,67 @@
     font-size: 28px;
   }
 }
+.reference-inline-link {
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  background: none;
+  border: 0;
+  padding: 0.15em 0.05em;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--muted, #777);
+  cursor: pointer;
+}
+.reference-inline-link:focus-visible,
+.reference-field-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.reference-inline-link:hover {
+  text-decoration-thickness: 2px;
+}
+.reference-field-link > span {
+  opacity: 0.5;
+}
+.field-value > .ref-text-action {
+  margin-left: 0.75em;
+  min-height: 36px;
+}
+@media (pointer: coarse) {
+  .reference-inline-link {
+    min-height: 36px;
+  }
+}
+.table-entry-detail {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.table-entry-detail > summary {
+  cursor: pointer;
+  max-width: 65ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.table-entry-detail p {
+  white-space: pre-line;
+}
+.table-use-entry {
+  font-size: 0.75rem;
+  min-height: 36px;
+  margin-top: 0.15rem;
+}
+.table-use-context,
+.city-move-guidance {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 70ch;
+}
+.table-followup li {
+  margin-block: 0.3rem;
+}
+.table-followup b {
+  margin-right: 0.5rem;
+}

@@ -1,0 +1,96 @@
+[
+  {
+    "id": "core.weaponCatalog",
+    "oldFingerprint": null,
+    "fingerprint": "4b83d8ec",
+    "book": "core",
+    "pdfPage": 26,
+    "printedPage": 26,
+    "entries": 17
+  },
+  {
+    "id": "core.equipmentCatalog",
+    "oldFingerprint": null,
+    "fingerprint": "28456aad",
+    "book": "core",
+    "pdfPage": [
+      23,
+      24,
+      25
+    ],
+    "printedPage": "23–25",
+    "entries": 46
+  },
+  {
+    "id": "feretory.travelDistances",
+    "oldFingerprint": null,
+    "fingerprint": "e1dbc8e9",
+    "book": "feretory",
+    "pdfPage": 6,
+    "printedPage": 4,
+    "entries": 11
+  },
+  {
+    "id": "core.armor",
+    "oldFingerprint": "32863f00",
+    "fingerprint": "849737b8",
+    "book": "core",
+    "pdfPage": 23,
+    "printedPage": 23,
+    "entries": 4
+  },
+  {
+    "id": "core.fangedDeserterItem",
+    "oldFingerprint": "30fbd538",
+    "fingerprint": "c4dc6964",
+    "book": "core",
+    "pdfPage": 47,
+    "printedPage": 47,
+    "entries": 6
+  },
+  {
+    "id": "core.gutterbornScumSpecialty",
+    "oldFingerprint": "99ea638c",
+    "fingerprint": "89ed23f0",
+    "book": "core",
+    "pdfPage": 49,
+    "printedPage": 49,
+    "entries": 6
+  },
+  {
+    "id": "core.esotericHermitItem",
+    "oldFingerprint": "eb8c531a",
+    "fingerprint": "cbe94442",
+    "book": "core",
+    "pdfPage": 51,
+    "printedPage": 51,
+    "entries": 6
+  },
+  {
+    "id": "core.wretchedRoyaltyItems",
+    "oldFingerprint": "6a0c1be5",
+    "fingerprint": "e5781ad8",
+    "book": "core",
+    "pdfPage": 53,
+    "printedPage": 53,
+    "entries": 6
+  },
+  {
+    "id": "core.hereticalPriestItem",
+    "oldFingerprint": "da16a462",
+    "fingerprint": "2944e8f1",
+    "book": "core",
+    "pdfPage": 55,
+    "printedPage": 55,
+    "entries": 6
+  },
+  {
+    "id": "core.occultHerbmasterDecoctions",
+    "oldFingerprint": "3fe7f0a1",
+    "fingerprint": "55eb2125",
+    "book": "core",
+    "pdfPage": 57,
+    "printedPage": 57,
+    "entries": 8
+  }
+]

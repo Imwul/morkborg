@@ -1,0 +1,3962 @@
+{
+  "auditHead": "479cbd765b4168eeaeee27f921bf4b0a6615c51b",
+  "scope": "Only the ten approved groups; not a new complete coverage audit. Full-matrix coverage percentages are intentionally not recalculated.",
+  "targetNeeds": 143,
+  "beforeTotals": {
+    "PARTIAL": 69,
+    "MISSING": 27,
+    "PRESENT_BUT_INDIRECT": 47
+  },
+  "afterTotals": {
+    "RESOLVED": 143
+  },
+  "groups": [
+    {
+      "rank": 1,
+      "title": "Omens의 정확한 사용 범위",
+      "needs": 1,
+      "before": {
+        "PARTIAL": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      },
+      "evidence": "browser-search.json: Omens; browser-character.json: Omens"
+    },
+    {
+      "rank": 2,
+      "title": "정확한 Power 이름 → 효과",
+      "needs": 20,
+      "before": {
+        "PARTIAL": 20
+      },
+      "after": {
+        "RESOLVED": 20
+      },
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "rank": 3,
+      "title": "SD의 매일 Misery 주사위 변화",
+      "needs": 1,
+      "before": {
+        "PARTIAL": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      },
+      "evidence": "browser-search.json: daily misery; Calendar/Journey context check"
+    },
+    {
+      "rank": 4,
+      "title": "FERETORY의 도로 이동 소요 시간",
+      "needs": 1,
+      "before": {
+        "MISSING": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      },
+      "evidence": "browser-search.json: road travel times; Journey context check"
+    },
+    {
+      "rank": 8,
+      "title": "무기 이름 → 피해·탄약·가격",
+      "needs": 18,
+      "before": {
+        "MISSING": 7,
+        "PARTIAL": 11
+      },
+      "after": {
+        "RESOLVED": 18
+      },
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "rank": 9,
+      "title": "소모품·일반 장비의 실제 사용/구입 정보",
+      "needs": 49,
+      "before": {
+        "PARTIAL": 29,
+        "MISSING": 19,
+        "PRESENT_BUT_INDIRECT": 1
+      },
+      "after": {
+        "RESOLVED": 49
+      },
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "rank": 13,
+      "title": "규칙명을 모르는 한국어·상황 검색",
+      "needs": 1,
+      "before": {
+        "PRESENT_BUT_INDIRECT": 1
+      },
+      "after": {
+        "RESOLVED": 1
+      },
+      "evidence": "browser-search.json: Korean situational queries; curated English/Korean ranking tests"
+    },
+    {
+      "rank": 16,
+      "title": "클래스 이름 → 기본 능력/제약",
+      "needs": 44,
+      "before": {
+        "PARTIAL": 6,
+        "PRESENT_BUT_INDIRECT": 38
+      },
+      "after": {
+        "RESOLVED": 44
+      },
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "rank": 19,
+      "title": "City Crawl / 길 묻기 / 기도 / 물건 숨기기의 부모 절차",
+      "needs": 4,
+      "before": {
+        "PRESENT_BUT_INDIRECT": 4
+      },
+      "after": {
+        "RESOLVED": 4
+      },
+      "evidence": "browser-search.json: City Crawl/Directions/Pray/Stash; browser-tables.json: child routing and Alöne microcrawl"
+    },
+    {
+      "rank": 20,
+      "title": "직접 고르는 표의 조건·열·진실 여부",
+      "needs": 4,
+      "before": {
+        "PRESENT_BUT_INDIRECT": 3,
+        "PARTIAL": 1
+      },
+      "after": {
+        "RESOLVED": 4
+      },
+      "evidence": "browser-tables.json: exits/holy places/truth/card selector; selector and condition tests"
+    }
+  ],
+  "rows": [
+    {
+      "auditRank": 1,
+      "needId": "core-omens-spending",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-omens-spending",
+        "core-full-omens-spending"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            37
+          ],
+          "printedPage": "37"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            42
+          ],
+          "printedPage": "38"
+        }
+      ],
+      "evidence": "browser-search.json: Omens; browser-character.json: Omens"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-palms-open-the-southern-gate",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-palms-open-the-southern-gate",
+        "core-full-power-palms-open-the-southern-gate"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-tongue-of-eris",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-tongue-of-eris",
+        "core-full-power-tongue-of-eris"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-te-le-kin-esis",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-te-le-kin-esis",
+        "core-full-power-te-le-kin-esis"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-lucy-fires-levitation",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-lucy-fires-levitation",
+        "core-full-power-lucy-fires-levitation"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-daemon-of-capillaries",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-daemon-of-capillaries",
+        "core-full-power-daemon-of-capillaries"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-nine-violet-signs-unknot-the-storm",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-nine-violet-signs-unknot-the-storm",
+        "core-full-power-nine-violet-signs-unknot-the-storm"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-metzhuotl-blind-your-eye",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-metzhuotl-blind-your-eye",
+        "core-full-power-metzhuotl-blind-your-eye"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-foul-psychompomp",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-foul-psychompomp",
+        "core-full-power-foul-psychompomp"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-eyelid-blinds-the-mind",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-eyelid-blinds-the-mind",
+        "core-full-power-eyelid-blinds-the-mind"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-death",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-death",
+        "core-full-power-death"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-grace-of-a-dead-saint",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-grace-of-a-dead-saint",
+        "core-full-power-grace-of-a-dead-saint"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-grace-for-a-sinner",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-grace-for-a-sinner",
+        "core-full-power-grace-for-a-sinner"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-whispers-pass-the-gate",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-whispers-pass-the-gate",
+        "core-full-power-whispers-pass-the-gate"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-aegis-of-sorrow",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-aegis-of-sorrow",
+        "core-full-power-aegis-of-sorrow"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-unmet-fate",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-unmet-fate",
+        "core-full-power-unmet-fate"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-bestial-speech",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-bestial-speech",
+        "core-full-power-bestial-speech"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-false-dawn-nights-chariot",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-false-dawn-nights-chariot",
+        "core-full-power-false-dawn-nights-chariot"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-hermetic-step",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-hermetic-step",
+        "core-full-power-hermetic-step"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-roskoes-consuming-glare",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-roskoes-consuming-glare",
+        "core-full-power-roskoes-consuming-glare"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 2,
+      "needId": "core-power-enochian-syntax",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-power-enochian-syntax",
+        "core-full-power-enochian-syntax"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            35
+          ],
+          "printedPage": "35"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            39
+          ],
+          "printedPage": "35"
+        }
+      ],
+      "evidence": "browser-search.json: Daemon of Capillaries; browser-character.json: Unmet Fate; browser-tables.json: Powers; all-20 exact-name/effect tests"
+    },
+    {
+      "auditRank": 3,
+      "needId": "sd-misery-variant",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "sd-misery-variant"
+      ],
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "pdfPage": [
+            5
+          ],
+          "printedPage": "3"
+        }
+      ],
+      "evidence": "browser-search.json: daily misery; Calendar/Journey context check"
+    },
+    {
+      "auditRank": 4,
+      "needId": "feretory:travel-distances",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "feretory-travel-distances"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG CULT: FERETORY",
+          "pdfPage": [
+            6
+          ],
+          "printedPage": "4"
+        }
+      ],
+      "evidence": "browser-search.json: road travel times; Journey context check"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-battle-axe",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-battle-axe",
+        "core-full-weapon-battle-axe"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-bow",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-bow",
+        "core-full-weapon-bow"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-club",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-club",
+        "core-full-weapon-club"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-crossbow",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-crossbow",
+        "core-full-weapon-crossbow"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            27,
+            29
+          ],
+          "printedPage": "25; weapon continuation spread has no visible printed number"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-flail",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-flail",
+        "core-full-weapon-flail"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            26,
+            29
+          ],
+          "printedPage": "25; weapon continuation spread has no visible printed number"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-femur",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-femur",
+        "core-full-weapon-femur"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            24,
+            29
+          ],
+          "printedPage": "20,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-handaxe",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-handaxe",
+        "core-full-weapon-handaxe"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-knife",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-knife",
+        "core-full-weapon-knife"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-mace",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-mace",
+        "core-full-weapon-mace"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-shortbow",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-shortbow",
+        "core-full-weapon-shortbow"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-shortsword",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-shortsword",
+        "core-full-weapon-shortsword"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-sling",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-sling",
+        "core-full-weapon-sling"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-staff",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-staff",
+        "core-full-weapon-staff"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-sword",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-sword",
+        "core-full-weapon-sword"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-warhammer",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-warhammer",
+        "core-full-weapon-warhammer"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-whip",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-whip",
+        "core-full-weapon-whip"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            26
+          ],
+          "printedPage": "26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-weapon-zweihander",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-weapon-zweihander",
+        "core-full-weapon-zweihander"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            26
+          ],
+          "printedPage": "23,26"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            26,
+            29
+          ],
+          "printedPage": "25; weapon continuation spread has no visible printed number"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 8,
+      "needId": "core-improvised-weapons",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-improvised-weapons",
+        "core-full-improvised-weapons"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23,
+            25
+          ],
+          "printedPage": "23,25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            25,
+            29
+          ],
+          "printedPage": "21,25"
+        }
+      ],
+      "evidence": "browser-search.json: Zweihänder; browser-character.json: Knife; all-17 damage/name tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-backpack",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-backpack",
+        "core-full-equipment-backpack"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-bear-trap",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-bear-trap",
+        "core-full-equipment-bear-trap"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-blanket",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-blanket",
+        "core-full-equipment-blanket"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-caltrops",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-caltrops",
+        "core-full-equipment-caltrops"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-chalk",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-chalk",
+        "core-full-equipment-chalk"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-chewing-tobacco",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-chewing-tobacco",
+        "core-full-equipment-chewing-tobacco"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-crowbar",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-crowbar",
+        "core-full-equipment-crowbar"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-crucifix-silver",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-crucifix-silver",
+        "core-full-equipment-crucifix-silver"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-crucifix-wood",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-crucifix-wood",
+        "core-full-equipment-crucifix-wood"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-dried-food",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-dried-food",
+        "core-full-equipment-dried-food"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-exquisite-perfume",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-exquisite-perfume",
+        "core-full-equipment-exquisite-perfume"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-firesteel",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-firesteel",
+        "core-full-equipment-firesteel"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-grappling-hook",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-grappling-hook",
+        "core-full-equipment-grappling-hook"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-hammer",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-hammer",
+        "core-full-equipment-hammer"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-heavy-chain",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-heavy-chain",
+        "core-full-equipment-heavy-chain"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-iron-nails",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-iron-nails",
+        "core-full-equipment-iron-nails"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-ladder",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-ladder",
+        "core-full-equipment-ladder"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-lantern-oil",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-lantern-oil",
+        "core-full-equipment-lantern-oil"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-lard",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-lard",
+        "core-full-equipment-lard"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-large-iron-hook",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-large-iron-hook",
+        "core-full-equipment-large-iron-hook"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-lockpicks",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-lockpicks",
+        "core-full-equipment-lockpicks"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-magnesium-strip",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-magnesium-strip",
+        "core-full-equipment-magnesium-strip"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-manacles",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-manacles",
+        "core-full-equipment-manacles"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-mattress",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-mattress",
+        "core-full-equipment-mattress"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-meat-cleaver",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-meat-cleaver",
+        "core-full-equipment-meat-cleaver"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-medicine-box",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-medicine-box",
+        "core-full-equipment-medicine-box"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-metal-file",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-metal-file",
+        "core-full-equipment-metal-file"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-mirror",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-mirror",
+        "core-full-equipment-mirror"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-muzzle",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-muzzle",
+        "core-full-equipment-muzzle"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-noose",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-noose",
+        "core-full-equipment-noose"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            24
+          ],
+          "printedPage": "24"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-oil-lamp",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-oil-lamp",
+        "core-full-equipment-oil-lamp"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-poison-black",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-poison-black",
+        "core-full-equipment-poison-black"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-poison-red",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-poison-red",
+        "core-full-equipment-poison-red"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-preserved-corpse",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-preserved-corpse",
+        "core-full-equipment-preserved-corpse"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-rope",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-rope",
+        "core-full-equipment-rope"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-small-wagon",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-small-wagon",
+        "core-full-equipment-small-wagon"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-tent",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-tent",
+        "core-full-equipment-tent"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-toolbox",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-toolbox",
+        "core-full-equipment-toolbox"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-torch",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-torch",
+        "core-full-equipment-torch"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-sack",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-sack",
+        "core-full-equipment-sack"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-salt",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-salt",
+        "core-full-equipment-salt"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-scissors",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-scissors",
+        "core-full-equipment-scissors"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-scroll-resale-value",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-scroll-resale-value",
+        "core-full-equipment-scroll-resale-value"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-sharp-needle",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-sharp-needle",
+        "core-full-equipment-sharp-needle"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-waterskin",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-waterskin",
+        "core-full-equipment-waterskin"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            25
+          ],
+          "printedPage": "25"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            29
+          ],
+          "printedPage": "25"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-light-armor",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-light-armor",
+        "core-full-equipment-light-armor"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23
+          ],
+          "printedPage": "23"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            28
+          ],
+          "printedPage": "24"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-medium-armor",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-medium-armor",
+        "core-full-equipment-medium-armor"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23
+          ],
+          "printedPage": "23"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            28
+          ],
+          "printedPage": "24"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-heavy-armor",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-heavy-armor",
+        "core-full-equipment-heavy-armor"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23
+          ],
+          "printedPage": "23"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            28
+          ],
+          "printedPage": "24"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 9,
+      "needId": "core-equipment-shield",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-equipment-shield",
+        "core-full-equipment-shield"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            23
+          ],
+          "printedPage": "23"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            28
+          ],
+          "printedPage": "24"
+        }
+      ],
+      "evidence": "browser-search.json: medicine box; browser-character.json: armor, Waterskin, Toolbox; all-45+Shield definition tests"
+    },
+    {
+      "auditRank": 13,
+      "needId": "core-casting",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-casting",
+        "core-full-casting"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            34
+          ],
+          "printedPage": "34"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            38
+          ],
+          "printedPage": "34"
+        }
+      ],
+      "evidence": "browser-search.json: Korean situational queries; curated English/Korean ranking tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-fanged-deserter",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-fanged-deserter",
+        "core-full-class-fanged-deserter"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            46,
+            47
+          ],
+          "printedPage": "46,47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            50,
+            51
+          ],
+          "printedPage": "46,47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-gutterborn-scum",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-gutterborn-scum",
+        "core-full-class-gutterborn-scum"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            48,
+            49
+          ],
+          "printedPage": "48,49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-esoteric-hermit",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-esoteric-hermit",
+        "core-full-class-esoteric-hermit"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            50,
+            51
+          ],
+          "printedPage": "50,51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            54,
+            55
+          ],
+          "printedPage": "50,51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-wretched-royalty",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-wretched-royalty",
+        "core-full-class-wretched-royalty"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            52,
+            53
+          ],
+          "printedPage": "52,53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-heretical-priest",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-heretical-priest",
+        "core-full-class-heretical-priest"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            54,
+            55
+          ],
+          "printedPage": "54,55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-occult-herbmaster",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-occult-herbmaster",
+        "core-full-class-occult-herbmaster"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            56,
+            57
+          ],
+          "printedPage": "56,57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60,
+            61
+          ],
+          "printedPage": "56,57"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-1",
+        "core-full-class-effect-fanged-deserter-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-2",
+        "core-full-class-effect-fanged-deserter-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-3",
+        "core-full-class-effect-fanged-deserter-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-4",
+        "core-full-class-effect-fanged-deserter-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-5",
+        "core-full-class-effect-fanged-deserter-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-fanged-deserter-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-fanged-deserter-6",
+        "core-full-class-effect-fanged-deserter-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            47
+          ],
+          "printedPage": "47"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "47"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-1",
+        "core-full-class-effect-gutterborn-scum-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-2",
+        "core-full-class-effect-gutterborn-scum-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-3",
+        "core-full-class-effect-gutterborn-scum-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-4",
+        "core-full-class-effect-gutterborn-scum-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-5",
+        "core-full-class-effect-gutterborn-scum-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-gutterborn-scum-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-gutterborn-scum-6",
+        "core-full-class-effect-gutterborn-scum-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            49
+          ],
+          "printedPage": "49"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            52
+          ],
+          "printedPage": "48"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-1",
+        "core-full-class-effect-esoteric-hermit-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-2",
+        "core-full-class-effect-esoteric-hermit-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-3",
+        "core-full-class-effect-esoteric-hermit-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-4",
+        "core-full-class-effect-esoteric-hermit-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-5",
+        "core-full-class-effect-esoteric-hermit-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-esoteric-hermit-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-esoteric-hermit-6",
+        "core-full-class-effect-esoteric-hermit-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            51
+          ],
+          "printedPage": "51"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "51"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-1",
+        "core-full-class-effect-wretched-royalty-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-2",
+        "core-full-class-effect-wretched-royalty-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-3",
+        "core-full-class-effect-wretched-royalty-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-4",
+        "core-full-class-effect-wretched-royalty-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-5",
+        "core-full-class-effect-wretched-royalty-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-wretched-royalty-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-wretched-royalty-6",
+        "core-full-class-effect-wretched-royalty-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            53
+          ],
+          "printedPage": "53"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "53"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-1",
+        "core-full-class-effect-heretical-priest-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-2",
+        "core-full-class-effect-heretical-priest-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-3",
+        "core-full-class-effect-heretical-priest-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-4",
+        "core-full-class-effect-heretical-priest-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-5",
+        "core-full-class-effect-heretical-priest-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-heretical-priest-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-heretical-priest-6",
+        "core-full-class-effect-heretical-priest-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            55
+          ],
+          "printedPage": "55"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            59
+          ],
+          "printedPage": "55"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-1",
+        "core-full-class-effect-occult-herbmaster-1"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-2",
+        "core-full-class-effect-occult-herbmaster-2"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-3",
+        "core-full-class-effect-occult-herbmaster-3"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-4",
+        "core-full-class-effect-occult-herbmaster-4"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-5",
+        "core-full-class-effect-occult-herbmaster-5"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-6",
+        "core-full-class-effect-occult-herbmaster-6"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-7",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-7",
+        "core-full-class-effect-occult-herbmaster-7"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 16,
+      "needId": "core-class-effect-occult-herbmaster-8",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "core-class-effect-occult-herbmaster-8",
+        "core-full-class-effect-occult-herbmaster-8"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG Bare Bones",
+          "pdfPage": [
+            57
+          ],
+          "printedPage": "57"
+        },
+        {
+          "book": "MÖRK BORG Full Edition (Second Printing)",
+          "pdfPage": [
+            60
+          ],
+          "printedPage": "56"
+        }
+      ],
+      "evidence": "browser-search.json: Fanged Deserter; browser-character.json: Esoteric Hermit and Bard; all-6/all-38 tests"
+    },
+    {
+      "auditRank": 19,
+      "needId": "aitc-microcrawl",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-microcrawl"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            5
+          ],
+          "printedPage": "3"
+        }
+      ],
+      "evidence": "browser-search.json: City Crawl/Directions/Pray/Stash; browser-tables.json: child routing and Alöne microcrawl"
+    },
+    {
+      "auditRank": 19,
+      "needId": "aitc-directions",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-directions"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            7
+          ],
+          "printedPage": "5"
+        }
+      ],
+      "evidence": "browser-search.json: City Crawl/Directions/Pray/Stash; browser-tables.json: child routing and Alöne microcrawl"
+    },
+    {
+      "auditRank": 19,
+      "needId": "aitc-pray",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-pray"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            7
+          ],
+          "printedPage": "5"
+        }
+      ],
+      "evidence": "browser-search.json: City Crawl/Directions/Pray/Stash; browser-tables.json: child routing and Alöne microcrawl"
+    },
+    {
+      "auditRank": 19,
+      "needId": "aitc-stash",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-stash"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            8
+          ],
+          "printedPage": "6"
+        }
+      ],
+      "evidence": "browser-search.json: City Crawl/Directions/Pray/Stash; browser-tables.json: child routing and Alöne microcrawl"
+    },
+    {
+      "auditRank": 20,
+      "needId": "sd-sd-room-exits",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "sd-sd-room-exits"
+      ],
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "pdfPage": [
+            15
+          ],
+          "printedPage": "13"
+        }
+      ],
+      "evidence": "browser-tables.json: exits/holy places/truth/card selector; selector and condition tests"
+    },
+    {
+      "auditRank": 20,
+      "needId": "aitc-aitc-holy-places-small",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-aitc-holy-places-small"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            10
+          ],
+          "printedPage": "8"
+        }
+      ],
+      "evidence": "browser-tables.json: exits/holy places/truth/card selector; selector and condition tests"
+    },
+    {
+      "auditRank": 20,
+      "needId": "aitc-aitc-holy-places-large",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "aitc-aitc-holy-places-large"
+      ],
+      "sources": [
+        {
+          "book": "Alöne in the Crowd",
+          "pdfPage": [
+            10
+          ],
+          "printedPage": "8"
+        }
+      ],
+      "evidence": "browser-tables.json: exits/holy places/truth/card selector; selector and condition tests"
+    },
+    {
+      "auditRank": 20,
+      "needId": "heretic:table-gravesKnowledge",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "auditRowIds": [
+        "heretic-table-gravesKnowledge"
+      ],
+      "sources": [
+        {
+          "book": "MÖRK BORG CULT: HERETIC",
+          "pdfPage": [
+            22
+          ],
+          "printedPage": "20"
+        }
+      ],
+      "evidence": "browser-tables.json: exits/holy places/truth/card selector; selector and condition tests"
+    }
+  ],
+  "directDependency": [
+    {
+      "needId": "aitc-city-crawl",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "reason": "The approved rank-19 title names City Crawl, but its needIds array instead includes aitc-microcrawl. Both audited needs were followed; no new city procedure was created."
+    }
+  ]
+}

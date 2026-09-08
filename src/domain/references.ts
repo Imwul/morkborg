@@ -1,4 +1,14 @@
 import { PLAY_REFERENCE_RULES } from './playReferenceRules';
+import {
+  buildReferenceDefinitions,
+  type ReferenceDefinition,
+} from './referenceDefinitions';
+import { REFERENCE_SEARCH_ALIASES } from './referenceSearchAliases';
+import {
+  CITY_MOVE_DEFAULTS,
+  CITY_MOVE_GUIDANCE,
+  type CityMove,
+} from './cityProcedures';
 import { shortBookTitle } from './sourceDisplay';
 import { FERETORY_MONSTER_SUMMARY } from '../generators/feretory';
 import { findVerifiedReferenceAlias } from './referenceAliases';
@@ -36,7 +46,7 @@ export type ReferenceAction =
   | { kind: 'rule'; ruleId: string }
   | { kind: 'regional-monster'; region: RegionId }
   | { kind: 'creature'; creatureId: string }
-  | { kind: 'city' }
+  | { kind: 'city'; move?: CityMove }
   | { kind: 'region'; region: RegionId };
 export interface ReferenceSourceStep {
   label: string;
@@ -51,6 +61,9 @@ export interface ReferenceEntry {
   title: string;
   summary: string;
   keywords: string[];
+  searchAliases?: { ko: string[]; en: string[] };
+  definition?: ReferenceDefinition;
+  parentId?: string;
   contexts: ReferenceContext[];
   regionIds: RegionId[];
   sourceRefs: SourceReference[];
@@ -208,6 +221,7 @@ interface RuleSeed {
   oracles?: string[];
   printedPage?: number | string;
   seeFullRule?: boolean;
+  status?: SourceReference['status'];
 }
 /** Concise navigation summaries; the source tables remain the only copy of their results. */
 const RULES: RuleSeed[] = [
@@ -242,11 +256,13 @@ const RULES: RuleSeed[] = [
   },
   {
     id: 'core.omens',
-    title: 'Omens / Powers · 징조와 권능',
+    title: 'Omens · 징조',
     summary:
-      '선택 규칙 Omens: 모두 소진한 뒤 6시간 이상 쉬어 직업 주사위만큼 회복합니다(Classless d2). 권능 사용 횟수는 매아침 Presence + d4입니다. 추가 사용: 최대 피해·재굴림·대미지 d6 경감·치명타/실패 무효화(각 규칙의 1회 용도), 또는 DR-4로 재시도.',
+      'Optional rule. Begin with the class’s designated Omens (classless: d2). Only when depleted: rest at least six hours, then roll the designated die to regain that many.\n\nUse Omens to:\n• Deal maximum damage with an attack.\n• Reroll a dice roll — yours or someone else’s.\n• Lower damage dealt to you by d6.\n• Neutralize a Crit or Fumble.\n• Lower one test’s DR by 4.\n\n모두 소진한 뒤 6시간 이상 쉬어 직업 주사위만큼 회복(직업 없음 d2). 사용: 공격 최대 피해 / 자신 또는 타인의 주사위 재굴림 / 받는 피해 d6 감소 / Crit 또는 Fumble 무효화 / 한 판정의 DR −4.',
     book: 'core',
-    pages: [34, 37],
+    pages: [37],
+    printedPage: 37,
+    status: 'VERIFIED',
     contexts: ['character'],
   },
   {
@@ -359,10 +375,24 @@ const RULES: RuleSeed[] = [
     id: 'sd.solo-variant',
     title: 'Sölitary Defilement · 선택적 솔로 변형',
     summary:
-      '2d20 결과 해석과 솔로용 징조·Misery 변형은 이 책의 별도 규칙입니다. Omens는 이 소규모 규칙에서만의 단계 상승과 상한을 따르며, 필요한 경우 1개 또는 2개 주사위를 재굴림할 수 있습니다(최대 단계 상한 적용). Core Calendar와 조용히 섞지 않습니다.',
+      'SÖLITARY DEFILEMENT VARIANT\nMoves use two d20 tests. Omens may reroll either one or both dice of a Move. Maximum four Omens; they also function as an additional stat in many Moves. Combat uses the usual MÖRK BORG rules.\n\nSD의 별도 규칙: Move는 2d20. 오멘으로 한 개 또는 두 개를 재굴림할 수 있으며 최대 4개입니다. 일부 Move에서는 오멘 수를 능력치처럼 사용합니다. 전투는 Core 규칙을 따릅니다.',
     book: 'sd',
     pages: [4, 5],
+    printedPage: '2–3',
+    status: 'VERIFIED',
     contexts: ['character', 'travel'],
+  },
+  {
+    id: 'sd.daily-misery',
+    title: 'Daily Misery · Sölitary Defilement variant',
+    summary:
+      'SÖLITARY DEFILEMENT VARIANT\nEach passing day, roll the Misery die as in the Calendar of Nechrubel. Choose a starting die no higher than d20. Downgrade after each Misery is unveiled (e.g. d12, d10, d8, d6, d4, d2).\n\n매일 Calendar of Nechrubel의 저주 주사위를 굴립니다. 시작 주사위는 선택하되 d20 이하. Misery가 드러날 때마다 한 단계 낮춥니다(예: d12 → d10 → d8 → d6 → d4 → d2).',
+    book: 'sd',
+    pages: [5],
+    printedPage: 3,
+    status: 'VERIFIED',
+    contexts: ['travel', 'character'],
+    oracles: ['core.miseries'],
   },
   {
     id: 'depths.rareMonster',
@@ -518,6 +548,7 @@ export function buildReferenceRegistry(
         tableTitle: seed.title,
         pdfPage: seed.pages,
         printedPage: seed.printedPage,
+        ...(seed.status ? { status: seed.status } : {}),
         ...(seed.seeFullRule
           ? {
               note: '짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요.',
@@ -525,6 +556,17 @@ export function buildReferenceRegistry(
           : {}),
       };
     const sourceRefs = [ref];
+    if (seed.id === 'core.omens')
+      sourceRefs.push({
+        bookId: 'core-full',
+        bookTitle:
+          oracles.books.find((b) => b.id === 'core-full')?.title ??
+          'MÖRK BORG Full Edition Second Printing',
+        tableTitle: 'Omens',
+        pdfPage: 42,
+        printedPage: 38,
+        status: 'VERIFIED',
+      });
     if (seed.id === 'sd.stockCommon')
       sourceRefs.push({
         bookId: 'depths',
@@ -552,6 +594,34 @@ export function buildReferenceRegistry(
       ],
       available: !!book,
       action: { kind: 'rule', ruleId: seed.id },
+    });
+  }
+  for (const definition of buildReferenceDefinitions(oracles, rules)) {
+    const sourceRefs = definition.sourceRefs.map((source) => ({
+      ...source,
+      bookTitle: oracles.books.find((b) => b.id === source.bookId)?.title,
+    }));
+    add({
+      ...defaultEntry(definition.id, 'rule', definition.title),
+      definition,
+      summary: definition.blocks
+        .map((b) => [b.title, b.text].filter(Boolean).join('\n'))
+        .join('\n\n'),
+      keywords: [
+        definition.kind,
+        ...(definition.kind === 'Power'
+          ? ['power', 'powers', 'scroll', 'scrolls', '스크롤', '파워', '마법']
+          : []),
+      ],
+      contexts: [definition.kind === 'Travel' ? 'travel' : 'character'],
+      sourceRefs,
+      sourceChain: sourceRefs.map((source) => ({
+        label: source.tableTitle ?? definition.title,
+        source,
+      })),
+      canonicalIds: definition.canonicalIds,
+      relatedIds: definition.relatedIds,
+      action: { kind: 'rule', ruleId: definition.id },
     });
   }
   for (const record of (rules?.creatures ?? []).filter(inspectableCreature)) {
@@ -761,6 +831,53 @@ export function buildReferenceRegistry(
       available: cityAvailable,
       action: cityAvailable ? { kind: 'city' } : null,
     });
+  const cityParents: { move: CityMove; title: string; children: string[] }[] = [
+    {
+      move: 'crawl',
+      title: 'City Crawl',
+      children: ['aitc.city-crawl-failure'],
+    },
+    {
+      move: 'directions',
+      title: 'Get Directions',
+      children: ['aitc.directions-reaction'],
+    },
+    {
+      move: 'pray',
+      title: 'Pray',
+      children: ['aitc.pray-strong', 'aitc.pray-failure'],
+    },
+    { move: 'stash', title: 'Stash Item', children: ['aitc.stash-weak'] },
+  ];
+  for (const parent of cityParents) {
+    const id = `procedure:city.${parent.move}`,
+      refs = CITY_MOVE_DEFAULTS[parent.move].sourceRefs.map((ref) => ({
+        ...ref,
+        status: 'VERIFIED' as const,
+      }));
+    const children = parent.children
+      .map((key) => `oracle:${key}`)
+      .filter((key) => byId[key]);
+    add({
+      ...defaultEntry(id, 'procedure', parent.title),
+      summary: CITY_MOVE_GUIDANCE[parent.move],
+      contexts: ['city'],
+      keywords: ['city', 'aitc', parent.move],
+      sourceRefs: refs,
+      sourceChain: refs.map((source) => ({
+        label: source.tableTitle ?? parent.title,
+        source,
+      })),
+      relatedIds: children,
+      available: cityAvailable,
+      action: cityAvailable ? { kind: 'city', move: parent.move } : null,
+    });
+    for (const childId of children)
+      if (byId[childId]) {
+        byId[childId].parentId = id;
+        byId[childId].relatedIds.unshift(id);
+      }
+  }
   for (const region of regions) {
     const regional = entries.filter((e) => e.regionIds.includes(region.id));
     const tableId = regionTableId(region.id, 'monsters'),
@@ -843,6 +960,29 @@ export function buildReferenceRegistry(
         .map((e) => e.id),
     });
   for (const entry of additions) add(entry);
+  for (const entry of entries) {
+    entry.searchAliases = REFERENCE_SEARCH_ALIASES[entry.id];
+    if (
+      [
+        'rule:sd.travel-day',
+        'rule:sd.solo-variant',
+        'rule:core.miseries',
+        'oracle:core.miseries',
+      ].includes(entry.id)
+    )
+      entry.relatedIds.unshift('rule:sd.daily-misery');
+    if (
+      ['rule:sd.travel-day', 'rule:feretory.roads'].includes(entry.id) ||
+      entry.kind === 'region'
+    )
+      entry.relatedIds.push('rule:feretory.travel-distances');
+    if (entry.id === 'rule:core.casting')
+      entry.relatedIds.push(
+        ...entries
+          .filter((e) => e.definition?.kind === 'Power')
+          .map((e) => e.id),
+      );
+  }
   // Book and procedure links expose only records that actually exist in this loaded pack.
   for (const entry of entries)
     entry.relatedIds = unique(
@@ -935,12 +1075,20 @@ export function searchReferences(
         (!options.region || e.regionIds.includes(options.region)),
     )
     .map((entry) => {
+      const navigationAliases = [
+        ...(entry.searchAliases?.ko ?? []),
+        ...(entry.searchAliases?.en ?? []),
+      ];
+      const exactAlias =
+        !!phrase &&
+        navigationAliases.some((alias) => tokens(alias).join(' ') === phrase);
       const title = tokens(entry.title),
         meta = tokens(
           [
             entry.id,
             entry.summary,
             ...entry.keywords,
+            ...navigationAliases,
             ...entry.contexts,
             ...entry.sourceRefs.flatMap((s) => [
               s.bookTitle ?? '',
@@ -950,6 +1098,8 @@ export function searchReferences(
           ].join(' '),
         );
       if (
+        !exactAlias &&
+        entry.id !== preferredId &&
         !terms.every((term) =>
           [...title, ...meta].some(
             (word) => word === term || word.startsWith(term),
@@ -958,6 +1108,12 @@ export function searchReferences(
       )
         return { entry, score: -1 };
       const score =
+        // Preserve an explicitly typed source name where it also names a situation (Death / Shield).
+        (entry.definition &&
+        query.trim().normalize('NFC') === entry.title.normalize('NFC')
+          ? 150
+          : 0) +
+        (exactAlias ? 150 : 0) +
         terms.reduce((n, term) => n + (title.includes(term) ? 12 : 4), 0) +
         (phrase &&
         (title.join(' ') === phrase ||
@@ -969,7 +1125,8 @@ export function searchReferences(
         (entry.available ? 5 : 0) +
         (entry.action ? 3 : 0) +
         (entry.action?.kind === 'regional-monster' ? 5 : 0) +
-        (entry.kind === 'book' ? -5 : 0);
+        (entry.kind === 'book' ? -5 : 0) +
+        (entry.definition && title.join(' ') === phrase ? 60 : 0);
       return { entry, score };
     })
     .filter((r) => r.score >= 0)
@@ -1014,6 +1171,7 @@ const CONTEXT_IDS: Record<ReferenceContext, string[]> = {
     'oracle:reclvse.dungeonEntrance',
   ],
   travel: [
+    'rule:feretory.travel-distances',
     'oracle:core.weather',
     'oracle:feretory.roadType',
     'oracle:feretory.roadEvent',

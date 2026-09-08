@@ -1,0 +1,294 @@
+{
+  "testedAt": "2026-09-08T13:12:42.128Z",
+  "method": "Isolated actual Chrome UI; activations counted after query entry; source/copy separate. No campaign/session needed for lookup.",
+  "records": [
+    {
+      "query": "Daemon of Capillaries",
+      "topResult": "Daemon of Capillaries OPEN",
+      "top5": [
+        "Daemon of Capillaries OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 253,
+      "sourceClosed": true,
+      "hasReading": true,
+      "copyClicks": 1,
+      "copyCorrect": true,
+      "overflow360": false,
+      "overflow768": false,
+      "overflow3440": false
+    },
+    {
+      "query": "Fanged Deserter",
+      "topResult": "Fanged Deserter OPEN",
+      "top5": [
+        "Fanged Deserter OPEN",
+        "Fanged Deserter — Earliest Memories ROLL",
+        "Fanged Deserter — You Also Begin With ROLL",
+        "Ancient Gore-Hound OPEN",
+        "Crumpled Monster Mask OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 233,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Zweihänder",
+      "topResult": "Zweihänder OPEN",
+      "top5": [
+        "Zweihänder OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 228,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "medicine box",
+      "topResult": "Medicine box OPEN",
+      "top5": [
+        "Medicine box OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 227,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Omens",
+      "topResult": "Omens · 징조 OPEN",
+      "top5": [
+        "Omens · 징조 OPEN",
+        "Strange Omens ROLL",
+        "Creature Difficulty Modification — Spend Omens OPEN",
+        "Esoteric Hermit OPEN",
+        "Fanged Deserter OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 227,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "피 0",
+      "topResult": "Broken / Death · 무력화와 죽음 OPEN",
+      "top5": [
+        "Broken / Death · 무력화와 죽음 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 236,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "갑옷",
+      "topResult": "Armor / Shield · 방어구와 방패 OPEN",
+      "top5": [
+        "Armor / Shield · 방어구와 방패 OPEN",
+        "Crit / Fumble · 전투의 20과 1 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 230,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "도망",
+      "topResult": "SD Flee · 전투 이탈 OPEN",
+      "top5": [
+        "SD Flee · 전투 이탈 OPEN",
+        "Reaction / Morale · 반응과 사기 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 230,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "휴식",
+      "topResult": "Rest · 휴식 OPEN",
+      "top5": [
+        "Rest · 휴식 OPEN",
+        "Depths Time / Noise · 시간 지체와 소음 OPEN",
+        "SD Camping · 숨 돌리기와 야영 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 232,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "마법",
+      "topResult": "Using Powers · 권능 사용 판정 OPEN",
+      "top5": [
+        "Using Powers · 권능 사용 판정 OPEN",
+        "Aegis of Sorrow OPEN",
+        "Bestial Speech OPEN",
+        "Daemon of Capillaries OPEN",
+        "Death OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 229,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "스크롤",
+      "topResult": "Using Powers · 권능 사용 판정 OPEN",
+      "top5": [
+        "Using Powers · 권능 사용 판정 OPEN",
+        "Aegis of Sorrow OPEN",
+        "Bestial Speech OPEN",
+        "Daemon of Capillaries OPEN",
+        "Death OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 231,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "짐",
+      "topResult": "Carrying Capacity · 운반과 과적 OPEN",
+      "top5": [
+        "Carrying Capacity · 운반과 과적 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 227,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "사기",
+      "topResult": "Reaction / Morale · 반응과 사기 OPEN",
+      "top5": [
+        "Reaction / Morale · 반응과 사기 OPEN",
+        "The Monster Approaches OPEN",
+        "The Monster Approaches · 몬스터 생성 ROLL"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 233,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "반응",
+      "topResult": "Reaction ROLL",
+      "top5": [
+        "Reaction ROLL",
+        "Depths Encountering Enemies · 적에게 들켰는가 OPEN",
+        "Depths Travel · 헥스와 지역 조우 OPEN",
+        "NPC · 단서 조합 GENERATE",
+        "Reaction / Morale · 반응과 사기 OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 233,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "시체",
+      "topResult": "Corpse Plundering ROLL",
+      "top5": [
+        "Corpse Plundering ROLL",
+        "The Valley of the Unfortunate Undead OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 229,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "보물",
+      "topResult": "Occult Treasures ROLL",
+      "top5": [
+        "Occult Treasures ROLL"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 236,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "daily misery",
+      "topResult": "Daily Misery · Sölitary Defilement variant OPEN",
+      "top5": [
+        "Daily Misery · Sölitary Defilement variant OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 234,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "road travel times",
+      "topResult": "Traveling the Dying Lands · Road travel times OPEN",
+      "top5": [
+        "Traveling the Dying Lands · Road travel times OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 248,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Pray",
+      "topResult": "Pray OPEN",
+      "top5": [
+        "Pray OPEN",
+        "Pray — Failure ROLL",
+        "Pray — Strong Hit ROLL",
+        "Fanatic — Prayer of the Day ROLL",
+        "Sacred Shepherd’s Crook OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 229,
+      "sourceClosed": true,
+      "hasReading": true,
+      "executeClicks": 1,
+      "moveResultVisible": true
+    },
+    {
+      "query": "Directions",
+      "topResult": "Get Directions OPEN",
+      "top5": [
+        "Get Directions OPEN",
+        "Get Directions — Weak Hit Reaction ROLL",
+        "City Crawl OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 232,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Stash",
+      "topResult": "Stash Item OPEN",
+      "top5": [
+        "Stash Item OPEN",
+        "Stash Item — Weak Hit ROLL"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 227,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "City Crawl",
+      "topResult": "City Crawl OPEN",
+      "top5": [
+        "City Crawl OPEN",
+        "City Crawl — Failure ROLL",
+        "Alöne in the Crowd · 도시 도구 OPEN",
+        "City Workbench · 도시를 걷기 OPEN",
+        "Get Directions OPEN"
+      ],
+      "clicksAfterQuery": 1,
+      "elapsedAfterQueryMs": 228,
+      "sourceClosed": true,
+      "hasReading": true
+    }
+  ],
+  "errors": []
+}

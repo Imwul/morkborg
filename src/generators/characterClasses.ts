@@ -41,7 +41,12 @@ type Operation = {
 export interface CharacterClassDefinition {
   id: string;
   name: string;
-  source: { bookId: string; pdfPages: number[]; bareBonesPages?: number[] };
+  source: {
+    bookId: string;
+    pdfPages: number[];
+    printedPages?: number[];
+    bareBonesPages?: number[];
+  };
   hpDie: number;
   omenDie: number;
   omenBonus: number;

@@ -13,6 +13,7 @@ import {
 import { Field } from './Field';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { Translation } from './Translation';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 import type { Confirm } from './Library';
 
 const rollableComponents = new Set([
@@ -221,7 +222,9 @@ export function RoomPacket({
                       <RotateCcw size={16} aria-hidden="true" />
                     </button>
                   )}
-                  <p>{item.sourceText}</p>
+                  <p>
+                    <ReferenceLinkedText text={item.sourceText} />
+                  </p>
                 </>
               )}
               {item.key === 'sample' && (

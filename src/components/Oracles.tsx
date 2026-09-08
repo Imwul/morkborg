@@ -1,4 +1,5 @@
 import { SourceText } from './SourceText';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { shortBookTitle } from '../domain/sourceDisplay';
 import { FERETORY_MONSTER_SUMMARY } from '../generators/feretory';
 import { feretoryResultBlock } from '../domain/referenceReading';
@@ -460,7 +461,7 @@ export function Oracles({
                             : ''}
                         </span>
                         <p className="oracle-result-text" lang="en">
-                          {r.text}
+                          <ReferenceLinkedText text={r.text} />
                         </p>
                         <details className="packet-translation">
                           <summary>한국어 도움말</summary>

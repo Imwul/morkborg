@@ -1,0 +1,111 @@
+{
+  "testedAt": "2026-09-08T13:29:32.713Z",
+  "method": "Generated Esoteric Hermit in a disposable campaign, saved through UI. Each link opens and closes its inspector. Read-only localStorage comparison before/after links/reload.",
+  "records": [
+    {
+      "kind": "Class",
+      "title": "Esoteric Hermit",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Weapon",
+      "title": "Knife",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Armor",
+      "title": "Light armor",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Power",
+      "title": "Unmet Fate",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true,
+      "sourceTableClicks": 1,
+      "sourceTableHasPower": true
+    },
+    {
+      "kind": "Omens",
+      "title": "Omens",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Equipment",
+      "title": "Waterskin",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Generated class item",
+      "title": "Bard of the Undying",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    },
+    {
+      "kind": "Starting versus purchased kit",
+      "title": "Toolbox",
+      "clicksFromCharacter": 1,
+      "returnClicks": 1,
+      "sourceClosed": true,
+      "usable": true,
+      "sourceClicks": 1,
+      "hasPrimarySource": true
+    }
+  ],
+  "responsive": [
+    {
+      "width": 360,
+      "documentOverflow": false
+    },
+    {
+      "width": 768,
+      "documentOverflow": false
+    },
+    {
+      "width": 1440,
+      "documentOverflow": false
+    },
+    {
+      "width": 3440,
+      "documentOverflow": false
+    }
+  ],
+  "unchangedAfterLinks": true,
+  "unchangedAfterReload": true,
+  "savedCharacterVisible": true,
+  "characterSha256": "2edb6fe8d573c1e5ad79085074440e1cfb02d0beaacb57886795af88cca23da5",
+  "errors": []
+}

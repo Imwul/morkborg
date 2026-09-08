@@ -9,6 +9,8 @@ import type { ReferenceReading } from './referenceReading';
 
 /** Metadata only: application choices are never represented as quotations or source routing. */
 export const APP_GENERATION_POLICIES: Record<string, string> = {
+  'app.table-selection':
+    '사용자가 원문 표에서 직접 고른 결과입니다. 주사위를 굴리거나 캠페인에 자동 저장하지 않았습니다.',
   'app.dungeon-dossier':
     '던전 준비 필드에 Core와 RECLVSE의 표를 배정한 앱의 구성입니다. 여러 책 전체가 하나의 필수 생성 절차라는 뜻은 아닙니다.',
   'app.core-sample-room-slots':

@@ -1,4 +1,5 @@
 import { Translation } from './Translation';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 
 /** Translate a rolled entry and its separate instructions independently. */
 export function ReferenceReadingText({
@@ -28,7 +29,7 @@ export function ReferenceReadingText({
     .filter((paragraph) => paragraph.trim())
     .map((paragraph, index) => (
       <p key={index}>
-        {paragraph}
+        <ReferenceLinkedText text={paragraph} />
         {!(hasSource && index === 0 && preserveName && !explicitHelper) && (
           <Translation
             text={paragraph}

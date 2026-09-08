@@ -1,0 +1,89 @@
+{
+  "testedAt": "2026-09-08T13:30:35.814Z",
+  "records": [
+    {
+      "kind": "Powers",
+      "query": "unclean",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 10,
+      "manualSelectionClicks": 1,
+      "manualSelectionPolicy": true
+    },
+    {
+      "kind": "Room exits",
+      "query": "Room Exits",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 4,
+      "columnLabels": [
+        "Roll",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "usageLabel": true,
+      "overflow360": false,
+      "overflow768": false
+    },
+    {
+      "kind": "Small holy places",
+      "query": "Holy Places",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 4,
+      "conditionNotes": 4
+    },
+    {
+      "kind": "Large holy places",
+      "query": "Holy Places",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 6,
+      "conditionNotes": 6
+    },
+    {
+      "kind": "Truth",
+      "query": "gravesKnowledge",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 6,
+      "truthLabels": true
+    },
+    {
+      "kind": "Card selector",
+      "query": "Card 1: Overall Look",
+      "clicksFromSearch": 3,
+      "sourceClicks": 1,
+      "tableClicks": 1,
+      "rows": 13,
+      "firstSelector": "A"
+    },
+    {
+      "kind": "City child routing",
+      "parent": "Pray",
+      "childLabels": [
+        "Pray — Strong Hit",
+        "Pray — Failure"
+      ],
+      "disclosureClicks": 1,
+      "childClicks": 1,
+      "childOpened": true
+    },
+    {
+      "kind": "Alöne Micro-crawl routing",
+      "topResult": "Alöne in the Crowd · 도시 도구 OPEN",
+      "openClicks": 1,
+      "modeSelection": 1,
+      "modeAvailable": true
+    }
+  ],
+  "errors": []
+}

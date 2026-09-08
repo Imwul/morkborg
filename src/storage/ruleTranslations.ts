@@ -52,6 +52,11 @@ export function mergeRuleTranslations(
         ...entry,
         meta: {
           ...entry.meta,
+          // Add a verified reference-only reminder to unchanged source rows; custom text wins.
+          ...(entry.meta.scrollRestriction == null &&
+          typeof match?.meta.scrollRestriction === 'string'
+            ? { scrollRestriction: match.meta.scrollRestriction }
+            : {}),
           ...(typeof match?.meta.ko === 'string' &&
           !(
             fillMissing &&

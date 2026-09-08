@@ -6,6 +6,7 @@ import type { OracleRegistry, OracleResult } from '../domain/oracle';
 import { regions } from '../data/regions';
 import { editCampaign } from '../storage/saveStore';
 import { SourceDisclosure } from './SourceDisclosure';
+import { useReferenceDesk } from './ReferenceContext';
 import {
   InlineReferenceTools,
   ReferenceReadingBlock,
@@ -131,6 +132,7 @@ function JourneyDayWorkbench({
   notify: (message: string) => void;
   onCity?: () => void;
 }) {
+  const desk = useReferenceDesk();
   const uid = useId();
   const [state, setState] = useState<JourneyDay>(() => {
     try {
@@ -341,11 +343,14 @@ function JourneyDayWorkbench({
           시작합니다.
         </p>
         <SourceDisclosure refs={[CALENDAR_SOURCE]} />
-        <InlineReferenceTools
-          title="달력 방식 · Core / SD"
-          ids={['rule:sd.solo-variant']}
-          description="이 달력은 Core 방식입니다. SD의 Misery 후 종말 주사위 단계 축소는 별도 선택 규칙입니다."
-        />
+        {desk && (
+          <button
+            className="reference-inline-link"
+            onClick={() => desk.activate('rule:sd.daily-misery')}
+          >
+            Sölitary Defilement daily variant ›
+          </button>
+        )}
       </JourneyBlock>
       <JourneyBlock
         number="02"
@@ -379,6 +384,14 @@ function JourneyDayWorkbench({
         done={state.encountersResolved}
         preview={readingPreview(state.activity)}
       >
+        {desk && (
+          <button
+            className="reference-inline-link"
+            onClick={() => desk.activate('rule:feretory.travel-distances')}
+          >
+            Road travel times ›
+          </button>
+        )}
         {!dawn || !state.weather ? (
           <p className="muted">날씨를 정한 뒤 오늘의 행동을 선택하세요.</p>
         ) : (

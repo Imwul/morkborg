@@ -6,6 +6,7 @@ import type { Campaign } from '../domain/types';
 import { editCampaign } from '../storage/saveStore';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { SourceDisclosure } from './SourceDisclosure';
+import { useReferenceDesk } from './ReferenceContext';
 import { JourneyWorkbench } from './JourneyWorkbench';
 import {
   APOCALYPSE_DICE,
@@ -29,6 +30,7 @@ export function CampaignProcedures({
   onCity?: () => void;
 }) {
   const { registry, loading } = useOracleRegistry();
+  const desk = useReferenceDesk();
   const uid = useId();
   const [tab, setTab] = useState<'calendar' | 'travel' | 'reference'>('travel');
   const [error, setError] = useState('');
@@ -311,6 +313,14 @@ export function CampaignProcedures({
               MISERY는 발생이 결정됐을 때 직접 기록하는 버튼입니다.
             </p>
           </SourceDisclosure>
+          {desk && (
+            <button
+              className="reference-inline-link"
+              onClick={() => desk.activate('rule:sd.daily-misery')}
+            >
+              Sölitary Defilement daily variant ›
+            </button>
+          )}
         </div>
       )}
       {tab === 'travel' && (

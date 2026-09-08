@@ -112,6 +112,13 @@ export function executeReference(
     options;
   const action = entry.action;
   if (!action || !entry.available) return;
+  if (entry.definition)
+    return {
+      title: entry.title,
+      blocks: entry.definition.blocks,
+      sourceRefs: entry.sourceRefs,
+      relatedIds: entry.relatedIds,
+    };
   let output: ReferenceReading | undefined;
   if (action.kind === 'creature') {
     const preset = findReferenceCreature(rules, action.creatureId);

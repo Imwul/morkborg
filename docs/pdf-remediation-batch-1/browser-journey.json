@@ -1,0 +1,22 @@
+{
+  "testedAt": "2026-09-08T13:42:41.824Z",
+  "records": [
+    {
+      "context": "Journey daily block",
+      "title": "SD Daily Misery",
+      "referenceClicks": 1
+    },
+    {
+      "context": "Journey travel block",
+      "title": "Road travel times",
+      "expandBlockClicks": 1,
+      "referenceClicks": 1
+    },
+    {
+      "context": "Calendar management",
+      "title": "SD Daily Misery",
+      "referenceClicks": 1
+    }
+  ],
+  "errors": []
+}

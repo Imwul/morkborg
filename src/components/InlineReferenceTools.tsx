@@ -14,6 +14,7 @@ import { SourceDisclosure } from './SourceDisclosure';
 import { useReferenceDesk } from './ReferenceContext';
 import { fixedReferenceReading } from '../domain/referenceFixedLookup';
 import { ReferenceReadingText } from './ReferenceReadingText';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
 import './inline-reference-tools.css';
 
@@ -104,7 +105,7 @@ export function ReferenceReadingBlock({
         >
           {block.title && block.title !== reading.title && (
             <strong>
-              {block.title}
+              <ReferenceLinkedText text={block.title} />
               <Translation text={block.title} />
             </strong>
           )}

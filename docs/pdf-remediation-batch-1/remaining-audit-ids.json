@@ -1,0 +1,4746 @@
+{
+  "basis": "Carried forward unchanged from the completed audit, excluding the 143 targets and aitc-city-crawl. This is not a fresh reclassification of unscoped material.",
+  "entries": [
+    {
+      "needId": "core-difficulty-scale",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        28
+      ],
+      "printedPage": "28",
+      "problem": "The quick rule gives only normal DR12; the source difficulty ladder is not displayed."
+    },
+    {
+      "needId": "core-ability-creation",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        27
+      ],
+      "printedPage": "27",
+      "problem": "Base 3d6 conversion is implemented; classless optional 4d6-drop-lowest on two chosen abilities is absent from characterFieldRoll and creation controls. No static conversion lookup in Reference Desk."
+    },
+    {
+      "needId": "core-round-duration",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        31
+      ],
+      "printedPage": "31",
+      "problem": "Combat reminder does not state round duration or movement allowance; no other current reference holds the Core timing paragraph."
+    },
+    {
+      "needId": "core-starvation",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        31
+      ],
+      "printedPage": "31",
+      "problem": "Mechanics are complete inside Rest, but food/thirst searches do not target this rule; the player must know which rule holds the condition."
+    },
+    {
+      "needId": "core-infection",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        31
+      ],
+      "printedPage": "31",
+      "problem": "Complete rule lives inside Rest but exact infection query returns no result in fresh search scan."
+    },
+    {
+      "needId": "core-scroll-restrictions",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        23
+      ],
+      "printedPage": "23",
+      "problem": "General prohibition is available; Heretical Priest medium-armor exception appears only on a generated Priest, not beside the rule."
+    },
+    {
+      "needId": "core-character-creation",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        21,
+        22,
+        23,
+        27,
+        29
+      ],
+      "printedPage": "21,22,23,27,29",
+      "problem": "Creation is implemented and saved sheet is usable; no campaign-independent creation rule/procedure reference. Optional classless ability route audited separately."
+    },
+    {
+      "needId": "core-catastrophe-repeat",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "43",
+      "problem": "Source note mentions explosion for duplicate result but omits d6 damage each round and that water feeds the fire. Individual table rows do not carry this global rule."
+    },
+    {
+      "needId": "core-treasure-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. Embedded meat-golem stat block retained."
+    },
+    {
+      "needId": "core-treasure-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-7",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-8",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-9",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-treasure-10",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        3
+      ],
+      "printedPage": "3",
+      "problem": "Full effect is readable in the existing table, but an individual artifact name is not indexed. "
+    },
+    {
+      "needId": "core-purchase-20-arrows",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-10-bolts",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-dog-trained",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-dog-wild",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-horse",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-mule",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-purchase-rat-tame",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "No static Core purchase-price reference. Companion generation is not a purchase catalog."
+    },
+    {
+      "needId": "core-service-night-in-hospice",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-drink",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-steady-meal",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-bribe-guard",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-bribe-clerk",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-bribe-rabble",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-armor-repair-tier-1-to-2",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-service-armor-repair-tier-2-to-3",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "25",
+      "problem": "Printed service price/range not available in Core reference catalog. Tavern-specific tables are different sources."
+    },
+    {
+      "needId": "core-valuation-goblin",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "58",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-scum",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "58",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-berserker",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        59
+      ],
+      "printedPage": "59",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-wraith",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        59
+      ],
+      "printedPage": "59",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-blood-drenched-skeleton",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "60",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-undead-weak-necromancer",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "60",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-troll",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "60",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-zombie",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        61
+      ],
+      "printedPage": "61",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-undead-doll",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        61
+      ],
+      "printedPage": "61",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-grotesque",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        62
+      ],
+      "printedPage": "62",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-wickhead-knife-wielder",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        62
+      ],
+      "printedPage": "62",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-valuation-wyvern",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        62
+      ],
+      "printedPage": "62",
+      "problem": "Exact valuations exist in private record. loadMonsterPreset places them in notes, but Reference Desk monsterBlocks omits notes; a save/open-library route is required."
+    },
+    {
+      "needId": "core-outcast-loyalty",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        63
+      ],
+      "printedPage": "63",
+      "problem": "Outcast records exist, but general free-recruitment/periodic loyalty check with highest party Presence and values reminder is not a reference rule."
+    },
+    {
+      "needId": "core-outcast-wild-wickhead",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        65
+      ],
+      "printedPage": "65",
+      "problem": "Complete private Outcast record exists, but no current production consumer exposes rules.outcasts directly; Wild Wickhead has no Reference Desk entry (other three Core Outcasts have separate creature adapters)."
+    },
+    {
+      "needId": "core-rotblack-seer",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        78
+      ],
+      "printedPage": "II",
+      "problem": "Eight source rumor options and truth/false/uncertain markers are not in canonical registry; scenario prep requires the PDF."
+    },
+    {
+      "needId": "core-rotblack-creature-nesting-death",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        79
+      ],
+      "printedPage": "III",
+      "problem": "Full stat/effect text exists in encounter A row4 but creature name is not indexed."
+    },
+    {
+      "needId": "core-rotblack-creature-sagsobuth",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        79
+      ],
+      "printedPage": "III",
+      "problem": "Trade row is visible, but unharmable/provocation/explosion rules are table sourceNote rather than stat block/row; needs Source disclosure."
+    },
+    {
+      "needId": "core-rotblack-creature-slumbering-skeletons",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        82
+      ],
+      "printedPage": "3–4–5",
+      "problem": "Distinct HP5/Morale7/source attacks are not the generic Core skeleton. No dedicated preset."
+    },
+    {
+      "needId": "core-rotblack-creature-tired-crystal-demon",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        82
+      ],
+      "printedPage": "3–4–5",
+      "problem": "Book row summons demon, but full unharmable/scroll-drain/shockwave ability block is not a standalone result."
+    },
+    {
+      "needId": "core-rotblack-creature-crooked-guards",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        83
+      ],
+      "printedPage": "3–4–5",
+      "problem": "Distinct HP8/Morale7/source attacks differ from encounter guards; absent preset."
+    },
+    {
+      "needId": "core-rotblack-creature-mad-prisoners",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        83
+      ],
+      "printedPage": "3–4–5",
+      "problem": "Strangling trigger, avoid/break-free tests and full stat block absent from registry."
+    },
+    {
+      "needId": "core-rotblack-creature-gutworm",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        87
+      ],
+      "printedPage": "8–9",
+      "problem": "Stat block, reach, devouring test and dependence on Fletcher absent from registry."
+    },
+    {
+      "needId": "core-rotblack-creature-lesdy",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        88
+      ],
+      "printedPage": "10–11–12–13",
+      "problem": "Distinct NPC stats, withdrawal room roll and motives unavailable as reference."
+    },
+    {
+      "needId": "core-rotblack-creature-hosts",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        88
+      ],
+      "printedPage": "10–11–12–13",
+      "problem": "Three-host stat block and non-retreat behavior not a canonical creature reference."
+    },
+    {
+      "needId": "core-rotblack-creature-aldon",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        89
+      ],
+      "printedPage": "10–11–12–13",
+      "problem": "Named heir HP3 and resistance behavior remain only in scenario text."
+    },
+    {
+      "needId": "core-rotblack-creature-fletcher",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        91
+      ],
+      "printedPage": "14–15",
+      "problem": "Power table exists, but complete HP/armor/flail burn/counterdamage/death consequences are absent from a creature reference."
+    },
+    {
+      "needId": "core-rotblack-item-violet-poison",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        79
+      ],
+      "printedPage": "III",
+      "problem": "Complete effect/price is inside a scenario table row, not findable by item name."
+    },
+    {
+      "needId": "core-rotblack-item-beechwood-tube-foul-protean-scroll",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        79
+      ],
+      "printedPage": "III",
+      "problem": "Complete effect/price is inside a scenario table row, not findable by item name."
+    },
+    {
+      "needId": "core-rotblack-item-small-crossbow-and-bolts",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        83
+      ],
+      "printedPage": "3–4–5",
+      "problem": "Complete effect/price is inside a scenario table row, not findable by item name."
+    },
+    {
+      "needId": "core-rotblack-item-runed-bullwhip",
+      "classification": "MISSING",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        89
+      ],
+      "printedPage": "10–11–12–13",
+      "problem": "Distinct source weapon damage effect is absent from item references."
+    },
+    {
+      "needId": "core-rotblack-power-ich-bin-luft",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Full Edition (Second Printing)",
+      "pdfPage": [
+        91
+      ],
+      "printedPage": "14–15",
+      "problem": "Full two-round effect with continuing attacks is in the Fletcher Power table; its individual name is not indexed."
+    },
+    {
+      "needId": "core-starting-item-bomb",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "22",
+      "problem": "The full starting effect and dice are readable in the existing row; individual name has no direct reference entry."
+    },
+    {
+      "needId": "core-starting-item-life-elixir",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "22",
+      "problem": "The full starting effect and dice are readable in the existing row; individual name has no direct reference entry."
+    },
+    {
+      "needId": "core-starting-item-small-vicious-dog",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "22",
+      "problem": "The full starting effect and dice are readable in the existing row; individual name has no direct reference entry."
+    },
+    {
+      "needId": "core-starting-item-monkeys",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG Bare Bones",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "22",
+      "problem": "The full starting effect and dice are readable in the existing row; individual name has no direct reference entry."
+    },
+    {
+      "needId": "feretory:epk-hunting-rules",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "10",
+      "problem": "The quick rule covers Presence, regional d6, failure mishap, parenthesized quantity and HP-based rations. It omits the printed optional d8/d10/d12 with 7+ mundane prey. No need to automate the optional rule, but the in-app hunting reference is incomplete."
+    },
+    {
+      "needId": "feretory:creature-carcasswan",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        20
+      ],
+      "printedPage": "18",
+      "problem": "Both lone and paired printed stat blocks are in record.variants, but loadMonsterPreset and Reference result omit variants and show an unavailable generic stat block. The source DOES supply these stats."
+    },
+    {
+      "needId": "feretory:epk-starved-peasants",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        17
+      ],
+      "printedPage": "15",
+      "problem": "Printed peasant stats are correctly separated from lice in record.participants, but neither direct reference nor creature result exposes that participant stat block."
+    },
+    {
+      "needId": "feretory:epk-farmers",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        19
+      ],
+      "printedPage": "17",
+      "problem": "All quick stats and conditional weapon chance are visible inside Bogfeeder specialAbility, but farmers have no own lookup or contextual identity."
+    },
+    {
+      "needId": "feretory:epk-regular-wolf",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        23
+      ],
+      "printedPage": "21",
+      "problem": "Printed companion stats are in record.companions/sourceNotes. Reference result omits both; only the larger Überwolf stats and follower-count prose are visible."
+    },
+    {
+      "needId": "feretory:epk-regional-access",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "printedPage": "12, 13, 14, 15, 16, 17, 18, 19, 20, 21",
+      "problem": "Nine canonical region tables exist, including Lake Onda and Bergen Chrypt. The generic table result is an identity, not the creature stat block; table related links do not route to each creature. The seven-region EPK tool is faster for its supported regions."
+    },
+    {
+      "needId": "feretory:ziggurat-procedure",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        27,
+        28,
+        29
+      ],
+      "printedPage": "25, 26, 27",
+      "problem": "One hex/15 minutes, per-hex events, search table and restricted d6/d10 event branches are split between tables/source notes. Secondary treasure and named creature results lack direct links; players must independently find them."
+    },
+    {
+      "needId": "feretory:rot-priests",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:horn-beasts",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:undead-death-ziggurat",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:sarku",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:death-obsessed-cultist",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        33
+      ],
+      "printedPage": "31",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:dread-ak-nh-demon-spawn",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        33
+      ],
+      "printedPage": "31",
+      "problem": "Scenario supplies its own stat block and special combat rules; no definition exists in current creature data. Related event table mentions are only names."
+    },
+    {
+      "needId": "feretory:spiral-crown",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        30
+      ],
+      "printedPage": "28",
+      "problem": "The artifact’s removal tests, three-attempt limit and drain/reversal effect are absent."
+    },
+    {
+      "needId": "feretory:rot-priest-medallion",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        30,
+        32
+      ],
+      "printedPage": "28, 30",
+      "problem": "The item that enables access to the Death Realm is not represented."
+    },
+    {
+      "needId": "feretory:akuenh-heart",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        30
+      ],
+      "printedPage": "28",
+      "problem": "The heart-destruction consequence and immediate Misery trigger are absent from any usable quick reference."
+    },
+    {
+      "needId": "feretory:calumny-pearl",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "36",
+      "problem": "Its complete effect is retained in hook result 4; item name is not indexed separately."
+    },
+    {
+      "needId": "feretory:qarg",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        39
+      ],
+      "printedPage": "37",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:nagel-krat",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        39,
+        48
+      ],
+      "printedPage": "37, 46",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:the-bastard",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        39,
+        48
+      ],
+      "printedPage": "37, 46",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:excited-cannon-goblins",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:archer-goblins-and-bucket-goblin",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:alchemical-ooze",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        47
+      ],
+      "printedPage": "45",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:fresh-goblins",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        48
+      ],
+      "printedPage": "46",
+      "problem": "Printed local stats and special/variant conditions are absent; generic Core goblins do not have the same morale, attacks or leader effects."
+    },
+    {
+      "needId": "feretory:goblin-cure",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        41
+      ],
+      "printedPage": "39",
+      "problem": "The named purchasable item has an explicit price and operational benefit/risk in the source; no usable item effect exists in the installed data."
+    },
+    {
+      "needId": "feretory:flash-powder",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        41
+      ],
+      "printedPage": "39",
+      "problem": "The named purchasable item has an explicit price and operational benefit/risk in the source; no usable item effect exists in the installed data."
+    },
+    {
+      "needId": "feretory:healing-tincture",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        41
+      ],
+      "printedPage": "39",
+      "problem": "The named purchasable item has an explicit price and operational benefit/risk in the source; no usable item effect exists in the installed data."
+    },
+    {
+      "needId": "feretory:invigorating-elixir",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        41
+      ],
+      "printedPage": "39",
+      "problem": "The named purchasable item has an explicit price and operational benefit/risk in the source; no usable item effect exists in the installed data."
+    },
+    {
+      "needId": "feretory:urvan-remedy",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The healing amount and temporary Presence penalty are absent."
+    },
+    {
+      "needId": "feretory:cannon-hazard",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        42,
+        44,
+        45
+      ],
+      "printedPage": "40, 42, 43",
+      "problem": "The one-minute countdown, warning test, line-of-fire death and alarm consequences have no in-app quick rule."
+    },
+    {
+      "needId": "feretory:oil-fire",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "The added flame damage and action to remove oil are absent."
+    },
+    {
+      "needId": "feretory:grinder-operation",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        42,
+        45,
+        47,
+        48
+      ],
+      "printedPage": "40, 43, 45, 46",
+      "problem": "The per-delay creation rule, final goblin count and two-action activation requirements are absent."
+    },
+    {
+      "needId": "feretory:relic-11",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-12",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-13",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-14",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-15",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-16",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "48",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-21",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-22",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-23",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-24",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-25",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-26",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-31",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-32",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-33",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-34",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-35",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-36",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-41",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-42",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-43",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-44",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-45",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-46",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "51",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-51",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-52",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-53",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-54",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-55",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-56",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-61",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-62",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-63",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-64",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-65",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:relic-66",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Complete source item effect is retained in the canonical d66 row. Universal reference search does not index entry text, so the user must know the collection and locate the row; random generation is not retrieval."
+    },
+    {
+      "needId": "feretory:three-dead-skulls",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "55",
+      "problem": "Current quick reference explicitly stops short of payouts, coward reroll, cheating/fight/death consequences and prizes, directing the user to printed55. A basic 3d6 button is not a playable gambling procedure."
+    },
+    {
+      "needId": "feretory:gambling-dreg",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "55",
+      "problem": "Full source stat block and, for the rat, lethal bite/feed/abandonment mechanics are absent. The inn reference is not a stat reference."
+    },
+    {
+      "needId": "feretory:hardy-tame-rat",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "55",
+      "problem": "Full source stat block and, for the rat, lethal bite/feed/abandonment mechanics are absent. The inn reference is not a stat reference."
+    },
+    {
+      "needId": "feretory:class-cursed-skinwalker",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "56",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "feretory:class-pale-one",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "58",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "feretory:class-dead-gods-prophet",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        62
+      ],
+      "printedPage": "60",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "feretory:class-forlorn-philosopher",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        64,
+        65,
+        66
+      ],
+      "printedPage": "62, 63, fold",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "heretic:class-sacrilegious-songbird",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "10",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "heretic:class-shedding-vicar",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Source creation formulas, permitted equipment, class rules and complete feature results exist in the class manifest/canonical tables and generated Character sheet. Universal lookup returns fragment tables, not a complete class reference; viewing an unchosen class requires generation/selection context."
+    },
+    {
+      "needId": "feretory:ochre-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-7",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-8",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-9",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-10",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "Full individual effect exists in reference-only canonical table, including numerical effects and exceptions; no direct named Power result exists in search."
+    },
+    {
+      "needId": "feretory:ochre-usage",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Inside back cover; no printed page number visible",
+      "problem": "General tablet rules are absent from the table reference. A generated Philosopher playerRules result includes size/breakage/scroll-use only; the price and Presence+3-or-Philosopher restriction reside in internal class rules, not a general usable reference."
+    },
+    {
+      "needId": "feretory:black-salt-chain",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: FERETORY",
+      "pdfPage": [
+        68
+      ],
+      "printedPage": "Back cover",
+      "problem": "All wind DRs and suffering results, including result11 follow-up, are present. They are independent references without direct wind-to-consequence linkage; sourceNote supplies the trigger."
+    },
+    {
+      "needId": "heretic:cult-column-procedure",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        2,
+        3
+      ],
+      "printedPage": "First fold, unnumbered",
+      "problem": "All source columns are canonical tables but there is no grouped Seeds of a Cvlt reference procedure to preserve the printed independent-column selections in one inspection."
+    },
+    {
+      "needId": "heretic:feat-named-lookup",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "printedPage": "4, 5, 6, 7, 8, 9",
+      "problem": "All36 feat effects are complete table rows, but exact feat names such as Party Chef/Outback Survivalist are not indexed; user must know Unheroic Feats and scan the table."
+    },
+    {
+      "needId": "heretic:graves-travel",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "Trail and encounter tables exist, but their source-defined sequencing and all-four-locations → Undertaker’s Hut rule are missing. Generic dungeon crawl does not implement this scenario procedure."
+    },
+    {
+      "needId": "heretic:graves-encounter-actors",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "Five printed encounter creatures have valid reference records, but the oracle result stores monster/quantity metadata without clickable creature routing. The user must search the name again."
+    },
+    {
+      "needId": "heretic:creature-rotten-nurse",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        64
+      ],
+      "printedPage": "62",
+      "problem": "Full source Mental Torture Prison mechanics are stored, but hp:null is filtered from Reference and Monster presets. The source intentionally has no conventional HP; treating it as unusable loses a complete encounter."
+    },
+    {
+      "needId": "heretic:outcast-mikhael",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        40
+      ],
+      "printedPage": "38",
+      "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+    },
+    {
+      "needId": "heretic:outcast-the-roach-herder",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        29
+      ],
+      "printedPage": "27",
+      "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+    },
+    {
+      "needId": "heretic:outcast-stein",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+    },
+    {
+      "needId": "heretic:outcast-benzen",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+    },
+    {
+      "needId": "heretic:outcast-arga",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "30",
+      "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+    },
+    {
+      "needId": "heretic:erhard-opening",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        24
+      ],
+      "printedPage": "22",
+      "problem": "Strength threshold, assistant adjustment and damage on failure are absent."
+    },
+    {
+      "needId": "heretic:maus-acid",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "24",
+      "problem": "Per-round flesh damage and the bone exception are absent."
+    },
+    {
+      "needId": "heretic:origin-fountain-hazard",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        27
+      ],
+      "printedPage": "25",
+      "problem": "Separate access tests and permanent ability-loss consequence are absent."
+    },
+    {
+      "needId": "heretic:sewer-currents",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        30
+      ],
+      "printedPage": "28",
+      "problem": "Contact test, sweep-away and drowning danger are absent."
+    },
+    {
+      "needId": "heretic:skeleton-unkey",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        25
+      ],
+      "printedPage": "23",
+      "problem": "Source gives a named usable effect; current tables include neighboring random results but not this item rule."
+    },
+    {
+      "needId": "heretic:roseate-baritona",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "24",
+      "problem": "Source gives a named usable effect; current tables include neighboring random results but not this item rule."
+    },
+    {
+      "needId": "heretic:nostalgia-gruel",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        27
+      ],
+      "printedPage": "25",
+      "problem": "Source gives a named usable effect; current tables include neighboring random results but not this item rule."
+    },
+    {
+      "needId": "heretic:behold-power-scroll",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        33
+      ],
+      "printedPage": "31",
+      "problem": "Complete spell effect is rendered as Übertaker loot, but its Power name resolves primarily to the boss action/table instead of a loot-scroll reference."
+    },
+    {
+      "needId": "heretic:animated-waste",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        35
+      ],
+      "printedPage": "33",
+      "problem": "Source defines a no-HP creature with acid attack, cannot-be-killed/dissipation rule and ambient penalty. No record exists; a numeric-HP requirement must not exclude it."
+    },
+    {
+      "needId": "heretic:gourmands-cutlery",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        34
+      ],
+      "printedPage": "32",
+      "problem": "Eat-anything, compulsory hunger and automaton command function are missing from item lookup; Silas stats alone do not cover it."
+    },
+    {
+      "needId": "heretic:tongue-knife",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        35
+      ],
+      "printedPage": "33",
+      "problem": "The damage and mandatory eat/drink-within-hour consequence are missing."
+    },
+    {
+      "needId": "heretic:bloat-tripwire",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        34,
+        35
+      ],
+      "printedPage": "32, 33",
+      "problem": "Describe-search/Presence detection and falling-block damage are missing."
+    },
+    {
+      "needId": "heretic:bloat-statue",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        35
+      ],
+      "printedPage": "33",
+      "problem": "The Presence test and offering-self-for-dinner consequence are absent."
+    },
+    {
+      "needId": "heretic:table-curseCure",
+      "classification": "SOURCE_UNAVAILABLE",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "35",
+      "problem": "Result12 ends mid-sentence at the physical lower page edge of the supplied PDF. The application retains the visible fragment and source warning. This is an incomplete supplied source, not an invented fallback or a missing import."
+    },
+    {
+      "needId": "heretic:merchant-trade",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        40
+      ],
+      "printedPage": "38",
+      "problem": "Regional stock, buy-cost table and reversed sell gain are all available across source notes; there is no compact Mikhael trade reference or links among the four stock tables and price rule. Mikhael actor itself is separately unexposed."
+    },
+    {
+      "needId": "heretic:merchant-tveland-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-tveland-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-tveland-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-tveland-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-tveland-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-tveland-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "40",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-wastland-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "41",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-kergus-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        44
+      ],
+      "printedPage": "42",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-1",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-2",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-3",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-4",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-5",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:merchant-grift-6",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "43",
+      "problem": "The full source effect (including Chip’s actual stats where applicable) is in the canonical stock row. Exact item names are not indexed; retrieving a specific purchase requires knowing the region/stock table."
+    },
+    {
+      "needId": "heretic:blackpowder-rule",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "The complete general blackpowder rules are absent from quick references and source tables. An AITC firearms mention is not this rule: source defines Presence DR14, ignored armor, reload limitations/time and noise consequences."
+    },
+    {
+      "needId": "heretic:blackpowder-pistolet",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-culverin",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-arquebus",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-dragon",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-basilisk-gun",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-blunderbuss",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-heavy-arquebus",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-pepperbox-pistolet",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-blackpowder-bomb",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-ribauldequin",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-cannon",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+    },
+    {
+      "needId": "heretic:blackpowder-ammunition",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "44",
+      "problem": "All three printed ammunition quantity/price rows are absent."
+    },
+    {
+      "needId": "heretic:swamp-emerald-serpent",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-strange-serpent-drug-cultist",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "49",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-ueth-the-scalehunter",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-forked-tongue-devotee",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-the-swamp-witch",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "55",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-srolki",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "56",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-yaoxl",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "56",
+      "problem": "The source provides a distinct complete stat block with conditional attacks/venom/powers/resurrection as applicable. Existing wishes/rumor names are not creature definitions."
+    },
+    {
+      "needId": "heretic:swamp-emerald-venom",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        50,
+        51
+      ],
+      "printedPage": "48, 49",
+      "problem": "Duration, initiative/fumble penalties and perception/door conditions are absent."
+    },
+    {
+      "needId": "heretic:swamp-slithering-strangulation",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Named source scroll with count/duration/damage/retarget risk is entirely absent."
+    },
+    {
+      "needId": "heretic:swamp-croaking-trident",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Damage types and kill-count transformation thresholds are absent."
+    },
+    {
+      "needId": "heretic:swamp-lunar-zweihander",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "55",
+      "problem": "Armor exception and radiance effect are absent; tied to source Swamp Witch weapon, not a generic two-handed sword."
+    },
+    {
+      "needId": "heretic:swamp-ranseur-maelstrom",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "56",
+      "problem": "Source weapon’s damage and life transfer are absent; Yaoxl name in wishes does not expose it."
+    },
+    {
+      "needId": "heretic:swamp-venomous-adders",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "53",
+      "problem": "Source describes an Agility hazard/conditional bite, not an independent HP statblock. The actual hazard is absent."
+    },
+    {
+      "needId": "heretic:swamp-ethereal-snakes",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "50",
+      "problem": "Two-attack damage-and-disappear response is absent; source supplies no full creature stats."
+    },
+    {
+      "needId": "heretic:swamp-klopstock-ring",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        54
+      ],
+      "printedPage": "52",
+      "problem": "Source-specific ordinary sale value and named-heir return value are absent."
+    },
+    {
+      "needId": "heretic:wish-procedure",
+      "classification": "PARTIAL",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        59
+      ],
+      "printedPage": "57",
+      "problem": "Six aftermath results and the unwilling-only trigger note are present. The fixed willing-sacrifice damage/tests/witch arrival and the precise delay-of-Doom rule are not in the application; table existence alone cannot run this procedure."
+    },
+    {
+      "needId": "heretic:bowyers-bow",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "58",
+      "problem": "Creature record preserves its own attack but not the usable bow’s miss-retarget loop or immunity exception. This is a separate source item, not merely the creature weapon’s damage."
+    },
+    {
+      "needId": "heretic:bowyer-services",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "58",
+      "problem": "Six source commission prompts for obtaining a bow are absent. The source supplies a request list, no die instruction."
+    },
+    {
+      "needId": "heretic:bitor-valuation",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        63
+      ],
+      "printedPage": "61",
+      "problem": "Alive/glue/mandible/egg values exist in record.valuation and generated Monster notes. Direct Reference result omits notes, so these useful values are not available from ordinary lookup."
+    },
+    {
+      "needId": "heretic:nurse-alert",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        67
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "Four alert triggers, destination d4+1 and ten-minute reroll are absent."
+    },
+    {
+      "needId": "heretic:nurse-corridor-east",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        67
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "The low Agility DR and instantly fatal caught consequence are absent; no separate monster HP is provided."
+    },
+    {
+      "needId": "heretic:nurse-poisoned-coins",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        67
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "Amount and one-in-twenty fatal contact risk are absent."
+    },
+    {
+      "needId": "heretic:nurse-nest-advancement",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "Source awards only ability/HP improvement on entry and a healing fungus amount; both quick rules are absent."
+    },
+    {
+      "needId": "heretic:nurse-bomb",
+      "classification": "MISSING",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        67
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "The source provides a compact bomb damage instruction. No source item reference exposes it."
+    },
+    {
+      "needId": "heretic:staff-awful-light",
+      "classification": "SOURCE_UNAVAILABLE",
+      "book": "MÖRK BORG CULT: HERETIC",
+      "pdfPage": [
+        66
+      ],
+      "printedPage": "Last fold, unnumbered",
+      "problem": "The supplied adventure names the staff as the objective and locates it, but provides no effect or stat rule. No application omission can be inferred for mechanics the PDF never states."
+    },
+    {
+      "needId": "reclvse-reclvse-quicksizeshape",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        90
+      ],
+      "printedPage": "90",
+      "problem": "Full special-use instructions are in SOURCE rather than the main table/result: the source asks for two rolls on a combined size/shape list."
+    },
+    {
+      "needId": "reclvse-reclvse-quickcontents",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        90
+      ],
+      "printedPage": "90",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "reclvse-reclvse-contentscategory",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        92
+      ],
+      "printedPage": "92",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "sd-sd-stockcreatures",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        11
+      ],
+      "printedPage": "9",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "sd-sd-usefulitems",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        11
+      ],
+      "printedPage": "9",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "depths-depths-rare-look",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        16
+      ],
+      "printedPage": "13",
+      "problem": "The table retains all options but TABLE shows numeric 1–13 indexes instead of A–K rank labels. SOURCE identifies rank-based lookup, leaving the player to reconstruct the mapping."
+    },
+    {
+      "needId": "depths-depths-rare-feature",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        17
+      ],
+      "printedPage": "14",
+      "problem": "The table retains all options but TABLE shows numeric 1–13 indexes instead of A–K rank labels. SOURCE identifies rank-based lookup, leaving the player to reconstruct the mapping."
+    },
+    {
+      "needId": "depths-depths-rare-intention",
+      "classification": "PARTIAL",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        17
+      ],
+      "printedPage": "14",
+      "problem": "TABLE renders numerical 1–16 indexes but omits the ordered suit symbols held in metadata. A player holding two real cards cannot identify the intended row without reopening the PDF."
+    },
+    {
+      "needId": "depths-depths-rare-special",
+      "classification": "PARTIAL",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        19
+      ],
+      "printedPage": "16",
+      "problem": "TABLE renders numerical 1–16 indexes but omits the ordered suit symbols held in metadata. A player holding two real cards cannot identify the intended row without reopening the PDF."
+    },
+    {
+      "needId": "depths-depths-rare-easier",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        21
+      ],
+      "printedPage": "18",
+      "problem": "This is a card-rank/suit or player-choice lookup, correctly not a uniform die roller. Full options and ordering/cost notes are available in TABLE / SOURCE; the overall creature-stat calculation is audited separately."
+    },
+    {
+      "needId": "depths-depths-enemystats",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        15
+      ],
+      "printedPage": "12",
+      "problem": "The stat cells, 2–16+ range and TR−d4 expression are readable, but the contextual-input instruction is in SOURCE and the table has no direct contextual entry point."
+    },
+    {
+      "needId": "sd-sd-crowdsizes",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        11
+      ],
+      "printedPage": "9",
+      "problem": "Full special-use instructions are in SOURCE rather than the main table/result: embedded population expressions and incompatible d1000/3d10 alternatives in the source."
+    },
+    {
+      "needId": "sd-sd-building-material",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "10",
+      "problem": "Full special-use instructions are in SOURCE rather than the main table/result: Material ×d2 and Other → Materials."
+    },
+    {
+      "needId": "depths-depths-orakle",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        6
+      ],
+      "printedPage": "3",
+      "problem": "Full special-use instructions are in SOURCE rather than the main table/result: likelihood dice, keeping highest/lowest and stacking 10 events."
+    },
+    {
+      "needId": "reclvse-reclvse-random-table",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        109
+      ],
+      "printedPage": "109",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "reclvse-reclvse-street-quick-content",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        98
+      ],
+      "printedPage": "98",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "reclvse-reclvse-powers",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        35,
+        36
+      ],
+      "printedPage": "35, 36",
+      "problem": "The complete replacement d66 effects are readable, but the exact title search Powers ranks Mythic meaning.powers first. RECLVSE Powers narrows correctly. Named-Power lookup is separately audited; Core names must not substitute."
+    },
+    {
+      "needId": "reclvse-reclvse-ruinedstate",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "42",
+      "problem": "Original selector/follow-up text is present, but the selected named target is not a direct canonical link in the ordinary standalone result. The player must search the next table separately."
+    },
+    {
+      "needId": "aitc-aitc-notable-artefact-type",
+      "classification": "PARTIAL",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        11
+      ],
+      "printedPage": "9",
+      "problem": "Generated results display conditional/effect metadata, but TABLE displays only entry.text and simple child text. A known row can therefore omit its required condition or effect when looked up directly."
+    },
+    {
+      "needId": "aitc-aitc-special-structures-small",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "10",
+      "problem": "The table result is readable, but settlement-size selection or optional staffed-site guidance sits in result metadata and linked tables rather than the standalone TABLE view. No missing mandatory effect is inferred from a duplicated helper note."
+    },
+    {
+      "needId": "aitc-aitc-special-structures-large",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "10",
+      "problem": "The table result is readable, but settlement-size selection or optional staffed-site guidance sits in result metadata and linked tables rather than the standalone TABLE view. No missing mandatory effect is inferred from a duplicated helper note."
+    },
+    {
+      "needId": "aitc-aitc-street-contents",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        17
+      ],
+      "printedPage": "15",
+      "problem": "The table result is readable, but settlement-size selection or optional staffed-site guidance sits in result metadata and linked tables rather than the standalone TABLE view. No missing mandatory effect is inferred from a duplicated helper note."
+    },
+    {
+      "needId": "sd-omens-variant",
+      "classification": "PARTIAL",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        5
+      ],
+      "printedPage": "3",
+      "problem": "At HEAD 479cbd7, the reference now mentions rerolling one or two dice, but still omits the explicit maximum of four Omens and their role as a Move stat. It introduces stage-escalation/cap wording that is not the Omens rule on the supplied page."
+    },
+    {
+      "needId": "sd-powers-variant",
+      "classification": "PARTIAL",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        5
+      ],
+      "printedPage": "3",
+      "problem": "The source-specific exception for Power failures and single-die combat is not fully explained by the short solo-variant notice."
+    },
+    {
+      "needId": "sd-begin-adventure",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        7
+      ],
+      "printedPage": "5",
+      "problem": "Milestone counts by adventure length have no usable quick reference or matching search result."
+    },
+    {
+      "needId": "sd-complete-milestone",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        7
+      ],
+      "printedPage": "5",
+      "problem": "The milestone-triggered Getting Better instruction is not linked from an SD adventure reference."
+    },
+    {
+      "needId": "sd-conclude-adventure",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        7
+      ],
+      "printedPage": "5",
+      "problem": "The Omens move, length-dependent DR and Strong/Weak/Fail completion branches are absent."
+    },
+    {
+      "needId": "sd-microcrawl",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        20
+      ],
+      "printedPage": "18",
+      "problem": "The d4 waypoint procedure and its descriptor/exit guidance are absent. AitC City Micro-crawl is a different, available procedure."
+    },
+    {
+      "needId": "sd-creature-cult-farmwife",
+      "classification": "PARTIAL",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        36
+      ],
+      "printedPage": "34",
+      "problem": "The example prints a usable creature definition; the current creature reference index contains no matching complete definition. Only the per-round action table is present."
+    },
+    {
+      "needId": "sd-creature-sacrificial-shades",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        36
+      ],
+      "printedPage": "34",
+      "problem": "The example prints a usable creature definition; the current creature reference index contains no matching complete definition. "
+    },
+    {
+      "needId": "sd-creature-cult-enforcers",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        36
+      ],
+      "printedPage": "34",
+      "problem": "The example prints a usable creature definition; the current creature reference index contains no matching complete definition. "
+    },
+    {
+      "needId": "sd-creature-farm-cultists",
+      "classification": "MISSING",
+      "book": "Sölitary Defilement",
+      "pdfPage": [
+        36
+      ],
+      "printedPage": "34",
+      "problem": "The example prints a usable creature definition; the current creature reference index contains no matching complete definition. Do not substitute a base Scum entry where the scenario changes the attack."
+    },
+    {
+      "needId": "depths-orakle-odds",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        6
+      ],
+      "printedPage": "3",
+      "problem": "Likelihood dice and repeated-10 event instructions are retained in the Orakle SOURCE note; they are not lost, but the ordinary result is only Yes/No/Event. Event Focus and Chaos are separate searchable tables."
+    },
+    {
+      "needId": "depths-orakle-dr",
+      "classification": "MISSING",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        7,
+        9
+      ],
+      "printedPage": "4, 6",
+      "problem": "The optional Yes-derived DR, limits/modifiers and TR adjustment are not in the current usable rule references or Orakle data."
+    },
+    {
+      "needId": "depths-rare-five-card",
+      "classification": "PARTIAL",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "printedPage": "13, 14, 15, 16",
+      "problem": "Card look, feature, intention and special tables exist, but the card 3–5 HP/armor/morale/damage computation and repeated double-spade dependency are not fully specified in rule:depths.rareMonster. A player still needs PDF18–19 to construct the stat block."
+    },
+    {
+      "needId": "depths-hex-encounters",
+      "classification": "PARTIAL",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33
+      ],
+      "printedPage": "22, 23, 24, 25, 26, 27, 28, 29, 30",
+      "problem": "The quick rule explains d20 versus Encounter Level, grouping and monster reaction adjustment, but no current reference supplies all eight regional Encounter Level numbers or the unmarked-region selection guidance."
+    },
+    {
+      "needId": "depths-regional-dungeon-alternative",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        23,
+        24
+      ],
+      "printedPage": "20, 21",
+      "problem": "The component tables and regional Common encounter route are accessible. The book’s optional Trait/Discovery/Chaos recipe is not grouped beside the room-preparation reference. Current four-room policy is clearly an app choice and is not a rules error."
+    },
+    {
+      "needId": "depths-lake-onda-route",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        29
+      ],
+      "printedPage": "26",
+      "problem": "The regional d6 identity/quantity table is searchable and inspectable, but this source region has no matching RegionId hub / regional-monster action. A player must manually search the named primary creature source."
+    },
+    {
+      "needId": "depths-bergen-chrypt-route",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Sölitary Depths",
+      "pdfPage": [
+        31
+      ],
+      "printedPage": "28",
+      "problem": "The regional d6 identity/quantity table is searchable and inspectable, but this source region has no matching RegionId hub / regional-monster action. A player must manually search the named primary creature source."
+    },
+    {
+      "needId": "aitc-derive",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        5,
+        6
+      ],
+      "printedPage": "3, 4",
+      "problem": "Fixed street-count travel and DR10 Strong/Weak progress are implemented, but this procedure is reached through the City workspace instead of a directly searchable use reference."
+    },
+    {
+      "needId": "aitc-merchant",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        10
+      ],
+      "printedPage": "8",
+      "problem": "The modifier-aware 2d6 table and negotiation branches are implemented in City tools. Generic search primarily exposes the unmodified lookup."
+    },
+    {
+      "needId": "aitc-lookup-spider-owl",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        8
+      ],
+      "printedPage": "6",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-lookup-assassin",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        15
+      ],
+      "printedPage": "13",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-lookup-soldier",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        15
+      ],
+      "printedPage": "13",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-lookup-hard-case",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        16
+      ],
+      "printedPage": "14",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-lookup-fugitive",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        16
+      ],
+      "printedPage": "14",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-lookup-guards",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        16
+      ],
+      "printedPage": "14",
+      "problem": "The named source entry has its usable stat/effect text inside the broader table, but search indexes table titles/metadata rather than individual entry names. Finding this known creature requires opening and scanning the table."
+    },
+    {
+      "needId": "aitc-item-berserker-s-honey",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-defixione",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-poppet",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-horse-powder",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-accursed-rhubarb",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-aqua-vitae",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-uric-vigour",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-pick-me-up",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-embalming-fluid",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-bone-saw",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-algae-flakes",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-dried-mushrooms",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "12",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-item-cursed-toys",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        15
+      ],
+      "printedPage": "13",
+      "problem": "Relevant purchase/use material is embedded in Businesses or the Cursed Toy table; the named item is not a fixed reference search result."
+    },
+    {
+      "needId": "aitc-scenario-haav-custodian",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        21
+      ],
+      "printedPage": "19",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-scenario-aversus-the-demi-lich",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-scenario-svampist-acolyte",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-scenario-leech-swarm",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-scenario-svampist-adept",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-scenario-svamp-the-heretical-prophet",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied scenario contains an actual fixed stat block and any special mechanics, but the current creature/reference registry has no usable named entry. Scenario prose itself is assessed as PDF-appropriate."
+    },
+    {
+      "needId": "aitc-chalice-of-ruin",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        21,
+        22
+      ],
+      "printedPage": "19, 20",
+      "problem": "This named scenario objective has an explicit use consequence and target handling; neither a fixed item reference nor its mechanical summary exists."
+    },
+    {
+      "needId": "aitc-scenario-table-galgenbeck-catacombs-common-encounters",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied keyed scenario gives a fixed encounter table with source-specific dice and entries; there is no corresponding lookup in the current registry."
+    },
+    {
+      "needId": "aitc-scenario-table-galgenbeck-catacombs-rare-encounters",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied keyed scenario gives a fixed encounter table with source-specific dice and entries; there is no corresponding lookup in the current registry."
+    },
+    {
+      "needId": "aitc-scenario-table-svamp-townhouse-common-encounters",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied keyed scenario gives a fixed encounter table with source-specific dice and entries; there is no corresponding lookup in the current registry."
+    },
+    {
+      "needId": "aitc-scenario-table-svamp-townhouse-rare-encounters",
+      "classification": "MISSING",
+      "book": "Alöne in the Crowd",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "20",
+      "problem": "The supplied keyed scenario gives a fixed encounter table with source-specific dice and entries; there is no corresponding lookup in the current registry."
+    },
+    {
+      "needId": "reclvse-travel-road",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        49
+      ],
+      "printedPage": "49",
+      "problem": "The initial move is summarized, but its Miss names Hold Your Bearing without supplying that move’s complete result branches."
+    },
+    {
+      "needId": "reclvse-delve",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        67
+      ],
+      "printedPage": "67",
+      "problem": "The move’s outcomes are available. Room Generation is named and component tables can be searched, but no complete ordered room reference is linked; the repeated source p88 cross-reference points to the entrance section."
+    },
+    {
+      "needId": "reclvse-rule-advantage-and-disadvantage",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "12",
+      "problem": "The source supplies 3d20 keep-two rule, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-critical-die",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        12
+      ],
+      "printedPage": "12",
+      "problem": "The source supplies designated die and outcome-dependent criticals, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reclvse-character-creation",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        17
+      ],
+      "printedPage": "17",
+      "problem": "The source supplies ability, HP, starting equipment and capacity sequence, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reclvse-omens",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        18
+      ],
+      "printedPage": "18",
+      "problem": "The source supplies daily refresh, cap and permitted uses, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-invoke-a-power",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        18
+      ],
+      "printedPage": "18",
+      "problem": "The source supplies uses, attribute, partial failure and corruption trigger, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-armor-degradation",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        32
+      ],
+      "printedPage": "32",
+      "problem": "The source supplies critical defense damage to a source-specific armor tier, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-pricing-guide",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        34
+      ],
+      "printedPage": "34",
+      "problem": "The source supplies price tiers, services and contextual multipliers, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-guarding",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "42",
+      "problem": "The source supplies defense roll and one-hit shield sacrifice, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-criticals-and-fumbles-in-combat",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "42",
+      "problem": "The source supplies attack/defense crit and fumble effects, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reclvse-morale",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        42
+      ],
+      "printedPage": "42",
+      "problem": "The source supplies triggers and break resolution, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-below-zero-death-and-recovery",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "43",
+      "problem": "The source supplies death boundary, short/full recovery and source-summary differences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-infection",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "43",
+      "problem": "The source supplies healing prevention and daily loss, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-medicine-kit",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        43
+      ],
+      "printedPage": "43",
+      "problem": "The source supplies uses, healing and treatment, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-start-a-quest",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "45",
+      "problem": "The source supplies rank and initial progress, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-quest-progress-tracks",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        45
+      ],
+      "printedPage": "45",
+      "problem": "The source supplies segments by rank, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-advance-a-quest",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "46",
+      "problem": "The source supplies progress and consequences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-face-a-setback",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "46",
+      "problem": "The source supplies progress loss and costs, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-fulfill-a-quest",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        46
+      ],
+      "printedPage": "46",
+      "problem": "The source supplies completion and failure reset, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-determine-journey-length",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        49
+      ],
+      "printedPage": "49",
+      "problem": "The source supplies duration by scope and result, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-move-through-an-area",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        49
+      ],
+      "printedPage": "49",
+      "problem": "The source supplies journey progress and costs, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reclvse-daily-travel-loop",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        49
+      ],
+      "printedPage": "49",
+      "problem": "The source supplies source-specific dawn, activity, supply and night sequence, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-face-the-wilds",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "50",
+      "problem": "The source supplies ability alternatives and outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-tracking",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "50",
+      "problem": "The source supplies trail results, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-endure-the-environment",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "50",
+      "problem": "The source supplies resistance and harm outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-discover-a-feature",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        50
+      ],
+      "printedPage": "50",
+      "problem": "The source supplies discovery and complication outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-weather-move",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "51",
+      "problem": "The source supplies travel advantage/disadvantage and weather interpretation, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-hunt",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "51",
+      "problem": "The source supplies prey encounter and complication, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-butcher-a-kill",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "51",
+      "problem": "The source supplies ration yield and failure, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-make-camp",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "51",
+      "problem": "The source supplies HP recovery and Night Encounter branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-night-encounter",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        51
+      ],
+      "printedPage": "51",
+      "problem": "The source supplies quiet/complication/threat outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-hold-your-bearing",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "52",
+      "problem": "The source supplies lost-route consequences and next navigation DR, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-foraging-move",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        52
+      ],
+      "printedPage": "52",
+      "problem": "The source supplies ration yield and contamination branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-tend-wounds",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "53",
+      "problem": "The source supplies healing and failure harm, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-short-rest-move",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "53",
+      "problem": "The source supplies HP and next-action modifiers, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-starvation",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        53
+      ],
+      "printedPage": "53",
+      "problem": "The source supplies daily ration and next-day penalties, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reclvse-city-crawl",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        55
+      ],
+      "printedPage": "55",
+      "problem": "The source supplies Agility move with source-specific street outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-collect-information",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        56
+      ],
+      "printedPage": "56",
+      "problem": "The source supplies social information move, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-influence",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        56
+      ],
+      "printedPage": "56",
+      "problem": "The source supplies cooperation and conditions, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-prepare",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        56
+      ],
+      "printedPage": "56",
+      "problem": "The source supplies tactical advantage move, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-find-a-location",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        56
+      ],
+      "printedPage": "56",
+      "problem": "The source supplies location search outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-barter",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "57",
+      "problem": "The source supplies trade outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-read-intent",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "57",
+      "problem": "The source supplies reading motives, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reassure-or-steady",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "57",
+      "problem": "The source supplies fear/disadvantage removal, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-deceive-or-mislead",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        57
+      ],
+      "printedPage": "57",
+      "problem": "The source supplies deception outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-intimidate",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "58",
+      "problem": "The source supplies coercion outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-parley",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "58",
+      "problem": "The source supplies negotiation under threat, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-leaving-the-city",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        58
+      ],
+      "printedPage": "58",
+      "problem": "The source supplies exit resolution and travel-move routing, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-finding-hirelings",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        59
+      ],
+      "printedPage": "59",
+      "problem": "The source supplies 2d6+Presence availability bands, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-hireling-morale-checks",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        59
+      ],
+      "printedPage": "59",
+      "problem": "The source supplies triggers, score comparison and consequence roll, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-connection-track",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        63
+      ],
+      "printedPage": "63",
+      "problem": "The source supplies six-point benefits and gain/loss conditions, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-connection-fallout",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        64
+      ],
+      "printedPage": "64",
+      "problem": "The source supplies loss, zero-track severance, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-test-a-connection",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        65
+      ],
+      "printedPage": "65",
+      "problem": "The source supplies assistance and consequences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-maintain-a-connection",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        65
+      ],
+      "printedPage": "65",
+      "problem": "The source supplies maintenance outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-form-a-connection",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        65
+      ],
+      "printedPage": "65",
+      "problem": "The source supplies initial progress, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-develop-a-connection",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        65
+      ],
+      "printedPage": "65",
+      "problem": "The source supplies progress and setbacks, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-navigate-the-passage",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        68
+      ],
+      "printedPage": "68",
+      "problem": "The source supplies corridor movement, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-search-the-room",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        68
+      ],
+      "printedPage": "68",
+      "problem": "The source supplies search and equipment/loot follow-through, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-face-the-trap",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        68
+      ],
+      "printedPage": "68",
+      "problem": "The source supplies source-specific trap avoidance, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-room-encounter",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        68
+      ],
+      "printedPage": "68",
+      "problem": "The source supplies initial positioning and combat branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-reveal-a-secret",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        69
+      ],
+      "printedPage": "69",
+      "problem": "The source supplies secret discovery, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-withstand-the-ruin",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        69
+      ],
+      "printedPage": "69",
+      "problem": "The source supplies environmental danger, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-retrace-your-steps",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        69
+      ],
+      "printedPage": "69",
+      "problem": "The source supplies backtracking outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-loot-bodies",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        69
+      ],
+      "printedPage": "69",
+      "problem": "The source supplies loot quantity and outcome, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-claim-a-shelter",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        71
+      ],
+      "printedPage": "71",
+      "problem": "The source supplies claim method and feature/complication branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-upkeep-track",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        73
+      ],
+      "printedPage": "73",
+      "problem": "The source supplies weekly upkeep and deterioration, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-maintain-your-shelter",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        73
+      ],
+      "printedPage": "73",
+      "problem": "The source supplies maintenance effect, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-build-or-barricade",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        73
+      ],
+      "printedPage": "73",
+      "problem": "The source supplies time cost and consequences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-abandonment-destruction",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        73
+      ],
+      "printedPage": "73",
+      "problem": "The source supplies stored gear and upkeep consequences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-pursuit-of-growth",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        77
+      ],
+      "printedPage": "77",
+      "problem": "The source supplies advancement outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-advancement-options",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        77
+      ],
+      "printedPage": "77",
+      "problem": "The source supplies limits and options, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-adventure-reveal-safe-preparation",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        79
+      ],
+      "printedPage": "79",
+      "problem": "The source supplies safe-reading scope for prewritten adventures, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-room-entry-procedure",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        80
+      ],
+      "printedPage": "80",
+      "problem": "The source supplies step order and source-contained interpretation, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-module-momentum-loop",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        80
+      ],
+      "printedPage": "80",
+      "problem": "The source supplies follow-module-first rule, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-searching-path-failure-escalation-within-a-module",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        81
+      ],
+      "printedPage": "81",
+      "problem": "The source supplies restrictions that prevent spoilers and outside invention, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-clarify-the-text",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        82
+      ],
+      "printedPage": "82",
+      "problem": "The source supplies module interpretation move, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-choose-a-direction",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        82
+      ],
+      "printedPage": "82",
+      "problem": "The source supplies module path selection, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-determine-npc-intent",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        82
+      ],
+      "printedPage": "82",
+      "problem": "The source supplies module NPC interpretation, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-rule-ask-the-oracle",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        85
+      ],
+      "printedPage": "85",
+      "problem": "The source supplies likelihood thresholds for a d100 question, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+    },
+    {
+      "needId": "reclvse-blessing-rapid-investment",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        13
+      ],
+      "printedPage": "13",
+      "problem": "The named optional starting blessing has distinct numeric effects and conditions that are absent from the current reference data."
+    },
+    {
+      "needId": "reclvse-blessing-progress-inheritance",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        13
+      ],
+      "printedPage": "13",
+      "problem": "The named optional starting blessing has distinct numeric effects and conditions that are absent from the current reference data."
+    },
+    {
+      "needId": "reclvse-blessing-vital-commitments",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        13
+      ],
+      "printedPage": "13",
+      "problem": "The named optional starting blessing has distinct numeric effects and conditions that are absent from the current reference data."
+    },
+    {
+      "needId": "reclvse-blessing-enhanced-fortitude",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "14",
+      "problem": "The named optional starting blessing has distinct numeric effects and conditions that are absent from the current reference data."
+    },
+    {
+      "needId": "reclvse-blessing-legacy-sacrifice",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        14
+      ],
+      "printedPage": "14",
+      "problem": "The named optional starting blessing has distinct numeric effects and conditions that are absent from the current reference data."
+    },
+    {
+      "needId": "reclvse-class-defiler",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        20
+      ],
+      "printedPage": "20",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-class-venom",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        22
+      ],
+      "printedPage": "22",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-class-brute",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        24
+      ],
+      "printedPage": "24",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-class-vessel",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        26
+      ],
+      "printedPage": "26",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-class-beast",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        28
+      ],
+      "printedPage": "28",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-class-fanatic",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        30
+      ],
+      "printedPage": "30",
+      "problem": "The three option tables are present with their effects, but base ability adjustments, starting resources, intrinsic abilities and downside are not in a complete class reference."
+    },
+    {
+      "needId": "reclvse-relic-grief-engine",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-the-mute",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-prison-collar",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-well-of-shut-eyes",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-gallows-key",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-molly-s-candle",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        37
+      ],
+      "printedPage": "37",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-stitchwvrm",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-vizonn-s-chain",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-mask-of-the-unjudged",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-surgeon-s-saw",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-morphed-monocle",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-relic-druid-s-map",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        38
+      ],
+      "printedPage": "38",
+      "problem": "This named relic and its actual use, cost/duration or drawback are absent from the current private table/reference registry."
+    },
+    {
+      "needId": "reclvse-unspokens-calendar",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        9
+      ],
+      "printedPage": "9",
+      "problem": "The source-specific daily die choices and new-Truth / seventh-event procedure are absent; the Core Calendar cannot stand in for this variant."
+    },
+    {
+      "needId": "reclvse-unspokens-truths",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        9,
+        10
+      ],
+      "printedPage": "9, 10",
+      "problem": "No corresponding table or fixed lookup exists in the current private registry."
+    },
+    {
+      "needId": "reclvse-krav",
+      "classification": "MISSING",
+      "book": "RECLVSE",
+      "pdfPage": [
+        60
+      ],
+      "printedPage": "60",
+      "problem": "The named hireling has explicit HP, Morale, carrying capacity and flaw, but no fixed reference exists."
+    },
+    {
+      "needId": "reclvse-power-name-lookup",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        35,
+        36
+      ],
+      "printedPage": "35, 36",
+      "problem": "All 36 replacement Power effects are in the canonical d66 table, but individual Power names are not indexed. Grace of the Stillborn Saint returns no search result; a player must open Powers and scan the table."
+    },
+    {
+      "needId": "reclvse-beasts",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        75,
+        76
+      ],
+      "printedPage": "75, 76",
+      "problem": "All component tables and HP-range choice instructions are available, but their required/optional relationship is not grouped into one usable procedure."
+    },
+    {
+      "needId": "reclvse-wildlife",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        76
+      ],
+      "printedPage": "76",
+      "problem": "HP ranges are available, but the source’s ordinary/large-predator damage guidance and typical armor are not attached to the wildlife reference."
+    },
+    {
+      "needId": "reclvse-quick-room",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        90
+      ],
+      "printedPage": "90",
+      "problem": "All five tables exist and the twice-on-size/shape caveat is preserved in SOURCE, but there is no grouped ordered procedure reference."
+    },
+    {
+      "needId": "reclvse-full-room",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        90,
+        91,
+        92,
+        93
+      ],
+      "printedPage": "90, 91, 92, 93",
+      "problem": "All component tables exist, but the ordered sequence, optional extent, content selection and paired exit instruction are not available as one reference."
+    },
+    {
+      "needId": "reclvse-quick-street",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        98
+      ],
+      "printedPage": "98",
+      "problem": "The source’s five-roll instruction is in each table’s SOURCE note, but the five sibling tables are not exposed as one quick use reference."
+    },
+    {
+      "needId": "reclvse-full-street",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        98,
+        99,
+        100,
+        101
+      ],
+      "printedPage": "98, 99, 100, 101",
+      "problem": "The fourteen-step order and selective-use guidance are absent from a single usable reference, despite the component tables being present."
+    },
+    {
+      "needId": "reclvse-weather-detail",
+      "classification": "PARTIAL",
+      "book": "RECLVSE",
+      "pdfPage": [
+        107,
+        108
+      ],
+      "printedPage": "107, 108",
+      "problem": "The 1–3-table guidance and roll-20 → Unnatural Weather optional trigger are not attached to the current weather references."
+    },
+    {
+      "needId": "reclvse-adventure-calls",
+      "classification": "PRESENT_BUT_INDIRECT",
+      "book": "RECLVSE",
+      "pdfPage": [
+        138
+      ],
+      "printedPage": "138",
+      "problem": "The four-roll procedure is retained in each table’s SOURCE note, but the four tables are not grouped for immediate use."
+    },
+    {
+      "needId": "mythic-event-focus",
+      "classification": "PARTIAL",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "printedPage": "36, 37, 38, 39, 40, 41, 42",
+      "problem": "Focus labels and Meaning rolls are present. NPC/Thread results do not explain which notebook list to consult; empty-list and selection rules are not available. Search random event also puts the prepared-adventure variant first."
+    },
+    {
+      "needId": "mythic-choose-focus",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        43,
+        44
+      ],
+      "printedPage": "42, 43",
+      "problem": "The circumstance-to-focus reference and optional choice allowance are absent. Reading a visible focus row can replace a roll, but does not explain when the source permits choosing."
+    },
+    {
+      "needId": "mythic-lists",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        45,
+        46,
+        47
+      ],
+      "printedPage": "44, 45, 46",
+      "problem": "The event result can invoke a Thread/NPC but the 5-line section dice, blank Choose result and empty-list substitution are not explained in the app."
+    },
+    {
+      "needId": "mythic-first-scene",
+      "classification": "PARTIAL",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        64,
+        65,
+        66,
+        67
+      ],
+      "printedPage": "63, 64, 65, 66",
+      "problem": "The 4W procedure works, but its presence does not explain the alternative first-scene methods or that the first scene is not tested against Chaos."
+    },
+    {
+      "needId": "mythic-altered-followthrough",
+      "classification": "PARTIAL",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        68,
+        69,
+        70,
+        71,
+        72,
+        73
+      ],
+      "printedPage": "67, 68, 69, 70, 71, 72",
+      "problem": "Scene Check reports Altered but does not explain its next-most-expected meaning or offer a direct Scene Adjustment link. The separate table has only outcome labels: 7–10 Make 2 Adjustments omits repeat/conflict handling."
+    },
+    {
+      "needId": "mythic-automatic-interrupt",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        80,
+        81
+      ],
+      "printedPage": "79, 80",
+      "problem": "No concise reference explains bypassing the scene test or fixing Event Focus when stuck."
+    },
+    {
+      "needId": "mythic-npc-behavior",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "printedPage": "106, 107, 108, 109, 110, 111",
+      "problem": "Many NPC inspiration tables exist, but this specific outcome-to-action reminder is absent. The Random Event branch fixes Current Context and supplements the NPC action; generic event focus rolling is not the same procedure."
+    },
+    {
+      "needId": "mythic-list-bookkeeping",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        112,
+        113,
+        114
+      ],
+      "printedPage": "111, 112, 113",
+      "problem": "The maximum three entries per element and full-list consolidation rule are absent. Optional app Threads are not a reference for this paper-list procedure."
+    },
+    {
+      "needId": "mythic-chaos-variants",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        115
+      ],
+      "printedPage": "114",
+      "problem": "Panel states only the normal control-based adjustment. The two source alternatives are not retrievable."
+    },
+    {
+      "needId": "mythic-fate-rpg",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        31
+      ],
+      "printedPage": "30",
+      "problem": "The optional CF5, normally ignore exceptional/random events rule is absent. It is not a replacement for missing MÖRK BORG combat rules in this audit."
+    },
+    {
+      "needId": "mythic-npc-statistics",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        128,
+        129,
+        190,
+        218
+      ],
+      "printedPage": "127, 128, 189, 217",
+      "problem": "The generic Fate roller exists, but the statistic-result mapping and automatic Current Context special-condition branch are not exposed. This optional Mythic method starts with a player-chosen expected value; it is not verified MÖRK BORG creature data."
+    },
+    {
+      "needId": "mythic-thread-progress",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        133,
+        134,
+        135,
+        136,
+        191,
+        219
+      ],
+      "printedPage": "132, 133, 134, 135, 190, 218",
+      "problem": "The optional 10/15/20-point rules, progress versus Flashpoint distinction, five-point phase checks, one Flashpoint per phase and timing are absent. Existing generic Threads are campaign notes, not this method."
+    },
+    {
+      "needId": "mythic-thread-discovery-fate",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        136,
+        137,
+        191,
+        220
+      ],
+      "printedPage": "135, 136, 190, 219",
+      "problem": "The minimum odds, prerequisite discovery action and four Fate-answer branches are absent. Exceptional Yes combines two Discovery checks; Exceptional No prohibits another check this Scene. An ordinary Fate answer does not expose these consequences."
+    },
+    {
+      "needId": "mythic-thread-discovery-table",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        137,
+        138,
+        220
+      ],
+      "printedPage": "136, 137, 219",
+      "problem": "The eight ranges of d10 plus current Progress, including the open-ended final range and Progress/Flashpoint/Track/Strengthen distinctions, are absent from the registry."
+    },
+    {
+      "needId": "mythic-thread-conclusion",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        138,
+        139,
+        140,
+        141,
+        191
+      ],
+      "printedPage": "137, 138, 139, 140, 190",
+      "problem": "The optional Focus Thread protection and removal at full progress are absent, including the delayed Conclusion exception that skips the next Expected Scene Chaos test. This is distinct from ordinary scene testing."
+    },
+    {
+      "needId": "mythic-player-knowledge",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        142,
+        143,
+        144,
+        145,
+        221
+      ],
+      "printedPage": "141, 142, 143, 144, 220",
+      "problem": "The four-strategy summary is absent, including the mechanically consequential search/test-before-Fate ordering. Generic Oracle access does not explain when a hidden fact becomes established."
+    },
+    {
+      "needId": "mythic-mid-chaos-chart",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        148,
+        222
+      ],
+      "printedPage": "147, 221",
+      "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds."
+    },
+    {
+      "needId": "mythic-low-chaos-chart",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        149,
+        222
+      ],
+      "printedPage": "148, 221",
+      "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds."
+    },
+    {
+      "needId": "mythic-no-chaos-chart",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        149,
+        222
+      ],
+      "printedPage": "148, 221",
+      "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds."
+    },
+    {
+      "needId": "mythic-mid-chaos-check",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        148,
+        223
+      ],
+      "printedPage": "147, 222",
+      "problem": "The alternate grouped Chaos modifier table is absent; checkModifier always uses the standard full-strength modifier array."
+    },
+    {
+      "needId": "mythic-low-chaos-check",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        149,
+        223
+      ],
+      "printedPage": "148, 222",
+      "problem": "The alternate grouped Chaos modifier table is absent; checkModifier always uses the standard full-strength modifier array."
+    },
+    {
+      "needId": "mythic-hold-chaos",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        150
+      ],
+      "printedPage": "149",
+      "problem": "The option to remove Chaos only from Fate answers while retaining it for Scene and Random Event checks is absent. The source also permits player-chosen narrower Scene/Event Chaos ranges."
+    },
+    {
+      "needId": "mythic-keyed-scenes",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        150,
+        151,
+        152,
+        153,
+        155,
+        156,
+        191
+      ],
+      "printedPage": "149, 150, 151, 152, 154, 155, 190",
+      "problem": "The actual optional procedure is absent: player-defined trigger, next-Scene event, normal Expected/Altered/Interrupt handling, Current Context option, count/randomizer/frequency conditions and nullification."
+    },
+    {
+      "needId": "mythic-keyed-scene-templates",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        151,
+        152,
+        155
+      ],
+      "printedPage": "150, 151, 154",
+      "problem": "The source provides five labeled, operational examples (Let’s Rumble, Boss Fight, The Horror, Set Dungeon Tone, Stay On Schedule), with explicit conditions. No reference exposes these sample trigger/event packets."
+    },
+    {
+      "needId": "mythic-prepared-scaling",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        158,
+        159,
+        191
+      ],
+      "printedPage": "157, 158, 190",
+      "problem": "The source’s player-estimated scaling guideline for a solo PC is absent. It is explicitly approximate and may change encounter quantity OR individual power; it is not a fixed source stat block."
+    },
+    {
+      "needId": "mythic-adventure-features",
+      "classification": "PARTIAL",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        159,
+        160,
+        161,
+        165,
+        192,
+        225
+      ],
+      "printedPage": "158, 159, 160, 164, 191, 224",
+      "problem": "The canonical Prepared Adventure Focus table mentions the player-maintained Features List, but the usable reference does not describe selecting source-specific features or the optional Meaning step when a feature already determines the consequence."
+    },
+    {
+      "needId": "mythic-prepared-scene-test",
+      "classification": "PARTIAL",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        192
+      ],
+      "printedPage": "159, 160, 161, 162, 163, 164, 191",
+      "problem": "The replacement focus table is present, but the current Scene roller always chooses Altered/Interrupt within Chaos. The supplied prepared-adventure variant retains the Expected Scene and adds an event instead; it also uses the replacement focus table. That mode/procedure is unavailable."
+    },
+    {
+      "needId": "mythic-peril-points",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        171,
+        172,
+        192
+      ],
+      "printedPage": "170, 171, 191",
+      "problem": "The optional limited narrative-rescue resource, suggested initial pool and player choice of replenishment are absent. MÖRK BORG Omens are a different rule and do not resolve this lookup."
+    },
+    {
+      "needId": "mythic-crafter-integration",
+      "classification": "MISSING",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        172,
+        173,
+        174,
+        175,
+        176,
+        192,
+        227
+      ],
+      "printedPage": "171, 172, 173, 174, 175, 191, 226",
+      "problem": "The supplied Mythic text fully describes integration: Turning Points for opening/Interrupt only, Mythic Lists, immediate additions, full-list 2d10 invocation, empty-line choices and PC handling. None is exposed as a quick reference."
+    },
+    {
+      "needId": "mythic-crafter-source",
+      "classification": "SOURCE_UNAVAILABLE",
+      "book": "Mythic Game Master Emulator Second Edition",
+      "pdfPage": [
+        172,
+        173,
+        175
+      ],
+      "printedPage": "171, 172, 174",
+      "problem": "This book refers to external Adventure Crafter generation tables and an optional deck; they are not printed here and no supplied file or installed canonical source contains them. The integration instructions themselves are available and separately audited."
+    }
+  ]
+}

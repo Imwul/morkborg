@@ -45,7 +45,6 @@ import {
 import { ReferenceContext, useReferenceDesk } from './ReferenceContext';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { useRules } from '../storage/rulesStore';
-import type { RuleEntry } from '../storage/rulesStore';
 import {
   readReferencePreferences,
   writeReferencePreferences,
@@ -56,7 +55,6 @@ import { selectOracleEntry, sourceLabel } from '../generators/oracleRoller';
 import {
   copyReferenceReading,
   oracleReadingText,
-  oraclePrintedRange,
   oracleFollowUpLinks,
   type ReferenceReading,
 } from '../domain/referenceReading';
@@ -66,6 +64,9 @@ import { SourceDisclosure } from './SourceDisclosure';
 import { BookLabel, SourceText } from './SourceText';
 import { compactSourceText } from '../domain/sourceDisplay';
 import { CityRoller } from './CityRoller';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { ReferenceTable } from './ReferenceTable';
+import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
 
 const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
@@ -122,7 +123,9 @@ export function ReferenceProvider({
     selected?.action?.kind === 'rule'
       ? {
           title: selected.title,
-          blocks: [{ title: '', text: selected.summary }],
+          blocks: selected.definition?.blocks ?? [
+            { title: '', text: selected.summary },
+          ],
           sourceRefs: selected.sourceRefs,
         }
       : selectedId
@@ -171,7 +174,7 @@ export function ReferenceProvider({
     const entry = index.byId[entryId];
     if (!entry) return;
     entryId = entry.id;
-    if (entry.action?.kind === 'city' && onCity) {
+    if (entry.action?.kind === 'city' && !entry.action.move && onCity) {
       touchEntry(entryId);
       setSearchOpen(false);
       setSelectedId(null);
@@ -509,6 +512,7 @@ export function ReferenceProvider({
               </DialogDescription>
               {!reading &&
                 !plainRule &&
+                !city &&
                 !tableView &&
                 selected.kind !== 'region' && (
                   <p className="reference-summary">
@@ -553,75 +557,58 @@ export function ReferenceProvider({
                     ))}
                 </div>
               )}
-              {city && (
-                <div className="ref-related city-start-tools">
-                  {[
-                    'procedure:aitc.street',
-                    'procedure:aitc.settlement',
-                    'oracle:aitc.npc-encounters',
-                    'oracle:aitc.businesses',
-                  ]
-                    .map((key) => index.byId[key])
-                    .filter(Boolean)
-                    .map((entry) => (
-                      <button
-                        key={entry.id}
-                        title={entry.title}
-                        onClick={() => activate(entry.id, isOneClick(entry))}
-                      >
-                        {referenceShortName(entry)} ↗
-                      </button>
-                    ))}
-                </div>
-              )}
+              {city &&
+                !(selected.action?.kind === 'city' && selected.action.move) && (
+                  <div className="ref-related city-start-tools">
+                    {[
+                      'procedure:aitc.street',
+                      'procedure:aitc.settlement',
+                      'oracle:aitc.npc-encounters',
+                      'oracle:aitc.businesses',
+                    ]
+                      .map((key) => index.byId[key])
+                      .filter(Boolean)
+                      .map((entry) => (
+                        <button
+                          key={entry.id}
+                          title={entry.title}
+                          onClick={() => activate(entry.id, isOneClick(entry))}
+                        >
+                          {referenceShortName(entry)} ↗
+                        </button>
+                      ))}
+                  </div>
+                )}
               {tableView && selected.kind === 'oracle' && (
                 <details className="reference-static-table" open>
                   <summary>TABLE · 원문 표 보기</summary>
-                  {selected.canonicalIds
+                  {[...new Set(selected.canonicalIds)]
                     .flatMap((key) =>
                       oracles.registry.tables.filter(
                         (table) => table.id === key,
                       ),
                     )
                     .map((table) => (
-                      <section key={table.id}>
-                        <table>
-                          <caption>
-                            {table.title} · {table.originalDice ?? table.dice}
-                          </caption>
-                          <tbody>
-                            {table.entries.map((entry) => (
-                              <tr
-                                key={entry.id}
-                                className={
-                                  reading?.oracle?.rolls.some(
-                                    (roll) => roll.entryId === entry.id,
-                                  )
-                                    ? 'current-table-result'
-                                    : undefined
-                                }
-                              >
-                                <th scope="row">{oraclePrintedRange(entry)}</th>
-                                <td>
-                                  {entry.text}
-                                  {Array.isArray(entry.metadata?.followup) && (
-                                    <details className="table-followup">
-                                      <summary>조건부 추가 표</summary>
-                                      <ol>
-                                        {(
-                                          entry.metadata.followup as RuleEntry[]
-                                        ).map((child, index) => (
-                                          <li key={index}>{child.text}</li>
-                                        ))}
-                                      </ol>
-                                    </details>
-                                  )}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </section>
+                      <ReferenceTable
+                        key={table.id}
+                        table={table}
+                        currentEntryIds={
+                          reading?.oracle?.rolls.map((roll) => roll.entryId) ??
+                          []
+                        }
+                        onChoose={(table, entry) => {
+                          acceptReading(
+                            selected.id,
+                            selectReferenceReading(
+                              table,
+                              entry,
+                              oracles.registry,
+                            ),
+                            false,
+                          );
+                          setTableView(false);
+                        }}
+                      />
                     ))}
                 </details>
               )}
@@ -749,7 +736,18 @@ export function ReferenceProvider({
               </details>
               {city && (
                 <CityRoller
+                  key={selected.id}
                   registry={oracles.registry}
+                  initialMove={
+                    selected.action?.kind === 'city'
+                      ? selected.action.move
+                      : undefined
+                  }
+                  allowedMoves={
+                    selected.action?.kind === 'city' && selected.action.move
+                      ? [selected.action.move]
+                      : undefined
+                  }
                   onReading={(value) => acceptReading(selected.id, value)}
                 />
               )}
@@ -798,7 +796,14 @@ export function ReferenceProvider({
                             selected.title,
                             referenceShortName(selected),
                           ].includes(block.title)
-                        ) && <h3>{block.title}</h3>}
+                        ) && (
+                          <h3>
+                            <ReferenceLinkedText
+                              text={block.title}
+                              excludeId={selected.id}
+                            />
+                          </h3>
+                        )}
                       {block.kind === 'creature' &&
                       block.text.split('\n').length > 2 ? (
                         <>
@@ -809,7 +814,12 @@ export function ReferenceProvider({
                           </details>
                         </>
                       ) : (
-                        <p>{block.text}</p>
+                        <p>
+                          <ReferenceLinkedText
+                            text={block.text}
+                            excludeId={selected.id}
+                          />
+                        </p>
                       )}
                     </section>
                   ))}
@@ -1070,7 +1080,7 @@ export function ReferenceRow({
           <strong>{referenceShortName(entry)}</strong>
           {showMetadata && (
             <small>
-              {entry.kind.toUpperCase()}
+              {entry.definition?.kind ?? entry.kind.toUpperCase()}
               {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle && (
                 <>
                   {' '}

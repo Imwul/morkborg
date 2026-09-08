@@ -1,4 +1,5 @@
 import type { ReferenceContext } from './references';
+import type { SourceReference } from './types';
 
 export interface PlayReferenceRuleSeed {
   id: string;
@@ -10,10 +11,31 @@ export interface PlayReferenceRuleSeed {
   contexts: ReferenceContext[];
   oracles?: string[];
   seeFullRule?: boolean;
+  status?: SourceReference['status'];
 }
 
 /** Short, source-specific reminders. These do not change character or campaign rules. */
 export const PLAY_REFERENCE_RULES: PlayReferenceRuleSeed[] = [
+  {
+    id: 'core.improvised-weapons',
+    title: 'Improvised Weapons',
+    summary: 'Improvised weapons do d4 damage.\n급조 무기 피해 d4.',
+    book: 'core',
+    pages: [25],
+    printedPage: 25,
+    status: 'VERIFIED',
+    contexts: ['character', 'monster'],
+  },
+  {
+    id: 'core.unarmed',
+    title: 'Unarmed',
+    summary: 'Unarmed: d2 damage.\n맨손 피해 d2.',
+    book: 'core',
+    pages: [23],
+    printedPage: 23,
+    status: 'VERIFIED',
+    contexts: ['character', 'monster'],
+  },
   {
     id: 'feretory.three-dead-skulls',
     title: 'Three Dead Skulls · Grey Galth Inn 도박',

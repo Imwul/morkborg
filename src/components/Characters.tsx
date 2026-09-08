@@ -2,6 +2,11 @@ import { markCopiedIdentity } from '../domain/duplicationProvenance';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { hasManualEdits } from '../domain/generationProvenance';
 import { SourceText } from './SourceText';
+import { useReferenceDesk } from './ReferenceContext';
+import {
+  generatedReference,
+  generatedSourceReference,
+} from '../domain/generatedReferenceLinks';
 import { useState } from 'react';
 import {
   ArrowLeft,
@@ -87,6 +92,7 @@ export function Characters({
   notify: (message: string) => void;
 }) {
   const rules = useRules();
+  const desk = useReferenceDesk();
   useOracleRegistry();
   const selectedId = c.workspace.selected.characters,
     draft = c.drafts.characters;
@@ -186,6 +192,20 @@ export function Characters({
         }
         provenance={selected.fieldProvenance?.[spec.key]}
         showTools={editingCharacter}
+        onOpenReference={(() => {
+          if (editingCharacter || !desk || !selected) return;
+          const refId =
+            spec.key === 'omens'
+              ? 'rule:core.omens'
+              : spec.key === 'className'
+                ? `class:${selected.classId}`
+                : spec.key === 'armor'
+                  ? generatedReference(desk.entries, selected.armor)?.id
+                  : undefined;
+          return refId && desk.byId[refId]
+            ? () => desk.activate(refId)
+            : undefined;
+        })()}
         onChange={(v, s) =>
           edit((ch) => patchCharacterScalar(ch, spec.key, v, s))
         }
@@ -242,6 +262,15 @@ export function Characters({
                 source={item.source}
                 provenance={item.provenance ?? item.fieldProvenance?.text}
                 showTools={editingCharacter}
+                onOpenReference={(() => {
+                  if (editingCharacter || !desk) return;
+                  const entry = generatedSourceReference(
+                    desk.entries,
+                    item.text,
+                    item.provenance ?? item.fieldProvenance?.text,
+                  );
+                  return entry ? () => desk.activate(entry.id) : undefined;
+                })()}
                 onChange={(value) =>
                   edit((ch) => {
                     const target = ch[kind]?.find((x) => x.id === item.id);
@@ -492,7 +521,19 @@ export function Characters({
           </span>
           <h1>
             {selected.name || '이름 없는 자'}
-            <small>{selected.className || 'Character Sheet'}</small>
+            <small>
+              {desk?.byId[`class:${selected.classId}`] ? (
+                <button
+                  className="reference-inline-link"
+                  aria-label={`${selected.className} reference`}
+                  onClick={() => desk.activate(`class:${selected.classId}`)}
+                >
+                  {selected.className} ›
+                </button>
+              ) : (
+                selected.className || 'Character Sheet'
+              )}
+            </small>
           </h1>
           <span>
             {saved ? '기록됨 · 자동 저장' : '주사위가 부른 자 · 생성 후보'}

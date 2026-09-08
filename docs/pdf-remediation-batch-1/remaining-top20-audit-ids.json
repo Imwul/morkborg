@@ -1,0 +1,621 @@
+[
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-advantage-and-disadvantage",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      12
+    ],
+    "problem": "The source supplies 3d20 keep-two rule, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-critical-die",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      12
+    ],
+    "problem": "The source supplies designated die and outcome-dependent criticals, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-ask-the-oracle",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      85
+    ],
+    "problem": "The source supplies likelihood thresholds for a d100 question, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-reclvse-omens",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      18
+    ],
+    "problem": "The source supplies daily refresh, cap and permitted uses, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-invoke-a-power",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      18
+    ],
+    "problem": "The source supplies uses, attribute, partial failure and corruption trigger, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-guarding",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      42
+    ],
+    "problem": "The source supplies defense roll and one-hit shield sacrifice, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-criticals-and-fumbles-in-combat",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      42
+    ],
+    "problem": "The source supplies attack/defense crit and fumble effects, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-reclvse-morale",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      42
+    ],
+    "problem": "The source supplies triggers and break resolution, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-below-zero-death-and-recovery",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      43
+    ],
+    "problem": "The source supplies death boundary, short/full recovery and source-summary differences, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-infection",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      43
+    ],
+    "problem": "The source supplies healing prevention and daily loss, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-rule-medicine-kit",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      43
+    ],
+    "problem": "The source supplies uses, healing and treatment, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 5,
+    "needId": "reclvse-unspokens-calendar",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      9
+    ],
+    "problem": "The source-specific daily die choices and new-Truth / seventh-event procedure are absent; the Core Calendar cannot stand in for this variant."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-travel-road",
+    "classification": "PARTIAL",
+    "book": "RECLVSE",
+    "pdfPage": [
+      49
+    ],
+    "problem": "The initial move is summarized, but its Miss names Hold Your Bearing without supplying that move’s complete result branches."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-determine-journey-length",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      49
+    ],
+    "problem": "The source supplies duration by scope and result, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-move-through-an-area",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      49
+    ],
+    "problem": "The source supplies journey progress and costs, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-reclvse-daily-travel-loop",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      49
+    ],
+    "problem": "The source supplies source-specific dawn, activity, supply and night sequence, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-weather-move",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      51
+    ],
+    "problem": "The source supplies travel advantage/disadvantage and weather interpretation, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-hunt",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      51
+    ],
+    "problem": "The source supplies prey encounter and complication, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-butcher-a-kill",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      51
+    ],
+    "problem": "The source supplies ration yield and failure, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-make-camp",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      51
+    ],
+    "problem": "The source supplies HP recovery and Night Encounter branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-night-encounter",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      51
+    ],
+    "problem": "The source supplies quiet/complication/threat outcomes, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-hold-your-bearing",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      52
+    ],
+    "problem": "The source supplies lost-route consequences and next navigation DR, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-foraging-move",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      52
+    ],
+    "problem": "The source supplies ration yield and contamination branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-tend-wounds",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      53
+    ],
+    "problem": "The source supplies healing and failure harm, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-short-rest-move",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      53
+    ],
+    "problem": "The source supplies HP and next-action modifiers, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-starvation",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      53
+    ],
+    "problem": "The source supplies daily ration and next-day penalties, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-navigate-the-passage",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      68
+    ],
+    "problem": "The source supplies corridor movement, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-search-the-room",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      68
+    ],
+    "problem": "The source supplies search and equipment/loot follow-through, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-face-the-trap",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      68
+    ],
+    "problem": "The source supplies source-specific trap avoidance, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 6,
+    "needId": "reclvse-rule-room-encounter",
+    "classification": "MISSING",
+    "book": "RECLVSE",
+    "pdfPage": [
+      68
+    ],
+    "problem": "The source supplies initial positioning and combat branch, but no matching usable RECLVSE reference is in the current index. Similar Core, SD or AitC rules are different variants and do not supply this rule."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-rule",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "The complete general blackpowder rules are absent from quick references and source tables. An AITC firearms mention is not this rule: source defines Presence DR14, ignored armor, reload limitations/time and noise consequences."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-pistolet",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-culverin",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-arquebus",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-dragon",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-basilisk-gun",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-blunderbuss",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-heavy-arquebus",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-pepperbox-pistolet",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-blackpowder-bomb",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-ribauldequin",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-cannon",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "Named weapon has printed damage/price and, where applicable, load, carry, multi-target or blast rules. No usable source item record exists. Generic Core equipment cannot substitute."
+  },
+  {
+    "auditRank": 7,
+    "needId": "heretic:blackpowder-ammunition",
+    "classification": "MISSING",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      46
+    ],
+    "problem": "All three printed ammunition quantity/price rows are absent."
+  },
+  {
+    "auditRank": 10,
+    "needId": "sd-omens-variant",
+    "classification": "PARTIAL",
+    "book": "Sölitary Defilement",
+    "pdfPage": [
+      5
+    ],
+    "problem": "At HEAD 479cbd7, the reference now mentions rerolling one or two dice, but still omits the explicit maximum of four Omens and their role as a Move stat. It introduces stage-escalation/cap wording that is not the Omens rule on the supplied page."
+  },
+  {
+    "auditRank": 10,
+    "needId": "sd-powers-variant",
+    "classification": "PARTIAL",
+    "book": "Sölitary Defilement",
+    "pdfPage": [
+      5
+    ],
+    "problem": "The source-specific exception for Power failures and single-die combat is not fully explained by the short solo-variant notice."
+  },
+  {
+    "auditRank": 11,
+    "needId": "depths-rare-five-card",
+    "classification": "PARTIAL",
+    "book": "Sölitary Depths",
+    "pdfPage": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "problem": "Card look, feature, intention and special tables exist, but the card 3–5 HP/armor/morale/damage computation and repeated double-spade dependency are not fully specified in rule:depths.rareMonster. A player still needs PDF18–19 to construct the stat block."
+  },
+  {
+    "auditRank": 12,
+    "needId": "depths-hex-encounters",
+    "classification": "PARTIAL",
+    "book": "Sölitary Depths",
+    "pdfPage": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "problem": "The quick rule explains d20 versus Encounter Level, grouping and monster reaction adjustment, but no current reference supplies all eight regional Encounter Level numbers or the unmarked-region selection guidance."
+  },
+  {
+    "auditRank": 14,
+    "needId": "sd-microcrawl",
+    "classification": "MISSING",
+    "book": "Sölitary Defilement",
+    "pdfPage": [
+      20
+    ],
+    "problem": "The d4 waypoint procedure and its descriptor/exit guidance are absent. AitC City Micro-crawl is a different, available procedure."
+  },
+  {
+    "auditRank": 14,
+    "needId": "sd-begin-adventure",
+    "classification": "MISSING",
+    "book": "Sölitary Defilement",
+    "pdfPage": [
+      7
+    ],
+    "problem": "Milestone counts by adventure length have no usable quick reference or matching search result."
+  },
+  {
+    "auditRank": 14,
+    "needId": "sd-conclude-adventure",
+    "classification": "MISSING",
+    "book": "Sölitary Defilement",
+    "pdfPage": [
+      7
+    ],
+    "problem": "The Omens move, length-dependent DR and Strong/Weak/Fail completion branches are absent."
+  },
+  {
+    "auditRank": 15,
+    "needId": "heretic:creature-rotten-nurse",
+    "classification": "PARTIAL",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      64
+    ],
+    "problem": "Full source Mental Torture Prison mechanics are stored, but hp:null is filtered from Reference and Monster presets. The source intentionally has no conventional HP; treating it as unusable loses a complete encounter."
+  },
+  {
+    "auditRank": 15,
+    "needId": "heretic:outcast-mikhael",
+    "classification": "PARTIAL",
+    "book": "MÖRK BORG CULT: HERETIC",
+    "pdfPage": [
+      40
+    ],
+    "problem": "The supplied data includes a complete named outcast stat block, special/behavior and possessions where printed. Reference registry and preset list read creatures only; no usable outcast lookup exposes this record."
+  },
+  {
+    "auditRank": 17,
+    "needId": "feretory:creature-carcasswan",
+    "classification": "PARTIAL",
+    "book": "MÖRK BORG CULT: FERETORY",
+    "pdfPage": [
+      20
+    ],
+    "problem": "Both lone and paired printed stat blocks are in record.variants, but loadMonsterPreset and Reference result omit variants and show an unavailable generic stat block. The source DOES supply these stats."
+  },
+  {
+    "auditRank": 17,
+    "needId": "feretory:epk-starved-peasants",
+    "classification": "PARTIAL",
+    "book": "MÖRK BORG CULT: FERETORY",
+    "pdfPage": [
+      17
+    ],
+    "problem": "Printed peasant stats are correctly separated from lice in record.participants, but neither direct reference nor creature result exposes that participant stat block."
+  },
+  {
+    "auditRank": 17,
+    "needId": "feretory:epk-regular-wolf",
+    "classification": "PARTIAL",
+    "book": "MÖRK BORG CULT: FERETORY",
+    "pdfPage": [
+      23
+    ],
+    "problem": "Printed companion stats are in record.companions/sourceNotes. Reference result omits both; only the larger Überwolf stats and follower-count prose are visible."
+  },
+  {
+    "auditRank": 18,
+    "needId": "mythic-event-focus",
+    "classification": "PARTIAL",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "problem": "Focus labels and Meaning rolls are present. NPC/Thread results do not explain which notebook list to consult; empty-list and selection rules are not available. Search random event also puts the prepared-adventure variant first."
+  },
+  {
+    "auditRank": 18,
+    "needId": "mythic-lists",
+    "classification": "MISSING",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      45,
+      46,
+      47
+    ],
+    "problem": "The event result can invoke a Thread/NPC but the 5-line section dice, blank Choose result and empty-list substitution are not explained in the app."
+  },
+  {
+    "auditRank": 18,
+    "needId": "mythic-altered-followthrough",
+    "classification": "PARTIAL",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      68,
+      69,
+      70,
+      71,
+      72,
+      73
+    ],
+    "problem": "Scene Check reports Altered but does not explain its next-most-expected meaning or offer a direct Scene Adjustment link. The separate table has only outcome labels: 7–10 Make 2 Adjustments omits repeat/conflict handling."
+  },
+  {
+    "auditRank": 18,
+    "needId": "mythic-npc-behavior",
+    "classification": "MISSING",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      107,
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "problem": "Many NPC inspiration tables exist, but this specific outcome-to-action reminder is absent. The Random Event branch fixes Current Context and supplements the NPC action; generic event focus rolling is not the same procedure."
+  }
+]

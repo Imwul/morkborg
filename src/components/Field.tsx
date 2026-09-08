@@ -8,6 +8,9 @@ import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import type { FieldSpec } from '../domain/types';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import { useReferenceDesk } from './ReferenceContext';
+import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { referenceTextSegments } from '../domain/generatedReferenceLinks';
 export function Field({
   spec,
   value,
@@ -19,6 +22,7 @@ export function Field({
   provenance,
   showTools = true,
   hideSource = false,
+  onOpenReference,
 }: {
   spec: FieldSpec;
   value: string | number;
@@ -34,8 +38,15 @@ export function Field({
   provenance?: GeneratedValueProvenance;
   showTools?: boolean;
   hideSource?: boolean;
+  onOpenReference?: () => void;
 }) {
   const htmlId = useId();
+  const desk = useReferenceDesk();
+  const linkedReadMode =
+    !showTools &&
+    typeof value === 'string' &&
+    desk &&
+    referenceTextSegments(desk.entries, value).some((s) => s.id);
   const [editing, setEditing] = useState(false);
   const [history, setHistory] = useState<RuleRoll[]>([]);
   function roll() {
@@ -108,7 +119,27 @@ export function Field({
           )}
         </span>
       </div>
-      {!editing && typeof value === 'string' && value.length > 220 ? (
+      {!editing && onOpenReference ? (
+        <button
+          id={htmlId}
+          className="field-value reference-field-link"
+          aria-label={`${spec.label} reference`}
+          onClick={onOpenReference}
+        >
+          {value} <span aria-hidden="true">›</span>
+        </button>
+      ) : !editing && linkedReadMode ? (
+        <div className="field-value">
+          <ReferenceLinkedText text={String(value)} />
+          <button
+            className="ref-text-action"
+            aria-label={`${spec.label} 편집`}
+            onClick={() => setEditing(true)}
+          >
+            EDIT
+          </button>
+        </div>
+      ) : !editing && typeof value === 'string' && value.length > 220 ? (
         <details className="long-source-result">
           <summary aria-label={`${spec.label} 전체 보기`}>
             <span>{value}</span>
