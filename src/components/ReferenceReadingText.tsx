@@ -15,13 +15,22 @@ export function ReferenceReadingText({
   excludeId?: string;
   splitLines?: boolean;
 }) {
-  if (translation)
-    return (
-      <p>
-        <ReferenceLinkedText text={text} excludeId={excludeId} />
-        <Translation text={text} translation={translation} />
+  if (translation) {
+    const english = text.split(/\n\s*\n/);
+    const korean = translation.split(/\n\s*\n/);
+    // Pair only explicit translations with the same paragraph structure.
+    // A mismatched helper remains intact; never guess sentence correspondence.
+    const pairs =
+      english.length === korean.length
+        ? english.map((paragraph, index) => [paragraph, korean[index]])
+        : [[text, translation]];
+    return pairs.map(([original, helper], index) => (
+      <p key={index}>
+        <ReferenceLinkedText text={original} excludeId={excludeId} />
+        <Translation text={original} translation={helper} />
       </p>
-    );
+    ));
+  }
   const hasSource =
     !!source?.text &&
     (text === source.text || text.startsWith(`${source.text}\n\n`));

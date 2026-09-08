@@ -139,10 +139,17 @@ export function ReferenceProvider({
       ? {
           title: selected.title,
           blocks: selected.definition?.blocks ?? [
-            { title: '', text: selected.summary },
+            {
+              title: '',
+              text: selected.summary,
+              translation: selected.summaryTranslationKo
+                ? { ko: selected.summaryTranslationKo }
+                : undefined,
+            },
           ],
           sourceRefs: selected.sourceRefs,
           authority: [
+            ...(selected.authority ?? []),
             ...(selected.definition
               ? [sourceProcedure(selected.id, selected.sourceRefs)]
               : []),
@@ -514,7 +521,10 @@ export function ReferenceProvider({
               <div className="reference-inspector-top">
                 <DialogTitle>
                   {referenceShortName(selected)}
-                  <Translation text={selected.title} />
+                  <Translation
+                    text={selected.title}
+                    translation={selected.titleTranslationKo}
+                  />
                 </DialogTitle>
                 <button
                   className="ref-pin"
@@ -678,7 +688,10 @@ export function ReferenceProvider({
                       >
                         <span>
                           {entry.title}
-                          <Translation text={entry.title} />
+                          <Translation
+                            text={entry.title}
+                            translation={entry.titleTranslationKo}
+                          />
                         </span>{' '}
                         <span>›</span>
                       </button>
@@ -1014,7 +1027,10 @@ export function ReferenceProvider({
                                 onClick={() => activate(entry.id, true)}
                               >
                                 {entry.title} ›
-                                <Translation text={entry.title} />
+                                <Translation
+                                  text={entry.title}
+                                  translation={entry.titleTranslationKo}
+                                />
                               </button>
                             ))}
                         </div>
@@ -1280,7 +1296,10 @@ export function ReferenceProvider({
                         onClick={() => activate(entry.id, isOneClick(entry))}
                       >
                         {referenceShortName(entry)}
-                        <Translation text={entry.title} />
+                        <Translation
+                          text={entry.title}
+                          translation={entry.titleTranslationKo}
+                        />
                         <ArrowUpRight size={12} />
                       </button>
                     ))}
@@ -1312,7 +1331,10 @@ export function ReferenceRow({
       >
         <span>
           <strong>{referenceShortName(entry)}</strong>
-          <Translation text={entry.title} />
+          <Translation
+            text={entry.title}
+            translation={entry.titleTranslationKo}
+          />
           {showMetadata && (
             <small>
               {entry.definition?.kind ?? entry.kind.toUpperCase()}

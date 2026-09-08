@@ -33,6 +33,23 @@ export interface ReferenceDefinition {
 }
 export const definitionId = (entryId: string) => `definition:${entryId}`;
 const str = (value: unknown) => (typeof value === 'string' ? value : '');
+/** Names index existing starting-equipment rows; mechanics remain in those rows. */
+const STARTING_GEAR_REFERENCES: Record<
+  string,
+  { name: string; aliases?: string[]; relatedIds?: string[] }
+> = {
+  'core.gearA:10-10': { name: 'bomb' },
+  'core.gearB:1-1': {
+    name: 'life elixir',
+    aliases: ['lifeelixir'],
+    relatedIds: ['rule:core.rest'],
+  },
+  'core.gearB:3-3': {
+    name: 'small but vicious dog',
+    aliases: ['small vicious dog', 'vicious dog'],
+  },
+  'core.gearB:4-4': { name: 'monkeys' },
+};
 function ref(table: OracleDefinition, entry?: OracleEntry): SourceReference {
   return {
     bookId: table.sourceBookId,
@@ -81,6 +98,34 @@ export function buildReferenceDefinitions(
       (table.canonicalTableId && table.canonicalTableId !== table.id)
     )
       continue;
+    if (table.id === 'core.gearA' || table.id === 'core.gearB') {
+      for (const entry of table.entries) {
+        const lookup = STARTING_GEAR_REFERENCES[entry.id];
+        if (!lookup || entry.sourceUnclear) continue;
+        result.push({
+          id: definitionId(entry.id),
+          title: lookup.name,
+          kind: 'Equipment',
+          blocks: [
+            {
+              title: '',
+              text: entry.text,
+              translation:
+                typeof entry.metadata?.ko === 'string'
+                  ? { ko: entry.metadata.ko }
+                  : undefined,
+            },
+          ],
+          sourceRefs: [ref(table, entry)],
+          canonicalIds: [table.id],
+          relatedIds: [`oracle:${table.id}`, ...(lookup.relatedIds ?? [])],
+          matchTexts: [lookup.name, entry.text],
+          searchAliases: lookup.aliases,
+          tableEntry: { tableId: table.id, entryId: entry.id },
+        });
+      }
+      continue;
+    }
     // Verified read-only procedure catalogs live in the private canonical registry.
     // Group names and search aliases are navigation metadata, never source text.
     if (table.tags.includes('batch-2')) {

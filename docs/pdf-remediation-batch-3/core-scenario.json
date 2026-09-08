@@ -1,0 +1,256 @@
+{
+  "origin": "http://127.0.0.1:5174",
+  "actions": [
+    "Type search: difficulty",
+    "Open first result: difficulty",
+    "Close reference / return",
+    "Type search: round duration",
+    "Open first result: round duration",
+    "Close reference / return",
+    "Type search: movement",
+    "Open first result: movement",
+    "Close reference / return",
+    "Open campaigns",
+    "Open isolated QA campaign",
+    "Open Character library",
+    "Open existing Character",
+    "Character direct reference: Armor · 방어구 reference",
+    "Close reference / return",
+    "Character direct reference: 장비 · 소지 한도 reference",
+    "Close reference / return",
+    "Character direct reference: Omens · 징조 reference",
+    "Close reference / return",
+    "Character direct reference: Powers · 하루 사용 횟수 reference",
+    "Close reference / return",
+    "Character direct reference: 장비 1 reference",
+    "Close reference / return",
+    "Command search",
+    "Type search: Broken",
+    "Open first result: Broken",
+    "Close reference / return",
+    "Command search",
+    "Type search: negative HP",
+    "Open first result: negative HP",
+    "Close reference / return",
+    "Command search",
+    "Type search: healing",
+    "Open first result: healing",
+    "Close reference / return",
+    "Command search",
+    "Type search: starvation",
+    "Open first result: starvation",
+    "Close reference / return",
+    "Command search",
+    "Type search: thirst",
+    "Open first result: thirst",
+    "Close reference / return",
+    "Command search",
+    "Type search: morale",
+    "Open first result: morale",
+    "Close reference / return",
+    "Command search",
+    "Type search: flee",
+    "Open first result: flee",
+    "Close reference / return",
+    "Command search",
+    "Type search: Get Better",
+    "Open first result: Get Better",
+    "Close reference / return",
+    "Command search",
+    "Type search: armor repair",
+    "Open first result: armor repair",
+    "Open Source",
+    "Close reference / return",
+    "Command search",
+    "Type search: Broken",
+    "Open first result: Broken",
+    "Open related references",
+    "Roll existing Broken table",
+    "Copy Broken result",
+    "Back to Broken rule",
+    "Close reference / return",
+    "Return Reference Desk",
+    "Reload browser"
+  ],
+  "totalInteractions": 70,
+  "convention": "Count every click, search fill, Command-K and reload; viewport changes are not play interactions. Existing isolated QA Character only; hypothetical HP 0, no edits.",
+  "checks": [
+    {
+      "query": "difficulty",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "round duration",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "movement",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "characterLink": "Armor · 방어구 reference",
+      "clicks": 1,
+      "usable": true
+    },
+    {
+      "characterLink": "장비 · 소지 한도 reference",
+      "clicks": 1,
+      "usable": true
+    },
+    {
+      "characterLink": "Omens · 징조 reference",
+      "clicks": 1,
+      "usable": true
+    },
+    {
+      "characterLink": "Powers · 하루 사용 횟수 reference",
+      "clicks": 1,
+      "usable": true
+    },
+    {
+      "characterLink": "장비 1 reference",
+      "clicks": 1,
+      "usable": true
+    },
+    {
+      "query": "Broken",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "negative HP",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "healing",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "starvation",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "thirst",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "morale",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "flee",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "Get Better",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "query": "armor repair",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "sourceAuthority": true,
+      "clicks": 1
+    },
+    {
+      "query": "Broken",
+      "usableMechanic": true,
+      "sourceClosed": true
+    },
+    {
+      "brokenRollCopyBack": true
+    },
+    {
+      "campaignUnchanged": true,
+      "sha256": "d1590198540d48680837e39c8e90eada626cc3512880107052b9ed1454d37388",
+      "hypotheticalHPOnly": true
+    }
+  ],
+  "screens": [
+    {
+      "name": "difficulty",
+      "width": 360,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 344,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/difficulty-360.png"
+    },
+    {
+      "name": "difficulty",
+      "width": 768,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 736,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/difficulty-768.png"
+    },
+    {
+      "name": "difficulty",
+      "width": 1440,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 780,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/difficulty-1440.png"
+    },
+    {
+      "name": "difficulty",
+      "width": 3440,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 780,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/difficulty-3440.png"
+    },
+    {
+      "name": "services",
+      "width": 360,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 344,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/services-360.png"
+    },
+    {
+      "name": "services",
+      "width": 768,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 736,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/services-768.png"
+    },
+    {
+      "name": "services",
+      "width": 1440,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 780,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/services-1440.png"
+    },
+    {
+      "name": "services",
+      "width": 3440,
+      "docOverflow": false,
+      "panelOverflow": false,
+      "panelWidth": 780,
+      "koreanFont": "14px",
+      "path": "outputs/pdf-remediation-batch-3/services-3440.png"
+    }
+  ],
+  "errors": []
+}

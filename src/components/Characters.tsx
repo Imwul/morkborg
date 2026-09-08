@@ -197,11 +197,13 @@ export function Characters({
           const refId =
             spec.key === 'omens'
               ? 'rule:core.omens'
-              : spec.key === 'className'
-                ? `class:${selected.classId}`
-                : spec.key === 'armor'
-                  ? generatedReference(desk.entries, selected.armor)?.id
-                  : undefined;
+              : spec.key === 'powerUses'
+                ? 'rule:core.casting'
+                : spec.key === 'className'
+                  ? `class:${selected.classId}`
+                  : spec.key === 'armor'
+                    ? generatedReference(desk.entries, selected.armor)?.id
+                    : undefined;
           return refId && desk.byId[refId]
             ? () => desk.activate(refId)
             : undefined;
@@ -221,7 +223,19 @@ export function Characters({
     return (
       <section className={`character-sheet-section items-${kind}`}>
         <div className="section-title">
-          <h2>{labels[kind]}</h2>
+          <h2>
+            {kind === 'equipment' && desk?.byId['rule:core.carrying'] ? (
+              <button
+                className="reference-inline-link"
+                aria-label="장비 · 소지 한도 reference"
+                onClick={() => desk.activate('rule:core.carrying')}
+              >
+                {labels[kind]} · 소지 한도 ›
+              </button>
+            ) : (
+              labels[kind]
+            )}
+          </h2>
           <Button
             className="icon-btn"
             aria-label={`${labels[kind]} 추가`}

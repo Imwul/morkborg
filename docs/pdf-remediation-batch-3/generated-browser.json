@@ -1,0 +1,515 @@
+{
+  "testedAt": "2026-09-08T16:14:55.709Z",
+  "url": "http://127.0.0.1:5174",
+  "method": "Fresh Campaign, Character, and Dungeon generated entirely through actual UI in a new Chrome context. No generated-value injection, source substitution, production Campaign access, or seeding. Source IDs are read only to identify which visible equipment is the generated Power; mechanics are verified in the opened UI. Dungeon follow-through uses Useful Item from the freshly generated Room02 context, follows its actual Sacred/Unclean scroll category through the canonical Scroll related table, rolls a specific Power, then opens its definition. These are transient results and are not claimed as generated Special Room components.",
+  "records": [
+    {
+      "kind": "Class",
+      "title": "Esoteric Hermit\n비전의 은둔자",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": true,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Weapon",
+      "title": "Shortsword\n소검",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": false,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Armor",
+      "title": "Light armor\n경갑",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": false,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Generated Power",
+      "title": "False Dawn/Night’s Chariot\n거짓 새벽/밤의 전차",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": true,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Generated Equipment",
+      "title": "Waterskin\n물통",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": false,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Omens",
+      "title": "Omens · 징조",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": false,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Daily Powers rule",
+      "title": "Using Powers\n권능 사용",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": true,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Carrying rule",
+      "title": "Carrying Capacity\n운반과 과적",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": true,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    },
+    {
+      "kind": "Room Useful Item → Scroll → appropriate Power table",
+      "sourceCategory": "Sacred",
+      "clicksFromGeneratedCategory": 3,
+      "meaningfulChoice": true,
+      "genericScrollIsNotSpecificPower": true,
+      "autoInferredPower": false,
+      "sourceInitiallyClosed": true,
+      "roomContextRetained": true
+    },
+    {
+      "kind": "Room-context generated Power definition",
+      "title": "Roskoe’s Consuming Glare\nRoskoe의 집어삼키는 응시",
+      "clicksToDefinition": 1,
+      "usableReading": true,
+      "sourceInitiallyClosed": true,
+      "koreanHelperVisible": true,
+      "sourceClicks": 1,
+      "primarySourceVisible": true,
+      "returnClicks": 1
+    }
+  ],
+  "actions": [
+    {
+      "kind": "click",
+      "action": "Campaign list"
+    },
+    {
+      "kind": "click",
+      "action": "New QA Campaign"
+    },
+    {
+      "kind": "text-entry",
+      "action": "Name QA Campaign"
+    },
+    {
+      "kind": "click",
+      "action": "Create QA Campaign"
+    },
+    {
+      "kind": "click",
+      "action": "Character Library"
+    },
+    {
+      "kind": "click",
+      "action": "Use class"
+    },
+    {
+      "kind": "choice",
+      "action": "Choose Esoteric Hermit"
+    },
+    {
+      "kind": "click",
+      "action": "Generate fresh Character"
+    },
+    {
+      "kind": "click",
+      "action": "Save generated Character"
+    },
+    {
+      "kind": "click",
+      "action": "Class → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Class source"
+    },
+    {
+      "kind": "click",
+      "action": "Class → return"
+    },
+    {
+      "kind": "click",
+      "action": "Weapon → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Weapon source"
+    },
+    {
+      "kind": "click",
+      "action": "Weapon → return"
+    },
+    {
+      "kind": "click",
+      "action": "Armor → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Armor source"
+    },
+    {
+      "kind": "click",
+      "action": "Armor → return"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Power → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Power source"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Power → return"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Equipment → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Equipment source"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Equipment → return"
+    },
+    {
+      "kind": "click",
+      "action": "Omens → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Omens source"
+    },
+    {
+      "kind": "click",
+      "action": "Omens → return"
+    },
+    {
+      "kind": "click",
+      "action": "Daily Powers rule → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Daily Powers rule source"
+    },
+    {
+      "kind": "click",
+      "action": "Daily Powers rule → return"
+    },
+    {
+      "kind": "click",
+      "action": "Carrying rule → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Carrying rule source"
+    },
+    {
+      "kind": "click",
+      "action": "Carrying rule → return"
+    },
+    {
+      "kind": "click",
+      "action": "Dungeon Library"
+    },
+    {
+      "kind": "click",
+      "action": "New Dungeon"
+    },
+    {
+      "kind": "choice",
+      "action": "Choose Sarkash"
+    },
+    {
+      "kind": "click",
+      "action": "Generate fresh Dungeon"
+    },
+    {
+      "kind": "click",
+      "action": "Expand generated Room 1"
+    },
+    {
+      "kind": "click",
+      "action": "Expand generated Room 2"
+    },
+    {
+      "kind": "click",
+      "action": "Expand generated Room 3"
+    },
+    {
+      "kind": "click",
+      "action": "Expand generated Room 4"
+    },
+    {
+      "kind": "click",
+      "action": "Save generated Dungeon and four Rooms"
+    },
+    {
+      "kind": "click",
+      "action": "Room ledger"
+    },
+    {
+      "kind": "click",
+      "action": "Open generated Room 02"
+    },
+    {
+      "kind": "click",
+      "action": "Room Quick Tools"
+    },
+    {
+      "kind": "click",
+      "action": "Roll Room-context Useful Item"
+    },
+    {
+      "kind": "click",
+      "action": "Reroll Room-context Useful Item"
+    },
+    {
+      "kind": "click",
+      "action": "Generated Room-context scroll category → Scroll reference"
+    },
+    {
+      "kind": "click",
+      "action": "Scroll related sources"
+    },
+    {
+      "kind": "click",
+      "action": "Choose Sacred source table and roll"
+    },
+    {
+      "kind": "click",
+      "action": "Room-context generated Power definition → definition"
+    },
+    {
+      "kind": "click",
+      "action": "Room-context generated Power definition source"
+    },
+    {
+      "kind": "click",
+      "action": "Room-context generated Power definition → return"
+    }
+  ],
+  "clickCount": 50,
+  "choiceCount": 2,
+  "textEntryCount": 1,
+  "roomContextItemRerolls": 1,
+  "generatedRoomLink": "Roskoe’s Consuming Glare reference",
+  "visual": [
+    {
+      "name": "generated-character",
+      "width": 360,
+      "documentOverflow": false,
+      "bodyWidth": 360,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-360.png"
+    },
+    {
+      "name": "generated-character",
+      "width": 768,
+      "documentOverflow": false,
+      "bodyWidth": 768,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-768.png"
+    },
+    {
+      "name": "generated-character",
+      "width": 1440,
+      "documentOverflow": false,
+      "bodyWidth": 1440,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-1440.png"
+    },
+    {
+      "name": "generated-character",
+      "width": 3440,
+      "documentOverflow": false,
+      "bodyWidth": 3440,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-3440.png"
+    },
+    {
+      "name": "generated-character-kit",
+      "width": 360,
+      "documentOverflow": false,
+      "bodyWidth": 360,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-kit-360.png"
+    },
+    {
+      "name": "generated-character-kit",
+      "width": 768,
+      "documentOverflow": false,
+      "bodyWidth": 768,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-kit-768.png"
+    },
+    {
+      "name": "generated-character-kit",
+      "width": 1440,
+      "documentOverflow": false,
+      "bodyWidth": 1440,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-kit-1440.png"
+    },
+    {
+      "name": "generated-character-kit",
+      "width": 3440,
+      "documentOverflow": false,
+      "bodyWidth": 3440,
+      "path": "outputs/pdf-remediation-batch-3/generated-character-kit-3440.png"
+    },
+    {
+      "name": "generated-power",
+      "width": 360,
+      "documentOverflow": false,
+      "bodyWidth": 360,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-power-360.png"
+    },
+    {
+      "name": "generated-power",
+      "width": 768,
+      "documentOverflow": false,
+      "bodyWidth": 768,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-power-768.png"
+    },
+    {
+      "name": "generated-power",
+      "width": 1440,
+      "documentOverflow": false,
+      "bodyWidth": 1440,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-power-1440.png"
+    },
+    {
+      "name": "generated-power",
+      "width": 3440,
+      "documentOverflow": false,
+      "bodyWidth": 3440,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-power-3440.png"
+    },
+    {
+      "name": "generated-rooms",
+      "width": 360,
+      "documentOverflow": false,
+      "bodyWidth": 360,
+      "path": "outputs/pdf-remediation-batch-3/generated-rooms-360.png"
+    },
+    {
+      "name": "generated-rooms",
+      "width": 768,
+      "documentOverflow": false,
+      "bodyWidth": 768,
+      "path": "outputs/pdf-remediation-batch-3/generated-rooms-768.png"
+    },
+    {
+      "name": "generated-rooms",
+      "width": 1440,
+      "documentOverflow": false,
+      "bodyWidth": 1440,
+      "path": "outputs/pdf-remediation-batch-3/generated-rooms-1440.png"
+    },
+    {
+      "name": "generated-rooms",
+      "width": 3440,
+      "documentOverflow": false,
+      "bodyWidth": 3440,
+      "path": "outputs/pdf-remediation-batch-3/generated-rooms-3440.png"
+    },
+    {
+      "name": "generated-room-item",
+      "width": 360,
+      "documentOverflow": false,
+      "bodyWidth": 360,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-room-item-360.png"
+    },
+    {
+      "name": "generated-room-item",
+      "width": 768,
+      "documentOverflow": false,
+      "bodyWidth": 768,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-room-item-768.png"
+    },
+    {
+      "name": "generated-room-item",
+      "width": 1440,
+      "documentOverflow": false,
+      "bodyWidth": 1440,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-room-item-1440.png"
+    },
+    {
+      "name": "generated-room-item",
+      "width": 3440,
+      "documentOverflow": false,
+      "bodyWidth": 3440,
+      "inspectorOverflow": false,
+      "path": "outputs/pdf-remediation-batch-3/generated-room-item-3440.png"
+    }
+  ],
+  "characterUnchangedAfterLookups": true,
+  "campaignUnchangedAfterReload": true,
+  "characterSha256": "f003989354190166d1bb63380802bd4040ccd3fb897ae348ec4196415d2ba8a1",
+  "campaignSha256": "f6808ca193e0e0ddd5e3b413b21f69a065d24341012f23c4a0e6e4d779001590",
+  "errors": [],
+  "measurementNotes": [
+    "clickCount includes disposable Campaign/Character/Dungeon creation, four Room expansions, nine source inspections and returns, and one intentional Useful Item reroll; it is not the cost of one lookup.",
+    "koreanHelperVisible measures an explicit [lang=ko] descendant in the reading block, not all Korean text or the bilingual heading. False values are not claims that those entire references lack Korean.",
+    "The Room screenshots intentionally show all four expanded packets. Their height is not a measurement of the collapsed default.",
+    "The verified Room follow-through is a transient Useful Item scroll category, followed through a meaningful Sacred/Unclean choice to an actual Power. Other Useful Item outcomes and arbitrary Special Room component links remain outside this check."
+  ],
+  "humanVisualReview": {
+    "reviewedScreenshots": 20,
+    "widths": [
+      360,
+      768,
+      1440,
+      3440
+    ],
+    "observations": [
+      "Power definitions show the English effect followed by a concise Korean helper. Long Power names wrap legibly at 360; the effect, copy control and closed Source disclosure fit without horizontal scrolling.",
+      "The Room-context Power retains the same readable inspector and a visible return control. At 3440 the inspector and underlying dossier remain bounded rather than stretching across the screen.",
+      "Character equipment stacks at 360 and forms columns at larger widths. Class, armor, weapon, Power, Omens and the new carrying/casting links are discernible and usable.",
+      "The four expanded Room packets remain structurally separate; 360 stacks them, larger widths show two columns. Legitimate source fragments remain independent, without added connective prose.",
+      "Existing Character generation controls occupy much of the initial mobile viewport before identity/stats. Expanded Rooms are tall and require scrolling. These are existing density costs, not a severe Batch 3 regression; no redesign was performed.",
+      "A transient saved toast and persistent quick trays overlay the bottom of some non-modal captures. They do not overlap the inspected Power effect. Yellow remains most prominent in selected generation controls and the existing Fate tray."
+    ],
+    "newBlockingLayoutIssue": false,
+    "scope": "Visual inspection of the actual 20 saved browser screenshots; no production UI changes by this QA subtask."
+  }
+}

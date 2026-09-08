@@ -1,0 +1,764 @@
+{
+  "baselineHead": "11e86737cce0dac67c269537e07fedb84d189e97",
+  "rows": [
+    {
+      "needId": "core-difficulty-scale",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        28
+      ],
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.tests",
+      "query": "DR",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Tests / Difficulty Ratings (DR)",
+          "pdfPage": [
+            28
+          ],
+          "printedPage": 28,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Tests / Difficulty Ratings (DR)",
+          "pdfPage": 30,
+          "printedPage": 26,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-round-duration",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        31
+      ],
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.round",
+      "query": "round duration",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "How long is a round?",
+          "pdfPage": [
+            31
+          ],
+          "printedPage": 31,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "How long is a round?",
+          "pdfPage": 34,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-starvation",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        31
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.rest",
+      "query": "starvation",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Rest",
+          "pdfPage": [
+            31
+          ],
+          "printedPage": 31,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Rest",
+          "pdfPage": 35,
+          "printedPage": 31,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-infection",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        31
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.rest",
+      "query": "infection",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Rest",
+          "pdfPage": [
+            31
+          ],
+          "printedPage": 31,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Rest",
+          "pdfPage": 35,
+          "printedPage": 31,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-scroll-restrictions",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        23
+      ],
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.armor-shield",
+      "query": "armor",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Armor / Heretical Priest: Abilities",
+          "pdfPage": [
+            23,
+            54
+          ],
+          "printedPage": "23, 54",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Armor / Heretical Priest: Abilities",
+          "pdfPage": [
+            28,
+            59
+          ],
+          "printedPage": "24, 55",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-purchase-20-arrows",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        26
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "20 arrows",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ],
+      "discrepancy": "Inherited MISSING was already stale: Batch 1 Bow/Crossbow definition exposes ammunition price. Browser baseline found those entries. Batch 3 adds a direct common price destination; do not claim newly authored ammunition mechanics."
+    },
+    {
+      "needId": "core-purchase-10-bolts",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        26
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "10 bolts",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ],
+      "discrepancy": "Inherited MISSING was already stale: Batch 1 Bow/Crossbow definition exposes ammunition price. Browser baseline found those entries. Batch 3 adds a direct common price destination; do not claim newly authored ammunition mechanics."
+    },
+    {
+      "needId": "core-service-night-in-hospice",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-drink",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-steady-meal",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-bribe-guard",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-bribe-clerk",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-bribe-rabble",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-armor-repair-tier-1-to-2",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-service-armor-repair-tier-2-to-3",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        25
+      ],
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.services",
+      "query": "armor repair",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Services / Weapons",
+          "pdfPage": [
+            25,
+            26,
+            31
+          ],
+          "printedPage": "25, 26, 31",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Equipment / Services / Weapons",
+          "pdfPage": 29,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "bookTitle": "MÖRK BORG Full Edition Second Printing",
+          "tableTitle": "Fumble / Armor damage",
+          "pdfPage": 33,
+          "printedPage": 29,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json"
+      ]
+    },
+    {
+      "needId": "core-starting-item-bomb",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        22
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.gearA:10-10",
+      "query": "Bomb",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gearA",
+          "tableTitle": "Starting Equipment — First d12 Table",
+          "pdfPage": 22,
+          "printedPage": 22,
+          "status": "VERIFIED",
+          "entryId": "core.gearA:10-10",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json",
+        "batch3-links-browser.json"
+      ]
+    },
+    {
+      "needId": "core-starting-item-life-elixir",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        22
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.gearB:1-1",
+      "query": "Life elixir",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gearB",
+          "tableTitle": "Starting Equipment — Second d12 Table",
+          "pdfPage": 22,
+          "printedPage": 22,
+          "status": "VERIFIED",
+          "entryId": "core.gearB:1-1",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json",
+        "batch3-links-browser.json"
+      ]
+    },
+    {
+      "needId": "core-starting-item-small-vicious-dog",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        22
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.gearB:3-3",
+      "query": "Small vicious dog",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gearB",
+          "tableTitle": "Starting Equipment — Second d12 Table",
+          "pdfPage": 22,
+          "printedPage": 22,
+          "status": "VERIFIED",
+          "entryId": "core.gearB:3-3",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json",
+        "batch3-links-browser.json"
+      ]
+    },
+    {
+      "needId": "core-starting-item-monkeys",
+      "book": "MÖRK BORG Bare Bones",
+      "originalPages": [
+        22
+      ],
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.gearB:4-4",
+      "query": "Monkeys",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "tableId": "core.gearB",
+          "tableTitle": "Starting Equipment — Second d12 Table",
+          "pdfPage": 22,
+          "printedPage": 22,
+          "status": "VERIFIED",
+          "entryId": "core.gearB:4-4",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION"
+        }
+      ],
+      "evidence": [
+        "browser-after.json",
+        "core-scenario.json",
+        "batch3-links-browser.json"
+      ]
+    }
+  ],
+  "beforeCounts": {
+    "PARTIAL": 3,
+    "PRESENT_BUT_INDIRECT": 6,
+    "MISSING": 10
+  },
+  "afterCounts": {
+    "RESOLVED": 19
+  },
+  "remainingInherited": 382,
+  "remainingCounts": {
+    "PARTIAL": 32,
+    "PRESENT_BUT_INDIRECT": 165,
+    "MISSING": 182,
+    "SOURCE_UNAVAILABLE": 3
+  },
+  "browserQueries": 50,
+  "coreScenarioInteractions": 70
+}

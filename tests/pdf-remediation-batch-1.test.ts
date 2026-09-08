@@ -242,7 +242,8 @@ privateTest(
   () => {
     const gear = defs.filter(
       (e) =>
-        e.definition!.kind === 'Equipment' && e.sourceRefs[0].bookId === 'core',
+        e.definition!.kind === 'Equipment' &&
+        e.definition!.tableEntry?.tableId === 'core.equipmentCatalog',
     );
     assert.equal(gear.length, 46);
     for (const e of gear)

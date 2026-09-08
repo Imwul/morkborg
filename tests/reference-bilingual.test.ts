@@ -246,7 +246,14 @@ test('The shared reader accepts a full explicit translation without hiding Engli
   assert.match(html, /Second paragraph/);
   assert.match(html, /첫 문단/);
   assert.match(html, /둘째 문단/);
-  assert.equal((html.match(/lang="ko"/g) ?? []).length, 1);
+  assert.equal((html.match(/lang="ko"/g) ?? []).length, 2);
+  for (const phrase of [
+    'First paragraph',
+    'Second paragraph',
+    '첫 문단',
+    '둘째 문단',
+  ])
+    assert.equal(html.split(phrase).length - 1, 1);
 });
 
 test('Translation enrichment rejects changed source, missing Korean and changed dice', () => {
@@ -312,4 +319,22 @@ test('Translation enrichment rejects changed source, missing Korean and changed 
     undefined,
     'A scene-specific heading must not replace an unrelated Oracle word translation.',
   );
+});
+
+test('Explicit bilingual paragraphs remain adjacent without guessing mismatched translation structure', () => {
+  const render = (translation: string) =>
+    renderToStaticMarkup(
+      createElement(ReferenceReadingText, {
+        text: 'One source paragraph.\n\nAnother source paragraph.',
+        translation,
+      }),
+    );
+  const paired = render('첫 번째 문단입니다.\n\n두 번째 문단입니다.');
+  assert.equal((paired.match(/<p>/g) ?? []).length, 2);
+  assert.ok(paired.indexOf('첫 번째') < paired.indexOf('Another source'));
+  const intact = render('전체 내용을 한 문단으로 옮긴 번역입니다.');
+  assert.equal((intact.match(/<p>/g) ?? []).length, 1);
+  assert.ok(intact.includes('One source paragraph.'));
+  assert.ok(intact.includes('Another source paragraph.'));
+  assert.ok(intact.includes('전체 내용'));
 });

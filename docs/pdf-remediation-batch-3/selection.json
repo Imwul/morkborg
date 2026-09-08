@@ -1,0 +1,35 @@
+{
+  "baselineHead": "11e86737cce0dac67c269537e07fedb84d189e97",
+  "selectedAuditIds": [
+    "core-difficulty-scale",
+    "core-round-duration",
+    "core-starvation",
+    "core-infection",
+    "core-scroll-restrictions",
+    "core-purchase-20-arrows",
+    "core-purchase-10-bolts",
+    "core-service-night-in-hospice",
+    "core-service-drink",
+    "core-service-steady-meal",
+    "core-service-bribe-guard",
+    "core-service-bribe-clerk",
+    "core-service-bribe-rabble",
+    "core-service-armor-repair-tier-1-to-2",
+    "core-service-armor-repair-tier-2-to-3",
+    "core-starting-item-bomb",
+    "core-starting-item-life-elixir",
+    "core-starting-item-small-vicious-dog",
+    "core-starting-item-monkeys"
+  ],
+  "uniqueSelectedPlayNeeds": 10,
+  "boundedDependencies": [
+    "Core fleeing authority and its combat/morale transitions (no invented DR)",
+    "Negative HP and critical search routing within the combat loop",
+    "Character carrying/casting contextual access",
+    "Restore daily Power uses in casting: historical core-powers-daily resolved path points to Omens, but current rule lost that line",
+    "Bilingual source-faithful reminders for selected combat/Character loop, including already-usable advancement",
+    "Armour restriction \u2192 Heretical Priest exception link",
+    "Browser-discovered generic Scroll \u2192 existing casting and Sacred/Unclean tables; deliberate player choice, no invented Power"
+  ],
+  "totalNeedsIncludingDependenciesUpperBound": 17
+}

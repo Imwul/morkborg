@@ -1,0 +1,137 @@
+{
+  "testedAt": "2026-09-08T15:59:20.978Z",
+  "url": "http://127.0.0.1:5174",
+  "isolated": true,
+  "productionDeployment": false,
+  "records": [
+    {
+      "action": "Search bomb",
+      "referenceId": "definition:core.gearA:10-10",
+      "topResult": "bomb OPEN",
+      "clicks": 1,
+      "mechanicsSufficient": true,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Search life elixir",
+      "referenceId": "definition:core.gearB:1-1",
+      "topResult": "life elixir OPEN",
+      "clicks": 1,
+      "mechanicsSufficient": true,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Search small vicious dog",
+      "referenceId": "definition:core.gearB:3-3",
+      "topResult": "small but vicious dog OPEN",
+      "clicks": 1,
+      "mechanicsSufficient": true,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Search monkeys",
+      "referenceId": "definition:core.gearB:4-4",
+      "topResult": "monkeys OPEN",
+      "clicks": 1,
+      "mechanicsSufficient": true,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Starting gear → Source",
+      "clicks": 1,
+      "verifiedLocation": "Core PDF 22 / printed 22"
+    },
+    {
+      "action": "Character → 장비 · 소지 한도 reference",
+      "clicks": 1,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Character → Powers · 하루 사용 횟수 reference",
+      "clicks": 1,
+      "bilingual": true,
+      "sourceClosed": true
+    },
+    {
+      "action": "Saved Character QUICK TOOLS",
+      "clicks": 1,
+      "containsCarryingAndCasting": true
+    },
+    {
+      "action": "Reload after reference reading",
+      "campaignUnchanged": true,
+      "campaignSha256": "d1590198540d48680837e39c8e90eada626cc3512880107052b9ed1454d37388"
+    }
+  ],
+  "visual": [
+    {
+      "surface": "carrying",
+      "viewport": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 344,
+      "screenshot": "outputs/pdf-remediation-batch-3/carrying-360.png"
+    },
+    {
+      "surface": "carrying",
+      "viewport": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 736,
+      "screenshot": "outputs/pdf-remediation-batch-3/carrying-768.png"
+    },
+    {
+      "surface": "carrying",
+      "viewport": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 780,
+      "screenshot": "outputs/pdf-remediation-batch-3/carrying-1440.png"
+    },
+    {
+      "surface": "carrying",
+      "viewport": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 780,
+      "screenshot": "outputs/pdf-remediation-batch-3/carrying-3440.png"
+    },
+    {
+      "surface": "casting",
+      "viewport": 360,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 344,
+      "screenshot": "outputs/pdf-remediation-batch-3/casting-360.png"
+    },
+    {
+      "surface": "casting",
+      "viewport": 768,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 736,
+      "screenshot": "outputs/pdf-remediation-batch-3/casting-768.png"
+    },
+    {
+      "surface": "casting",
+      "viewport": 1440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 780,
+      "screenshot": "outputs/pdf-remediation-batch-3/casting-1440.png"
+    },
+    {
+      "surface": "casting",
+      "viewport": 3440,
+      "pageOverflow": false,
+      "inspectorOverflow": false,
+      "width": 780,
+      "screenshot": "outputs/pdf-remediation-batch-3/casting-3440.png"
+    }
+  ]
+}

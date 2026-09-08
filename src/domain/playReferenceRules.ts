@@ -1,10 +1,16 @@
 import type { ReferenceContext } from './references';
 import type { SourceReference } from './types';
+import type { GenerationAuthority } from './generationProvenance';
 
 export interface PlayReferenceRuleSeed {
   id: string;
   title: string;
   summary: string;
+  translationKo?: string;
+  titleKo?: string;
+  sourceTitle?: string;
+  authority?: GenerationAuthority[];
+  additionalSourceRefs?: SourceReference[];
   book: string;
   pages: number[];
   printedPage: number | string;
@@ -51,73 +57,6 @@ export const PLAY_REFERENCE_RULES: PlayReferenceRuleSeed[] = [
       'feretory.selectMenu',
       'feretory.cheapMenu',
     ],
-    seeFullRule: true,
-  },
-  {
-    id: 'core.tests',
-    title: 'Core Tests · 능력 판정',
-    summary:
-      'd20 + 능력 보정이 DR 이상이면 성공합니다. 보통 DR12. 생물은 능력 보정 없이 d20만 굴립니다.',
-    book: 'core',
-    pages: [28],
-    printedPage: 28,
-    contexts: ['character'],
-  },
-  {
-    id: 'core.carrying',
-    title: 'Carrying Capacity · 운반과 과적',
-    summary:
-      '보통 크기 물건은 Strength + 8개까지. 넘으면 Strength·Agility 판정 DR +2, 최대 수량은 기본 한도의 두 배입니다. 큰 물건의 처리는 원문과 상황을 확인하세요.',
-    book: 'core',
-    pages: [28],
-    printedPage: 28,
-    contexts: ['character', 'travel'],
-    seeFullRule: true,
-  },
-  {
-    id: 'core.violence',
-    title: 'Core Combat · 선공과 공격·방어',
-    summary:
-      '선공 d6: 1–3 적, 4–6 PC. 개별 선공은 Agility + d6. PC가 공격과 방어를 굴립니다. 기본 DR12: 근접 Strength, 원거리 Presence, 방어 Agility. 적은 별도 지시가 없으면 라운드마다 한 번 공격합니다.',
-    book: 'core',
-    pages: [30],
-    printedPage: 30,
-    contexts: ['character', 'monster'],
-    oracles: ['core.reaction', 'core.failedMorale'],
-  },
-  {
-    id: 'core.crit-fumble',
-    title: 'Crit / Fumble · 전투의 20과 1',
-    summary:
-      '자연 20: 공격 피해 두 배·대상 보호 1단계 감소, 방어는 무료 공격. 자연 1: 공격 무기 파손/분실, 방어 피해 두 배·갑옷 1단계 감소. 손상되어도 능력 판정 불이익은 그대로이며 1단계 미만은 수리 불가입니다.',
-    book: 'core',
-    pages: [31],
-    printedPage: 31,
-    contexts: ['character', 'monster'],
-    seeFullRule: true,
-  },
-  {
-    id: 'core.armor-shield',
-    title: 'Armor / Shield · 방어구와 방패',
-    summary:
-      '경갑/중갑/중장갑 피해 감소 d2/d4/d6. 중갑은 Agility DR +2, 중장갑은 +4(방어는 +2). 방패는 피해 −1, 또는 부수며 한 공격의 피해 전부 무시. 양손 무기나 중갑·중장갑을 쓰면 두루마리는 작동하지 않습니다.',
-    book: 'core',
-    pages: [23],
-    printedPage: 23,
-    contexts: ['character'],
-    oracles: ['core.armor'],
-    seeFullRule: true,
-  },
-  {
-    id: 'core.casting',
-    title: 'Using Powers · 권능 사용 판정',
-    summary:
-      '두루마리는 Presence DR12. 성공하면 권능 발동·일일 사용 횟수 1 감소. 실패하면 d2 HP 손실과 1시간 현기증; 그동안 권능은 최악의 방식으로 실패합니다. Crit/Fumble의 효과는 GM이 정하며 재앙 표는 선택 사항입니다.',
-    book: 'core',
-    pages: [34],
-    printedPage: 34,
-    contexts: ['character'],
-    oracles: ['core.arcaneCatastrophes', 'core.sacred', 'core.unclean'],
     seeFullRule: true,
   },
   {

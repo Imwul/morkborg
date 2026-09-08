@@ -1,0 +1,10 @@
+{
+  "canonicalTables": 572,
+  "referenceEntries": 998,
+  "targetedBilingualQuickRules": 13,
+  "selectedAuditIds": 19,
+  "uniqueNeedsIncludingDependenciesUpperBound": 17,
+  "unresolved": [],
+  "UNSOURCED": 0,
+  "note": "0 unresolved source definitions/attestations in loaded production registry. No generator or source-table data changed. Quick-rule summaries checked against targeted supplied pages; Korean remains separate."
+}

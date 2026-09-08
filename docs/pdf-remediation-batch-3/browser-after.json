@@ -1,0 +1,519 @@
+{
+  "phase": "after",
+  "url": "http://127.0.0.1:5174/",
+  "interactionConvention": "Search field fill = 1; opening first result = 1; closing previous result excluded from individual lookup. No campaign selected.",
+  "records": [
+    {
+      "query": "DR",
+      "top": [
+        "Core Tests / Difficulty Ratings능력 판정과 난이도RULE · MB-BBOPEN",
+        "‘Poltroon’ the Court JesterClass ability · MB-BBOPEN",
+        "Abominable Gob LobberClass ability · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "difficulty",
+      "top": [
+        "Core Tests / Difficulty Ratings능력 판정과 난이도RULE · MB-BBOPEN",
+        "Creature Difficulty Modification — TougherORACLE · DEPROLL",
+        "Creature Difficulty Modification — Spend OmensORACLE · DEPOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "난이도",
+      "top": [
+        "Core Tests / Difficulty Ratings능력 판정과 난이도RULE · MB-BBOPEN",
+        "Depths Threat Rating · 위험도 TRRULE · DEPOPEN",
+        "RCL Moves · 기본 판정RULE · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "어려움",
+      "top": [
+        "Core Tests / Difficulty Ratings능력 판정과 난이도RULE · MB-BBOPEN",
+        "Depths Threat Rating · 위험도 TRRULE · DEPOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "round",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN",
+        "‘Poltroon’ the Court JesterClass ability · MB-BBOPEN",
+        "Abominable Gob LobberClass ability · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "round duration",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN",
+        "NPC Encounter 14 — Cursed ToyORACLE · AitCROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "턴",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "라운드",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN",
+        "Core Combat / Initiative전투와 선공RULE · MB-BBOPEN",
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "movement",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN",
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "이동",
+      "top": [
+        "Traveling the Dying Lands · Road travel timesTravel · FEROPEN",
+        "RCL Travel the Road · 길 이동RULE · RCLOPEN",
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "몇 미터",
+      "top": [
+        "Core Round / Movement라운드와 이동RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "starvation",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN",
+        "RCL Travel Fatigue and StarvationRECLVSE · 여행 피로와 굶주림Rule · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "굶주림",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "식량 없음",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "thirst",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "갈증",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "infection",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN",
+        "RCL InfectionRECLVSE · 감염Rule · RCLOPEN",
+        "Caltrops마름쇠Equipment · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "감염",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "carrying",
+      "top": [
+        "Carrying Capacity운반과 과적RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "짐",
+      "top": [
+        "Carrying Capacity운반과 과적RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "얼마나 들 수",
+      "top": [
+        "Carrying Capacity운반과 과적RULE · MB-BBOPEN",
+        "Core Armor / Shield방어구와 방패RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "healing",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN",
+        "Make CampRECLVSE · 야영Move · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "회복",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN",
+        "Omens · 징조RULE · MB-BBOPEN",
+        "SD Camping · 숨 돌리기와 야영RULE · SDOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "치료",
+      "top": [
+        "Core Rest / Food / Infection휴식·식량·감염RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "flee",
+      "top": [
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN",
+        "SD Flee · 전투 이탈RULE · SDOPEN",
+        "Morale반응과 사기RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "도망",
+      "top": [
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN",
+        "Morale반응과 사기RULE · MB-BBOPEN",
+        "SD Flee · 전투 이탈RULE · SDOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "도주",
+      "top": [
+        "Core Fleeing도주 판정의 범위RULE · MB-BBOPEN",
+        "Morale반응과 사기RULE · MB-BBOPEN",
+        "SD Flee · 전투 이탈RULE · SDOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Get Better",
+      "top": [
+        "Getting Better성장RULE · MB-BBOPEN",
+        "Begin Adventure · SD모험 시작Rule · SDOPEN",
+        "Gutterborn Scum빈민굴의 부랑자Class · MB-FOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "성장",
+      "top": [
+        "Getting Better성장RULE · MB-BBOPEN",
+        "HER Unheroic Feats · 재주 획득 조건RULE · HEROPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Broken",
+      "top": [
+        "Broken / Death무력화와 죽음RULE · MB-BBOPEN",
+        "Broken부서진ORACLE · MB-BBROLL",
+        "Broken — Injury부서진 — 부상ORACLE · MB-BBROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "HP 0",
+      "top": [
+        "Broken / Death무력화와 죽음RULE · MB-BBOPEN",
+        "RCL Below Zero / Death / RecoveryRECLVSE · 음수 HP / 죽음 / 회복Rule · RCLOPEN",
+        "RCL OmensRECLVSE · 오멘Rule · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "negative HP",
+      "top": [
+        "Broken / Death무력화와 죽음RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "death",
+      "top": [
+        "Broken / Death무력화와 죽음RULE · MB-BBOPEN",
+        "Death죽음Power · MB-BBOPEN",
+        "Dodging DeathClass ability · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "initiative",
+      "top": [
+        "Core Combat / Initiative전투와 선공RULE · MB-BBOPEN",
+        "InitiativeORACLE · MB-BBROLL",
+        "Powers · SD variant권능 · SD 변형Rule · SDOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "critical",
+      "top": [
+        "Core Crit / Fumble전투의 치명타와 실수RULE · MB-BBOPEN",
+        "RCL Critical DieRECLVSE · 치명타 주사위Rule · RCLOPEN",
+        "RCL Combat Criticals / FumblesRECLVSE · 전투 치명타 / 실수Rule · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "fumble",
+      "top": [
+        "Core Crit / Fumble전투의 치명타와 실수RULE · MB-BBOPEN",
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN",
+        "Omens · 징조RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "armor",
+      "top": [
+        "Core Armor / Shield방어구와 방패RULE · MB-BBOPEN",
+        "Armor방어구ORACLE · MB-BBROLL",
+        "Armor TableORACLE · RCLROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Omens",
+      "top": [
+        "Omens · 징조RULE · MB-BBOPEN",
+        "Omens · SD variant오멘 · SD 변형Rule · SDOPEN",
+        "RCL · OMENS / POWERS오멘 / 권능RULEOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Power",
+      "top": [
+        "Using Powers권능 사용RULE · MB-BBOPEN",
+        "Faction Power LevelORACLE · RCLROLL",
+        "RCL Invoke a PowerRECLVSE · 권능 발동Rule · RCLOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "morale",
+      "top": [
+        "Morale반응과 사기RULE · MB-BBOPEN",
+        "Beasts — MoraleORACLE · RCLROLL",
+        "Failed Morale실패한 사기ORACLE · MB-BBROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "reaction",
+      "top": [
+        "ReactionORACLE · MB-BBROLL",
+        "City Gate — Guards ReactionORACLE · AitCROLL",
+        "Morale반응과 사기RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Bomb",
+      "top": [
+        "bombEquipment · MB-BBOPEN",
+        "Blackpowder BombWeapon · HEROPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Life elixir",
+      "top": [
+        "life elixirEquipment · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Small vicious dog",
+      "top": [
+        "small but vicious dogEquipment · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Monkeys",
+      "top": [
+        "monkeysEquipment · MB-BBOPEN",
+        "Nephalix MonkeysNephalix 원숭이CREATURE · FEROPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "20 arrows",
+      "top": [
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN",
+        "Bow활Weapon · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "10 bolts",
+      "top": [
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN",
+        "Crossbow석궁Weapon · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "armor repair",
+      "top": [
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN",
+        "Core Crit / Fumble전투의 치명타와 실수RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "steady meal",
+      "top": [
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    },
+    {
+      "query": "Heretical Priest",
+      "top": [
+        "Heretical Priest이단 사제Class · MB-FOPEN",
+        "Heretical Priest — You Begin With OneORACLE · MB-BBROLL",
+        "Heretical Priest — Unholy OriginsORACLE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true,
+      "hasReading": true
+    }
+  ],
+  "errors": [],
+  "campaignUnchanged": true
+}

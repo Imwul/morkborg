@@ -516,7 +516,11 @@ test('Frequent rule references separate Core and SD variants and cite the region
   const { registry, rules } = fixture(),
     ref = buildReferenceRegistry(registry, rules);
   assert.match(ref.byId['rule:core.rest'].summary, /d4 HP.*d6 HP/);
-  assert.match(ref.byId['rule:core.broken'].summary, /음수.*사망/);
+  assert.match(ref.byId['rule:core.broken'].summary, /negative HP.*dead/);
+  assert.match(
+    ref.byId['rule:core.broken'].summaryTranslationKo!,
+    /음수.*사망/,
+  );
   assert(
     ref.byId['rule:sd.stockCommon'].sourceRefs.some(
       (source) =>

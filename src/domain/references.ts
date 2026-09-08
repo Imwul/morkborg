@@ -1,4 +1,9 @@
-import { PLAY_REFERENCE_RULES } from './playReferenceRules';
+import {
+  PLAY_REFERENCE_RULES,
+  type PlayReferenceRuleSeed,
+} from './playReferenceRules';
+import { CORE_PLAY_RULES } from './corePlayRules';
+import type { GenerationAuthority } from './generationProvenance';
 import { referenceCreatureRecords } from './creatureReferences';
 import {
   buildReferenceDefinitions,
@@ -62,6 +67,9 @@ export interface ReferenceEntry {
   kind: ReferenceKind;
   title: string;
   summary: string;
+  summaryTranslationKo?: string;
+  titleTranslationKo?: string;
+  authority?: GenerationAuthority[];
   keywords: string[];
   searchAliases?: { ko: string[]; en: string[] };
   definition?: ReferenceDefinition;
@@ -221,49 +229,11 @@ const defaultEntry = (
   available: true,
   action: null,
 });
-interface RuleSeed {
-  id: string;
-  title: string;
-  summary: string;
-  book: string;
-  pages: number[];
-  contexts: ReferenceContext[];
-  oracles?: string[];
+interface RuleSeed extends Omit<PlayReferenceRuleSeed, 'printedPage'> {
   printedPage?: number | string;
-  seeFullRule?: boolean;
-  status?: SourceReference['status'];
 }
 /** Concise navigation summaries; the source tables remain the only copy of their results. */
 const RULES: RuleSeed[] = [
-  {
-    id: 'core.rest',
-    title: 'Rest · 휴식',
-    summary:
-      '짧은 휴식 d4 HP, 밤잠 d6 HP. 음식이나 물이 없으면 회복하지 못합니다. 이틀 굶은 뒤에는 매일 d4 HP를 잃고, 감염 중에는 회복 대신 매일 d6 HP를 잃습니다.',
-    book: 'core',
-    pages: [31],
-    contexts: ['character', 'travel'],
-  },
-  {
-    id: 'core.reaction-morale',
-    title: 'Reaction / Morale · 반응과 사기',
-    summary:
-      '반응이 불분명하면 2d6 Reaction. 지도자 사망·절반 제거·단독 적 HP 1/3에서 사기를 확인합니다. 2d6이 Morale보다 높으면 실패: d6 1–3 도주, 4–6 항복.',
-    book: 'core',
-    pages: [32],
-    contexts: ['monster', 'npc'],
-    oracles: ['core.reaction', 'core.failedMorale'],
-  },
-  {
-    id: 'core.broken',
-    title: 'Broken / Death · 무력화와 죽음',
-    summary:
-      'HP가 정확히 0이면 Broken 표를 굴립니다. HP가 음수이면 사망합니다.',
-    book: 'core',
-    pages: [29],
-    contexts: ['character', 'monster'],
-    oracles: ['core.broken', 'core.brokenInjury'],
-  },
   {
     id: 'core.omens',
     title: 'Omens · 징조',
@@ -274,16 +244,6 @@ const RULES: RuleSeed[] = [
     printedPage: 37,
     status: 'VERIFIED',
     contexts: ['character'],
-  },
-  {
-    id: 'core.improvement',
-    title: 'Getting Better · 성장',
-    summary:
-      'GM이 성장 시점을 정합니다. 6d10이 최대 HP 이상이면 최대 HP +d6. 능력치마다 d6: 1이면 −1, 그 외 능력치 이상이면 +1, 미만이면 −1(범위 −3~+6). 발견물은 별도 표를 굴립니다.',
-    book: 'core',
-    pages: [33],
-    contexts: ['character'],
-    oracles: ['core.gettingBetterDebris'],
   },
   {
     id: 'core.miseries',
@@ -550,12 +510,16 @@ export function buildReferenceRegistry(
         : null,
     });
   }
-  for (const seed of [...RULES, ...PLAY_REFERENCE_RULES]) {
+  for (const seed of [
+    ...RULES,
+    ...PLAY_REFERENCE_RULES,
+    ...CORE_PLAY_RULES,
+  ] as RuleSeed[]) {
     const book = oracles.books.find((b) => b.id === seed.book),
       ref: SourceReference = {
         bookId: seed.book,
         bookTitle: book?.title ?? seed.book,
-        tableTitle: seed.title,
+        tableTitle: seed.sourceTitle ?? seed.title,
         pdfPage: seed.pages,
         printedPage: seed.printedPage,
         ...(seed.status ? { status: seed.status } : {}),
@@ -565,7 +529,7 @@ export function buildReferenceRegistry(
             }
           : {}),
       };
-    const sourceRefs = [ref];
+    const sourceRefs = [ref, ...(seed.additionalSourceRefs ?? [])];
     if (seed.id === 'core.omens')
       sourceRefs.push({
         bookId: 'core-full',
@@ -590,6 +554,9 @@ export function buildReferenceRegistry(
     add({
       ...defaultEntry(`rule:${seed.id}`, 'rule', seed.title),
       summary: seed.summary,
+      summaryTranslationKo: seed.translationKo,
+      titleTranslationKo: seed.titleKo,
+      authority: seed.authority,
       keywords: [seed.id, ...seed.contexts],
       contexts: seed.contexts,
       canonicalIds: seed.oracles ?? [],
@@ -1108,6 +1075,24 @@ export function buildReferenceRegistry(
       entry.kind === 'region'
     )
       entry.relatedIds.push('rule:feretory.travel-distances');
+    if (['rule:core.casting', 'rule:core.armor-shield'].includes(entry.id)) {
+      const priest = entries.find(
+        (candidate) =>
+          candidate.definition?.kind === 'Class' &&
+          candidate.title === 'Heretical Priest',
+      );
+      if (priest) entry.relatedIds.unshift(priest.id);
+    }
+    if (
+      entry.definition?.kind === 'Equipment' &&
+      entry.definition.title === 'Scroll' &&
+      entry.sourceRefs.some((source) => source.bookId === 'core')
+    )
+      entry.relatedIds.unshift(
+        'rule:core.casting',
+        'oracle:core.sacred',
+        'oracle:core.unclean',
+      );
     if (entry.id === 'rule:core.casting')
       entry.relatedIds.push(
         ...entries
@@ -1219,6 +1204,7 @@ export function searchReferences(
           [
             entry.id,
             entry.summary,
+            entry.summaryTranslationKo ?? '',
             ...entry.keywords,
             ...navigationAliases,
             ...entry.contexts,
@@ -1326,8 +1312,8 @@ const CONTEXT_IDS: Record<ReferenceContext, string[]> = {
     'rule:core.broken',
     'rule:core.omens',
     'rule:core.improvement',
-    'oracle:core.reaction',
-    'oracle:core.corpsePlundering',
+    'rule:core.carrying',
+    'rule:core.casting',
   ],
 };
 export function contextReferences(
@@ -1368,6 +1354,7 @@ const SEMANTIC_RELATED: Record<string, string[]> = {
     'oracle:core.failedMorale',
   ],
   'rule:core.reaction-morale': [
+    'rule:core.flee',
     'oracle:core.reaction',
     'oracle:core.failedMorale',
     'rule:core.violence',
@@ -1392,7 +1379,45 @@ const SEMANTIC_RELATED: Record<string, string[]> = {
     'rule:core.violence',
     'rule:core.omens',
   ],
-  'rule:core.rest': ['rule:core.broken', 'rule:core.powers'],
+  'rule:core.rest': [
+    'rule:core.broken',
+    'rule:core.carrying',
+    'rule:core.services',
+  ],
+  'rule:core.tests': [
+    'rule:core.violence',
+    'rule:core.round',
+    'rule:core.carrying',
+  ],
+  'rule:core.round': [
+    'rule:core.violence',
+    'rule:core.casting',
+    'rule:core.flee',
+  ],
+  'rule:core.violence': [
+    'rule:core.round',
+    'rule:core.crit-fumble',
+    'rule:core.armor-shield',
+    'rule:core.flee',
+  ],
+  'rule:core.crit-fumble': [
+    'rule:core.armor-shield',
+    'rule:core.services',
+    'rule:core.broken',
+  ],
+  'rule:core.armor-shield': ['rule:core.services', 'rule:core.casting'],
+  'rule:core.casting': ['rule:sd.powers', 'rule:core.armor-shield'],
+  'rule:core.carrying': ['rule:core.rest', 'rule:core.services'],
+  'rule:core.flee': [
+    'rule:core.round',
+    'rule:core.reaction-morale',
+    'rule:sd.flee-combat',
+  ],
+  'rule:core.services': [
+    'rule:core.armor-shield',
+    'rule:core.crit-fumble',
+    'rule:core.rest',
+  ],
 };
 function semanticRelated(entry: ReferenceEntry): string[] {
   if (SEMANTIC_RELATED[entry.id]) return SEMANTIC_RELATED[entry.id];
