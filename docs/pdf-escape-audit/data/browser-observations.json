@@ -1,0 +1,712 @@
+{
+  "head": "a50d2425deb9a4e9c7e7abb0983dd4c34c68c116",
+  "sourceLogSha256": "88e2eeaa7ce53c8e1dfd6ca042fafed8c643c9fa165645cb7b6e5c1b62a7655b",
+  "observations": 66,
+  "startedAt": "2026-09-08T06:08:00.415Z",
+  "endedAt": "2026-09-08T06:40:50.262Z",
+  "method": "Isolated full-data localhost5174 browser. Query typing/scrolling/harness retries excluded. Counts refer to stated context; failed zero-result lookup is not a successful zero-click answer. Raw private result bodies are omitted.",
+  "records": [
+    {
+      "sequence": 1,
+      "at": "2026-09-08T06:08:00.415Z",
+      "queryOrScenario": "reaction",
+      "recordedActivations": 1,
+      "topResults": [
+        "ReactionORACLE · MB-BBROLL",
+        "City Gate — Guards ReactionORACLE · AitCROLL",
+        "Get Directions — Weak Hit ReactionORACLE · AitCROLL",
+        "NPC Encounter 23 — Soldier Reaction ModifierORACLE · AitCROLL",
+        "MoraleRULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 2,
+      "at": "2026-09-08T06:08:00.772Z",
+      "queryOrScenario": "morale",
+      "recordedActivations": 1,
+      "topResults": [
+        "MoraleRULE · MB-BBOPEN",
+        "Beasts — MoraleORACLE · RCLROLL",
+        "Failed MoraleORACLE · MB-BBROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL",
+        "NPC Encounter 23 — Soldier Reaction ModifierORACLE · AitCROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 3,
+      "at": "2026-09-08T06:08:01.198Z",
+      "queryOrScenario": "broken",
+      "recordedActivations": 1,
+      "topResults": [
+        "Broken / Death · 무력화와 죽음RULE · MB-BBOPEN",
+        "BrokenORACLE · MB-BBROLL",
+        "Broken — InjuryORACLE · MB-BBROLL",
+        "Broken BodiesORACLE · MB-BBROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 4,
+      "at": "2026-09-08T06:08:01.499Z",
+      "queryOrScenario": "armor",
+      "recordedActivations": 1,
+      "topResults": [
+        "Armor / Shield · 방어구와 방패RULE · MB-BBOPEN",
+        "ArmorORACLE · MB-BBROLL",
+        "Armor TableORACLE · RCLROLL",
+        "Beasts — Armor TierORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 5,
+      "at": "2026-09-08T06:08:01.798Z",
+      "queryOrScenario": "healing",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 6,
+      "at": "2026-09-08T06:08:36.970Z",
+      "queryOrScenario": "rest",
+      "recordedActivations": 1,
+      "topResults": [
+        "Rest · 휴식RULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 7,
+      "at": "2026-09-08T06:08:37.303Z",
+      "queryOrScenario": "Omens",
+      "recordedActivations": 1,
+      "topResults": [
+        "Omens / Powers · 징조와 권능RULE · MB-BBOPEN",
+        "Strange OmensORACLE · RCLROLL",
+        "Creature Difficulty Modification — Spend OmensORACLE · DEPOPEN",
+        "SD Camping · 숨 돌리기와 야영RULE · SDOPEN",
+        "SD General Move · 일반 모험 판정RULE · SDOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 8,
+      "at": "2026-09-08T06:08:37.610Z",
+      "queryOrScenario": "Daemon of Capillaries",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 9,
+      "at": "2026-09-08T06:08:37.632Z",
+      "queryOrScenario": "Fanged Deserter",
+      "recordedActivations": 1,
+      "topResults": [
+        "Fanged Deserter — Earliest MemoriesORACLE · MB-BBROLL",
+        "Fanged Deserter — You Also Begin WithORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 10,
+      "at": "2026-09-08T06:08:37.930Z",
+      "queryOrScenario": "Heavy Armor",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 11,
+      "at": "2026-09-08T06:08:37.952Z",
+      "queryOrScenario": "Lantern",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 12,
+      "at": "2026-09-08T06:13:57.673Z",
+      "queryOrScenario": "Carcasswan",
+      "recordedActivations": 1,
+      "topResults": [
+        "CarcasswanCREATURE · FEROPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 13,
+      "at": "2026-09-08T06:13:57.987Z",
+      "queryOrScenario": "Lentil Lice",
+      "recordedActivations": 1,
+      "topResults": [
+        "Lentil LiceCREATURE · FEROPEN",
+        "GriftREGION · FEROPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 14,
+      "at": "2026-09-08T06:13:58.319Z",
+      "queryOrScenario": "Überwolf",
+      "recordedActivations": 1,
+      "topResults": [
+        "ÜberwolfCREATURE · FEROPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 15,
+      "at": "2026-09-08T06:13:58.629Z",
+      "queryOrScenario": "Stein",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 16,
+      "at": "2026-09-08T06:13:58.651Z",
+      "queryOrScenario": "Benzen",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 17,
+      "at": "2026-09-08T06:13:58.670Z",
+      "queryOrScenario": "Arga",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 18,
+      "at": "2026-09-08T06:13:58.688Z",
+      "queryOrScenario": "Rotten Nurse",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 19,
+      "at": "2026-09-08T06:13:58.706Z",
+      "queryOrScenario": "Prowler",
+      "recordedActivations": 1,
+      "topResults": [
+        "Prowler · OutcastCREATURE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 20,
+      "at": "2026-09-08T06:13:59.002Z",
+      "queryOrScenario": "weapons",
+      "recordedActivations": 1,
+      "topResults": [
+        "WeaponsORACLE · MB-BBROLL",
+        "Weapons TableORACLE · RCLROLL",
+        "NPC Encounter 55 — Fence WeaponORACLE · AitCROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 21,
+      "at": "2026-09-08T06:13:59.293Z",
+      "queryOrScenario": "useful item",
+      "recordedActivations": 1,
+      "topResults": [
+        "Useful ItemORACLE · SDROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 22,
+      "at": "2026-09-08T06:14:49.362Z",
+      "queryOrScenario": "weapons",
+      "recordedActivations": 1,
+      "topResults": [
+        "WeaponsORACLE · MB-BBROLL",
+        "Weapons TableORACLE · RCLROLL",
+        "NPC Encounter 55 — Fence WeaponORACLE · AitCROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 23,
+      "at": "2026-09-08T06:16:22.818Z",
+      "queryOrScenario": "sacred scroll",
+      "recordedActivations": 1,
+      "topResults": [
+        "Sacred ScrollsORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 24,
+      "at": "2026-09-08T06:16:35.009Z",
+      "queryOrScenario": "Sarkash monster",
+      "recordedActivations": 1,
+      "topResults": [
+        "Sarkash · Regional MonstersRULE · DEPGENERATE",
+        "Sarkash — MonstersORACLE · DEPROLL",
+        "Eat Prey Kill · SarkashORACLE · FERROLL",
+        "SarkashREGION · DEPOPEN",
+        "Carrion OwlsCREATURE · FEROPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 25,
+      "at": "2026-09-08T06:16:35.354Z",
+      "queryOrScenario": "NPC",
+      "recordedActivations": 1,
+      "topResults": [
+        "NPCPROCEDURE · MB-BBGENERATE",
+        "Bergen Chrypt — NPC ProfessionsORACLE · DEPROLL",
+        "Graven-Tosk — NPC ProfessionsORACLE · DEPROLL",
+        "Kergüs — NPC ProfessionsORACLE · DEPROLL",
+        "Lake Onda — NPC ProfessionsORACLE · DEPROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 26,
+      "at": "2026-09-08T06:16:35.686Z",
+      "queryOrScenario": "encounter",
+      "recordedActivations": 1,
+      "topResults": [
+        "10C. EncounterORACLE · RCLROLL",
+        "Determining the EncounterORACLE · DEPROLL",
+        "Encounter PrepPROCEDURE · SDOPEN",
+        "Encounter ContextORACLE · RCLROLL",
+        "Graves Left Wanting — Random EncounterORACLE · HERROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 27,
+      "at": "2026-09-08T06:16:36.000Z",
+      "queryOrScenario": "city crawl",
+      "recordedActivations": 1,
+      "topResults": [
+        "City Crawl — FailureORACLE · AitCROLL",
+        "CityPROCEDURE · AitCOPEN",
+        "City Workbench · 도시를 걷기RULE · AitCOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 28,
+      "at": "2026-09-08T06:16:36.311Z",
+      "queryOrScenario": "get directions",
+      "recordedActivations": 1,
+      "topResults": [
+        "Get Directions — Weak Hit ReactionORACLE · AitCROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 29,
+      "at": "2026-09-08T06:16:36.620Z",
+      "queryOrScenario": "pray",
+      "recordedActivations": 1,
+      "topResults": [
+        "Pray — FailureORACLE · AitCROLL",
+        "Pray — Strong HitORACLE · AitCROLL",
+        "Fanatic — Prayer of the DayORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 30,
+      "at": "2026-09-08T06:16:36.925Z",
+      "queryOrScenario": "stash",
+      "recordedActivations": 1,
+      "topResults": [
+        "Stash Item — Weak HitORACLE · AitCROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 31,
+      "at": "2026-09-08T06:16:37.232Z",
+      "queryOrScenario": "travel",
+      "recordedActivations": 1,
+      "topResults": [
+        "SD Travel Day · 하루 여행 순서RULE · SDOPEN",
+        "Depths Travel · 헥스와 지역 조우RULE · DEPOPEN",
+        "RCL Travel the Road · 길 이동RULE · RCLOPEN",
+        "Roads to Damnation · 길과 여행RULE · FEROPEN",
+        "Travel-Cost HazardsORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 32,
+      "at": "2026-09-08T06:16:37.541Z",
+      "queryOrScenario": "camp",
+      "recordedActivations": 1,
+      "topResults": [
+        "All dream ofORACLE · FERROLL",
+        "Nightly Campsite EventsORACLE · FERROLL",
+        "SD Camping · 숨 돌리기와 야영RULE · SDOPEN",
+        "SD Travel Day · 하루 여행 순서RULE · SDOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 33,
+      "at": "2026-09-08T06:16:37.847Z",
+      "queryOrScenario": "Action + Theme",
+      "recordedActivations": 1,
+      "topResults": [
+        "Action + ThemePROCEDURE · RCLRUN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 34,
+      "at": "2026-09-08T06:16:38.151Z",
+      "queryOrScenario": "Mythic Actions",
+      "recordedActivations": 1,
+      "topResults": [
+        "Animal ActionsORACLE · MGE2ROLL",
+        "Animal Actions · Meaning pairPROCEDURE · MGE2RUN",
+        "Character Actions, CombatORACLE · MGE2ROLL",
+        "Character Actions, Combat · Meaning pairPROCEDURE · MGE2RUN",
+        "Character Actions, GeneralORACLE · MGE2ROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 35,
+      "at": "2026-09-08T06:16:38.459Z",
+      "queryOrScenario": "Fate Chart",
+      "recordedActivations": 1,
+      "topResults": [
+        "Mythic Fate Chart · 예·아니오 질문RULE · MGE2OPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 36,
+      "at": "2026-09-08T06:17:33.828Z",
+      "queryOrScenario": "MYTHIC FATE: d100=11 at CF5",
+      "recordedActivations": 5,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 37,
+      "at": "2026-09-08T06:21:11.344Z",
+      "queryOrScenario": "CITY CRAWL > 길 묻기 > 방향 찾기",
+      "recordedActivations": 3,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 38,
+      "at": "2026-09-08T06:23:57.374Z",
+      "queryOrScenario": "Sarkash Special Room 02 > SOURCE",
+      "recordedActivations": 2,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 39,
+      "at": "2026-09-08T06:23:57.448Z",
+      "queryOrScenario": "Room02 Source > Sample Rooms table",
+      "recordedActivations": 1,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 40,
+      "at": "2026-09-08T06:25:30.445Z",
+      "queryOrScenario": "Character > Fanged Deserter > 직업 능력",
+      "recordedActivations": 5,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 41,
+      "at": "2026-09-08T06:25:44.123Z",
+      "queryOrScenario": "armor",
+      "recordedActivations": 1,
+      "topResults": [
+        "Armor / Shield · 방어구와 방패RULE · MB-BBOPEN",
+        "ArmorORACLE · MB-BBROLL",
+        "Armor TableORACLE · RCLROLL",
+        "Beasts — Armor TierORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 42,
+      "at": "2026-09-08T06:27:25.226Z",
+      "queryOrScenario": "initiative",
+      "recordedActivations": 1,
+      "topResults": [
+        "InitiativeORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 43,
+      "at": "2026-09-08T06:27:25.536Z",
+      "queryOrScenario": "combat",
+      "recordedActivations": 1,
+      "topResults": [
+        "Character Actions, CombatORACLE · MGE2ROLL",
+        "Character Actions, Combat · Meaning pairPROCEDURE · MGE2RUN",
+        "Core Combat · 선공과 공격·방어RULE · MB-BBOPEN",
+        "Enemy Combat ModifiersORACLE · DEPROLL",
+        "RCL Combat · 전투장 참조RULE · RCLOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 44,
+      "at": "2026-09-08T06:27:25.842Z",
+      "queryOrScenario": "crit",
+      "recordedActivations": 1,
+      "topResults": [
+        "Crit / Fumble · 전투의 20과 1RULE · MB-BBOPEN",
+        "Using Powers · 권능 사용 판정RULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 45,
+      "at": "2026-09-08T06:27:26.174Z",
+      "queryOrScenario": "broken",
+      "recordedActivations": 1,
+      "topResults": [
+        "Broken / Death · 무력화와 죽음RULE · MB-BBOPEN",
+        "BrokenORACLE · MB-BBROLL",
+        "Broken — InjuryORACLE · MB-BBROLL",
+        "Broken BodiesORACLE · MB-BBROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 46,
+      "at": "2026-09-08T06:27:26.480Z",
+      "queryOrScenario": "Powers",
+      "recordedActivations": 1,
+      "topResults": [
+        "PowersORACLE · MGE2ROLL",
+        "PowersORACLE · RCLROLL",
+        "Fletcher — PowersORACLE · MB-FROLL",
+        "Omens / Powers · 징조와 권능RULE · MB-BBOPEN",
+        "Powers · Meaning pairPROCEDURE · MGE2RUN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 47,
+      "at": "2026-09-08T06:27:26.780Z",
+      "queryOrScenario": "carrying",
+      "recordedActivations": 1,
+      "topResults": [
+        "Carrying Capacity · 운반과 과적RULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 48,
+      "at": "2026-09-08T06:27:27.084Z",
+      "queryOrScenario": "Omens",
+      "recordedActivations": 1,
+      "topResults": [
+        "Omens / Powers · 징조와 권능RULE · MB-BBOPEN",
+        "Strange OmensORACLE · RCLROLL",
+        "Creature Difficulty Modification — Spend OmensORACLE · DEPOPEN",
+        "SD Camping · 숨 돌리기와 야영RULE · SDOPEN",
+        "SD General Move · 일반 모험 판정RULE · SDOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 49,
+      "at": "2026-09-08T06:27:27.390Z",
+      "queryOrScenario": "Miseries",
+      "recordedActivations": 1,
+      "topResults": [
+        "The Calendar of Nechrubel — MiseriesORACLE · MB-BBROLL",
+        "Calendar of Nechrubel · 재앙RULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 50,
+      "at": "2026-09-08T06:27:27.697Z",
+      "queryOrScenario": "unarmed",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 51,
+      "at": "2026-09-08T06:28:33.797Z",
+      "queryOrScenario": "broken",
+      "recordedActivations": 1,
+      "topResults": [
+        "Broken / Death · 무력화와 죽음RULE · MB-BBOPEN",
+        "BrokenORACLE · MB-BBROLL",
+        "Broken — InjuryORACLE · MB-BBROLL",
+        "Broken BodiesORACLE · MB-BBROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 52,
+      "at": "2026-09-08T06:28:34.159Z",
+      "queryOrScenario": "0 HP > Broken quick rule > RELATED > Broken roll",
+      "recordedActivations": 3,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 53,
+      "at": "2026-09-08T06:29:57.974Z",
+      "queryOrScenario": "medicine chest",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 54,
+      "at": "2026-09-08T06:29:57.997Z",
+      "queryOrScenario": "light armor",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 55,
+      "at": "2026-09-08T06:29:58.017Z",
+      "queryOrScenario": "shield",
+      "recordedActivations": 1,
+      "topResults": [
+        "Armor / Shield · 방어구와 방패RULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 56,
+      "at": "2026-09-08T06:29:58.313Z",
+      "queryOrScenario": "Equipment",
+      "recordedActivations": 1,
+      "topResults": [
+        "Gear & Equipment ListORACLE · RCLROLL",
+        "Starting Equipment — ContainerORACLE · MB-BBROLL",
+        "Starting Equipment — First d12 TableORACLE · MB-BBROLL",
+        "Starting Equipment — Second d12 TableORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 57,
+      "at": "2026-09-08T06:29:58.623Z",
+      "queryOrScenario": "Occult Treasures",
+      "recordedActivations": 1,
+      "topResults": [
+        "Occult TreasuresORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 58,
+      "at": "2026-09-08T06:29:58.934Z",
+      "queryOrScenario": "Ancient gore-hound",
+      "recordedActivations": 0,
+      "topResults": [],
+      "isSearch": true
+    },
+    {
+      "sequence": 59,
+      "at": "2026-09-08T06:30:18.786Z",
+      "queryOrScenario": "Starting Equipment Second",
+      "recordedActivations": 1,
+      "topResults": [
+        "Starting Equipment — Second d12 TableORACLE · MB-BBROLL"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 60,
+      "at": "2026-09-08T06:30:19.040Z",
+      "queryOrScenario": "Starting Equipment Second > SOURCE > TABLE (medicine/red poison/shield)",
+      "recordedActivations": 3,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 61,
+      "at": "2026-09-08T06:34:23.700Z",
+      "queryOrScenario": "Journey: Calendar > Weather > Road+event > resolve > Camping",
+      "recordedActivations": 5,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 62,
+      "at": "2026-09-08T06:34:42.020Z",
+      "queryOrScenario": "reaction",
+      "recordedActivations": 1,
+      "topResults": [
+        "ReactionORACLE · MB-BBROLL",
+        "City Gate — Guards ReactionORACLE · AitCROLL",
+        "Get Directions — Weak Hit ReactionORACLE · AitCROLL",
+        "NPC Encounter 23 — Soldier Reaction ModifierORACLE · AitCROLL",
+        "MoraleRULE · MB-BBOPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 63,
+      "at": "2026-09-08T06:37:03.560Z",
+      "queryOrScenario": "After reload > pinned Reaction",
+      "recordedActivations": 1,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 64,
+      "at": "2026-09-08T06:40:49.749Z",
+      "queryOrScenario": "RECENT > Reaction direct roll at 360px",
+      "recordedActivations": 1,
+      "topResults": [],
+      "isSearch": false
+    },
+    {
+      "sequence": 65,
+      "at": "2026-09-08T06:40:49.994Z",
+      "queryOrScenario": "Sarkash monster",
+      "recordedActivations": 2,
+      "topResults": [
+        "Sarkash · Regional MonstersRULE · DEPGENERATE",
+        "Sarkash — MonstersORACLE · DEPROLL",
+        "Eat Prey Kill · SarkashORACLE · FERROLL",
+        "SarkashREGION · DEPOPEN",
+        "Carrion OwlsCREATURE · FEROPEN"
+      ],
+      "isSearch": true
+    },
+    {
+      "sequence": 66,
+      "at": "2026-09-08T06:40:50.262Z",
+      "queryOrScenario": "Regional Monster > MORE > SOURCE",
+      "recordedActivations": 3,
+      "topResults": [],
+      "isSearch": false
+    }
+  ]
+}

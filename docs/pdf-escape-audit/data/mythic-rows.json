@@ -1,0 +1,2998 @@
+[
+  {
+    "id": "mythic-fate-chart",
+    "needId": "mythic-fate-chart",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      18,
+      19,
+      20,
+      21,
+      24,
+      25
+    ],
+    "printedPage": "17, 18, 19, 20, 23, 24",
+    "section": "Fate Questions: odds, Fate Chart and four answers",
+    "content": "Fate Questions: odds, Fate Chart and four answers",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Global MYTHIC FATE > Yes / No > Odds / CF > ROLL FATE",
+    "searchQueries": [
+      "Fate Chart"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "indirect",
+    "problem": "Full numeric outcome is usable from the global panel, including manual dice. Desk search finds a reminder without a direct panel action; this extra routing inconvenience is recorded in SEARCH-AUDIT, not counted as a second missing rule.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-fate-check",
+    "needId": "mythic-fate-check",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      26,
+      27
+    ],
+    "printedPage": "25, 26",
+    "section": "Fate Check alternative: 2d10, modifiers and exceptional bands",
+    "content": "Fate Check alternative: 2d10, modifiers and exceptional bands",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Global MYTHIC FATE > method Fate Check > ROLL FATE",
+    "searchQueries": [
+      "Fate Check"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "indirect",
+    "problem": "Global panel offers full alternative resolution and manual dice even though universal search has no Fate Check entry.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-chaos",
+    "needId": "mythic-chaos",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      22,
+      115
+    ],
+    "printedPage": "21, 114",
+    "section": "Chaos Factor: start, bounds and scene-end adjustment",
+    "content": "Chaos Factor: start, bounds and scene-end adjustment",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Global MYTHIC FATE > Chaos Factor",
+    "searchQueries": [
+      "Chaos Factor"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Usable source content through the stated current route.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-event-trigger",
+    "needId": "mythic-event-trigger",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      26,
+      36,
+      73
+    ],
+    "printedPage": "25, 35, 72",
+    "section": "Random Event triggers from doubles and Interrupt Scene",
+    "content": "Random Event triggers from doubles and Interrupt Scene",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "MYTHIC FATE result > 사건 단서 굴리기",
+    "searchQueries": [
+      "random event"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Usable source content through the stated current route.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-event-focus",
+    "needId": "mythic-event-focus",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "printedPage": "36, 37, 38, 39, 40, 41, 42",
+    "section": "Random Event Focus: twelve outcomes and referent selection",
+    "content": "Random Event Focus: twelve outcomes and referent selection",
+    "type": "Table",
+    "classification": "PARTIAL",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 3,
+    "priority": 9,
+    "appPath": "Desk > oracle:mythic2.random-event-focus-table; MYTHIC FATE event",
+    "searchQueries": [
+      "Random Event Focus Table"
+    ],
+    "searchable": "indirect",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Focus labels and Meaning rolls are present. NPC/Thread results do not explain which notebook list to consult; empty-list and selection rules are not available. Search random event also puts the prepared-adventure variant first.",
+    "minimalFix": "Add a concise focus interpretation/list-selection reminder alongside this existing table; preserve notebook ownership.",
+    "solutionType": [
+      "QUICK_RULE",
+      "RESULT_LINK",
+      "SEARCH_RANKING"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.random-event-focus-table"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-choose-focus",
+    "needId": "mythic-choose-focus",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      43,
+      44
+    ],
+    "printedPage": "42, 43",
+    "section": "Choosing Event Focus instead of rolling; optional once-per-five-Scenes allowance",
+    "content": "Choosing Event Focus instead of rolling; optional once-per-five-Scenes allowance",
+    "type": "Aid",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 2,
+    "priority": 2,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "Choosing Event Focus"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "The circumstance-to-focus reference and optional choice allowance are absent. Reading a visible focus row can replace a roll, but does not explain when the source permits choosing.",
+    "minimalFix": "Add a short optional-rule reminder linked from Event Focus; no choice-tracking subsystem.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-lists",
+    "needId": "mythic-lists",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      45,
+      46,
+      47
+    ],
+    "printedPage": "44, 45, 46",
+    "section": "Notebook Adventure Lists: section dice, Choose blanks and empty-list Current Context",
+    "content": "Notebook Adventure Lists: section dice, Choose blanks and empty-list Current Context",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 3,
+    "priority": 9,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "Adventure Lists",
+      "empty list"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "The event result can invoke a Thread/NPC but the 5-line section dice, blank Choose result and empty-list substitution are not explained in the app.",
+    "minimalFix": "One notebook-compatible list-selection Quick Rule, linked from Event Focus. Do not build a digital journal.",
+    "solutionType": [
+      "QUICK_RULE",
+      "CONTEXT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-action-pair",
+    "needId": "mythic-action-pair",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      47,
+      48,
+      52
+    ],
+    "printedPage": "46, 47, 51",
+    "section": "Meaning Tables: Actions pair",
+    "content": "Meaning Tables: Actions pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > procedure:mythic2.action-pair",
+    "searchQueries": [
+      "Meaning Tables: Actions"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Usable source content through the stated current route.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-description-pair",
+    "needId": "mythic-description-pair",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      47,
+      49,
+      52
+    ],
+    "printedPage": "46, 48, 51",
+    "section": "Meaning Tables: Descriptions pair",
+    "content": "Meaning Tables: Descriptions pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > procedure:mythic2.description-pair",
+    "searchQueries": [
+      "Meaning Tables: Descriptions"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Usable source content through the stated current route.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.descriptor-1",
+        "mythic2.meaning.descriptor-2"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-adventure-tone",
+    "needId": "mythic-meaning-adventure-tone",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      88
+    ],
+    "printedPage": "87",
+    "section": "Adventure Tone — Elements Meaning pair",
+    "content": "Adventure Tone — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.adventure-tone; procedure:mythic2.meaning.adventure-tone.pair",
+    "searchQueries": [
+      "Adventure Tone",
+      "Adventure Tone Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.adventure-tone"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-alien-species-descriptors",
+    "needId": "mythic-meaning-alien-species-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      88
+    ],
+    "printedPage": "87",
+    "section": "Alien Species Descriptors — Elements Meaning pair",
+    "content": "Alien Species Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.alien-species-descriptors; procedure:mythic2.meaning.alien-species-descriptors.pair",
+    "searchQueries": [
+      "Alien Species Descriptors",
+      "Alien Species Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.alien-species-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-animal-actions",
+    "needId": "mythic-meaning-animal-actions",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      88
+    ],
+    "printedPage": "87",
+    "section": "Animal Actions — Elements Meaning pair",
+    "content": "Animal Actions — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.animal-actions; procedure:mythic2.meaning.animal-actions.pair",
+    "searchQueries": [
+      "Animal Actions",
+      "Animal Actions Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.animal-actions"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-army-descriptors",
+    "needId": "mythic-meaning-army-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      89
+    ],
+    "printedPage": "88",
+    "section": "Army Descriptors — Elements Meaning pair",
+    "content": "Army Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.army-descriptors; procedure:mythic2.meaning.army-descriptors.pair",
+    "searchQueries": [
+      "Army Descriptors",
+      "Army Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.army-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-cavern-descriptors",
+    "needId": "mythic-meaning-cavern-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      89
+    ],
+    "printedPage": "88",
+    "section": "Cavern Descriptors — Elements Meaning pair",
+    "content": "Cavern Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.cavern-descriptors; procedure:mythic2.meaning.cavern-descriptors.pair",
+    "searchQueries": [
+      "Cavern Descriptors",
+      "Cavern Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.cavern-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-characters",
+    "needId": "mythic-meaning-characters",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      50,
+      89
+    ],
+    "printedPage": "49, 88",
+    "section": "Characters — Elements Meaning pair",
+    "content": "Characters — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.characters; procedure:mythic2.meaning.characters.pair",
+    "searchQueries": [
+      "Characters",
+      "Characters Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.characters"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-actions-combat",
+    "needId": "mythic-meaning-character-actions-combat",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      90
+    ],
+    "printedPage": "89",
+    "section": "Character Actions, Combat — Elements Meaning pair",
+    "content": "Character Actions, Combat — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-actions-combat; procedure:mythic2.meaning.character-actions-combat.pair",
+    "searchQueries": [
+      "Character Actions, Combat",
+      "Character Actions, Combat Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-actions-combat"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-actions-general",
+    "needId": "mythic-meaning-character-actions-general",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      90
+    ],
+    "printedPage": "89",
+    "section": "Character Actions, General — Elements Meaning pair",
+    "content": "Character Actions, General — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-actions-general; procedure:mythic2.meaning.character-actions-general.pair",
+    "searchQueries": [
+      "Character Actions, General",
+      "Character Actions, General Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-actions-general"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-appearance",
+    "needId": "mythic-meaning-character-appearance",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      90
+    ],
+    "printedPage": "89",
+    "section": "Character Appearance — Elements Meaning pair",
+    "content": "Character Appearance — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-appearance; procedure:mythic2.meaning.character-appearance.pair",
+    "searchQueries": [
+      "Character Appearance",
+      "Character Appearance Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-appearance"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-background",
+    "needId": "mythic-meaning-character-background",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      91
+    ],
+    "printedPage": "90",
+    "section": "Character Background — Elements Meaning pair",
+    "content": "Character Background — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-background; procedure:mythic2.meaning.character-background.pair",
+    "searchQueries": [
+      "Character Background",
+      "Character Background Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-background"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-conversations",
+    "needId": "mythic-meaning-character-conversations",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      91
+    ],
+    "printedPage": "90",
+    "section": "Character Conversations — Elements Meaning pair",
+    "content": "Character Conversations — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-conversations; procedure:mythic2.meaning.character-conversations.pair",
+    "searchQueries": [
+      "Character Conversations",
+      "Character Conversations Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-conversations"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-descriptors",
+    "needId": "mythic-meaning-character-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      91
+    ],
+    "printedPage": "90",
+    "section": "Character Descriptors — Elements Meaning pair",
+    "content": "Character Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-descriptors; procedure:mythic2.meaning.character-descriptors.pair",
+    "searchQueries": [
+      "Character Descriptors",
+      "Character Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-identity",
+    "needId": "mythic-meaning-character-identity",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      92
+    ],
+    "printedPage": "91",
+    "section": "Character Identity — Elements Meaning pair",
+    "content": "Character Identity — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-identity; procedure:mythic2.meaning.character-identity.pair",
+    "searchQueries": [
+      "Character Identity",
+      "Character Identity Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-identity"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-motivations",
+    "needId": "mythic-meaning-character-motivations",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      92
+    ],
+    "printedPage": "91",
+    "section": "Character Motivations — Elements Meaning pair",
+    "content": "Character Motivations — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-motivations; procedure:mythic2.meaning.character-motivations.pair",
+    "searchQueries": [
+      "Character Motivations",
+      "Character Motivations Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-motivations"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-personality",
+    "needId": "mythic-meaning-character-personality",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      92
+    ],
+    "printedPage": "91",
+    "section": "Character Personality — Elements Meaning pair",
+    "content": "Character Personality — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-personality; procedure:mythic2.meaning.character-personality.pair",
+    "searchQueries": [
+      "Character Personality",
+      "Character Personality Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-personality"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-skills",
+    "needId": "mythic-meaning-character-skills",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      93
+    ],
+    "printedPage": "92",
+    "section": "Character Skills — Elements Meaning pair",
+    "content": "Character Skills — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-skills; procedure:mythic2.meaning.character-skills.pair",
+    "searchQueries": [
+      "Character Skills",
+      "Character Skills Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-skills"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-character-traits-flaws",
+    "needId": "mythic-meaning-character-traits-flaws",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      93
+    ],
+    "printedPage": "92",
+    "section": "Character Traits & Flaws — Elements Meaning pair",
+    "content": "Character Traits & Flaws — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.character-traits-flaws; procedure:mythic2.meaning.character-traits-flaws.pair",
+    "searchQueries": [
+      "Character Traits & Flaws",
+      "Character Traits & Flaws Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.character-traits-flaws"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-city-descriptors",
+    "needId": "mythic-meaning-city-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      93
+    ],
+    "printedPage": "92",
+    "section": "City Descriptors — Elements Meaning pair",
+    "content": "City Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.city-descriptors; procedure:mythic2.meaning.city-descriptors.pair",
+    "searchQueries": [
+      "City Descriptors",
+      "City Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.city-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-civilization-descriptors",
+    "needId": "mythic-meaning-civilization-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      94
+    ],
+    "printedPage": "93",
+    "section": "Civilization Descriptors — Elements Meaning pair",
+    "content": "Civilization Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.civilization-descriptors; procedure:mythic2.meaning.civilization-descriptors.pair",
+    "searchQueries": [
+      "Civilization Descriptors",
+      "Civilization Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.civilization-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-creature-abilities",
+    "needId": "mythic-meaning-creature-abilities",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      94
+    ],
+    "printedPage": "93",
+    "section": "Creature Abilities — Elements Meaning pair",
+    "content": "Creature Abilities — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.creature-abilities; procedure:mythic2.meaning.creature-abilities.pair",
+    "searchQueries": [
+      "Creature Abilities",
+      "Creature Abilities Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.creature-abilities"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-creature-descriptors",
+    "needId": "mythic-meaning-creature-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      94
+    ],
+    "printedPage": "93",
+    "section": "Creature Descriptors — Elements Meaning pair",
+    "content": "Creature Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.creature-descriptors; procedure:mythic2.meaning.creature-descriptors.pair",
+    "searchQueries": [
+      "Creature Descriptors",
+      "Creature Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.creature-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-cryptic-message",
+    "needId": "mythic-meaning-cryptic-message",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      95
+    ],
+    "printedPage": "94",
+    "section": "Cryptic Message — Elements Meaning pair",
+    "content": "Cryptic Message — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.cryptic-message; procedure:mythic2.meaning.cryptic-message.pair",
+    "searchQueries": [
+      "Cryptic Message",
+      "Cryptic Message Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.cryptic-message"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-curses",
+    "needId": "mythic-meaning-curses",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      95
+    ],
+    "printedPage": "94",
+    "section": "Curses — Elements Meaning pair",
+    "content": "Curses — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.curses; procedure:mythic2.meaning.curses.pair",
+    "searchQueries": [
+      "Curses",
+      "Curses Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.curses"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-domicile-descriptors",
+    "needId": "mythic-meaning-domicile-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      95
+    ],
+    "printedPage": "94",
+    "section": "Domicile Descriptors — Elements Meaning pair",
+    "content": "Domicile Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.domicile-descriptors; procedure:mythic2.meaning.domicile-descriptors.pair",
+    "searchQueries": [
+      "Domicile Descriptors",
+      "Domicile Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.domicile-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-dungeon-descriptors",
+    "needId": "mythic-meaning-dungeon-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      96
+    ],
+    "printedPage": "95",
+    "section": "Dungeon Descriptors — Elements Meaning pair",
+    "content": "Dungeon Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.dungeon-descriptors; procedure:mythic2.meaning.dungeon-descriptors.pair",
+    "searchQueries": [
+      "Dungeon Descriptors",
+      "Dungeon Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.dungeon-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-dungeon-traps",
+    "needId": "mythic-meaning-dungeon-traps",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      96
+    ],
+    "printedPage": "95",
+    "section": "Dungeon Traps — Elements Meaning pair",
+    "content": "Dungeon Traps — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.dungeon-traps; procedure:mythic2.meaning.dungeon-traps.pair",
+    "searchQueries": [
+      "Dungeon Traps",
+      "Dungeon Traps Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.dungeon-traps"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-forest-descriptors",
+    "needId": "mythic-meaning-forest-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      96
+    ],
+    "printedPage": "95",
+    "section": "Forest Descriptors — Elements Meaning pair",
+    "content": "Forest Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.forest-descriptors; procedure:mythic2.meaning.forest-descriptors.pair",
+    "searchQueries": [
+      "Forest Descriptors",
+      "Forest Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.forest-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-gods",
+    "needId": "mythic-meaning-gods",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      97
+    ],
+    "printedPage": "96",
+    "section": "Gods — Elements Meaning pair",
+    "content": "Gods — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.gods; procedure:mythic2.meaning.gods.pair",
+    "searchQueries": [
+      "Gods",
+      "Gods Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.gods"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-legends",
+    "needId": "mythic-meaning-legends",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      97
+    ],
+    "printedPage": "96",
+    "section": "Legends — Elements Meaning pair",
+    "content": "Legends — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.legends; procedure:mythic2.meaning.legends.pair",
+    "searchQueries": [
+      "Legends",
+      "Legends Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.legends"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-locations",
+    "needId": "mythic-meaning-locations",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      50,
+      97
+    ],
+    "printedPage": "49, 96",
+    "section": "Locations — Elements Meaning pair",
+    "content": "Locations — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.locations; procedure:mythic2.meaning.locations.pair",
+    "searchQueries": [
+      "Locations",
+      "Locations Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.locations"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-magic-item-descriptors",
+    "needId": "mythic-meaning-magic-item-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      98
+    ],
+    "printedPage": "97",
+    "section": "Magic Item Descriptors — Elements Meaning pair",
+    "content": "Magic Item Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.magic-item-descriptors; procedure:mythic2.meaning.magic-item-descriptors.pair",
+    "searchQueries": [
+      "Magic Item Descriptors",
+      "Magic Item Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.magic-item-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-mutation-descriptors",
+    "needId": "mythic-meaning-mutation-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      98
+    ],
+    "printedPage": "97",
+    "section": "Mutation Descriptors — Elements Meaning pair",
+    "content": "Mutation Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.mutation-descriptors; procedure:mythic2.meaning.mutation-descriptors.pair",
+    "searchQueries": [
+      "Mutation Descriptors",
+      "Mutation Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.mutation-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-names",
+    "needId": "mythic-meaning-names",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      98
+    ],
+    "printedPage": "97",
+    "section": "Names — Elements Meaning pair",
+    "content": "Names — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.names; procedure:mythic2.meaning.names.pair",
+    "searchQueries": [
+      "Names",
+      "Names Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 2; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.names"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-noble-house",
+    "needId": "mythic-meaning-noble-house",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      99
+    ],
+    "printedPage": "98",
+    "section": "Noble House — Elements Meaning pair",
+    "content": "Noble House — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.noble-house; procedure:mythic2.meaning.noble-house.pair",
+    "searchQueries": [
+      "Noble House",
+      "Noble House Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.noble-house"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-objects",
+    "needId": "mythic-meaning-objects",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      50,
+      99
+    ],
+    "printedPage": "49, 98",
+    "section": "Objects — Elements Meaning pair",
+    "content": "Objects — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.objects; procedure:mythic2.meaning.objects.pair",
+    "searchQueries": [
+      "Objects",
+      "Objects Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.objects"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-plot-twists",
+    "needId": "mythic-meaning-plot-twists",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      99
+    ],
+    "printedPage": "98",
+    "section": "Plot Twists — Elements Meaning pair",
+    "content": "Plot Twists — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.plot-twists; procedure:mythic2.meaning.plot-twists.pair",
+    "searchQueries": [
+      "Plot Twists",
+      "Plot Twists Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.plot-twists"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-powers",
+    "needId": "mythic-meaning-powers",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      100
+    ],
+    "printedPage": "99",
+    "section": "Powers — Elements Meaning pair",
+    "content": "Powers — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.powers; procedure:mythic2.meaning.powers.pair",
+    "searchQueries": [
+      "Powers",
+      "Powers Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.powers"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-scavenging-results",
+    "needId": "mythic-meaning-scavenging-results",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      100
+    ],
+    "printedPage": "99",
+    "section": "Scavenging Results — Elements Meaning pair",
+    "content": "Scavenging Results — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.scavenging-results; procedure:mythic2.meaning.scavenging-results.pair",
+    "searchQueries": [
+      "Scavenging Results",
+      "Scavenging Results Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.scavenging-results"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-smells",
+    "needId": "mythic-meaning-smells",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      100
+    ],
+    "printedPage": "99",
+    "section": "Smells — Elements Meaning pair",
+    "content": "Smells — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.smells; procedure:mythic2.meaning.smells.pair",
+    "searchQueries": [
+      "Smells",
+      "Smells Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.smells"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-sounds",
+    "needId": "mythic-meaning-sounds",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      101
+    ],
+    "printedPage": "100",
+    "section": "Sounds — Elements Meaning pair",
+    "content": "Sounds — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.sounds; procedure:mythic2.meaning.sounds.pair",
+    "searchQueries": [
+      "Sounds",
+      "Sounds Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.sounds"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-spell-effects",
+    "needId": "mythic-meaning-spell-effects",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      101
+    ],
+    "printedPage": "100",
+    "section": "Spell Effects — Elements Meaning pair",
+    "content": "Spell Effects — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.spell-effects; procedure:mythic2.meaning.spell-effects.pair",
+    "searchQueries": [
+      "Spell Effects",
+      "Spell Effects Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.spell-effects"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-starship-descriptors",
+    "needId": "mythic-meaning-starship-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      101
+    ],
+    "printedPage": "100",
+    "section": "Starship Descriptors — Elements Meaning pair",
+    "content": "Starship Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.starship-descriptors; procedure:mythic2.meaning.starship-descriptors.pair",
+    "searchQueries": [
+      "Starship Descriptors",
+      "Starship Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.starship-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-terrain-descriptors",
+    "needId": "mythic-meaning-terrain-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      102
+    ],
+    "printedPage": "101",
+    "section": "Terrain Descriptors — Elements Meaning pair",
+    "content": "Terrain Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.terrain-descriptors; procedure:mythic2.meaning.terrain-descriptors.pair",
+    "searchQueries": [
+      "Terrain Descriptors",
+      "Terrain Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.terrain-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-undead-descriptors",
+    "needId": "mythic-meaning-undead-descriptors",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      102
+    ],
+    "printedPage": "101",
+    "section": "Undead Descriptors — Elements Meaning pair",
+    "content": "Undead Descriptors — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.undead-descriptors; procedure:mythic2.meaning.undead-descriptors.pair",
+    "searchQueries": [
+      "Undead Descriptors",
+      "Undead Descriptors Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.undead-descriptors"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-visions-dreams",
+    "needId": "mythic-meaning-visions-dreams",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      102
+    ],
+    "printedPage": "101",
+    "section": "Visions & Dreams — Elements Meaning pair",
+    "content": "Visions & Dreams — Elements Meaning pair",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Desk > oracle:mythic2.meaning.visions-dreams; procedure:mythic2.meaning.visions-dreams.pair",
+    "searchQueries": [
+      "Visions & Dreams",
+      "Visions & Dreams Meaning pair"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Complete 100-entry source table, pair procedure and inspector. Exact table heading has canonical route at rank 1; single-roll and pair actions coexist. Player interprets the words.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.visions-dreams"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-meaning-interpretation",
+    "needId": "mythic-meaning-interpretation",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      51,
+      52,
+      53,
+      54,
+      55,
+      85,
+      86,
+      87,
+      103,
+      104,
+      105,
+      106,
+      107
+    ],
+    "printedPage": "50, 51, 52, 53, 54, 84, 85, 86, 102, 103, 104, 105, 106",
+    "section": "Choosing Meaning / doubling identical words / mining for meaning / I Dunno",
+    "content": "Choosing Meaning / doubling identical words / mining for meaning / I Dunno",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "No dedicated reference",
+    "searchQueries": [],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Interpretation advice, worked illustrations and flexible use of fragments. Existing tables supply the prompts; narration remains the player’s task.",
+    "minimalFix": "Keep the original explanation in the PDF; an optional reading link is sufficient.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-first-scene",
+    "needId": "mythic-first-scene",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      64,
+      65,
+      66,
+      67
+    ],
+    "printedPage": "63, 64, 65, 66",
+    "section": "First Scene: inspired idea, random event, Meaning and 4W alternatives",
+    "content": "First Scene: inspired idea, random event, Meaning and 4W alternatives",
+    "type": "Procedure",
+    "classification": "PARTIAL",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 3,
+    "priority": 6,
+    "appPath": "Desk > procedure:mythic2.the-4w",
+    "searchQueries": [
+      "The 4W"
+    ],
+    "searchable": "indirect",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "The 4W procedure works, but its presence does not explain the alternative first-scene methods or that the first scene is not tested against Chaos.",
+    "minimalFix": "Add a short first-scene reminder to the existing 4W/scene references; retain optional strategies and player interpretation.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.meaning.characters",
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2",
+        "mythic2.meaning.locations"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-scene-test",
+    "needId": "mythic-scene-test",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      68
+    ],
+    "printedPage": "67",
+    "section": "Testing the Expected Scene",
+    "content": "Testing the Expected Scene",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "MYTHIC FATE > 장면 판정; Desk > rule:mythic2.scene-test",
+    "searchQueries": [
+      "Altered Scene",
+      "Interrupt Scene"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Usable source content through the stated current route.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-altered-followthrough",
+    "needId": "mythic-altered-followthrough",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      68,
+      69,
+      70,
+      71,
+      72,
+      73
+    ],
+    "printedPage": "67, 68, 69, 70, 71, 72",
+    "section": "Altered Scene: next expectation or optional Scene Adjustment",
+    "content": "Altered Scene: next expectation or optional Scene Adjustment",
+    "type": "Procedure",
+    "classification": "PARTIAL",
+    "severity": "P1",
+    "frequency": 3,
+    "friction": 3,
+    "priority": 9,
+    "appPath": "MYTHIC FATE > Altered result; separate oracle:mythic2.scene-adjustment-table",
+    "searchQueries": [
+      "Scene Adjustment Table"
+    ],
+    "searchable": "indirect",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "Scene Check reports Altered but does not explain its next-most-expected meaning or offer a direct Scene Adjustment link. The separate table has only outcome labels: 7–10 Make 2 Adjustments omits repeat/conflict handling.",
+    "minimalFix": "Add a concise next-step reminder/link and the source’s reroll/conflict rule to the existing adjustment table.",
+    "solutionType": [
+      "QUICK_RULE",
+      "RESULT_LINK",
+      "PROCEDURE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [
+        "mythic2.scene-adjustment-table"
+      ],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-interrupt",
+    "needId": "mythic-interrupt",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      73,
+      74
+    ],
+    "printedPage": "72, 73",
+    "section": "Interrupt Scene: Random Event Focus + Meaning",
+    "content": "Interrupt Scene: Random Event Focus + Meaning",
+    "type": "Procedure",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "MYTHIC FATE > Interrupt > 사건 단서 굴리기",
+    "searchQueries": [
+      "Interrupt Scene"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Panel provides the event-clue action. List-selection guidance is a separate missing need counted in mythic-lists.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-automatic-interrupt",
+    "needId": "mythic-automatic-interrupt",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      80,
+      81
+    ],
+    "printedPage": "79, 80",
+    "section": "Automatic Interrupt to unstick play; optional Move Toward A Thread",
+    "content": "Automatic Interrupt to unstick play; optional Move Toward A Thread",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 3,
+    "priority": 6,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "Automatic Interrupt"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "No concise reference explains bypassing the scene test or fixing Event Focus when stuck.",
+    "minimalFix": "Add a brief optional reminder and link to existing Focus/Meaning tables.",
+    "solutionType": [
+      "QUICK_RULE",
+      "RESULT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-npc-behavior",
+    "needId": "mythic-npc-behavior",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      107,
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "printedPage": "106, 107, 108, 109, 110, 111",
+    "section": "NPC Behavior Table: Yes/No/Exceptional/Random Event interpretation",
+    "content": "NPC Behavior Table: Yes/No/Exceptional/Random Event interpretation",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P1",
+    "frequency": 3,
+    "friction": 3,
+    "priority": 9,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "NPC behavior"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Many NPC inspiration tables exist, but this specific outcome-to-action reminder is absent. The Random Event branch fixes Current Context and supplements the NPC action; generic event focus rolling is not the same procedure.",
+    "minimalFix": "Index the short NPC Behavior reminder with links to the existing Character Action/Conversation tables; no behavior automation.",
+    "solutionType": [
+      "QUICK_RULE",
+      "CONTEXT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-list-bookkeeping",
+    "needId": "mythic-list-bookkeeping",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      112,
+      113,
+      114
+    ],
+    "printedPage": "111, 112, 113",
+    "section": "End-of-Scene notebook list weighting, removals and full-list cleanup",
+    "content": "End-of-Scene notebook list weighting, removals and full-list cleanup",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 2,
+    "priority": 6,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "End of Scene",
+      "bookkeeping"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "The maximum three entries per element and full-list consolidation rule are absent. Optional app Threads are not a reference for this paper-list procedure.",
+    "minimalFix": "A concise notebook list-maintenance reminder with exact source; no narrative logging feature.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-chaos-variants",
+    "needId": "mythic-chaos-variants",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      115
+    ],
+    "printedPage": "114",
+    "section": "Revert Toward the Mean / Random Chaos optional adjustments",
+    "content": "Revert Toward the Mean / Random Chaos optional adjustments",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 3,
+    "priority": 3,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "Random Chaos"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "Panel states only the normal control-based adjustment. The two source alternatives are not retrievable.",
+    "minimalFix": "A compact optional-rule disclosure in the existing Chaos reference.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-fate-rpg",
+    "needId": "mythic-fate-rpg",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      31
+    ],
+    "printedPage": "30",
+    "section": "Fate Questions as replacement RPG resolution",
+    "content": "Fate Questions as replacement RPG resolution",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 2,
+    "priority": 2,
+    "appPath": "No dedicated reference",
+    "searchQueries": [
+      "Fate Questions RPG"
+    ],
+    "searchable": "no",
+    "contextLinked": "partial",
+    "tableView": "n/a",
+    "problem": "The optional CF5, normally ignore exceptional/random events rule is absent. It is not a replacement for missing MÖRK BORG combat rules in this audit.",
+    "minimalFix": "A small optional Mythic rule reminder only if users choose this variant.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-examples",
+    "needId": "mythic-examples",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      2,
+      4,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      23,
+      28,
+      29,
+      30,
+      32,
+      33,
+      55,
+      56,
+      57,
+      60,
+      61,
+      62,
+      63,
+      74,
+      75,
+      76,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      103,
+      104,
+      105,
+      106,
+      111,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121
+    ],
+    "printedPage": "1, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 22, 27, 28, 29, 31, 32, 54, 55, 56, 59, 60, 61, 62, 73, 74, 75, 77, 78, 79, 80, 81, 82, 83, 102, 103, 104, 105, 110, 115, 116, 117, 118, 119, 120",
+    "section": "Introductions, interpretation, scene framing and three extended worked examples",
+    "content": "Introductions, interpretation, scene framing and three extended worked examples",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "No dedicated reference",
+    "searchQueries": [],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Long-form examples and contextual guidance are appropriate reading. Mechanical sidebars on these pages are assessed separately above.",
+    "minimalFix": "Keep long-form examples in the book.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  },
+  {
+    "id": "mythic-art-and-forms",
+    "needId": "mythic-art-and-forms",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      17,
+      34,
+      35,
+      46,
+      58,
+      59,
+      122,
+      123
+    ],
+    "printedPage": "0, 2, 4, 5, 6, 16, 33, 34, 45, 57, 58, 121, 122",
+    "section": "Cover/art, contents and printed layout aids",
+    "content": "Cover/art, contents and printed layout aids",
+    "type": "Aid",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "No dedicated reference",
+    "searchQueries": [],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Artwork and printable notebook sheets are intentionally book/PDF material; no need to replace the handwritten record.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/components/MythicPanel.tsx:109",
+        "src/generators/mythic.ts:17",
+        "src/components/ReferenceWorkbench.tsx:600",
+        "src/domain/referenceReading.ts:1"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF text read by page; low-text pages visually checked. Printed pagination = PDF minus 1. Meaning tables counted once per conceptual lookup, not once per entry/roll/disclosure."
+    }
+  }
+]

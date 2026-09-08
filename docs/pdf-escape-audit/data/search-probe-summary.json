@@ -1,0 +1,43 @@
+{
+  "rawObservations": {
+    "registry-baseline": 264,
+    "supplement-source-probe": 337,
+    "mythic-variation-probe": 36,
+    "canonical-table-title": 562,
+    "browser-search": 55
+  },
+  "rawTotal": 1254,
+  "uniqueExactQueries": 1132,
+  "duplicateObservationsRemoved": 122,
+  "zeroResultQueries": 367,
+  "queriesWithBrowserCheck": 48,
+  "nonSearchBrowserWorkflowsExcluded": 11,
+  "rankingConflicts": [],
+  "methodUniqueQueries": {
+    "registry-baseline": 264,
+    "supplement-source-probe": 337,
+    "mythic-variation-probe": 36,
+    "canonical-table-title": 559,
+    "browser-search": 48
+  },
+  "canonicalTitleChecks": {
+    "sourceTables": 562,
+    "uniqueQueries": 559,
+    "expectedRank1": 551,
+    "expectedRank2to5": 11,
+    "expectedAbsentTop5": 0
+  },
+  "baseline": "a50d2425deb9a4e9c7e7abb0983dd4c34c68c116",
+  "queryKeyPolicy": "Unicode NFC + trim; case and punctuation variants retained; exact repeats merged.",
+  "inputSha256": {
+    "search-results.json": "9299491b7298357df317e6ca1130111c7954e98be27592e5a03d3dd2b4f85823",
+    "supplement-search-results.json": "54c2850632dfbd6db603ff5c7e630ec23c2624b11b6958ba80333b4fbec80fdc",
+    "mythic-variation-search-results.json": "3fda776597afa73546453067c41f13684c708c4fd856996c8792f7669e14a397",
+    "table-search.json": "278a14b4cb73a68d99ab3da05c6a9a6c9806988c956010670d20ef6ab0129256",
+    "browser-probes.json": "88e2eeaa7ce53c8e1dfd6ca042fafed8c643c9fa165645cb7b6e5c1b62a7655b"
+  },
+  "koreanQueries": {
+    "total": 32,
+    "zeroResults": 18
+  }
+}

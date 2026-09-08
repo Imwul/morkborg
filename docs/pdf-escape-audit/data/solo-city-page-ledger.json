@@ -1,0 +1,2642 @@
+{
+  "sd": [
+    {
+      "pdfPage": 1,
+      "printedPage": "unprinted",
+      "topic": "Cover",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 2,
+      "printedPage": "unprinted",
+      "topic": "Title / credits",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 3,
+      "printedPage": "unprinted",
+      "topic": "Contents",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 4,
+      "printedPage": "2",
+      "topic": "Moves overview and scope",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 5,
+      "printedPage": "3",
+      "topic": "Omens, Miseries, combat / Powers exceptions",
+      "needIds": [
+        "sd-omens-variant",
+        "sd-misery-variant",
+        "sd-powers-variant"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 6,
+      "printedPage": "4 (text-layer folio; not visually legible in artwork)",
+      "topic": "Moves divider",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 7,
+      "printedPage": "5",
+      "topic": "General Move; begin/complete/conclude adventure",
+      "needIds": [
+        "sd-general-move",
+        "sd-begin-adventure",
+        "sd-complete-milestone",
+        "sd-conclude-adventure"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 8,
+      "printedPage": "6",
+      "topic": "Flee, search, camping, resupply",
+      "needIds": [
+        "sd-sd-search-strong",
+        "sd-sd-search-weak",
+        "sd-flee",
+        "sd-search",
+        "sd-camping",
+        "sd-resupply"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 9,
+      "printedPage": "7",
+      "topic": "Dungeon crawling",
+      "needIds": [
+        "sd-dungeon-crawl",
+        "sd-special-room-preparation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 10,
+      "printedPage": "8 (text-layer folio; not visually legible in artwork)",
+      "topic": "Oracles divider",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 11,
+      "printedPage": "9",
+      "topic": "Regional source guidance; crowds, useful items, stock creatures",
+      "needIds": [
+        "sd-sd-stockcreatures",
+        "sd-sd-usefulitems",
+        "sd-sd-crowdsizes",
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 12,
+      "printedPage": "10",
+      "topic": "Yes/no; religion; buildings; geography",
+      "needIds": [
+        "sd-sd-yesno",
+        "sd-sd-religion-order",
+        "sd-sd-religion-adjective",
+        "sd-sd-religion-domain",
+        "sd-sd-building-material",
+        "sd-sd-building-size",
+        "sd-sd-building-form",
+        "sd-sd-geographicalfeatures"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 13,
+      "printedPage": "11",
+      "topic": "Materials; sounds; odours/tastes",
+      "needIds": [
+        "sd-sd-material-quality",
+        "sd-sd-material-composition",
+        "sd-sd-sound-quality",
+        "sd-sd-sound-type",
+        "sd-sd-odourstastes"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 14,
+      "printedPage": "12",
+      "topic": "NPC disposition / profession",
+      "needIds": [
+        "sd-sd-npc-disposition",
+        "sd-sd-npc-profession"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 15,
+      "printedPage": "13",
+      "topic": "Room descriptors, exits matrix and contents",
+      "needIds": [
+        "sd-sd-room-adjective",
+        "sd-sd-room-type",
+        "sd-sd-room-exits",
+        "sd-sd-room-contents"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 16,
+      "printedPage": "14 (text-layer folio; not visually legible in artwork)",
+      "topic": "Overland travel divider",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 17,
+      "printedPage": "15",
+      "topic": "Daily travel flowchart and off-road check",
+      "needIds": [
+        "sd-travel-day",
+        "sd-offroad"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 18,
+      "printedPage": "16 (text-layer folio; not visually legible in artwork)",
+      "topic": "Guidance divider",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 19,
+      "printedPage": "17",
+      "topic": "Dungeon preparation and fixed encounter examples",
+      "needIds": [
+        "sd-sd-example-dr10-common",
+        "sd-sd-example-dr10-rare",
+        "sd-special-room-preparation",
+        "sd-fixed-common",
+        "sd-fixed-rare",
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 20,
+      "printedPage": "18",
+      "topic": "Oracle use and general Micro-crawl",
+      "needIds": [
+        "sd-microcrawl",
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 21,
+      "printedPage": "19",
+      "topic": "Worked dungeon map",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": "20",
+      "topic": "Tracking / dungeon and microcrawl worksheets",
+      "needIds": [
+        "sd-advice",
+        "sd-worksheets"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": "21",
+      "topic": "Journey and world map recording guidance",
+      "needIds": [
+        "sd-advice",
+        "sd-worksheets"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": "22 (text-layer folio; not visually legible in artwork)",
+      "topic": "Hints and tips divider",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 25,
+      "printedPage": "23",
+      "topic": "Solo-play advice and alternatives",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 26,
+      "printedPage": "24",
+      "topic": "Survival options and probability discussion",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 27,
+      "printedPage": "25",
+      "topic": "Katla worked example",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 28,
+      "printedPage": "26",
+      "topic": "Worked dungeon prep (deliberately unfinished monster stats)",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 29,
+      "printedPage": "27",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 30,
+      "printedPage": "28",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 31,
+      "printedPage": "29",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 32,
+      "printedPage": "30",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 33,
+      "printedPage": "31",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 34,
+      "printedPage": "32",
+      "topic": "Worked dungeon play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 35,
+      "printedPage": "33",
+      "topic": "Worked Scumslaughter Farm play",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 36,
+      "printedPage": "34",
+      "topic": "Scumslaughter Farm creature statblocks and action table",
+      "needIds": [
+        "sd-sd-example-farmwife-action",
+        "sd-creature-cult-farmwife",
+        "sd-creature-sacrificial-shades",
+        "sd-creature-cult-enforcers",
+        "sd-creature-farm-cultists",
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 37,
+      "printedPage": "35",
+      "topic": "Worked play conclusion",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 38,
+      "printedPage": "36",
+      "topic": "Worked play conclusion / notes",
+      "needIds": [
+        "sd-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 39,
+      "printedPage": "37 (text-layer folio; not visually legible in artwork)",
+      "topic": "Art credits",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 40,
+      "printedPage": "38 (text-layer folio; not visually legible in artwork)",
+      "topic": "Back cover",
+      "needIds": [
+        "sd-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    }
+  ],
+  "depths": [
+    {
+      "pdfPage": 1,
+      "printedPage": "unprinted",
+      "topic": "Cover",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 2,
+      "printedPage": "unprinted",
+      "topic": "Credits",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 3,
+      "printedPage": "32 (text-layer folio; not visually legible in artwork)",
+      "topic": "Contents",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 4,
+      "printedPage": "1",
+      "topic": "Introduction",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 5,
+      "printedPage": "2",
+      "topic": "Chaos Portents raster tables",
+      "needIds": [
+        "depths-depths-chaosportents-action",
+        "depths-depths-chaosportents-subject"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 6,
+      "printedPage": "3",
+      "topic": "Orakle / likelihood / random event focus",
+      "needIds": [
+        "depths-depths-orakle",
+        "depths-depths-randomeventfocus",
+        "depths-orakle-odds",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 7,
+      "printedPage": "4",
+      "topic": "Optional DR procedure and examples",
+      "needIds": [
+        "depths-orakle-dr",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 8,
+      "printedPage": "5 (text-layer folio; not visually legible in artwork)",
+      "topic": "Section artwork",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 9,
+      "printedPage": "6",
+      "topic": "Threat Rating and optional Orakle modifier",
+      "needIds": [
+        "depths-threat-rating",
+        "depths-orakle-dr"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 10,
+      "printedPage": "7",
+      "topic": "Enemy detection; doors",
+      "needIds": [
+        "depths-detection",
+        "depths-doors"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 11,
+      "printedPage": "8",
+      "topic": "Weak consequences; danger; time/noise",
+      "needIds": [
+        "depths-depths-danger",
+        "depths-depths-weakhitconsequences",
+        "depths-time-noise"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 12,
+      "printedPage": "9",
+      "topic": "Trap resolution procedure",
+      "needIds": [
+        "depths-trap-resolution"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 13,
+      "printedPage": "10",
+      "topic": "Regular and special traps",
+      "needIds": [
+        "depths-depths-traps-regular",
+        "depths-depths-traps-special",
+        "depths-trap-resolution"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 14,
+      "printedPage": "11",
+      "topic": "Enemy combat modifiers",
+      "needIds": [
+        "depths-depths-enemycombatmodifiers"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 15,
+      "printedPage": "12",
+      "topic": "Enemy Stats Generator",
+      "needIds": [
+        "depths-depths-enemystats"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 16,
+      "printedPage": "13",
+      "topic": "Rare creature procedure; look",
+      "needIds": [
+        "depths-depths-rare-look",
+        "depths-rare-five-card",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 17,
+      "printedPage": "14",
+      "topic": "Feature; intention",
+      "needIds": [
+        "depths-depths-rare-feature",
+        "depths-depths-rare-intention",
+        "depths-rare-five-card",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 18,
+      "printedPage": "15",
+      "topic": "Rare creature HP/armor/morale/damage",
+      "needIds": [
+        "depths-rare-five-card",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 19,
+      "printedPage": "16",
+      "topic": "Rare special and additional draw",
+      "needIds": [
+        "depths-depths-rare-special",
+        "depths-rare-five-card",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 20,
+      "printedPage": "17",
+      "topic": "Increase difficulty options",
+      "needIds": [
+        "depths-depths-rare-harder",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 21,
+      "printedPage": "18",
+      "topic": "Omen difficulty reduction options",
+      "needIds": [
+        "depths-depths-rare-easier",
+        "depths-example"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": "19 (text-layer folio; not visually legible in artwork)",
+      "topic": "Section artwork",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": "20",
+      "topic": "Regional-table applications",
+      "needIds": [
+        "depths-regional-dungeon-alternative"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": "21",
+      "topic": "Regional dungeon preparation alternatives",
+      "needIds": [
+        "depths-regional-dungeon-alternative"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 25,
+      "printedPage": "22",
+      "topic": "Hex encounter procedure and story connection",
+      "needIds": [
+        "depths-depths-travel-encounter",
+        "depths-depths-travel-storyconnection",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 26,
+      "printedPage": "23",
+      "topic": "Tveland: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-tveland-trait",
+        "depths-depths-region-tveland-feature",
+        "depths-depths-region-tveland-discovery",
+        "depths-depths-region-tveland-monsters",
+        "depths-depths-region-tveland-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 27,
+      "printedPage": "24",
+      "topic": "Sarkash: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-sarkash-trait",
+        "depths-depths-region-sarkash-feature",
+        "depths-depths-region-sarkash-discovery",
+        "depths-depths-region-sarkash-monsters",
+        "depths-depths-region-sarkash-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 28,
+      "printedPage": "25",
+      "topic": "Graven-Tosk: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-graven-tosk-trait",
+        "depths-depths-region-graven-tosk-feature",
+        "depths-depths-region-graven-tosk-discovery",
+        "depths-depths-region-graven-tosk-monsters",
+        "depths-depths-region-graven-tosk-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 29,
+      "printedPage": "26",
+      "topic": "Lake Onda: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-lake-onda-trait",
+        "depths-depths-region-lake-onda-feature",
+        "depths-depths-region-lake-onda-discovery",
+        "depths-depths-region-lake-onda-monsters",
+        "depths-depths-region-lake-onda-npc-professions",
+        "depths-hex-encounters",
+        "depths-lake-onda-route",
+        "depths-cursed-trout-source"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 30,
+      "printedPage": "27",
+      "topic": "Valley of the Unfortunate Undead: EL and five tables",
+      "needIds": [
+        "depths-depths-region-valley-unfortunate-undead-trait",
+        "depths-depths-region-valley-unfortunate-undead-feature",
+        "depths-depths-region-valley-unfortunate-undead-discovery",
+        "depths-depths-region-valley-unfortunate-undead-monsters",
+        "depths-depths-region-valley-unfortunate-undead-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 31,
+      "printedPage": "28",
+      "topic": "Bergen Chrypt: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-bergen-chrypt-trait",
+        "depths-depths-region-bergen-chrypt-feature",
+        "depths-depths-region-bergen-chrypt-discovery",
+        "depths-depths-region-bergen-chrypt-monsters",
+        "depths-depths-region-bergen-chrypt-npc-professions",
+        "depths-hex-encounters",
+        "depths-bergen-chrypt-route"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 32,
+      "printedPage": "29",
+      "topic": "Wästland: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-wastland-trait",
+        "depths-depths-region-wastland-feature",
+        "depths-depths-region-wastland-discovery",
+        "depths-depths-region-wastland-monsters",
+        "depths-depths-region-wastland-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 33,
+      "printedPage": "30",
+      "topic": "Kergüs: EL and five regional tables",
+      "needIds": [
+        "depths-depths-region-kergus-trait",
+        "depths-depths-region-kergus-feature",
+        "depths-depths-region-kergus-discovery",
+        "depths-depths-region-kergus-monsters",
+        "depths-depths-region-kergus-npc-professions",
+        "depths-hex-encounters"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 34,
+      "printedPage": "31",
+      "topic": "Custom region guidance and external recommendations",
+      "needIds": [
+        "depths-custom"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 35,
+      "printedPage": "32",
+      "topic": "Regional worksheet",
+      "needIds": [
+        "depths-custom"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 36,
+      "printedPage": "unprinted",
+      "topic": "Blank / back cover",
+      "needIds": [
+        "depths-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    }
+  ],
+  "aitc": [
+    {
+      "pdfPage": 1,
+      "printedPage": "unprinted",
+      "topic": "Cover",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 2,
+      "printedPage": "unprinted",
+      "topic": "Credits",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 3,
+      "printedPage": "unprinted",
+      "topic": "Contents",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 4,
+      "printedPage": "2",
+      "topic": "Introduction and city advice",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 5,
+      "printedPage": "3",
+      "topic": "Settlement discovery; Micro-crawl; Dérive",
+      "needIds": [
+        "aitc-microcrawl",
+        "aitc-derive",
+        "aitc-settlement-discovery",
+        "aitc-settlement-generation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 6,
+      "printedPage": "4",
+      "topic": "Dérive and City Crawl",
+      "needIds": [
+        "aitc-derive",
+        "aitc-city-crawl"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 7,
+      "printedPage": "5",
+      "topic": "City Crawl; Get Directions; Pray",
+      "needIds": [
+        "aitc-aitc-city-crawl-failure",
+        "aitc-aitc-directions-reaction",
+        "aitc-aitc-pray-strong",
+        "aitc-aitc-pray-failure",
+        "aitc-city-crawl",
+        "aitc-directions",
+        "aitc-pray"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 8,
+      "printedPage": "6",
+      "topic": "Stash Item; animals; civic buildings / gates",
+      "needIds": [
+        "aitc-aitc-stash-weak",
+        "aitc-aitc-animals",
+        "aitc-aitc-civic-buildings",
+        "aitc-aitc-city-gate-reaction",
+        "aitc-stash",
+        "aitc-lookup-spider-owl"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 9,
+      "printedPage": "7",
+      "topic": "Festivals and gatherings",
+      "needIds": [
+        "aitc-aitc-festival-adjective",
+        "aitc-aitc-festival-subject",
+        "aitc-aitc-gatherings",
+        "aitc-aitc-funeral-mourners",
+        "aitc-aitc-contest",
+        "aitc-aitc-spectacle",
+        "aitc-aitc-riot-complication"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 10,
+      "printedPage": "8",
+      "topic": "Hazards; holy places; interiors; merchant disposition",
+      "needIds": [
+        "aitc-aitc-hazards",
+        "aitc-aitc-holy-places-small",
+        "aitc-aitc-holy-places-large",
+        "aitc-aitc-interior-hovel",
+        "aitc-aitc-interior-townhouse",
+        "aitc-aitc-interior-mansion",
+        "aitc-aitc-merchant-disposition",
+        "aitc-merchant"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 11,
+      "printedPage": "9",
+      "topic": "Notable artefacts and settlement descriptor",
+      "needIds": [
+        "aitc-aitc-notable-artefact-type",
+        "aitc-aitc-notable-artefact-concerning",
+        "aitc-aitc-notable-artefact-composition",
+        "aitc-aitc-notable-artefact-adjective",
+        "aitc-aitc-notable-artefact-subject",
+        "aitc-aitc-sculpture-size",
+        "aitc-aitc-settlement-descriptor",
+        "aitc-settlement-generation",
+        "aitc-artefact-generation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 12,
+      "printedPage": "10",
+      "topic": "Settlement name / size; special structures",
+      "needIds": [
+        "aitc-aitc-settlement-name-prefix",
+        "aitc-aitc-settlement-name-suffix",
+        "aitc-aitc-settlement-size",
+        "aitc-aitc-special-structures-small",
+        "aitc-aitc-special-structures-large",
+        "aitc-settlement-generation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 13,
+      "printedPage": "11",
+      "topic": "Taverns and unexpected events",
+      "needIds": [
+        "aitc-aitc-taverns",
+        "aitc-aitc-unexpected-events",
+        "aitc-aitc-falling-object",
+        "aitc-aitc-hunting-party"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 14,
+      "printedPage": "12",
+      "topic": "Businesses and named goods",
+      "needIds": [
+        "aitc-aitc-businesses",
+        "aitc-item-berserker-s-honey",
+        "aitc-item-defixione",
+        "aitc-item-poppet",
+        "aitc-item-horse-powder",
+        "aitc-item-accursed-rhubarb",
+        "aitc-item-aqua-vitae",
+        "aitc-item-uric-vigour",
+        "aitc-item-pick-me-up",
+        "aitc-item-embalming-fluid",
+        "aitc-item-bone-saw",
+        "aitc-item-algae-flakes",
+        "aitc-item-dried-mushrooms",
+        "aitc-item-gunpowder-and-blackpowder-weapons"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 15,
+      "printedPage": "13",
+      "topic": "NPC Encounters first half; specific statblocks",
+      "needIds": [
+        "aitc-aitc-npc-encounters",
+        "aitc-aitc-npc-musician",
+        "aitc-aitc-npc-cursed-toy",
+        "aitc-aitc-npc-prophet",
+        "aitc-aitc-npc-soldier",
+        "aitc-aitc-npc-beggar",
+        "aitc-aitc-npc-wound",
+        "aitc-lookup-assassin",
+        "aitc-lookup-soldier",
+        "aitc-item-cursed-toys"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 16,
+      "printedPage": "14",
+      "topic": "NPC Encounters second half; default stats",
+      "needIds": [
+        "aitc-aitc-npc-encounters",
+        "aitc-aitc-npc-servant",
+        "aitc-aitc-npc-mugger",
+        "aitc-aitc-npc-pilgrim",
+        "aitc-aitc-npc-imp",
+        "aitc-aitc-npc-fence-weapon",
+        "aitc-aitc-npc-poet",
+        "aitc-aitc-npc-armour",
+        "aitc-aitc-npc-damage",
+        "aitc-default-npc-stats",
+        "aitc-lookup-hard-case",
+        "aitc-lookup-fugitive",
+        "aitc-lookup-guards"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 17,
+      "printedPage": "15",
+      "topic": "Street descriptors, contents, backtracking",
+      "needIds": [
+        "aitc-aitc-street-adjective",
+        "aitc-aitc-street-type",
+        "aitc-aitc-street-exits",
+        "aitc-aitc-street-contents",
+        "aitc-aitc-backtracking",
+        "aitc-street-generation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 18,
+      "printedPage": "16",
+      "topic": "Belsum worked example",
+      "needIds": [
+        "aitc-worked"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 19,
+      "printedPage": "17",
+      "topic": "Belsum worked example",
+      "needIds": [
+        "aitc-worked"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 20,
+      "printedPage": "18",
+      "topic": "Belsum worked example",
+      "needIds": [
+        "aitc-worked"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 21,
+      "printedPage": "19",
+      "topic": "Worked example conclusion; Svamp scenario; Haav stats",
+      "needIds": [
+        "aitc-scenario-haav-custodian",
+        "aitc-chalice-of-ruin",
+        "aitc-worked",
+        "aitc-scenario"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": "20",
+      "topic": "Svamp scenario, encounter tables, named creatures and Chalice",
+      "needIds": [
+        "aitc-scenario-aversus-the-demi-lich",
+        "aitc-scenario-svampist-acolyte",
+        "aitc-scenario-leech-swarm",
+        "aitc-scenario-svampist-adept",
+        "aitc-scenario-svamp-the-heretical-prophet",
+        "aitc-chalice-of-ruin",
+        "aitc-scenario-table-galgenbeck-catacombs-common-encounters",
+        "aitc-scenario-table-galgenbeck-catacombs-rare-encounters",
+        "aitc-scenario-table-svamp-townhouse-common-encounters",
+        "aitc-scenario-table-svamp-townhouse-rare-encounters",
+        "aitc-scenario"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": "21 (text-layer folio; not visually legible in artwork)",
+      "topic": "Art credits / recommended city resources",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": "22 (text-layer folio; not visually legible in artwork)",
+      "topic": "Back cover",
+      "needIds": [
+        "aitc-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    }
+  ],
+  "reclvse": [
+    {
+      "pdfPage": 1,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 2,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 3,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 4,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 5,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 6,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 7,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 8,
+      "printedPage": "unprinted",
+      "topic": "Front matter, credits, contents, introduction / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 9,
+      "printedPage": "9",
+      "topic": "The Unspokens calendar and Truths",
+      "needIds": [
+        "reclvse-unspokens-calendar",
+        "reclvse-unspokens-truths"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 10,
+      "printedPage": "10",
+      "topic": "The Unspokens calendar and Truths",
+      "needIds": [
+        "reclvse-unspokens-truths"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 11,
+      "printedPage": "11",
+      "topic": "Core Moves, odds, advantage and critical die",
+      "needIds": [
+        "reclvse-move-test"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 12,
+      "printedPage": "12",
+      "topic": "Core Moves, odds, advantage and critical die",
+      "needIds": [
+        "reclvse-rule-advantage-and-disadvantage",
+        "reclvse-rule-critical-die"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 13,
+      "printedPage": "13",
+      "topic": "Optional Starting Blessings",
+      "needIds": [
+        "reclvse-blessing-rapid-investment",
+        "reclvse-blessing-progress-inheritance",
+        "reclvse-blessing-vital-commitments",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 14,
+      "printedPage": "14",
+      "topic": "Optional Starting Blessings",
+      "needIds": [
+        "reclvse-blessing-enhanced-fortitude",
+        "reclvse-blessing-legacy-sacrifice",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 15,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 16,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 17,
+      "printedPage": "17",
+      "topic": "Character creation, Omens, Powers",
+      "needIds": [
+        "reclvse-rule-reclvse-character-creation",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 18,
+      "printedPage": "18",
+      "topic": "Character creation, Omens, Powers",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-rule-reclvse-omens",
+        "reclvse-rule-invoke-a-power"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 19,
+      "printedPage": "unprinted",
+      "topic": "Defiler title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 20,
+      "printedPage": "20",
+      "topic": "Defiler title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-defiler-specialty",
+        "reclvse-reclvse-class-defiler-starting",
+        "reclvse-reclvse-class-defiler-powers",
+        "reclvse-class-defiler"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 21,
+      "printedPage": "unprinted",
+      "topic": "Venom title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": "22",
+      "topic": "Venom title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-venom-specialty",
+        "reclvse-reclvse-class-venom-starting",
+        "reclvse-reclvse-class-venom-powers",
+        "reclvse-class-venom"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": "unprinted",
+      "topic": "Brute title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": "24",
+      "topic": "Brute title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-brute-specialty",
+        "reclvse-reclvse-class-brute-starting",
+        "reclvse-reclvse-class-brute-powers",
+        "reclvse-class-brute"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 25,
+      "printedPage": "unprinted",
+      "topic": "Vessel title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 26,
+      "printedPage": "26",
+      "topic": "Vessel title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-vessel-specialty",
+        "reclvse-reclvse-class-vessel-starting",
+        "reclvse-reclvse-class-vessel-powers",
+        "reclvse-class-vessel"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 27,
+      "printedPage": "unprinted",
+      "topic": "Beast title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 28,
+      "printedPage": "28",
+      "topic": "Beast title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-beast-specialty",
+        "reclvse-reclvse-class-beast-starting",
+        "reclvse-reclvse-class-beast-powers",
+        "reclvse-class-beast"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 29,
+      "printedPage": "unprinted",
+      "topic": "Fanatic title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-archetype",
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 30,
+      "printedPage": "30",
+      "topic": "Fanatic title / archetype rules and three charts",
+      "needIds": [
+        "reclvse-reclvse-class-fanatic-specialty",
+        "reclvse-reclvse-class-fanatic-starting",
+        "reclvse-reclvse-class-fanatic-powers",
+        "reclvse-class-fanatic"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 31,
+      "printedPage": "31",
+      "topic": "Equipment d100",
+      "needIds": [
+        "reclvse-reclvse-equipment"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 32,
+      "printedPage": "32",
+      "topic": "Armor, weapons and degradation",
+      "needIds": [
+        "reclvse-reclvse-weapons",
+        "reclvse-reclvse-armor",
+        "reclvse-rule-armor-degradation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 33,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 34,
+      "printedPage": "34",
+      "topic": "Pricing Guide",
+      "needIds": [
+        "reclvse-rule-pricing-guide"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 35,
+      "printedPage": "35",
+      "topic": "Replacement Powers and Corruption",
+      "needIds": [
+        "reclvse-reclvse-powers",
+        "reclvse-power-name-lookup"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 36,
+      "printedPage": "36",
+      "topic": "Replacement Powers and Corruption",
+      "needIds": [
+        "reclvse-reclvse-powers",
+        "reclvse-reclvse-corruption",
+        "reclvse-power-name-lookup"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 37,
+      "printedPage": "37",
+      "topic": "Twelve named Relics",
+      "needIds": [
+        "reclvse-relic-grief-engine",
+        "reclvse-relic-the-mute",
+        "reclvse-relic-prison-collar",
+        "reclvse-relic-well-of-shut-eyes",
+        "reclvse-relic-gallows-key",
+        "reclvse-relic-molly-s-candle"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 38,
+      "printedPage": "38",
+      "topic": "Twelve named Relics",
+      "needIds": [
+        "reclvse-relic-stitchwvrm",
+        "reclvse-relic-vizonn-s-chain",
+        "reclvse-relic-mask-of-the-unjudged",
+        "reclvse-relic-surgeon-s-saw",
+        "reclvse-relic-morphed-monocle",
+        "reclvse-relic-druid-s-map"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 39,
+      "printedPage": "39",
+      "topic": "Two distinct Loot tables",
+      "needIds": [
+        "reclvse-reclvse-loot-39"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 40,
+      "printedPage": "40",
+      "topic": "Two distinct Loot tables",
+      "needIds": [
+        "reclvse-reclvse-loot-40"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 41,
+      "printedPage": "41",
+      "topic": "Combat, Guarding, criticals, Ruined, death, recovery, infection",
+      "needIds": [
+        "reclvse-attack"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 42,
+      "printedPage": "42",
+      "topic": "Combat, Guarding, criticals, Ruined, death, recovery, infection",
+      "needIds": [
+        "reclvse-reclvse-ruinedstate",
+        "reclvse-rule-guarding",
+        "reclvse-rule-criticals-and-fumbles-in-combat",
+        "reclvse-rule-reclvse-morale"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 43,
+      "printedPage": "43",
+      "topic": "Combat, Guarding, criticals, Ruined, death, recovery, infection",
+      "needIds": [
+        "reclvse-reclvse-scarred",
+        "reclvse-rule-below-zero-death-and-recovery",
+        "reclvse-rule-infection",
+        "reclvse-rule-medicine-kit"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 44,
+      "printedPage": "unprinted",
+      "topic": "Artwork",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 45,
+      "printedPage": "45",
+      "topic": "Quest procedures and progress",
+      "needIds": [
+        "reclvse-rule-start-a-quest",
+        "reclvse-rule-quest-progress-tracks",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 46,
+      "printedPage": "46",
+      "topic": "Quest procedures and progress",
+      "needIds": [
+        "reclvse-rule-advance-a-quest",
+        "reclvse-rule-face-a-setback",
+        "reclvse-rule-fulfill-a-quest",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 47,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 48,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 49,
+      "printedPage": "49",
+      "topic": "Named travel, survival and rest Moves",
+      "needIds": [
+        "reclvse-travel-road",
+        "reclvse-rule-determine-journey-length",
+        "reclvse-rule-move-through-an-area",
+        "reclvse-rule-reclvse-daily-travel-loop",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 50,
+      "printedPage": "50",
+      "topic": "Named travel, survival and rest Moves",
+      "needIds": [
+        "reclvse-rule-face-the-wilds",
+        "reclvse-rule-tracking",
+        "reclvse-rule-endure-the-environment",
+        "reclvse-rule-discover-a-feature",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 51,
+      "printedPage": "51",
+      "topic": "Named travel, survival and rest Moves",
+      "needIds": [
+        "reclvse-rule-weather-move",
+        "reclvse-rule-hunt",
+        "reclvse-rule-butcher-a-kill",
+        "reclvse-rule-make-camp",
+        "reclvse-rule-night-encounter"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 52,
+      "printedPage": "52",
+      "topic": "Named travel, survival and rest Moves",
+      "needIds": [
+        "reclvse-rule-hold-your-bearing",
+        "reclvse-rule-foraging-move",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 53,
+      "printedPage": "53",
+      "topic": "Named travel, survival and rest Moves",
+      "needIds": [
+        "reclvse-rule-tend-wounds",
+        "reclvse-rule-short-rest-move",
+        "reclvse-rule-starvation",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 54,
+      "printedPage": "unprinted",
+      "topic": "Artwork",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 55,
+      "printedPage": "55",
+      "topic": "Named city/social Moves",
+      "needIds": [
+        "reclvse-rule-reclvse-city-crawl",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 56,
+      "printedPage": "56",
+      "topic": "Named city/social Moves",
+      "needIds": [
+        "reclvse-rule-collect-information",
+        "reclvse-rule-influence",
+        "reclvse-rule-prepare",
+        "reclvse-rule-find-a-location"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 57,
+      "printedPage": "57",
+      "topic": "Named city/social Moves",
+      "needIds": [
+        "reclvse-rule-barter",
+        "reclvse-rule-read-intent",
+        "reclvse-rule-reassure-or-steady",
+        "reclvse-rule-deceive-or-mislead"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 58,
+      "printedPage": "58",
+      "topic": "Named city/social Moves",
+      "needIds": [
+        "reclvse-rule-intimidate",
+        "reclvse-rule-parley",
+        "reclvse-rule-leaving-the-city",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 59,
+      "printedPage": "59",
+      "topic": "Hirelings, morale, Krav, death / desertion",
+      "needIds": [
+        "reclvse-reclvse-hirelingtraits",
+        "reclvse-reclvse-hirelingmorale",
+        "reclvse-rule-finding-hirelings",
+        "reclvse-rule-hireling-morale-checks",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 60,
+      "printedPage": "60",
+      "topic": "Hirelings, morale, Krav, death / desertion",
+      "needIds": [
+        "reclvse-reclvse-hirelingdeath",
+        "reclvse-krav"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 61,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 62,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 63,
+      "printedPage": "63",
+      "topic": "Connections: track, fallout and four Moves",
+      "needIds": [
+        "reclvse-rule-connection-track",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 64,
+      "printedPage": "64",
+      "topic": "Connections: track, fallout and four Moves",
+      "needIds": [
+        "reclvse-rule-connection-fallout",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 65,
+      "printedPage": "65",
+      "topic": "Connections: track, fallout and four Moves",
+      "needIds": [
+        "reclvse-rule-test-a-connection",
+        "reclvse-rule-maintain-a-connection",
+        "reclvse-rule-form-a-connection",
+        "reclvse-rule-develop-a-connection"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 66,
+      "printedPage": "unprinted",
+      "topic": "Artwork",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 67,
+      "printedPage": "67",
+      "topic": "Named Dungeon Moves",
+      "needIds": [
+        "reclvse-delve",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 68,
+      "printedPage": "68",
+      "topic": "Named Dungeon Moves",
+      "needIds": [
+        "reclvse-rule-navigate-the-passage",
+        "reclvse-rule-search-the-room",
+        "reclvse-rule-face-the-trap",
+        "reclvse-rule-room-encounter"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 69,
+      "printedPage": "69",
+      "topic": "Named Dungeon Moves",
+      "needIds": [
+        "reclvse-rule-reveal-a-secret",
+        "reclvse-rule-withstand-the-ruin",
+        "reclvse-rule-retrace-your-steps",
+        "reclvse-rule-loot-bodies"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 70,
+      "printedPage": "unprinted",
+      "topic": "Artwork",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 71,
+      "printedPage": "71",
+      "topic": "Hearth Moves, upkeep and source tables",
+      "needIds": [
+        "reclvse-reclvse-homelocations",
+        "reclvse-rule-claim-a-shelter",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 72,
+      "printedPage": "72",
+      "topic": "Hearth Moves, upkeep and source tables",
+      "needIds": [
+        "reclvse-reclvse-homelocations",
+        "reclvse-reclvse-homefeatures",
+        "reclvse-reclvse-homecomplications"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 73,
+      "printedPage": "73",
+      "topic": "Hearth Moves, upkeep and source tables",
+      "needIds": [
+        "reclvse-reclvse-homecomplications",
+        "reclvse-reclvse-whileaway",
+        "reclvse-rule-upkeep-track",
+        "reclvse-rule-maintain-your-shelter",
+        "reclvse-rule-build-or-barricade",
+        "reclvse-rule-abandonment-destruction"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 74,
+      "printedPage": "unprinted",
+      "topic": "Artwork",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 75,
+      "printedPage": "75",
+      "topic": "Beast and Wildlife procedures and tables",
+      "needIds": [
+        "reclvse-reclvse-creaturetype",
+        "reclvse-reclvse-creaturearmor",
+        "reclvse-beasts"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 76,
+      "printedPage": "76",
+      "topic": "Beast and Wildlife procedures and tables",
+      "needIds": [
+        "reclvse-reclvse-creatureappearance",
+        "reclvse-reclvse-creaturemorale",
+        "reclvse-reclvse-creaturedamage",
+        "reclvse-reclvse-creaturebehavior",
+        "reclvse-reclvse-wildlifetype",
+        "reclvse-reclvse-wildlifesize",
+        "reclvse-reclvse-creaturesize",
+        "reclvse-beasts",
+        "reclvse-wildlife"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 77,
+      "printedPage": "77",
+      "topic": "Optional advancement",
+      "needIds": [
+        "reclvse-rule-pursuit-of-growth",
+        "reclvse-rule-advancement-options",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 78,
+      "printedPage": "unprinted",
+      "topic": "The Western Kingdom illustration",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 79,
+      "printedPage": "79",
+      "topic": "Adventure Reveal safe reading and named Moves",
+      "needIds": [
+        "reclvse-rule-adventure-reveal-safe-preparation",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 80,
+      "printedPage": "80",
+      "topic": "Adventure Reveal safe reading and named Moves",
+      "needIds": [
+        "reclvse-rule-room-entry-procedure",
+        "reclvse-rule-module-momentum-loop",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 81,
+      "printedPage": "81",
+      "topic": "Adventure Reveal safe reading and named Moves",
+      "needIds": [
+        "reclvse-rule-searching-path-failure-escalation-within-a-module",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 82,
+      "printedPage": "82",
+      "topic": "Adventure Reveal safe reading and named Moves",
+      "needIds": [
+        "reclvse-rule-clarify-the-text",
+        "reclvse-rule-choose-a-direction",
+        "reclvse-rule-determine-npc-intent",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 83,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 84,
+      "printedPage": "unprinted",
+      "topic": "Artwork / blank",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Text read; low-text and diagram pages rendered and visually inspected."
+    },
+    {
+      "pdfPage": 85,
+      "printedPage": "85",
+      "topic": "Ask the Oracle and index",
+      "needIds": [
+        "reclvse-rule-ask-the-oracle",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 86,
+      "printedPage": "86",
+      "topic": "Dungeon identity tables",
+      "needIds": [
+        "reclvse-reclvse-dungeonorigin",
+        "reclvse-reclvse-dungeonpurposethen",
+        "reclvse-reclvse-dungeonpurposenow",
+        "reclvse-reclvse-dungeontheme",
+        "reclvse-reclvse-dungeonarchitecture",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 87,
+      "printedPage": "87",
+      "topic": "Dungeon identity tables",
+      "needIds": [
+        "reclvse-reclvse-dungeoncondition",
+        "reclvse-reclvse-dungeonentrance",
+        "reclvse-reclvse-dungeoninhabitants",
+        "reclvse-reclvse-dungeonmotive"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 88,
+      "printedPage": "88",
+      "topic": "Dungeon entrance tables",
+      "needIds": [
+        "reclvse-reclvse-entrancestate",
+        "reclvse-reclvse-entranceimpression",
+        "reclvse-reclvse-entrancehazard",
+        "reclvse-reclvse-entrancesounds",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 89,
+      "printedPage": "89",
+      "topic": "Dungeon entrance tables",
+      "needIds": [
+        "reclvse-reclvse-entrancesmells",
+        "reclvse-reclvse-entrancesigns",
+        "reclvse-reclvse-entrancechallenge",
+        "reclvse-reclvse-entrancehelp"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 90,
+      "printedPage": "90",
+      "topic": "Quick / full room procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-quicksizeshape",
+        "reclvse-reclvse-quickatmosphere",
+        "reclvse-reclvse-quickdressing",
+        "reclvse-reclvse-quickcontents",
+        "reclvse-reclvse-quickexits",
+        "reclvse-reclvse-roomsize",
+        "reclvse-quick-room",
+        "reclvse-full-room"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 91,
+      "printedPage": "91",
+      "topic": "Quick / full room procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-architecture",
+        "reclvse-reclvse-roomshape",
+        "reclvse-reclvse-roompurpose",
+        "reclvse-reclvse-light",
+        "reclvse-reclvse-air",
+        "reclvse-full-room"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 92,
+      "printedPage": "92",
+      "topic": "Quick / full room procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-smells",
+        "reclvse-reclvse-dressing",
+        "reclvse-reclvse-contentscategory",
+        "reclvse-reclvse-sounds",
+        "reclvse-full-room"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 93,
+      "printedPage": "93",
+      "topic": "Quick / full room procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-roomencounter",
+        "reclvse-reclvse-roomdiscovery",
+        "reclvse-reclvse-roomhazard",
+        "reclvse-reclvse-roomloot",
+        "reclvse-reclvse-exitsnumber",
+        "reclvse-reclvse-exittype",
+        "reclvse-full-room"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 94,
+      "printedPage": "94",
+      "topic": "City identity tables",
+      "needIds": [
+        "reclvse-reclvse-city-origin",
+        "reclvse-reclvse-city-purpose-now",
+        "reclvse-reclvse-city-mood",
+        "reclvse-reclvse-city-condition",
+        "reclvse-reclvse-city-architecture",
+        "reclvse-reclvse-city-purpose-then",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 95,
+      "printedPage": "95",
+      "topic": "City identity tables",
+      "needIds": [
+        "reclvse-reclvse-gatekeeper-mood",
+        "reclvse-reclvse-city-threats",
+        "reclvse-reclvse-city-signs-before-entering"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 96,
+      "printedPage": "96",
+      "topic": "Neighborhood tables",
+      "needIds": [
+        "reclvse-reclvse-neighborhood-type",
+        "reclvse-reclvse-neighborhood-mood",
+        "reclvse-reclvse-neighborhood-sound",
+        "reclvse-reclvse-neighborhood-smell",
+        "reclvse-reclvse-neighborhood-activity",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 97,
+      "printedPage": "97",
+      "topic": "Neighborhood tables",
+      "needIds": [
+        "reclvse-reclvse-neighborhood-attitude-toward-outsiders",
+        "reclvse-reclvse-neighborhood-problem",
+        "reclvse-reclvse-neighborhood-secret"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 98,
+      "printedPage": "98",
+      "topic": "Quick / full street procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-street-size",
+        "reclvse-reclvse-street-shape",
+        "reclvse-reclvse-street-quick-type",
+        "reclvse-reclvse-street-quick-atmosphere",
+        "reclvse-reclvse-street-quick-feature",
+        "reclvse-reclvse-street-quick-content",
+        "reclvse-reclvse-street-quick-exits",
+        "reclvse-quick-street",
+        "reclvse-full-street",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 99,
+      "printedPage": "99",
+      "topic": "Quick / full street procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-noise-level",
+        "reclvse-reclvse-street-quality-condition",
+        "reclvse-reclvse-street-surface",
+        "reclvse-reclvse-light-level",
+        "reclvse-reclvse-smell",
+        "reclvse-reclvse-street-features",
+        "reclvse-full-street"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 100,
+      "printedPage": "100",
+      "topic": "Quick / full street procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-street-activity",
+        "reclvse-reclvse-hazard",
+        "reclvse-reclvse-street-buildings-lots",
+        "reclvse-full-street"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 101,
+      "printedPage": "101",
+      "topic": "Quick / full street procedure and tables",
+      "needIds": [
+        "reclvse-reclvse-number-of-exits",
+        "reclvse-reclvse-exit-type",
+        "reclvse-reclvse-discovery",
+        "reclvse-reclvse-encounter",
+        "reclvse-full-street"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 102,
+      "printedPage": "102",
+      "topic": "Expanded buildings and interior details",
+      "needIds": [
+        "reclvse-reclvse-building-type",
+        "reclvse-reclvse-exterior-impression",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 103,
+      "printedPage": "103",
+      "topic": "Expanded buildings and interior details",
+      "needIds": [
+        "reclvse-reclvse-notable-object",
+        "reclvse-reclvse-interior-atmosphere",
+        "reclvse-reclvse-activity-inside",
+        "reclvse-reclvse-hidden-element"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 104,
+      "printedPage": "104",
+      "topic": "City discoveries, signs and clues",
+      "needIds": [
+        "reclvse-reclvse-minor-discoveries",
+        "reclvse-reclvse-significant-clues",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 105,
+      "printedPage": "105",
+      "topic": "City discoveries, signs and clues",
+      "needIds": [
+        "reclvse-reclvse-rumors-whispers",
+        "reclvse-reclvse-urban-oddities"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 106,
+      "printedPage": "106",
+      "topic": "City discoveries, signs and clues",
+      "needIds": [
+        "reclvse-reclvse-social-discoveries",
+        "reclvse-reclvse-physical-signs-of-trouble",
+        "reclvse-reclvse-signs-of-the-undercity"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 107,
+      "printedPage": "107",
+      "topic": "Weather tables and optional branches",
+      "needIds": [
+        "reclvse-reclvse-temperature",
+        "reclvse-reclvse-precipitation",
+        "reclvse-reclvse-wind",
+        "reclvse-weather-detail",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 108,
+      "printedPage": "108",
+      "topic": "Weather tables and optional branches",
+      "needIds": [
+        "reclvse-reclvse-weather-shift",
+        "reclvse-reclvse-visibility",
+        "reclvse-reclvse-unnatural-weather",
+        "reclvse-reclvse-weather-omen-signs",
+        "reclvse-weather-detail"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 109,
+      "printedPage": "109",
+      "topic": "Wilderness discovery selector and tables",
+      "needIds": [
+        "reclvse-reclvse-minor-natural-discoveries",
+        "reclvse-reclvse-random-table",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 110,
+      "printedPage": "110",
+      "topic": "Wilderness discovery selector and tables",
+      "needIds": [
+        "reclvse-reclvse-remains-ruins",
+        "reclvse-reclvse-signs-of-travelers",
+        "reclvse-reclvse-natural-oddities",
+        "reclvse-reclvse-threat-signs"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 111,
+      "printedPage": "111",
+      "topic": "Wilderness discovery selector and tables",
+      "needIds": [
+        "reclvse-reclvse-strange-omens",
+        "reclvse-reclvse-signs-of-lost-people",
+        "reclvse-reclvse-wild-resource-discoveries"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 112,
+      "printedPage": "112",
+      "topic": "Landmark tables",
+      "needIds": [
+        "reclvse-reclvse-ruinous-landmarks",
+        "reclvse-reclvse-major-natural-landmarks",
+        "reclvse-reclvse-strange-landmarks",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 113,
+      "printedPage": "113",
+      "topic": "Landmark tables",
+      "needIds": [
+        "reclvse-reclvse-landmark-presence",
+        "reclvse-reclvse-water-landmarks",
+        "reclvse-reclvse-elevation-features",
+        "reclvse-reclvse-landmark-purpose",
+        "reclvse-reclvse-landmark-condition"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 114,
+      "printedPage": "114",
+      "topic": "Threat sign tables",
+      "needIds": [
+        "reclvse-reclvse-monstrous-signs",
+        "reclvse-reclvse-large-creature-signs",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 115,
+      "printedPage": "115",
+      "topic": "Threat sign tables",
+      "needIds": [
+        "reclvse-reclvse-signs-of-ambush",
+        "reclvse-reclvse-human-threat-signs",
+        "reclvse-reclvse-signs-of-stalking",
+        "reclvse-reclvse-signs-of-infestation"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 116,
+      "printedPage": "116",
+      "topic": "Overland hazard tables",
+      "needIds": [
+        "reclvse-reclvse-natural-hazards",
+        "reclvse-reclvse-weather-driven-hazards",
+        "reclvse-reclvse-terrain-dangers",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 117,
+      "printedPage": "117",
+      "topic": "Overland hazard tables",
+      "needIds": [
+        "reclvse-reclvse-wildlife-hazards-non-combat",
+        "reclvse-reclvse-resource-loss-hazards",
+        "reclvse-reclvse-unnatural-hazards"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 118,
+      "printedPage": "118",
+      "topic": "Overland hazard tables",
+      "needIds": [
+        "reclvse-reclvse-travel-cost-hazards",
+        "reclvse-reclvse-false-security-misleading-hazards"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 119,
+      "printedPage": "119",
+      "topic": "Encounter and complication tables",
+      "needIds": [
+        "reclvse-reclvse-encountercontext",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 120,
+      "printedPage": "120",
+      "topic": "Encounter and complication tables",
+      "needIds": [
+        "reclvse-reclvse-initialdisposition",
+        "reclvse-reclvse-immediategoal",
+        "reclvse-reclvse-socialcomplication",
+        "reclvse-reclvse-strangemeeting"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 121,
+      "printedPage": "121",
+      "topic": "Encounter and complication tables",
+      "needIds": [
+        "reclvse-reclvse-encounteraftermath",
+        "reclvse-reclvse-encounterconsequence",
+        "reclvse-reclvse-arcaneencounter",
+        "reclvse-reclvse-questencounterhook"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 122,
+      "printedPage": "122",
+      "topic": "Encounter and complication tables",
+      "needIds": [
+        "reclvse-reclvse-positionalcomplication",
+        "reclvse-reclvse-tacticalcomplication"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 123,
+      "printedPage": "123",
+      "topic": "Encounter and complication tables",
+      "needIds": [
+        "reclvse-reclvse-narrativecomplication",
+        "reclvse-reclvse-multientitycomplication"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 124,
+      "printedPage": "124",
+      "topic": "NPC and appearance tables",
+      "needIds": [
+        "reclvse-reclvse-npcsummary",
+        "reclvse-reclvse-npcmotivation",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 125,
+      "printedPage": "125",
+      "topic": "NPC and appearance tables",
+      "needIds": [
+        "reclvse-reclvse-npcgender",
+        "reclvse-reclvse-npcappearance"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 126,
+      "printedPage": "126",
+      "topic": "NPC and appearance tables",
+      "needIds": [
+        "reclvse-reclvse-npcpersonality"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 127,
+      "printedPage": "127",
+      "topic": "NPC and appearance tables",
+      "needIds": [
+        "reclvse-reclvse-bodyfeature",
+        "reclvse-reclvse-hairgrooming",
+        "reclvse-reclvse-clothingdetail",
+        "reclvse-reclvse-overallpresence",
+        "reclvse-reclvse-color",
+        "reclvse-reclvse-size",
+        "reclvse-reclvse-weight",
+        "reclvse-reclvse-quality"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 128,
+      "printedPage": "128",
+      "topic": "Faction reference tables (no management feature needed)",
+      "needIds": [
+        "reclvse-reclvse-factionorigin",
+        "reclvse-reclvse-factionattitude",
+        "reclvse-reclvse-factionpurpose",
+        "reclvse-reclvse-factionpower"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 129,
+      "printedPage": "129",
+      "topic": "Faction reference tables (no management feature needed)",
+      "needIds": [
+        "reclvse-reclvse-factionresources",
+        "reclvse-reclvse-factionplot",
+        "reclvse-reclvse-factionweakness"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 130,
+      "printedPage": "130",
+      "topic": "Name tables and source-supported combination advice",
+      "needIds": [
+        "reclvse-reclvse-village-names",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 131,
+      "printedPage": "131",
+      "topic": "Name tables and source-supported combination advice",
+      "needIds": [
+        "reclvse-reclvse-city-names",
+        "reclvse-reclvse-region-names"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 132,
+      "printedPage": "132",
+      "topic": "Name tables and source-supported combination advice",
+      "needIds": [
+        "reclvse-reclvse-landmark-names",
+        "reclvse-reclvse-tavern-names"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 133,
+      "printedPage": "133",
+      "topic": "Name tables and source-supported combination advice",
+      "needIds": [
+        "reclvse-reclvse-npc-surnames",
+        "reclvse-reclvse-npc-first-names"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 134,
+      "printedPage": "134",
+      "topic": "General one-word oracles",
+      "needIds": [
+        "reclvse-reclvse-action",
+        "reclvse-advice"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 135,
+      "printedPage": "135",
+      "topic": "General one-word oracles",
+      "needIds": [
+        "reclvse-reclvse-theme",
+        "reclvse-reclvse-focus"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 136,
+      "printedPage": "136",
+      "topic": "General one-word oracles",
+      "needIds": [
+        "reclvse-reclvse-descriptor",
+        "reclvse-reclvse-detail"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 137,
+      "printedPage": "137",
+      "topic": "Repeated appendix index",
+      "needIds": [
+        "reclvse-front"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    },
+    {
+      "pdfPage": 138,
+      "printedPage": "138",
+      "topic": "Adventure Calls four-column procedure",
+      "needIds": [
+        "reclvse-reclvse-adventurecalls-spark",
+        "reclvse-reclvse-adventurecalls-destination",
+        "reclvse-reclvse-adventurecalls-danger",
+        "reclvse-reclvse-adventurecalls-twist",
+        "reclvse-adventure-calls"
+      ],
+      "review": "Full extracted page read against current table/rule inventory; long-form passages classified separately."
+    }
+  ]
+}

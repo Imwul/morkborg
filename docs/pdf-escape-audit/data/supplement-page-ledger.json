@@ -1,0 +1,2514 @@
+[
+  {
+    "bookId": "feretory",
+    "pdfPage": 1,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Cover",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 2,
+    "printedPage": "First fold / unnumbered",
+    "section": "Monster Approaches A/B/C and stat derivation",
+    "needIds": [
+      "feretory:monster-approaches"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 3,
+    "printedPage": "First fold / unnumbered",
+    "section": "Monster desire / traits",
+    "needIds": [
+      "feretory:monster-approaches",
+      "feretory:table-desire",
+      "feretory:table-trait"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 4,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Contents / credits",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 5,
+    "printedPage": "3",
+    "section": "Roads title",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 6,
+    "printedPage": "4",
+    "section": "Travel distances map and scaling",
+    "needIds": [
+      "feretory:travel-distances"
+    ],
+    "classifications": [
+      "MISSING"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 7,
+    "printedPage": "5",
+    "section": "Travel checklist / roads / events",
+    "needIds": [
+      "feretory:travel-checklist",
+      "feretory:table-roadType",
+      "feretory:table-roadEvent"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 8,
+    "printedPage": "6",
+    "section": "Forage / village",
+    "needIds": [
+      "feretory:table-village",
+      "feretory:table-forage"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 9,
+    "printedPage": "7",
+    "section": "Off-road encounters / camp events",
+    "needIds": [
+      "feretory:table-leaveRoad",
+      "feretory:table-campsite"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 10,
+    "printedPage": "8",
+    "section": "EPK opening art",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 11,
+    "printedPage": "9",
+    "section": "EPK title / credits",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 12,
+    "printedPage": "10",
+    "section": "Hunting rules / mishaps / belly",
+    "needIds": [
+      "feretory:epk-hunting-rules",
+      "feretory:table-huntingMishaps",
+      "feretory:table-bellyOfBeast"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 13,
+    "printedPage": "11",
+    "section": "EPK title art",
+    "needIds": [
+      "feretory:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 14,
+    "printedPage": "12",
+    "section": "Tveland EPK",
+    "needIds": [
+      "feretory:creature-antideer",
+      "feretory:creature-flayed-vultures",
+      "feretory:creature-ratbit",
+      "feretory:creature-feral-horses",
+      "feretory:creature-steppe-wolfe",
+      "feretory:creature-tusked-bison",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 15,
+    "printedPage": "13",
+    "section": "Sarkash EPK",
+    "needIds": [
+      "feretory:creature-skelelk",
+      "feretory:creature-dredgehog",
+      "feretory:creature-carrion-owls",
+      "feretory:creature-throat-cutting-warbler",
+      "feretory:creature-mulch-squirrels",
+      "feretory:creature-howler-bears",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 16,
+    "printedPage": "14",
+    "section": "Graven-Tosk EPK",
+    "needIds": [
+      "feretory:creature-giant-skull-moth",
+      "creature:twice-grown-corpse-fly",
+      "creature:unbred-mutt",
+      "feretory:creature-grim-toothed-squirrel",
+      "feretory:creature-meatroach",
+      "creature:half-billed-raven",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 17,
+    "printedPage": "15",
+    "section": "Grift EPK",
+    "needIds": [
+      "feretory:creature-uncommon-rats",
+      "feretory:creature-cellar-crabs",
+      "feretory:creature-nameless-tameless-strays",
+      "feretory:creature-straw-lion",
+      "feretory:creature-lentil-lice",
+      "feretory:creature-murder-gulls",
+      "feretory:epk-starved-peasants",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 18,
+    "printedPage": "16",
+    "section": "Kergüs EPK",
+    "needIds": [
+      "feretory:creature-flail-horned-muskox",
+      "feretory:creature-tar-pelted-goats",
+      "feretory:creature-molar-bear",
+      "feretory:creature-megasloths",
+      "feretory:creature-blubber-gulls",
+      "feretory:creature-false-seal",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 19,
+    "printedPage": "17",
+    "section": "Wästland EPK",
+    "needIds": [
+      "feretory:creature-liar-bird",
+      "feretory:creature-three-thirds-pheasant",
+      "feretory:creature-feather-fox",
+      "feretory:creature-bautaboar",
+      "feretory:creature-schleswig-bogfeeder",
+      "feretory:creature-gold-crested-filth-crow",
+      "feretory:epk-farmers",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 20,
+    "printedPage": "18",
+    "section": "Lake Onda EPK",
+    "needIds": [
+      "feretory:creature-cursed-trout",
+      "feretory:creature-rusty-bass",
+      "feretory:creature-groan",
+      "feretory:creature-carcasswan",
+      "feretory:creature-unresting-duck",
+      "feretory:creature-sursturgeon",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 21,
+    "printedPage": "19",
+    "section": "Valley EPK",
+    "needIds": [
+      "feretory:creature-phantom-rats",
+      "feretory:creature-grubstopper",
+      "feretory:creature-tomb-ape",
+      "feretory:creature-gravelings",
+      "feretory:creature-marrow-sparrow",
+      "feretory:creature-bonemare",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 22,
+    "printedPage": "20",
+    "section": "Bergen EPK first half",
+    "needIds": [
+      "feretory:creature-tunnel-sneak",
+      "feretory:creature-nephalix-monkeys",
+      "feretory:creature-weakwilld-whisperbird",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 23,
+    "printedPage": "21",
+    "section": "Bergen EPK second half",
+    "needIds": [
+      "feretory:creature-vierwinged-falchon",
+      "feretory:creature-uberwolf",
+      "feretory:creature-ragpie",
+      "feretory:epk-regular-wolf",
+      "feretory:epk-regional-access"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 24,
+    "printedPage": "22",
+    "section": "Death Ziggurat title",
+    "needIds": [
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 25,
+    "printedPage": "23",
+    "section": "Death Ziggurat title / credits",
+    "needIds": [
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 26,
+    "printedPage": "24",
+    "section": "Ziggurat premise and surrounding cultists",
+    "needIds": [
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 27,
+    "printedPage": "25",
+    "section": "Ziggurat referee hex map / fifteen-minute scale",
+    "needIds": [
+      "feretory:ziggurat-procedure",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 28,
+    "printedPage": "26",
+    "section": "Depression / flowers / channeling",
+    "needIds": [
+      "feretory:table-flowerEffects",
+      "feretory:ziggurat-procedure",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 29,
+    "printedPage": "27",
+    "section": "Ruins exploration tables",
+    "needIds": [
+      "feretory:table-ruinTypes",
+      "feretory:table-minorTreasures",
+      "feretory:table-majorTreasures",
+      "feretory:table-searchingRuins",
+      "feretory:table-ruinsRandomEvents",
+      "feretory:ziggurat-procedure",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 30,
+    "printedPage": "28",
+    "section": "Spiral Chapel / Crown / heart / Ziggurat",
+    "needIds": [
+      "feretory:spiral-crown",
+      "feretory:rot-priest-medallion",
+      "feretory:akuenh-heart",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 31,
+    "printedPage": "29",
+    "section": "Ziggurat artwork",
+    "needIds": [
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 32,
+    "printedPage": "30",
+    "section": "Ziggurat four monster/NPC definitions",
+    "needIds": [
+      "feretory:rot-priests",
+      "feretory:horn-beasts",
+      "feretory:undead-death-ziggurat",
+      "feretory:sarku",
+      "feretory:rot-priest-medallion",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 33,
+    "printedPage": "31",
+    "section": "Cultist / Akünh definitions",
+    "needIds": [
+      "feretory:death-obsessed-cultist",
+      "feretory:dread-ak-nh-demon-spawn",
+      "feretory:ziggurat-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 34,
+    "printedPage": "32",
+    "section": "d100 items and trinkets",
+    "needIds": [
+      "feretory:table-itemsTrinkets"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 35,
+    "printedPage": "33",
+    "section": "Goblin Grinder title",
+    "needIds": [
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 36,
+    "printedPage": "34",
+    "section": "Goblin Grinder premise",
+    "needIds": [
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 37,
+    "printedPage": "35",
+    "section": "Goblin Grinder artwork",
+    "needIds": [
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 38,
+    "printedPage": "36",
+    "section": "Hooks / Calumny Pearl / scheme / curse",
+    "needIds": [
+      "feretory:table-goblinGrinderHooks",
+      "feretory:calumny-pearl",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 39,
+    "printedPage": "37",
+    "section": "Qarg / Nagel / Bastard",
+    "needIds": [
+      "feretory:qarg",
+      "feretory:nagel-krat",
+      "feretory:the-bastard",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 40,
+    "printedPage": "38",
+    "section": "Goblin Grinder artwork",
+    "needIds": [
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 41,
+    "printedPage": "39",
+    "section": "Medickal Shoppe consumables / prices",
+    "needIds": [
+      "feretory:goblin-cure",
+      "feretory:flash-powder",
+      "feretory:healing-tincture",
+      "feretory:invigorating-elixir",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 42,
+    "printedPage": "40",
+    "section": "Mill lower map / escalation",
+    "needIds": [
+      "feretory:cannon-hazard",
+      "feretory:grinder-operation",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 43,
+    "printedPage": "41",
+    "section": "Mill upper map",
+    "needIds": [
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 44,
+    "printedPage": "42",
+    "section": "Barricade / liquid / fuse warning",
+    "needIds": [
+      "feretory:cannon-hazard",
+      "feretory:table-lickLiquid",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 45,
+    "printedPage": "43",
+    "section": "Cannon / basement / excited goblins / remedy",
+    "needIds": [
+      "feretory:excited-cannon-goblins",
+      "feretory:urvan-remedy",
+      "feretory:cannon-hazard",
+      "feretory:grinder-operation",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 46,
+    "printedPage": "44",
+    "section": "Oil / archer and bucket goblins",
+    "needIds": [
+      "feretory:archer-goblins-and-bucket-goblin",
+      "feretory:oil-fire",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 47,
+    "printedPage": "45",
+    "section": "Alchemy trigger / effects / Ooze",
+    "needIds": [
+      "feretory:alchemical-ooze",
+      "feretory:grinder-operation",
+      "feretory:table-alchemyTables",
+      "feretory:alchemy-trigger",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 48,
+    "printedPage": "46",
+    "section": "Grinder operation / final encounter stat blocks",
+    "needIds": [
+      "feretory:nagel-krat",
+      "feretory:the-bastard",
+      "feretory:fresh-goblins",
+      "feretory:grinder-operation",
+      "feretory:grinder-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 49,
+    "printedPage": "47",
+    "section": "Reliquary opening / d66 title",
+    "needIds": [
+      "feretory:reliquary-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 50,
+    "printedPage": "48",
+    "section": "Reliquary 11–16",
+    "needIds": [
+      "feretory:relic-11",
+      "feretory:relic-12",
+      "feretory:relic-13",
+      "feretory:relic-14",
+      "feretory:relic-15",
+      "feretory:relic-16"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 51,
+    "printedPage": "49",
+    "section": "Reliquary 21–26",
+    "needIds": [
+      "feretory:relic-21",
+      "feretory:relic-22",
+      "feretory:relic-23",
+      "feretory:relic-24",
+      "feretory:relic-25",
+      "feretory:relic-26"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 52,
+    "printedPage": "50",
+    "section": "Reliquary 31–36",
+    "needIds": [
+      "feretory:relic-31",
+      "feretory:relic-32",
+      "feretory:relic-33",
+      "feretory:relic-34",
+      "feretory:relic-35",
+      "feretory:relic-36"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 53,
+    "printedPage": "51",
+    "section": "Reliquary 41–46",
+    "needIds": [
+      "feretory:relic-41",
+      "feretory:relic-42",
+      "feretory:relic-43",
+      "feretory:relic-44",
+      "feretory:relic-45",
+      "feretory:relic-46"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 54,
+    "printedPage": "52",
+    "section": "Reliquary 51–56",
+    "needIds": [
+      "feretory:relic-51",
+      "feretory:relic-52",
+      "feretory:relic-53",
+      "feretory:relic-54",
+      "feretory:relic-55",
+      "feretory:relic-56"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 55,
+    "printedPage": "53",
+    "section": "Reliquary 61–66",
+    "needIds": [
+      "feretory:relic-61",
+      "feretory:relic-62",
+      "feretory:relic-63",
+      "feretory:relic-64",
+      "feretory:relic-65",
+      "feretory:relic-66"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 56,
+    "printedPage": "54",
+    "section": "Inn menus / prices / keeper / patrons",
+    "needIds": [
+      "feretory:table-selectMenu",
+      "feretory:table-cheapMenu",
+      "feretory:table-innkeeperTwitch",
+      "feretory:table-patronTraits"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 57,
+    "printedPage": "55",
+    "section": "Three Dead Skulls / payouts / Dreg / Rat / names",
+    "needIds": [
+      "feretory:table-moreLostSouls",
+      "feretory:three-dead-skulls",
+      "feretory:gambling-dreg",
+      "feretory:hardy-tame-rat"
+    ],
+    "classifications": [
+      "MISSING",
+      "PARTIAL",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 58,
+    "printedPage": "56",
+    "section": "Cursed Skinwalker",
+    "needIds": [
+      "feretory:class-cursed-skinwalker",
+      "feretory:table-skinwalkerFirstDied",
+      "feretory:table-skinwalkerShapes"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 59,
+    "printedPage": "57",
+    "section": "Skinwalker illustration",
+    "needIds": [
+      "feretory:class-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 60,
+    "printedPage": "58",
+    "section": "Pale One",
+    "needIds": [
+      "feretory:class-pale-one",
+      "feretory:table-paleOneOrigins",
+      "feretory:table-paleOneBlessings",
+      "feretory:pale-one-name-three-independent-d20-columns"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 61,
+    "printedPage": "59",
+    "section": "Pale One illustration",
+    "needIds": [
+      "feretory:class-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 62,
+    "printedPage": "60",
+    "section": "Dead God’s Prophet",
+    "needIds": [
+      "feretory:class-dead-gods-prophet",
+      "feretory:table-deadGodGifts",
+      "feretory:dead-god-name-three-independent-d10-columns"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 63,
+    "printedPage": "61",
+    "section": "Prophet illustration",
+    "needIds": [
+      "feretory:class-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 64,
+    "printedPage": "62",
+    "section": "Forlorn Philosopher",
+    "needIds": [
+      "feretory:class-forlorn-philosopher",
+      "feretory:table-philosopherDejection",
+      "feretory:table-philosopherItem"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 65,
+    "printedPage": "63",
+    "section": "Philosopher roots",
+    "needIds": [
+      "feretory:class-forlorn-philosopher",
+      "feretory:table-philosopherRoots"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 66,
+    "printedPage": "Inside back cover; no printed number visible (extracted legacy header is not visible)",
+    "section": "Ochre Tablets effects and usage",
+    "needIds": [
+      "feretory:class-forlorn-philosopher",
+      "feretory:ochre-1",
+      "feretory:ochre-2",
+      "feretory:ochre-3",
+      "feretory:ochre-4",
+      "feretory:ochre-5",
+      "feretory:ochre-6",
+      "feretory:ochre-7",
+      "feretory:ochre-8",
+      "feretory:ochre-9",
+      "feretory:ochre-10",
+      "feretory:ochre-usage"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 67,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Fold artwork",
+    "needIds": [
+      "feretory:class-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory",
+    "pdfPage": 68,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Black Salt wind and suffering",
+    "needIds": [
+      "feretory:table-blackSaltWindIntensity",
+      "feretory:table-saltSuffering",
+      "feretory:black-salt-chain"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 1,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Cover",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 2,
+    "printedPage": "First fold / unnumbered",
+    "section": "Cult seed columns / status / headquarters",
+    "needIds": [
+      "heretic:table-cultName0",
+      "heretic:table-cultName1",
+      "heretic:table-cultKeyMember0",
+      "heretic:table-cultKeyMember1",
+      "heretic:table-cultKeyMember2",
+      "heretic:table-cultStatus",
+      "heretic:table-cultHeadquarters",
+      "heretic:cult-column-procedure"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 3,
+    "printedPage": "First fold / unnumbered",
+    "section": "Cult doctrine / hatred",
+    "needIds": [
+      "heretic:table-cultDoctrine",
+      "heretic:table-cultHates",
+      "heretic:cult-column-procedure"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 4,
+    "printedPage": "Unnumbered / cover / fold",
+    "section": "Contents / credits",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 5,
+    "printedPage": "3",
+    "section": "Feats chapter opening",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 6,
+    "printedPage": "4",
+    "section": "Feat acquisition and 11–13",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-eligibility",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 7,
+    "printedPage": "5",
+    "section": "Feats14–22",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 8,
+    "printedPage": "6",
+    "section": "Feats23–32",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 9,
+    "printedPage": "7",
+    "section": "Feats33–44",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 10,
+    "printedPage": "8",
+    "section": "Feats45–54",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 11,
+    "printedPage": "9",
+    "section": "Feats55–66",
+    "needIds": [
+      "heretic:table-unheroicFeats",
+      "heretic:feat-named-lookup"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 12,
+    "printedPage": "10",
+    "section": "Sacrilegious Songbird",
+    "needIds": [
+      "heretic:class-sacrilegious-songbird",
+      "heretic:table-songbird-deal",
+      "heretic:table-songbird-instruments",
+      "heretic:table-songbird-spinalHusk"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 13,
+    "printedPage": "11",
+    "section": "Songbird art",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 14,
+    "printedPage": "12",
+    "section": "Shedding Vicar",
+    "needIds": [
+      "heretic:class-shedding-vicar",
+      "heretic:table-vicar-firstPeel-who",
+      "heretic:table-vicar-firstPeel-what",
+      "heretic:table-vicar-blessings",
+      "heretic:table-vicar-bloodEagle"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 15,
+    "printedPage": "13",
+    "section": "Vicar art",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 16,
+    "printedPage": "14",
+    "section": "Graves opening artwork",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 17,
+    "printedPage": "15",
+    "section": "Graves title / credits",
+    "needIds": [
+      "heretic:front-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 18,
+    "printedPage": "16",
+    "section": "Graves introduction / starting situation",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 19,
+    "printedPage": "17",
+    "section": "Graves illustration",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 20,
+    "printedPage": "18",
+    "section": "Graves map left",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 21,
+    "printedPage": "19",
+    "section": "Graves map right / d4 travel",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 22,
+    "printedPage": "20",
+    "section": "Travel procedure and four tables",
+    "needIds": [
+      "heretic:table-gravesRandomEncounter",
+      "heretic:table-gravesSensoryStrangeness",
+      "heretic:table-gravesTrails",
+      "heretic:table-gravesKnowledge",
+      "heretic:graves-travel",
+      "heretic:graves-encounter-actors",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 23,
+    "printedPage": "21",
+    "section": "Five Graves monster definitions",
+    "needIds": [
+      "creature:half-billed-raven",
+      "heretic:creature-rotted-skeleton",
+      "heretic:creature-widow-wraith",
+      "creature:unbred-mutt",
+      "heretic:creature-hungry-zombie",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 24,
+    "printedPage": "22",
+    "section": "Plague Pit loot / Erhard hazard",
+    "needIds": [
+      "heretic:table-gravesLootBodies",
+      "heretic:erhard-opening",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 25,
+    "printedPage": "23",
+    "section": "Fogbound Skeleton / Unkey / strongbox",
+    "needIds": [
+      "heretic:table-gravesUnkeyStrongbox",
+      "heretic:creature-fogbound-skeleton",
+      "heretic:skeleton-unkey",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 26,
+    "printedPage": "24",
+    "section": "Maus acid / Roseate Baritona",
+    "needIds": [
+      "heretic:maus-acid",
+      "heretic:roseate-baritona",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 27,
+    "printedPage": "25",
+    "section": "Urns / Corpse Fly / fountain / gruel",
+    "needIds": [
+      "heretic:table-gravesUrn",
+      "creature:twice-grown-corpse-fly",
+      "heretic:origin-fountain-hazard",
+      "heretic:nostalgia-gruel",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 28,
+    "printedPage": "26",
+    "section": "Graves art",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 29,
+    "printedPage": "27",
+    "section": "Roach Herder NPC",
+    "needIds": [
+      "heretic:outcast-the-roach-herder",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 30,
+    "printedPage": "28",
+    "section": "Sewer currents",
+    "needIds": [
+      "heretic:sewer-currents",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 31,
+    "printedPage": "29",
+    "section": "Strangly Tree location",
+    "needIds": [
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 32,
+    "printedPage": "30",
+    "section": "Deadn’t NPCs and hut",
+    "needIds": [
+      "heretic:outcast-stein",
+      "heretic:outcast-benzen",
+      "heretic:outcast-arga",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 33,
+    "printedPage": "31",
+    "section": "Übertaker actions / loot Power",
+    "needIds": [
+      "heretic:creature-the-bertaker",
+      "heretic:behold-power-scroll",
+      "heretic:graves-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 34,
+    "printedPage": "32",
+    "section": "Bloat map / automatons / ratbadger / cutlery",
+    "needIds": [
+      "heretic:creature-ratbadger",
+      "heretic:creature-fleshy-automaton",
+      "heretic:gourmands-cutlery",
+      "heretic:bloat-tripwire",
+      "heretic:bloat-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 35,
+    "printedPage": "33",
+    "section": "Bloat Silas / animated waste / tongue-knife / hazards",
+    "needIds": [
+      "heretic:creature-silas",
+      "heretic:animated-waste",
+      "heretic:tongue-knife",
+      "heretic:bloat-tripwire",
+      "heretic:bloat-statue",
+      "heretic:bloat-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 36,
+    "printedPage": "34",
+    "section": "Curses d20",
+    "needIds": [
+      "heretic:table-curses"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 37,
+    "printedPage": "35",
+    "section": "Helpers / price / clipped cure12",
+    "needIds": [
+      "heretic:table-curseHelper",
+      "heretic:table-curseKnowledgePrice",
+      "heretic:table-curseCure"
+    ],
+    "classifications": [
+      "RESOLVED",
+      "SOURCE_UNAVAILABLE"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 38,
+    "printedPage": "36",
+    "section": "Merchant opening",
+    "needIds": [
+      "heretic:merchant-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 39,
+    "printedPage": "37",
+    "section": "Merchant credits",
+    "needIds": [
+      "heretic:merchant-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 40,
+    "printedPage": "38",
+    "section": "Mikhael / soul-price trading",
+    "needIds": [
+      "heretic:outcast-mikhael",
+      "heretic:table-merchant-soulPrice",
+      "heretic:merchant-trade",
+      "heretic:merchant-long"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 41,
+    "printedPage": "39",
+    "section": "Merchant art",
+    "needIds": [
+      "heretic:merchant-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 42,
+    "printedPage": "40",
+    "section": "Tveland stock",
+    "needIds": [
+      "heretic:merchant-tveland-1",
+      "heretic:merchant-tveland-2",
+      "heretic:merchant-tveland-3",
+      "heretic:merchant-tveland-4",
+      "heretic:merchant-tveland-5",
+      "heretic:merchant-tveland-6"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 43,
+    "printedPage": "41",
+    "section": "Wästland stock",
+    "needIds": [
+      "heretic:merchant-wastland-1",
+      "heretic:merchant-wastland-2",
+      "heretic:merchant-wastland-3",
+      "heretic:merchant-wastland-4",
+      "heretic:merchant-wastland-5",
+      "heretic:merchant-wastland-6"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 44,
+    "printedPage": "42",
+    "section": "Kergüs stock",
+    "needIds": [
+      "heretic:merchant-kergus-1",
+      "heretic:merchant-kergus-2",
+      "heretic:merchant-kergus-3",
+      "heretic:merchant-kergus-4",
+      "heretic:merchant-kergus-5",
+      "heretic:merchant-kergus-6"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 45,
+    "printedPage": "43",
+    "section": "Grift stock / Chip",
+    "needIds": [
+      "heretic:merchant-grift-1",
+      "heretic:merchant-grift-2",
+      "heretic:merchant-grift-3",
+      "heretic:merchant-grift-4",
+      "heretic:merchant-grift-5",
+      "heretic:merchant-grift-6"
+    ],
+    "classifications": [
+      "PRESENT_BUT_INDIRECT"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 46,
+    "printedPage": "44",
+    "section": "Blackpowder rules / weapons / ammo",
+    "needIds": [
+      "heretic:blackpowder-rule",
+      "heretic:blackpowder-pistolet",
+      "heretic:blackpowder-culverin",
+      "heretic:blackpowder-arquebus",
+      "heretic:blackpowder-dragon",
+      "heretic:blackpowder-basilisk-gun",
+      "heretic:blackpowder-blunderbuss",
+      "heretic:blackpowder-heavy-arquebus",
+      "heretic:blackpowder-pepperbox-pistolet",
+      "heretic:blackpowder-blackpowder-bomb",
+      "heretic:blackpowder-ribauldequin",
+      "heretic:blackpowder-cannon",
+      "heretic:blackpowder-ammunition"
+    ],
+    "classifications": [
+      "MISSING"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 47,
+    "printedPage": "45",
+    "section": "Swamp Witch title",
+    "needIds": [
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 48,
+    "printedPage": "46",
+    "section": "Swamp Witch intro / rumors",
+    "needIds": [
+      "heretic:table-swampWitch-rumors",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 49,
+    "printedPage": "47",
+    "section": "Swamp Witch art",
+    "needIds": [
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 50,
+    "printedPage": "48",
+    "section": "Swamp map / unseen passages",
+    "needIds": [
+      "heretic:swamp-emerald-venom",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 51,
+    "printedPage": "49",
+    "section": "Emerald Serpent / cultist / venom",
+    "needIds": [
+      "heretic:swamp-emerald-serpent",
+      "heretic:swamp-strange-serpent-drug-cultist",
+      "heretic:swamp-emerald-venom",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 52,
+    "printedPage": "50",
+    "section": "Ueth / Slithering Strangulation / EV hazards",
+    "needIds": [
+      "heretic:swamp-ueth-the-scalehunter",
+      "heretic:swamp-slithering-strangulation",
+      "heretic:swamp-ethereal-snakes",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 53,
+    "printedPage": "51",
+    "section": "Swamp Witch art",
+    "needIds": [
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 54,
+    "printedPage": "52",
+    "section": "Devotee / snake pit / ring",
+    "needIds": [
+      "heretic:swamp-forked-tongue-devotee",
+      "heretic:swamp-klopstock-ring",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 55,
+    "printedPage": "53",
+    "section": "Trident / adders / garden",
+    "needIds": [
+      "heretic:swamp-croaking-trident",
+      "heretic:swamp-venomous-adders",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 56,
+    "printedPage": "54",
+    "section": "Swamp Witch art",
+    "needIds": [
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 57,
+    "printedPage": "55",
+    "section": "Swamp Witch boss / Lunar sword",
+    "needIds": [
+      "heretic:swamp-the-swamp-witch",
+      "heretic:swamp-lunar-zweihander",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 58,
+    "printedPage": "56",
+    "section": "Srolki / Yaoxl / ranseur / altar location",
+    "needIds": [
+      "heretic:swamp-srolki",
+      "heretic:swamp-yaoxl",
+      "heretic:swamp-ranseur-maelstrom",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 59,
+    "printedPage": "57",
+    "section": "Wish procedure / aftermath / willing branch",
+    "needIds": [
+      "heretic:table-swampWitch-wishes",
+      "heretic:wish-procedure",
+      "heretic:swamp-long"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 60,
+    "printedPage": "58",
+    "section": "Bone Bowyer / services / bow",
+    "needIds": [
+      "heretic:creature-the-bone-bowyer",
+      "heretic:bowyers-bow",
+      "heretic:bowyer-services"
+    ],
+    "classifications": [
+      "MISSING",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 61,
+    "printedPage": "59",
+    "section": "Bowyer art",
+    "needIds": [
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 62,
+    "printedPage": "60",
+    "section": "Borg Bitor stats",
+    "needIds": [
+      "heretic:creature-borg-bitor"
+    ],
+    "classifications": [
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": false,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 63,
+    "printedPage": "61",
+    "section": "Bitor spawn lore / glue / valuations",
+    "needIds": [
+      "heretic:creature-borg-bitor",
+      "heretic:bitor-valuation",
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE",
+      "PRESENT_BUT_INDIRECT",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 64,
+    "printedPage": "62",
+    "section": "Rotten Nurse mechanics / lore",
+    "needIds": [
+      "heretic:creature-rotten-nurse",
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "PARTIAL",
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 65,
+    "printedPage": "63",
+    "section": "Nurse artwork",
+    "needIds": [
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 66,
+    "printedPage": "Last fold / back cover, unnumbered",
+    "section": "Nurse map / Hag / Sludger / nest / corridor table",
+    "needIds": [
+      "heretic:creature-toothless-hag",
+      "heretic:creature-old-dormant-sludger",
+      "heretic:table-nurse-corridorNorth",
+      "heretic:nurse-nest-advancement",
+      "heretic:staff-awful-light",
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED",
+      "SOURCE_UNAVAILABLE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 67,
+    "printedPage": "Last fold / back cover, unnumbered",
+    "section": "Nurse map / Kôbôlth / traps / triggers / bomb",
+    "needIds": [
+      "heretic:creature-weak-k-b-lth",
+      "heretic:nurse-alert",
+      "heretic:nurse-corridor-east",
+      "heretic:nurse-poisoned-coins",
+      "heretic:nurse-bomb",
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "MISSING",
+      "PDF_APPROPRIATE",
+      "RESOLVED"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "heretic",
+    "pdfPage": 68,
+    "printedPage": "Last fold / back cover, unnumbered",
+    "section": "Back-cover poem / art",
+    "needIds": [
+      "heretic:late-art"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "dark-fort",
+    "pdfPage": 1,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "dark-fort:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "dark-fort",
+    "pdfPage": 2,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "dark-fort:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "dark-fort",
+    "pdfPage": 3,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "dark-fort:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "dark-fort-sheet",
+    "pdfPage": 1,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "dark-fort-sheet:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 1,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 2,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 3,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 4,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 5,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 6,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 7,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 8,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 9,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "feretory-sv",
+    "pdfPage": 10,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "feretory-sv:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  },
+  {
+    "bookId": "death-ziggurat-map",
+    "pdfPage": 1,
+    "printedPage": "Source-specific / not ordinary MB pagination",
+    "section": "Independent / auxiliary source page",
+    "needIds": [
+      "death-ziggurat-map:source-aid"
+    ],
+    "classifications": [
+      "PDF_APPROPRIATE"
+    ],
+    "pdfAppropriateExclusion": true,
+    "review": "Fresh full-page text read; dense page layouts additionally rendered where referenced in report."
+  }
+]

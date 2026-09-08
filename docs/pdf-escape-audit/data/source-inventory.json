@@ -1,0 +1,225 @@
+[
+  {
+    "id": "core",
+    "fileName": "MÖRK BORG BARE BONES EDITION.pdf",
+    "path": "/Users/imwul/Desktop/개발한 앱들/MORK BORG GEN/MÖRK BORG BARE BONES EDITION.pdf",
+    "sha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "pages": 76,
+    "lowTextPages": [
+      1,
+      8
+    ]
+  },
+  {
+    "id": "core-full",
+    "fileName": "Mörk_Borg_English.pdf",
+    "path": "/Users/imwul/Downloads/Mörk_Borg_English.pdf",
+    "sha256": "a611b20c00df90db139396c18aaad6d9dcb1245a917a174c428a68eee31a9db5",
+    "pages": 96,
+    "lowTextPages": [
+      6,
+      8,
+      17,
+      26,
+      27,
+      36,
+      40,
+      53,
+      56,
+      58,
+      76,
+      85,
+      86,
+      90
+    ]
+  },
+  {
+    "id": "feretory",
+    "fileName": "MRK_BORG_CULT_FERETORY.pdf",
+    "path": "/Users/imwul/Downloads/MRK_BORG_CULT_FERETORY.pdf",
+    "sha256": "d1ad5c3b2c972554e8db9577955e4ca3e9764acbeaba104812d74f24cf18f1f4",
+    "pages": 68,
+    "lowTextPages": [
+      1,
+      10,
+      13,
+      31,
+      37,
+      40,
+      59,
+      61,
+      63,
+      67
+    ]
+  },
+  {
+    "id": "heretic",
+    "fileName": "MÖRK_BORG_CULT_HERETIC.pdf",
+    "path": "/Users/imwul/Downloads/MÖRK_BORG_CULT_HERETIC.pdf",
+    "sha256": "85b0a8fa7d2665fa12bc8564f5849dc31d2cbc19a39dec077ea4f512e39e62c7",
+    "pages": 68,
+    "lowTextPages": [
+      1,
+      13,
+      15,
+      16,
+      19,
+      28,
+      38,
+      41,
+      49,
+      53,
+      56,
+      61,
+      65,
+      68
+    ]
+  },
+  {
+    "id": "sd",
+    "fileName": "Solitary Defilement Rules.pdf",
+    "path": "/Users/imwul/Downloads/Solitary Defilement Rules.pdf",
+    "sha256": "c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e",
+    "pages": 40,
+    "lowTextPages": [
+      1,
+      2,
+      3,
+      6,
+      10,
+      16,
+      18,
+      24,
+      39,
+      40
+    ]
+  },
+  {
+    "id": "depths",
+    "fileName": "Solitary Depths Compressed.pdf",
+    "path": "/Users/imwul/Downloads/Solitary Depths Compressed.pdf",
+    "sha256": "2ad1c29372fc63394c7f810b44fe8a510444b3d002d4d3a38de19f3d1864e17c",
+    "pages": 36,
+    "lowTextPages": [
+      1,
+      5,
+      8,
+      22,
+      36
+    ]
+  },
+  {
+    "id": "reclvse",
+    "fileName": "Reclvse_A_Solo_Engine_for_Mörk_Borg.pdf",
+    "path": "/Users/imwul/Downloads/Reclvse_A_Solo_Engine_for_Mörk_Borg.pdf",
+    "sha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "pages": 138,
+    "lowTextPages": [
+      1,
+      2,
+      5,
+      8,
+      15,
+      16,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      33,
+      44,
+      47,
+      48,
+      54,
+      61,
+      62,
+      66,
+      70,
+      74,
+      78,
+      83,
+      84
+    ]
+  },
+  {
+    "id": "mythic",
+    "fileName": "Mythic_Game_Master_Emulator_Second_Edition.pdf",
+    "path": "/Users/imwul/Downloads/Mythic_Game_Master_Emulator_Second_Edition.pdf",
+    "sha256": "edf8b571db51edcb8071d230beb0759db917569f72a4c2e0bdd26c8cbccb24f1",
+    "pages": 230,
+    "lowTextPages": [
+      3,
+      7,
+      17,
+      34,
+      35,
+      58,
+      59,
+      122,
+      123,
+      177,
+      228
+    ]
+  },
+  {
+    "id": "aitc",
+    "fileName": "Alone in the Crowd.pdf",
+    "path": "/Users/imwul/Downloads/Alone in the Crowd.pdf",
+    "sha256": "d52b583f53151ce570ae1fa9eb0c06a1eae6ddf14eacc4a299ac73c53c51d54d",
+    "pages": 24,
+    "lowTextPages": [
+      1,
+      2,
+      3,
+      23,
+      24
+    ]
+  },
+  {
+    "id": "mb-cheatsheet",
+    "fileName": "MB_Cheatsheet.pdf",
+    "path": "/Users/imwul/Downloads/MB_Cheatsheet.pdf",
+    "sha256": "9e15d9672643ae27b889e77170d41f8975d6c486b8f4db3adceafe659033323e",
+    "pages": 2,
+    "lowTextPages": [
+      1
+    ]
+  },
+  {
+    "id": "dark-fort",
+    "fileName": "DARK_FORT.pdf",
+    "path": "/Users/imwul/Downloads/DARK_FORT.pdf",
+    "sha256": "502372d71380ce1f008ba121e57038fa7ebf1b9257463a396836b8f05892c17a",
+    "pages": 3,
+    "lowTextPages": []
+  },
+  {
+    "id": "dark-fort-sheet",
+    "fileName": "DARK_FORT_SHEET.pdf",
+    "path": "/Users/imwul/Downloads/DARK_FORT_SHEET.pdf",
+    "sha256": "b9bff3f97c828561306c1c60720f616c32f14d2be9c00a9c30d8ccdf92785c59",
+    "pages": 1,
+    "lowTextPages": []
+  },
+  {
+    "id": "feretory-sv",
+    "fileName": "MBC_FERETORY_Svenska_texter.pdf",
+    "path": "/Users/imwul/Downloads/MBC_FERETORY_Svenska_texter.pdf",
+    "sha256": "62f4d491623a4c9b8d9946737fa8cc64424eb34a4c8ce889907a952935e7e78c",
+    "pages": 10,
+    "lowTextPages": [
+      9
+    ]
+  },
+  {
+    "id": "death-ziggurat-map",
+    "fileName": "The-Death-Ziggurat_Player-map.pdf",
+    "path": "/Users/imwul/Downloads/The-Death-Ziggurat_Player-map.pdf",
+    "sha256": "00bd8db67d1c08b868873ba91cac05908ceb55cef387caa48deb23d1165358d5",
+    "pages": 1,
+    "lowTextPages": [
+      1
+    ]
+  }
+]

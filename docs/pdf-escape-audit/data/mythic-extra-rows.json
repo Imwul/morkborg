@@ -1,0 +1,1587 @@
+[
+  {
+    "id": "mythic-extra-preparation-advice",
+    "needId": "mythic-preparation-advice",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      124,
+      125,
+      126,
+      127
+    ],
+    "printedPage": "123, 124, 125, 126",
+    "section": "Variations",
+    "content": "Solo preparation, journaling approaches and piecemeal play",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Solo preparation, journaling approaches and piecemeal play"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Organizing books, theater of mind, blogs and novelization are reading advice. These pages do not justify adding campaign diaries or automatic narrative writing.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-npc-statistics",
+    "needId": "mythic-npc-statistics",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      128,
+      129,
+      190,
+      218
+    ],
+    "printedPage": "127, 128, 189, 217",
+    "section": "Variations",
+    "content": "Determining NPC Statistics",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "NPC statistics",
+      "Does the NPC have a statistic value"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The generic Fate roller exists, but the statistic-result mapping and automatic Current Context special-condition branch are not exposed. This optional Mythic method starts with a player-chosen expected value; it is not verified MÖRK BORG creature data.",
+    "minimalFix": "Add a concise optional rule with expected-value input interpretation and its five result branches. Never feed it into source-faithful monster presets as a missing-stat fallback.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "NPC",
+      "Monster",
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-sourcebook-advice",
+    "needId": "mythic-sourcebook-advice",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      129,
+      130,
+      131
+    ],
+    "printedPage": "128, 129, 130",
+    "section": "Variations",
+    "content": "Sourcebooks: world building, lists and inspiration",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Sourcebooks: world building, lists and inspiration"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Inspirational versus practical source use, list preparation and random shelf/book selection are long-form play advice, not missing fixed MÖRK BORG data.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-random-source-page",
+    "needId": "mythic-random-source-page",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      132
+    ],
+    "printedPage": "131",
+    "section": "Variations",
+    "content": "Books as Random Tables",
+    "type": "Procedure",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Books as Random Tables"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "This optional technique intentionally sends the player to a random page of a chosen external sourcebook. The original book/PDF is the useful destination; automating a broad private-book sampler would add scope without removing this intended reading step.",
+    "minimalFix": "Keep this advice and its random-page technique in the PDF; do not classify its deliberate PDF reading as an escape defect.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-thread-progress",
+    "needId": "mythic-thread-progress",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      133,
+      134,
+      135,
+      136,
+      191,
+      219
+    ],
+    "printedPage": "132, 133, 134, 135, 190, 218",
+    "section": "Variations",
+    "content": "Thread Progress Track: points, phases and Flashpoints",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 4,
+    "priority": 12,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Thread Progress Track",
+      "Flashpoint"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The optional 10/15/20-point rules, progress versus Flashpoint distinction, five-point phase checks, one Flashpoint per phase and timing are absent. Existing generic Threads are campaign notes, not this method.",
+    "minimalFix": "Add one compact optional rule packet, usable with the paper track. No digital progress tracker or automatic narrative is required.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-thread-discovery-fate",
+    "needId": "mythic-thread-discovery-fate",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      136,
+      137,
+      191,
+      220
+    ],
+    "printedPage": "135, 136, 190, 219",
+    "section": "Variations",
+    "content": "Discovery Fate Question",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 4,
+    "priority": 12,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Discovery Fate Question",
+      "Is something discovered"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The minimum odds, prerequisite discovery action and four Fate-answer branches are absent. Exceptional Yes combines two Discovery checks; Exceptional No prohibits another check this Scene. An ordinary Fate answer does not expose these consequences.",
+    "minimalFix": "Add the short conditional rule and link the canonical Thread Discovery Check table once imported.",
+    "solutionType": [
+      "QUICK_RULE",
+      "RESULT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-thread-discovery-table",
+    "needId": "mythic-thread-discovery-table",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      137,
+      138,
+      220
+    ],
+    "printedPage": "136, 137, 219",
+    "section": "Variations",
+    "content": "Thread Discovery Check",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 5,
+    "priority": 15,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Thread Discovery Check",
+      "Strengthen Progress"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "The eight ranges of d10 plus current Progress, including the open-ended final range and Progress/Flashpoint/Track/Strengthen distinctions, are absent from the registry.",
+    "minimalFix": "Import the actual eight-range table with a user-entered Progress modifier, preserving branch meaning; link existing Meaning tables without automatic prose.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW",
+      "PROCEDURE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "PDF138 rendered and inspected: all eight ranges and explanatory left column complete; PDF220 duplicate checked. No source clipping or unavailable source."
+    }
+  },
+  {
+    "id": "mythic-extra-thread-conclusion",
+    "needId": "mythic-thread-conclusion",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      138,
+      139,
+      140,
+      141,
+      191
+    ],
+    "printedPage": "137, 138, 139, 140, 190",
+    "section": "Variations",
+    "content": "Thread Plot Armor and Conclusion",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Thread Plot Armor",
+      "Conclusion Thread Progress"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The optional Focus Thread protection and removal at full progress are absent, including the delayed Conclusion exception that skips the next Expected Scene Chaos test. This is distinct from ordinary scene testing.",
+    "minimalFix": "Add a short optional conclusion rule inside the Thread Progress packet. Preserve the player’s choice and ordinary MÖRK BORG lethality; do not enforce it globally.",
+    "solutionType": [
+      "QUICK_RULE",
+      "CONTEXT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-thread-diversify",
+    "needId": "mythic-thread-diversify",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      141,
+      142
+    ],
+    "printedPage": "140, 141",
+    "section": "Variations",
+    "content": "Diversifying Threads",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Diversifying Threads"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Advice to split a goal into narrower related Threads is player organization, not an additional mandatory generator or social graph.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-player-knowledge",
+    "needId": "mythic-player-knowledge",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      142,
+      143,
+      144,
+      145,
+      221
+    ],
+    "printedPage": "141, 142, 143, 144, 220",
+    "section": "Variations",
+    "content": "Player versus Character Knowledge",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 2,
+    "friction": 3,
+    "priority": 6,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Player vs Character Knowledge",
+      "Test It Ask It"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The four-strategy summary is absent, including the mechanically consequential search/test-before-Fate ordering. Generic Oracle access does not explain when a hidden fact becomes established.",
+    "minimalFix": "Add a concise optional strategy reference; retain examples and discussion in the PDF.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-conclusive-advice",
+    "needId": "mythic-conclusive-advice",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      146,
+      147
+    ],
+    "printedPage": "145, 146",
+    "section": "Variations",
+    "content": "Conclusive Adventure Conclusions",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Conclusive Adventure Conclusions"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Move Toward A Thread is an application of Choosing Event Focus, already audited as mythic-choose-focus. Making the finale special is explicitly an attitude, not a new rule. No second missing procedure is counted.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Cross-reference existing needId mythic-choose-focus for the mechanical option. Preserve source literary examples as reading material."
+    }
+  },
+  {
+    "id": "mythic-extra-mid-chaos-chart",
+    "needId": "mythic-mid-chaos-chart",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      148,
+      222
+    ],
+    "printedPage": "147, 221",
+    "section": "Variations",
+    "content": "Mid-Chaos Fate Chart",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 5,
+    "priority": 10,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Mid-Chaos Fate Chart"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds.",
+    "minimalFix": "Add this exact optional chart behind deliberate source/table selection; retain standard Fate as the default.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Original PDF148–149 and duplicate PDF222 visually inspected. All thresholds present, including printed X and 99 limits. Current fateChart only sourcePage20/duplicate195, parser schema fixed to standard chart."
+    }
+  },
+  {
+    "id": "mythic-extra-low-chaos-chart",
+    "needId": "mythic-low-chaos-chart",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      149,
+      222
+    ],
+    "printedPage": "148, 221",
+    "section": "Variations",
+    "content": "Low-Chaos Fate Chart",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 5,
+    "priority": 10,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Low-Chaos Fate Chart"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds.",
+    "minimalFix": "Add this exact optional chart behind deliberate source/table selection; retain standard Fate as the default.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Original PDF148–149 and duplicate PDF222 visually inspected. All thresholds present, including printed X and 99 limits. Current fateChart only sourcePage20/duplicate195, parser schema fixed to standard chart."
+    }
+  },
+  {
+    "id": "mythic-extra-no-chaos-chart",
+    "needId": "mythic-no-chaos-chart",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      149,
+      222
+    ],
+    "printedPage": "148, 221",
+    "section": "Variations",
+    "content": "No-Chaos Fate Chart",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 5,
+    "priority": 10,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "No-Chaos Fate Chart"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "Only the standard 81-cell Fate Chart is installed. This printed optional chart and its grouped Chaos columns are absent; keeping the ordinary Chaos number fixed does not provide all variant thresholds.",
+    "minimalFix": "Add this exact optional chart behind deliberate source/table selection; retain standard Fate as the default.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Original PDF148–149 and duplicate PDF222 visually inspected. All thresholds present, including printed X and 99 limits. Current fateChart only sourcePage20/duplicate195, parser schema fixed to standard chart."
+    }
+  },
+  {
+    "id": "mythic-extra-mid-chaos-check",
+    "needId": "mythic-mid-chaos-check",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      148,
+      223
+    ],
+    "printedPage": "147, 222",
+    "section": "Variations",
+    "content": "Mid-Chaos Fate Check Modifiers",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Mid-Chaos Fate Check Modifiers"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "The alternate grouped Chaos modifier table is absent; checkModifier always uses the standard full-strength modifier array.",
+    "minimalFix": "Add the exact modifier table as optional quick reference and, if enabled later, keep its selected mode explicit.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-low-chaos-check",
+    "needId": "mythic-low-chaos-check",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      149,
+      223
+    ],
+    "printedPage": "148, 222",
+    "section": "Variations",
+    "content": "Low-Chaos Fate Check Modifiers",
+    "type": "Table",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Low-Chaos Fate Check Modifiers"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "no",
+    "problem": "The alternate grouped Chaos modifier table is absent; checkModifier always uses the standard full-strength modifier array.",
+    "minimalFix": "Add the exact modifier table as optional quick reference and, if enabled later, keep its selected mode explicit.",
+    "solutionType": [
+      "TABLE_INDEX",
+      "TABLE_VIEW"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-hold-chaos",
+    "needId": "mythic-hold-chaos",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      150
+    ],
+    "printedPage": "149",
+    "section": "Variations",
+    "content": "No-Chaos questions and retained Scene/Event Chaos",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 3,
+    "priority": 6,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "No-Chaos questions",
+      "Hold the Chaos"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The option to remove Chaos only from Fate answers while retaining it for Scene and Random Event checks is absent. The source also permits player-chosen narrower Scene/Event Chaos ranges.",
+    "minimalFix": "Include this short scope distinction with the alternate chart references. Do not implement No-Chaos by globally setting Chaos to zero.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-session-advice",
+    "needId": "mythic-session-advice",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      149,
+      150
+    ],
+    "printedPage": "148, 149",
+    "section": "Variations",
+    "content": "What is a Session in Solo Play?",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "What is a Session in Solo Play?"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "This is advice for relating another RPG’s session rewards to meaningful accomplishment. It does not mandate a Mythic timer, session diary or MÖRK BORG experience subsystem.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-keyed-scenes",
+    "needId": "mythic-keyed-scenes",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      150,
+      151,
+      152,
+      153,
+      155,
+      156,
+      191
+    ],
+    "printedPage": "149, 150, 151, 152, 154, 155, 190",
+    "section": "Variations",
+    "content": "Keyed Scenes: triggers, events and timing",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Keyed Scenes",
+      "Keyed Scene Trigger"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The actual optional procedure is absent: player-defined trigger, next-Scene event, normal Expected/Altered/Interrupt handling, Current Context option, count/randomizer/frequency conditions and nullification.",
+    "minimalFix": "Add a compact rules reference beside Scene tools. Let the paper notebook hold custom triggers and counts; do not build an automatic story scheduler.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-keyed-scene-templates",
+    "needId": "mythic-keyed-scene-templates",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      151,
+      152,
+      155
+    ],
+    "printedPage": "150, 151, 154",
+    "section": "Variations",
+    "content": "Five sample Keyed Scene templates",
+    "type": "Aid",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 3,
+    "priority": 3,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Keyed Scene templates",
+      "Set Dungeon Tone",
+      "Boss Fight Mythic"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The source provides five labeled, operational examples (Let’s Rumble, Boss Fight, The Horror, Set Dungeon Tone, Stay On Schedule), with explicit conditions. No reference exposes these sample trigger/event packets.",
+    "minimalFix": "Expose them as optional examples under the Keyed Scenes rule, keeping their source label and game-agnostic status. They are not default MÖRK BORG dungeon procedures.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-keyed-sheet",
+    "needId": "mythic-keyed-sheet",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      154,
+      224
+    ],
+    "printedPage": "153, 223",
+    "section": "Variations",
+    "content": "Keyed Scenes Record Sheet",
+    "type": "Aid",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Keyed Scenes Record Sheet"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Blank paper worksheet is suitable for printing beside the notebook. Its repeated appendix copy is the same aid, not a second missing feature.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-prepared-scaling",
+    "needId": "mythic-prepared-scaling",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      158,
+      159,
+      191
+    ],
+    "printedPage": "157, 158, 190",
+    "section": "Variations",
+    "content": "Prepared Adventure Scaling / Diminisher Value",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Diminisher Value",
+      "Prepared Adventure Scaling"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The source’s player-estimated scaling guideline for a solo PC is absent. It is explicitly approximate and may change encounter quantity OR individual power; it is not a fixed source stat block.",
+    "minimalFix": "Add an optional quick reference preserving manual estimation and rounding. Never silently scale original MÖRK BORG creature definitions.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo",
+      "Dungeon",
+      "Monster"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-adventure-features",
+    "needId": "mythic-adventure-features",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      159,
+      160,
+      161,
+      165,
+      192,
+      225
+    ],
+    "printedPage": "158, 159, 160, 164, 191, 224",
+    "section": "Variations",
+    "content": "Prepared Adventure Features List and event interpretation",
+    "type": "Procedure",
+    "classification": "PARTIAL",
+    "severity": "P2",
+    "frequency": 2,
+    "friction": 4,
+    "priority": 8,
+    "appPath": "oracle:mythic2.prepared-adventure-event-focus-table → SOURCE (list named only)",
+    "searchQueries": [
+      "Adventure Features",
+      "Adventure Feature"
+    ],
+    "searchable": "indirect",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The canonical Prepared Adventure Focus table mentions the player-maintained Features List, but the usable reference does not describe selecting source-specific features or the optional Meaning step when a feature already determines the consequence.",
+    "minimalFix": "Add the concise list/interpretation rule and link it from the existing Adventure Feature result. Keep list maintenance on paper; no settlement/faction system.",
+    "solutionType": [
+      "QUICK_RULE",
+      "RESULT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-prepared-scene-test",
+    "needId": "mythic-prepared-scene-test",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      192
+    ],
+    "printedPage": "159, 160, 161, 162, 163, 164, 191",
+    "section": "Variations",
+    "content": "Prepared Adventure Scene Test and event routing",
+    "type": "Procedure",
+    "classification": "PARTIAL",
+    "severity": "P2",
+    "frequency": 3,
+    "friction": 4,
+    "priority": 12,
+    "appPath": "Mythic → Scene uses standard rule; separate oracle:mythic2.prepared-adventure-event-focus-table",
+    "searchQueries": [
+      "Prepared Adventure Scene Test",
+      "Mythic prepared adventure"
+    ],
+    "searchable": "indirect",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The replacement focus table is present, but the current Scene roller always chooses Altered/Interrupt within Chaos. The supplied prepared-adventure variant retains the Expected Scene and adds an event instead; it also uses the replacement focus table. That mode/procedure is unavailable.",
+    "minimalFix": "Add a clear optional procedure reference connecting the existing table, and only an explicit variant roller if later authorized. Never substitute this behavior into the standard Scene test.",
+    "solutionType": [
+      "PROCEDURE",
+      "CONTEXT_LINK",
+      "RESULT_LINK"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "PDF163 printed162 explicitly distinguishes adding Random Event from replacing Expected Scene. resolveScene lines107–115 uses only standard parity; MythicPanel eventClues lines146–165 always uses standard focus table."
+    }
+  },
+  {
+    "id": "mythic-extra-prepared-event-focus",
+    "needId": "mythic-prepared-event-focus",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      165,
+      226
+    ],
+    "printedPage": "164, 225",
+    "section": "Variations",
+    "content": "Prepared Adventure Event Focus Table",
+    "type": "Table",
+    "classification": "RESOLVED",
+    "severity": null,
+    "frequency": 3,
+    "friction": 1,
+    "priority": 3,
+    "appPath": "Reference Desk → oracle:mythic2.prepared-adventure-event-focus-table → ROLL / TABLE",
+    "searchQueries": [
+      "Prepared Adventure Event Focus Table"
+    ],
+    "searchable": "yes",
+    "contextLinked": "partial",
+    "tableView": "yes",
+    "problem": "All seven source d100 ranges and labels are present in the canonical registry. This table can be searched, rolled and intentionally inspected. The surrounding procedure is audited separately.",
+    "minimalFix": "None.",
+    "solutionType": [],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [
+        "mythic2.prepared-adventure-event-focus-table"
+      ],
+      "notes": "Source PDF165 printed164 and duplicatePDF226 printed225 checked directly. Current canonical table exactly matches all seven range boundaries and outcome identities."
+    }
+  },
+  {
+    "id": "mythic-extra-prepared-advice",
+    "needId": "mythic-prepared-advice",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      157,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166
+    ],
+    "printedPage": "156, 158, 159, 160, 161, 162, 163, 164, 165",
+    "section": "Variations",
+    "content": "Prepared Adventures: reading one detail at a time",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Prepared Adventures: reading one detail at a time"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Scenario text, spoilers, encounter examples and soft co-GM advice remain appropriate PDF reading. Numeric scaling and changed Scene procedure have separate gap rows; this exclusion does not hide them.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-features-sheet",
+    "needId": "mythic-features-sheet",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      161,
+      225
+    ],
+    "printedPage": "160, 224",
+    "section": "Variations",
+    "content": "Adventure Features List sheet",
+    "type": "Aid",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Adventure Features List sheet"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "The printable third-list sheet is an aid. Its usage rule is audited separately; no extra digital database is required.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-complicated-campaigns",
+    "needId": "mythic-complicated-campaigns",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      167,
+      168,
+      169,
+      170
+    ],
+    "printedPage": "166, 167, 168, 169",
+    "section": "Variations",
+    "content": "Complicated Campaigns: pruning, fresh starts and multiple lists",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Complicated Campaigns: pruning, fresh starts and multiple lists"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Organization advice extends the existing I Dunno and List rules. Multiple paper lists and fresh narrative starts are elective practices, not missing campaign-management features.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Links existing mythic-meaning-interpretation / mythic-lists / mythic-list-bookkeeping needs; no duplicate base-rule rows."
+    }
+  },
+  {
+    "id": "mythic-extra-peril-points",
+    "needId": "mythic-peril-points",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      171,
+      172,
+      192
+    ],
+    "printedPage": "170, 171, 191",
+    "section": "Variations",
+    "content": "Peril Points",
+    "type": "Rule",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 4,
+    "priority": 4,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Peril Points"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The optional limited narrative-rescue resource, suggested initial pool and player choice of replenishment are absent. MÖRK BORG Omens are a different rule and do not resolve this lookup.",
+    "minimalFix": "Add one short optional Mythic rule with manual paper bookkeeping; keep it distinct from Omens and do not add automatic rescues.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-crafter-integration",
+    "needId": "mythic-crafter-integration",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      172,
+      173,
+      174,
+      175,
+      176,
+      192,
+      227
+    ],
+    "printedPage": "171, 172, 173, 174, 175, 191, 226",
+    "section": "Variations",
+    "content": "Adventure Crafter integration rules",
+    "type": "Procedure",
+    "classification": "MISSING",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 3,
+    "priority": 3,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Adventure Crafter Mythic",
+      "Turning Point Mythic"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "The supplied Mythic text fully describes integration: Turning Points for opening/Interrupt only, Mythic Lists, immediate additions, full-list 2d10 invocation, empty-line choices and PC handling. None is exposed as a quick reference.",
+    "minimalFix": "Add an optional integration reminder with a separate unavailable dependency notice for the external generation tables. Do not invent Turning Points.",
+    "solutionType": [
+      "QUICK_RULE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-crafter-source",
+    "needId": "mythic-crafter-source",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      172,
+      173,
+      175
+    ],
+    "printedPage": "171, 172, 174",
+    "section": "Variations",
+    "content": "Adventure Crafter Turning Point / Plot Point and Deck data",
+    "type": "Source reference",
+    "classification": "SOURCE_UNAVAILABLE",
+    "severity": "P3",
+    "frequency": 1,
+    "friction": 5,
+    "priority": 5,
+    "appPath": "No usable application reference",
+    "searchQueries": [
+      "Adventure Crafter source",
+      "Adventure Crafter Deck"
+    ],
+    "searchable": "no",
+    "contextLinked": "no",
+    "tableView": "n/a",
+    "problem": "This book refers to external Adventure Crafter generation tables and an optional deck; they are not printed here and no supplied file or installed canonical source contains them. The integration instructions themselves are available and separately audited.",
+    "minimalFix": "Identify the external dependency clearly. Do not synthesize the absent Plot Point tables or count the separate product as missing MÖRK BORG data.",
+    "solutionType": [
+      "SOURCE_MISSING"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Current supplied inventory and Downloads filename search contain no Adventure Crafter source or deck. Mythic PDF172/175 explicitly identifies external products; PDF176/227 is only integration summary."
+    }
+  },
+  {
+    "id": "mythic-extra-support-art",
+    "needId": "mythic-support-art",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      176,
+      177,
+      228,
+      229,
+      230
+    ],
+    "printedPage": "175, 176, 227, 228, 229",
+    "section": "Variations",
+    "content": "Support resources, illustrations, patrons and cover",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Support resources, illustrations, patrons and cover"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Credits, support/community links and illustrations are not reusable rule mechanics; no application counterpart is required.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-big-example",
+    "needId": "mythic-big-example",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186
+    ],
+    "printedPage": "177, 178, 179, 180, 181, 182, 183, 184, 185",
+    "section": "Variations",
+    "content": "The Big Example: Rapid Red playthrough",
+    "type": "Long-form",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "The Big Example: Rapid Red playthrough"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Nine-page worked superhero narrative demonstrates already audited Fate, Meaning, Lists and Scene tools. Its invented-in-example names and stats are not MÖRK BORG content to import.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  },
+  {
+    "id": "mythic-extra-paper-journal",
+    "needId": "mythic-paper-journal",
+    "bookId": "mythic",
+    "book": "Mythic Game Master Emulator Second Edition",
+    "pdfPage": [
+      77,
+      193
+    ],
+    "printedPage": "76, 192",
+    "section": "Variations",
+    "content": "Adventure Journal sheet",
+    "type": "Aid",
+    "classification": "PDF_APPROPRIATE",
+    "severity": null,
+    "frequency": null,
+    "friction": null,
+    "priority": null,
+    "appPath": "Original supplied PDF",
+    "searchQueries": [
+      "Adventure Journal sheet"
+    ],
+    "searchable": "n/a",
+    "contextLinked": "n/a",
+    "tableView": "n/a",
+    "problem": "Printable scene journal belongs beside the handwritten notebook; reproducing it as an app chronology would conflict with product priorities.",
+    "minimalFix": "None.",
+    "solutionType": [
+      "PDF_APPROPRIATE"
+    ],
+    "workflows": [
+      "Solo"
+    ],
+    "evidence": {
+      "code": [
+        "src/domain/mythic.ts:47",
+        "src/generators/mythic.ts:27",
+        "src/components/MythicPanel.tsx:181",
+        "src/domain/playReferenceRules.ts:334"
+      ],
+      "tableIds": [],
+      "notes": "Fresh supplied PDF body and repeated summary checked. Current registry has only two Mythic quick rules and no matching optional procedure. Fate state supports chart/check, Chaos, question, scene and bounded history only. Absence of a tracker is not itself a gap; missing usable rule/table is."
+    }
+  }
+]
