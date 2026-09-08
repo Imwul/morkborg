@@ -6,6 +6,8 @@ import type {
   OracleRoll,
 } from '../domain/oracle';
 import { id, random, rollDie, type RandomSource } from './random';
+import { oracleValueProvenance } from '../domain/oracleProvenance';
+import { traceReferenceProcedure } from '../domain/referenceGeneratorProcedures';
 import {
   FERETORY_TABLE_IDS,
   FERETORY_MONSTER_TITLE,
@@ -105,9 +107,12 @@ export function rollOracle(
     roll: rolled.value,
     diceValues: rolled.values,
     entryId: entry?.id ?? null,
-    text: entry?.text ?? '[원문에 해당 결과가 없음]',
+    text: entry?.text ?? '',
     source: sourceLabel(table, registry),
-    metadata: entry?.metadata,
+    metadata: {
+      ...entry?.metadata,
+      provenance: oracleValueProvenance(table, registry, entry, rolled),
+    },
   };
 }
 export function rollProcedure(
@@ -143,41 +148,82 @@ export function rollProcedure(
       { A: rolls[0].roll, B: rolls[1].roll, C: rolls[2].roll },
       rng,
     );
-    return {
-      id: id(),
-      title: FERETORY_MONSTER_TITLE,
-      rolls: [
-        ...rolls,
-        {
-          oracleId: 'feretory.hp',
-          title: '능력치 · 같은 A/B/C 결과로 계산',
-          dice: stats.damage,
-          roll: stats.hpRoll,
-          diceValues: [stats.hpRoll],
-          entryId: null,
-          text: `HP ${stats.hp} · Morale ${stats.morale} · Armor ${stats.armor} · Damage ${stats.damage}`,
-          source:
-            sourceLabel(ordered[0], registry) +
-            ' · The Monster Approaches · 능력치 계산',
-          metadata: {
-            sourceTableId: 'feretory.A',
-            procedureNote: `HP: ${stats.damage} = ${stats.hpRoll} × 2 = ${stats.hp}. 사기·피해·방어구는 위 A/B/C를 재사용합니다.`,
+    return traceReferenceProcedure(
+      {
+        id: id(),
+        title: FERETORY_MONSTER_TITLE,
+        rolls: [
+          ...rolls,
+          {
+            oracleId: 'feretory.hp',
+            title: '능력치 · 같은 A/B/C 결과로 계산',
+            dice: stats.damage,
+            roll: stats.hpRoll,
+            diceValues: [stats.hpRoll],
+            entryId: null,
+            text: `HP ${stats.hp} · Morale ${stats.morale} · Armor ${stats.armor} · Damage ${stats.damage}`,
+            source:
+              sourceLabel(ordered[0], registry) +
+              ' · The Monster Approaches · 능력치 계산',
+            metadata: {
+              sourceTableId: 'feretory.A',
+              procedureNote: `HP: ${stats.damage} = ${stats.hpRoll} × 2 = ${stats.hp}. 사기·피해·방어구는 위 A/B/C를 재사용합니다.`,
+              provenance: {
+                classification: 'APP_DERIVED',
+                origin: 'source',
+                status: rolls.every(
+                  (roll) => roll.metadata?.provenance?.status === 'VERIFIED',
+                )
+                  ? 'VERIFIED'
+                  : 'PARTIAL',
+                sourceRefs: [
+                  {
+                    ...rolls[0].metadata!.provenance!.sourceRefs[0],
+                    tableTitle: 'The Monster Approaches · statistics',
+                    roll: stats.hpRoll,
+                    entryId: null,
+                    note: `HP: ${stats.damage} = ${stats.hpRoll} × 2 = ${stats.hp}. Reuse A/B/C for Morale, Damage and Armor.`,
+                  },
+                ],
+                sourceText: rolls.map((roll) => roll.text),
+                rolls: [
+                  ...rolls.flatMap(
+                    (roll) => roll.metadata?.provenance?.rolls ?? [],
+                  ),
+                  {
+                    tableId: 'feretory.A',
+                    dice: stats.damage,
+                    value: stats.hpRoll,
+                    diceValues: [stats.hpRoll],
+                  },
+                ],
+                procedureId: 'feretory.monster-approaches',
+                transformation:
+                  'Reuse the same A/B/C d12 results for damage, morale and armor. Roll the selected damage die once and multiply by two for HP.',
+              },
+            },
           },
-        },
-      ],
-    };
+        ],
+      },
+      'feretory.monster-approaches',
+      registry,
+    );
   }
-  return {
-    id: id(),
-    title: procedure.title,
-    rolls: tables.map((table, index) => {
-      const result = rollOracle(table, registry, rng);
-      return procedure.rollLabels?.[index]
-        ? {
-            ...result,
-            title: `${procedure.rollLabels[index]} · ${result.title}`,
-          }
-        : result;
-    }),
-  };
+  return traceReferenceProcedure(
+    {
+      id: id(),
+      title: procedure.title,
+      rolls: tables.map((table, index) => {
+        const result = rollOracle(table, registry, rng);
+        return procedure.rollLabels?.[index]
+          ? {
+              ...result,
+              title: `${procedure.rollLabels[index]} · ${result.title}`,
+            }
+          : result;
+      }),
+    },
+    procedure.id,
+    registry,
+  );
 }

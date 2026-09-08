@@ -1,173 +1,183 @@
-import { Dices, ArrowUpRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import {
   dungeonFields,
   roomFields,
   type Dungeon,
+  type DungeonRoom,
   type Campaign,
 } from '../domain/types';
-import { generateDungeonRoll, generateRoomRoll } from '../generators';
+import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import {
+  canReroll,
+  generateDungeonRoll,
+  generateRoomRoll,
+} from '../generators';
 import { Field } from './Field';
-import { RoomState } from './ObjectPlayTools';
+import { RoomPacket } from './RoomPacket';
+import { GenerationDisclosure } from './GenerationDisclosure';
+import type { Confirm } from './Library';
 
-/** The same readable sheet is used before and after saving a candidate. */
+/** Shared dossier and room packets before and after saving. */
 export function DungeonSheet({
   dungeon: d,
-  campaign,
   ready,
   patch,
   patchRoom,
-  rollRoom,
+  updateRoom,
+  confirm,
   openRoom,
 }: {
   dungeon: Dungeon;
   campaign?: Campaign;
   ready: boolean;
-  patch: (key: string, value: string | number, source?: string) => void;
+  patch: (
+    key: string,
+    value: string | number,
+    source?: string,
+    provenance?: GeneratedValueProvenance,
+  ) => void;
   patchRoom: (
     id: string,
     key: string,
     value: string | number,
     source?: string,
+    provenance?: GeneratedValueProvenance,
   ) => void;
+  updateRoom: (id: string, action: (room: DungeonRoom) => void) => void;
   rollRoom: (id: string) => void;
+  confirm?: Confirm;
   openRoom?: (id: string) => void;
 }) {
-  const dungeonField = (spec: (typeof dungeonFields)[number]) => (
-    <Field
-      key={`${d.id}:${spec.key}`}
-      spec={spec}
-      value={String((d as unknown as Record<string, string>)[spec.key] ?? '')}
-      source={d.sources?.[spec.key]}
-      onChange={(value, source) => patch(spec.key, value, source)}
-      reroll={ready ? () => generateDungeonRoll(spec.key, d.region) : undefined}
-    />
-  );
-  const premise = dungeonFields.find((spec) => spec.key === 'premise')!;
-  const dossierOrder = [
-    'status',
-    'inhabitants',
-    'motive',
-    'entrance',
-    'entranceCondition',
-    'distinctiveFeature',
-    'formerPurpose',
-    'weirdPhenomenon',
-    'environmentalDanger',
-    'treasure',
-  ];
+  const [editing, setEditing] = useState(false);
+  const groups = [
+    ['CORE DOSSIER', ['status', 'inhabitants', 'formerPurpose', 'motive']],
+    ['ACCESS', ['entrance', 'entranceCondition']],
+    [
+      'DISTURBANCES',
+      ['distinctiveFeature', 'environmentalDanger', 'weirdPhenomenon'],
+    ],
+    ['OBJECT / RELIC', ['treasure']],
+  ] as const;
+  const field = (key: string) => {
+    const spec = dungeonFields.find((item) => item.key === key)!;
+    const value = String((d as unknown as Record<string, string>)[key] ?? '');
+    if (!value && !editing) return null;
+    return (
+      <Field
+        key={d.id + key}
+        spec={spec}
+        value={value}
+        source={d.sources?.[key]}
+        provenance={d.fieldProvenance?.[key]}
+        onChange={(value, source, provenance) =>
+          patch(key, value, source, provenance)
+        }
+        reroll={
+          ready && canReroll('dungeon', key)
+            ? () => generateDungeonRoll(key, d.region)
+            : undefined
+        }
+        showTools={editing}
+        hideSource
+      />
+    );
+  };
   return (
-    <section className="dungeon-sheet codex-sheet" aria-label="던전 전체 시트">
+    <section
+      className={`dungeon-sheet codex-sheet integrity-dossier ${editing ? 'dossier-editing' : ''}`}
+      aria-label="던전 전체 시트"
+    >
       <div className="sheet-caption">
         <span>DUNGEON DOSSIER</span>
-        <span>항목을 누르면 편집 · 출처 보기</span>
+        <button aria-pressed={editing} onClick={() => setEditing(!editing)}>
+          {editing ? 'DONE' : 'EDIT'}
+        </button>
       </div>
-      <div className="dungeon-dossier-lead">
-        <div className="dossier-premise">{dungeonField(premise)}</div>
+      {d.premise && <div className="dossier-premise">{field('premise')}</div>}
+      <div className="dossier-composition">
+        {groups.map(
+          ([label, keys]) =>
+            (editing ||
+              keys.some(
+                (key) => (d as unknown as Record<string, string>)[key],
+              )) && (
+              <section className="dossier-group" key={label}>
+                <h3>{label}</h3>
+                <div>{keys.map(field)}</div>
+              </section>
+            ),
+        )}
       </div>
-      <div className="sheet-dungeon-fields">
-        {dungeonFields
-          .filter((spec) => spec.key !== 'premise')
-          .sort(
-            (a, b) => dossierOrder.indexOf(a.key) - dossierOrder.indexOf(b.key),
-          )
-          .map((spec) => (
-            <div className="dossier-field" data-field={spec.key} key={spec.key}>
-              {dungeonField(spec)}
-            </div>
-          ))}
-      </div>
+      <GenerationDisclosure values={d.fieldProvenance} />
       <div className="sheet-room-index">
-        <span>ROOMS / 준비 · 발견</span>
-        <strong>{String(d.rooms.length).padStart(2, '0')} ENTRIES</strong>
+        <span>ROOM LEDGER</span>
+        <strong>{String(d.rooms.length).padStart(2, '0')}</strong>
       </div>
-      <div className="sheet-room-grid">
-        {d.rooms.map((room, i) => (
-          <article
-            className="sheet-room"
-            key={room.id}
-            aria-label={`Room ${i + 1}`}
-          >
-            <div className="sheet-room-heading">
-              <span className="room-number">
-                <small>{room.kind === 'special' ? 'SPECIAL' : 'ROOM'}</small>
-                <strong>{String(i + 1).padStart(2, '0')}</strong>
-              </span>
-              <div>
-                {campaign && (
-                  <RoomState campaign={campaign} dungeonId={d.id} room={room} />
-                )}
-                <Button
-                  className="icon-btn"
-                  disabled={!ready}
-                  aria-label={`방 ${i + 1} 전체 재굴림`}
-                  onClick={() => rollRoom(room.id)}
-                >
-                  <Dices size={16} />
-                </Button>
-                {openRoom && (
-                  <Button
-                    className="icon-btn"
-                    aria-label={`방 ${i + 1} 상세 열기`}
-                    onClick={() => openRoom(room.id)}
-                  >
-                    <ArrowUpRight size={16} />
-                  </Button>
-                )}
-              </div>
-            </div>
-            {openRoom ? (
-              <div className="room-preview-body">
+      <div className="room-packet-grid">
+        {d.rooms.map((room, index) =>
+          room.components ? (
+            <div key={room.id}>
+              <RoomPacket
+                dungeon={d}
+                room={room}
+                index={index}
+                ready={ready}
+                update={(action) => updateRoom(room.id, action)}
+                confirm={confirm}
+              />
+              {openRoom && (
                 <button
-                  className="room-preview-name"
+                  className="room-context-link"
                   onClick={() => openRoom(room.id)}
                 >
-                  {room.name || 'Unnamed Room'}
+                  배치 · 크롤 ›
                 </button>
-                <p className="room-preview-description">{room.description}</p>
-                <div className="contents-counts">
-                  <span>몬스터 {room.monsterIds.length}</span>
-                  <span>NPC {room.npcIds.length}</span>
-                  <span>조우 {room.encounterIds.length}</span>
-                </div>
-              </div>
-            ) : (
-              <details className="room-draft-detail">
-                <summary>
-                  <strong>{room.name || 'Unnamed Room'}</strong>
-                  <span className="room-preview-description">
-                    {room.description || '항목을 눌러 이 방을 기록하세요.'}
+              )}
+            </div>
+          ) : (
+            <article className="room-packet legacy-room" key={room.id}>
+              <details>
+                <summary className="room-packet-summary">
+                  <span className="room-packet-number">
+                    {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="room-open-label">방 편집 / 출처 ›</span>
+                  <span className="room-packet-preview">
+                    <strong>{room.name}</strong>
+                    <span>{room.description}</span>
+                  </span>
                 </summary>
-                <div className="room-draft-fields">
+                <div className="room-packet-body">
+                  <small>
+                    저장된 내용 · 원문 구성 요소로 재해석하지 않았습니다.
+                  </small>
                   {roomFields.map((spec) => (
                     <Field
                       key={spec.key}
-                      spec={{
-                        ...spec,
-                        label: spec.key === 'name' ? '방 이름' : spec.label,
-                      }}
+                      spec={spec}
                       value={String(
                         (room as unknown as Record<string, string>)[spec.key] ??
                           '',
                       )}
                       source={room.sources?.[spec.key]}
-                      onChange={(value, source) =>
-                        patchRoom(room.id, spec.key, value, source)
+                      provenance={room.fieldProvenance?.[spec.key]}
+                      onChange={(value, source, provenance) =>
+                        patchRoom(room.id, spec.key, value, source, provenance)
                       }
                       reroll={
-                        ready
+                        ready && canReroll('room', spec.key)
                           ? () => generateRoomRoll(spec.key, d.region)
                           : undefined
                       }
                     />
                   ))}
+                  {openRoom && (
+                    <button onClick={() => openRoom(room.id)}>방 열기 ›</button>
+                  )}
                 </div>
               </details>
-            )}
-          </article>
-        ))}
+            </article>
+          ),
+        )}
       </div>
     </section>
   );

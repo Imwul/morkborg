@@ -1,0 +1,332 @@
+{
+  "date": "2026-09-08",
+  "browser": "Chromium, isolated QA profiles",
+  "devURL": "http://127.0.0.1:5174/",
+  "productionBuildURL": "http://127.0.0.1:4174/",
+  "publicDeploymentPerformed": false,
+  "liveProductionSiteSmokeTestPerformed": false,
+  "privateDataPublished": false,
+  "sourceFixture": "Locally supplied current private bundle; dev /rules responses and production API recovery intercepted in isolated QA profiles only",
+  "checks": [
+    {
+      "step": "1-4",
+      "assertion": "Created isolated Sarkash Dungeon with four concise source-component Special Rooms using real UI",
+      "passed": true
+    },
+    {
+      "step": "5-6",
+      "assertion": "Opened Room1 source, confirmed Core PDF73 and SD PDF19/printed17, inspected canonical24-row table",
+      "passed": true
+    },
+    {
+      "step": "7-8",
+      "assertion": "Rerolled Room1; otherthree Rooms were deeply equal before/after",
+      "passed": true
+    },
+    {
+      "step": "9-12",
+      "assertion": "Manually edited Room2 parent then rerolled conditional detail; manual component and source-edited origin preserved; source disclosure retained original snapshot",
+      "passed": true
+    },
+    {
+      "step": "13-14",
+      "assertion": "Regional Monster workflow exposed Core primary and Depths routing; separate EPK Monster source+actuald6 inspected",
+      "passed": true
+    },
+    {
+      "step": "15-18",
+      "assertion": "NPC and Encounter generated, sources inspected, saved viaUI",
+      "passed": true
+    },
+    {
+      "step": "19-22",
+      "assertion": "Action+Theme, Reaction, Broken, actual clipboard copy checked",
+      "passed": true
+    },
+    {
+      "step": "23-25",
+      "assertion": "Reload preserved allfour Rooms, manual origin, savedMonster/NPC/Encounter/Character, Reactionpin and recentIDs",
+      "passed": true
+    },
+    {
+      "step": "related-table",
+      "assertion": "Source opens canonical table in modal, closing returns to Dungeon context",
+      "passed": true
+    },
+    {
+      "step": "history",
+      "assertion": "Previous reference then reroll and Recent-table execution checked",
+      "passed": true
+    },
+    {
+      "step": "production-offline",
+      "assertion": "Local productionbuild with sourceAPI503 kept savedRooms/Monster readable and disabledregeneration",
+      "passed": true
+    },
+    {
+      "step": "production-backup",
+      "assertion": "First-load backupexactly matched seeded savebytes",
+      "passed": true
+    },
+    {
+      "step": "production-recovery",
+      "assertion": "Restored supplied privatebundle through mockedlocalAPI; Reactionrolled and savedMonsterstats stayedunchanged",
+      "passed": true
+    }
+  ],
+  "pageErrors": [],
+  "widths": [
+    360,
+    768,
+    1440,
+    3440
+  ],
+  "capturedSurfaces": [
+    "Dungeon",
+    "Monster",
+    "NPC",
+    "Encounter",
+    "Character",
+    "Reference Desk",
+    "Search",
+    "Oracle"
+  ],
+  "horizontalOverflowDetected": false,
+  "metrics": [
+    {
+      "surface": "search-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 2168
+    },
+    {
+      "surface": "search-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 2059
+    },
+    {
+      "surface": "search-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1539
+    },
+    {
+      "surface": "search-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1435
+    },
+    {
+      "surface": "oracle-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 2168
+    },
+    {
+      "surface": "oracle-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 2059
+    },
+    {
+      "surface": "oracle-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1539
+    },
+    {
+      "surface": "oracle-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1435
+    },
+    {
+      "surface": "character-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 2883
+    },
+    {
+      "surface": "character-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 2404
+    },
+    {
+      "surface": "character-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 2092
+    },
+    {
+      "surface": "character-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 2098
+    },
+    {
+      "surface": "encounter-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 1000
+    },
+    {
+      "surface": "encounter-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 1000
+    },
+    {
+      "surface": "encounter-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1000
+    },
+    {
+      "surface": "encounter-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1000
+    },
+    {
+      "surface": "dungeon-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 3207
+    },
+    {
+      "surface": "dungeon-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 2358
+    },
+    {
+      "surface": "dungeon-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 2306
+    },
+    {
+      "surface": "dungeon-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 2288
+    },
+    {
+      "surface": "monster-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 1018
+    },
+    {
+      "surface": "monster-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 1022
+    },
+    {
+      "surface": "monster-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1000
+    },
+    {
+      "surface": "monster-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1000
+    },
+    {
+      "surface": "npc-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 1036
+    },
+    {
+      "surface": "npc-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 1028
+    },
+    {
+      "surface": "npc-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1000
+    },
+    {
+      "surface": "npc-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1009
+    },
+    {
+      "surface": "desk-final",
+      "width": 360,
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "height": 2168
+    },
+    {
+      "surface": "desk-final",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "height": 2059
+    },
+    {
+      "surface": "desk-final",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "height": 1539
+    },
+    {
+      "surface": "desk-final",
+      "width": 3440,
+      "scrollWidth": 3440,
+      "clientWidth": 3440,
+      "height": 1435
+    }
+  ],
+  "privateScreenshotDirectory": "outputs/product-integrity",
+  "manualConditionalRoomSetup": "Additional rolls were used to exercise actual conditional child; these are test setup, not required navigation overhead.",
+  "regressionScope": "CRUD, IDs, placements, import/export, duplication and migrations were also covered by automated tests; not all CRUD permutations were repeated manually inbrowser.",
+  "finalSemanticReview": {
+    "samplePool": 400,
+    "randomSelectionSeed": 103,
+    "roomsRead": 25,
+    "appCreatedAtmosphericSentences": 0,
+    "unexpectedCrossTableCombinations": 0,
+    "canonicalComponentSourceInspectable": true
+  }
+}

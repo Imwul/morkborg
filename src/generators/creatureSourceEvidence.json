@@ -1,0 +1,327 @@
+{
+  "auditDate": "2026-09-08",
+  "sourceFields": [
+    "name",
+    "concept",
+    "archetype",
+    "appearance",
+    "behaviour",
+    "behavior",
+    "wants",
+    "hp",
+    "morale",
+    "moraleDisplay",
+    "armor",
+    "attack",
+    "damage",
+    "description",
+    "attackDescription",
+    "attackEffect",
+    "effect",
+    "specialAbility",
+    "weakness",
+    "loot",
+    "weirdTrait",
+    "attackOptions",
+    "attackAlternative",
+    "possession",
+    "attackTable",
+    "actionTable",
+    "valuation",
+    "context",
+    "sourceNotes",
+    "traits",
+    "specialty",
+    "values"
+  ],
+  "records": {
+    "core:58:Seth": [
+      "45065f2e"
+    ],
+    "core:58:Bent": [
+      "14ae8b5c"
+    ],
+    "core:59:Zukuma": [
+      "36f6fe36"
+    ],
+    "core:59:Wrat": [
+      "758a8696"
+    ],
+    "core:60:Belze": [
+      "7894117d"
+    ],
+    "core:60:Lich": [
+      "3393c7b5"
+    ],
+    "core:60:Arbint": [
+      "c8f6de3f"
+    ],
+    "core:61:Nodh": [
+      "382099e5"
+    ],
+    "core:61:Lady Porcelain": [
+      "174054ae"
+    ],
+    "core:62:Thinx": [
+      "421e62f3"
+    ],
+    "core:62:Aland": [
+      "a045c876"
+    ],
+    "core:62:Eulotha": [
+      "e12d3ba6"
+    ],
+    "heretic:60:The Bone Bowyer": [
+      "f5cbfc42"
+    ],
+    "heretic:62:Borg Bitor": [
+      "66503859"
+    ],
+    "heretic:64:Rotten Nurse": [
+      "40ab3edc"
+    ],
+    "heretic:23:Half-Billed Raven": [
+      "42293130"
+    ],
+    "heretic:23:Rotted Skeleton": [
+      "66fcb48e"
+    ],
+    "heretic:23:Widow-Wraith": [
+      "677ebc58"
+    ],
+    "heretic:23:Unbred Mutt": [
+      "d15a10bf"
+    ],
+    "heretic:23:Hungry Zombie": [
+      "20272e6b"
+    ],
+    "heretic:25:Fogbound Skeleton": [
+      "8c395654"
+    ],
+    "heretic:27:Twice-Grown Corpse Fly": [
+      "48fa6a6f"
+    ],
+    "heretic:33:The Übertaker": [
+      "d82b7949"
+    ],
+    "heretic:34:Ratbadger": [
+      "44aa2765"
+    ],
+    "heretic:34:Fleshy Automaton": [
+      "d783209c"
+    ],
+    "heretic:35:Silas": [
+      "ba9ac6f7"
+    ],
+    "heretic:66:Toothless Hag": [
+      "9bb285d2"
+    ],
+    "heretic:66:Old, Dormant Sludger": [
+      "71313920"
+    ],
+    "heretic:67:Weak Kôbôlth": [
+      "63f81dcd"
+    ],
+    "feretory:14:Antideer": [
+      "a27f583e"
+    ],
+    "feretory:14:Flayed Vultures": [
+      "c67631cf"
+    ],
+    "feretory:14:Ratbit": [
+      "fe70646c"
+    ],
+    "feretory:14:Feral Horses": [
+      "e86792d1"
+    ],
+    "feretory:14:Steppe Wolfe": [
+      "0fe2f27b"
+    ],
+    "feretory:14:Tusked Bison": [
+      "e11f5332"
+    ],
+    "feretory:15:Skelelk": [
+      "03efda5c"
+    ],
+    "feretory:15:Dredgehog": [
+      "4734f113"
+    ],
+    "feretory:15:Carrion Owls": [
+      "dd0c4629"
+    ],
+    "feretory:15:Throat-Cutting Warbler": [
+      "370fc096"
+    ],
+    "feretory:15:Mulch-Squirrels": [
+      "90a1f99c"
+    ],
+    "feretory:15:Howler Bears": [
+      "be3e8317"
+    ],
+    "feretory:16:Giant Skull Moth": [
+      "3728e728"
+    ],
+    "feretory:16:Twice-Grown Corpse Flies": [
+      "eb08a046"
+    ],
+    "feretory:16:Unbred Mutts": [
+      "837aa393"
+    ],
+    "feretory:16:Grim-Toothed Squirrel": [
+      "137ec6b9"
+    ],
+    "feretory:16:Meatroach": [
+      "6b1db194"
+    ],
+    "feretory:16:Half-Billed Raven": [
+      "b6110ab5"
+    ],
+    "feretory:17:Uncommon Rats": [
+      "9011ae4b"
+    ],
+    "feretory:17:Cellar Crabs": [
+      "851baa40"
+    ],
+    "feretory:17:Nameless & Tameless Strays": [
+      "9ee9e3f8"
+    ],
+    "feretory:17:Straw-Lion": [
+      "f855861b"
+    ],
+    "feretory:17:Lentil Lice": [
+      "fbe9ec4e"
+    ],
+    "feretory:17:Múrder Gulls": [
+      "4a6eefa0"
+    ],
+    "feretory:18:Flail-Horned Muskox": [
+      "6a813643"
+    ],
+    "feretory:18:Tar-Pelted Goats": [
+      "cb19ec2d"
+    ],
+    "feretory:18:Molar Bear": [
+      "5f8d3c3c"
+    ],
+    "feretory:18:Megasloths": [
+      "88965398"
+    ],
+    "feretory:18:Blubber Gulls": [
+      "f00ad8c4"
+    ],
+    "feretory:18:False Seal": [
+      "9fed54f0"
+    ],
+    "feretory:19:Liar-Bird": [
+      "12fbacee"
+    ],
+    "feretory:19:Three-Thirds-Pheasant": [
+      "f5aa64b8"
+    ],
+    "feretory:19:Feather Fox": [
+      "e09258e9"
+    ],
+    "feretory:19:Bautaboar": [
+      "93ab6fd6"
+    ],
+    "feretory:19:Schleswig Bogfeeder": [
+      "8ea507ee"
+    ],
+    "feretory:19:Gold-Crested Filth-Crow": [
+      "1f048fce"
+    ],
+    "feretory:20:Cursed Trout": [
+      "5ca95c30"
+    ],
+    "feretory:20:Rusty Bass": [
+      "729de498"
+    ],
+    "feretory:20:Groan": [
+      "fa39c590"
+    ],
+    "feretory:20:Carcasswan": [
+      "5c43454a"
+    ],
+    "feretory:20:Unresting Duck": [
+      "7fcc8632"
+    ],
+    "feretory:20:Sursturgeon": [
+      "629b2c56"
+    ],
+    "feretory:21:Phantom Rats": [
+      "679fdc63"
+    ],
+    "feretory:21:Grubstopper": [
+      "677d0314"
+    ],
+    "feretory:21:Tomb Ape": [
+      "ff0ed78b"
+    ],
+    "feretory:21:Gravelings": [
+      "d06b329e"
+    ],
+    "feretory:21:Marrow Sparrow": [
+      "9cf76b87"
+    ],
+    "feretory:21:Bonemare": [
+      "b492b011"
+    ],
+    "feretory:22:Tunnel Sneak": [
+      "d5c49066"
+    ],
+    "feretory:22:Nephalix Monkeys": [
+      "c5f2ddcb"
+    ],
+    "feretory:22:Weakwill’d Whisperbird": [
+      "c3a54f30"
+    ],
+    "feretory:23:Vierwinged Falchon": [
+      "e5757dc6"
+    ],
+    "feretory:23:Überwolf": [
+      "452a586d"
+    ],
+    "feretory:23:Ragpie": [
+      "521e8d29"
+    ],
+    "core:64:Earthbound": [
+      "4645d6f0",
+      "10c4a607"
+    ],
+    "core:65:Wild Wickhead": [
+      "f81f176d"
+    ],
+    "core:66:Pale one": [
+      "8b636096",
+      "a332aeac"
+    ],
+    "core:67:Prowler": [
+      "8ff285bf",
+      "0ae05c6d"
+    ],
+    "heretic:40:Mikhael": [
+      "20172791"
+    ],
+    "heretic:29:The Roach Herder": [
+      "e5d21962"
+    ],
+    "heretic:32:Stein": [
+      "75d28b64"
+    ],
+    "heretic:32:Benzen": [
+      "e97d22c8"
+    ],
+    "heretic:32:Arga": [
+      "fbe71396"
+    ],
+    "core-full:79:Mongrel": [
+      "f49cc3f5"
+    ],
+    "core-full:79:Dusk Gnoum": [
+      "d48fa3fc"
+    ],
+    "core-full:79:Guards with Sharpened Teeth": [
+      "8a806754"
+    ]
+  }
+}

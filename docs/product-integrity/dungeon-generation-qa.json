@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-09-08T02:15:36.061Z",
+  "dungeons": 100,
+  "rooms": 400,
+  "representativeRoomsForHumanReview": 25,
+  "classificationCountingUnit": "Each dungeon textual field (including intentionally blank manual fields), plus each authoritative room component; structural identifiers and compatibility mirrors are excluded.",
+  "classifications": {
+    "SOURCE_COMPOSED": 185,
+    "SOURCE_VERBATIM": 1253,
+    "USER_AUTHORED": 200
+  },
+  "unresolved": [],
+  "sampleSha256": "0777c37d25f4fbcba9d859cf2d08bf6bf5a4065bc87a0e1362db796c5b5d0725",
+  "sourceTableIds": [
+    "core.rooms"
+  ],
+  "duplicateRoomResults": 369
+}

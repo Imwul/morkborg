@@ -59,6 +59,51 @@ export function validateOracleRegistry(registry: OracleRegistry): string[] {
       p.oracleIds.some((id) => !registry.tables.some((t) => t.id === id))
     )
       issues.push(`${p.id}: invalid procedure`);
+    if (p.rollLabels && p.rollLabels.length !== p.oracleIds.length)
+      issues.push(`${p.id}: roll labels do not match procedure steps`);
+    if (
+      p.steps &&
+      p.steps.flatMap((step) => step.oracleIds).join('|') !==
+        p.oracleIds.join('|')
+    )
+      issues.push(`${p.id}: grouped source steps diverge from roll sequence`);
+    for (const step of p.generatorSteps ?? [])
+      if (
+        !step.id ||
+        !Number.isInteger(step.count) ||
+        step.count < 1 ||
+        (step.tableId &&
+          !registry.tables.some((table) => table.id === step.tableId))
+      )
+        issues.push(`${p.id}: unresolved or invalid generator step ${step.id}`);
   }
+  for (const table of registry.tables)
+    for (const entry of table.entries) {
+      const followUps = entry.metadata?.followUpOracleIds;
+      if (Array.isArray(followUps))
+        for (const id of followUps)
+          if (
+            typeof id !== 'string' ||
+            !registry.tables.some((candidate) => candidate.id === id)
+          )
+            issues.push(
+              `${entry.id}: missing canonical follow-up ${String(id)}`,
+            );
+      const lookups = entry.metadata?.fixedLookups;
+      if (Array.isArray(lookups))
+        for (const lookup of lookups) {
+          const target = registry.tables.find(
+            (candidate) => candidate.id === lookup?.oracleId,
+          );
+          if (
+            !target ||
+            !Number.isInteger(lookup?.roll) ||
+            !target.entries.some(
+              (row) => row.min <= lookup.roll && row.max >= lookup.roll,
+            )
+          )
+            issues.push(`${entry.id}: invalid fixed source lookup`);
+        }
+    }
   return issues;
 }

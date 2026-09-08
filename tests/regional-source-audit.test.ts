@@ -159,9 +159,21 @@ test(
             result.reading.text === entry.text,
             `${label}: original row text preserved`,
           );
+          const { provenance, ...retainedMetadata } =
+            result.reading.metadata ?? {};
           assert.ok(
-            digest(result.reading.metadata) === digest(entry.metadata),
+            digest(retainedMetadata) === digest(entry.metadata),
             `${label}: original routing metadata preserved`,
+          );
+          assert.equal(
+            provenance?.sourceRefs[0].tableId,
+            table.id,
+            `${label}: canonical table provenance added`,
+          );
+          assert.equal(
+            provenance?.sourceRefs[0].entryId,
+            entry.id,
+            `${label}: exact entry provenance added`,
           );
           assert.ok(
             result.preset === candidates[0],

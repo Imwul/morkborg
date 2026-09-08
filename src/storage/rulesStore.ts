@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { readPrivateData } from './privateData';
 import { mergeRuleTranslations } from './ruleTranslations';
 import { loadPublishedData } from './publishedData';
+import { correctRuleSourcePages } from '../data/oracles/sourceCorrections';
 export interface RuleEntry {
   text: string;
   weight: number;
@@ -173,7 +174,7 @@ export const getRules = () => state.pack;
 export function parseRulesPack(input: unknown): RulesPack {
   const pack = schema.parse(input);
   validateGeneratorTables(pack);
-  return pack;
+  return correctRuleSourcePages(pack);
 }
 export function setRules(input: unknown, persist = false) {
   const pack = parseRulesPack(input);

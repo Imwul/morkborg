@@ -1,3 +1,6 @@
+import { markCopiedIdentity } from '../domain/duplicationProvenance';
+import { GenerationDisclosure } from './GenerationDisclosure';
+import { hasManualEdits } from '../domain/generationProvenance';
 import { SourceText } from './SourceText';
 import { useState } from 'react';
 import {
@@ -91,6 +94,7 @@ export function Characters({
     c.characters.find((ch) => ch.id === selectedId) ??
     (draft?.id === selectedId ? draft : undefined);
   const saved = !!selected && c.characters.some((ch) => ch.id === selected.id);
+  const [editingCharacter, setEditingCharacter] = useState(false);
   const [mode, setMode] = useState(() => selected?.classId ?? 'classless');
   const classes = characterClasses(),
     ready = classCreationReady();
@@ -135,6 +139,7 @@ export function Characters({
     editCampaign(c.id, (next) => {
       const copy = cloneCharacter(ch, c.id);
       copy.name += ' — copy';
+      markCopiedIdentity(copy, 'name');
       next.characters.push(copy);
       next.workspace.selected.characters = copy.id;
     });
@@ -157,7 +162,7 @@ export function Characters({
         notify(e instanceof Error ? e.message : '생성 자료를 확인하세요.');
       }
     };
-    if (saved)
+    if (selected && hasManualEdits(selected))
       confirm(
         '캐릭터 전체를 다시 굴릴까요?',
         '선택한 직업 방식으로 능력치·장비·배경·직업 능력을 새로 정합니다. 메모와 생존 상태는 유지합니다.',
@@ -179,6 +184,8 @@ export function Characters({
             ? selected.classSource
             : selected.sources?.[spec.key]
         }
+        provenance={selected.fieldProvenance?.[spec.key]}
+        showTools={editingCharacter}
         onChange={(v, s) =>
           edit((ch) => patchCharacterScalar(ch, spec.key, v, s))
         }
@@ -233,6 +240,8 @@ export function Characters({
                 }}
                 value={item.text}
                 source={item.source}
+                provenance={item.provenance ?? item.fieldProvenance?.text}
+                showTools={editingCharacter}
                 onChange={(value) =>
                   edit((ch) => {
                     const target = ch[kind]?.find((x) => x.id === item.id);
@@ -277,6 +286,8 @@ export function Characters({
                   }}
                   value={(item as CharacterWeapon).damage}
                   source={item.source}
+                  provenance={item.provenance ?? item.fieldProvenance?.text}
+                  showTools={editingCharacter}
                   onChange={(value) =>
                     edit((ch) => {
                       const weapon = ch.weapons.find((x) => x.id === item.id);
@@ -460,8 +471,15 @@ export function Characters({
           </Button>
         )}
       </div>
+      <button
+        className="object-edit-toggle"
+        aria-pressed={editingCharacter}
+        onClick={() => setEditingCharacter(!editingCharacter)}
+      >
+        {editingCharacter ? 'DONE' : 'EDIT'}
+      </button>
       <article
-        className="character-sheet codex-sheet"
+        className={`character-sheet codex-sheet ${editingCharacter ? 'is-editing' : ''}`}
         aria-label="캐릭터 전체 시트"
       >
         <header className="character-sheet-header">
@@ -564,12 +582,27 @@ export function Characters({
           </label>
         </aside>
         <div className="character-sheet-persona">
-          {scalar({ key: 'name', label: 'Name · 이름' })}
-          {scalar({ key: 'className', label: 'Class · 직업' }, false)}
-          {scalar({ key: 'description', label: 'Description · 묘사' }, false)}
-          {items('traits')}
-          {items('background')}
-          {(selected.classFeatures?.length ?? 0) > 0 && items('classFeatures')}
+          {editingCharacter && (
+            <>
+              {scalar({ key: 'name', label: 'Name · 이름' })}
+              {scalar({ key: 'className', label: 'Class · 직업' }, false)}
+              {scalar(
+                { key: 'description', label: 'Description · 묘사' },
+                false,
+              )}
+            </>
+          )}
+          <details className="object-secondary">
+            <summary>성향 · 과거와 버릇</summary>
+            {items('traits')}
+            {items('background')}
+          </details>
+          {(selected.classFeatures?.length ?? 0) > 0 && (
+            <details className="object-secondary">
+              <summary>직업 능력</summary>
+              {items('classFeatures')}
+            </details>
+          )}
         </div>
         <div className="character-sheet-kit">
           {items('weapons')}
@@ -593,6 +626,7 @@ export function Characters({
           </div>
         </div>
       </article>
+      <GenerationDisclosure values={selected.fieldProvenance} />
       <details className="sheet-source">
         <summary>캐릭터 생성 규칙과 출처</summary>
         <p>
@@ -602,29 +636,32 @@ export function Characters({
           사용 때 굴리는 주사위는 그대로 남깁니다.
         </p>
       </details>
-      <section className="notes-block">
-        <label htmlFor="character-notes" className="eyebrow">
-          캐릭터 노트
-        </label>
-        <Textarea
-          id="character-notes"
-          aria-label="캐릭터 노트"
-          value={selected.notes}
-          onChange={(e) =>
-            edit((ch) => patchCharacterScalar(ch, 'notes', e.target.value))
-          }
-        />
-      </section>
-      <div className="danger-zone">
-        <Button className="btn" onClick={() => duplicate(selected)}>
-          <Copy size={15} />
-          캐릭터 복제
-        </Button>
-        <Button className="btn ghost danger" onClick={() => remove(selected)}>
-          <Trash2 size={15} />
-          캐릭터 삭제
-        </Button>
-      </div>
+      <details className="object-secondary">
+        <summary>메모 · 관리</summary>
+        <section className="notes-block">
+          <label htmlFor="character-notes" className="eyebrow">
+            캐릭터 노트
+          </label>
+          <Textarea
+            id="character-notes"
+            aria-label="캐릭터 노트"
+            value={selected.notes}
+            onChange={(e) =>
+              edit((ch) => patchCharacterScalar(ch, 'notes', e.target.value))
+            }
+          />
+        </section>
+        <div className="danger-zone">
+          <Button className="btn" onClick={() => duplicate(selected)}>
+            <Copy size={15} />
+            캐릭터 복제
+          </Button>
+          <Button className="btn ghost danger" onClick={() => remove(selected)}>
+            <Trash2 size={15} />
+            캐릭터 삭제
+          </Button>
+        </div>
+      </details>
     </div>
   );
 }

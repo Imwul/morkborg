@@ -1,10 +1,18 @@
 import type { Character, CharacterItem } from '../domain/types';
 import { getRules } from '../storage/rulesStore';
 import { getOraclePack } from '../storage/oracleStore';
-import { buildOracleRegistry } from '../data/oracles';
 import { rollOracle, sourceLabel } from './oracleRoller';
 import { id, pick, rollDice } from './random';
-import { sampleEntry, scalarText } from './tables';
+import { scalarText } from './tables';
+import type {
+  GeneratedValueProvenance,
+  GeneratorProcedure,
+} from '../domain/generationProvenance';
+import {
+  creatureRegistry,
+  provenanceForRoll,
+  rollCreatureTable,
+} from './creatureProvenance';
 
 type Selection = {
   tableId?: string;
@@ -24,6 +32,8 @@ type Operation = {
   tableId?: string;
   entry?: number;
   count?: number;
+  sides?: number;
+  bonus?: number;
   countDice?: string;
   kind?: string;
   then?: Operation[];
@@ -104,9 +114,10 @@ export function rollCharacterTable(
   slot: string,
   selection = 'source-die',
 ): CharacterItem {
-  const registry = buildOracleRegistry(getRules(), getOraclePack());
+  const registry = creatureRegistry();
   const table = registry.tables.find((t) => t.id === tableId);
-  if (!table) throw new Error(`직업 생성표를 먼저 가져오세요: ${tableId}`);
+  if (!table?.sourceVerified)
+    throw new Error(`SOURCE DATA UNAVAILABLE: ${tableId}`);
   if (selection !== 'source-die' || table.rollable === false) {
     const entry = pick(table.entries);
     return {
@@ -116,6 +127,20 @@ export function rollCharacterTable(
       text: entry.text,
       source: sourceLabel(table, registry) + ' · 원문 선택지 중 앱 무작위 선택',
       entryRoll: entry.min,
+      provenance: {
+        ...provenanceForRoll(registry, {
+          oracleId: tableId,
+          title: table.title,
+          dice: 'source option selection',
+          roll: entry.min,
+          diceValues: [],
+          entryId: entry.id,
+          text: entry.text,
+          source: sourceLabel(table, registry),
+        }),
+        transformation:
+          'Uniform selection among printed options; not a printed die procedure.',
+      },
     };
   }
   const result = rollOracle(table, registry);
@@ -126,6 +151,7 @@ export function rollCharacterTable(
     text: result.text,
     source: result.source,
     entryRoll: result.roll,
+    provenance: provenanceForRoll(registry, result),
   };
 }
 function extraItem(
@@ -135,8 +161,15 @@ function extraItem(
   source: string,
   slot: string,
   damage = '',
+  provenance?: GeneratedValueProvenance,
 ) {
-  const item = { id: id(), text, source, slot };
+  const item = {
+    id: id(),
+    text,
+    source,
+    slot,
+    ...(provenance ? { provenance } : {}),
+  };
   if (kind === 'weapon') c.weapons.push({ ...item, damage });
   else c.equipment.push(item);
 }
@@ -171,6 +204,14 @@ export function syncCharacterAttachments(c: Character, feature: CharacterItem) {
       feature.source ?? '',
       `feature:${feature.id}`,
       a.damage ?? '',
+      feature.provenance
+        ? {
+            ...feature.provenance,
+            classification: 'SOURCE_COMPOSED',
+            transformation:
+              'Printed feature attachment extracted into equipment; no extra stats.',
+          }
+        : undefined,
     );
   }
 }
@@ -186,14 +227,22 @@ export function rollClassScroll(
   innate = false,
 ) {
   const table = kind === 'either' ? pick(['sacred', 'unclean']) : kind;
-  const entry = sampleEntry('core.' + table);
-  const text = `${innate ? 'Innate Power' : table + ' scroll'}: ${entry.text} — ${scalarText(entry.meta.effect)}`;
+  const result = rollCreatureTable('core.' + table);
+  const effect = scalarText(result.result.metadata?.effect);
+  const text = `${innate ? 'Innate Power' : table + ' scroll'}: ${result.value}${effect ? ` — ${effect}` : ''}`;
   const item = {
     id: id(),
     slot,
     text,
     tableId: 'core.' + table,
-    source: `MÖRK BORG · ${table} Powers`,
+    source: result.source,
+    provenance: {
+      ...result.provenance,
+      classification: 'SOURCE_COMPOSED' as const,
+      sourceText: [result.value, ...(effect ? [effect] : [])],
+      transformation:
+        'Source Power name and effect; class determines scroll or innate use.',
+    },
   };
   if (innate) c.classFeatures!.push(item);
   else c.equipment.push(item);
@@ -215,6 +264,17 @@ export function applyClassCreation(
         slot: spec.slot,
         text: parts.map((p) => p.text).join(' '),
         source: parts.map((p) => p.source).join(' + '),
+        provenance: {
+          classification: 'SOURCE_COMPOSED',
+          origin: 'source',
+          status: 'VERIFIED',
+          sourceRefs: parts.flatMap((p) => p.provenance?.sourceRefs ?? []),
+          sourceText: parts.map((p) => p.text),
+          rolls: parts.flatMap((p) => p.provenance?.rolls ?? []),
+          transformation:
+            'Printed class procedure combines these source name fragments in order.',
+          procedureId: `character.class:${def.id}`,
+        },
       });
     } else if (spec.tableId)
       for (let i = 0; i < (spec.count ?? 1); i++)
@@ -235,8 +295,10 @@ export function applyClassCreation(
           operations(op.then ?? []);
       } else if (op.op === 'forbidArmor') c.generation!.rolls.forbidArmor = 1;
       else if (op.op === 'overrideOmenFormula') {
-        c.generation!.rolls.omenSides = 4;
-        c.generation!.rolls.omenBonus = 2;
+        if (!op.sides || op.bonus === undefined)
+          throw new Error('SOURCE DATA UNAVAILABLE: class Omen formula');
+        c.generation!.rolls.omenSides = op.sides;
+        c.generation!.rolls.omenBonus = op.bonus;
       } else if (op.op === 'addWeapon' || op.op === 'addEquipment')
         extraItem(
           c,
@@ -247,6 +309,11 @@ export function applyClassCreation(
           source,
           op.slot ?? 'class',
           op.damage,
+          classProvenance(
+            def,
+            [op.text ?? '', op.rules ?? ''].filter(Boolean),
+            'Source class equipment and rules displayed together.',
+          ),
         );
       else if (op.op === 'randomScroll' || op.op === 'randomPower') {
         const count = op.countDice ? formula(op.countDice) : (op.count ?? 1);
@@ -269,8 +336,20 @@ export function applyClassCreation(
           `Decoctions: ${value} doses total · 24h`,
           source,
           op.slot ?? 'quantity',
+          '',
+          {
+            ...classProvenance(
+              def,
+              [],
+              'Printed daily dose count; all recipes share this one pool.',
+            ),
+            classification: 'APP_DERIVED',
+            rolls: [
+              { tableId: `character.class:${def.id}`, dice: op.dice, value },
+            ],
+          },
         );
-      }
+      } else throw new Error(`Unsupported source class operation: ${op.op}`);
     }
   }
   operations(def.extraCreation);
@@ -280,14 +359,169 @@ export function applyClassCreation(
     slot: 'classRules',
     text: (def.playerRules ?? def.rules).join('\n'),
     source,
+    provenance: classProvenance(
+      def,
+      def.playerRules ?? def.rules,
+      'Printed class rules; formatting and concise mechanical summaries.',
+    ),
   });
 }
-export function classCharacterName(def: CharacterClassDefinition) {
+function classProvenance(
+  def: CharacterClassDefinition,
+  sourceText: string[],
+  transformation: string,
+): GeneratedValueProvenance {
+  return {
+    classification: 'SOURCE_COMPOSED',
+    origin: 'source',
+    status: 'VERIFIED',
+    sourceRefs: [
+      {
+        bookId: def.source.bookId,
+        pdfPage: def.source.pdfPages,
+        tableTitle: def.name,
+      },
+    ],
+    sourceText,
+    transformation,
+    procedureId: `character.class:${def.id}`,
+  };
+}
+export function classCharacterNameResult(def: CharacterClassDefinition) {
   if (!def.nameTables) return null;
-  return def.nameTables
-    .map((tableId) => rollCharacterTable(tableId, 'name'))
-    .map((r) => r.text)
-    .join('');
+  const parts = def.nameTables.map((tableId) =>
+    rollCharacterTable(tableId, 'name'),
+  );
+  return {
+    value: parts.map((r) => r.text).join(''),
+    source: parts.map((r) => r.source).join(' + '),
+    provenance: {
+      ...classProvenance(
+        def,
+        parts.map((r) => r.text),
+        'Printed class name syllables concatenated in A/B/C order.',
+      ),
+      sourceRefs: parts.flatMap((r) => r.provenance?.sourceRefs ?? []),
+      rolls: parts.flatMap((r) => r.provenance?.rolls ?? []),
+    },
+  };
+}
+export function classCharacterName(def: CharacterClassDefinition) {
+  return classCharacterNameResult(def)?.value ?? null;
+}
+function classOperationSteps(
+  operations: Operation[],
+  prefix = 'extra',
+): GeneratorProcedure['steps'] {
+  return operations.flatMap((op, index) => {
+    const id = `${prefix}:${index}:${op.op}`;
+    const step: GeneratorProcedure['steps'][number] = {
+      id,
+      count: op.count ?? 1,
+      ...(op.tableId ? { tableId: op.tableId } : {}),
+      ...(op.dice || op.countDice ? { dice: op.dice ?? op.countDice } : {}),
+      derived:
+        op.op === 'whenEntry'
+          ? 'Inspect selected entry; no second roll.'
+          : op.op,
+      ...(op.op === 'whenEntry'
+        ? { condition: `Selected ${op.tableId} entry ${op.entry}` }
+        : {}),
+    };
+    return [
+      step,
+      ...classOperationSteps(op.then ?? [], id).map((child) => ({
+        ...child,
+        condition: `${step.condition ?? op.op}; ${child.condition ?? 'then'}`,
+      })),
+    ];
+  });
+}
+export function buildCharacterProcedures(): GeneratorProcedure[] {
+  return [
+    {
+      id: 'character.core-classless',
+      title: 'Core character creation',
+      sourceRefs: [
+        {
+          bookId: 'core',
+          pdfPage: [21, 22, 23, 27, 29, 34, 37, 38, 39, 40, 41, 42],
+          tableTitle: 'Character creation',
+        },
+      ],
+      steps: [
+        ...[
+          'core.containers',
+          'core.gearA',
+          'core.gearB',
+          'core.weapons',
+          'core.armor',
+        ].map((tableId) => ({ id: tableId, tableId, count: 1 })),
+        {
+          id: 'abilities',
+          dice: '3d6',
+          count: 4,
+          derived: 'Convert each sum using Core ability modifier table.',
+        },
+        { id: 'hp', dice: 'd8', count: 1, derived: 'max(1, Toughness + die)' },
+        { id: 'omens', dice: 'd2', count: 1, condition: 'Optional Omens' },
+        {
+          id: 'name',
+          tableId: 'core.names',
+          count: 1,
+          condition: 'Optional name',
+        },
+        {
+          id: 'traits',
+          tableId: 'core.traits',
+          count: 2,
+          condition: 'Optional traits',
+        },
+        ...['core.bodies', 'core.badHabits', 'core.troublingTales'].map(
+          (tableId) => ({
+            id: tableId,
+            tableId,
+            count: 1,
+            condition: 'Optional tables',
+          }),
+        ),
+      ],
+    },
+    ...characterClasses().map((def) => ({
+      id: `character.class:${def.id}`,
+      title: def.name,
+      sourceRefs: [
+        {
+          bookId: 'core',
+          pdfPage: [21, 22, 23, 27, 29, 34, 35, 37, 38, 39, 40, 41, 42],
+          tableTitle: 'Character creation',
+        },
+        {
+          bookId: def.source.bookId,
+          pdfPage: def.source.pdfPages,
+          tableTitle: def.name,
+        },
+      ],
+      steps: [
+        {
+          id: 'starting-stats',
+          count: 1,
+          derived: `Core creation with class dice HP d${def.hpDie}; Omens d${def.omenDie}+${def.omenBonus}; silver ${def.silver.count}d${def.silver.sides}×${def.silver.multiplier}; ability roll/modifier adjustments from source class manifest.`,
+        },
+        ...[...def.backgrounds, ...def.features].flatMap((spec) =>
+          (spec.tableIds ?? (spec.tableId ? [spec.tableId] : [])).map(
+            (tableId) => ({
+              id: spec.slot + ':' + tableId,
+              tableId,
+              count: spec.count ?? 1,
+              condition: spec.selection,
+            }),
+          ),
+        ),
+        ...classOperationSteps(def.extraCreation),
+      ],
+    })),
+  ];
 }
 export function addCharacterBackground(c: Character) {
   const extra = getOraclePack();

@@ -20,6 +20,11 @@ export function feretoryStats(
   rng: RandomSource = random,
 ) {
   const values = Object.values(rolls);
+  if (
+    values.length !== 3 ||
+    values.some((value) => !Number.isInteger(value) || value < 1 || value > 12)
+  )
+    throw new Error('Invalid FERETORY A/B/C roll; each die must be 1–12.');
   const highest = Math.max(...values),
     lowest = Math.min(...values);
   const sides =
@@ -46,7 +51,7 @@ export function feretoryStats(
     armor:
       options.length === 1
         ? options[0]
-        : `동률 — 심판 선택: ${options.map((option) => (option === 'None' ? '없음' : option)).join(' / ')}`,
+        : `Tie — referee choice: ${[...new Set(options)].join(' / ')}`,
     sides,
   };
 }

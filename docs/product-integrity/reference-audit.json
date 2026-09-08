@@ -1,0 +1,4011 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-09-08",
+  "scope": "Reference/Oracle/city/journey/dawn production generators. Dungeon/Monster/NPC/Character/Encounter detailed field audits are separate reports.",
+  "sourceCoverageReport": "reference-source-coverage.json",
+  "fieldInventory": [
+    {
+      "feature": "Oracle",
+      "field": "rollOracle.text",
+      "classification": "SOURCE_VERBATIM",
+      "source": "registry:*",
+      "transformation": "Identity / source English preserved; per-entry composed/derived exceptions are enumerated in reference-source-coverage.json.",
+      "verbatim": true,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Oracle",
+      "field": "rollOracle.roll + diceValues",
+      "classification": "APP_DERIVED",
+      "source": "registry:*",
+      "transformation": "Source die notation -> die values -> exact range selector.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Oracle",
+      "field": "rollOracle.text on declared gap",
+      "classification": "APP_DERIVED",
+      "source": "registry:*",
+      "transformation": "An explicitly documented missing range yields empty text; no fallback fiction.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Combined Oracle",
+      "field": "rollProcedure.rolls",
+      "classification": "SOURCE_COMPOSED",
+      "source": "registry:procedures",
+      "transformation": "Ordered canonical IDs; repeated IDs preserved as independent rolls.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Combined Oracle",
+      "field": "The Monster Approaches.statistics",
+      "classification": "APP_DERIVED",
+      "source": "feretory.A,feretory.B,feretory.C",
+      "transformation": "Reuse the three d12 results for damage/morale/armor; roll chosen damage die once x2 for HP.",
+      "verbatim": false,
+      "sourceTableId": [
+        "feretory.A",
+        "feretory.B",
+        "feretory.C"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Street.components",
+      "classification": "SOURCE_COMPOSED",
+      "source": "aitc.street-adjective,aitc.street-type,aitc.street-contents,aitc.street-exits",
+      "transformation": "Source columns stay separate. Contents d2 for city/metropolis; other settlements one. Exits optional.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.street-adjective",
+        "aitc.street-type",
+        "aitc.street-contents",
+        "aitc.street-exits"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Street.contentsCount",
+      "classification": "APP_DERIVED",
+      "source": "aitc.street-contents",
+      "transformation": "Conditional d2 gives count; no repeated roll of a result merely because it duplicates.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.street-contents"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Notable Artefact.components",
+      "classification": "SOURCE_COMPOSED",
+      "source": "aitc.notable-artefact-type,aitc.notable-artefact-concerning,aitc.notable-artefact-composition,aitc.notable-artefact-adjective,aitc.notable-artefact-subject,aitc.sculpture-size",
+      "transformation": "Book/manuscript concerning branch; picture/sculpture depiction columns; sculpture alone rolls size.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.notable-artefact-type",
+        "aitc.notable-artefact-concerning",
+        "aitc.notable-artefact-composition",
+        "aitc.notable-artefact-adjective",
+        "aitc.notable-artefact-subject",
+        "aitc.sculpture-size"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Move.outcome + description",
+      "classification": "APP_DERIVED",
+      "source": "aitc:PDF6–8;sd:PDF4;core:PDF28",
+      "transformation": "Independent 2d20 + ability vs DR -> Strong/Weak/Fail; concise Korean mechanical instructions, not claimed source wording.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Move.followUp",
+      "classification": "SOURCE_VERBATIM",
+      "source": "aitc.city-crawl-failure,aitc.pray-strong,aitc.pray-failure,aitc.stash-weak",
+      "transformation": "Only documented conditional source result; random identity preserved with canonical source/status.",
+      "verbatim": true,
+      "sourceTableId": [
+        "aitc.city-crawl-failure",
+        "aitc.pray-strong",
+        "aitc.pray-failure",
+        "aitc.stash-weak"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Directions.reaction + benefit",
+      "classification": "APP_DERIVED",
+      "source": "aitc.directions-reaction",
+      "transformation": "Weak uses actual 2d6 reaction bands then optional source-defined benefit die; strong choice fixed.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.directions-reaction"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Settlement.streets",
+      "classification": "APP_DERIVED",
+      "source": "aitc.settlement-size",
+      "transformation": "Exact source d20 size range selects street formula and clamp; source row retained.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.settlement-size"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "MicroCrawl.streets",
+      "classification": "APP_DERIVED",
+      "source": "aitc:PDF5",
+      "transformation": "Direct d4 street count; no invented Move before micro-crawl.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "DailyDiscovery.found",
+      "classification": "APP_DERIVED",
+      "source": "aitc:PDF5",
+      "transformation": "d8=1 is discovery: 1/8 exactly.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Merchant.disposition",
+      "classification": "APP_DERIVED",
+      "source": "aitc.merchant-disposition",
+      "transformation": "2d6+Presence; source explicit 12+ bound; negative unmatched totals stay unresolved.",
+      "verbatim": false,
+      "sourceTableId": [
+        "aitc.merchant-disposition"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "City",
+      "field": "Scene.number / label",
+      "classification": "APP_DERIVED",
+      "source": "aitc:PDF5–7",
+      "transformation": "Stable structural identifier and phase state; no generated title fragments.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Road.components",
+      "classification": "SOURCE_COMPOSED",
+      "source": "core.weather,feretory.roadType,feretory.roadEvent",
+      "transformation": "Weather once at dawn; road event7/8 repeats; final5/6 changes weather.",
+      "verbatim": false,
+      "sourceTableId": [
+        "core.weather",
+        "feretory.roadType",
+        "feretory.roadEvent"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Forage.components",
+      "classification": "SOURCE_COMPOSED",
+      "source": "feretory.forage,feretory.village",
+      "transformation": "Village only on forage5/6.",
+      "verbatim": false,
+      "sourceTableId": [
+        "feretory.forage",
+        "feretory.village"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "OffRoad.text",
+      "classification": "SOURCE_VERBATIM",
+      "source": "feretory.leaveRoad",
+      "transformation": "Single canonical source prompt; consequences resolved by player.",
+      "verbatim": true,
+      "sourceTableId": [
+        "feretory.leaveRoad"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Navigation.success",
+      "classification": "APP_DERIVED",
+      "source": "feretory:PDF7",
+      "transformation": "One d20 + Presence or remaining Omens vsDR10 for road types3/4/5.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Campsite.components",
+      "classification": "SOURCE_COMPOSED",
+      "source": "feretory.campsite,feretory.campsite.campDream",
+      "transformation": "Event10 alone follows dreamd6; next-day Omens remain player-applied.",
+      "verbatim": false,
+      "sourceTableId": [
+        "feretory.campsite",
+        "feretory.campsite.campDream"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Camping.outcome + recovery",
+      "classification": "APP_DERIVED",
+      "source": "sd:PDF8",
+      "transformation": "Two separated20+Presence vsDR12; strongd6/weakd4 recovery; failed rest retry50:50 after encounter.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Journey",
+      "field": "Route.days",
+      "classification": "APP_DERIVED",
+      "source": "feretory:PDF6",
+      "transformation": "Only two explicitly mapped named endpoints supported; unmapped travel duration requires manual entry.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Calendar",
+      "field": "Dawn.roll + description",
+      "classification": "APP_DERIVED",
+      "source": "core:PDF17",
+      "transformation": "Chosen Apocalypse die;1 triggers Misery; short outcome statement is procedural UI.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Calendar",
+      "field": "Misery.result",
+      "classification": "SOURCE_VERBATIM",
+      "source": "core.miseries",
+      "transformation": "Select only not-yet-recorded d66 outcomes, equivalent to rerolling repeats.",
+      "verbatim": true,
+      "sourceTableId": [
+        "core.miseries"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Calendar",
+      "field": "TerminalMisery.result",
+      "classification": "APP_DERIVED",
+      "source": "core:PDF17,20",
+      "transformation": "Seventh Misery is7:7; application labels campaign termination, no invented seventh-table entry.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Manual record",
+      "field": "Misery.result / travel replacement / notes",
+      "classification": "USER_AUTHORED",
+      "source": "manual",
+      "transformation": "Explicit user input; never randomized fallback.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Explicit origin, not source text"
+    },
+    {
+      "feature": "Reference",
+      "field": "FixedLookup.text",
+      "classification": "SOURCE_VERBATIM",
+      "source": "registry:*",
+      "transformation": "Canonical exact source row selected without reroll; corrected source/status preserved.",
+      "verbatim": true,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Reference",
+      "field": "RegionalMonster.identity + quantity",
+      "classification": "SOURCE_COMPOSED",
+      "source": "depths.region.*.monsters -> verified creature record",
+      "transformation": "Depths d6 identity/routing + exact target name/page; quantity separately derived from its source die.",
+      "verbatim": false,
+      "sourceTableId": [
+        "depths.region.*.monsters -> verified creature record"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Reference",
+      "field": "EatPreyKill.identity",
+      "classification": "SOURCE_VERBATIM",
+      "source": "feretory.hunting.*",
+      "transformation": "Nine live identity table adapters over54existing creature records; source-only Grift face remains possible.",
+      "verbatim": true,
+      "sourceTableId": [
+        "feretory.hunting.*"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    },
+    {
+      "feature": "Presentation",
+      "field": "Korean helper",
+      "classification": "USER_AUTHORED",
+      "source": "entry.metadata.ko / rule.meta.ko / notes.translations",
+      "transformation": "Application-authored secondary translation, kept separate from canonical English; never generator routing input.",
+      "verbatim": false,
+      "sourceTableId": [
+        "entry.metadata.ko / rule.meta.ko / notes.translations"
+      ],
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Explicit origin, not source text"
+    },
+    {
+      "feature": "Presentation",
+      "field": "oracleReadingText.condition notes",
+      "classification": "APP_DERIVED",
+      "source": "registry:*",
+      "transformation": "29concise app-authored mechanical reminders verified against AlönePDF8–13,15–17; separate from sourceText and never claimed verbatim.",
+      "verbatim": false,
+      "sourceTableId": null,
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "Verified source procedure; canonical entry exceptions separately enumerated"
+    }
+  ],
+  "guidanceFields": [
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.civic-buildings",
+      "entryId": "aitc.civic-buildings:2-2",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 8,
+      "printedPage": 6,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.civic-buildings",
+      "entryId": "aitc.civic-buildings:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 8,
+      "printedPage": 6,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.civic-buildings",
+      "entryId": "aitc.civic-buildings:5-5",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 8,
+      "printedPage": 6,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.civic-buildings",
+      "entryId": "aitc.civic-buildings:6-6",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 8,
+      "printedPage": 6,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.gatherings",
+      "entryId": "aitc.gatherings:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 9,
+      "printedPage": 7,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.gatherings",
+      "entryId": "aitc.gatherings:5-5",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 9,
+      "printedPage": 7,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.gatherings",
+      "entryId": "aitc.gatherings:6-6",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 9,
+      "printedPage": 7,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.hazards",
+      "entryId": "aitc.hazards:1-1",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-small",
+      "entryId": "aitc.holy-places-small:1-1",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-small",
+      "entryId": "aitc.holy-places-small:2-2",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-small",
+      "entryId": "aitc.holy-places-small:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-small",
+      "entryId": "aitc.holy-places-small:4-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:1-1",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:2-2",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:4-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:5-5",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.holy-places-large",
+      "entryId": "aitc.holy-places-large:6-6",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 10,
+      "printedPage": 8,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:1-1",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:2-2",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "effectRule",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:3-3",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "effectRule",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:4-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.notable-artefact-type",
+      "entryId": "aitc.notable-artefact-type:4-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 11,
+      "printedPage": 9,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.special-structures-small",
+      "entryId": "aitc.special-structures-small:3-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 12,
+      "printedPage": 10,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.special-structures-large",
+      "entryId": "aitc.special-structures-large:3-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 12,
+      "printedPage": 10,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.unexpected-events",
+      "entryId": "aitc.unexpected-events:4-4",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 13,
+      "printedPage": 11,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "condition",
+      "tableId": "aitc.npc-encounters",
+      "entryId": "aitc.npc-encounters:42-42",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": [
+        15,
+        16
+      ],
+      "printedPage": "13–14",
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    },
+    {
+      "feature": "Reference guidance",
+      "field": "conditional",
+      "tableId": "aitc.street-contents",
+      "entryId": "aitc.street-contents:5-5",
+      "classification": "APP_DERIVED",
+      "sourceBookId": "aitc",
+      "pdfPage": 17,
+      "printedPage": 15,
+      "transformation": "Concise mechanical instruction; source English result remains separate.",
+      "status": "VERIFIED",
+      "verbatim": false,
+      "fallbackExists": false
+    }
+  ],
+  "procedures": [
+    {
+      "id": "aitc.street",
+      "title": "Street Descriptors",
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": [
+            5,
+            17
+          ],
+          "printedPage": "3, 15",
+          "tableTitle": "Micro-Crawl / Street Descriptors"
+        }
+      ],
+      "steps": [
+        {
+          "id": "adjective",
+          "tableId": "aitc.street-adjective",
+          "dice": "d20",
+          "count": 1
+        },
+        {
+          "id": "type",
+          "tableId": "aitc.street-type",
+          "dice": "d12",
+          "count": 1
+        },
+        {
+          "id": "contents-count",
+          "tableId": "aitc.street-contents",
+          "dice": "d2",
+          "count": 1,
+          "condition": "City or metropolis only; otherwise count is one.",
+          "derived": "The d2 result is the number of independent contents rolls."
+        },
+        {
+          "id": "contents",
+          "tableId": "aitc.street-contents",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "contents-count"
+          ],
+          "condition": "Repeat once per selected contents-count. Do not reroll duplicate results."
+        },
+        {
+          "id": "exits",
+          "tableId": "aitc.street-exits",
+          "dice": "d4",
+          "count": 1,
+          "condition": "Optional, only if exits were requested."
+        }
+      ]
+    },
+    {
+      "id": "aitc.notable-artefact-type",
+      "title": "Notable Artefacts",
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "tableTitle": "Notable Artefacts"
+        }
+      ],
+      "steps": [
+        {
+          "id": "type",
+          "tableId": "aitc.notable-artefact-type",
+          "dice": "d4",
+          "count": 1
+        },
+        {
+          "id": "concerning",
+          "tableId": "aitc.notable-artefact-concerning",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "type"
+          ],
+          "condition": "Type 1 or 2 only: book or manuscript."
+        },
+        {
+          "id": "composition",
+          "tableId": "aitc.notable-artefact-composition",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "type"
+          ],
+          "condition": "Type 3 or 4 only: picture or sculpture."
+        },
+        {
+          "id": "adjective",
+          "tableId": "aitc.notable-artefact-adjective",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "type"
+          ],
+          "condition": "Type 3 or 4 only."
+        },
+        {
+          "id": "subject",
+          "tableId": "aitc.notable-artefact-subject",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "type"
+          ],
+          "condition": "Type 3 or 4 only."
+        },
+        {
+          "id": "size",
+          "tableId": "aitc.sculpture-size",
+          "dice": "d2",
+          "count": 1,
+          "dependsOn": [
+            "type"
+          ],
+          "condition": "Type 4 only: sculpture. Do not apply sculpture ownership rules to pictures."
+        }
+      ]
+    },
+    {
+      "id": "feretory.road",
+      "title": "Roads to Damnation · travel",
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableTitle": "Daily travel flowchart"
+        },
+        {
+          "bookId": "feretory",
+          "pdfPage": 7,
+          "printedPage": 5,
+          "tableTitle": "Roads to Damnation"
+        }
+      ],
+      "steps": [
+        {
+          "id": "weather",
+          "tableId": "core.weather",
+          "dice": "d12",
+          "count": 1,
+          "condition": "At dawn, unless weather is already resolved by the journey worksheet."
+        },
+        {
+          "id": "road",
+          "tableId": "feretory.roadType",
+          "dice": "d8",
+          "count": 1
+        },
+        {
+          "id": "event",
+          "tableId": "feretory.roadEvent",
+          "dice": "d20",
+          "count": 1
+        },
+        {
+          "id": "fork",
+          "tableId": "feretory.roadEvent",
+          "dice": "d20",
+          "count": 1,
+          "dependsOn": [
+            "event"
+          ],
+          "condition": "Event 7 or 8 instructs rolling again; repeat while that branch continues."
+        },
+        {
+          "id": "changed-weather",
+          "tableId": "core.weather",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "event",
+            "fork"
+          ],
+          "condition": "Final event 5 or 6 changes the weather."
+        }
+      ]
+    },
+    {
+      "id": "feretory.forage",
+      "title": "Spending a day foraging",
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "pdfPage": 8,
+          "printedPage": 6,
+          "tableTitle": "Foraging / The village is"
+        }
+      ],
+      "steps": [
+        {
+          "id": "forage",
+          "tableId": "feretory.forage",
+          "dice": "d6",
+          "count": 1
+        },
+        {
+          "id": "village",
+          "tableId": "feretory.village",
+          "dice": "d6",
+          "count": 1,
+          "dependsOn": [
+            "forage"
+          ],
+          "condition": "Foraging result 5 or 6 only."
+        }
+      ]
+    },
+    {
+      "id": "feretory.campsite",
+      "title": "Nightly campsite events",
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "pdfPage": 9,
+          "printedPage": 7,
+          "tableTitle": "Nightly campsite events"
+        }
+      ],
+      "steps": [
+        {
+          "id": "event",
+          "tableId": "feretory.campsite",
+          "dice": "d12",
+          "count": 1
+        },
+        {
+          "id": "dream",
+          "tableId": "feretory.campsite.campDream",
+          "dice": "d6",
+          "count": 1,
+          "dependsOn": [
+            "event"
+          ],
+          "condition": "Campsite event 10 only. Next-day Omens are applied by the player."
+        }
+      ]
+    },
+    {
+      "id": "sd.camping",
+      "title": "Camping, Resting, Catching Breath",
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": 8,
+          "printedPage": 6,
+          "tableTitle": "Camping, Resting, Catching Breath"
+        }
+      ],
+      "steps": [
+        {
+          "id": "move",
+          "dice": "d20",
+          "count": 2,
+          "condition": "Initial camping attempt.",
+          "derived": "Compare each d20 + Presence separately to DR12; two successes Strong, one Weak, none Fail."
+        },
+        {
+          "id": "retry",
+          "dice": "d2",
+          "count": 1,
+          "condition": "Only the next resting attempt after resolving a failed-rest encounter.",
+          "derived": "1 Strong / 2 Weak, the documented 50:50 retry."
+        },
+        {
+          "id": "strong-recovery",
+          "dice": "d6",
+          "count": 1,
+          "dependsOn": [
+            "move",
+            "retry"
+          ],
+          "condition": "Strong sleeping result only; catching breath uses d4."
+        },
+        {
+          "id": "weak-recovery",
+          "dice": "d4",
+          "count": 1,
+          "dependsOn": [
+            "move",
+            "retry"
+          ],
+          "condition": "Weak sleeping result only; catching breath uses d2."
+        }
+      ]
+    }
+  ],
+  "registryProcedures": [
+    {
+      "id": "mythic2.action-pair",
+      "title": "Meaning Tables: Actions",
+      "oracleIds": [
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "bookTitle": "Mythic Game Master Emulator Second Edition",
+          "pdfPage": 48,
+          "printedPage": 47,
+          "tableTitle": "Meaning Tables: Actions"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.action-pair:1",
+          "tableId": "mythic2.meaning.action-1",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.action-pair:2",
+          "tableId": "mythic2.meaning.action-2",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.description-pair",
+      "title": "Meaning Tables: Descriptions",
+      "oracleIds": [
+        "mythic2.meaning.descriptor-1",
+        "mythic2.meaning.descriptor-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "bookTitle": "Mythic Game Master Emulator Second Edition",
+          "pdfPage": 49,
+          "printedPage": 48,
+          "tableTitle": "Meaning Tables: Descriptions"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.description-pair:1",
+          "tableId": "mythic2.meaning.descriptor-1",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.description-pair:2",
+          "tableId": "mythic2.meaning.descriptor-2",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.the-4w",
+      "title": "The 4W",
+      "oracleIds": [
+        "mythic2.meaning.characters",
+        "mythic2.meaning.characters",
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2",
+        "mythic2.meaning.locations",
+        "mythic2.meaning.locations",
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "bookTitle": "Mythic Game Master Emulator Second Edition",
+          "pdfPage": 66,
+          "printedPage": 65,
+          "tableTitle": "The 4W"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.the-4w:1",
+          "tableId": "mythic2.meaning.characters",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:2",
+          "tableId": "mythic2.meaning.characters",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:3",
+          "tableId": "mythic2.meaning.action-1",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:4",
+          "tableId": "mythic2.meaning.action-2",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:5",
+          "tableId": "mythic2.meaning.locations",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:6",
+          "tableId": "mythic2.meaning.locations",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:7",
+          "tableId": "mythic2.meaning.action-1",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.the-4w:8",
+          "tableId": "mythic2.meaning.action-2",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.adventure-tone.pair",
+      "title": "Adventure Tone · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.adventure-tone",
+        "mythic2.meaning.adventure-tone"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.adventure-tone",
+          "tableTitle": "Adventure Tone"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.adventure-tone",
+          "tableTitle": "Adventure Tone"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.adventure-tone.pair:1",
+          "tableId": "mythic2.meaning.adventure-tone",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.adventure-tone.pair:2",
+          "tableId": "mythic2.meaning.adventure-tone",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.alien-species-descriptors.pair",
+      "title": "Alien Species Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.alien-species-descriptors",
+        "mythic2.meaning.alien-species-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.alien-species-descriptors",
+          "tableTitle": "Alien Species Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.alien-species-descriptors",
+          "tableTitle": "Alien Species Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.alien-species-descriptors.pair:1",
+          "tableId": "mythic2.meaning.alien-species-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.alien-species-descriptors.pair:2",
+          "tableId": "mythic2.meaning.alien-species-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.animal-actions.pair",
+      "title": "Animal Actions · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.animal-actions",
+        "mythic2.meaning.animal-actions"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.animal-actions",
+          "tableTitle": "Animal Actions"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 88,
+          "printedPage": 87,
+          "tableId": "mythic2.meaning.animal-actions",
+          "tableTitle": "Animal Actions"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.animal-actions.pair:1",
+          "tableId": "mythic2.meaning.animal-actions",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.animal-actions.pair:2",
+          "tableId": "mythic2.meaning.animal-actions",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.army-descriptors.pair",
+      "title": "Army Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.army-descriptors",
+        "mythic2.meaning.army-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 89,
+          "printedPage": 88,
+          "tableId": "mythic2.meaning.army-descriptors",
+          "tableTitle": "Army Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 89,
+          "printedPage": 88,
+          "tableId": "mythic2.meaning.army-descriptors",
+          "tableTitle": "Army Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.army-descriptors.pair:1",
+          "tableId": "mythic2.meaning.army-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.army-descriptors.pair:2",
+          "tableId": "mythic2.meaning.army-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.cavern-descriptors.pair",
+      "title": "Cavern Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.cavern-descriptors",
+        "mythic2.meaning.cavern-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 89,
+          "printedPage": 88,
+          "tableId": "mythic2.meaning.cavern-descriptors",
+          "tableTitle": "Cavern Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 89,
+          "printedPage": 88,
+          "tableId": "mythic2.meaning.cavern-descriptors",
+          "tableTitle": "Cavern Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.cavern-descriptors.pair:1",
+          "tableId": "mythic2.meaning.cavern-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.cavern-descriptors.pair:2",
+          "tableId": "mythic2.meaning.cavern-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.characters.pair",
+      "title": "Characters · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.characters",
+        "mythic2.meaning.characters"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.characters",
+          "tableTitle": "Characters"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.characters",
+          "tableTitle": "Characters"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.characters.pair:1",
+          "tableId": "mythic2.meaning.characters",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.characters.pair:2",
+          "tableId": "mythic2.meaning.characters",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-actions-combat.pair",
+      "title": "Character Actions, Combat · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-actions-combat",
+        "mythic2.meaning.character-actions-combat"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-actions-combat",
+          "tableTitle": "Character Actions, Combat"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-actions-combat",
+          "tableTitle": "Character Actions, Combat"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-actions-combat.pair:1",
+          "tableId": "mythic2.meaning.character-actions-combat",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-actions-combat.pair:2",
+          "tableId": "mythic2.meaning.character-actions-combat",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-actions-general.pair",
+      "title": "Character Actions, General · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-actions-general",
+        "mythic2.meaning.character-actions-general"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-actions-general",
+          "tableTitle": "Character Actions, General"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-actions-general",
+          "tableTitle": "Character Actions, General"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-actions-general.pair:1",
+          "tableId": "mythic2.meaning.character-actions-general",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-actions-general.pair:2",
+          "tableId": "mythic2.meaning.character-actions-general",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-appearance.pair",
+      "title": "Character Appearance · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-appearance",
+        "mythic2.meaning.character-appearance"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-appearance",
+          "tableTitle": "Character Appearance"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 90,
+          "printedPage": 89,
+          "tableId": "mythic2.meaning.character-appearance",
+          "tableTitle": "Character Appearance"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-appearance.pair:1",
+          "tableId": "mythic2.meaning.character-appearance",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-appearance.pair:2",
+          "tableId": "mythic2.meaning.character-appearance",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-background.pair",
+      "title": "Character Background · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-background",
+        "mythic2.meaning.character-background"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-background",
+          "tableTitle": "Character Background"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-background",
+          "tableTitle": "Character Background"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-background.pair:1",
+          "tableId": "mythic2.meaning.character-background",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-background.pair:2",
+          "tableId": "mythic2.meaning.character-background",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-conversations.pair",
+      "title": "Character Conversations · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-conversations",
+        "mythic2.meaning.character-conversations"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-conversations",
+          "tableTitle": "Character Conversations"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-conversations",
+          "tableTitle": "Character Conversations"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-conversations.pair:1",
+          "tableId": "mythic2.meaning.character-conversations",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-conversations.pair:2",
+          "tableId": "mythic2.meaning.character-conversations",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-descriptors.pair",
+      "title": "Character Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-descriptors",
+        "mythic2.meaning.character-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-descriptors",
+          "tableTitle": "Character Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 91,
+          "printedPage": 90,
+          "tableId": "mythic2.meaning.character-descriptors",
+          "tableTitle": "Character Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-descriptors.pair:1",
+          "tableId": "mythic2.meaning.character-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-descriptors.pair:2",
+          "tableId": "mythic2.meaning.character-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-identity.pair",
+      "title": "Character Identity · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-identity",
+        "mythic2.meaning.character-identity"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-identity",
+          "tableTitle": "Character Identity"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-identity",
+          "tableTitle": "Character Identity"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-identity.pair:1",
+          "tableId": "mythic2.meaning.character-identity",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-identity.pair:2",
+          "tableId": "mythic2.meaning.character-identity",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-motivations.pair",
+      "title": "Character Motivations · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-motivations",
+        "mythic2.meaning.character-motivations"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-motivations",
+          "tableTitle": "Character Motivations"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-motivations",
+          "tableTitle": "Character Motivations"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-motivations.pair:1",
+          "tableId": "mythic2.meaning.character-motivations",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-motivations.pair:2",
+          "tableId": "mythic2.meaning.character-motivations",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-personality.pair",
+      "title": "Character Personality · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-personality",
+        "mythic2.meaning.character-personality"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-personality",
+          "tableTitle": "Character Personality"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 92,
+          "printedPage": 91,
+          "tableId": "mythic2.meaning.character-personality",
+          "tableTitle": "Character Personality"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-personality.pair:1",
+          "tableId": "mythic2.meaning.character-personality",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-personality.pair:2",
+          "tableId": "mythic2.meaning.character-personality",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-skills.pair",
+      "title": "Character Skills · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-skills",
+        "mythic2.meaning.character-skills"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.character-skills",
+          "tableTitle": "Character Skills"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.character-skills",
+          "tableTitle": "Character Skills"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-skills.pair:1",
+          "tableId": "mythic2.meaning.character-skills",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-skills.pair:2",
+          "tableId": "mythic2.meaning.character-skills",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.character-traits-flaws.pair",
+      "title": "Character Traits & Flaws · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.character-traits-flaws",
+        "mythic2.meaning.character-traits-flaws"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.character-traits-flaws",
+          "tableTitle": "Character Traits & Flaws"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.character-traits-flaws",
+          "tableTitle": "Character Traits & Flaws"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.character-traits-flaws.pair:1",
+          "tableId": "mythic2.meaning.character-traits-flaws",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.character-traits-flaws.pair:2",
+          "tableId": "mythic2.meaning.character-traits-flaws",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.city-descriptors.pair",
+      "title": "City Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.city-descriptors",
+        "mythic2.meaning.city-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.city-descriptors",
+          "tableTitle": "City Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 93,
+          "printedPage": 92,
+          "tableId": "mythic2.meaning.city-descriptors",
+          "tableTitle": "City Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.city-descriptors.pair:1",
+          "tableId": "mythic2.meaning.city-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.city-descriptors.pair:2",
+          "tableId": "mythic2.meaning.city-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.civilization-descriptors.pair",
+      "title": "Civilization Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.civilization-descriptors",
+        "mythic2.meaning.civilization-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.civilization-descriptors",
+          "tableTitle": "Civilization Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.civilization-descriptors",
+          "tableTitle": "Civilization Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.civilization-descriptors.pair:1",
+          "tableId": "mythic2.meaning.civilization-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.civilization-descriptors.pair:2",
+          "tableId": "mythic2.meaning.civilization-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.creature-abilities.pair",
+      "title": "Creature Abilities · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.creature-abilities",
+        "mythic2.meaning.creature-abilities"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.creature-abilities",
+          "tableTitle": "Creature Abilities"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.creature-abilities",
+          "tableTitle": "Creature Abilities"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.creature-abilities.pair:1",
+          "tableId": "mythic2.meaning.creature-abilities",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.creature-abilities.pair:2",
+          "tableId": "mythic2.meaning.creature-abilities",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.creature-descriptors.pair",
+      "title": "Creature Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.creature-descriptors",
+        "mythic2.meaning.creature-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.creature-descriptors",
+          "tableTitle": "Creature Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 94,
+          "printedPage": 93,
+          "tableId": "mythic2.meaning.creature-descriptors",
+          "tableTitle": "Creature Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.creature-descriptors.pair:1",
+          "tableId": "mythic2.meaning.creature-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.creature-descriptors.pair:2",
+          "tableId": "mythic2.meaning.creature-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.cryptic-message.pair",
+      "title": "Cryptic Message · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.cryptic-message",
+        "mythic2.meaning.cryptic-message"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.cryptic-message",
+          "tableTitle": "Cryptic Message"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.cryptic-message",
+          "tableTitle": "Cryptic Message"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.cryptic-message.pair:1",
+          "tableId": "mythic2.meaning.cryptic-message",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.cryptic-message.pair:2",
+          "tableId": "mythic2.meaning.cryptic-message",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.curses.pair",
+      "title": "Curses · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.curses",
+        "mythic2.meaning.curses"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.curses",
+          "tableTitle": "Curses"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.curses",
+          "tableTitle": "Curses"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.curses.pair:1",
+          "tableId": "mythic2.meaning.curses",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.curses.pair:2",
+          "tableId": "mythic2.meaning.curses",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.domicile-descriptors.pair",
+      "title": "Domicile Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.domicile-descriptors",
+        "mythic2.meaning.domicile-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.domicile-descriptors",
+          "tableTitle": "Domicile Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 95,
+          "printedPage": 94,
+          "tableId": "mythic2.meaning.domicile-descriptors",
+          "tableTitle": "Domicile Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.domicile-descriptors.pair:1",
+          "tableId": "mythic2.meaning.domicile-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.domicile-descriptors.pair:2",
+          "tableId": "mythic2.meaning.domicile-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.dungeon-descriptors.pair",
+      "title": "Dungeon Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.dungeon-descriptors",
+        "mythic2.meaning.dungeon-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.dungeon-descriptors",
+          "tableTitle": "Dungeon Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.dungeon-descriptors",
+          "tableTitle": "Dungeon Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.dungeon-descriptors.pair:1",
+          "tableId": "mythic2.meaning.dungeon-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.dungeon-descriptors.pair:2",
+          "tableId": "mythic2.meaning.dungeon-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.dungeon-traps.pair",
+      "title": "Dungeon Traps · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.dungeon-traps",
+        "mythic2.meaning.dungeon-traps"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.dungeon-traps",
+          "tableTitle": "Dungeon Traps"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.dungeon-traps",
+          "tableTitle": "Dungeon Traps"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.dungeon-traps.pair:1",
+          "tableId": "mythic2.meaning.dungeon-traps",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.dungeon-traps.pair:2",
+          "tableId": "mythic2.meaning.dungeon-traps",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.forest-descriptors.pair",
+      "title": "Forest Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.forest-descriptors",
+        "mythic2.meaning.forest-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.forest-descriptors",
+          "tableTitle": "Forest Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 96,
+          "printedPage": 95,
+          "tableId": "mythic2.meaning.forest-descriptors",
+          "tableTitle": "Forest Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.forest-descriptors.pair:1",
+          "tableId": "mythic2.meaning.forest-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.forest-descriptors.pair:2",
+          "tableId": "mythic2.meaning.forest-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.gods.pair",
+      "title": "Gods · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.gods",
+        "mythic2.meaning.gods"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 97,
+          "printedPage": 96,
+          "tableId": "mythic2.meaning.gods",
+          "tableTitle": "Gods"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 97,
+          "printedPage": 96,
+          "tableId": "mythic2.meaning.gods",
+          "tableTitle": "Gods"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.gods.pair:1",
+          "tableId": "mythic2.meaning.gods",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.gods.pair:2",
+          "tableId": "mythic2.meaning.gods",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.legends.pair",
+      "title": "Legends · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.legends",
+        "mythic2.meaning.legends"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 97,
+          "printedPage": 96,
+          "tableId": "mythic2.meaning.legends",
+          "tableTitle": "Legends"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 97,
+          "printedPage": 96,
+          "tableId": "mythic2.meaning.legends",
+          "tableTitle": "Legends"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.legends.pair:1",
+          "tableId": "mythic2.meaning.legends",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.legends.pair:2",
+          "tableId": "mythic2.meaning.legends",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.locations.pair",
+      "title": "Locations · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.locations",
+        "mythic2.meaning.locations"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.locations",
+          "tableTitle": "Locations"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.locations",
+          "tableTitle": "Locations"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.locations.pair:1",
+          "tableId": "mythic2.meaning.locations",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.locations.pair:2",
+          "tableId": "mythic2.meaning.locations",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.magic-item-descriptors.pair",
+      "title": "Magic Item Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.magic-item-descriptors",
+        "mythic2.meaning.magic-item-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.magic-item-descriptors",
+          "tableTitle": "Magic Item Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.magic-item-descriptors",
+          "tableTitle": "Magic Item Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.magic-item-descriptors.pair:1",
+          "tableId": "mythic2.meaning.magic-item-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.magic-item-descriptors.pair:2",
+          "tableId": "mythic2.meaning.magic-item-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.mutation-descriptors.pair",
+      "title": "Mutation Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.mutation-descriptors",
+        "mythic2.meaning.mutation-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.mutation-descriptors",
+          "tableTitle": "Mutation Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.mutation-descriptors",
+          "tableTitle": "Mutation Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.mutation-descriptors.pair:1",
+          "tableId": "mythic2.meaning.mutation-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.mutation-descriptors.pair:2",
+          "tableId": "mythic2.meaning.mutation-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.names.pair",
+      "title": "Names · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.names",
+        "mythic2.meaning.names"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.names",
+          "tableTitle": "Names"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 98,
+          "printedPage": 97,
+          "tableId": "mythic2.meaning.names",
+          "tableTitle": "Names"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.names.pair:1",
+          "tableId": "mythic2.meaning.names",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.names.pair:2",
+          "tableId": "mythic2.meaning.names",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.noble-house.pair",
+      "title": "Noble House · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.noble-house",
+        "mythic2.meaning.noble-house"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 99,
+          "printedPage": 98,
+          "tableId": "mythic2.meaning.noble-house",
+          "tableTitle": "Noble House"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 99,
+          "printedPage": 98,
+          "tableId": "mythic2.meaning.noble-house",
+          "tableTitle": "Noble House"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.noble-house.pair:1",
+          "tableId": "mythic2.meaning.noble-house",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.noble-house.pair:2",
+          "tableId": "mythic2.meaning.noble-house",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.objects.pair",
+      "title": "Objects · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.objects",
+        "mythic2.meaning.objects"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.objects",
+          "tableTitle": "Objects"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 50,
+          "printedPage": 49,
+          "tableId": "mythic2.meaning.objects",
+          "tableTitle": "Objects"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.objects.pair:1",
+          "tableId": "mythic2.meaning.objects",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.objects.pair:2",
+          "tableId": "mythic2.meaning.objects",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.plot-twists.pair",
+      "title": "Plot Twists · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.plot-twists",
+        "mythic2.meaning.plot-twists"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 99,
+          "printedPage": 98,
+          "tableId": "mythic2.meaning.plot-twists",
+          "tableTitle": "Plot Twists"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 99,
+          "printedPage": 98,
+          "tableId": "mythic2.meaning.plot-twists",
+          "tableTitle": "Plot Twists"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.plot-twists.pair:1",
+          "tableId": "mythic2.meaning.plot-twists",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.plot-twists.pair:2",
+          "tableId": "mythic2.meaning.plot-twists",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.powers.pair",
+      "title": "Powers · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.powers",
+        "mythic2.meaning.powers"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.powers",
+          "tableTitle": "Powers"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.powers",
+          "tableTitle": "Powers"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.powers.pair:1",
+          "tableId": "mythic2.meaning.powers",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.powers.pair:2",
+          "tableId": "mythic2.meaning.powers",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.scavenging-results.pair",
+      "title": "Scavenging Results · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.scavenging-results",
+        "mythic2.meaning.scavenging-results"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.scavenging-results",
+          "tableTitle": "Scavenging Results"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.scavenging-results",
+          "tableTitle": "Scavenging Results"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.scavenging-results.pair:1",
+          "tableId": "mythic2.meaning.scavenging-results",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.scavenging-results.pair:2",
+          "tableId": "mythic2.meaning.scavenging-results",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.smells.pair",
+      "title": "Smells · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.smells",
+        "mythic2.meaning.smells"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.smells",
+          "tableTitle": "Smells"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 100,
+          "printedPage": 99,
+          "tableId": "mythic2.meaning.smells",
+          "tableTitle": "Smells"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.smells.pair:1",
+          "tableId": "mythic2.meaning.smells",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.smells.pair:2",
+          "tableId": "mythic2.meaning.smells",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.sounds.pair",
+      "title": "Sounds · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.sounds",
+        "mythic2.meaning.sounds"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.sounds",
+          "tableTitle": "Sounds"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.sounds",
+          "tableTitle": "Sounds"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.sounds.pair:1",
+          "tableId": "mythic2.meaning.sounds",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.sounds.pair:2",
+          "tableId": "mythic2.meaning.sounds",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.spell-effects.pair",
+      "title": "Spell Effects · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.spell-effects",
+        "mythic2.meaning.spell-effects"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.spell-effects",
+          "tableTitle": "Spell Effects"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.spell-effects",
+          "tableTitle": "Spell Effects"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.spell-effects.pair:1",
+          "tableId": "mythic2.meaning.spell-effects",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.spell-effects.pair:2",
+          "tableId": "mythic2.meaning.spell-effects",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.starship-descriptors.pair",
+      "title": "Starship Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.starship-descriptors",
+        "mythic2.meaning.starship-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.starship-descriptors",
+          "tableTitle": "Starship Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 101,
+          "printedPage": 100,
+          "tableId": "mythic2.meaning.starship-descriptors",
+          "tableTitle": "Starship Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.starship-descriptors.pair:1",
+          "tableId": "mythic2.meaning.starship-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.starship-descriptors.pair:2",
+          "tableId": "mythic2.meaning.starship-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.terrain-descriptors.pair",
+      "title": "Terrain Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.terrain-descriptors",
+        "mythic2.meaning.terrain-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.terrain-descriptors",
+          "tableTitle": "Terrain Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.terrain-descriptors",
+          "tableTitle": "Terrain Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.terrain-descriptors.pair:1",
+          "tableId": "mythic2.meaning.terrain-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.terrain-descriptors.pair:2",
+          "tableId": "mythic2.meaning.terrain-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.undead-descriptors.pair",
+      "title": "Undead Descriptors · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.undead-descriptors",
+        "mythic2.meaning.undead-descriptors"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.undead-descriptors",
+          "tableTitle": "Undead Descriptors"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.undead-descriptors",
+          "tableTitle": "Undead Descriptors"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.undead-descriptors.pair:1",
+          "tableId": "mythic2.meaning.undead-descriptors",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.undead-descriptors.pair:2",
+          "tableId": "mythic2.meaning.undead-descriptors",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "mythic2.meaning.visions-dreams.pair",
+      "title": "Visions & Dreams · Meaning pair",
+      "oracleIds": [
+        "mythic2.meaning.visions-dreams",
+        "mythic2.meaning.visions-dreams"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.visions-dreams",
+          "tableTitle": "Visions & Dreams"
+        },
+        {
+          "bookId": "mythic2",
+          "pdfPage": 102,
+          "printedPage": 101,
+          "tableId": "mythic2.meaning.visions-dreams",
+          "tableTitle": "Visions & Dreams"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "mythic2.meaning.visions-dreams.pair:1",
+          "tableId": "mythic2.meaning.visions-dreams",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "mythic2.meaning.visions-dreams.pair:2",
+          "tableId": "mythic2.meaning.visions-dreams",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "aitc.festival",
+      "title": "Festival name",
+      "oracleIds": [
+        "aitc.festival-adjective",
+        "aitc.festival-subject"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 9,
+          "printedPage": 7,
+          "tableId": "aitc.festival-adjective",
+          "tableTitle": "Festivals — Adjective"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 9,
+          "printedPage": 7,
+          "tableId": "aitc.festival-subject",
+          "tableTitle": "Festivals — Subject"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "aitc.festival:1",
+          "tableId": "aitc.festival-adjective",
+          "count": 1,
+          "dice": "d10"
+        },
+        {
+          "id": "aitc.festival:2",
+          "tableId": "aitc.festival-subject",
+          "count": 1,
+          "dice": "d10"
+        }
+      ]
+    },
+    {
+      "id": "aitc.artefact-depiction",
+      "title": "Notable Artefact — Picture/Sculpture Depiction",
+      "oracleIds": [
+        "aitc.notable-artefact-composition",
+        "aitc.notable-artefact-adjective",
+        "aitc.notable-artefact-subject"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "tableId": "aitc.notable-artefact-composition",
+          "tableTitle": "Notable Artefacts — Depicting Composition"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "tableId": "aitc.notable-artefact-adjective",
+          "tableTitle": "Notable Artefacts — Depicting Descriptor"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "tableId": "aitc.notable-artefact-subject",
+          "tableTitle": "Notable Artefacts — Depicting Subject / Effect"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "aitc.artefact-depiction:1",
+          "tableId": "aitc.notable-artefact-composition",
+          "count": 1,
+          "dice": "d12"
+        },
+        {
+          "id": "aitc.artefact-depiction:2",
+          "tableId": "aitc.notable-artefact-adjective",
+          "count": 1,
+          "dice": "d12"
+        },
+        {
+          "id": "aitc.artefact-depiction:3",
+          "tableId": "aitc.notable-artefact-subject",
+          "count": 1,
+          "dice": "d12"
+        }
+      ]
+    },
+    {
+      "id": "aitc.settlement-name",
+      "title": "Settlement Name",
+      "oracleIds": [
+        "aitc.settlement-name-prefix",
+        "aitc.settlement-name-suffix"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 12,
+          "printedPage": 10,
+          "tableId": "aitc.settlement-name-prefix",
+          "tableTitle": "Settlement Name — Prefix"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 12,
+          "printedPage": 10,
+          "tableId": "aitc.settlement-name-suffix",
+          "tableTitle": "Settlement Name — Suffix"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "aitc.settlement-name:1",
+          "tableId": "aitc.settlement-name-prefix",
+          "count": 1,
+          "dice": "d66"
+        },
+        {
+          "id": "aitc.settlement-name:2",
+          "tableId": "aitc.settlement-name-suffix",
+          "count": 1,
+          "dice": "d66"
+        }
+      ]
+    },
+    {
+      "id": "aitc.settlement",
+      "title": "Settlement — Size, Name and Descriptor",
+      "oracleIds": [
+        "aitc.settlement-size",
+        "aitc.settlement-name-prefix",
+        "aitc.settlement-name-suffix",
+        "aitc.settlement-descriptor"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 12,
+          "printedPage": 10,
+          "tableId": "aitc.settlement-size",
+          "tableTitle": "Settlement Size"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 12,
+          "printedPage": 10,
+          "tableId": "aitc.settlement-name-prefix",
+          "tableTitle": "Settlement Name — Prefix"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 12,
+          "printedPage": 10,
+          "tableId": "aitc.settlement-name-suffix",
+          "tableTitle": "Settlement Name — Suffix"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "tableId": "aitc.settlement-descriptor",
+          "tableTitle": "Settlement Descriptor"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "aitc.settlement:1",
+          "tableId": "aitc.settlement-size",
+          "count": 1,
+          "dice": "d20"
+        },
+        {
+          "id": "aitc.settlement:2",
+          "tableId": "aitc.settlement-name-prefix",
+          "count": 1,
+          "dice": "d66"
+        },
+        {
+          "id": "aitc.settlement:3",
+          "tableId": "aitc.settlement-name-suffix",
+          "count": 1,
+          "dice": "d66"
+        },
+        {
+          "id": "aitc.settlement:4",
+          "tableId": "aitc.settlement-descriptor",
+          "count": 1,
+          "dice": "d20"
+        }
+      ]
+    },
+    {
+      "id": "aitc.street",
+      "title": "Street — Adjective, Type and Contents",
+      "oracleIds": [
+        "aitc.street-adjective",
+        "aitc.street-type",
+        "aitc.street-contents"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableId": "aitc.street-adjective",
+          "tableTitle": "Street Adjective"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableId": "aitc.street-type",
+          "tableTitle": "Street Type"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableId": "aitc.street-contents",
+          "tableTitle": "Street Contents"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "adjective",
+          "tableId": "aitc.street-adjective",
+          "dice": "d20",
+          "count": 1
+        },
+        {
+          "id": "type",
+          "tableId": "aitc.street-type",
+          "dice": "d12",
+          "count": 1
+        },
+        {
+          "id": "contents-count",
+          "tableId": "aitc.street-contents",
+          "dice": "d2",
+          "count": 1,
+          "condition": "City or metropolis only; otherwise count is one.",
+          "derived": "The d2 result is the number of independent contents rolls."
+        },
+        {
+          "id": "contents",
+          "tableId": "aitc.street-contents",
+          "dice": "d12",
+          "count": 1,
+          "dependsOn": [
+            "contents-count"
+          ],
+          "condition": "Repeat once per selected contents-count. Do not reroll duplicate results."
+        },
+        {
+          "id": "exits",
+          "tableId": "aitc.street-exits",
+          "dice": "d4",
+          "count": 1,
+          "condition": "Optional, only if exits were requested."
+        }
+      ]
+    },
+    {
+      "id": "aitc.street-description",
+      "title": "Street — Adjective and Type",
+      "oracleIds": [
+        "aitc.street-adjective",
+        "aitc.street-type"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableId": "aitc.street-adjective",
+          "tableTitle": "Street Adjective"
+        },
+        {
+          "bookId": "aitc",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "tableId": "aitc.street-type",
+          "tableTitle": "Street Type"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "aitc.street-description:1",
+          "tableId": "aitc.street-adjective",
+          "count": 1,
+          "dice": "d20"
+        },
+        {
+          "id": "aitc.street-description:2",
+          "tableId": "aitc.street-type",
+          "count": 1,
+          "dice": "d12"
+        }
+      ]
+    },
+    {
+      "id": "heretic.graves-loot-bodies",
+      "title": "Loot the Bodies · two independent d6 rolls",
+      "oracleIds": [
+        "heretic.gravesLootBodies",
+        "heretic.gravesLootBodies"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "pdfPage": 24,
+          "printedPage": 22,
+          "tableId": "heretic.gravesLootBodies",
+          "tableTitle": "Graves Left Wanting — Loot the Bodies"
+        },
+        {
+          "bookId": "heretic",
+          "pdfPage": 24,
+          "printedPage": 22,
+          "tableId": "heretic.gravesLootBodies",
+          "tableTitle": "Graves Left Wanting — Loot the Bodies"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "heretic.graves-loot-bodies:1",
+          "tableId": "heretic.gravesLootBodies",
+          "count": 1,
+          "dice": "d6"
+        },
+        {
+          "id": "heretic.graves-loot-bodies:2",
+          "tableId": "heretic.gravesLootBodies",
+          "count": 1,
+          "dice": "d6"
+        }
+      ]
+    },
+    {
+      "id": "reclvse.action-theme",
+      "title": "RECLVSE · Action + Theme",
+      "oracleIds": [
+        "reclvse.action",
+        "reclvse.theme"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "pdfPage": 134,
+          "printedPage": 134,
+          "tableId": "reclvse.action",
+          "tableTitle": "Action Oracle"
+        },
+        {
+          "bookId": "reclvse",
+          "pdfPage": 135,
+          "printedPage": 135,
+          "tableId": "reclvse.theme",
+          "tableTitle": "Theme Oracle"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "reclvse.action-theme:1",
+          "tableId": "reclvse.action",
+          "count": 1,
+          "dice": "d100"
+        },
+        {
+          "id": "reclvse.action-theme:2",
+          "tableId": "reclvse.theme",
+          "count": 1,
+          "dice": "d100"
+        }
+      ]
+    },
+    {
+      "id": "sd.room-description",
+      "title": "Sölitary Defilement · Room Adjective + Type",
+      "oracleIds": [
+        "sd.room.adjective",
+        "sd.room.type"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": 15,
+          "printedPage": 13,
+          "tableId": "sd.room.adjective",
+          "tableTitle": "Dungeon Room Descriptors — Room Adjective"
+        },
+        {
+          "bookId": "sd",
+          "pdfPage": 15,
+          "printedPage": 13,
+          "tableId": "sd.room.type",
+          "tableTitle": "Dungeon Room Descriptors — Room Type"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "sd.room-description:1",
+          "tableId": "sd.room.adjective",
+          "count": 1,
+          "dice": "d20"
+        },
+        {
+          "id": "sd.room-description:2",
+          "tableId": "sd.room.type",
+          "count": 1,
+          "dice": "d12"
+        }
+      ]
+    },
+    {
+      "id": "sd.material",
+      "title": "Sölitary Defilement · Material Quality + Composition",
+      "oracleIds": [
+        "sd.material.quality",
+        "sd.material.composition"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": 13,
+          "printedPage": 11,
+          "tableId": "sd.material.quality",
+          "tableTitle": "Materials — Quality"
+        },
+        {
+          "bookId": "sd",
+          "pdfPage": 13,
+          "printedPage": 11,
+          "tableId": "sd.material.composition",
+          "tableTitle": "Materials — Compostion"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "sd.material:1",
+          "tableId": "sd.material.quality",
+          "count": 1,
+          "dice": "d20"
+        },
+        {
+          "id": "sd.material:2",
+          "tableId": "sd.material.composition",
+          "count": 1,
+          "dice": "d12"
+        }
+      ]
+    },
+    {
+      "id": "sd.sound",
+      "title": "Sölitary Defilement · Sound Quality + Type",
+      "oracleIds": [
+        "sd.sound.quality",
+        "sd.sound.type"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": 13,
+          "printedPage": 11,
+          "tableId": "sd.sound.quality",
+          "tableTitle": "Sounds — Quality"
+        },
+        {
+          "bookId": "sd",
+          "pdfPage": 13,
+          "printedPage": 11,
+          "tableId": "sd.sound.type",
+          "tableTitle": "Sounds — Type"
+        }
+      ],
+      "generatorSteps": [
+        {
+          "id": "sd.sound:1",
+          "tableId": "sd.sound.quality",
+          "count": 1,
+          "dice": "d12"
+        },
+        {
+          "id": "sd.sound:2",
+          "tableId": "sd.sound.type",
+          "count": 1,
+          "dice": "d20"
+        }
+      ]
+    }
+  ],
+  "searchAudit": [
+    {
+      "query": "reaction",
+      "firstResultId": "oracle:core.reaction",
+      "title": "Reaction",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.reaction",
+          "tableTitle": "Reaction",
+          "pdfPage": 32,
+          "printedPage": 32,
+          "note": "Sum two d6; probabilities of printed rows are 3/36, 12/36, 11/36, 7/36, 3/36. Never choose a row uniformly. Trigger when a encountered creature’s reaction is uncertain.",
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "morale",
+      "firstResultId": "rule:core.reaction-morale",
+      "title": "Reaction / Morale · 반응과 사기",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Reaction / Morale · 반응과 사기",
+          "pdfPage": [
+            32
+          ]
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "broken",
+      "firstResultId": "rule:core.broken",
+      "title": "Broken / Death · 무력화와 죽음",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Broken / Death · 무력화와 죽음",
+          "pdfPage": [
+            29
+          ]
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "corpse",
+      "firstResultId": "oracle:core.corpsePlundering",
+      "title": "Corpse Plundering",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.corpsePlundering",
+          "tableTitle": "Corpse Plundering",
+          "pdfPage": [
+            4,
+            5
+          ],
+          "printedPage": 4,
+          "note": "Roll two distinguishable d6: tens and units (36 equiprobable outcomes). 11–16 and 61–66 each cover six outcomes. On 61–66 use the rolled d66 result as silver. Embedded dice in other results remain contextual.",
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "treasure",
+      "firstResultId": "oracle:core.treasures",
+      "title": "Occult Treasures",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.treasures",
+          "tableTitle": "Occult Treasures",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "useful item",
+      "firstResultId": "oracle:sd.usefulItems",
+      "title": "Useful Items",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.usefulItems",
+          "tableTitle": "Useful Items",
+          "pdfPage": 11,
+          "printedPage": 9,
+          "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "Sarkash monster",
+      "firstResultId": "rule:regional-monsters:sarkash",
+      "title": "Sarkash · Regional Monsters",
+      "directAction": "GENERATE",
+      "sourceRefs": [
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.sarkash.monsters",
+          "tableTitle": "Sarkash — Monsters",
+          "pdfPage": 27,
+          "printedPage": 24,
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "Kergüs monster",
+      "firstResultId": "rule:regional-monsters:kergus",
+      "title": "Kergüs · Regional Monsters",
+      "directAction": "GENERATE",
+      "sourceRefs": [
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.kergus.monsters",
+          "tableTitle": "Kergüs — Monsters",
+          "pdfPage": 33,
+          "printedPage": 30,
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "Graven-Tosk",
+      "firstResultId": "region:graven-tosk",
+      "title": "Graven-Tosk",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.graven_tosk.trait",
+          "tableTitle": "Graven-Tosk — Trait",
+          "pdfPage": 28,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.graven_tosk.feature",
+          "tableTitle": "Graven-Tosk — Feature",
+          "pdfPage": 28,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.graven_tosk.discovery",
+          "tableTitle": "Graven-Tosk — Discovery",
+          "pdfPage": 28,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.graven_tosk.monsters",
+          "tableTitle": "Graven-Tosk — Monsters",
+          "pdfPage": 28,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "depths",
+          "bookTitle": "Sölitary Depths",
+          "tableId": "depths.region.graven_tosk.npc_professions",
+          "tableTitle": "Graven-Tosk — NPC Professions",
+          "pdfPage": 28,
+          "printedPage": 25,
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "room",
+      "firstResultId": "oracle:sd.room.contents",
+      "title": "Dungeon Room Descriptors — Room Contents",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.room.contents",
+          "tableTitle": "Dungeon Room Descriptors — Room Contents",
+          "pdfPage": 15,
+          "printedPage": 13,
+          "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "NPC",
+      "firstResultId": "procedure:workbench.npc",
+      "title": "NPC · 단서 조합",
+      "directAction": "GENERATE",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.names",
+          "tableTitle": "Names",
+          "pdfPage": 2,
+          "printedPage": 2,
+          "note": "Roll d6 and d8 separately. The two coordinates select one printed name.",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.npc.disposition",
+          "tableTitle": "NPCs — Disposition",
+          "pdfPage": 14,
+          "printedPage": 12,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.npc.profession",
+          "tableTitle": "NPCs — Profession",
+          "pdfPage": 14,
+          "printedPage": 12,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.npc.disposition",
+          "tableTitle": "NPCs — Disposition",
+          "pdfPage": 14,
+          "printedPage": 12,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableId": "sd.npc.profession",
+          "tableTitle": "NPCs — Profession",
+          "pdfPage": 14,
+          "printedPage": 12,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "reclvse",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+          "tableId": "reclvse.npcPersonality",
+          "tableTitle": "NPC Personality Traits",
+          "pdfPage": 126,
+          "printedPage": 126,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "reclvse",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+          "tableId": "reclvse.npcAppearance",
+          "tableTitle": "NPC Appearance",
+          "pdfPage": 125,
+          "printedPage": 125,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "reclvse",
+          "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+          "tableId": "reclvse.npcMotivation",
+          "tableTitle": "NPC Motivation",
+          "pdfPage": 124,
+          "printedPage": 124,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.reaction",
+          "tableTitle": "Reaction",
+          "pdfPage": 32,
+          "printedPage": 32,
+          "note": "Sum two d6; probabilities of printed rows are 3/36, 12/36, 11/36, 7/36, 3/36. Never choose a row uniformly. Trigger when a encountered creature’s reaction is uncertain.",
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableTitle": "NPC Description · 인물의 단서",
+          "pdfPage": [
+            14
+          ]
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "armor",
+      "firstResultId": "rule:core.armor-shield",
+      "title": "Armor / Shield · 방어구와 방패",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Armor / Shield · 방어구와 방패",
+          "pdfPage": [
+            23
+          ],
+          "printedPage": 23,
+          "note": "짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요."
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "rest",
+      "firstResultId": "rule:core.rest",
+      "title": "Rest · 휴식",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Rest · 휴식",
+          "pdfPage": [
+            31
+          ]
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "Omens",
+      "firstResultId": "rule:core.omens",
+      "title": "Omens / Powers · 징조와 권능",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableTitle": "Omens / Powers · 징조와 권능",
+          "pdfPage": [
+            34,
+            37
+          ]
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "Miseries",
+      "firstResultId": "oracle:core.miseries",
+      "title": "The Calendar of Nechrubel — Miseries",
+      "directAction": "ROLL",
+      "sourceRefs": [
+        {
+          "bookId": "core",
+          "bookTitle": "MÖRK BORG BARE BONES EDITION",
+          "tableId": "core.miseries",
+          "tableTitle": "The Calendar of Nechrubel — Miseries",
+          "pdfPage": [
+            18,
+            19,
+            20
+          ],
+          "printedPage": 18,
+          "note": "PDF17 instructs: roll chosen apocalypse die at dawn; on 1, roll d66 on Psalms I–VI. Do not repeat Miseries. The seventh Misery is always Psalm VII 7:7, excluded from the random d66 domain.",
+          "status": "VERIFIED"
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    },
+    {
+      "query": "travel",
+      "firstResultId": "rule:sd.travel-day",
+      "title": "SD Travel Day · 하루 여행 순서",
+      "directAction": "OPEN",
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "bookTitle": "Sölitary Defilement",
+          "tableTitle": "SD Travel Day · 하루 여행 순서",
+          "pdfPage": [
+            17
+          ],
+          "printedPage": 15,
+          "note": "짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요."
+        }
+      ],
+      "interactionsAfterSearch": 1,
+      "note": "One click on visible direct ROLL/OPEN after entering query. Browser acceptance is separately reported."
+    }
+  ],
+  "unresolvedSourceIds": [],
+  "schemaAndRangeIssues": [],
+  "translationAudit": {
+    "entryMetadataKoCount": 11780,
+    "auxiliaryDictionaryCount": 8336,
+    "criterion": "English <=4 whitespace-separated words with Korean >24 characters, plus highest expansion ratios and regional proper nouns.",
+    "flaggedEntryIds": [
+      {
+        "tableId": "core.bodies",
+        "entryId": "core.bodies:8-8",
+        "review": "Literal compounds/source intensifiers; no invented motivation, danger, story or connective event. Kept."
+      },
+      {
+        "tableId": "sd.npc.profession",
+        "entryId": "sd.npc.profession:65-65",
+        "review": "Literal compounds/source intensifiers; no invented motivation, danger, story or connective event. Kept."
+      },
+      {
+        "tableId": "sd.room.adjective",
+        "entryId": "sd.room.adjective:17-17",
+        "review": "Literal compounds/source intensifiers; no invented motivation, danger, story or connective event. Kept."
+      },
+      {
+        "tableId": "depths.region.sarkash.npc_professions",
+        "entryId": "depths.region.sarkash.npc_professions:8-8",
+        "review": "Literal compounds/source intensifiers; no invented motivation, danger, story or connective event. Kept."
+      },
+      {
+        "tableId": "depths.region.lake_onda.npc_professions",
+        "entryId": "depths.region.lake_onda.npc_professions:8-8",
+        "review": "Literal compounds/source intensifiers; no invented motivation, danger, story or connective event. Kept."
+      }
+    ],
+    "unresolvedLiteraryExpansions": 0,
+    "englishPreserved": true,
+    "koreanGeneratorInput": false,
+    "automaticMachineTranslation": false,
+    "scopeLimit": "All entries scanned; all five length flags plus15highest ratios manually reviewed. This is not a claim of line-by-line bilingual proofreading of all11,780helpers.",
+    "corrections": [
+      {
+        "entryId": "aitc.notable-artefact-type:3-3",
+        "classification": "APP",
+        "finding": "App guidance could imply halving the permanent effect instead of the picture monetary worth.",
+        "change": "Explicitly names monetary worth and adds short separate Korean helper; source result unchanged."
+      }
+    ]
+  },
+  "privateLoadAudit": {
+    "production": "Published private data or IndexedDB cache; missing source leaves current campaign readable and source-dependent generators unavailable.",
+    "development": "Explicit /rules fixtures are verified private data, not fabricated fallback. Local public/rules pack is older than outputs bundle (300 vs359supplemental tables).",
+    "networkMysteryFallbacks": 0,
+    "sourcePackMutation": false,
+    "sourceMetadataCorrection": "Additive source page correction; source English/weights/savedCampaign text never regenerated.",
+    "sourceValidation": "Once per installed immutable pack pair; fingerprints include source coordinates/dice/English and recursive mechanics/follow-ups. Korean/audit metadata excluded."
+  },
+  "unresolvedSourceMaterial": [
+    {
+      "tableId": "heretic.curseCure",
+      "entryId": "heretic.curseCure:12",
+      "book": "HERETIC",
+      "pdfPage": 37,
+      "printedPage": 35,
+      "status": "PARTIAL",
+      "rollable": false,
+      "reason": "Supplied page physically cuts off final sentence after do not. No invented completion."
+    }
+  ],
+  "duplicationFindings": [
+    {
+      "id": "feretory.campsite.campDream",
+      "before": "Nested dream table reconstructed locally in journey helper",
+      "after": "One canonical live subtable adapter"
+    },
+    {
+      "id": "feretory.hunting.*",
+      "before": "Creature identity selectors missing canonical Oracle IDs",
+      "after": "Nine live adapters refer to54existing creature records; no duplicate statblocks"
+    },
+    {
+      "id": "heretic.graves-loot-bodies",
+      "before": "One directd6 only with generic repeat note",
+      "after": "Two independentd6 result components per actual procedure"
+    }
+  ],
+  "qa": {
+    "seededCanonicalRolls": 10000,
+    "sourceAssertions": "Every result source ID, exact source English, rolltrace and JSON metadata checked.",
+    "targetedTests": 73,
+    "translationAndCityFocusedTests": 67
+  }
+}

@@ -1,3 +1,5 @@
+import { GenerationDisclosure } from './GenerationDisclosure';
+import { hasManualEdits } from '../domain/generationProvenance';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -195,12 +197,7 @@ export function ContentLibrary({
           });
         }),
       );
-    if (
-      selected &&
-      (selected.name ||
-        ('text' in selected && selected.text) ||
-        ('appearance' in selected && selected.appearance))
-    )
+    if (selected && hasManualEdits(selected))
       confirm(
         label + ' 전체를 다시 생성할까요?',
         '생성 항목을 바꿉니다. 노트와 배치, 조우 참가자 연결은 유지합니다.',
@@ -354,6 +351,7 @@ export function ContentLibrary({
       }
       translation={translationFor(spec.key)}
       source={selected.sources?.[spec.key]}
+      provenance={selected.fieldProvenance?.[spec.key]}
       onChange={(value, source) => patch(spec.key, value, source)}
       onReroll={
         ready &&
@@ -394,7 +392,13 @@ export function ContentLibrary({
         )}
       </div>
       <div className="page-heading">
-        <h1>
+        <h1
+          className={
+            kind === 'encounters' && !selected.name
+              ? 'encounter-kind-heading'
+              : undefined
+          }
+        >
           {selected.name ||
             (kind === 'npcs'
               ? 'NPC'
@@ -441,13 +445,16 @@ export function ContentLibrary({
           )}
         </div>
       </div>
-      {configuration}
+      <details className="object-secondary">
+        <summary>생성 설정</summary>
+        {configuration}
+      </details>
       {!ready && (
         <p className="source-notice">
           원문 표가 준비되면 생성할 수 있습니다. 직접 작성과 저장은 가능합니다.
         </p>
       )}
-      {kind === 'encounters' && (
+      {kind === 'encounters' && selected.name && (
         <p className="content-category">
           {
             encounterCategories.find(
@@ -462,194 +469,219 @@ export function ContentLibrary({
           규칙이 없어 직접 판단해야 합니다. 결과를 임의로 바꾸지 않았습니다.
         </p>
       )}
-      <div className="content-field-sheet">{fields.map(field)}</div>
-      <SourceDisclosure refs={selected.sourceRefs} label={label + ' 출처'} />
-      <details
-        className="content-extra"
-        open={extra}
-        onToggle={(e) => setExtra(e.currentTarget.open)}
-      >
-        <summary>추가 항목 · 직접 작성</summary>
-        <div className="content-field-sheet">
-          {(kind === 'npcs'
-            ? optionalNPCFields
-            : [
-                { key: 'sign', label: '징후' },
-                { key: 'complication', label: '결과 / 변수' },
-                { key: 'treasure', label: '보상 / 발견' },
-              ]
-          ).map(field)}
-        </div>
-      </details>
-      {'participants' in selected && (
-        <section className="encounter-participants">
-          <div className="section-title">
-            <h2>참가자 {selected.participants.length}</h2>
-            <Button
-              className="btn small"
-              onClick={() => setAddingParticipant(!addingParticipant)}
-            >
-              기존 참가자 연결
-            </Button>
-          </div>
-          <p className="help-line">
-            본문에 나온 존재와 보관함의 연결은 별개입니다.
-          </p>
-          {selected.participants.map((p) => {
-            const k = p.kind === 'monster' ? 'monsters' : 'npcs',
-              entity = c[k].find((e) => e.id === p.entityId);
-            return (
-              entity && (
-                <div className="participant-row" key={p.id}>
-                  <button
-                    className="content-entry"
-                    onClick={() =>
-                      openPlacedContent(c, k, p.entityId, target ?? undefined)
-                    }
-                  >
-                    <strong>
-                      {p.quantity} × {entity.name}
-                    </strong>
-                  </button>
-                  <Button
-                    className="icon-btn"
-                    aria-label={entity.name + ' 참가자 연결 해제'}
-                    onClick={() =>
-                      edit((e) => {
-                        if ('participants' in e)
-                          e.participants = e.participants.filter(
-                            (x) => x.id !== p.id,
-                          );
-                      })
-                    }
-                  >
-                    ×
-                  </Button>
-                </div>
-              )
-            );
-          })}
-          {addingParticipant && (
-            <div className="participant-picker">
-              <label>
-                종류
-                <select
-                  aria-label="참가자 종류"
-                  value={participantKind}
-                  onChange={(e) => {
-                    setParticipantKind(e.target.value as 'monster' | 'npc');
-                    setParticipantId('');
-                  }}
-                >
-                  <option value="monster">기존 Monster</option>
-                  <option value="npc">기존 NPC</option>
-                </select>
-              </label>
-              <label>
-                보관함
-                <select
-                  aria-label="기존 참가자 선택"
-                  value={participantId}
-                  onChange={(e) => setParticipantId(e.target.value)}
-                >
-                  <option value="">선택</option>
-                  {(participantKind === 'monster' ? c.monsters : c.npcs).map(
-                    (e) => (
-                      <option key={e.id} value={e.id}>
-                        {e.name}
-                      </option>
-                    ),
-                  )}
-                </select>
-              </label>
-              <QuantityControl
-                value={participantQuantity}
-                onChange={setParticipantQuantity}
-              />
-              <Button
-                className="btn"
-                disabled={!participantId}
-                onClick={() =>
-                  safely(() => {
-                    edit((e, next) =>
-                      addEncounterParticipant(
-                        next,
-                        e as Encounter,
-                        participantKind,
-                        participantId,
-                        participantQuantity,
-                      ),
-                    );
-                    setAddingParticipant(false);
-                    setParticipantId('');
-                  })
-                }
-              >
-                참가자 연결
-              </Button>
-            </div>
-          )}
-        </section>
+      <div className="content-reading">
+        {'archetype' in selected ? (
+          <>
+            <p className="content-reading-identity">
+              {[selected.archetype, selected.reaction]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
+            <p>{selected.appearance}</p>
+          </>
+        ) : (
+          <p className="encounter-reading-text">{selected.text}</p>
+        )}
+      </div>
+      <GenerationDisclosure values={selected.fieldProvenance} />
+      {!selected.fieldProvenance && (
+        <SourceDisclosure refs={selected.sourceRefs} label={label + ' 출처'} />
       )}
-      <section className="content-target">
-        <details>
-          <summary>배치 위치 선택</summary>
-          <div className="content-generation-controls">
-            <label>
-              던전
-              <select
-                aria-label={label + ' 배치 던전'}
-                value={target?.dungeonId ?? ''}
-                onChange={(e) =>
-                  chooseTarget(
-                    e.target.value
-                      ? { dungeonId: e.target.value, roomId: null }
-                      : null,
-                  )
-                }
-              >
-                <option value="">보관함에만 저장</option>
-                {c.dungeons.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {d && (
-              <RoomSelector
-                dungeon={d}
-                value={target?.roomId ?? null}
-                onChange={(roomId) => chooseTarget({ dungeonId: d.id, roomId })}
-              />
-            )}
+      <details className="object-editor">
+        <summary>EDIT / MORE · 전체 결과 · 편집</summary>
+        <div className="content-field-sheet">{fields.map(field)}</div>
+        <details
+          className="content-extra"
+          open={extra}
+          onToggle={(e) => setExtra(e.currentTarget.open)}
+        >
+          <summary>추가 항목 · 직접 작성</summary>
+          <div className="content-field-sheet">
+            {(kind === 'npcs'
+              ? optionalNPCFields
+              : [
+                  { key: 'sign', label: '징후' },
+                  { key: 'complication', label: '결과 / 변수' },
+                  { key: 'treasure', label: '보상 / 발견' },
+                ]
+            ).map(field)}
           </div>
         </details>
-        {saved && (
-          <ContentPlacementRows
-            campaign={c}
-            kind={kind}
-            entityId={selected.id}
-          />
-        )}
-      </section>
-      <details className="content-notes">
-        <summary>{label} Notes</summary>
-        <Textarea
-          rows={4}
-          aria-label={label + ' 노트'}
-          value={selected.notes}
-          onChange={(e) => patch('notes', e.target.value)}
-        />
       </details>
-      <div className="entity-footer-actions">
-        <Button className="btn small" onClick={() => duplicate(selected)}>
-          복제
-        </Button>
-        <Button className="btn small danger" onClick={() => remove(selected)}>
-          삭제
-        </Button>
-      </div>
+      <details className="object-secondary">
+        <summary>배치 · 참가자 · 메모 · 관리</summary>
+        {'participants' in selected && (
+          <section className="encounter-participants">
+            <div className="section-title">
+              <h2>참가자 {selected.participants.length}</h2>
+              <Button
+                className="btn small"
+                onClick={() => setAddingParticipant(!addingParticipant)}
+              >
+                기존 참가자 연결
+              </Button>
+            </div>
+            <p className="help-line">
+              본문에 나온 존재와 보관함의 연결은 별개입니다.
+            </p>
+            {selected.participants.map((p) => {
+              const k = p.kind === 'monster' ? 'monsters' : 'npcs',
+                entity = c[k].find((e) => e.id === p.entityId);
+              return (
+                entity && (
+                  <div className="participant-row" key={p.id}>
+                    <button
+                      className="content-entry"
+                      onClick={() =>
+                        openPlacedContent(c, k, p.entityId, target ?? undefined)
+                      }
+                    >
+                      <strong>
+                        {p.quantity} × {entity.name}
+                      </strong>
+                    </button>
+                    <Button
+                      className="icon-btn"
+                      aria-label={entity.name + ' 참가자 연결 해제'}
+                      onClick={() =>
+                        edit((e) => {
+                          if ('participants' in e)
+                            e.participants = e.participants.filter(
+                              (x) => x.id !== p.id,
+                            );
+                        })
+                      }
+                    >
+                      ×
+                    </Button>
+                  </div>
+                )
+              );
+            })}
+            {addingParticipant && (
+              <div className="participant-picker">
+                <label>
+                  종류
+                  <select
+                    aria-label="참가자 종류"
+                    value={participantKind}
+                    onChange={(e) => {
+                      setParticipantKind(e.target.value as 'monster' | 'npc');
+                      setParticipantId('');
+                    }}
+                  >
+                    <option value="monster">기존 Monster</option>
+                    <option value="npc">기존 NPC</option>
+                  </select>
+                </label>
+                <label>
+                  보관함
+                  <select
+                    aria-label="기존 참가자 선택"
+                    value={participantId}
+                    onChange={(e) => setParticipantId(e.target.value)}
+                  >
+                    <option value="">선택</option>
+                    {(participantKind === 'monster' ? c.monsters : c.npcs).map(
+                      (e) => (
+                        <option key={e.id} value={e.id}>
+                          {e.name}
+                        </option>
+                      ),
+                    )}
+                  </select>
+                </label>
+                <QuantityControl
+                  value={participantQuantity}
+                  onChange={setParticipantQuantity}
+                />
+                <Button
+                  className="btn"
+                  disabled={!participantId}
+                  onClick={() =>
+                    safely(() => {
+                      edit((e, next) =>
+                        addEncounterParticipant(
+                          next,
+                          e as Encounter,
+                          participantKind,
+                          participantId,
+                          participantQuantity,
+                        ),
+                      );
+                      setAddingParticipant(false);
+                      setParticipantId('');
+                    })
+                  }
+                >
+                  참가자 연결
+                </Button>
+              </div>
+            )}
+          </section>
+        )}
+        <section className="content-target">
+          <details>
+            <summary>배치 위치 선택</summary>
+            <div className="content-generation-controls">
+              <label>
+                던전
+                <select
+                  aria-label={label + ' 배치 던전'}
+                  value={target?.dungeonId ?? ''}
+                  onChange={(e) =>
+                    chooseTarget(
+                      e.target.value
+                        ? { dungeonId: e.target.value, roomId: null }
+                        : null,
+                    )
+                  }
+                >
+                  <option value="">보관함에만 저장</option>
+                  {c.dungeons.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.title}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {d && (
+                <RoomSelector
+                  dungeon={d}
+                  value={target?.roomId ?? null}
+                  onChange={(roomId) =>
+                    chooseTarget({ dungeonId: d.id, roomId })
+                  }
+                />
+              )}
+            </div>
+          </details>
+          {saved && (
+            <ContentPlacementRows
+              campaign={c}
+              kind={kind}
+              entityId={selected.id}
+            />
+          )}
+        </section>
+        <details className="content-notes">
+          <summary>{label} Notes</summary>
+          <Textarea
+            rows={4}
+            aria-label={label + ' 노트'}
+            value={selected.notes}
+            onChange={(e) => patch('notes', e.target.value)}
+          />
+        </details>
+        <div className="entity-footer-actions">
+          <Button className="btn small" onClick={() => duplicate(selected)}>
+            복제
+          </Button>
+          <Button className="btn small danger" onClick={() => remove(selected)}>
+            삭제
+          </Button>
+        </div>
+      </details>
     </div>
   );
 }

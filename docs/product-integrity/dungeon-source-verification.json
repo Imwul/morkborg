@@ -1,0 +1,269 @@
+[
+  {
+    "tableId": "core.titleA",
+    "book": "core",
+    "pdfPages": [
+      71
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "core.titleB",
+    "book": "core",
+    "pdfPages": [
+      71
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "core.status",
+    "book": "core",
+    "pdfPages": [
+      71
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 6,
+    "matched": 6
+  },
+  {
+    "tableId": "core.danger",
+    "book": "core",
+    "pdfPages": [
+      72
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "core.inhabitants",
+    "book": "core",
+    "pdfPages": [
+      72
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "core.feature",
+    "book": "core",
+    "pdfPages": [
+      73
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "core.rooms",
+    "book": "core",
+    "pdfPages": [
+      73,
+      74
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 34,
+    "matched": 34
+  },
+  {
+    "tableId": "core.sparks",
+    "book": "core",
+    "pdfPages": [
+      69,
+      70
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 50,
+    "matched": 50
+  },
+  {
+    "tableId": "core.treasures",
+    "book": "core",
+    "pdfPages": [
+      3
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 10,
+    "matched": 10
+  },
+  {
+    "tableId": "core.traps",
+    "book": "core",
+    "pdfPages": [
+      4
+    ],
+    "sourceFileSha256": "7d633742dc2cfeabf98e4b544331bed4f921494aa279747bd9d4a5c878300219",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "sd.room.adjective",
+    "book": "sd",
+    "pdfPages": [
+      15
+    ],
+    "sourceFileSha256": "c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "sd.room.type",
+    "book": "sd",
+    "pdfPages": [
+      15
+    ],
+    "sourceFileSha256": "c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "sd.room.contents",
+    "book": "sd",
+    "pdfPages": [
+      15
+    ],
+    "sourceFileSha256": "c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e",
+    "sourceSegments": 11,
+    "matched": 9,
+    "manualVisualVerification": {
+      "verified": true,
+      "reason": "Two long contents lines wrap around neighboring rows in extracted reading order; both complete clauses visually confirmed on SD PDF15/printed13."
+    },
+    "textExtractionMissCount": 2
+  },
+  {
+    "tableId": "sd.room.exits",
+    "book": "sd",
+    "pdfPages": [
+      15
+    ],
+    "sourceFileSha256": "c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e",
+    "sourceSegments": 4,
+    "matched": 4
+  },
+  {
+    "tableId": "reclvse.dungeonPurposeThen",
+    "book": "reclvse",
+    "pdfPages": [
+      86
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 6,
+    "matched": 6
+  },
+  {
+    "tableId": "reclvse.dungeonEntrance",
+    "book": "reclvse",
+    "pdfPages": [
+      87
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.entranceState",
+    "book": "reclvse",
+    "pdfPages": [
+      88
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 12,
+    "matched": 12
+  },
+  {
+    "tableId": "reclvse.roomPurpose",
+    "book": "reclvse",
+    "pdfPages": [
+      91
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.dressing",
+    "book": "reclvse",
+    "pdfPages": [
+      92
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.contentsCategory",
+    "book": "reclvse",
+    "pdfPages": [
+      92
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 4,
+    "matched": 4
+  },
+  {
+    "tableId": "reclvse.roomHazard",
+    "book": "reclvse",
+    "pdfPages": [
+      93
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.roomEncounter",
+    "book": "reclvse",
+    "pdfPages": [
+      93
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.roomLoot",
+    "book": "reclvse",
+    "pdfPages": [
+      93
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.roomDiscovery",
+    "book": "reclvse",
+    "pdfPages": [
+      93
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 20,
+    "matched": 20
+  },
+  {
+    "tableId": "reclvse.arcaneEncounter",
+    "book": "reclvse",
+    "pdfPages": [
+      121
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 8,
+    "matched": 8
+  },
+  {
+    "tableId": "reclvse.questEncounterHook",
+    "book": "reclvse",
+    "pdfPages": [
+      121
+    ],
+    "sourceFileSha256": "6c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565",
+    "sourceSegments": 8,
+    "matched": 8
+  }
+]

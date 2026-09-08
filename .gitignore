@@ -41,3 +41,6 @@ next-env.d.ts
 /public/rules/
 *.pdf
 *.tsbuildinfo
+
+# Local source extraction and private QA artifacts
+/tmp/

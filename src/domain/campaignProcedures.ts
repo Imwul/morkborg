@@ -2,6 +2,7 @@ import type { Campaign, SourceReference } from './types';
 import type { MiseryRecord } from './chronicle';
 import type { OracleRegistry, OracleResult, OracleRoll } from './oracle';
 import { recordEvent } from './chronicleOperations';
+import { traceReferenceProcedure } from './referenceGeneratorProcedures';
 import {
   id,
   now,
@@ -317,11 +318,22 @@ export function rollTravel(
   }
   if (action === 'forage' && rolls[0].roll >= 5)
     rolls.push(sourceRoll('feretory.village', registry, rng));
-  return {
-    id: id(),
-    title: TRAVEL_ACTIONS.find((a) => a.value === action)!.label,
-    rolls,
-  };
+  if (action === 'camp' && rolls[0].roll === 10)
+    rolls.push(sourceRoll('feretory.campsite.campDream', registry, rng));
+  return traceReferenceProcedure(
+    {
+      id: id(),
+      title: TRAVEL_ACTIONS.find((a) => a.value === action)!.label,
+      rolls,
+    },
+    action === 'road'
+      ? 'feretory.road'
+      : action === 'forage'
+        ? 'feretory.forage'
+        : action === 'camp'
+          ? 'feretory.campsite'
+          : 'feretory.leaveRoad',
+  );
 }
 export const ONE_OFF_ROAD_EVENTS = [10, 11, 12, 16, 18, 19];
 export function travelNeedsReplacement(

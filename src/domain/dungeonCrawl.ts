@@ -6,7 +6,11 @@ import {
   selectOracleEntry,
   sourceLabel,
 } from '../generators/oracleRoller';
-import { oracleReadingText } from './referenceReading';
+import {
+  oracleValueProvenance,
+  oracleRollProvenance,
+} from './oracleProvenance';
+import type { RoomComponent } from './generationProvenance';
 import { prepareSpecialRooms } from '../generators/specialRooms';
 export interface DungeonCrawlRoll {
   dice: [number, number];
@@ -101,6 +105,35 @@ export function rollGenericCrawlRoom(
     exits > 3
   )
     throw new Error('발견한 특별한 방 수에 맞는 출구표가 필요합니다.');
+  const components: RoomComponent[] = [adjective, type, contents].map(
+    (roll, index) => ({
+      key: ['adjective', 'type', 'contents'][index],
+      label: ['ADJECTIVE', 'TYPE', 'CONTENTS'][index],
+      sourceText: roll.text,
+      ...(typeof roll.metadata?.ko === 'string'
+        ? { translationKo: roll.metadata.ko }
+        : {}),
+      provenance: {
+        ...oracleRollProvenance(roll)!,
+        procedureId: 'sd.generic-room',
+      },
+    }),
+  );
+  const exitProvenance = {
+    ...oracleValueProvenance(table, registry, entry, {
+      value: die,
+      values: [die],
+    }),
+    classification: 'APP_DERIVED' as const,
+    procedureId: 'sd.generic-room',
+    transformation: `Read further exits from the source matrix column ${discovered} Special Rooms discovered; printed dash = 0.`,
+  };
+  components.push({
+    key: 'exits',
+    label: 'EXITS',
+    sourceText: String(exits),
+    provenance: exitProvenance,
+  });
   return {
     id: id(),
     kind: 'generic',
@@ -111,11 +144,32 @@ export function rollGenericCrawlRoom(
         type: type.roll,
         contents: contents.roll,
         exits: die,
+        discovered,
       },
     },
-    name: `${adjective.text} ${type.text}`,
-    description: oracleReadingText(contents),
-    feature: `출구 ${exits}개 · d4 = ${die} · 특별한 방 ${discovered}/4 발견`,
+    name: `${adjective.text} · ${type.text}`,
+    description: contents.text,
+    feature: `Exits ${exits}`,
+    components,
+    fieldProvenance: {
+      name: {
+        classification: 'SOURCE_COMPOSED',
+        origin: 'source',
+        status: 'VERIFIED',
+        procedureId: 'sd.generic-room',
+        sourceRefs: components
+          .slice(0, 2)
+          .flatMap((component) => component.provenance.sourceRefs),
+        sourceText: [adjective.text, type.text],
+        rolls: components
+          .slice(0, 2)
+          .flatMap((component) => component.provenance.rolls ?? []),
+        transformation:
+          'Two printed descriptors displayed with ·; original slash alternatives remain unchanged.',
+      },
+      description: components[2].provenance,
+      feature: exitProvenance,
+    },
     exits,
     danger: '',
     treasure: '',

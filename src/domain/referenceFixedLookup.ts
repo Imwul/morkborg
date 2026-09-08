@@ -2,6 +2,7 @@ import type { OracleRegistry } from './oracle';
 import type { ReferenceReading } from './referenceReading';
 import { oracleFollowUpLinks, oracleReadingText } from './referenceReading';
 import { selectOracleEntry } from '../generators/oracleRoller';
+import { oracleValueProvenance } from './oracleProvenance';
 
 /** A printed cross-reference selects its exact row, without consuming random dice. */
 export function fixedReferenceReading(
@@ -24,15 +25,10 @@ export function fixedReferenceReading(
     ],
     sourceRefs: [
       {
-        bookId: table.sourceBookId,
-        bookTitle: registry.books.find((book) => book.id === table.sourceBookId)
-          ?.title,
-        tableId: table.id,
-        tableTitle: table.title,
-        pdfPage: table.sourcePage,
-        printedPage: table.printedPage,
-        roll: lookup.roll,
-        entryId: entry.id,
+        ...oracleValueProvenance(table, registry, entry, {
+          value: lookup.roll,
+          values: [],
+        }).sourceRefs[0],
         note: '원문의 지정 참조 · 재굴림하지 않음',
       },
     ],

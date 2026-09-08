@@ -1,3 +1,10 @@
+import type {
+  GeneratedValueProvenance,
+  GeneratorStep,
+  SourceStatus,
+} from './generationProvenance';
+import type { SourceReference } from './types';
+
 export const ORACLE_CATEGORIES = [
   'SOLO',
   'ACTION',
@@ -54,6 +61,9 @@ export interface OracleDefinition {
   allowedGaps?: number[];
   allowOverlap?: boolean;
   canonicalTableId?: string;
+  sourceStatus?: SourceStatus;
+  /** A nested source table is materialized once in the canonical registry. */
+  parentTableId?: string;
 }
 export interface OracleProcedure {
   id: string;
@@ -61,6 +71,15 @@ export interface OracleProcedure {
   oracleIds: string[];
   description?: string;
   rollLabels?: string[];
+  sourceBookId?: string;
+  sourcePage?: number | number[] | null;
+  printedPage?: number | string | null;
+  sourceNote?: string;
+  additionalPages?: number[];
+  sourceRefs?: SourceReference[];
+  /** Original pack step groups, retained without converting them into narrative. */
+  steps?: { label: string; oracleIds: string[] }[];
+  generatorSteps?: GeneratorStep[];
 }
 export interface OraclePack {
   schemaVersion: 1;
@@ -85,7 +104,9 @@ export interface OracleRoll {
   entryId: string | null;
   text: string;
   source: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, unknown> & {
+    provenance?: GeneratedValueProvenance;
+  };
 }
 export interface OracleResult {
   id: string;

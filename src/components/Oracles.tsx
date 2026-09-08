@@ -462,15 +462,21 @@ export function Oracles({
                         <p className="oracle-result-text" lang="en">
                           {r.text}
                         </p>
-                        <Translation
-                          text={r.text}
-                          translation={
-                            typeof r.metadata?.ko === 'string'
-                              ? r.metadata.ko
-                              : undefined
-                          }
+                        <details className="packet-translation">
+                          <summary>한국어 도움말</summary>
+                          <Translation
+                            text={r.text}
+                            translation={
+                              typeof r.metadata?.ko === 'string'
+                                ? r.metadata.ko
+                                : undefined
+                            }
+                          />
+                        </details>
+                        <SourceDisclosure
+                          source={r.source}
+                          provenance={r.metadata?.provenance}
                         />
-                        <SourceDisclosure source={r.source} />
                         {r.metadata &&
                           Object.keys(r.metadata).some(
                             (k) =>

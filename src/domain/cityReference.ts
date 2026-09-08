@@ -6,6 +6,7 @@ import type {
 } from './oracle';
 import { id, random, rollDie, type RandomSource } from '../generators/random';
 import { rollOracle, sourceLabel } from '../generators/oracleRoller';
+import { traceReferenceProcedure } from './referenceGeneratorProcedures';
 
 export interface CityReferenceInput {
   procedureId: 'aitc.street' | 'aitc.notable-artefact-type';
@@ -80,6 +81,34 @@ export function rollCityReference(
           procedureId: input.procedureId,
           conditionalCount: true,
           procedureNote: contents.description,
+          provenance: {
+            classification: 'APP_DERIVED',
+            origin: 'source',
+            status: contents.sourceStatus ?? 'PARTIAL',
+            sourceRefs: [
+              {
+                bookId: contents.sourceBookId,
+                tableId: contents.id,
+                tableTitle: contents.title,
+                pdfPage: contents.sourcePage,
+                ...(contents.printedPage !== undefined
+                  ? { printedPage: contents.printedPage }
+                  : {}),
+                roll: count,
+              },
+            ],
+            rolls: [
+              {
+                tableId: contents.id,
+                dice: 'd2',
+                value: count,
+                diceValues: [count],
+              },
+            ],
+            procedureId: input.procedureId,
+            transformation:
+              'For a city or metropolis, d2 gives the number of independent Street Contents d12 rolls.',
+          },
         },
       });
     for (let index = 0; index < count; index++) {
@@ -100,13 +129,16 @@ export function rollCityReference(
       });
     }
     if (exits) rolls.push(rollOracle(exits, registry, rng));
-    return {
-      id: id(),
-      title:
-        registry.procedures.find((p) => p.id === input.procedureId)?.title ??
-        '거리 참조',
-      rolls,
-    };
+    return traceReferenceProcedure(
+      {
+        id: id(),
+        title:
+          registry.procedures.find((p) => p.id === input.procedureId)?.title ??
+          '거리 참조',
+        rolls,
+      },
+      input.procedureId,
+    );
   }
   if (input.procedureId === 'aitc.notable-artefact-type') {
     const type = rollTable('aitc.notable-artefact-type', 'd4');
@@ -121,7 +153,10 @@ export function rollCityReference(
       );
       if (type.roll === 4) rolls.push(rollTable('aitc.sculpture-size', 'd2'));
     }
-    return { id: id(), title: type.title, rolls };
+    return traceReferenceProcedure(
+      { id: id(), title: type.title, rolls },
+      input.procedureId,
+    );
   }
   throw new Error('지원하지 않는 도시 참조 절차입니다.');
 }

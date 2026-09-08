@@ -43,6 +43,10 @@ export type DungeonTab =
   | 'encounters'
   | 'notes';
 export interface Provenance {
+  fieldProvenance?: Record<
+    string,
+    import('./generationProvenance').GeneratedValueProvenance
+  >;
   sources?: Record<string, string>;
   generation?: { system: string; rolls: Record<string, number> };
 }
@@ -53,7 +57,8 @@ export interface BaseEntity extends Provenance {
   createdAt: string;
   updatedAt: string;
 }
-export interface CharacterItem {
+export interface CharacterItem extends Provenance {
+  provenance?: import('./generationProvenance').GeneratedValueProvenance;
   id: string;
   text: string;
   source?: string;
@@ -94,7 +99,8 @@ export interface MonsterAttack extends Provenance {
   description: string;
   tableId?: string;
 }
-export interface MonsterText {
+export interface MonsterText extends Provenance {
+  provenance?: import('./generationProvenance').GeneratedValueProvenance;
   id: string;
   text: string;
   source?: string;
@@ -107,7 +113,7 @@ export interface Monster extends BaseEntity {
   appearance: string;
   behavior: string;
   wants: string;
-  hp: number;
+  hp: number | string;
   morale: number | string;
   armor: string;
   attacks: MonsterAttack[];
@@ -173,6 +179,8 @@ export type EncounterCategory =
   | 'discovery'
   | 'room';
 export interface SourceReference {
+  role?: 'primary' | 'routing';
+  status?: import('./generationProvenance').SourceStatus;
   field?: string;
   bookId?: string;
   bookTitle?: string;
@@ -204,6 +212,8 @@ export interface Assignment {
   encounterIds: string[];
 }
 export interface DungeonRoom extends Assignment, Provenance, HiddenInformation {
+  components?: import('./generationProvenance').RoomComponent[];
+  legacyDescription?: string;
   kind?: 'special' | 'generic';
   specialDetailIds?: string[];
   exits?: number;

@@ -1,4 +1,5 @@
 import { remapDungeonCrawl } from './dungeonCrawl';
+import { markCopiedIdentity } from './duplicationProvenance';
 import { pruneChronicleReferences } from './chronicleOperations';
 import type {
   Campaign,
@@ -15,7 +16,6 @@ import { id, now } from '../generators/random';
 import {
   generateMonster,
   generateEatPreyKillMonster,
-  eatPreyKillCreatures,
 } from '../generators/monster';
 
 /** Only a compatibility index for old readers; all new UI and mutations use placements. */
@@ -74,9 +74,7 @@ export function beginMonsterDraft(
     const region = dungeon?.region ?? c.workspace.monsterRegion ?? 'sarkash';
     if (dungeon) c.workspace.monsterRegion = region;
     c.drafts.monsters =
-      !blank &&
-      c.workspace.monsterGenerationMode !== 'tma' &&
-      eatPreyKillCreatures(region).length
+      !blank && c.workspace.monsterGenerationMode !== 'tma'
         ? generateEatPreyKillMonster(c.id, region)
         : generateMonster(c.id, blank);
   }
@@ -289,6 +287,7 @@ export function duplicateDungeon(c: Campaign, dungeonId: string) {
     createdAt: now(),
     updatedAt: now(),
   });
+  markCopiedIdentity(d, 'title');
   const roomMap = new Map<string, string>();
   const encounterMap = new Map<string, string>();
   if (d.encounterTables)

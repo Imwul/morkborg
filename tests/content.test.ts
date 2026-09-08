@@ -197,10 +197,16 @@ sourceTest(
       name: null,
       updatedAt: null,
       sources: { ...n.sources, name: null },
+      fieldProvenance: { ...n.fieldProvenance, name: null },
       sourceRefs: n.sourceRefs.filter((r) => r.field !== 'name'),
     });
     assert.deepEqual(remaining(npc), remaining(before));
     assert.equal(npc.wants, 'User motivation');
+    assert.equal(npc.fieldProvenance!.name.sourceText![0], npc.name);
+    assert.deepEqual(
+      npc.fieldProvenance!.name.rolls![0].entryId,
+      npc.sourceRefs.find((r) => r.field === 'name')!.entryId,
+    );
   },
 );
 for (const kind of ['npcs', 'encounters'] as const) {

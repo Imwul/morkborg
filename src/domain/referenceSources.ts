@@ -22,11 +22,15 @@ export function sourceEvidence(
 ): ReferenceEvidence[] {
   return refs.map((source) => ({
     source,
-    role: 'primary',
+    role: source.role ?? 'primary',
     confidence: !available
       ? 'unavailable-source'
-      : source.pdfPage == null
-        ? 'partial'
-        : 'verified',
+      : source.status === 'UNAVAILABLE'
+        ? 'unavailable-source'
+        : source.status === 'CONFLICT'
+          ? 'conflicting-citation'
+          : source.status === 'PARTIAL' || source.pdfPage == null
+            ? 'partial'
+            : 'verified',
   }));
 }

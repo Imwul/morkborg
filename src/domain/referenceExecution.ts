@@ -28,7 +28,9 @@ export function refsForOracle(
   result: OracleResult,
   registry: OracleRegistry,
 ): SourceReference[] {
-  return result.rolls.map((roll) => {
+  return result.rolls.flatMap((roll) => {
+    if (roll.metadata?.provenance?.sourceRefs.length)
+      return roll.metadata.provenance.sourceRefs;
     const table = registry.tables.find(
       (t) =>
         t.id ===
@@ -64,7 +66,16 @@ function monsterBlocks(m: Monster): ReferenceReading['blocks'] {
       title: m.name,
       kind: 'creature',
       text: [
-        `HP ${m.hp} · Morale ${m.morale} · Armor ${m.armor || '—'}`,
+        [
+          m.hp !== '' ? `HP ${m.hp}` : '',
+          m.morale ? `Morale ${m.morale}` : '',
+          m.armor ? `Armor ${m.armor}` : '',
+        ]
+          .filter(Boolean)
+          .join(' · '),
+        m.fieldProvenance?.hp?.status === 'UNAVAILABLE'
+          ? 'SOURCE UNAVAILABLE · No independent creature stat block supplied.'
+          : '',
         ...m.attacks.map(
           (a) =>
             `${a.name} ${a.damage}${a.description ? ' · ' + a.description : ''}`,
@@ -188,7 +199,7 @@ export function executeReference(
     action.kind === 'procedure' &&
     action.procedureId === 'workbench.epk'
   ) {
-    const preset = rollEatPreyKillPreset(region, rules);
+    const preset = rollEatPreyKillPreset(region, rules, options.rng);
     const monster = loadMonsterPreset(id(), preset);
     output = {
       title: monster.name,
@@ -206,6 +217,15 @@ export function executeReference(
               ? preset.printedPage
               : undefined,
           roll: Number(preset.roll) || undefined,
+          tableId:
+            typeof preset.tableId === 'string' ? preset.tableId : undefined,
+          entryId: typeof preset.id === 'string' ? preset.id : undefined,
+          ...(typeof preset.hp !== 'number'
+            ? {
+                status: 'PARTIAL',
+                note: 'Creature identity is source-backed. No independent creature statistics are supplied for this result.',
+              }
+            : {}),
         },
       ],
     };

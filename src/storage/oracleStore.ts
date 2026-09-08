@@ -22,6 +22,9 @@ const tableSchema = z.object({
   description: z.string().optional(),
   tags: z.array(z.string()),
   sourceVerified: z.boolean(),
+  sourceStatus: z
+    .enum(['VERIFIED', 'PARTIAL', 'CONFLICT', 'UNAVAILABLE'])
+    .optional(),
   section: z.string().optional(),
   sourceNote: z.string().optional(),
   licenseNote: z.string().optional(),
@@ -60,6 +63,20 @@ const schema = z.object({
       oracleIds: z.array(z.string()).min(1),
       description: z.string().optional(),
       rollLabels: z.array(z.string()).optional(),
+      sourceBookId: z.string().optional(),
+      sourcePage: z
+        .union([
+          z.number().int().positive(),
+          z.array(z.number().int().positive()),
+          z.null(),
+        ])
+        .optional(),
+      printedPage: z.union([z.number(), z.string(), z.null()]).optional(),
+      sourceNote: z.string().optional(),
+      additionalPages: z.array(z.number().int().positive()).optional(),
+      steps: z
+        .array(z.object({ label: z.string(), oracleIds: z.array(z.string()) }))
+        .optional(),
     }),
   ),
   overrides: z

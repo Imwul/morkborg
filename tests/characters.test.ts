@@ -290,8 +290,13 @@ test(
       ...before,
       name: ch.name,
       sources: { ...before.sources, name: ch.sources!.name },
+      fieldProvenance: {
+        ...before.fieldProvenance,
+        name: ch.fieldProvenance!.name,
+      },
     };
     assert.deepEqual(ch, expected);
+    assert.equal(ch.fieldProvenance!.name.sourceText![0], ch.name);
     patchCharacterScalar(ch, 'name', 'Hervör');
     const other = structuredClone(ch);
     rerollCharacterItem(ch, 'traits', ch.traits[0].id);

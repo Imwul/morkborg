@@ -6,14 +6,17 @@ import type {
   SourceReference,
 } from '../domain/types';
 import type { OracleRegistry, OracleRoll } from '../domain/oracle';
-import { buildOracleRegistry } from '../data/oracles';
-import { getRules } from '../storage/rulesStore';
-import { getOraclePack } from '../storage/oracleStore';
 import { rollOracle, selectOracleEntry, sourceLabel } from './oracleRoller';
 import { id, now, pick, rollDie, random, type RandomSource } from './random';
 
-export const contentRegistry = () =>
-  buildOracleRegistry(getRules(), getOraclePack());
+import {
+  creatureRegistry,
+  provenanceForRoll,
+  sourceReferenceForRoll,
+} from './creatureProvenance';
+import { oracleValueProvenance } from '../domain/oracleProvenance';
+
+export const contentRegistry = creatureRegistry;
 export const regionOracleKeys: Partial<Record<RegionId, string>> = {
   galgenbeck: 'tveland',
   sarkash: 'sarkash',
@@ -43,18 +46,7 @@ function reference(
   roll: OracleRoll,
   field: string,
 ): SourceReference {
-  const table = registry.tables.find((t) => t.id === roll.oracleId)!;
-  return {
-    field,
-    bookId: table.sourceBookId,
-    bookTitle: registry.books.find((b) => b.id === table.sourceBookId)?.title,
-    tableId: table.id,
-    tableTitle: table.title,
-    pdfPage: table.sourcePage,
-    printedPage: table.printedPage,
-    roll: roll.roll,
-    entryId: roll.entryId,
-  };
+  return sourceReferenceForRoll(registry, roll, field);
 }
 function roll(
   registry: OracleRegistry,
@@ -62,7 +54,7 @@ function roll(
   rng: RandomSource = random,
 ): OracleRoll {
   const table = registry.tables.find((t) => t.id === tableId);
-  if (!table)
+  if (!table || table.rollable === false || !table.sourceVerified)
     throw new Error(
       '필요한 원문 표가 없습니다. 개인 자료 JSON을 가져오세요: ' + tableId,
     );
@@ -99,7 +91,7 @@ export function rerollNPC(
   const results = tables.map((tableId) => roll(registry, tableId, rng));
   (npc as unknown as Record<string, unknown>)[field] = results
     .map((r) => r.text)
-    .join(' ');
+    .join(' · ');
   npc.sources = {
     ...npc.sources,
     [field]: results.map((r) => r.source).join(' + '),
@@ -108,6 +100,21 @@ export function rerollNPC(
     ...npc.sourceRefs.filter((r) => r.field !== field),
     ...results.map((r) => reference(registry, r, field)),
   ];
+  npc.fieldProvenance = {
+    ...npc.fieldProvenance,
+    [field]: {
+      ...provenanceForRoll(registry, results[0]),
+      sourceRefs: results.map((r) => reference(registry, r, field)),
+      sourceText: results.map((r) => r.text),
+      rolls: results.flatMap((r) => provenanceForRoll(registry, r).rolls ?? []),
+      classification:
+        results.length === 1 ? 'SOURCE_VERBATIM' : 'SOURCE_COMPOSED',
+      transformation:
+        results.length === 1
+          ? 'none'
+          : 'Independent source fragments separated with ·',
+    },
+  };
   npc.updatedAt = now();
 }
 export function createNPC(
@@ -204,7 +211,31 @@ export function rerollEncounter(
       entryId: entry?.id ?? null,
       text: entry?.text ?? '',
       source: sourceLabel(table, registry),
-      metadata: entry?.metadata,
+      metadata: {
+        ...entry?.metadata,
+        provenance: {
+          ...oracleValueProvenance(table, registry, entry, {
+            value,
+            values: [die],
+          }),
+          rolls: [
+            {
+              tableId,
+              dice: encounter.category === 'rare' ? 'd8 + DR' : 'd12',
+              value,
+              diceValues: [die],
+              entryId: entry?.id ?? null,
+            },
+          ],
+          ...(!entry
+            ? {
+                status: 'UNAVAILABLE' as const,
+                classification: 'APP_DERIVED' as const,
+                transformation: `d8 ${die} + Dungeon DR ${encounter.dungeonDR} = ${value}, outside the printed 1–20 table; no creature text generated.`,
+              }
+            : {}),
+        },
+      },
     };
     encounter.unresolved = !entry;
   } else {
@@ -229,6 +260,28 @@ export function rerollEncounter(
       ...(procedure ? { note: procedure } : {}),
     },
   ];
+  const provenance = provenanceForRoll(
+    registry,
+    result,
+    tableId === 'sd.stockCreatures'
+      ? `sd.${encounter.category}-stocking`
+      : undefined,
+  );
+  if (procedure)
+    provenance.sourceRefs.push({
+      bookId: 'sd',
+      bookTitle: 'Sölitary Defilement',
+      pdfPage: 19,
+      printedPage: 17,
+      tableTitle: 'Dungeon preparation',
+      role: 'routing',
+      note: procedure,
+    });
+  encounter.fieldProvenance = {
+    ...encounter.fieldProvenance,
+    text: provenance,
+    description: structuredClone(provenance),
+  };
   encounter.generation = {
     system: 'oracle-encounter',
     rolls: { result: result.roll },

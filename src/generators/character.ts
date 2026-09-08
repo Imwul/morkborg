@@ -8,11 +8,19 @@ import {
   sourceCitation,
   type RuleEntry,
 } from '../storage/rulesStore';
-import { id, now, pick, rollDie, rollDice, weightedPick } from './random';
+import { id, now, pick, rollDie, weightedPick } from './random';
+import {
+  editedProvenance,
+  type GeneratedValueProvenance,
+} from '../domain/generationProvenance';
+import {
+  provenanceForRuleEntry,
+  rollCreatureTable,
+} from './creatureProvenance';
 import {
   abilityModifier,
   coreRule,
-  rollTable,
+  entries as canonicalEntries,
   sampleEntry,
   scalarText,
   type RuleRoll,
@@ -24,7 +32,7 @@ import {
   characterClass,
   characterClasses,
   classArmorForbidden,
-  classCharacterName,
+  classCharacterNameResult,
   classCitation,
   classOmenBonus,
   classOmenDie,
@@ -53,32 +61,139 @@ export const isClassless = (c: Partial<Character>) =>
   !c.className || c.className === 'Classless';
 export const hasScroll = (c: Partial<Character>) =>
   (c.equipment ?? []).some((e) => /scroll/i.test(e.text));
-const tableEntries = (key: string) => {
-  const table = getRules()?.tables[key];
-  if (!table) throw new Error(`원문 표를 불러와야 합니다: ${key}`);
-  return table.entries;
-};
-function resolveGear(entry: RuleEntry, presence: number): string {
+const tableEntries = canonicalEntries;
+
+function mechanicalProvenance(
+  page: number,
+  transformation: string,
+  sourceText: string[] = [],
+  dice?: string,
+  values?: number[],
+  c?: Partial<Character>,
+): GeneratedValueProvenance {
+  const def = c && characterClass(c);
+  return {
+    classification: 'APP_DERIVED',
+    origin: 'source',
+    status: 'VERIFIED',
+    sourceRefs: [
+      {
+        bookId: 'core',
+        pdfPage: page,
+        printedPage: page,
+        tableTitle: 'Character creation',
+      },
+      ...(def
+        ? [
+            {
+              bookId: def.source.bookId,
+              pdfPage: def.source.pdfPages,
+              tableTitle: def.name,
+            },
+          ]
+        : []),
+    ],
+    sourceText,
+    transformation,
+    procedureId: def ? `character.class:${def.id}` : 'character.core-classless',
+    ...(dice && values
+      ? {
+          rolls: [
+            {
+              tableId: def
+                ? `character.class:${def.id}`
+                : 'character.core-classless',
+              dice,
+              value: values.reduce((a, b) => a + b, 0),
+              diceValues: values,
+            },
+          ],
+        }
+      : {}),
+  };
+}
+function resolveGear(
+  entry: RuleEntry,
+  presence: number,
+  tableId: string,
+): { text: string; provenance: GeneratedValueProvenance } {
+  const provenance = provenanceForRuleEntry(tableId, entry);
   let text = entry.text.replace(/Presence\s*\+\s*(\d+)/g, (_, n: string) =>
     String(presence + Number(n)),
   );
-  if (entry.meta.scrollTable) {
-    const table = scalarText(entry.meta.scrollTable);
-    const scroll = sampleEntry('core.' + table);
-    return `${table} scroll: ${scroll.text} — ${scalarText(scroll.meta.effect)}`;
+  if (text !== entry.text) {
+    provenance.classification = 'APP_DERIVED';
+    provenance.transformation = `Presence ${presence} substituted into printed equipment quantities.`;
   }
-  if (entry.meta.quantity === 'd4')
-    text = text.replace('d4 doses', `${rollDie(4)} doses`);
+  if (entry.meta.scrollTable) {
+    const table = scalarText(entry.meta.scrollTable),
+      scroll = rollCreatureTable('core.' + table);
+    const effect = scalarText(scroll.result.metadata?.effect);
+    return {
+      text: `${table} scroll: ${scroll.value}${effect ? ` — ${effect}` : ''}`,
+      provenance: {
+        ...provenance,
+        classification: 'SOURCE_COMPOSED',
+        sourceRefs: [...provenance.sourceRefs, ...scroll.provenance.sourceRefs],
+        sourceText: [entry.text, scroll.value, ...(effect ? [effect] : [])],
+        rolls: [
+          ...(provenance.rolls ?? []),
+          ...(scroll.provenance.rolls ?? []),
+        ],
+        transformation:
+          'Starting gear selects the printed sacred/unclean scroll table; name and effect kept together.',
+      },
+    };
+  }
+  if (entry.meta.quantity === 'd4') {
+    const doses = rollDie(4);
+    text = text.replace('d4 doses', `${doses} doses`);
+    provenance.classification = 'APP_DERIVED';
+    provenance.transformation = `Source d4 dose quantity replaced by ${doses}; other source words unchanged.`;
+    provenance.rolls!.push({
+      tableId,
+      dice: 'd4',
+      value: doses,
+      diceValues: [doses],
+    });
+  }
   if (entry.meta.companion && typeof entry.meta.companion === 'object') {
     const companion = entry.meta.companion as {
       count: number | string;
       hp: string;
     };
+    if (typeof companion.count !== 'number' && companion.count !== 'd4')
+      throw new Error('SOURCE DATA UNAVAILABLE: companion quantity');
     const count =
       typeof companion.count === 'number' ? companion.count : rollDie(4);
-    return `${text} [${count} creature(s); HP: ${Array.from({ length: count }, () => rollDie(companion.hp.startsWith('d6') ? 6 : 4) + 2).join(', ')}]`;
+    if (typeof companion.count !== 'number')
+      provenance.rolls!.push({
+        tableId,
+        dice: 'd4',
+        value: count,
+        diceValues: [count],
+      });
+    const match = /^d(4|6)\+2$/.exec(companion.hp.replace(/\s/g, ''));
+    if (!match)
+      throw new Error('SOURCE DATA UNAVAILABLE: companion HP procedure');
+    const hp = Array.from({ length: count }, () => {
+      const value = rollDie(Number(match[1]));
+      provenance.rolls!.push({
+        tableId,
+        dice: companion.hp,
+        value: value + 2,
+        diceValues: [value],
+      });
+      return value + 2;
+    });
+    provenance.classification = 'APP_DERIVED';
+    provenance.transformation = `Printed companion quantity and HP: count ${count}; ${companion.hp} per creature. Attack remains the printed value.`;
+    return {
+      text: `${text} [${count} creature(s); HP: ${hp.join(', ')}]`,
+      provenance,
+    };
   }
-  return text;
+  return { text, provenance };
 }
 // A gear-only reroll never changes another slot. New scrolls require compatible
 // existing starting arms; unknown manually written arms are left untouched.
@@ -119,13 +234,30 @@ export function rollEquipmentSlot(
 ): CharacterItem {
   const base = { id: id(), slot };
   if (slot === 'waterskin')
-    return { ...base, text: 'Waterskin', source: coreRule(21, '시작 장비') };
-  if (slot === 'food')
     return {
       ...base,
-      text: `${rollDie(4)} days of food`,
-      source: coreRule(21, 'd4 days of food'),
+      text: 'Waterskin',
+      source: coreRule(21, '시작 장비'),
+      provenance: {
+        ...mechanicalProvenance(21, 'Capitalization only', ['waterskin']),
+        classification: 'SOURCE_COMPOSED',
+      },
     };
+  if (slot === 'food') {
+    const days = rollDie(4);
+    return {
+      ...base,
+      text: `${days} days of food`,
+      source: coreRule(21, 'd4 days of food'),
+      provenance: mechanicalProvenance(
+        21,
+        `d4 days of food → ${days} days`,
+        ['d4 days worth of food'],
+        'd4',
+        [days],
+      ),
+    };
+  }
   const tableId =
     slot === 'container'
       ? 'core.containers'
@@ -142,7 +274,7 @@ export function rollEquipmentSlot(
   return {
     ...base,
     tableId,
-    text: resolveGear(entry, c.presence ?? 0),
+    ...resolveGear(entry, c.presence ?? 0, tableId),
     source:
       sourceCitation(tableId) +
       (entry.meta.scrollTable
@@ -166,6 +298,13 @@ export function rollWeapon(c: Partial<Character>): CharacterWeapon {
     damage: scalarText(entry.meta.damage),
     tableId: 'core.weapons',
     slot: 'startingWeapon',
+    provenance: provenanceForRuleEntry(
+      'core.weapons',
+      entry,
+      ammo
+        ? `Source weapon and ammunition; Presence ${c.presence ?? 0} + 10 arrows/bolts.`
+        : 'none',
+    ),
     source: coreRule(
       23,
       `시작 무기 d${sides}${hasScroll(c) ? ' · scroll 보유' : ''}`,
@@ -178,6 +317,14 @@ export function rollArmor(c: Partial<Character>): RuleRoll {
     return {
       value: 'No armor',
       source: def ? classCitation(def) + ' · 방어구 착용 불가' : 'No armor',
+      provenance: mechanicalProvenance(
+        23,
+        'Class prohibits armor',
+        ['No armor'],
+        undefined,
+        undefined,
+        c,
+      ),
     };
   const sides = def?.armorDie ?? (hasScroll(c) ? 2 : 4);
   const candidates = tableEntries('core.armor')
@@ -186,6 +333,11 @@ export function rollArmor(c: Partial<Character>): RuleRoll {
   const entry = pick(candidates);
   return {
     value: `${entry.text}${entry.meta.damageReduction ? ` −${scalarText(entry.meta.damageReduction)}` : ''}${Number(entry.meta.agilityDRPenalty) > 0 ? ` (Agility DR +${scalarText(entry.meta.agilityDRPenalty)}; defence DR +${scalarText(entry.meta.defenseDRPenalty)})` : ''}`,
+    provenance: provenanceForRuleEntry(
+      'core.armor',
+      entry,
+      'Printed armor identity, damage reduction and DR penalties displayed together.',
+    ),
     source: coreRule(
       23,
       `시작 방어구 d${sides}${hasScroll(c) ? ' · scroll 보유' : ''}`,
@@ -201,6 +353,7 @@ export function rollTrait(tableId = 'core.traits'): CharacterItem {
     tableId: table,
     source: sourceCitation(table),
     entryRoll: Number(entry.meta.roll),
+    provenance: provenanceForRuleEntry(table, entry),
   };
 }
 export function characterFieldRoll(
@@ -209,56 +362,111 @@ export function characterFieldRoll(
 ): RuleRoll {
   const def = characterClass(c);
   if (key === 'name') {
-    const name = def ? classCharacterName(def) : null;
-    return name && def
-      ? { value: name, source: classCitation(def) }
-      : rollTable('core.names');
+    const name = def ? classCharacterNameResult(def) : null;
+    return name ?? rollCreatureTable('core.names');
   }
-  if (abilityKeys.includes(key as (typeof abilityKeys)[number]))
+  if (abilityKeys.includes(key as (typeof abilityKeys)[number])) {
+    const dice = [rollDie(6), rollDie(6), rollDie(6)];
+    const raw = dice.reduce((a, b) => a + b, 0),
+      adjustment = def?.abilityRollAdjustments[key] ?? 0,
+      modifier = def?.abilityModifierAdjustments[key] ?? 0;
+    const value = abilityModifier(raw + adjustment) + modifier;
     return {
-      value:
-        abilityModifier(
-          rollDice(3, 6) + (def?.abilityRollAdjustments[key] ?? 0),
-        ) + (def?.abilityModifierAdjustments[key] ?? 0),
+      value,
       source: def
         ? classCitation(def) +
-          ` · 3d6${(def.abilityRollAdjustments[key] ?? 0) >= 0 ? '+' : ''}${def.abilityRollAdjustments[key] ?? 0} 변환${def.abilityModifierAdjustments[key] ? ` 후 ${def.abilityModifierAdjustments[key]}` : ''}`
+          ` · 3d6${adjustment >= 0 ? '+' : ''}${adjustment} 변환${modifier ? ` 후 ${modifier}` : ''}`
         : coreRule(27, '3d6 능력치 변환'),
+      provenance: mechanicalProvenance(
+        27,
+        `3d6 (${dice.join('+')}) + ${adjustment} → ability modifier + ${modifier} = ${value}`,
+        [],
+        '3d6',
+        dice,
+        c,
+      ),
     };
-  if (key === 'hp' || key === 'maxHp')
+  }
+  if (key === 'hp' || key === 'maxHp') {
+    const die = rollDie(def?.hpDie ?? 8),
+      value = Math.max(1, (c.toughness ?? 0) + die);
     return {
-      value: Math.max(1, (c.toughness ?? 0) + rollDie(def?.hpDie ?? 8)),
+      value,
       source: def
         ? classCitation(def) + ` · max(1, Toughness + d${def.hpDie})`
         : coreRule(29, 'max(1, Toughness + d8)'),
+      provenance: mechanicalProvenance(
+        29,
+        `max(1, Toughness ${c.toughness ?? 0} + ${die}) = ${value}`,
+        [],
+        `d${def?.hpDie ?? 8}`,
+        [die],
+        c,
+      ),
     };
-  if (key === 'omens')
+  }
+  if (key === 'omens') {
+    const die = rollDie(classOmenDie(c)),
+      bonus = classOmenBonus(c);
     return {
-      value: rollDie(classOmenDie(c)) + classOmenBonus(c),
+      value: die + bonus,
       source: def
-        ? classCitation(def) +
-          ` · d${classOmenDie(c)}+${classOmenBonus(c)} Omens`
+        ? classCitation(def) + ` · d${classOmenDie(c)}+${bonus} Omens`
         : coreRule(37, 'Classless d2 Omens · 선택 규칙'),
+      provenance: mechanicalProvenance(
+        37,
+        `d${classOmenDie(c)} (${die}) + ${bonus} Omens`,
+        [],
+        `d${classOmenDie(c)}`,
+        [die],
+        c,
+      ),
     };
-  if (key === 'silver')
+  }
+  if (key === 'silver') {
+    const count = def?.silver.count ?? 2,
+      sides = def?.silver.sides ?? 6,
+      multiplier = def?.silver.multiplier ?? 10;
+    const dice = Array.from({ length: count }, () => rollDie(sides));
     return {
-      value:
-        rollDice(def?.silver.count ?? 2, def?.silver.sides ?? 6) *
-        (def?.silver.multiplier ?? 10),
+      value: dice.reduce((a, b) => a + b, 0) * multiplier,
       source: def
         ? classCitation(def) + ' · 시작 은화'
         : coreRule(21, '2d6 × 10 silver'),
+      provenance: mechanicalProvenance(
+        21,
+        `${count}d${sides} (${dice.join('+')}) × ${multiplier} silver`,
+        [],
+        `${count}d${sides}`,
+        dice,
+        c,
+      ),
     };
-  if (key === 'powerUses')
+  }
+  if (key === 'powerUses') {
+    const die = rollDie(4),
+      value = Math.max(0, (c.presence ?? 0) + die);
     return {
-      value: Math.max(0, (c.presence ?? 0) + rollDie(4)),
+      value,
       source: coreRule(34, 'Presence+d4 Powers/day'),
+      provenance: mechanicalProvenance(
+        34,
+        `max(0, Presence ${c.presence ?? 0} + d4 ${die}) = ${value}`,
+        [],
+        'd4',
+        [die],
+      ),
     };
+  }
   if (key === 'armor') return rollArmor(c);
   if (key === 'archetype' || key === 'className')
     return {
       value: 'Classless',
       source: coreRule(21, '기본 캐릭터 · 선택 직업 없음'),
+      provenance: mechanicalProvenance(
+        21,
+        'Neutral label for character without optional class.',
+      ),
     };
   return { value: '', source: '직접 작성' };
 }
@@ -267,6 +475,17 @@ export function updateCharacterHpFromToughness(c: Character): void {
   if (!die || !c.sources?.maxHp?.includes('Toughness')) return;
   const priorMax = c.maxHp;
   c.maxHp = Math.max(1, c.toughness + die);
+  c.fieldProvenance = {
+    ...c.fieldProvenance,
+    maxHp: mechanicalProvenance(
+      29,
+      `max(1, Toughness ${c.toughness} + saved HP die ${die}) = ${c.maxHp}`,
+      [],
+      undefined,
+      undefined,
+      c,
+    ),
+  };
   if (c.hp === priorMax && c.sources.hp !== '직접 작성') c.hp = c.maxHp;
 }
 export function patchCharacterScalar(
@@ -292,6 +511,11 @@ export function patchCharacterScalar(
   if (key === 'status' && !['alive', 'dead'].includes(String(value))) return;
   Object.assign(c, { [key]: value });
   c.sources = { ...c.sources, [key]: source };
+  if (source === '직접 작성')
+    c.fieldProvenance = {
+      ...c.fieldProvenance,
+      [key]: editedProvenance(c.fieldProvenance?.[key]),
+    };
   if (key === 'className') {
     c.classSource = source;
     if (characterClasses().find((d) => d.id === c.classId)?.name !== input)
@@ -311,6 +535,19 @@ export function rerollCharacterField(c: Character, key: string): void {
       rolls: { ...c.generation?.rolls, hpDie: die },
     };
     c.maxHp = c.hp = Math.max(1, c.toughness + die);
+    const provenance = mechanicalProvenance(
+      29,
+      `max(1, Toughness ${c.toughness} + d${def?.hpDie ?? 8} result ${die}) = ${c.maxHp}`,
+      [],
+      `d${def?.hpDie ?? 8}`,
+      [die],
+      c,
+    );
+    c.fieldProvenance = {
+      ...c.fieldProvenance,
+      maxHp: provenance,
+      hp: structuredClone(provenance),
+    };
     c.sources = {
       ...c.sources,
       hp: coreRule(29, '초기 HP = 최대 HP'),
@@ -321,6 +558,8 @@ export function rerollCharacterField(c: Character, key: string): void {
   } else {
     const result = characterFieldRoll(key, c);
     patchCharacterScalar(c, key, result.value, result.source);
+    if (result.provenance)
+      c.fieldProvenance = { ...c.fieldProvenance, [key]: result.provenance };
   }
 }
 export function generateCharacter(
@@ -357,6 +596,14 @@ export function generateCharacter(
     generation: { system: 'core-classless', rolls: {} },
   };
   if (blank) return c;
+  if (!getRules())
+    throw new Error('SOURCE DATA UNAVAILABLE: character creation');
+  c.fieldProvenance = {
+    className: mechanicalProvenance(
+      21,
+      'Neutral label for character without optional class.',
+    ),
+  };
   const def =
     mode === 'random'
       ? pick(characterClasses())
@@ -367,6 +614,20 @@ export function generateCharacter(
     c.classId = def.id;
     c.className = def.name;
     c.classSource = classCitation(def);
+    c.fieldProvenance = {
+      ...c.fieldProvenance,
+      className: {
+        ...mechanicalProvenance(
+          21,
+          'none',
+          [def.name],
+          undefined,
+          undefined,
+          c,
+        ),
+        classification: 'SOURCE_COMPOSED',
+      },
+    };
     c.generation!.system = `class:${def.id}`;
     applyClassCreation(c, def);
   }
@@ -382,12 +643,18 @@ export function generateCharacter(
   const armor = rollArmor(c);
   c.armor = String(armor.value);
   c.sources!.armor = armor.source;
+  if (armor.provenance)
+    c.fieldProvenance = { ...c.fieldProvenance, armor: armor.provenance };
   c.traits = [rollTrait(), rollTrait(), rollTrait('core.bodies')];
   addCharacterBackground(c);
   [...c.traits, ...(c.background ?? [])].forEach((item) =>
     syncCharacterAttachments(c, item),
   );
-  c.powerUses = Number(characterFieldRoll('powerUses', c).value);
+  const powers = characterFieldRoll('powerUses', c);
+  c.powerUses = Number(powers.value);
+  c.sources!.powerUses = powers.source;
+  if (powers.provenance)
+    c.fieldProvenance = { ...c.fieldProvenance, powerUses: powers.provenance };
   return c;
 }
 export function rerollCharacterItem(

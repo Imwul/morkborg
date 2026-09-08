@@ -13,6 +13,8 @@ const vocabulary: Record<string, string> = {
   'sacred scroll': '신성한 두루마리',
   'unclean scroll': '부정한 두루마리',
   'Innate Power': '타고난 권능',
+  'Consume part of the canvas for a permanent effect. The picture’s monetary worth is halved.':
+    '화포 일부를 먹으면 영구 효과를 얻습니다. 그림의 금전 가치는 절반이 됩니다.',
   Attack: '공격',
   Defence: '방어',
   Defense: '방어',

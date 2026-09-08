@@ -325,7 +325,7 @@ test(
 );
 
 test(
-  'private source fixture: generation prepares exactly four specials with eight distinct source detail seeds',
+  'private source fixture: generation prepares four single Core samples and preserves legitimate repetitions',
   { skip: !hasFixture },
   () => {
     setRules(fixture!.library);
@@ -335,11 +335,19 @@ test(
       assert.equal(d.rooms.length, 4);
       assert.ok(d.rooms.every((room) => room.kind === 'special'));
       const details = d.rooms.flatMap((room) => room.specialDetailIds ?? []);
-      assert.equal(details.length, 8);
-      assert.equal(new Set(details).size, 8);
-      assert.ok(d.rooms.every((room) => room.feature.includes(d.title)));
+      assert.equal(details.length, 4);
+      assert.equal(
+        new Set(details).size,
+        1,
+        'identical source rolls must not be silently rerolled',
+      );
+      assert.ok(d.rooms.every((room) => room.feature === ''));
       assert.ok(
-        d.rooms.every((room) => room.sources!.feature.includes('앱 해석')),
+        d.rooms.every((room) =>
+          room.components?.every(
+            (component) => component.provenance.status === 'VERIFIED',
+          ),
+        ),
       );
     }
     for (const requestedCount of [1, 9]) {
@@ -350,9 +358,8 @@ test(
       );
       assert.equal(candidate.rooms.length, 4);
       assert.equal(
-        new Set(candidate.rooms.flatMap((room) => room.specialDetailIds ?? []))
-          .size,
-        8,
+        candidate.rooms.flatMap((room) => room.specialDetailIds ?? []).length,
+        4,
       );
     }
   },
@@ -381,8 +388,9 @@ test(
       others,
     );
     assert.equal(
-      new Set(d.rooms.flatMap((room) => room.specialDetailIds ?? [])).size,
-      8,
+      d.rooms.flatMap((room) => room.specialDetailIds ?? []).length,
+      4,
     );
+    assert.equal(target.components?.[0].provenance.rolls?.[0].value, 46);
   },
 );

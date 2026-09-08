@@ -1,3 +1,5 @@
+import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import { RoomPacket } from './RoomPacket';
 import { DungeonCrawlWorkspace } from './DungeonCrawlWorkspace';
 import { rerollSpecialRoom } from '../generators/specialRooms';
 import {
@@ -28,7 +30,7 @@ import {
   createRoom,
   generateDungeonRoll,
   generateRoomRoll,
-  dungeonTitle,
+  dungeonTitleRoll,
   canReroll,
   rerollRoomContents,
 } from '../generators';
@@ -48,7 +50,6 @@ import { CompactCard } from './CompactCard';
 import { useRules } from '../storage/rulesStore';
 import { now } from '../generators/random';
 import { Field } from './Field';
-import { Translation } from './Translation';
 import type { Confirm } from './Library';
 import { singular } from './Library';
 import { DungeonDraft } from './DungeonDraft';
@@ -72,7 +73,12 @@ export function Dungeons({
   const rules = useRules();
   const d = c.dungeons.find((x) => x.id === c.workspace.dungeonId);
   const tab = c.workspace.dungeonTab;
-  const patch = (key: string, value: unknown, source?: string) => {
+  const patch = (
+    key: string,
+    value: unknown,
+    source?: string,
+    provenance?: GeneratedValueProvenance,
+  ) => {
     if (d)
       editCampaign(c.id, (next) => {
         const target = next.dungeons.find((x) => x.id === d.id)!;
@@ -80,6 +86,14 @@ export function Dungeons({
           [key]: value,
           updatedAt: now(),
           sources: { ...target.sources, [key]: source ?? '직접 작성' },
+          ...(provenance
+            ? {
+                fieldProvenance: {
+                  ...target.fieldProvenance,
+                  [key]: provenance,
+                },
+              }
+            : {}),
         });
       });
   };
@@ -195,29 +209,18 @@ export function Dungeons({
       <div className="dungeon-heading">
         <span className="eyebrow">DUNGEON / {regionById(d.region).name}</span>
         <div className="title-edit">
-          <Textarea
-            rows={1}
-            aria-label="던전 제목"
+          <Field
+            spec={{ key: 'title', label: 'DUNGEON' }}
             value={d.title}
-            onChange={(e) => patch('title', e.target.value)}
-            className="title-input"
-          />
-          <Button
-            className="icon-btn"
-            disabled={!rules.pack}
-            aria-label="던전 제목 재굴림"
-            onClick={() =>
-              patch(
-                'title',
-                dungeonTitle(),
-                'MÖRK BORG BARE BONES EDITION · PDF 71쪽 · d12 두 번',
-              )
+            source={d.sources?.title}
+            provenance={d.fieldProvenance?.title}
+            onChange={(value, source, provenance) =>
+              patch('title', value, source, provenance)
             }
-          >
-            <Dices size={20} />
-          </Button>
+            reroll={rules.pack ? dungeonTitleRoll : undefined}
+            showTools={false}
+          />
         </div>
-        <Translation text={d.title} />
         <div className="region-line">
           <label htmlFor="dungeon-region" className="sr-only">
             지역
@@ -291,13 +294,23 @@ export function Dungeons({
                   () =>
                     editCampaign(c.id, (next) => {
                       const target = next.dungeons.find((x) => x.id === d.id)!;
-                      for (const f of dungeonFields) {
+                      for (const f of dungeonFields.filter((item) =>
+                        canReroll('dungeon', item.key),
+                      )) {
                         const rolled = generateDungeonRoll(
                           f.key,
                           target.region,
                         );
                         Object.assign(target, {
                           [f.key]: rolled.value,
+                          ...(rolled.provenance
+                            ? {
+                                fieldProvenance: {
+                                  ...target.fieldProvenance,
+                                  [f.key]: rolled.provenance,
+                                },
+                              }
+                            : {}),
                           sources: {
                             ...target.sources,
                             [f.key]: rolled.source,
@@ -314,7 +327,9 @@ export function Dungeons({
           </div>
           {rules.pack &&
             dungeonFields.some(
-              (f) => !(d as unknown as Record<string, unknown>)[f.key],
+              (f) =>
+                canReroll('dungeon', f.key) &&
+                !(d as unknown as Record<string, unknown>)[f.key],
             ) && (
               <div className="fill-missing">
                 <p>
@@ -326,7 +341,9 @@ export function Dungeons({
                   onClick={() =>
                     editCampaign(c.id, (next) => {
                       const target = next.dungeons.find((x) => x.id === d.id)!;
-                      for (const field of dungeonFields)
+                      for (const field of dungeonFields.filter((item) =>
+                        canReroll('dungeon', item.key),
+                      ))
                         if (
                           !(target as unknown as Record<string, unknown>)[
                             field.key
@@ -338,6 +355,14 @@ export function Dungeons({
                           );
                           Object.assign(target, {
                             [field.key]: result.value,
+                            ...(result.provenance
+                              ? {
+                                  fieldProvenance: {
+                                    ...target.fieldProvenance,
+                                    [field.key]: result.provenance,
+                                  },
+                                }
+                              : {}),
                             sources: {
                               ...target.sources,
                               [field.key]: result.source,
@@ -356,7 +381,16 @@ export function Dungeons({
             dungeon={d}
             ready={!!rules.pack}
             patch={patch}
-            patchRoom={(roomId, key, value, source) =>
+            confirm={confirm}
+            updateRoom={(roomId, action) =>
+              editCampaign(c.id, (next) => {
+                const room = next.dungeons
+                  .find((item) => item.id === d.id)
+                  ?.rooms.find((r) => r.id === roomId);
+                if (room) action(room);
+              })
+            }
+            patchRoom={(roomId, key, value, source, provenance) =>
               editCampaign(c.id, (next) => {
                 const target = next.dungeons.find((x) => x.id === d.id)!;
                 const room = target.rooms.find((r) => r.id === roomId);
@@ -364,6 +398,14 @@ export function Dungeons({
                   Object.assign(room, {
                     [key]: value,
                     sources: { ...room.sources, [key]: source ?? '직접 작성' },
+                    ...(provenance
+                      ? {
+                          fieldProvenance: {
+                            ...room.fieldProvenance,
+                            [key]: provenance,
+                          },
+                        }
+                      : {}),
                   });
                   target.updatedAt = now();
                 }
@@ -431,7 +473,8 @@ export function Dungeons({
         </div>
       )}
       {tab !== 'notes' && tab !== 'crawl' && (
-        <div className="notes-block dungeon-inline-notes">
+        <details className="notes-block dungeon-inline-notes">
+          <summary>NOTES ›</summary>
           <label className="eyebrow" htmlFor="dungeon-notes-inline">
             던전 노트
           </label>
@@ -441,16 +484,19 @@ export function Dungeons({
             onChange={(e) => patch('notes', e.target.value)}
             placeholder="이 던전에 대한 기록을 남기세요. 자동으로 저장됩니다."
           />
-        </div>
+        </details>
       )}
-      <div className="danger-zone">
-        <Button className="btn ghost" onClick={() => duplicate(d)}>
-          <Copy size={14} /> 던전 복제
-        </Button>
-        <Button className="btn ghost danger" onClick={() => remove(d)}>
-          <Trash2 size={14} /> 던전 삭제
-        </Button>
-      </div>
+      <details className="secondary-dungeon-actions">
+        <summary>MORE ›</summary>
+        <div className="danger-zone">
+          <Button className="btn ghost" onClick={() => duplicate(d)}>
+            <Copy size={14} /> 던전 복제
+          </Button>
+          <Button className="btn ghost danger" onClick={() => remove(d)}>
+            <Trash2 size={14} /> 던전 삭제
+          </Button>
+        </div>
+      </details>
     </div>
   );
 }
@@ -475,7 +521,12 @@ function Rooms({
       next.workspace.roomId = room.id;
     });
   }
-  function patch(key: string, value: string | number, source?: string) {
+  function patch(
+    key: string,
+    value: string | number,
+    source?: string,
+    provenance?: GeneratedValueProvenance,
+  ) {
     if (selected)
       editCampaign(c.id, (next) => {
         const room = next.dungeons
@@ -484,6 +535,11 @@ function Rooms({
         Object.assign(room, {
           [key]: value,
           sources: { ...room.sources, [key]: source ?? '직접 작성' },
+          ...(provenance
+            ? {
+                fieldProvenance: { ...room.fieldProvenance, [key]: provenance },
+              }
+            : {}),
         });
       });
   }
@@ -608,22 +664,46 @@ function Rooms({
               </Button>
             </div>
             <div className="fields-grid">
-              {roomFields.map((spec) => (
-                <Field
-                  key={spec.key}
-                  spec={spec}
-                  value={String(
-                    (selected as unknown as Record<string, unknown>)[spec.key],
-                  )}
-                  source={selected.sources?.[spec.key]}
-                  onChange={(value, source) => patch(spec.key, value, source)}
-                  reroll={
-                    canReroll('room', spec.key)
-                      ? () => generateRoomRoll(spec.key, d.region)
-                      : undefined
+              {selected.components ? (
+                <RoomPacket
+                  expanded
+                  dungeon={d}
+                  room={selected}
+                  index={d.rooms.indexOf(selected)}
+                  ready={!!rules.pack}
+                  confirm={confirm}
+                  update={(action) =>
+                    editCampaign(c.id, (next) => {
+                      const room = next.dungeons
+                        .find((item) => item.id === d.id)!
+                        .rooms.find((item) => item.id === selected.id)!;
+                      action(room);
+                    })
                   }
                 />
-              ))}
+              ) : (
+                roomFields.map((spec) => (
+                  <Field
+                    key={spec.key}
+                    spec={spec}
+                    value={String(
+                      (selected as unknown as Record<string, unknown>)[
+                        spec.key
+                      ],
+                    )}
+                    source={selected.sources?.[spec.key]}
+                    provenance={selected.fieldProvenance?.[spec.key]}
+                    onChange={(value, source, provenance) =>
+                      patch(spec.key, value, source, provenance)
+                    }
+                    reroll={
+                      canReroll('room', spec.key)
+                        ? () => generateRoomRoll(spec.key, d.region)
+                        : undefined
+                    }
+                  />
+                ))
+              )}
             </div>
             <DungeonEncounterRoller
               key={`encounter-roll:${selected.id}`}

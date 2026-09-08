@@ -44,6 +44,7 @@ import {
 import { ReferenceContext, useReferenceDesk } from './ReferenceContext';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { useRules } from '../storage/rulesStore';
+import type { RuleEntry } from '../storage/rulesStore';
 import {
   readReferencePreferences,
   writeReferencePreferences,
@@ -562,8 +563,9 @@ export function ReferenceProvider({
                     ))}
                 </div>
               )}
-              {selected.kind === 'oracle' && !selected.action && (
-                <div className="reference-static-table">
+              {selected.kind === 'oracle' && (
+                <details className="reference-static-table">
+                  <summary>TABLE · 원문 표 보기</summary>
                   {selected.canonicalIds
                     .flatMap((key) =>
                       oracles.registry.tables.filter(
@@ -572,23 +574,45 @@ export function ReferenceProvider({
                     )
                     .map((table) => (
                       <section key={table.id}>
-                        <p>{table.sourceNote}</p>
                         <table>
                           <caption>
                             {table.title} · {table.originalDice ?? table.dice}
                           </caption>
                           <tbody>
                             {table.entries.map((entry) => (
-                              <tr key={entry.id}>
+                              <tr
+                                key={entry.id}
+                                className={
+                                  reading?.oracle?.rolls.some(
+                                    (roll) => roll.entryId === entry.id,
+                                  )
+                                    ? 'current-table-result'
+                                    : undefined
+                                }
+                              >
                                 <th scope="row">{oraclePrintedRange(entry)}</th>
-                                <td>{entry.text}</td>
+                                <td>
+                                  {entry.text}
+                                  {Array.isArray(entry.metadata?.followup) && (
+                                    <details className="table-followup">
+                                      <summary>조건부 추가 표</summary>
+                                      <ol>
+                                        {(
+                                          entry.metadata.followup as RuleEntry[]
+                                        ).map((child, index) => (
+                                          <li key={index}>{child.text}</li>
+                                        ))}
+                                      </ol>
+                                    </details>
+                                  )}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
                         </table>
                       </section>
                     ))}
-                </div>
+                </details>
               )}
               {!selected.available && (
                 <output>
@@ -719,7 +743,18 @@ export function ReferenceProvider({
                     >
                       {block.dice && <small>{block.dice}</small>}
                       {block.title && <h3>{block.title}</h3>}
-                      <p>{block.text}</p>
+                      {block.kind === 'creature' &&
+                      block.text.split('\n').length > 2 ? (
+                        <>
+                          <p>{block.text.split('\n').slice(0, 2).join('\n')}</p>
+                          <details className="reading-more">
+                            <summary>MORE ›</summary>
+                            <p>{block.text.split('\n').slice(2).join('\n')}</p>
+                          </details>
+                        </>
+                      ) : (
+                        <p>{block.text}</p>
+                      )}
                     </section>
                   ))}
                   <div className="ref-copy-actions">
@@ -893,8 +928,8 @@ export function ReferenceProvider({
                 </div>
               )}
               {!!(related.length + dynamicRelated.length) && (
-                <div className="ref-related">
-                  <small>RELATED</small>
+                <details className="ref-related ref-related-disclosure">
+                  <summary>RELATED ›</summary>
                   {[
                     ...new Map(
                       [...dynamicRelated, ...related].map((entry) => [
@@ -925,7 +960,7 @@ export function ReferenceProvider({
                         <ArrowUpRight size={12} />
                       </button>
                     ))}
-                </div>
+                </details>
               )}
             </>
           )}
@@ -1009,23 +1044,27 @@ export function ContextReferences({
   const entries = desk?.contextual(context, region) ?? [];
   if (!entries.length) return null;
   return (
-    <div className="context-references">
-      <small>QUICK TOOLS</small>
-      {entries.map((entry) => (
-        <button
-          key={entry.id}
-          onClick={() =>
-            entry.id === 'procedure:workbench.stock-room' && onDungeonEncounters
-              ? onDungeonEncounters()
-              : desk?.activate(entry.id, isOneClick(entry), region)
-          }
-        >
-          {entry.id === 'procedure:workbench.stock-room' && onDungeonEncounters
-            ? '던전 조우표 · Common 6 / Rare 6'
-            : compactSourceText(entry.title)}
-        </button>
-      ))}
-    </div>
+    <details className="context-reference-disclosure">
+      <summary>QUICK TOOLS · {entries.length} ›</summary>
+      <div className="context-references">
+        {entries.map((entry) => (
+          <button
+            key={entry.id}
+            onClick={() =>
+              entry.id === 'procedure:workbench.stock-room' &&
+              onDungeonEncounters
+                ? onDungeonEncounters()
+                : desk?.activate(entry.id, isOneClick(entry), region)
+            }
+          >
+            {entry.id === 'procedure:workbench.stock-room' &&
+            onDungeonEncounters
+              ? '던전 조우표 · Common 6 / Rare 6'
+              : compactSourceText(entry.title)}
+          </button>
+        ))}
+      </div>
+    </details>
   );
 }
 export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {

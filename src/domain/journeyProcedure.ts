@@ -4,8 +4,10 @@ import { REGION_IDS, type SourceReference } from './types';
 import { id, random, rollDie, type RandomSource } from '../generators/random';
 import { rollOracle } from '../generators/oracleRoller';
 import { ONE_OFF_ROAD_EVENTS, rollTravel } from './campaignProcedures';
+import { traceReferenceProcedure } from './referenceGeneratorProcedures';
 import { oracleReadingText, type ReferenceReading } from './referenceReading';
 import { refsForOracle } from './referenceExecution';
+import { nestedOracleTables } from '../data/oracles';
 
 export const JOURNEY_SOURCE: SourceReference = {
   bookId: 'sd',
@@ -169,40 +171,21 @@ export function rollJourneyTable(
   const first = rollOracle(table, registry, rng);
   const rolls = [first];
   if (tableId === 'feretory.campsite' && first.roll === 10) {
-    const sub = z
-      .object({
-        id: z.string(),
-        title: z.string(),
-        dice: z.literal('d6'),
-        entries: z.array(
-          z.object({
-            min: z.number().int(),
-            max: z.number().int(),
-            text: z.string(),
-          }),
-        ),
-      })
-      .safeParse(first.metadata?.subtable);
-    if (!sub.success)
+    const nested = nestedOracleTables(table)[0];
+    const canonical =
+      nested &&
+      (registry.tables.find((candidate) => candidate.id === nested.id) ??
+        nested);
+    if (!canonical)
       throw new Error('야영 꿈의 d6 원문 표를 불러오지 못했습니다.');
-    const result = rollOracle(
-      {
-        ...table,
-        id: `${tableId}.${sub.data.id}`,
-        title: sub.data.title,
-        dice: sub.data.dice,
-        entries: sub.data.entries.map((entry, index) => ({
-          ...entry,
-          id: `${tableId}.${sub.data.id}:${index}`,
-        })),
-      },
-      registry,
-      rng,
-    );
+    const result = rollOracle(canonical, registry, rng);
     result.metadata = { ...result.metadata, sourceTableId: tableId };
     rolls.push(result);
   }
-  return { id: id(), title: table.title, rolls };
+  return traceReferenceProcedure(
+    { id: id(), title: table.title, rolls },
+    tableId,
+  );
 }
 export function rollJourneyActivity(
   mode: 'road' | 'forage',

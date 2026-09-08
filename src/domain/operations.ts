@@ -1,4 +1,6 @@
 import { remapDungeonCrawl } from './dungeonCrawl';
+import { reconcileManualEdits } from './generationProvenance';
+import { markCopiedIdentity } from './duplicationProvenance';
 import {
   chronicleIds,
   pruneChronicleReferences,
@@ -187,6 +189,7 @@ export function cloneDungeon(source: Dungeon): Dungeon {
   const d = structuredClone(source);
   d.id = id();
   d.title += ' — copy';
+  markCopiedIdentity(d, 'title');
   d.createdAt = now();
   d.updatedAt = now();
   const roomMap = new Map<string, string>();
@@ -367,6 +370,7 @@ export function applyCampaignEdit(
   action: (campaign: Campaign) => void,
   timestamp = now(),
 ): void {
+  const beforeOrigins = structuredClone(c);
   const content = (d: { id: string; updatedAt: string }) =>
     JSON.stringify({ ...d, updatedAt: undefined });
   const before = new Map(
@@ -398,6 +402,7 @@ export function applyCampaignEdit(
   );
   const existingEvents = new Set(c.timeline.map((event) => event.id));
   action(c);
+  reconcileManualEdits(beforeOrigins, c);
   for (const kind of ['character', 'npc'] as const)
     for (const entity of kind === 'character' ? c.characters : c.npcs) {
       if (

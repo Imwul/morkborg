@@ -324,11 +324,16 @@ test('Chaos, Odds, questions and readings restore through real storage loader', 
     rememberFate(s, resolveFate(s, null, [4, 4]));
   });
   const raw = JSON.stringify(save);
+  const stored = new Map([[STORAGE_KEY, raw]]);
   const storage = {
-    length: 1,
-    key: () => STORAGE_KEY,
-    getItem: (key: string) => (key === STORAGE_KEY ? raw : null),
-    setItem: () => {},
+    get length() {
+      return stored.size;
+    },
+    key: (index: number) => [...stored.keys()][index] ?? null,
+    getItem: (key: string) => stored.get(key) ?? null,
+    setItem: (key: string, value: string) => {
+      stored.set(key, value);
+    },
   };
   assert.deepEqual(loadStoredSave(storage).save, save);
 });

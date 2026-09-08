@@ -354,7 +354,7 @@ test('Workbench procedures expose explicit routing and keep EPK selection separa
   );
   assert.match(
     ref.byId['procedure:workbench.epk'].summary,
-    /공식 d6.*표시하지/,
+    /Eat Prey Kill.*지역 d6.*능력치.*임의의 능력치를 추가하지/,
   );
 });
 test('Regional d6 follows the rolled Depths entry to the matching EPK name/page and quantity', () => {

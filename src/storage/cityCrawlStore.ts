@@ -27,6 +27,8 @@ const page = z.union([
 const source = z.object({
   field: text.optional(),
   bookId: text.optional(),
+  role: z.enum(['primary', 'routing']).optional(),
+  status: z.enum(['VERIFIED', 'PARTIAL', 'CONFLICT', 'UNAVAILABLE']).optional(),
   bookTitle: text.optional(),
   tableId: text.optional(),
   tableTitle: text.optional(),

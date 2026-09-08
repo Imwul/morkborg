@@ -108,7 +108,7 @@ test('Feretory damage boundaries and HP doubling follow the printed rule', () =>
     assert.equal(result.damage, expectedDie);
     assert.equal(result.hp, expectedHP);
     assert.equal(result.morale, 12);
-    assert.match(result.armor, /동률/);
+    assert.match(result.armor, /Tie — referee choice/);
   }
   assert.equal(feretoryStats({ A: 12, B: 2, C: 1 }, () => 0).armor, 'None');
   assert.equal(feretoryStats({ A: 1, B: 12, C: 2 }, () => 0).armor, '−d2');

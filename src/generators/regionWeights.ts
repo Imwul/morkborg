@@ -1,172 +1,78 @@
 import type { RegionId } from '../domain/types';
+import type { RuleEntry } from '../storage/rulesStore';
 import { regionById } from '../data/regions';
 
-// Editorial tags affect selection only. They never rewrite a printed result.
+// Editorial selection metadata, keyed by canonical numeric source entry identity.
+// These tags change probability only; they are not text attributed to a book.
 export const REGION_BOOST = 1.25;
-export const REGION_WEIGHT_TABLES = new Set([
-  'core.status',
-  'core.inhabitants',
-  'core.feature',
-  'core.danger',
-  'core.rooms',
-  'sd.room.adjective',
-  'sd.room.type',
-  'reclvse.dungeonPurposeThen',
-  'reclvse.questEncounterHook',
-  'reclvse.dungeonEntrance',
-  'reclvse.entranceState',
-  'reclvse.arcaneEncounter',
-  'reclvse.dressing',
-  'reclvse.roomPurpose',
-]);
-const lexicon: Record<string, readonly string[]> = {
-  urban: [
-    'city',
-    'cities',
-    'town',
-    'towns',
-    'street',
-    'streets',
-    'alley',
-    'alleys',
-    'market',
-    'markets',
-    'sewer',
-    'sewers',
-  ],
-  cult: [
-    'cult',
-    'cults',
-    'cultist',
-    'cultists',
-    'cathedral',
-    'cathedrals',
-    'temple',
-    'temples',
-    'priest',
-    'priests',
-    'ritual',
-    'rituals',
-    'worship',
-  ],
-  forest: [
-    'forest',
-    'forests',
-    'woodland',
-    'woodlands',
-    'tree',
-    'trees',
-    'thicket',
-    'thickets',
-    'thorn',
-    'thorns',
-  ],
-  grave: [
-    'grave',
-    'graves',
-    'graveyard',
-    'graveyards',
-    'cemetery',
-    'cemeteries',
-    'tomb',
-    'tombs',
-    'crypt',
-    'crypts',
-    'chrypt',
-    'catacomb',
-    'catacombs',
-    'sarcophagus',
-    'sarcophagi',
-    'burial',
-  ],
-  corpse: [
-    'corpse',
-    'corpses',
-    'cadaver',
-    'cadavers',
-    'skeleton',
-    'skeletons',
-    'skeletal',
-    'bone',
-    'bones',
-  ],
-  coast: [
-    'coast',
-    'coastal',
-    'shore',
-    'shores',
-    'sea',
-    'ocean',
-    'salt',
-    'tide',
-    'tidal',
-    'drowned',
-    'drowning',
-    'harbor',
-    'harbour',
-  ],
-  ruin: ['ruin', 'ruins', 'ruined', 'crumbling', 'collapsed'],
-  ice: ['ice', 'icy', 'frozen', 'freezing', 'glacial', 'glacier'],
-  frost: ['frost', 'frosted', 'frosty', 'snow', 'snowy', 'blizzard', 'winter'],
-  wilderness: ['wild', 'wilderness', 'wasteland', 'barren', 'desolate'],
-  cannibal: ['cannibal', 'cannibals', 'cannibalistic', 'cannibalism'],
-  undead: [
-    'undead',
-    'zombie',
-    'zombies',
-    'wight',
-    'wights',
-    'lich',
-    'liches',
-    'vampire',
-    'vampires',
-    'ghost',
-    'ghosts',
-    'revenant',
-    'revenants',
-  ],
-  plague: [
-    'plague',
-    'plagued',
-    'pestilence',
-    'disease',
-    'diseased',
-    'infected',
-    'infection',
-  ],
-  root: ['root', 'roots', 'rooted'],
-  cathedral: ['cathedral', 'cathedrals'],
-  sewer: ['sewer', 'sewers'],
-  authority: ['authority', 'priest', 'priests', 'ruler', 'guards'],
-  beast: ['beast', 'beasts', 'wolf', 'wolves', 'animal', 'animals'],
-  overgrowth: ['overgrown', 'overgrowth', 'brambles', 'vines', 'growth'],
-  isolation: ['isolated', 'isolation', 'solitary', 'alone'],
-  tomb: ['tomb', 'tombs', 'crypt', 'crypts', 'catacomb', 'catacombs'],
-  funerary: ['funerary', 'funeral', 'burial', 'coffin', 'coffins'],
-  suffocation: ['suffocating', 'suffocation', 'choking', 'airless'],
-  melancholy: ['melancholy', 'sorrow', 'weeping', 'mourning'],
-  nobility: ['noble', 'nobles', 'nobility', 'king', 'royal'],
-  abandoned: ['abandoned', 'deserted', 'forsaken'],
-  blood: ['blood', 'bloody'],
-  glass: ['glass', 'obsidian'],
-  lake: ['lake', 'lakes'],
-  settlement: ['settlement', 'settlements', 'village', 'villages'],
-  battlefield: ['battlefield', 'battlefields'],
-  necromancy: ['necromancy', 'necromancer', 'necromancers'],
+export const REGION_ENTRY_TAGS: Record<string, readonly string[]> = {
+  'core.danger:3': ['ruin'],
+  'core.danger:6': ['cult'],
+  'core.inhabitants:2': ['undead', 'corpse'],
+  'core.inhabitants:3': ['cult'],
+  'core.inhabitants:4': ['undead'],
+  'core.inhabitants:5': ['urban', 'plague'],
+  'core.inhabitants:8': ['forest', 'root'],
+  'core.inhabitants:11': ['plague'],
+  'core.inhabitants:12': ['nobility'],
+  'core.feature:2': ['corpse', 'necromancy'],
+  'core.feature:5': ['root'],
+  'core.feature:6': ['corpse'],
+  'core.feature:11': ['overgrowth'],
+  'core.rooms:12': ['blood'],
+  'core.rooms:22': ['blood'],
+  'core.rooms:25': ['frost'],
+  'core.rooms:32': ['tomb', 'funerary'],
+  'core.rooms:44': ['nobility', 'ruin'],
+  'sd.room.adjective:10': ['plague'],
+  'sd.room.adjective:11': ['abandoned'],
+  'sd.room.adjective:12': ['ruin'],
+  'sd.room.type:1': ['grave', 'tomb'],
+  'sd.room.type:9': ['cult'],
+  'sd.room.type:12': ['tomb'],
+  'reclvse.dungeonPurposeThen:1': ['cult'],
+  'reclvse.dungeonEntrance:1': ['ruin'],
+  'reclvse.dungeonEntrance:6': ['sewer', 'urban'],
+  'reclvse.dungeonEntrance:7': ['cult'],
+  'reclvse.dungeonEntrance:12': ['ruin'],
+  'reclvse.dungeonEntrance:17': ['forest', 'overgrowth'],
+  'reclvse.entranceState:3': ['ruin'],
+  'reclvse.entranceState:11': ['root', 'overgrowth'],
 };
-export function entryTags(text: string): string[] {
-  const words = new Set(text.toLowerCase().match(/[a-z]+/g) ?? []);
-  return Object.entries(lexicon)
-    .filter(([, aliases]) => aliases.some((word) => words.has(word)))
-    .map(([tag]) => tag);
+export const REGION_WEIGHT_TABLES = new Set(
+  Object.keys(REGION_ENTRY_TAGS).map((key) =>
+    key.slice(0, key.lastIndexOf(':')),
+  ),
+);
+export function sourceEntrySelector(entry: RuleEntry): number | undefined {
+  const meta = entry.meta;
+  if (typeof meta.d4 === 'number' && typeof meta.d6 === 'number')
+    return meta.d4 * 10 + meta.d6;
+  if (Array.isArray(meta.range)) return Number(meta.range[0]);
+  if (typeof meta.min === 'number') return meta.min;
+  if (typeof meta.roll === 'number') return meta.roll;
+  return undefined;
+}
+export function entryTags(entry: RuleEntry): string[] {
+  return Array.isArray(entry.meta.regionTags)
+    ? entry.meta.regionTags.filter(
+        (tag): tag is string => typeof tag === 'string',
+      )
+    : [];
 }
 export function regionWeightFactor(
   tableId: string,
-  text: string,
+  entry: RuleEntry,
   region?: RegionId,
 ): number {
   if (!region || !REGION_WEIGHT_TABLES.has(tableId)) return 1;
-  const tags = entryTags(text);
+  const selector = sourceEntrySelector(entry);
+  const tags = [
+    ...entryTags(entry),
+    ...(selector === undefined
+      ? []
+      : (REGION_ENTRY_TAGS[`${tableId}:${selector}`] ?? [])),
+  ];
   return regionById(region).tags.some((tag) => tags.includes(tag))
     ? REGION_BOOST
     : 1;

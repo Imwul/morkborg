@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { setRules, getRules } from '../src/storage/rulesStore.ts';
+import { setOraclePack } from '../src/storage/oracleStore.ts';
 import {
   createCampaign,
   createDungeon,
@@ -35,6 +36,8 @@ import { generateCharacter } from '../src/generators/character.ts';
 const hasRules = existsSync('public/rules/library.json');
 if (hasRules)
   setRules(JSON.parse(readFileSync('public/rules/library.json', 'utf8')));
+if (existsSync('public/rules/oracles.json'))
+  setOraclePack(JSON.parse(readFileSync('public/rules/oracles.json', 'utf8')));
 test('ability conversion follows all seven printed brackets', () => {
   assert.deepEqual(
     [1, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 20].map(abilityModifier),
@@ -71,7 +74,10 @@ test('Feretory uses linked A/B/C and explicitly preserves armor ties', () => {
     assert.equal(r.hp % 2, 0);
     assert.ok(r.hp >= 2 && r.hp <= 2 * r.sides);
   }
-  assert.match(feretoryStats({ A: 12, B: 12, C: 1 }).armor, /동률/);
+  assert.match(
+    feretoryStats({ A: 12, B: 12, C: 1 }).armor,
+    /Tie — referee choice/,
+  );
   assert.equal(feretoryStats({ A: 1, B: 2, C: 11 }).armor, '−d4');
   assert.equal(feretoryStats({ A: 1, B: 2, C: 12 }).armor, '−d6');
 });
@@ -195,6 +201,7 @@ test(
     assert.equal(npc.armor, '');
     assert.equal(npc.attack, '');
     const c = createCampaign('NPC');
+    npc.campaignId = c.id;
     c.npcs.push(npc);
     validateCampaign(c);
   },
@@ -219,11 +226,15 @@ test(
 );
 
 test(
-  'regional dungeon traits retain both book citations without replacing common tables',
+  'regional dungeon weighting retains the single Core feature source without adding an unrelated trait',
   { skip: !hasRules },
   () => {
     const regional = generateDungeonRoll('distinctiveFeature', 'graven-tosk');
-    assert.match(regional.source, /Graven-Tosk/);
+    assert.equal(regional.provenance?.regionWeighting, 'graven-tosk');
+    assert.deepEqual(
+      regional.provenance?.sourceRefs.map((ref) => ref.tableId),
+      ['core.feature'],
+    );
     assert.match(regional.source, /BARE BONES/);
     assert.doesNotMatch(
       generateDungeonRoll('distinctiveFeature', 'grift').source,
@@ -267,7 +278,7 @@ test(
 );
 
 test(
-  'dungeon candidates generate a title, all overview fields and four rooms without saving',
+  'dungeon candidates generate verified preparation fields and four rooms without saving or encounter-context filler',
   { skip: !hasRules },
   () => {
     const c = createCampaign('Preview');
@@ -280,16 +291,18 @@ test(
       'status',
       'formerPurpose',
       'inhabitants',
-      'motive',
       'entrance',
       'entranceCondition',
       'distinctiveFeature',
       'environmentalDanger',
-      'weirdPhenomenon',
       'treasure',
     ] as const)
       assert.ok(draft[key].trim(), key);
     assert.ok(draft.rooms.every((r) => r.name && r.description));
+    for (const key of ['motive', 'weirdPhenomenon'] as const) {
+      assert.equal(draft[key], '');
+      assert.equal(draft.fieldProvenance?.[key].origin, 'manual');
+    }
   },
 );
 test(

@@ -94,6 +94,17 @@ const eligibleCreature = (record: Record<string, unknown>) =>
   typeof record.hp === 'number' &&
   Number.isFinite(record.hp) &&
   record.presetEligible !== false;
+/** A documented creature without its own stats still has a source identity. */
+const inspectableCreature = (record: Record<string, unknown>) =>
+  eligibleCreature(record) ||
+  (typeof record.name === 'string' &&
+    !!record.name.trim() &&
+    record.book === 'feretory' &&
+    record.section === 'Eat Prey Kill' &&
+    record.presetEligible === false &&
+    record.hp === null &&
+    typeof record.pdfPage === 'number' &&
+    record.sourceVerified !== false);
 /** Stable source identity; it is independent of campaign UUIDs and load order. */
 export function creatureReferenceId(record: Record<string, unknown>): string {
   const page =
@@ -112,7 +123,7 @@ export function findReferenceCreature(
 ): Record<string, unknown> | null {
   const matches = (rules?.creatures ?? []).filter(
     (record) =>
-      eligibleCreature(record) && creatureReferenceId(record) === creatureId,
+      inspectableCreature(record) && creatureReferenceId(record) === creatureId,
   );
   return matches.length === 1 ? matches[0] : null;
 }
@@ -136,6 +147,7 @@ function sourceFor(
     pdfPage: table.sourcePage,
     printedPage: table.printedPage,
     note: table.sourceNote,
+    ...(table.sourceStatus ? { status: table.sourceStatus } : {}),
   };
 }
 function contextsFor(table: OracleDefinition): ReferenceContext[] {
@@ -542,7 +554,7 @@ export function buildReferenceRegistry(
       action: { kind: 'rule', ruleId: seed.id },
     });
   }
-  for (const record of (rules?.creatures ?? []).filter(eligibleCreature)) {
+  for (const record of (rules?.creatures ?? []).filter(inspectableCreature)) {
     const id = creatureReferenceId(record),
       bookId = stringValue(record.book),
       book = oracles.books.find((source) => source.id === bookId),
@@ -588,6 +600,12 @@ export function buildReferenceRegistry(
           ? record.printedPage
           : undefined,
       entryId: typeof record.id === 'string' ? record.id : id,
+      ...(!eligibleCreature(record)
+        ? {
+            status: 'PARTIAL' as const,
+            note: 'Creature identity is present in the supplied source; an independent creature stat block is unavailable.',
+          }
+        : {}),
     };
     const available =
       !!book &&
@@ -600,8 +618,9 @@ export function buildReferenceRegistry(
         'creature',
         concept && fold(concept) !== fold(name) ? `${name} · ${concept}` : name,
       ),
-      summary:
-        '제공된 책의 고정 능력치입니다. 생물의 원문 이름과 특수 규칙을 그대로 확인합니다.',
+      summary: eligibleCreature(record)
+        ? '제공된 책의 고정 능력치입니다. 생물의 원문 이름과 특수 규칙을 그대로 확인합니다.'
+        : 'SOURCE UNAVAILABLE · 확인된 생물의 이름과 설명만 제공합니다. 별도 능력치는 원문에 없습니다.',
       keywords: unique([
         name,
         concept,
@@ -662,10 +681,10 @@ export function buildReferenceRegistry(
     },
     {
       id: 'workbench.epk',
-      title: 'Eat Prey Kill · 지역 생물 원문 선택',
+      title: 'Eat Prey Kill · 지역 생물 d6',
       contexts: ['monster', 'travel'] as ReferenceContext[],
       summary:
-        '기존 EPK 지역 생물 풀에서 사용 가능한 프리셋 하나를 선택합니다. 사냥 절차의 공식 d6 굴림이나 Depths 지역 d6 표로 표시하지 않습니다.',
+        'Eat Prey Kill의 해당 지역 d6 표를 굴립니다. 별도 능력치가 없는 결과도 원래 확률과 출처를 유지하며, 임의의 능력치를 추가하지 않습니다.',
       ids: [],
       related: ['rule:feretory.eat-prey-kill'],
     },
@@ -863,6 +882,14 @@ const COMMON_REFERENCE_QUERIES: Record<string, string> = {
   morale: 'rule:core.reaction-morale',
   reaction: 'oracle:core.reaction',
   broken: 'rule:core.broken',
+  corpse: 'oracle:core.corpsePlundering',
+  treasure: 'oracle:core.treasures',
+  armor: 'rule:core.armor-shield',
+  armour: 'rule:core.armor-shield',
+  rest: 'rule:core.rest',
+  omens: 'rule:core.omens',
+  miseries: 'oracle:core.miseries',
+  travel: 'rule:sd.travel-day',
   'useful item': 'oracle:sd.usefulItems',
   'useful items': 'oracle:sd.usefulItems',
   npc: 'procedure:workbench.npc',

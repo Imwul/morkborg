@@ -196,7 +196,7 @@ test('Source disclosure keeps primary and conflicting routing evidence distinct 
     }),
   );
   assert.match(html, /PRIMARY/);
-  assert.match(html, /ROUTED BY/);
+  assert.match(html, /ROUTING SOURCE/);
   assert.match(html, /conflicting-citation/);
   assert.match(html, /III/);
   assert.match(html, /Original conflicting citation retained/);

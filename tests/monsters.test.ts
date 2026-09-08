@@ -100,9 +100,13 @@ ruleTest(
       assert.equal(m.attacks.length, 1);
       assert.equal(m.attacks[0].name, '');
       assert.match(m.attacks[0].damage, /^d(4|6|8|10|12)$/);
-      assert.ok(
-        getRules()!.tables['core.names'].entries.some((e) => e.text === m.name),
+      assert.equal(m.name, 'Monster');
+      assert.equal(m.fieldProvenance!.name.classification, 'APP_DERIVED');
+      assert.equal(
+        m.fieldProvenance!.name.procedureId,
+        'app.structural-identifier',
       );
+      assert.deepEqual(m.fieldProvenance!.name.sourceRefs, []);
       const r = m.generation!.rolls;
       assert.equal(m.morale, Math.max(r.A, r.B, r.C));
       assert.ok(m.hp >= 2 && m.hp <= Number(m.attacks[0].damage.slice(1)) * 2);
@@ -167,7 +171,11 @@ ruleTest(
       { ...m, name: before.name, sources: before.sources },
       before,
     );
-    assert.match(m.sources!.name, /BARE BONES/);
+    assert.equal(m.name, 'Monster');
+    assert.equal(
+      m.fieldProvenance!.name.procedureId,
+      'app.structural-identifier',
+    );
   },
 );
 ruleTest(
@@ -212,7 +220,14 @@ ruleTest(
     assert.deepEqual(m.attacks[1], before.attacks[1]);
     assert.deepEqual(m.special, before.special);
     assert.equal(m.attacks[0].id, before.attacks[0].id);
-    assert.equal(m.morale, Math.max(...Object.values(m.generation!.rolls)));
+    assert.equal(
+      m.morale,
+      Math.max(
+        m.generation!.rolls.A,
+        m.generation!.rolls.B,
+        m.generation!.rolls.C,
+      ),
+    );
     assert.ok(m.appearance);
   },
 );
@@ -238,7 +253,27 @@ ruleTest(
     rerollMonsterField(m, 'hp');
     assert.ok(m.hp >= 2 && m.hp <= 12);
     assert.equal(m.hp % 2, 0);
-    assert.deepEqual({ ...m, hp: before.hp, sources: before.sources }, before);
+    assert.deepEqual(
+      {
+        ...m,
+        hp: before.hp,
+        sources: before.sources,
+        fieldProvenance: {
+          ...m.fieldProvenance,
+          hp: before.fieldProvenance!.hp,
+        },
+        generation: {
+          ...m.generation!,
+          rolls: {
+            ...m.generation!.rolls,
+            hpDie: before.generation!.rolls.hpDie,
+          },
+        },
+      },
+      before,
+    );
+    assert.equal(m.fieldProvenance!.hp.status, 'CONFLICT');
+    assert.equal(m.fieldProvenance!.hp.rolls!.at(-1)!.value * 2, m.hp);
     assert.equal('maxHp' in m, false);
     assert.equal('currentHp' in m, false);
   },
@@ -790,12 +825,15 @@ ruleTest(
     );
     assert.ok(thinx.attacks.length > 1);
     assert.ok(thinx.special.length);
-    assert.throws(() =>
-      loadMonsterPreset(
-        c.id,
-        creatures.find((x) => x.name === 'Rotten Nurse')!,
-      ),
+    const nurse = loadMonsterPreset(
+      c.id,
+      creatures.find((x) => x.name === 'Rotten Nurse')!,
     );
+    assert.equal(nurse.name, 'Rotten Nurse');
+    assert.equal(nurse.hp, '');
+    assert.equal(nurse.fieldProvenance!.hp.status, 'UNAVAILABLE');
+    assert.ok(nurse.special.length);
+    c.monsters.push(nurse);
     c.monsters.push(uber, borg, thinx);
     validateCampaign(c);
   },

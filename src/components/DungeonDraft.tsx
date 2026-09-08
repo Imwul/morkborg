@@ -1,3 +1,5 @@
+import type { GeneratedValueProvenance } from '../domain/generationProvenance';
+import { hasManualEdits } from '../domain/generationProvenance';
 import { ArrowLeft, ArrowRight, Dices, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,14 +8,14 @@ import { regions, regionById } from '../data/regions';
 import {
   createDungeon,
   createDungeonCandidate,
-  dungeonTitle,
+  dungeonTitleRoll,
 } from '../generators';
 import {
   prepareSpecialRooms,
   rerollSpecialRoom,
 } from '../generators/specialRooms';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
-import { useRules, sourceCitation } from '../storage/rulesStore';
+import { useRules } from '../storage/rulesStore';
 import { now } from '../generators/random';
 import { Field } from './Field';
 import { DungeonSheet } from './DungeonSheet';
@@ -32,16 +34,37 @@ export function DungeonDraft({
   const rules = useRules();
   const draft = c.dungeonDraft;
   const region = draft?.region ?? c.workspace.pendingRegion;
-  const patch = (key: string, value: string | number, source = '직접 작성') =>
+  const patch = (
+    key: string,
+    value: string | number,
+    source = '직접 작성',
+    provenance?: GeneratedValueProvenance,
+  ) =>
     editCampaign(c.id, (next) => {
       if (!next.dungeonDraft) return;
       Object.assign(next.dungeonDraft, {
         [key]: value,
         updatedAt: now(),
         sources: { ...next.dungeonDraft.sources, [key]: source },
+        ...(provenance
+          ? {
+              fieldProvenance: {
+                ...next.dungeonDraft.fieldProvenance,
+                [key]: provenance,
+              },
+            }
+          : {}),
       });
     });
-  function generate() {
+  function generate(force = false) {
+    if (!force && draft && hasManualEdits(draft)) {
+      confirm(
+        '수동 수정한 후보를 다시 굴릴까요?',
+        '제목과 생성 항목의 수정값을 새 결과로 바꿉니다. 메모는 유지됩니다.',
+        () => generate(true),
+      );
+      return;
+    }
     if (!region) return;
     try {
       const candidate = createDungeonCandidate(c.id, region);
@@ -75,18 +98,9 @@ export function DungeonDraft({
   }
   function choose() {
     if (!draft) return;
-    const title =
-      draft.title.trim() || (rules.pack ? dungeonTitle() : 'Untitled Dungeon');
+    const title = draft.title.trim() || 'Untitled Dungeon';
     editCampaign(c.id, (next) => {
       if (!next.dungeonDraft) return;
-      if (!draft.title.trim() && rules.pack)
-        next.dungeonDraft.sources = {
-          ...next.dungeonDraft.sources,
-          title:
-            sourceCitation('core.titleA') +
-            ' + ' +
-            sourceCitation('core.titleB'),
-        };
       selectDungeonCandidate(next, title);
     });
     notify('선택한 던전과 방을 캠페인에 저장했습니다.');
@@ -168,7 +182,7 @@ export function DungeonDraft({
           <Button
             className={`btn ${draft ? '' : 'primary'}`}
             disabled={!rules.pack || !region}
-            onClick={generate}
+            onClick={() => generate()}
           >
             <Dices size={18} /> {draft ? '모두 다시 굴리기' : '던전 생성'}
           </Button>
@@ -196,18 +210,11 @@ export function DungeonDraft({
                 spec={{ key: 'title', label: '던전 제목' }}
                 value={draft.title}
                 source={draft.sources?.title}
-                onChange={(value, source) => patch('title', value, source)}
-                reroll={
-                  rules.pack
-                    ? () => ({
-                        value: dungeonTitle(),
-                        source:
-                          sourceCitation('core.titleA') +
-                          ' + ' +
-                          sourceCitation('core.titleB'),
-                      })
-                    : undefined
+                provenance={draft.fieldProvenance?.title}
+                onChange={(value, source, provenance) =>
+                  patch('title', value, source, provenance)
                 }
+                reroll={rules.pack ? dungeonTitleRoll : undefined}
               />
             </div>
           </div>
@@ -215,7 +222,16 @@ export function DungeonDraft({
             dungeon={draft}
             ready={!!rules.pack}
             patch={patch}
-            patchRoom={(roomId, key, value, source) =>
+            confirm={confirm}
+            updateRoom={(roomId, action) =>
+              editCampaign(c.id, (next) => {
+                const room = next.dungeonDraft?.rooms.find(
+                  (r) => r.id === roomId,
+                );
+                if (room) action(room);
+              })
+            }
+            patchRoom={(roomId, key, value, source, provenance) =>
               editCampaign(c.id, (next) => {
                 const room = next.dungeonDraft?.rooms.find(
                   (r) => r.id === roomId,
@@ -224,6 +240,14 @@ export function DungeonDraft({
                   Object.assign(room, {
                     [key]: value,
                     sources: { ...room.sources, [key]: source ?? '직접 작성' },
+                    ...(provenance
+                      ? {
+                          fieldProvenance: {
+                            ...room.fieldProvenance,
+                            [key]: provenance,
+                          },
+                        }
+                      : {}),
                   });
               })
             }
@@ -249,7 +273,11 @@ export function DungeonDraft({
             />
           </div>
           <div className="candidate-bottom actions">
-            <Button className="btn" disabled={!rules.pack} onClick={generate}>
+            <Button
+              className="btn"
+              disabled={!rules.pack}
+              onClick={() => generate()}
+            >
               <Dices size={18} /> 모두 다시 굴리기
             </Button>
             <Button className="btn primary" onClick={choose}>

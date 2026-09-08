@@ -7,6 +7,7 @@ import {
   eatPreyKillCreatures,
   generateEatPreyKillMonster,
   rerollMonsterField,
+  rollEatPreyKillPreset,
 } from '../src/generators/monster.ts';
 import { createCampaign, createDungeon } from '../src/generators/index.ts';
 import {
@@ -49,12 +50,20 @@ test(
       assert.ok(pool.length > 0, region.name);
       for (let n = 0; n < 30; n++) {
         const m = generateEatPreyKillMonster('fixture', region.id);
-        const record = pool.find((p) => p.roll === m.generation!.rolls.entry)!;
+        const record = getRules()!.creatures.find(
+          (p) =>
+            p.book === 'feretory' &&
+            p.regionKey ===
+              (region.id === 'grift' ? 'grift' : pool[0].regionKey) &&
+            p.roll === m.generation!.rolls.entry,
+        )!;
         assert.ok(record);
         assert.equal(m.region, region.id);
         assert.equal(m.generation!.system, 'epk');
         assert.equal(m.name, record.name);
-        assert.equal(m.hp, record.hp);
+        assert.equal(m.hp, record.hp ?? '');
+        if (record.hp == null)
+          assert.equal(m.fieldProvenance!.hp.status, 'UNAVAILABLE');
         assert.equal(m.armor, record.armor ?? '');
         assert.equal(m.attacks[0]?.damage ?? '', record.damage ?? '');
         assert.match(m.sources!.name, /Eat Prey Kill/);
@@ -86,5 +95,25 @@ test(
     restored.workspace.monsterGenerationMode = 'tma';
     beginMonsterDraft(restored);
     assert.equal(restored.drafts.monsters!.generation!.system, 'feretory');
+  },
+);
+
+test(
+  'EPK Grift retains all six original die faces including the source-only Lentil Lice encounter',
+  { skip: !available },
+  () => {
+    const faces = Array.from({ length: 6 }, (_, i) =>
+      rollEatPreyKillPreset('grift', getRules(), () => (i + 0.5) / 6),
+    );
+    assert.deepEqual(
+      faces.map((r) => r.roll),
+      [1, 2, 3, 4, 5, 6],
+    );
+    assert.equal(faces[4].name, 'Lentil Lice');
+    assert.equal(faces[4].hp, null);
+    const result = loadMonsterPreset('qa', faces[4]);
+    assert.equal(result.hp, '');
+    assert.deepEqual(result.attacks, []);
+    assert.equal(result.fieldProvenance!.hp.status, 'UNAVAILABLE');
   },
 );

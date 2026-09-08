@@ -1,0 +1,854 @@
+{
+  "inventoryVersion": 1,
+  "scope": "Dungeon/room generation and optional field rollers. Instance classifications can differ by conditional branch; this inventory counts output paths once. Shared Character/Monster/NPC/Encounter sources are audited separately.",
+  "fieldsAudited": 31,
+  "classificationCounts": {
+    "SOURCE_COMPOSED": 5,
+    "SOURCE_VERBATIM": 17,
+    "USER_AUTHORED": 6,
+    "APP_DERIVED": 3
+  },
+  "newProductionUnexplainedUnsourcedFields": [],
+  "fields": [
+    {
+      "feature": "Dungeon",
+      "field": "title",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "titleA",
+          "sourceTableId": "core.titleA",
+          "pdfPages": [
+            71
+          ],
+          "printedPages": [
+            71
+          ]
+        },
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "titleB",
+          "sourceTableId": "core.titleB",
+          "pdfPages": [
+            71
+          ],
+          "printedPages": [
+            71
+          ]
+        }
+      ],
+      "classification": "SOURCE_COMPOSED",
+      "transformation": "Printed The + two independent d12 columns.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Dungeon",
+      "field": "premise",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "sparks",
+          "sourceTableId": "core.sparks",
+          "pdfPages": [
+            69,
+            70
+          ],
+          "printedPages": [
+            69,
+            70
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "formerPurpose",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "D6 DUNGEON PURPOSE (THEN)",
+          "sourceTableId": "reclvse.dungeonPurposeThen",
+          "pdfPages": [
+            86
+          ],
+          "printedPages": [
+            86
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "inhabitants",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "inhabitants",
+          "sourceTableId": "core.inhabitants",
+          "pdfPages": [
+            72
+          ],
+          "printedPages": [
+            72
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "entrance",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "D20 DUNGEON ENTRANCE",
+          "sourceTableId": "reclvse.dungeonEntrance",
+          "pdfPages": [
+            87
+          ],
+          "printedPages": [
+            87
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "entranceCondition",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "D12 ENTRANCE STATE",
+          "sourceTableId": "reclvse.entranceState",
+          "pdfPages": [
+            88
+          ],
+          "printedPages": [
+            88
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "distinctiveFeature",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "feature",
+          "sourceTableId": "core.feature",
+          "pdfPages": [
+            73
+          ],
+          "printedPages": [
+            73
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "treasure",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "Occult treasures",
+          "sourceTableId": "core.treasures",
+          "pdfPages": [
+            3
+          ],
+          "printedPages": [
+            3
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "none",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Independent preparation prompt; no narrative connective text."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "status",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "status",
+          "sourceTableId": "core.status",
+          "pdfPages": [
+            71
+          ],
+          "printedPages": [
+            71
+          ]
+        }
+      ],
+      "classification": "SOURCE_COMPOSED",
+      "transformation": "Parent plus printed conditional inline subtable only; display fragments with ·.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Single-entry branches are SOURCE_VERBATIM at runtime."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "environmentalDanger",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "danger",
+          "sourceTableId": "core.danger",
+          "pdfPages": [
+            72
+          ],
+          "printedPages": [
+            72
+          ]
+        }
+      ],
+      "classification": "SOURCE_COMPOSED",
+      "transformation": "Parent plus printed conditional inline subtable only; display fragments with ·.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Single-entry branches are SOURCE_VERBATIM at runtime."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "motive",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until user enters text.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE",
+      "notes": "Previously selected encounter-specific prompts in an unsupported dungeon context; removed from automatic generation."
+    },
+    {
+      "feature": "Dungeon",
+      "field": "weirdPhenomenon",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until user enters text.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE",
+      "notes": "Previously selected encounter-specific prompts in an unsupported dungeon context; removed from automatic generation."
+    },
+    {
+      "feature": "Special Room",
+      "field": "name",
+      "sources": [],
+      "classification": "APP_DERIVED",
+      "transformation": "ROOM + one-based preparation slot; neutral structural identifier.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "app.structural-identifier, no fictional title generation."
+    },
+    {
+      "feature": "Special Room",
+      "field": "components.sample",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "rooms",
+          "sourceTableId": "core.rooms",
+          "pdfPages": [
+            73,
+            74
+          ],
+          "printedPages": [
+            73,
+            74
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "One d4 block × d6 entry; no region weighting or deduplication.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Special Room",
+      "field": "components.detail",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "rooms",
+          "sourceTableId": "core.rooms",
+          "pdfPages": [
+            73,
+            74
+          ],
+          "printedPages": [
+            73,
+            74
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "Only selectors 11/33/43 trigger their printed d6/d4/d4 child.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED",
+      "notes": "Absent on the other 21 source results; no filler."
+    },
+    {
+      "feature": "Special Room",
+      "field": "description",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "rooms",
+          "sourceTableId": "core.rooms",
+          "pdfPages": [
+            73,
+            74
+          ],
+          "printedPages": [
+            73,
+            74
+          ]
+        }
+      ],
+      "classification": "SOURCE_COMPOSED",
+      "transformation": "Compatibility mirror joins existing components with ·; not another roll.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Special Room",
+      "field": "feature",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until supplied by user or another deliberate source operation.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE"
+    },
+    {
+      "feature": "Special Room",
+      "field": "danger",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until supplied by user or another deliberate source operation.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE"
+    },
+    {
+      "feature": "Special Room",
+      "field": "treasure",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until supplied by user or another deliberate source operation.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE"
+    },
+    {
+      "feature": "Special Room",
+      "field": "encounter",
+      "sources": [],
+      "classification": "USER_AUTHORED",
+      "transformation": "Empty until supplied by user or another deliberate source operation.",
+      "verbatim": false,
+      "translationExists": false,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "UNAVAILABLE"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "components.adjective",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Adjective",
+          "sourceTableId": "sd.room.adjective",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "Original alternatives and source instructions retained.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "components.type",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Type",
+          "sourceTableId": "sd.room.type",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "Original alternatives and source instructions retained.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "components.contents",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Contents",
+          "sourceTableId": "sd.room.contents",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "Original alternatives and source instructions retained.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "name",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Adjective",
+          "sourceTableId": "sd.room.adjective",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        },
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Type",
+          "sourceTableId": "sd.room.type",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "SOURCE_COMPOSED",
+      "transformation": "Two descriptor fragments joined by ·; alternatives remain slash-separated.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "description",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Contents",
+          "sourceTableId": "sd.room.contents",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "Compatibility mirror of contents component; no extra roll.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "components.exits",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Exits",
+          "sourceTableId": "sd.room.exits",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "APP_DERIVED",
+      "transformation": "d4 × discovered Special Room matrix column; printed dash maps to zero.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Generic Room",
+      "field": "feature",
+      "sources": [
+        {
+          "book": "Sölitary Defilement",
+          "bookId": "sd",
+          "table": "Dungeon Room Descriptors — Room Exits",
+          "sourceTableId": "sd.room.exits",
+          "pdfPages": [
+            15
+          ],
+          "printedPages": [
+            13
+          ]
+        }
+      ],
+      "classification": "APP_DERIVED",
+      "transformation": "Compatibility label Exits + matrix-derived quantity.",
+      "verbatim": false,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Optional Room Field Roll",
+      "field": "feature",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "7. ROOM DRESSING (D20)",
+          "sourceTableId": "reclvse.dressing",
+          "pdfPages": [
+            92
+          ],
+          "printedPages": [
+            92
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "One explicitly requested table result; never an automatic combination recipe.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Optional Room Field Roll",
+      "field": "danger",
+      "sources": [
+        {
+          "book": "MÖRK BORG BARE BONES EDITION",
+          "bookId": "core",
+          "table": "traps",
+          "sourceTableId": "core.traps",
+          "pdfPages": [
+            4
+          ],
+          "printedPages": [
+            4
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "One explicitly requested table result; never an automatic combination recipe.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Optional Room Field Roll",
+      "field": "treasure",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "10D. LOOT (D20)",
+          "sourceTableId": "reclvse.roomLoot",
+          "pdfPages": [
+            93
+          ],
+          "printedPages": [
+            93
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "One explicitly requested table result; never an automatic combination recipe.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    },
+    {
+      "feature": "Optional Room Field Roll",
+      "field": "encounter",
+      "sources": [
+        {
+          "book": "RECLVSE — A Solo Engine for Mörk Borg",
+          "bookId": "reclvse",
+          "table": "10C. ENCOUNTER (D20)",
+          "sourceTableId": "reclvse.roomEncounter",
+          "pdfPages": [
+            93
+          ],
+          "printedPages": [
+            93
+          ]
+        }
+      ],
+      "classification": "SOURCE_VERBATIM",
+      "transformation": "One explicitly requested table result; never an automatic combination recipe.",
+      "verbatim": true,
+      "translationExists": true,
+      "translationRole": "Separate secondary helper; never generator input",
+      "fallbackExists": false,
+      "fallbackSourceBacked": null,
+      "confidence": "HIGH",
+      "sourceStatus": "VERIFIED"
+    }
+  ],
+  "removedUnsourcedFields": [
+    {
+      "field": "SpecialRoom.name.rolePrefix",
+      "oldValueOrigin": "Four app-written gothic role labels",
+      "disposition": "Removed; neutral ROOM NN identifier."
+    },
+    {
+      "field": "SpecialRoom.feature.contextBinding",
+      "oldValueOrigin": "Four authored sentences connecting dungeon title, inhabitants, danger and premise to unrelated room fragments",
+      "disposition": "Removed from new generation; legacy saved text preserved."
+    },
+    {
+      "field": "SpecialRoom.feature.regionDescriptionFallback",
+      "oldValueOrigin": "regionById(description) substituted when regional trait source unavailable",
+      "disposition": "Removed; source failure never fabricates room texture."
+    }
+  ],
+  "removedUnsupportedCombinations": [
+    {
+      "field": "SpecialRoom.description",
+      "problem": "Two forced distinct details with undisclosed category restriction and title-word weighting",
+      "disposition": "One actual Core d4×d6 sample; printed inline child only."
+    },
+    {
+      "field": "SpecialRoom.feature",
+      "problem": "Extra regional trait combined with core samples without a source procedure",
+      "disposition": "No automatic trait."
+    },
+    {
+      "field": "Dungeon.distinctiveFeature",
+      "problem": "Core feature + Depths region trait concatenated under one field",
+      "disposition": "Core feature only, explicit entry-ID weighting allowed."
+    },
+    {
+      "field": "Dungeon.motive",
+      "problem": "RECLVSE quest encounter hook applied as dungeon purpose",
+      "disposition": "Manual empty; source table still available in Reference."
+    },
+    {
+      "field": "Dungeon.weirdPhenomenon",
+      "problem": "RECLVSE arcane encounter applied as mandatory dungeon phenomenon",
+      "disposition": "Manual empty; source table still available in Reference."
+    },
+    {
+      "field": "Room",
+      "problem": "SD descriptors + Core Sample Room + Depths trait + RECLVSE conditional contents automatically layered",
+      "disposition": "SD descriptor procedure only for newly generated generic rooms; optional independent field rollers remain deliberate."
+    }
+  ]
+}

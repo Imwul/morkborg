@@ -1,6 +1,7 @@
 import type { OracleRegistry } from './oracle';
 import type { ReferenceReading } from './referenceReading';
 import { oracleFollowUpLinks, oracleReadingText } from './referenceReading';
+import { oracleValueProvenance } from './oracleProvenance';
 import { refsForOracle } from './referenceExecution';
 import { rollCityReference } from './cityReference';
 import {
@@ -133,7 +134,15 @@ export function cityCrawlMoveReading(
           ]
         : []),
     ],
-    sourceRefs: result.sourceRefs,
+    sourceRefs: [
+      ...result.sourceRefs,
+      ...(table && entry && follow
+        ? oracleValueProvenance(table, registry, entry, {
+            value: follow.roll,
+            values: follow.diceValues,
+          }).sourceRefs
+        : []),
+    ],
     ...links,
   };
 }

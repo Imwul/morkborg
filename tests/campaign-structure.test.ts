@@ -312,18 +312,41 @@ test('seven exact region names retain the requested proper nouns', () => {
   for (const word of ['Jila Migle', 'Sigfúm', 'Anthelia', 'Fathu'])
     assert.ok(regions.some((r) => r.description.includes(word)));
 });
-test('region tags boost gently, never force or stack, and match word boundaries', () => {
+test('explicit source-entry tags boost gently without reading English or translated text', () => {
+  const entry = {
+    text: 'arbitrary display',
+    weight: 1,
+    meta: { roll: 8, ko: '임의 번역' },
+  };
+  assert.equal(regionWeightFactor('core.inhabitants', entry, 'sarkash'), 1.25);
   assert.equal(
-    regionWeightFactor('core.rooms', 'Roots roots forest vines', 'sarkash'),
+    regionWeightFactor(
+      'core.inhabitants',
+      { ...entry, text: 'different', meta: { ...entry.meta, ko: '다름' } },
+      'sarkash',
+    ),
     1.25,
   );
-  assert.equal(regionWeightFactor('core.rooms', 'A crypt', 'sarkash'), 1);
   assert.equal(
-    regionWeightFactor('sd.room.type', 'Crypt', 'graven-tosk'),
+    regionWeightFactor(
+      'core.inhabitants',
+      { ...entry, meta: { roll: 1 } },
+      'sarkash',
+    ),
+    1,
+  );
+  assert.equal(
+    regionWeightFactor(
+      'core.rooms',
+      { ...entry, meta: { d4: 3, d6: 2 } },
+      'graven-tosk',
+    ),
     1.25,
   );
-  assert.equal(regionWeightFactor('core.rooms', 'justice notice', 'kergus'), 1);
-  assert.equal(entryTags('justice notice').includes('ice'), false);
+  assert.deepEqual(
+    entryTags({ ...entry, text: 'Roots forest ice', meta: {} }),
+    [],
+  );
   for (const table of [
     'core.treasures',
     'core.weapons',
@@ -331,18 +354,18 @@ test('region tags boost gently, never force or stack, and match word boundaries'
     'depths.region.sarkash.trait',
     'core.sparks',
   ])
-    assert.equal(regionWeightFactor(table, 'Roots forest', 'sarkash'), 1);
+    assert.equal(regionWeightFactor(table, entry, 'sarkash'), 1);
   const choices = [
-    { value: 'Forest', weight: 1.25 },
-    { value: 'Crypt', weight: 1 },
+    { value: 'tagged', weight: 1.25 },
+    { value: 'other', weight: 1 },
   ];
   assert.equal(
     weightedPick(choices, () => 0),
-    'Forest',
+    'tagged',
   );
   assert.equal(
     weightedPick(choices, () => 0.999),
-    'Crypt',
+    'other',
   );
 });
 test(
@@ -355,7 +378,7 @@ test(
       createDungeonCandidate(crypto.randomUUID(), region.id);
       for (const key of REGION_WEIGHT_TABLES)
         for (const e of pack.tables[key]?.entries ?? []) {
-          const factor = regionWeightFactor(key, e.text, region.id);
+          const factor = regionWeightFactor(key, e, region.id);
           assert.ok(factor === 1 || factor === 1.25);
           assert.ok(e.weight * factor > 0);
         }

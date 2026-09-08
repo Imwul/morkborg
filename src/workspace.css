@@ -2341,8 +2341,6 @@ h1 {
   gap: 8px;
   margin-bottom: 8px;
 }
-.monster-workbench > .page-heading h1,
-.monster-workbench > .page-heading p,
 .monster-workbench > .page-heading .generated-translation {
   display: none;
 }

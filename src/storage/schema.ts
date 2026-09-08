@@ -11,6 +11,12 @@ import {
 } from '../domain/chronicleOperations';
 import { z } from 'zod';
 import {
+  generatedValueSchema,
+  roomComponentSchema,
+  sourceReferenceSchema,
+} from './generationSchema';
+import { markUnresolvedImportedSources } from './importProvenance';
+import {
   REGION_IDS,
   dungeonFields,
   roomFields,
@@ -33,6 +39,7 @@ const text = z.string();
 const uuid = z.uuid();
 const time = z.iso.datetime();
 const provenance = {
+  fieldProvenance: z.record(z.string(), generatedValueSchema).optional(),
   sources: z.record(z.string(), z.string()).optional(),
   generation: z
     .object({ system: z.string(), rolls: z.record(z.string(), z.number()) })
@@ -71,6 +78,8 @@ const fields = (kind: LibraryKind) =>
       ]),
   );
 const characterItem = z.object({
+  ...provenance,
+  provenance: generatedValueSchema.optional(),
   id: uuid,
   text,
   source: text.optional(),
@@ -105,6 +114,8 @@ const character = z.object({
   status: z.enum(['alive', 'dead']),
 });
 const monsterText = z.object({
+  ...provenance,
+  provenance: generatedValueSchema.optional(),
   id: uuid,
   text,
   source: text.optional(),
@@ -126,7 +137,7 @@ const monster = z.object({
   appearance: text,
   behavior: text,
   wants: text,
-  hp: z.number().int().min(0).max(9999),
+  hp: z.union([text, z.number().int().min(0).max(9999)]),
   morale: z.union([text, z.number().int().min(0).max(12)]),
   armor: text,
   attacks: z.array(monsterAttack),
@@ -145,24 +156,7 @@ const monsterPlacement = monsterTarget.extend({
   quantity: z.number().int().min(1).max(999999),
   notes: text,
 });
-const sourceReference = z.object({
-  field: text.optional(),
-  bookId: text.optional(),
-  bookTitle: text.optional(),
-  tableId: text.optional(),
-  tableTitle: text.optional(),
-  pdfPage: z
-    .union([
-      z.number().int().positive(),
-      z.array(z.number().int().positive()),
-      z.null(),
-    ])
-    .optional(),
-  printedPage: z.union([z.number(), text, z.null()]).optional(),
-  note: text.optional(),
-  roll: z.number().int().optional(),
-  entryId: text.nullable().optional(),
-});
+const sourceReference = sourceReferenceSchema;
 const contentPlacement = monsterTarget.extend({
   ...hiddenInformationSchema,
   playState: placementPlayStateSchema.optional(),
@@ -218,6 +212,8 @@ const refs = {
   encounterIds: z.array(uuid),
 };
 const room = z.object({
+  components: z.array(roomComponentSchema).optional(),
+  legacyDescription: text.optional(),
   kind: z.enum(['special', 'generic']).optional(),
   specialDetailIds: z.array(text).optional(),
   exits: z.number().int().min(0).max(3).optional(),
@@ -622,8 +618,13 @@ export function parseImport(raw: string): Campaign[] {
     throw new Error(
       '지원하지 않는 파일입니다. Campaign Codex에서 내보낸 버전 1, 2, 3, 4, 5 또는 6 JSON을 사용하세요.',
     );
-  if ('campaign' in value) return [validateCampaign(value.campaign)];
+  if ('campaign' in value) {
+    const campaign = validateCampaign(value.campaign);
+    markUnresolvedImportedSources(campaign);
+    return [campaign];
+  }
   const save = validateSave(value);
+  markUnresolvedImportedSources(save);
   if (!save.mythic) return save.campaigns;
   // Import never overwrites the current standalone session. Keep its backup
   // in a new Campaign, including when the exported save had no campaigns.

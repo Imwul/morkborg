@@ -1,0 +1,15 @@
+{
+  "backupBytes": 188461,
+  "backupSha256": "7eec7db6bb6310c59751db8a6c549ab10e504a69e5a42b5b78a8c402dc620162",
+  "campaigns": 8,
+  "dungeons": 15,
+  "rooms": 60,
+  "characters": 13,
+  "monsters": 9,
+  "npcs": 5,
+  "encounters": 4,
+  "originalScalarLeavesCompared": 3920,
+  "changedOriginalPaths": [],
+  "allOriginalValuesPreserved": true,
+  "privateBackup": "outputs/product-integrity/pre-change-storage.json"
+}

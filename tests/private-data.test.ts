@@ -81,7 +81,19 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        493,
+        503,
+      );
+      assert.equal(
+        buildOracleRegistry(getRules(), getOraclePack()).tables.filter(
+          (table) => table.id === 'feretory.campsite.campDream',
+        ).length,
+        1,
+      );
+      assert.equal(
+        buildOracleRegistry(getRules(), getOraclePack()).tables.filter(
+          (table) => table.id.startsWith('feretory.hunting.'),
+        ).length,
+        9,
       );
     } finally {
       globalThis.fetch = original;

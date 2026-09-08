@@ -7,6 +7,7 @@ import type { RuleRoll } from '../generators';
 import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import type { FieldSpec } from '../domain/types';
+import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 export function Field({
   spec,
   value,
@@ -15,14 +16,24 @@ export function Field({
   source,
   onReroll,
   translation,
+  provenance,
+  showTools = true,
+  hideSource = false,
 }: {
   spec: FieldSpec;
   value: string | number;
-  onChange: (value: string | number, source?: string) => void;
+  onChange: (
+    value: string | number,
+    source?: string,
+    provenance?: GeneratedValueProvenance,
+  ) => void;
   reroll?: () => RuleRoll;
   source?: string;
   onReroll?: () => void;
   translation?: string;
+  provenance?: GeneratedValueProvenance;
+  showTools?: boolean;
+  hideSource?: boolean;
 }) {
   const htmlId = useId();
   const [editing, setEditing] = useState(false);
@@ -31,13 +42,13 @@ export function Field({
     if (!reroll) return;
     const next = reroll();
     setHistory((h) =>
-      [{ value, source: source ?? '직접 작성' }, ...h].slice(0, 3),
+      [{ value, source: source ?? '직접 작성', provenance }, ...h].slice(0, 3),
     );
-    onChange(next.value, next.source);
+    onChange(next.value, next.source, next.provenance);
   }
   function undo() {
     if (!history.length) return;
-    onChange(history[0].value, history[0].source);
+    onChange(history[0].value, history[0].source, history[0].provenance);
     setHistory(history.slice(1));
   }
   return (
@@ -67,7 +78,7 @@ export function Field({
               <Undo2 size={13} />
             </Button>
           )}
-          {(reroll || onReroll) && (
+          {(editing || showTools) && (reroll || onReroll) && (
             <Button
               className="icon-btn"
               aria-label={`${spec.label} 재굴림`}
@@ -84,7 +95,10 @@ export function Field({
               title="이 항목 비우기"
               onClick={() => {
                 setHistory((h) =>
-                  [{ value, source: source ?? '직접 작성' }, ...h].slice(0, 3),
+                  [
+                    { value, source: source ?? '직접 작성', provenance },
+                    ...h,
+                  ].slice(0, 3),
                 );
                 onChange('');
               }}
@@ -94,7 +108,22 @@ export function Field({
           )}
         </span>
       </div>
-      {!editing && spec.type !== 'number' ? (
+      {!editing && typeof value === 'string' && value.length > 220 ? (
+        <details className="long-source-result">
+          <summary aria-label={`${spec.label} 전체 보기`}>
+            <span>{value}</span>
+            <small>MORE ›</small>
+          </summary>
+          <button
+            id={htmlId}
+            className="field-value"
+            aria-label={`${spec.label} 편집`}
+            onClick={() => setEditing(true)}
+          >
+            {value}
+          </button>
+        </details>
+      ) : !editing ? (
         <button
           id={htmlId}
           className={`field-value ${value === '' ? 'empty' : ''}`}
@@ -144,11 +173,14 @@ export function Field({
           placeholder="직접 입력…"
         />
       )}
-      {spec.type !== 'number' && (
-        <Translation text={String(value)} translation={translation} />
-      )}
-      {editing && (
+      {spec.type !== 'number' &&
+        editing &&
+        provenance?.origin !== 'source-edited' && (
+          <Translation text={String(value)} translation={translation} />
+        )}
+      {editing && !hideSource && (
         <SourceDisclosure
+          provenance={provenance}
           source={source ?? (value !== '' ? '직접 작성' : '직접 작성 가능')}
         />
       )}

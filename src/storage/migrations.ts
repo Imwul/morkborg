@@ -17,6 +17,7 @@ export const V3_STORAGE_KEY = 'morkborg-codex:v3';
 export const V2_STORAGE_KEY = 'morkborg-codex:v2';
 export const LEGACY_STORAGE_KEY = 'morkborg-codex:v1';
 export const MIGRATION_BACKUP_KEY = 'morkborg-codex:pre-v6-backup';
+export const INTEGRITY_BACKUP_KEY = 'morkborg-codex:pre-integrity-backup';
 export interface SaveStorage {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
@@ -199,8 +200,17 @@ export function loadStoredSave(storage: SaveStorage): {
   migrated: string[];
 } {
   const current = storage.getItem(STORAGE_KEY);
-  if (current !== null)
+  if (current !== null) {
+    // Additive provenance format: keep exact pre-change bytes before any validator or edit can write.
+    if (storage.getItem(INTEGRITY_BACKUP_KEY) === null) {
+      storage.setItem(INTEGRITY_BACKUP_KEY, current);
+      if (storage.getItem(INTEGRITY_BACKUP_KEY) !== current)
+        throw new Error(
+          '기존 캠페인의 백업을 확인할 수 없습니다. 원본은 변경하지 않았습니다.',
+        );
+    }
     return { save: validateSave(JSON.parse(current)), migrated: [] };
+  }
   const previousKey =
     [
       PREVIOUS_STORAGE_KEY,

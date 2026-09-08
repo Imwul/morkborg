@@ -1,0 +1,350 @@
+{
+  "generatedAt": "2026-09-08T02:52:38.457Z",
+  "sourceValidationMeaning": "Canonical source resolution and declared-origin validation. VERIFIED metadata is not a claim that this utility reread PDF text. PARTIAL, CONFLICT and UNAVAILABLE are separately retained.",
+  "generatorInventory": {
+    "countingUnit": "Documented field/source-route rows, including class/preset variants. This is separate from canonical source-entry count and runtime generated sample groups.",
+    "rows": 1367,
+    "featureFieldPaths": 155,
+    "classifications": {
+      "SOURCE_VERBATIM": 786,
+      "SOURCE_COMPOSED": 390,
+      "APP_DERIVED": 153,
+      "USER_AUTHORED": 38,
+      "UNSOURCED": 0
+    },
+    "files": [
+      "dungeon-generation-inventory.json",
+      "creature-generation-inventory.json",
+      "reference-audit.json"
+    ]
+  },
+  "explicitRemainingSourceCases": [
+    {
+      "tableId": "heretic.curseCure",
+      "entryId": "heretic.curseCure:12",
+      "book": "HERETIC",
+      "pdfPage": 37,
+      "printedPage": 35,
+      "status": "PARTIAL",
+      "rollable": false,
+      "reason": "Supplied page physically cuts off final sentence after do not. No invented completion."
+    },
+    {
+      "name": "Rotten Nurse",
+      "status": "UNAVAILABLE",
+      "sourceRefs": [
+        {
+          "bookId": "heretic",
+          "bookTitle": "MÖRK BORG CULT: HERETIC",
+          "tableId": "creature:heretic:64:rotten-nurse",
+          "tableTitle": "Rotten Nurse",
+          "pdfPage": 64,
+          "printedPage": 62,
+          "entryId": "creature:heretic:64:rotten-nurse",
+          "role": "primary",
+          "status": "VERIFIED"
+        }
+      ],
+      "reason": "No applicable ordinary HP statblock; source identity and actual source rules remain available."
+    },
+    {
+      "name": "Lentil Lice",
+      "status": "UNAVAILABLE",
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableId": "creature:feretory:feretory.epk.lentil-lice",
+          "tableTitle": "Eat Prey Kill",
+          "pdfPage": 17,
+          "printedPage": 15,
+          "entryId": "feretory.epk.lentil-lice",
+          "role": "primary",
+          "status": "VERIFIED"
+        }
+      ],
+      "reason": "No applicable ordinary HP statblock; source identity and actual source rules remain available."
+    },
+    {
+      "name": "Cursed Trout",
+      "status": "UNAVAILABLE",
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableId": "creature:feretory:feretory.epk.cursed-trout",
+          "tableTitle": "Eat Prey Kill",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "entryId": "feretory.epk.cursed-trout",
+          "role": "primary",
+          "status": "VERIFIED"
+        }
+      ],
+      "reason": "No applicable ordinary HP statblock; source identity and actual source rules remain available."
+    },
+    {
+      "name": "Carcasswan",
+      "status": "UNAVAILABLE",
+      "sourceRefs": [
+        {
+          "bookId": "feretory",
+          "bookTitle": "MÖRK BORG CULT: FERETORY",
+          "tableId": "creature:feretory:feretory.epk.carcasswan",
+          "tableTitle": "Eat Prey Kill",
+          "pdfPage": 20,
+          "printedPage": 18,
+          "entryId": "feretory.epk.carcasswan",
+          "role": "primary",
+          "status": "VERIFIED"
+        }
+      ],
+      "reason": "No applicable ordinary HP statblock; source identity and actual source rules remain available."
+    },
+    {
+      "source": "FERETORY PDF2, The Monster Approaches",
+      "status": "CONFLICT",
+      "reason": "HP prose says double one damage-die result; the parenthetical 2dN example has a different distribution. Prose followed; conflict retained."
+    },
+    {
+      "source": "FERETORY PDF2, The Monster Approaches",
+      "status": "PARTIAL",
+      "reason": "Highest A/B/C ties have no printed armor tiebreak. Referee choices retained; no extra roll invented."
+    },
+    {
+      "source": "Solitary Defilement PDF19 / printed17",
+      "status": "UNAVAILABLE",
+      "reason": "Rare d8 + Dungeon DR may exceed the printed 1–20 stock-creature table. Empty explicit unresolved result; no clamp or fictional encounter."
+    }
+  ],
+  "sampleCounts": {
+    "dungeons": 100,
+    "genericRooms": 100,
+    "characters": 112,
+    "monsters": 100,
+    "regionalMonsters": 100,
+    "npcs": 100,
+    "encounters": 100,
+    "oracles": 544,
+    "creaturePresets": 89,
+    "npcPresets": 9,
+    "procedureRuns": 16
+  },
+  "specialRoomCount": 400,
+  "fieldsAudited": 9921,
+  "countingUnit": "Runtime generated field/provenance groups, including compatibility mirrors; not a unique generator-field inventory or independent PDF-text verification count.",
+  "classifications": {
+    "SOURCE_VERBATIM": 5937,
+    "SOURCE_COMPOSED": 1285,
+    "APP_DERIVED": 2499,
+    "USER_AUTHORED": 200,
+    "UNSOURCED": 0
+  },
+  "sourceStatuses": {
+    "VERIFIED": 9598,
+    "PARTIAL": 13,
+    "CONFLICT": 100,
+    "UNAVAILABLE": 10
+  },
+  "sourceStatusCountingUnit": "Only source-origin values. Blank/manual USER_AUTHORED fields are excluded from missing-source counts.",
+  "proceduresChecked": 85,
+  "errors": [],
+  "warnings": [
+    {
+      "severity": "warning",
+      "code": "source-partial",
+      "path": "samples.monsters[*].armor",
+      "detail": "Highest die table: A none; B -d2; C odd -d4, even -d6. Source gives no tie-break; referee chooses.",
+      "count": 13
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d4 result 1 × 2 = 2. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 24
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d4 result 2 × 2 = 4. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 15
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 5 × 2 = 10. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d4 result 4 × 2 = 8. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 8
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 1 × 2 = 2. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 7
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 3 × 2 = 6. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 3
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 6 × 2 = 12. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 4
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 5 × 2 = 10. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 2
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 8 × 2 = 16. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 4 × 2 = 8. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 2
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d4 result 3 × 2 = 6. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 13
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 7 × 2 = 14. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 8 × 2 = 16. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 2
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 2 × 2 = 4. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 5 × 2 = 10. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 2 × 2 = 4. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 3
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 6 × 2 = 12. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d8 result 6 × 2 = 12. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 2
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 4 × 2 = 8. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 2
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d6 result 3 × 2 = 6. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 4
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 1 × 2 = 2. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 10 × 2 = 20. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-conflict",
+      "path": "samples.monsters[*].hp",
+      "detail": "HP = d10 result 9 × 2 = 18. PDF 2 prose says double one result; parenthetical 2dN has a different distribution.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-unavailable",
+      "path": "samples.regionalMonsters[*].hp",
+      "detail": "No HP supplied for this creature; stat is intentionally empty.",
+      "count": 4
+    },
+    {
+      "severity": "warning",
+      "code": "source-unavailable",
+      "path": "samples.encounters[*].text",
+      "detail": "d8 7 + Dungeon DR 14 = 21, outside the printed 1–20 table; no creature text generated.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-unavailable",
+      "path": "samples.encounters[*].description",
+      "detail": "d8 7 + Dungeon DR 14 = 21, outside the printed 1–20 table; no creature text generated.",
+      "count": 1
+    },
+    {
+      "severity": "warning",
+      "code": "source-unavailable",
+      "path": "samples.creaturePresets[*].hp",
+      "detail": "No HP supplied for this creature; stat is intentionally empty.",
+      "count": 4
+    }
+  ]
+}

@@ -6,6 +6,10 @@ import {
 
 const tableGroups = [
   {
+    title: 'Loot the Bodies · two independent d6 rolls',
+    ids: ['heretic.gravesLootBodies', 'heretic.gravesLootBodies'],
+  },
+  {
     title: 'NPC · Disposition + Profession',
     ids: ['sd.npc.disposition', 'sd.npc.profession'],
   },
