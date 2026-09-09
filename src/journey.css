@@ -25,7 +25,8 @@
 }
 .journey-block {
   border: 1px solid var(--border, #626150);
-  background: var(--card, #12130e);
+  background: var(--background, #f7f5ee);
+  color: var(--foreground, #0b0b0a);
 }
 .journey-block > summary {
   display: flex;

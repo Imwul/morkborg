@@ -1,0 +1,56 @@
+{
+  "baselineCommit": "f75dd0e32f01bbdd27e0f06bbcdc1f89e1e3593e",
+  "scope": "Journey card foreground/background only",
+  "runs": [
+    {
+      "phase": "before",
+      "url": "https://morkborg-4e3y.vercel.app",
+      "captures": 24,
+      "contrastFailures": 519,
+      "minimum": 1.06,
+      "overflow": 0,
+      "errors": [],
+      "reloadPreservedProgress": true,
+      "states": [
+        "dawn",
+        "weather",
+        "activity",
+        "expanded"
+      ],
+      "widths": [
+        360,
+        1440,
+        3440
+      ],
+      "colorSchemes": [
+        "light",
+        "dark"
+      ]
+    },
+    {
+      "phase": "after",
+      "url": "http://127.0.0.1:5175",
+      "captures": 24,
+      "contrastFailures": 0,
+      "minimum": 5.42,
+      "overflow": 0,
+      "errors": [],
+      "reloadPreservedProgress": true,
+      "states": [
+        "dawn",
+        "weather",
+        "activity",
+        "expanded"
+      ],
+      "widths": [
+        360,
+        1440,
+        3440
+      ],
+      "colorSchemes": [
+        "light",
+        "dark"
+      ]
+    }
+  ]
+}
