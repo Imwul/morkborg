@@ -1,5 +1,14 @@
+import { useReferenceConvenience } from './useReferenceConvenience';
+import {
+  ConveniencePanel,
+  PlayTrayStrip,
+  PhysicalRollInput,
+  PartialRollControls,
+} from './ConvenienceTools';
+import { suppressRollShortcut } from '../domain/heldReferenceResults';
+import { focusedReferences } from '../domain/conveniencePacks';
 import { id } from '../generators/random';
-import { executeReference, refsForOracle } from '../domain/referenceExecution';
+import { refsForOracle } from '../domain/referenceExecution';
 import {
   referenceAction,
   referenceShortName,
@@ -186,31 +195,79 @@ export function ReferenceProvider({
       retainReferenceReading(state, entryId, result, rolled),
     );
     touchEntry(entryId);
+    if (rolled && index.byId[entryId]?.action?.kind === 'city')
+      convenience.remember({
+        kind: 'reference',
+        id: entryId,
+        mode: 'OPEN',
+        parameters: convenience.parameters(),
+      });
   }
-  function perform(entry: ReferenceEntry, contextRegion = region) {
+  const convenience = useReferenceConvenience({
+    index,
+    registry: oracles.registry,
+    readings,
+    options: {
+      registry: oracles.registry,
+      rules: rules.pack,
+      region,
+      stockKind,
+      stockDR,
+      cityLarge,
+      cityExits,
+      encounterRegion,
+      rareDeck,
+    },
+    accept: acceptReading,
+    open: (id) => activate(id),
+    notify,
+    onDeck: setRareDeck,
+    restoreParameters: (params) => {
+      setRegion(params.region);
+      setStockKind(params.stockKind);
+      setStockDR(params.stockDR);
+      setCityLarge(params.cityLarge);
+      setCityExits(params.cityExits);
+      setEncounterRegion(params.encounterRegion);
+      setRareDeck(params.rareDeck);
+    },
+  });
+  function perform(
+    entry: ReferenceEntry,
+    contextRegion = region,
+    only?: string,
+  ) {
     try {
       setFailure('');
-      const output = executeReference(entry, {
-        registry: oracles.registry,
-        rules: rules.pack,
-        region: contextRegion,
-        stockKind,
-        stockDR,
-        cityLarge,
-        cityExits,
-        encounterRegion,
-        rareDeck,
-      });
-      if (output?.rareMonster) setRareDeck(output.rareMonster.remaining);
-      if (output)
-        acceptReading(entry.id, output, entry.action?.kind !== 'creature');
+      convenience.run(entry, contextRegion, undefined, only);
     } catch (e) {
       setFailure(e instanceof Error ? e.message : '원문 자료를 확인하세요.');
     }
   }
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() !== 'r' ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.altKey ||
+        event.shiftKey ||
+        event.repeat ||
+        suppressRollShortcut(event.target)
+      )
+        return;
+      if (convenience.temporary.lastRoll) {
+        event.preventDefault();
+        convenience.rerollLast();
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  });
   function activate(entryId: string, roll = false, contextRegion?: RegionId) {
     const entry = index.byId[entryId];
     if (!entry) return;
+    convenience.setPanel(null);
     entryId = entry.id;
     if (entry.action?.kind === 'city' && !entry.action.move && onCity) {
       touchEntry(entryId);
@@ -245,6 +302,7 @@ export function ReferenceProvider({
       perform(entry, contextRegion);
   }
   function openSearch(value = '', nextScope: typeof scope = 'all') {
+    convenience.setPanel(null);
     setQuery(value);
     setScope(nextScope);
     setSearchOpen(true);
@@ -253,13 +311,14 @@ export function ReferenceProvider({
     const key = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
+        convenience.setPanel(null);
         setSearchOpen((open) => !open);
         setScope('all');
       }
     };
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
-  }, []);
+  });
   const scopedIds = scope === 'pinned' ? prefs.pinnedIds : prefs.recentIds;
   const found =
     scope === 'all'
@@ -323,6 +382,15 @@ export function ReferenceProvider({
   return (
     <ReferenceContext.Provider
       value={{
+        activePack: convenience.activePack,
+        focusedIds: focusedReferences(index, convenience.activePack).map(
+          (e) => e.id,
+        ),
+        openTools: (tab = 'play') => {
+          setSearchOpen(false);
+          convenience.setPanel(tab);
+        },
+        addTray: convenience.addTray,
         entries: index.entries,
         byId: index.byId,
         activate,
@@ -340,41 +408,66 @@ export function ReferenceProvider({
       }}
     >
       {children}
-      <div className="reference-dock" aria-label="빠른 참조">
-        <button aria-label="참조 검색" onClick={() => openSearch()}>
-          <Search size={16} />
-          <span>검색</span>
-        </button>
-        <button
-          aria-label={`고정한 참조 ${prefs.pinnedIds.length}`}
-          onClick={() => openSearch('', 'pinned')}
-        >
-          <Pin size={15} />
-          <span>고정 {prefs.pinnedIds.length}</span>
-        </button>
-        <button aria-label="최근 참조" onClick={() => openSearch('', 'recent')}>
-          <History size={16} />
-          <span>최근</span>
-        </button>
-        <div className="dock-pinned">
-          {prefs.pinnedIds
-            .map((key) => index.byId[key])
-            .filter(Boolean)
-            .map((entry) => (
-              <button
-                key={entry.id}
-                title={entry.title}
-                onClick={() => activate(entry.id, isOneClick(entry))}
-              >
-                {referenceShortName(entry)}
-              </button>
-            ))}
+      <div className="reference-rail">
+        <PlayTrayStrip tools={convenience} />
+        <div className="reference-dock" aria-label="빠른 참조">
+          <button aria-label="참조 검색" onClick={() => openSearch()}>
+            <Search size={16} />
+            <span>검색</span>
+          </button>
+          <button
+            aria-label={`고정한 참조 ${prefs.pinnedIds.length}`}
+            onClick={() => openSearch('', 'pinned')}
+          >
+            <Pin size={15} />
+            <span>고정 {prefs.pinnedIds.length}</span>
+          </button>
+          <button
+            aria-label="최근 참조"
+            onClick={() => openSearch('', 'recent')}
+          >
+            <History size={16} />
+            <span>최근</span>
+          </button>
+          <button
+            aria-label="Play 도구 열기"
+            onClick={() => {
+              setSearchOpen(false);
+              convenience.setPanel('play');
+            }}
+          >
+            <span className="play-tool-label">PLAY</span>
+          </button>
+          {convenience.temporary.lastRoll && (
+            <button
+              aria-label="마지막 굴림 다시 실행"
+              title="R · 마지막 굴림"
+              onClick={() => convenience.rerollLast()}
+            >
+              ↻<span>LAST</span>
+            </button>
+          )}
+          <div className="dock-pinned">
+            {prefs.pinnedIds
+              .map((key) => index.byId[key])
+              .filter(Boolean)
+              .map((entry) => (
+                <button
+                  key={entry.id}
+                  title={entry.title}
+                  onClick={() => activate(entry.id, isOneClick(entry))}
+                >
+                  {referenceShortName(entry)}
+                </button>
+              ))}
+          </div>
         </div>
       </div>
       <Dialog
-        open={searchOpen || !!selected}
+        open={searchOpen || !!selected || !!convenience.panel}
         onOpenChange={(open) => {
           if (!open) {
+            convenience.setPanel(null);
             setSearchOpen(false);
             setSelectedId(null);
           }
@@ -386,11 +479,15 @@ export function ReferenceProvider({
             searchOpen ? searchInputRef.current : inspectorRef.current
           }
           className={
-            searchOpen ? 'reference-search-dialog' : 'reference-inspector'
+            convenience.panel
+              ? 'reference-tools-dialog'
+              : searchOpen
+                ? 'reference-search-dialog'
+                : 'reference-inspector'
           }
         >
           <nav className="reference-inner-tray" aria-label="참조 도구 모음">
-            {!searchOpen && !!trail.length && (
+            {!convenience.panel && !searchOpen && !!trail.length && (
               <button
                 aria-label="이전 참조"
                 onClick={() => {
@@ -424,6 +521,28 @@ export function ReferenceProvider({
             <button onClick={() => openSearch('', 'pinned')}>
               <Pin size={15} /> 고정
             </button>
+            <button
+              aria-label="창 안에서 Play 도구"
+              onClick={() => {
+                setSearchOpen(false);
+                convenience.setPanel('play');
+              }}
+            >
+              PLAY
+            </button>
+            {convenience.temporary.lastRoll && (
+              <button
+                aria-label="마지막 굴림 다시 실행"
+                onClick={() => convenience.rerollLast()}
+              >
+                ↻ LAST
+              </button>
+            )}
+            {convenience.panel && selected && (
+              <button onClick={() => convenience.setPanel(null)}>
+                결과로 돌아가기
+              </button>
+            )}
             <div className="reference-inner-pins">
               {prefs.pinnedIds
                 .map((key) => index.byId[key])
@@ -439,7 +558,13 @@ export function ReferenceProvider({
                 ))}
             </div>
           </nav>
-          {searchOpen && (
+          {!convenience.panel && !!convenience.temporary.tray.length && (
+            <div className="reference-inner-play">
+              <PlayTrayStrip tools={convenience} />
+            </div>
+          )}
+          {convenience.panel && <ConveniencePanel tools={convenience} />}
+          {!convenience.panel && searchOpen && (
             <>
               {selected && (
                 <button
@@ -530,9 +655,26 @@ export function ReferenceProvider({
               </div>
             </>
           )}
-          {!searchOpen && selected && (
+          {!convenience.panel && !searchOpen && selected && (
             <>
               <div className="reference-inspector-top">
+                <details className="reference-convenience-actions">
+                  <summary aria-label="참조 편의 동작">⋯</summary>
+                  <button
+                    disabled={convenience.temporary.tray.includes(selected.id)}
+                    onClick={() => convenience.addTray(selected.id)}
+                  >
+                    + Play Tray
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (reading) convenience.sendReading(reading);
+                      else convenience.scratch(selected.title);
+                    }}
+                  >
+                    스크랩에 추가
+                  </button>
+                </details>
                 <DialogTitle>
                   {referenceShortName(selected)}
                   <Translation
@@ -1045,6 +1187,15 @@ export function ReferenceProvider({
                       .map((roll, n) => (
                         <ReferenceNextSteps key={n} metadata={roll.metadata} />
                       ))}
+                    {roller && (
+                      <PartialRollControls
+                        entry={selected}
+                        reading={reading}
+                        registry={oracles.registry}
+                        tools={convenience}
+                        onReroll={(key) => perform(selected, region, key)}
+                      />
+                    )}
                     <div className="ref-copy-actions">
                       {roller && (
                         <Button
@@ -1066,6 +1217,16 @@ export function ReferenceProvider({
                         <button onClick={() => copyReading(true)}>
                           COPY WITH SOURCE
                         </button>
+                        <button
+                          onClick={() => convenience.sendReading(reading)}
+                        >
+                          스크랩에 추가
+                        </button>
+                        <button
+                          onClick={() => convenience.sendReading(reading, true)}
+                        >
+                          출처와 스크랩에 추가
+                        </button>
                       </details>
                     </div>
                   </article>
@@ -1084,6 +1245,19 @@ export function ReferenceProvider({
                     <button
                       onClick={() => {
                         setRareDeck(undefined);
+                        convenience.updateTemporary((p) => ({
+                          ...p,
+                          lastRoll:
+                            p.lastRoll?.id === selected.id
+                              ? {
+                                  ...p.lastRoll,
+                                  parameters: {
+                                    ...p.lastRoll.parameters,
+                                    rareDeck: undefined,
+                                  },
+                                }
+                              : p.lastRoll,
+                        }));
                         setFailure('');
                       }}
                     >
@@ -1151,8 +1325,16 @@ export function ReferenceProvider({
                   />
                 </label>
               )}
+              {!tableView && (
+                <PhysicalRollInput
+                  key={`manual:${selected.id}`}
+                  entry={selected}
+                  registry={oracles.registry}
+                  tools={convenience}
+                />
+              )}
               <SourceDisclosure
-                key={selected.id}
+                key={`source:${selected.id}`}
                 label="SOURCE"
                 authorities={
                   reading
@@ -1183,6 +1365,29 @@ export function ReferenceProvider({
                       ))
                 }
               >
+                {reading?.rollMethod && (
+                  <p className="reference-roll-method">
+                    {reading.rollMethod.kind === 'USER_ROLL'
+                      ? 'MANUAL ROLL · USER_ROLL · 실물 입력'
+                      : reading.rollMethod.kind === 'MIXED'
+                        ? 'MIXED · 실물 입력과 앱 재굴림'
+                        : 'APP ROLL · 앱 굴림'}
+                  </p>
+                )}
+                {reading?.oracle?.rolls.some(
+                  (r) => r.metadata?.rollOrigin === 'USER_ROLL',
+                ) && (
+                  <ul>
+                    {reading.oracle.rolls.map((r, n) => (
+                      <li key={n}>
+                        {r.title} · {r.dice} = {r.roll} ·{' '}
+                        {r.metadata?.rollOrigin === 'USER_ROLL'
+                          ? 'USER_ROLL'
+                          : 'APP_ROLL'}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {selected.kind === 'oracle' && !tableView && (
                   <button
                     className="ref-text-action"
@@ -1481,12 +1686,14 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
     ids
       .map((id) => desk?.byId[id])
       .filter((entry): entry is ReferenceEntry => !!entry);
-  const quick = entries([
-    'oracle:core.reaction',
-    'procedure:reclvse.action-theme',
-    'procedure:workbench.stock-room',
-    'procedure:workbench.npc',
-  ]);
+  const quick = desk?.activePack
+    ? entries(desk.focusedIds ?? []).slice(0, 6)
+    : entries([
+        'oracle:core.reaction',
+        'procedure:reclvse.action-theme',
+        'procedure:workbench.stock-room',
+        'procedure:workbench.npc',
+      ]);
   return (
     <section className="reference-desk">
       <header className="desk-heading">
@@ -1580,7 +1787,15 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
         </section>
       </div>
       <section className="desk-play-tools" aria-label="자주 쓰는 도구">
-        <h2>QUICK TOOLS</h2>
+        <h2>
+          QUICK TOOLS{' '}
+          <button
+            className="desk-pack-choice"
+            onClick={() => desk?.openTools?.('packs')}
+          >
+            {desk?.activePack ? `PACK · ${desk.activePack.name}` : 'PACK'}
+          </button>
+        </h2>
         <div className="desk-quick-grid">
           {quick.map((entry) => (
             <ReferenceRow key={entry.id} entry={entry} showMetadata={false} />

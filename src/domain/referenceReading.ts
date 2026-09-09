@@ -11,6 +11,12 @@ export interface ReferenceTextBlock {
   translation?: { ko?: string; titleKo?: string };
 }
 export interface ReferenceReading {
+  /** Transient workbench input metadata; never canonical source text or Campaign schema. */
+  rollMethod?: {
+    kind: 'APP_ROLL' | 'USER_ROLL' | 'MIXED';
+    inputs?: Record<string, string>;
+  };
+  npcSnapshot?: import('./types').NPC;
   rareMonster?: import('./depthsProcedures').RareMonsterTrace;
   childReferenceIds?: string[];
   valuationReferenceId?: string;

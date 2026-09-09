@@ -9,6 +9,12 @@ import type { ReferenceReading } from './referenceReading';
 
 /** Metadata only: application choices are never represented as quotations or source routing. */
 export const APP_GENERATION_POLICIES: Record<string, string> = {
+  'app.physical-roll':
+    'USER_ROLL: physical dice/cards were entered by the player and resolved against the canonical table. The app did not roll these inputs. / 실물 주사위·카드 입력을 원문 표에서 조회했습니다. 앱이 대신 굴린 값이 아닙니다.',
+  'app.reference-recipe':
+    'A user-authored ordered combination of canonical references. Each result is independent and retains its own source; the combination is not an official procedure. / 사용자가 만든 순서형 참조 조합입니다. 결과별 출처는 독립적이며 조합 자체는 공식 절차가 아닙니다.',
+  'app.held-results':
+    'Held independent results are retained during partial rerolls. Dependent source components must be regenerated together. / 고정한 독립 결과는 유지합니다. 원문에서 서로 종속된 결과는 함께 다시 생성해야 합니다.',
   'app.reference-entry-lookup':
     'This is a read-only lookup of the cited source entry. A title qualifier distinguishes similarly named items; it adds no source mechanics or extra roll. / 인용한 원문 항목을 조회합니다. 제목의 출처 표시는 이름이 같은 항목을 구별하기 위한 앱 표기이며, 규칙이나 추가 굴림을 만들지 않습니다.',
   'app.core-valuation-index':

@@ -1,5 +1,5 @@
 import type { OracleRegistry, OracleResult } from './oracle';
-import type { Monster, RegionId, SourceReference } from './types';
+import type { Monster, NPC, RegionId, SourceReference } from './types';
 import type { RulesPack } from '../storage/rulesStore';
 import {
   rollRegionalReference,
@@ -155,6 +155,46 @@ export interface ReferenceExecutionOptions {
   encounterRegion?: string;
   rareDeck?: PlayingCard[];
 }
+export function npcReferenceReading(npc: NPC): ReferenceReading {
+  return {
+    title: npc.name,
+    npcSnapshot: npc,
+    blocks: [
+      {
+        title: npc.archetype,
+        text: [
+          npc.appearance,
+          npc.behaviour,
+          npc.personality,
+          npc.wants,
+          `Reaction: ${npc.reaction}`,
+        ]
+          .filter(Boolean)
+          .join('\n'),
+      },
+    ],
+    sourceRefs: npc.sourceRefs,
+    authority: [appPolicy('workbench.npc')],
+  };
+}
+/** Mirrors the executable branches below, including procedures with an attached rule definition. */
+export function referenceProducesRoll(entry: ReferenceEntry): boolean {
+  const action = entry.action;
+  if (!action || !entry.available) return false;
+  if (
+    action.kind === 'procedure' &&
+    ['depths.rare-monster', 'depths.encounter-level'].includes(
+      action.procedureId,
+    )
+  )
+    return true;
+  return (
+    !entry.definition &&
+    ['oracle', 'procedure', 'regional-monster', 'regional-table'].includes(
+      action.kind,
+    )
+  );
+}
 /** Executes a reference without mutating a Campaign, saving an object, or opening a dialog. */
 export function executeReference(
   entry: ReferenceEntry,
@@ -278,24 +318,7 @@ export function executeReference(
     action.procedureId === 'workbench.npc'
   ) {
     const npc = createNPC(id(), region, false, registry);
-    output = {
-      title: npc.name,
-      blocks: [
-        {
-          title: npc.archetype,
-          text: [
-            npc.appearance,
-            npc.behaviour,
-            npc.personality,
-            npc.wants,
-            `Reaction: ${npc.reaction}`,
-          ]
-            .filter(Boolean)
-            .join('\n'),
-        },
-      ],
-      sourceRefs: npc.sourceRefs,
-    };
+    output = npcReferenceReading(npc);
   } else if (
     action.kind === 'procedure' &&
     action.procedureId === 'workbench.epk'

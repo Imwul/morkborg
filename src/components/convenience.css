@@ -1,0 +1,403 @@
+/* One secondary rail; result typography and the existing reference surface stay primary. */
+.reference-rail {
+  position: fixed;
+  z-index: 35;
+  bottom: 16px;
+  left: calc(var(--nav-width, 208px) + 18px);
+  max-width: min(740px, calc(100vw - var(--nav-width, 208px) - 48px));
+}
+.reference-rail .reference-dock {
+  position: static;
+  max-width: 100%;
+}
+.reference-play-tray {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  white-space: nowrap;
+}
+.reference-play-tray > small {
+  padding: 0 10px;
+  font: 700 10px var(--font-label);
+}
+.reference-play-tray > button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 9px;
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+}
+.reference-rail .reference-dock .play-tool-label {
+  display: inline;
+  font-size: 11px;
+}
+.reference-tools-dialog {
+  font-family: var(--font-ui);
+  z-index: 61;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  max-width: 700px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  width: min(700px, calc(100vw - 24px));
+  max-height: 90dvh;
+  overflow: auto;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 24px;
+}
+.convenience-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--border);
+  margin: 12px 0 18px;
+}
+.convenience-tabs > button {
+  padding: 6px 10px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.convenience-tabs [aria-pressed='true'],
+.convenience-pack-list [aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.reference-tools-dialog button,
+.physical-roll-input button,
+.partial-roll-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.reference-tools-dialog label,
+.physical-roll-input label {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+.reference-tools-dialog input,
+.reference-tools-dialog textarea,
+.physical-roll-input input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px;
+  background: var(--group-paper);
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+.reference-tools-dialog small,
+.physical-roll-input small,
+.convenience-hint {
+  color: var(--muted-ink);
+  font-size: 12px;
+}
+.convenience-index-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+.convenience-index-row > button:first-child {
+  flex: 1;
+  text-align: left;
+}
+.convenience-index-row details {
+  flex-shrink: 0;
+}
+.convenience-index-row summary,
+.recipe-more summary,
+.reference-convenience-actions summary {
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.convenience-index-row details[open],
+.recipe-more[open],
+.reference-convenience-actions[open] {
+  background: var(--group-tint);
+  padding: 6px;
+}
+.convenience-index-row details button,
+.recipe-more button,
+.reference-convenience-actions button {
+  display: block;
+  font-size: 12px;
+  min-height: 44px;
+}
+.convenience-add-row {
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 6px;
+}
+.convenience-last,
+.convenience-scratch > div {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+.convenience-pack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.convenience-pack-list button {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+.convenience-editor {
+  padding: 12px 0;
+  border-top: 2px solid var(--ink);
+}
+.convenience-editor ol {
+  padding: 0;
+  list-style: none;
+}
+.convenience-editor li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+.convenience-editor li span {
+  flex: 1;
+}
+.convenience-editor button[type='submit'],
+.physical-roll-input button[type='submit'],
+.recipe-results > button {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 12px;
+}
+.recipe-results {
+  margin-top: 24px;
+}
+.recipe-results > h2 {
+  font: 700 28px/1.1 var(--font-display);
+}
+.recipe-result {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.recipe-result header {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.recipe-result header h3 {
+  flex: 1;
+  font-size: 16px;
+  margin: 0;
+}
+.recipe-result header button {
+  min-width: 44px;
+}
+.recipe-result header button[aria-pressed='true'],
+.held-component [aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.recipe-result h4 {
+  font-size: 12px;
+  color: var(--muted-ink);
+  margin: 10px 0 4px;
+}
+.recipe-result p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 6px 0;
+}
+.recipe-result .translation-ko {
+  font-size: 13px;
+}
+.recipe-manual-text {
+  white-space: pre-wrap;
+}
+.recipe-result .source-disclosure {
+  margin-top: 12px;
+}
+.convenience-help {
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+  padding-top: 8px;
+  font-size: 12px;
+}
+.convenience-help summary {
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--muted-ink);
+}
+.reference-inspector-top .reference-convenience-actions {
+  order: 2;
+  font-size: 12px;
+  position: relative;
+}
+.reference-inspector-top .reference-convenience-actions[open] {
+  align-self: start;
+}
+.physical-roll-input,
+.partial-roll-controls {
+  font-size: 13px;
+  margin: 8px 0;
+}
+.physical-roll-input > summary,
+.partial-roll-controls > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--muted-ink);
+}
+.physical-roll-input form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+  padding: 8px 0;
+}
+.physical-roll-input label {
+  flex: 1 1 160px;
+}
+.physical-roll-input form > button {
+  flex-shrink: 0;
+}
+.held-component {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.held-component > span {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  padding: 8px 0;
+}
+.held-component small {
+  font-size: 11px;
+  color: var(--muted-ink);
+}
+.held-component b {
+  font-weight: 500;
+  font-size: 15px;
+}
+.held-component button {
+  min-width: 44px;
+}
+.desk-play-tools .desk-pack-choice {
+  margin-left: 10px;
+  font: 500 11px var(--font-label);
+  min-height: 44px;
+  max-width: 100%;
+  color: var(--muted-ink);
+  background: transparent;
+}
+@media (max-width: 900px) {
+  .reference-rail {
+    left: 12px;
+    max-width: calc(100vw - 24px);
+  }
+}
+@media (max-width: 600px) {
+  .reference-tools-dialog {
+    font-family: var(--font-ui);
+    padding: 16px;
+  }
+  .reference-rail {
+    right: 12px;
+    width: max-content;
+  }
+  .reference-play-tray {
+    width: calc(100vw - 24px);
+  }
+  body:has(.reference-play-tray) .fate-launcher {
+    bottom: 112px;
+  }
+  .reference-inspector-top .reference-convenience-actions {
+    flex-basis: auto;
+  }
+  .physical-roll-input form {
+    display: block;
+  }
+  .convenience-tabs {
+    gap: 0;
+  }
+  .convenience-tabs > button {
+    padding: 4px 7px;
+  }
+}
+
+[data-slot='dialog-portal']:has(> .reference-tools-dialog)
+  > [data-slot='dialog-overlay'] {
+  z-index: 60;
+}
+.reference-tools-dialog > h2 {
+  font: 700 30px/1.1 var(--font-display);
+  margin: 12px 32px 8px 0;
+}
+.card-input-suits {
+  display: flex;
+  gap: 6px;
+}
+.card-input-suits button {
+  min-width: 44px;
+}
+
+.recipe-secondary {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+}
+.recipe-secondary .source-disclosure {
+  flex: 1;
+  margin: 0;
+}
+.recipe-secondary .recipe-more {
+  flex-shrink: 0;
+}
+.recipe-secondary:has(details[open]) {
+  display: block;
+}
+.reference-tools-dialog > h2 {
+  font: 700 12px/1.2 var(--font-label);
+  color: var(--muted-ink);
+}
+.physical-card-entry {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.reference-inner-play .reference-play-tray {
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  margin: 4px 0 8px;
+  background: transparent;
+}
+
+.convenience-library > summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted-ink);
+  padding: 12px 0;
+}
+.convenience-library[open] > summary {
+  padding-bottom: 4px;
+}

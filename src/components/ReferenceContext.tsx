@@ -5,6 +5,10 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  activePack?: import('../storage/conveniencePreferences').ReferencePack;
+  focusedIds?: string[];
+  openTools?: (tab?: 'play' | 'recipes' | 'packs' | 'scratch') => void;
+  addTray?: (id: string) => void;
   entries: ReferenceEntry[];
   byId: Record<string, ReferenceEntry>;
   activate: (id: string, roll?: boolean, region?: RegionId) => void;
