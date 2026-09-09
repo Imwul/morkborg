@@ -1,0 +1,284 @@
+{
+  "phase": "after",
+  "url": "http://127.0.0.1:5175",
+  "width": 1440,
+  "clicks": 52,
+  "queryEntries": 5,
+  "events": [
+    {
+      "query": "Reaction"
+    },
+    {
+      "click": 1,
+      "label": "Search Reaction → execute"
+    },
+    {
+      "click": 2,
+      "label": "Copy result"
+    },
+    {
+      "click": 3,
+      "label": "Source"
+    },
+    {
+      "click": 4,
+      "label": "View table"
+    },
+    {
+      "click": 5,
+      "label": "Table → result"
+    },
+    {
+      "click": 6,
+      "label": "More result actions"
+    },
+    {
+      "click": 7,
+      "label": "Copy with source"
+    },
+    {
+      "click": 8,
+      "label": "Close inspector"
+    },
+    {
+      "query": "Broken"
+    },
+    {
+      "click": 9,
+      "label": "Search Broken → execute"
+    },
+    {
+      "click": 10,
+      "label": "Close inspector"
+    },
+    {
+      "query": "Daemon of Capillaries"
+    },
+    {
+      "click": 11,
+      "label": "Search Daemon of Capillaries → execute"
+    },
+    {
+      "click": 12,
+      "label": "Close inspector"
+    },
+    {
+      "click": 13,
+      "label": "Navigate 나의 캠페인"
+    },
+    {
+      "click": 14,
+      "label": "Open isolated QA campaign"
+    },
+    {
+      "click": 15,
+      "label": "Navigate 캐릭터"
+    },
+    {
+      "click": 16,
+      "label": "Open saved Character"
+    },
+    {
+      "click": 17,
+      "label": "Character weapon → definition"
+    },
+    {
+      "click": 18,
+      "label": "Close inspector"
+    },
+    {
+      "click": 19,
+      "label": "Character Power → definition"
+    },
+    {
+      "click": 20,
+      "label": "Close inspector"
+    },
+    {
+      "click": 21,
+      "label": "Edit Character"
+    },
+    {
+      "click": 22,
+      "label": "Finish Character editing"
+    },
+    {
+      "click": 23,
+      "label": "Navigate 던전 보관함"
+    },
+    {
+      "click": 24,
+      "label": "Open Dungeon"
+    },
+    {
+      "click": 25,
+      "label": "Dungeon overview"
+    },
+    {
+      "click": 26,
+      "label": "Open Room ledger"
+    },
+    {
+      "click": 27,
+      "label": "Open Room 02"
+    },
+    {
+      "click": 28,
+      "label": "Reroll independent altar component"
+    },
+    {
+      "click": 29,
+      "label": "Source"
+    },
+    {
+      "click": 30,
+      "label": "Room Source → canonical table"
+    },
+    {
+      "click": 31,
+      "label": "Close inspector"
+    },
+    {
+      "click": 32,
+      "label": "Close Room Source"
+    },
+    {
+      "click": 33,
+      "label": "Edit Room"
+    },
+    {
+      "click": 34,
+      "label": "Finish Room editing"
+    },
+    {
+      "click": 35,
+      "label": "Navigate 몬스터"
+    },
+    {
+      "click": 36,
+      "label": "Open saved Monster"
+    },
+    {
+      "click": 37,
+      "label": "Source"
+    },
+    {
+      "click": 38,
+      "label": "Close Monster Source"
+    },
+    {
+      "click": 39,
+      "label": "Monster library"
+    },
+    {
+      "click": 40,
+      "label": "Generate Monster"
+    },
+    {
+      "click": 41,
+      "label": "Monster detail / special"
+    },
+    {
+      "click": 42,
+      "label": "Navigate REFERENCE DESK"
+    },
+    {
+      "query": "Action + Theme"
+    },
+    {
+      "click": 43,
+      "label": "Search Action + Theme → execute"
+    },
+    {
+      "click": 44,
+      "label": "Pin Action + Theme"
+    },
+    {
+      "click": 45,
+      "label": "Close inspector"
+    },
+    {
+      "click": 46,
+      "label": "Pin → direct run"
+    },
+    {
+      "click": 47,
+      "label": "Close inspector"
+    },
+    {
+      "click": 48,
+      "label": "Recent → direct run"
+    },
+    {
+      "click": 49,
+      "label": "Close inspector"
+    },
+    {
+      "query": "Rare Monster Five Cards"
+    },
+    {
+      "click": 50,
+      "label": "Search Rare Monster Five Cards → execute"
+    },
+    {
+      "click": 51,
+      "label": "Inspect cards used"
+    },
+    {
+      "click": 52,
+      "label": "Close inspector"
+    }
+  ],
+  "checks": [
+    "Reaction executes directly with a visible result",
+    "Plain copy contains play content without source IDs",
+    "Source opens directly with exact book/page",
+    "Table keeps ranges readable and active result",
+    "Copy with source retains concise provenance without debug IDs",
+    "Broken mechanic readable",
+    "Power effect and Korean remain visible",
+    "Saved creation controls stay hidden until edit",
+    "Weapon definition opens in one click",
+    "Character Power opens its usable mechanic",
+    "Character edit reveals generation settings",
+    "Four Room packets remain compact by default",
+    "Independent reroll preserves Room ID and unrelated components",
+    "One Source retains component trace and APP POLICY distinction",
+    "Single inspector with canonical table",
+    "Closing table restores Room 02 and scroll context",
+    "Edit mode exposes controls only intentionally",
+    "Monster Source remains one direct action",
+    "Generated Monster identity and combat result precede management",
+    "Monster expanded details remain available",
+    "Combined Oracle still runs directly",
+    "Creature appears before the closed card trace",
+    "All card identities remain available",
+    "Only isolated QA reroll/draft changed; saved Character and other saved objects intact",
+    "Campaign content and pins survive reload",
+    "Keyboard palette → result → Escape works"
+  ],
+  "targets": [
+    {
+      "name": "Copy",
+      "width": 76,
+      "height": 44
+    },
+    {
+      "name": "Source",
+      "width": 44,
+      "height": 44
+    },
+    {
+      "name": "Room component reroll",
+      "width": 44,
+      "height": 44
+    },
+    {
+      "name": "Room Source",
+      "width": 44,
+      "height": 44
+    }
+  ],
+  "errors": [],
+  "notes": "Every write occurred only in this isolated QA browser context. Queries counted separately; scroll/reload/keyboard listed outside click count. Source PDFs stayed closed."
+}

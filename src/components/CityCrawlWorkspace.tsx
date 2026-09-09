@@ -240,7 +240,7 @@ export function CityCrawlWorkspace({
                 {state.move.modifier} vs DR{state.move.dr}
               </small>
               <details>
-                <summary>크롤 판정과 출처</summary>
+                <summary>판정 · 출처</summary>
                 <ReferenceReadingBlock
                   reading={cityCrawlMoveReading(state.move, registry)}
                 />

@@ -1,0 +1,31 @@
+{
+  "url": "http://127.0.0.1:5175",
+  "results": [
+    {
+      "width": 360,
+      "table": "Weapons",
+      "selectedSelector": "1",
+      "result": "PASS",
+      "checks": [
+        "Manual row choice produces transient reading",
+        "Source labels APP POLICY without fabricated roll",
+        "Return to table and close preserve context",
+        "Campaigns unchanged",
+        "No horizontal overflow or browser errors"
+      ]
+    },
+    {
+      "width": 1440,
+      "table": "Weapons",
+      "selectedSelector": "1",
+      "result": "PASS",
+      "checks": [
+        "Manual row choice produces transient reading",
+        "Source labels APP POLICY without fabricated roll",
+        "Return to table and close preserve context",
+        "Campaigns unchanged",
+        "No horizontal overflow or browser errors"
+      ]
+    }
+  ]
+}

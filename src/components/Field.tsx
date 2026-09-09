@@ -143,7 +143,7 @@ export function Field({
         <details className="long-source-result">
           <summary aria-label={`${spec.label} 전체 보기`}>
             <span>{value}</span>
-            <small>MORE ›</small>
+            <small>자세히</small>
           </summary>
           <button
             id={htmlId}

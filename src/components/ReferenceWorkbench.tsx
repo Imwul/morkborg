@@ -416,13 +416,13 @@ export function ReferenceProvider({
               </button>
             )}
             <button aria-label="창 안에서 검색" onClick={() => openSearch()}>
-              <Search size={15} /> SEARCH
+              <Search size={15} /> 검색
             </button>
             <button onClick={() => openSearch('', 'recent')}>
-              <History size={15} /> RECENT
+              <History size={15} /> 최근
             </button>
             <button onClick={() => openSearch('', 'pinned')}>
-              <Pin size={15} /> PINNED
+              <Pin size={15} /> 고정
             </button>
             <div className="reference-inner-pins">
               {prefs.pinnedIds
@@ -635,7 +635,7 @@ export function ReferenceProvider({
                 )}
               {tableView && selected.kind === 'oracle' && (
                 <details className="reference-static-table" open>
-                  <summary>TABLE · 원문 표 보기</summary>
+                  <summary>표 보기</summary>
                   {[...new Set(selected.canonicalIds)]
                     .flatMap((key) =>
                       oracles.registry.tables.filter(
@@ -734,46 +734,6 @@ export function ReferenceProvider({
                   </p>
                 </div>
               )}
-              {!tableView && procedureId === 'depths.rare-monster' && (
-                <div className="rare-card-controls">
-                  <span>
-                    {rareDeck
-                      ? `${rareDeck.length} cards left · 남은 카드 ${rareDeck.length}장`
-                      : 'New 52-card deck · 새 덱 52장'}
-                  </span>
-                  <button
-                    onClick={() => {
-                      setRareDeck(undefined);
-                      setFailure('');
-                    }}
-                  >
-                    SHUFFLE · 새 던전
-                  </button>
-                </div>
-              )}
-              {!tableView &&
-                procedureId.startsWith('depths.') &&
-                selected.definition && (
-                  <details className="reference-procedure-rule">
-                    <summary>절차 읽기 ›</summary>
-                    {selected.definition.blocks.map((block, n) => (
-                      <section key={n}>
-                        <h4>
-                          {block.title}
-                          <Translation
-                            text={block.title}
-                            translation={block.translation?.titleKo}
-                          />
-                        </h4>
-                        <ReferenceReadingText
-                          text={block.text}
-                          translation={block.translation?.ko}
-                          excludeId={selected.id}
-                        />
-                      </section>
-                    ))}
-                  </details>
-                )}
               <details
                 className="reference-options"
                 open={!reading || undefined}
@@ -912,31 +872,6 @@ export function ReferenceProvider({
                     className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
                     aria-label="참조 결과"
                   >
-                    {reading.rareMonster && (
-                      <ol
-                        className="rare-card-strip"
-                        aria-label="Rare monster cards"
-                      >
-                        {reading.rareMonster.cards.map((card, n) => (
-                          <li key={n}>
-                            <small>CARD {n + 1}</small>
-                            <strong>{cardIdentity(card)}</strong>
-                            <span>
-                              {
-                                [
-                                  'Look · 외형',
-                                  'Feature · 특징',
-                                  'HP / Armor · 방어구',
-                                  'Morale · 사기',
-                                  'Attack · 공격',
-                                  'Special · 특수',
-                                ][n]
-                              }
-                            </span>
-                          </li>
-                        ))}
-                      </ol>
-                    )}
                     {reading.title !== selected.title &&
                       !reading.blocks.some(
                         (block) => block.title === reading.title,
@@ -1019,7 +954,7 @@ export function ReferenceProvider({
                               splitLines
                             />
                             <details className="reading-more">
-                              <summary>MORE · 자세히 ›</summary>
+                              <summary>자세히</summary>
                               <ReferenceReadingText
                                 text={block.text
                                   .split('\n')
@@ -1052,14 +987,12 @@ export function ReferenceProvider({
                             activate(reading.valuationReferenceId!, true)
                           }
                         >
-                          Valuation · 매각가 ›
+                          매각가 ›
                         </button>
                       )}
                     {!!reading.childReferenceIds?.length && (
                       <details className="reading-participants">
-                        <summary>
-                          VARIANTS / PARTICIPANTS · 변종 / 참가자 ›
-                        </summary>
+                        <summary>변종 · 참가자</summary>
                         <div className="reference-rule-group">
                           {reading.childReferenceIds
                             .map((key) => index.byId[key])
@@ -1137,6 +1070,76 @@ export function ReferenceProvider({
                     </div>
                   </article>
                 )}
+              {!tableView && procedureId === 'depths.rare-monster' && (
+                <details className="rare-card-details">
+                  <summary>
+                    카드 {reading?.rareMonster?.cards.length ?? 0} · 기록
+                  </summary>
+                  <div className="rare-card-controls">
+                    <span>
+                      {rareDeck
+                        ? `${rareDeck.length} cards left · 남은 카드 ${rareDeck.length}장`
+                        : 'New 52-card deck · 새 덱 52장'}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setRareDeck(undefined);
+                        setFailure('');
+                      }}
+                    >
+                      SHUFFLE · 새 던전
+                    </button>
+                  </div>
+                  {reading?.rareMonster && (
+                    <ol
+                      className="rare-card-strip"
+                      aria-label="Rare monster cards"
+                    >
+                      {reading.rareMonster.cards.map((card, n) => (
+                        <li key={n}>
+                          <small>CARD {n + 1}</small>
+                          <strong>{cardIdentity(card)}</strong>
+                          <span>
+                            {
+                              [
+                                'Look · 외형',
+                                'Feature · 특징',
+                                'HP / Armor · 방어구',
+                                'Morale · 사기',
+                                'Attack · 공격',
+                                'Special · 특수',
+                              ][n]
+                            }
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </details>
+              )}
+              {!tableView &&
+                procedureId.startsWith('depths.') &&
+                selected.definition && (
+                  <details className="reference-procedure-rule">
+                    <summary>절차</summary>
+                    {selected.definition.blocks.map((block, n) => (
+                      <section key={n}>
+                        <h4>
+                          {block.title}
+                          <Translation
+                            text={block.title}
+                            translation={block.translation?.titleKo}
+                          />
+                        </h4>
+                        <ReferenceReadingText
+                          text={block.text}
+                          translation={block.translation?.ko}
+                          excludeId={selected.id}
+                        />
+                      </section>
+                    ))}
+                  </details>
+                )}
               {copied && <output className="copy-feedback">{copied}</output>}
               {copyFallback != null && (
                 <label>
@@ -1185,7 +1188,7 @@ export function ReferenceProvider({
                     className="ref-text-action"
                     onClick={() => setTableView(true)}
                   >
-                    TABLE · 원문 표 열기
+                    표 보기
                   </button>
                 )}
                 {reading?.blocks.some((block) => block.dice) && (
@@ -1311,7 +1314,7 @@ export function ReferenceProvider({
               )}
               {!!(related.length + dynamicRelated.length) && (
                 <details className="ref-related ref-related-disclosure">
-                  <summary>RELATED ›</summary>
+                  <summary>관련</summary>
                   {[
                     ...new Map(
                       [...dynamicRelated, ...related].map((entry) => [
@@ -1374,10 +1377,6 @@ export function ReferenceRow({
       >
         <span>
           <strong>{referenceShortName(entry)}</strong>
-          <Translation
-            text={entry.title}
-            translation={entry.titleTranslationKo}
-          />
           {showMetadata && (
             <small>
               {entry.definition?.kind ?? entry.kind.toUpperCase()}

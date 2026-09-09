@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import {
   dungeonFields,
   roomFields,
@@ -26,6 +26,7 @@ export function DungeonSheet({
   updateRoom,
   confirm,
   openRoom,
+  actions,
 }: {
   dungeon: Dungeon;
   campaign?: Campaign;
@@ -47,6 +48,7 @@ export function DungeonSheet({
   rollRoom: (id: string) => void;
   confirm?: Confirm;
   openRoom?: (id: string) => void;
+  actions?: ReactNode;
 }) {
   const [editing, setEditing] = useState(false);
   const groups = [
@@ -89,9 +91,12 @@ export function DungeonSheet({
     >
       <div className="sheet-caption">
         <span>DUNGEON DOSSIER</span>
-        <button aria-pressed={editing} onClick={() => setEditing(!editing)}>
-          {editing ? 'DONE' : 'EDIT'}
-        </button>
+        <div className="dossier-actions">
+          <button aria-pressed={editing} onClick={() => setEditing(!editing)}>
+            {editing ? '완료' : '편집'}
+          </button>
+          {actions}
+        </div>
       </div>
       {d.premise && <div className="dossier-premise">{field('premise')}</div>}
       <div className="dossier-composition">

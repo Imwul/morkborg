@@ -493,7 +493,10 @@ export function Characters({
       <button className="back-button" onClick={() => select(null)}>
         <ArrowLeft size={15} /> 모든 캐릭터
       </button>
-      <div className="character-generation-bar">
+      <div
+        className="character-generation-bar"
+        hidden={saved && !editingCharacter}
+      >
         {generationOptions}
         <Button
           className="btn"
@@ -521,7 +524,7 @@ export function Characters({
         aria-pressed={editingCharacter}
         onClick={() => setEditingCharacter(!editingCharacter)}
       >
-        {editingCharacter ? 'DONE' : 'EDIT'}
+        {editingCharacter ? '완료' : '편집'}
       </button>
       <article
         className={`character-sheet codex-sheet ${editingCharacter ? 'is-editing' : ''}`}
@@ -685,7 +688,7 @@ export function Characters({
       </article>
       <GenerationDisclosure values={selected.fieldProvenance} />
       <details className="sheet-source">
-        <summary>캐릭터 생성 규칙과 출처</summary>
+        <summary>생성 규칙</summary>
         <p>
           <SourceText text={selected.classSource} /> · 직업의 무기·방어구 지시가
           기본 굴림보다 우선합니다. 원문에서 고르도록 한 항목은 앱이 무작위로

@@ -117,7 +117,7 @@ export function RoomPacket({
         <div className="room-packet-body">
           <div className="packet-actions">
             <button onClick={() => setEditing(!editing)} aria-pressed={editing}>
-              {editing ? 'DONE' : 'EDIT'}
+              {editing ? '완료' : '편집'}
             </button>
             {previous && (
               <button
@@ -149,7 +149,7 @@ export function RoomPacket({
                   setPrevious(null);
                 }}
               >
-                ↶ Previous
+                ↶ 이전
               </button>
             )}
             <button

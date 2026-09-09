@@ -44,7 +44,8 @@ body,
 .character-workbench,
 .monster-workbench,
 .content-detail {
-  max-width: 100%;
+  max-width: 64rem;
+  margin-inline: 0;
 }
 .shell {
   margin-left: var(--nav-width);
@@ -193,13 +194,17 @@ body,
   background: #e9e5d9;
   border-color: transparent;
 }
-.btn.primary {
+.btn.primary,
+.page-heading > .actions .btn.primary,
+.save-actions .btn.primary {
   background: var(--ink);
-  color: var(--acid);
+  color: var(--paper);
   border-color: var(--ink);
-  box-shadow: 3px 3px 0 var(--acid);
+  box-shadow: none;
 }
-.btn.primary:hover {
+.btn.primary:hover,
+.page-heading > .actions .btn.primary:hover,
+.save-actions .btn.primary:hover {
   background: var(--acid);
   color: var(--ink);
 }
@@ -211,6 +216,8 @@ body,
   color: #ab1745;
 }
 .btn:disabled,
+.page-heading > .actions .btn:disabled,
+.save-actions .btn:disabled,
 button:disabled {
   color: #68665e;
   background: #eeece5;
@@ -231,7 +238,7 @@ summary:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--magenta) !important;
+  outline: 2px solid currentColor !important;
   outline-offset: 3px;
 }
 .field-value {
@@ -248,10 +255,10 @@ select:focus-visible {
 }
 .source-disclosure > summary,
 .sheet-source > summary {
-  min-height: 36px;
+  min-height: 44px;
 }
 .source-disclosure-body {
-  border-left-width: 2px;
+  border-left-width: 0;
 }
 .campaign-grid,
 .dungeon-grid,
@@ -371,7 +378,7 @@ select:focus-visible {
 
 /* Generator: title, premise, dossier, then a numbered route through the rooms. */
 .dungeon-workbench .dungeon-heading {
-  margin: 8px 0 16px;
+  margin: 4px 0 14px;
   padding-bottom: 12px;
   border-bottom: var(--rule-heavy);
 }
@@ -624,7 +631,11 @@ select:focus-visible {
 .room-row {
   border: 0;
   border-bottom: var(--rule-thin);
-  padding: 14px 0;
+  padding: 8px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  position: relative;
 }
 .room-row.selected {
   background: var(--group-tint);
@@ -639,16 +650,18 @@ select:focus-visible {
   font-size: 17px;
 }
 .room-detail {
-  border: 1px solid var(--ink);
-  border-top: var(--rule-heavy);
-  padding: 20px;
-  background: var(--group-paper);
-  box-shadow: var(--group-shadow);
+  border: 0;
+  border-top: 3px solid var(--ink);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .room-detail > .artifact-head {
   padding-bottom: 14px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid var(--ink);
+  margin-bottom: 0;
+  border-bottom: 0;
+  padding: 6px 0;
+  justify-content: flex-end;
 }
 .room-detail .field[data-field='name'],
 .room-detail .field[data-field='description'] {
@@ -676,9 +689,13 @@ select:focus-visible {
   grid-template-columns: 220px minmax(0, 1fr);
   gap: 32px;
 }
+.room-detail .room-contents h2 {
+  font: 600 12px var(--font-mono);
+  color: var(--muted-ink);
+}
 .room-detail .fields-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 24px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
 }
 .room-detail .field {
   padding: 14px 0;
@@ -692,14 +709,16 @@ select:focus-visible {
 .character-sheet {
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
   border: 0;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
 }
 .character-sheet-header {
-  padding: 25px 28px 30px;
+  padding: 22px 24px;
   gap: 22px;
   border: 0;
   align-items: flex-start;
+  background: var(--ink);
+  color: var(--paper);
 }
 .character-sheet-header > span:first-child {
   flex: 0 0 95px;
@@ -790,7 +809,7 @@ select:focus-visible {
 .character-sheet-persona,
 .character-sheet-kit {
   grid-column: auto;
-  padding: 24px 28px 30px;
+  padding: 18px 24px;
 }
 .character-sheet-persona {
   display: block;
@@ -805,13 +824,13 @@ select:focus-visible {
   line-height: 1.6;
 }
 .character-sheet .field-label label {
-  color: #bcb7a9;
+  color: var(--muted-ink);
 }
 .character-sheet-spine .field-label label {
   color: var(--ink);
 }
 .character-sheet .field-value:hover {
-  background: #2c2924;
+  background: #eeeadb;
 }
 .character-sheet .field.is-editing {
   color: var(--ink);
@@ -847,28 +866,28 @@ select:focus-visible {
 }
 .character-sheet-section h2 {
   background: transparent;
-  color: var(--paper);
+  color: var(--ink);
   padding: 0;
-  font-size: 28px;
+  font-size: 24px;
 }
 .character-sheet .sheet-item {
   border-color: #39362f;
 }
 .character-sheet .empty-copy {
-  color: #bcb7a9;
+  color: var(--muted-ink);
 }
 .character-sheet .sheet-resource-row {
-  border-top: 3px solid var(--magenta);
+  border-top: 1px solid var(--ink);
   background: var(--paper);
   color: var(--ink);
-  padding: 12px;
+  padding: 12px 0;
   gap: 18px;
 }
 .character-sheet .sheet-resource-row .field-label label {
   color: var(--ink);
 }
 .character-sheet .generated-translation {
-  color: #c9c2b6;
+  color: var(--muted-ink);
 }
 .character-sheet .field.is-editing .generated-translation {
   color: var(--muted-ink);
@@ -1230,9 +1249,12 @@ button.ledger-row:hover,
 }
 .fate-launcher {
   box-shadow: none;
-  min-height: 46px;
-  padding: 10px 14px;
+  min-height: 44px;
+  padding: 8px 12px;
   font-size: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
 }
 
 /* Shared details, picker and chronicle dialog retain native disclosure behavior. */
@@ -1639,9 +1661,9 @@ ol.ledger-list {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 16px;
-  padding: 8px 0 12px;
-  margin-bottom: 14px;
-  border-bottom: var(--rule-thin);
+  padding: 8px 0;
+  margin-bottom: 0;
+  border-bottom: 0;
 }
 .object-play-strip .btn {
   min-height: 36px;
@@ -2430,7 +2452,7 @@ ol.ledger-list {
     border-bottom: var(--rule-thin);
   }
   .room-detail {
-    padding: 14px;
+    padding: 0;
   }
   .room-detail .fields-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -2800,19 +2822,20 @@ ol.ledger-list {
 .dossier-composition {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
-  gap: 1.4rem 3rem;
-  margin-block: 1.25rem;
+  gap: 18px 40px;
+  margin-block: 16px;
 }
 .dossier-group {
-  border-top: 1px solid #69665e;
-  padding-top: 0.7rem;
+  border-top: 0;
+  padding-top: 0;
   min-width: 0;
 }
 .dossier-group h3 {
   margin: 0 0 0.65rem;
   font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  color: #aaa79e;
+  letter-spacing: 0.06em;
+  color: var(--muted-ink);
+  font: 600 11px var(--font-mono);
 }
 .dossier-group > div {
   display: grid;
@@ -2828,16 +2851,16 @@ ol.ledger-list {
   gap: 1rem 1.5rem;
 }
 .room-packet {
-  border-top: 2px solid currentColor;
-  background: #1b1b18;
-  color: #eeeadd;
+  border-top: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
   min-width: 0;
 }
 .room-packet-summary {
   display: flex;
   align-items: flex-start;
-  gap: 1.1rem;
-  padding: 1rem;
+  gap: 18px;
+  padding: 14px 0;
   list-style: none;
   cursor: pointer;
 }
@@ -2859,7 +2882,7 @@ ol.ledger-list {
 }
 .room-packet-preview {
   display: grid;
-  gap: 0.5rem;
+  gap: 4px;
   min-width: 0;
   font-size: 1rem;
   line-height: 1.45;
@@ -2871,7 +2894,7 @@ ol.ledger-list {
   overflow: hidden;
 }
 .room-packet-preview > small {
-  color: #aaa79e;
+  color: var(--muted-ink);
   font-size: 0.75rem;
 }
 .room-packet-preview > .room-packet-close,
@@ -2883,16 +2906,16 @@ ol.ledger-list {
   display: block;
 }
 .room-packet-body {
-  padding: 0 1.2rem 1.2rem;
-  border-top: 1px solid #4b4a43;
+  padding: 0 0 12px;
+  border-top: 0;
 }
 .room-component {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid #414038;
+  padding: 10px 0;
+  border-bottom: 0;
 }
 .room-component > small {
-  color: #aaa79e;
-  font-size: 0.78rem;
+  color: var(--muted-ink);
+  font-size: 11px;
   letter-spacing: 0.07em;
 }
 .room-component-reading {
@@ -2923,15 +2946,15 @@ ol.ledger-list {
   color: #1b1b18;
 }
 .room-component p {
-  margin: 0.35rem 0;
-  font-size: 1rem;
-  line-height: 1.55;
+  margin: 4px 0;
+  font-size: 1.2rem;
+  line-height: 1.45;
 }
 .room-component .dependent-roll-note {
   grid-column: 1 / -1;
   letter-spacing: 0;
   font-size: 0.78rem;
-  color: #aaa79e;
+  color: var(--muted-ink);
 }
 .dependent-roll-note > summary {
   width: fit-content;
@@ -2946,8 +2969,8 @@ ol.ledger-list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
-  padding-top: 0.7rem;
+  gap: 4px;
+  padding-top: 0;
 }
 .packet-actions button,
 .integrity-dossier .sheet-caption button,
@@ -2960,6 +2983,7 @@ ol.ledger-list {
 }
 .packet-actions button {
   border: 0;
+  font: 500 12px var(--font-ui);
 }
 .packet-actions button:hover,
 .packet-actions button[aria-pressed='true'] {
@@ -2972,8 +2996,8 @@ ol.ledger-list {
   color: #aaa79e;
 }
 .generation-disclosure {
-  margin: 0.7rem 0;
-  font-size: 0.8rem;
+  margin: 0;
+  font-size: 12px;
 }
 .generation-disclosure summary,
 .packet-translation summary {
@@ -3005,11 +3029,21 @@ ol.ledger-list {
 .provenance-warning {
   display: inline-block;
   font: 600 0.75rem/1.4 sans-serif;
-  color: #f0ba76;
+  color: #86500d;
   margin: 0.3rem 0;
 }
 .source-edit-notice {
-  color: #f0ba76;
+  color: #815118;
+}
+.packet-translation > summary {
+  display: list-item;
+  list-style: disclosure-closed;
+  font: 500 12px/20px var(--font-ui);
+  color: var(--muted-ink);
+  padding: 12px 0;
+}
+.packet-translation[open] > summary {
+  list-style: disclosure-open;
 }
 .packet-translation .generated-translation {
   display: block;
@@ -3034,7 +3068,7 @@ ol.ledger-list {
     gap: 0.8rem;
   }
   .room-packet-summary {
-    padding: 0.9rem;
+    padding: 12px 0;
     gap: 0.8rem;
   }
 }
@@ -3053,28 +3087,31 @@ ol.ledger-list {
 }
 .object-editor,
 .object-secondary {
-  margin-block: 0.9rem;
-  border-top: 1px solid #666158;
+  margin-block: 4px;
+  border-top: 0;
 }
 .object-editor > summary,
 .object-secondary > summary {
   cursor: pointer;
   min-height: 44px;
-  padding: 0.8rem 0.1rem;
-  font-size: 0.88rem;
-  font-weight: 600;
+  padding: 12px 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted-ink);
 }
 .object-editor > summary:hover,
 .object-secondary > summary:hover {
-  color: #fff;
+  color: inherit;
+  text-decoration: underline;
 }
 .object-edit-toggle {
   min-height: 44px;
   min-width: 66px;
   background: transparent;
   color: inherit;
-  border: 1px solid #777;
+  border: 0;
   padding: 0.5rem 1rem;
+  font: 500 12px var(--font-ui);
 }
 .object-edit-toggle[aria-pressed='true'] {
   color: #111;
@@ -3102,6 +3139,7 @@ ol.ledger-list {
 .monster-workbench .page-heading h1,
 .content-detail .page-heading h1 {
   overflow-wrap: anywhere;
+  font-size: clamp(36px, 4vw, 60px);
 }
 .object-editor .field {
   background: transparent;
@@ -3144,7 +3182,7 @@ ol.ledger-list {
   font-weight: 800;
 }
 .character-sheet .field-label {
-  color: #aaa79e;
+  color: var(--muted-ink);
 }
 .object-secondary .field-label {
   color: inherit;
@@ -3220,10 +3258,6 @@ ol.ledger-list {
 .generation-disclosure .provenance-warning {
   color: #8a4b0b;
 }
-.room-packet .provenance-warning {
-  color: #f0ba76;
-}
-
 .dungeon-workbench .title-edit > .field {
   width: 100%;
   background: transparent;
@@ -3270,19 +3304,10 @@ ol.ledger-list {
   color: var(--muted-ink);
 }
 .room-packet .generation-disclosure > .source-disclosure > summary {
-  color: #c3bfb3;
+  color: var(--muted-ink);
 }
 .room-context-link {
   color: #625f57;
-}
-.provenance-warning {
-  color: #86500d;
-}
-.room-packet .provenance-warning {
-  color: #f0ba76;
-}
-.source-edit-notice {
-  color: #815118;
 }
 .content-detail .page-heading .encounter-kind-heading {
   font: 700 1.05rem var(--font-mono);
@@ -3304,4 +3329,132 @@ ol.ledger-list {
   .character-sheet-persona
   .character-sheet-section {
   margin: 0;
+}
+/* Reading-mode composition: the identity owns the ink; tools occupy a quiet margin. */
+.character-generation-bar[hidden] {
+  display: none;
+}
+.object-context-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 24px;
+  margin-bottom: 12px;
+}
+.object-context-tools .context-reference-disclosure {
+  flex: 1;
+  min-width: 180px;
+}
+.context-management > summary {
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  font: 500 12px var(--font-ui);
+  color: var(--muted-ink);
+}
+.context-management[open] {
+  flex-basis: 100%;
+}
+.nav-item > svg {
+  display: none;
+}
+.room-order.compact-overflow {
+  position: relative;
+  right: auto;
+  top: auto;
+}
+.room-order > summary,
+.room-management > summary {
+  min-height: 44px;
+  min-width: 44px;
+  display: grid;
+  place-items: center;
+}
+.room-order .compact-menu {
+  display: flex;
+  width: max-content;
+  padding: 4px;
+}
+.room-management {
+  position: relative;
+  right: auto;
+  top: auto;
+}
+.room-detail .room-packet {
+  border-top: 0;
+}
+.room-detail .room-packet-summary {
+  padding-top: 0;
+}
+.room-detail .room-packet-number {
+  font-size: 3rem;
+}
+.room-detail .packet-actions {
+  justify-content: flex-end;
+  margin-top: -44px;
+}
+.room-detail .packet-actions + .room-component {
+  border-top: 1px solid var(--border);
+}
+.room-component + .room-component {
+  border-top: 1px solid var(--border);
+}
+.monster-workbench > .page-heading {
+  border-top: 4px solid var(--ink);
+  padding-top: 18px;
+}
+.content-detail > .page-heading {
+  border-top: 2px solid var(--ink);
+  padding-top: 18px;
+}
+.content-detail .page-heading > .actions .btn {
+  width: auto;
+}
+@media (max-width: 600px) {
+  .object-context-tools {
+    gap: 0 14px;
+  }
+  .object-context-tools .context-reference-disclosure {
+    min-width: 130px;
+  }
+  .character-sheet-header {
+    min-height: 150px;
+  }
+}
+.dossier-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dossier-management {
+  position: relative;
+  right: auto;
+  top: auto;
+}
+.dossier-management > summary {
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.monster-workbench .page-heading p {
+  font: 400 16px/1.5 var(--font-reading);
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  .character-sheet:not(.is-editing) .character-sheet-spine .field {
+    padding-block: 0;
+  }
+  .character-sheet:not(.is-editing) .character-sheet-spine .field-value {
+    min-height: 44px;
+    padding-block: 4px;
+  }
+  .content-detail .page-heading > .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .content-detail .page-heading > .actions .btn {
+    flex: 0 0 auto;
+  }
 }

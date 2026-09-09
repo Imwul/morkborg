@@ -371,6 +371,12 @@ export function Monsters({
       </>
     );
   const isFeretory = usesFeretory(selected);
+  const randomizeAction = (
+    <Button className="btn" disabled={!generatorReady} onClick={randomize}>
+      <Dices size={16} />
+      몬스터 전체 재굴림
+    </Button>
+  );
   return (
     <div className="monster-workbench">
       <button className="back-button" onClick={() => select(null)}>
@@ -397,14 +403,7 @@ export function Monsters({
           </p>
         </div>
         <div className="actions">
-          <Button
-            className="btn"
-            disabled={!generatorReady}
-            onClick={randomize}
-          >
-            <Dices size={16} />
-            몬스터 전체 재굴림
-          </Button>
+          {!saved && randomizeAction}
           {!saved && (
             <Button
               className="btn primary"
@@ -461,7 +460,8 @@ export function Monsters({
       />
       <CreatureParticipants provenance={selected.fieldProvenance?.name} />
       <details className="object-editor">
-        <summary>EDIT / MORE · 상세 · 한국어 · 편집</summary>
+        <summary>자세히 · 편집</summary>
+        {saved && randomizeAction}
         {generationControls}
         <SourceDisclosure label="생성 규칙과 출처">
           {selected.generation?.system === 'epk' ? (
@@ -691,7 +691,7 @@ export function Monsters({
         </Button>
       </details>
       <details className="object-secondary">
-        <summary>배치 · 메모 · 관리</summary>
+        <summary>배치 · 메모</summary>
         <section className="monster-target character-section secondary-controls">
           <div className="section-title">
             <h2>현재 배치 대상</h2>

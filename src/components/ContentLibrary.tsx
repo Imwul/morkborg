@@ -457,10 +457,6 @@ export function ContentLibrary({
           )}
         </div>
       </div>
-      <details className="object-secondary">
-        <summary>생성 설정</summary>
-        {configuration}
-      </details>
       {!ready && (
         <p className="source-notice">
           원문 표가 준비되면 생성할 수 있습니다. 직접 작성과 저장은 가능합니다.
@@ -506,7 +502,8 @@ export function ContentLibrary({
         <SourceDisclosure refs={selected.sourceRefs} label={label + ' 출처'} />
       )}
       <details className="object-editor">
-        <summary>EDIT / MORE · 전체 결과 · 편집</summary>
+        <summary>자세히 · 편집</summary>
+        {configuration}
         <div className="content-field-sheet">{fields.map(field)}</div>
         <details
           className="content-extra"
@@ -527,7 +524,7 @@ export function ContentLibrary({
         </details>
       </details>
       <details className="object-secondary">
-        <summary>배치 · 참가자 · 메모 · 관리</summary>
+        <summary>배치 · 메모</summary>
         {'participants' in selected && (
           <section className="encounter-participants">
             <div className="section-title">

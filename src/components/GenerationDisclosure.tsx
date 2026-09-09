@@ -9,7 +9,7 @@ import {
 /** One result-level disclosure; shared book/table citations appear once, individual traces remain inspectable. */
 export function GenerationDisclosure({
   values,
-  label = 'SOURCE · HOW GENERATED',
+  label = '출처 · 생성 과정',
 }: {
   values?: Record<string, GeneratedValueProvenance>;
   label?: string;

@@ -98,7 +98,9 @@ export function SourceDisclosure({
           </span>
         )}
       <details className="sheet-source source-disclosure">
-        <summary>{label}</summary>
+        <summary aria-label={label === '출처' ? '출처' : `출처 · ${label}`}>
+          <span aria-hidden="true">ⓘ</span> 출처
+        </summary>
         <div className="source-disclosure-body">
           {!!provenance?.unresolvedSourceIds?.length && (
             <p className="source-edit-notice">
@@ -245,28 +247,30 @@ export function SourceDisclosure({
                   <Translation text={ref.note} />
                 </p>
               )}
-              {ref.tableId && desk?.byId[`oracle:${ref.tableId}`] && (
-                <button
-                  type="button"
-                  className="source-roll-link"
-                  onClick={() => {
-                    const id = desk.byId[`oracle:${ref.tableId}`].id;
-                    if (desk.openTable) desk.openTable(id);
-                    else desk.activate(id);
-                  }}
-                >
-                  이 표 열기 ↗
-                </button>
-              )}
-              {ref.bookId && desk?.byId[`book:${ref.bookId}`] && (
-                <button
-                  type="button"
-                  className="source-roll-link"
-                  onClick={() => desk.activate(`book:${ref.bookId}`)}
-                >
-                  이 책의 참조 ›
-                </button>
-              )}
+              <div className="source-reference-links">
+                {ref.tableId && desk?.byId[`oracle:${ref.tableId}`] && (
+                  <button
+                    type="button"
+                    className="source-roll-link"
+                    onClick={() => {
+                      const id = desk.byId[`oracle:${ref.tableId}`].id;
+                      if (desk.openTable) desk.openTable(id);
+                      else desk.activate(id);
+                    }}
+                  >
+                    이 표 열기 ↗
+                  </button>
+                )}
+                {ref.bookId && desk?.byId[`book:${ref.bookId}`] && (
+                  <button
+                    type="button"
+                    className="source-roll-link"
+                    onClick={() => desk.activate(`book:${ref.bookId}`)}
+                  >
+                    이 책의 참조 ›
+                  </button>
+                )}
+              </div>
             </div>
           ))}
           {children}

@@ -271,55 +271,6 @@ export function Dungeons({
       )}
       {tab === 'overview' && (
         <>
-          <div className="section-toolbar">
-            <div>
-              <span className="eyebrow">던전 개요</span>
-              <p className="help-line">
-                모든 항목을 편집할 수 있습니다. 지역 태그는 원문 결과의 확률만
-                조정하며 다른 결과도 나올 수 있습니다.
-              </p>
-            </div>
-            <Button
-              className="btn"
-              disabled={!rules.pack}
-              onClick={() =>
-                confirm(
-                  '던전 전체를 다시 굴릴까요?',
-                  '생성된 개요 항목을 모두 바꿉니다. 제목, 지역, 방, 배치한 내용과 메모는 유지됩니다.',
-                  () =>
-                    editCampaign(c.id, (next) => {
-                      const target = next.dungeons.find((x) => x.id === d.id)!;
-                      for (const f of dungeonFields.filter((item) =>
-                        canReroll('dungeon', item.key),
-                      )) {
-                        const rolled = generateDungeonRoll(
-                          f.key,
-                          target.region,
-                        );
-                        Object.assign(target, {
-                          [f.key]: rolled.value,
-                          ...(rolled.provenance
-                            ? {
-                                fieldProvenance: {
-                                  ...target.fieldProvenance,
-                                  [f.key]: rolled.provenance,
-                                },
-                              }
-                            : {}),
-                          sources: {
-                            ...target.sources,
-                            [f.key]: rolled.source,
-                          },
-                        });
-                      }
-                      target.updatedAt = now();
-                    }),
-                )
-              }
-            >
-              <Dices size={16} /> 전체 재굴림
-            </Button>
-          </div>
           {rules.pack &&
             dungeonFields.some(
               (f) =>
@@ -372,6 +323,55 @@ export function Dungeons({
               </div>
             )}
           <DungeonSheet
+            actions={
+              <details className="compact-overflow dossier-management">
+                <summary aria-label="던전 관리">⋯</summary>
+                <div className="compact-menu">
+                  <Button
+                    className="btn"
+                    disabled={!rules.pack}
+                    onClick={() =>
+                      confirm(
+                        '던전 전체를 다시 굴릴까요?',
+                        '생성된 개요 항목을 모두 바꿉니다. 제목, 지역, 방, 배치한 내용과 메모는 유지됩니다.',
+                        () =>
+                          editCampaign(c.id, (next) => {
+                            const target = next.dungeons.find(
+                              (x) => x.id === d.id,
+                            )!;
+                            for (const f of dungeonFields.filter((item) =>
+                              canReroll('dungeon', item.key),
+                            )) {
+                              const rolled = generateDungeonRoll(
+                                f.key,
+                                target.region,
+                              );
+                              Object.assign(target, {
+                                [f.key]: rolled.value,
+                                ...(rolled.provenance
+                                  ? {
+                                      fieldProvenance: {
+                                        ...target.fieldProvenance,
+                                        [f.key]: rolled.provenance,
+                                      },
+                                    }
+                                  : {}),
+                                sources: {
+                                  ...target.sources,
+                                  [f.key]: rolled.source,
+                                },
+                              });
+                            }
+                            target.updatedAt = now();
+                          }),
+                      )
+                    }
+                  >
+                    <Dices size={16} /> 전체 재굴림
+                  </Button>
+                </div>
+              </details>
+            }
             campaign={c}
             dungeon={d}
             ready={!!rules.pack}
@@ -591,24 +591,27 @@ function Rooms({
                 <span>{String(i + 1).padStart(2, '0')}</span>
                 <strong>{r.name || '이름 없는 방'}</strong>
               </button>
-              <div className="room-order">
-                <Button
-                  className="icon-btn"
-                  aria-label={`방 ${i + 1} 위로 이동`}
-                  disabled={i === 0}
-                  onClick={() => move(r.id, -1)}
-                >
-                  <ArrowUp size={14} />
-                </Button>
-                <Button
-                  className="icon-btn"
-                  aria-label={`방 ${i + 1} 아래로 이동`}
-                  disabled={i === d.rooms.length - 1}
-                  onClick={() => move(r.id, 1)}
-                >
-                  <ArrowDown size={14} />
-                </Button>
-              </div>
+              <details className="room-order compact-overflow">
+                <summary aria-label={`방 ${i + 1} 순서 변경`}>⋯</summary>
+                <div className="compact-menu">
+                  <Button
+                    className="icon-btn"
+                    aria-label={`방 ${i + 1} 위로 이동`}
+                    disabled={i === 0}
+                    onClick={() => move(r.id, -1)}
+                  >
+                    <ArrowUp size={14} />
+                  </Button>
+                  <Button
+                    className="icon-btn"
+                    aria-label={`방 ${i + 1} 아래로 이동`}
+                    disabled={i === d.rooms.length - 1}
+                    onClick={() => move(r.id, 1)}
+                  >
+                    <ArrowDown size={14} />
+                  </Button>
+                </div>
+              </details>
             </div>
           ))}
           {!d.rooms.length && (
@@ -622,9 +625,11 @@ function Rooms({
             aria-label={`Room ${d.rooms.indexOf(selected) + 1}: ${selected.name}`}
           >
             <div className="artifact-head">
-              <span className="eyebrow">
-                방 {String(d.rooms.indexOf(selected) + 1).padStart(2, '0')}
-              </span>
+              {!selected.components && (
+                <span className="eyebrow">
+                  방 {String(d.rooms.indexOf(selected) + 1).padStart(2, '0')}
+                </span>
+              )}
               <Button
                 className="btn small"
                 disabled={!rules.pack}
@@ -650,13 +655,18 @@ function Rooms({
               >
                 <Dices size={16} /> 이 방 다시 굴리기
               </Button>
-              <Button
-                className="icon-btn danger"
-                aria-label="방 삭제"
-                onClick={() => remove(selected)}
-              >
-                <Trash2 size={16} />
-              </Button>
+              <details className="compact-overflow room-management">
+                <summary aria-label="방 관리">⋯</summary>
+                <div className="compact-menu">
+                  <Button
+                    className="icon-btn danger"
+                    aria-label="방 삭제"
+                    onClick={() => remove(selected)}
+                  >
+                    <Trash2 size={16} />
+                  </Button>
+                </div>
+              </details>
             </div>
             <div className="fields-grid">
               {selected.components ? (
@@ -713,17 +723,16 @@ function Rooms({
               room={selected}
               notify={notify}
             />
-            <div className="notes-block">
-              <label className="eyebrow" htmlFor="room-notes">
-                방 메모
-              </label>
+            <details className="notes-block object-secondary">
+              <summary>메모</summary>
               <Textarea
                 id="room-notes"
+                aria-label="방 메모"
                 value={selected.notes}
                 onChange={(e) => patch('notes', e.target.value)}
                 placeholder="일행이 알아서는 안 되는 것…"
               />
-            </div>
+            </details>
           </article>
         ) : (
           <div className="empty-artifact">

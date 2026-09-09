@@ -184,7 +184,7 @@ export function ObjectPlayTools({ campaign: c }: { campaign: Campaign }) {
             ? c.encounters.find((e) => e.id === link.id)
             : null;
   return (
-    <>
+    <div className="object-context-tools">
       <ContextReferences
         onDungeonEncounters={
           d
@@ -208,53 +208,57 @@ export function ObjectPlayTools({ campaign: c }: { campaign: Campaign }) {
         }
         region={d?.region ?? c.workspace.monsterRegion ?? 'sarkash'}
       />
-      <div className="object-play-strip">
-        {link.kind === 'dungeon' && d && (
-          <DungeonState campaign={c} dungeon={d} />
-        )}{' '}
-        {link.kind === 'room' && d && record && (
-          <RoomState
-            campaign={c}
-            dungeonId={d.id}
-            room={record as DungeonRoom}
-          />
-        )}
-        <Backlinks campaign={c} target={link} />
-        {c.currentSessionId && (
-          <Button
-            className="btn ghost small"
-            onClick={() =>
-              editCampaign(c.id, (next) =>
-                linkToSession(next, next.currentSessionId!, link),
-              )
-            }
-          >
-            현재 세션에 연결
-          </Button>
-        )}
-        {record && (
-          <VisibilityFields
-            value={record}
-            onChange={(patch) =>
-              editCampaign(c.id, (next) => {
-                const nd = next.dungeons.find(
-                  (d) =>
-                    d.id === (link.kind === 'room' ? link.dungeonId : link.id),
-                );
-                const entity =
-                  link.kind === 'room'
-                    ? nd?.rooms.find((r) => r.id === link.id)
-                    : link.kind === 'dungeon'
-                      ? nd
-                      : link.kind === 'npc'
-                        ? next.npcs.find((e) => e.id === link.id)
-                        : next.encounters.find((e) => e.id === link.id);
-                if (entity) Object.assign(entity, patch);
-              })
-            }
-          />
-        )}
-      </div>
-    </>
+      <details className="context-management">
+        <summary>상태 · 배치</summary>
+        <div className="object-play-strip">
+          {link.kind === 'dungeon' && d && (
+            <DungeonState campaign={c} dungeon={d} />
+          )}{' '}
+          {link.kind === 'room' && d && record && (
+            <RoomState
+              campaign={c}
+              dungeonId={d.id}
+              room={record as DungeonRoom}
+            />
+          )}
+          <Backlinks campaign={c} target={link} />
+          {c.currentSessionId && (
+            <Button
+              className="btn ghost small"
+              onClick={() =>
+                editCampaign(c.id, (next) =>
+                  linkToSession(next, next.currentSessionId!, link),
+                )
+              }
+            >
+              현재 세션에 연결
+            </Button>
+          )}
+          {record && (
+            <VisibilityFields
+              value={record}
+              onChange={(patch) =>
+                editCampaign(c.id, (next) => {
+                  const nd = next.dungeons.find(
+                    (d) =>
+                      d.id ===
+                      (link.kind === 'room' ? link.dungeonId : link.id),
+                  );
+                  const entity =
+                    link.kind === 'room'
+                      ? nd?.rooms.find((r) => r.id === link.id)
+                      : link.kind === 'dungeon'
+                        ? nd
+                        : link.kind === 'npc'
+                          ? next.npcs.find((e) => e.id === link.id)
+                          : next.encounters.find((e) => e.id === link.id);
+                  if (entity) Object.assign(entity, patch);
+                })
+              }
+            />
+          )}
+        </div>
+      </details>
+    </div>
   );
 }

@@ -21,7 +21,10 @@ test('Shared source disclosure starts closed and retains book, table and printed
   );
   assert.match(html, /<details class="sheet-source source-disclosure">/);
   assert.doesNotMatch(html, /<details[^>]*\sopen/);
-  assert.match(html, /<summary>출처<\/summary>/);
+  assert.match(
+    html,
+    /<summary aria-label="출처"><span aria-hidden="true">ⓘ<\/span> 출처<\/summary>/,
+  );
   assert.match(html, /Source book/);
   assert.match(html, /PDF 19쪽 \/ p. 17/);
   assert.match(html, /굴림 15/);

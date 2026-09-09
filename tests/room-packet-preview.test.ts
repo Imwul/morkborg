@@ -175,9 +175,16 @@ test('expanded Room exposes each independent reroll and one closed Source withou
       new RegExp(`class="room-component-reroll" aria-label="${label} 재굴림"`),
     );
   assert.equal((html.match(/class="room-component-reroll"/g) ?? []).length, 4);
-  assert.match(html, /aria-pressed="false">EDIT/);
+  assert.match(html, /aria-pressed="false">편집/);
   assert.doesNotMatch(html, /<(input|textarea)\b/);
-  assert.equal((html.match(/<summary>SOURCE<\/summary>/g) ?? []).length, 1);
+  assert.equal(
+    (
+      html.match(
+        /<summary aria-label="출처 · SOURCE"><span aria-hidden="true">ⓘ<\/span> 출처<\/summary>/g,
+      ) ?? []
+    ).length,
+    1,
+  );
   assert.match(html, /<details class="sheet-source source-disclosure">/);
   assert.deepEqual(room, snapshot);
 });
