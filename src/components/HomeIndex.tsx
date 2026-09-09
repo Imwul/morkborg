@@ -27,7 +27,7 @@ export function HomeIndex({
   return (
     <nav className="home-index" aria-label="전체 항목">
       <div className="home-index-groups">
-        <section>
+        <section className="home-reference-section">
           <h2>
             <span>01</span> REFERENCE
           </h2>
@@ -43,7 +43,7 @@ export function HomeIndex({
             </button>
           </div>
         </section>
-        <section>
+        <section className="home-play-section">
           <h2>
             <span>02</span> PLAY
           </h2>
@@ -62,7 +62,7 @@ export function HomeIndex({
             </button>
           </div>
         </section>
-        <section>
+        <section className="home-codex-section">
           <h2>
             <span>03</span> CODEX
           </h2>

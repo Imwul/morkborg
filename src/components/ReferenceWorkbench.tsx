@@ -1739,10 +1739,23 @@ export function ReferenceDesk({
   return (
     <section className={`reference-desk${homeIndex ? ' reference-home' : ''}`}>
       <header className="desk-heading">
-        <h1>{homeIndex ? 'MÖRK BORG' : 'REFERENCE DESK'}</h1>
-        <span className="eyebrow">
-          {homeIndex ? 'HOME · 전체 목차' : 'MÖRK BORG'}
-        </span>
+        {homeIndex ? (
+          <>
+            <div className="home-cover-meta">
+              <span>REFERENCE DESK</span>
+              <span>HOME · 전체 목차</span>
+            </div>
+            <h1>
+              <span>MÖRK</span> <span>BORG</span>
+            </h1>
+            <p className="home-cover-caption">규칙 · 오라클 · 생성 도구</p>
+          </>
+        ) : (
+          <>
+            <h1>REFERENCE DESK</h1>
+            <span className="eyebrow">MÖRK BORG</span>
+          </>
+        )}
       </header>
       <form
         className="desk-search"

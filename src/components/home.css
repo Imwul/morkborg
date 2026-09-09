@@ -1,4 +1,4 @@
-/* Home is an index to existing surfaces, not a second dashboard. */
+/* Home cover and index. Deliberately stronger than the reference reading surfaces. */
 .topbar-home {
   display: inline-flex;
   align-items: center;
@@ -12,13 +12,56 @@
   font: 500 14px var(--font-ui);
   cursor: pointer;
 }
-.reference-home .desk-heading {
-  align-items: center;
+.reference-home {
+  max-width: 1280px;
+  padding: 0 0 54px;
+  border: 0;
 }
-.reference-home .desk-heading > .eyebrow {
+.reference-home .desk-heading {
   display: block;
-  font: 500 12px var(--font-ui);
-  white-space: nowrap;
+  padding: 20px 28px 22px;
+  background: var(--acid);
+  color: var(--ink);
+}
+.home-cover-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid currentColor;
+  font: 750 12px/1.4 var(--font-mono);
+}
+.home-cover-meta > span:last-child {
+  font-family: var(--font-ui);
+}
+.reference-home .desk-heading h1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.18em;
+  margin: 8px 0 18px;
+  font: 900 clamp(72px, 11.2vw, 158px)/0.96 var(--font-display);
+  letter-spacing: -0.055em;
+}
+.home-cover-caption {
+  margin: 0;
+  font: 700 14px/1.5 var(--font-ui);
+}
+.reference-home .desk-search {
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 12px 24px;
+  border-bottom: 0;
+}
+.reference-home .desk-search > svg {
+  display: block;
+  flex-shrink: 0;
+  color: var(--acid);
+}
+.reference-home .desk-search input {
+  font-weight: 650;
+}
+.reference-home .desk-search input::placeholder {
+  color: #d7d3c7;
 }
 .desk-personal-tools > section[hidden] {
   display: none;
@@ -41,7 +84,8 @@
   flex-shrink: 0;
 }
 .home-index {
-  border-top: 2px solid var(--ink);
+  --home-link-ink: var(--ink);
+  --home-link-rule: var(--border);
 }
 .home-active-pack {
   margin-bottom: 8px;
@@ -57,23 +101,51 @@
 }
 .home-index-groups {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.3fr;
-  gap: 36px;
-  padding: 24px 0;
+  grid-template-columns: 1.15fr 0.8fr 1fr;
+  gap: 28px;
+  padding: 0 0 28px;
 }
 .home-index-groups > section {
   min-width: 0;
+  padding-top: 24px;
+  border-top: 5px solid var(--ink);
+}
+.home-index-groups > .home-reference-section {
+  --home-link-ink: var(--paper);
+  --home-link-rule: #55534a;
+  padding: 24px;
+  border-top: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+.home-index-groups > .home-play-section {
+  border-top-color: var(--magenta);
 }
 .home-index h2 {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
-  margin: 0 0 10px;
-  font: 500 12px var(--font-mono);
-  color: var(--muted-ink);
+  margin: 0 0 18px;
+  color: var(--home-link-ink);
+  font: 950 clamp(28px, 2.7vw, 38px)/1 var(--font-ui);
+  letter-spacing: -0.045em;
 }
 .home-index h2 > span {
-  font: 700 25px/1 var(--font-display);
+  flex-shrink: 0;
+  padding: 5px 4px;
+  color: var(--home-link-ink);
+  font: 650 13px/1 var(--font-mono);
+  letter-spacing: 0;
+}
+.home-reference-section h2 {
+  color: var(--acid);
+}
+.home-reference-section h2 > span {
+  background: var(--acid);
+  color: var(--ink);
+}
+.home-play-section h2 > span {
+  background: var(--magenta);
   color: var(--ink);
 }
 .home-index-links {
@@ -91,26 +163,42 @@
   gap: 8px;
   min-width: 0;
   min-height: 44px;
-  padding: 8px 0;
+  padding: 10px 0;
   border: 0;
   background: transparent;
-  color: var(--ink);
-  font: 500 16px/1.4 var(--font-ui);
+  color: var(--home-link-ink);
+  font: 600 16px/1.4 var(--font-ui);
   text-align: left;
   cursor: pointer;
   overflow-wrap: anywhere;
 }
+.home-index-links button {
+  min-height: 52px;
+  border-bottom: 1px solid var(--home-link-rule);
+}
+.home-reference-section .home-index-links button:first-child {
+  font-size: 23px;
+  font-weight: 800;
+}
 .home-index-links button > span,
 .home-record-links button > span {
-  color: var(--muted-ink);
+  color: inherit;
   font-weight: 400;
+}
+.home-reference-section .home-index-links button > span {
+  color: var(--acid);
 }
 .home-index button:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.home-index button:focus-visible {
+  outline: 2px solid var(--home-link-ink);
+  outline-offset: 3px;
+}
 .home-campaign-context {
-  border-block: 1px solid var(--border);
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--border);
 }
 .home-campaign-context > button {
   width: 100%;
@@ -157,9 +245,18 @@
   border-bottom: 1px solid var(--ink);
 }
 @media (min-width: 701px) and (max-width: 1100px) {
+  .reference-home .desk-heading h1 {
+    font-size: clamp(72px, 10.7vw, 118px);
+  }
   .home-index-groups {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+  }
+  .home-index h2 {
+    font-size: 26px;
+  }
+  .home-index-groups > .home-reference-section {
+    padding: 18px;
   }
   .home-index-groups > section:last-child {
     grid-column: 1 / -1;
@@ -169,20 +266,58 @@
   }
 }
 @media (max-width: 700px) {
+  .reference-home .desk-heading {
+    padding: 16px 18px 18px;
+  }
+  .home-cover-meta {
+    gap: 10px;
+    padding-bottom: 12px;
+    font-size: 11px;
+  }
+  .reference-home .desk-heading h1 {
+    margin: 6px 0 16px;
+    font-size: clamp(70px, 16vw, 108px);
+    line-height: 0.88;
+  }
+  .home-cover-caption {
+    font-size: 13px;
+  }
+  .reference-home .desk-search {
+    gap: 10px;
+    padding: 8px 16px;
+    margin-bottom: 22px;
+  }
+  .reference-home .desk-search input {
+    padding: 8px 0;
+  }
+  .reference-home .desk-search kbd {
+    display: none;
+  }
   .home-index-groups {
     grid-template-columns: 1fr;
     gap: 22px;
-    padding-block: 18px;
+    padding-bottom: 22px;
+  }
+  .home-index-groups > section {
+    padding-top: 18px;
+  }
+  .home-index-groups > .home-reference-section {
+    padding: 20px 18px;
   }
   .home-index-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 22px;
   }
+  .home-reference-section .home-index-links button:first-child {
+    grid-column: 1 / -1;
+    font-size: 22px;
+  }
   .home-index h2 {
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+    font-size: 34px;
   }
   .home-index button {
-    font-size: 14px;
+    font-size: 15px;
   }
   .reference-home .desk-personal-tools > section {
     display: block;
