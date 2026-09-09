@@ -44,6 +44,7 @@ export type ReferencePack = Omit<z.infer<typeof packSchema>, 'userCreated'> & {
 };
 export interface ConveniencePreferences {
   schemaVersion: 1;
+  playOpened: boolean;
   recipes: ReferenceRecipe[];
   packs: ReferencePack[];
   activePackId: string | null;
@@ -56,6 +57,7 @@ export interface PlaySession {
 }
 export const emptyConvenience = (): ConveniencePreferences => ({
   schemaVersion: 1,
+  playOpened: false,
   recipes: [],
   packs: [],
   activePackId: null,
@@ -90,6 +92,7 @@ export function readConveniencePreferences(
         : [];
     return {
       schemaVersion: 1,
+      playOpened: v.playOpened === true,
       recipes: valid(v.recipes, recipeSchema),
       packs: valid(v.packs, packSchema),
       activePackId:

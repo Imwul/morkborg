@@ -33,7 +33,12 @@ import {
   type LastRoll,
 } from '../storage/conveniencePreferences';
 
-export type ConvenienceTab = 'play' | 'recipes' | 'packs' | 'scratch';
+export type ConvenienceTab =
+  | 'play'
+  | 'recipes'
+  | 'packs'
+  | 'scratch'
+  | 'physical';
 export function useReferenceConvenience({
   index,
   registry,
@@ -57,7 +62,7 @@ export function useReferenceConvenience({
 }) {
   const [preferences, setPreferences] = useState(readConveniencePreferences),
     [temporary, setTemporary] = useState(readPlaySession);
-  const [panel, setPanel] = useState<ConvenienceTab | null>(null),
+  const [panel, setPanelState] = useState<ConvenienceTab | null>(null),
     [held, setHeld] = useState<Record<string, string[]>>({});
   const [manualId, setManualId] = useState<string | null>(null),
     [manualInputs, setManualInputs] = useState<
@@ -84,6 +89,19 @@ export function useReferenceConvenience({
       return next;
     });
   }
+  function setPanel(next: ConvenienceTab | null) {
+    setPanelState(next);
+    if (next && !preferences.playOpened)
+      updatePreferences((p) => ({ ...p, playOpened: true }));
+  }
+  const hasLastRoll =
+    !!temporary.lastRoll &&
+    (temporary.lastRoll.kind === 'recipe'
+      ? preferences.recipes.some((r) => r.id === temporary.lastRoll?.id)
+      : !!index.byId[temporary.lastRoll.id] &&
+        (referenceProducesRoll(index.byId[temporary.lastRoll.id]) ||
+          (temporary.lastRoll.mode === 'OPEN' &&
+            !!index.byId[temporary.lastRoll.id].action)));
   function updateTemporary(fn: (p: PlaySession) => PlaySession) {
     setTemporary((previous) => {
       const next = fn(previous);
@@ -292,6 +310,7 @@ export function useReferenceConvenience({
     updateTemporary,
     panel,
     setPanel,
+    hasLastRoll,
     held,
     holdOpen,
     setHoldOpen,

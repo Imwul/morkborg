@@ -390,6 +390,8 @@ export function ReferenceProvider({
           setSearchOpen(false);
           convenience.setPanel(tab);
         },
+        clearPack: () =>
+          convenience.updatePreferences((p) => ({ ...p, activePackId: null })),
         addTray: convenience.addTray,
         entries: index.entries,
         byId: index.byId,
@@ -409,6 +411,9 @@ export function ReferenceProvider({
     >
       {children}
       <div className="reference-rail">
+        {!convenience.preferences.playOpened && (
+          <small className="play-discovery-hint">PLAY — 임시 도구 모음</small>
+        )}
         <PlayTrayStrip tools={convenience} />
         <div className="reference-dock" aria-label="빠른 참조">
           <button aria-label="참조 검색" onClick={() => openSearch()}>
@@ -438,7 +443,7 @@ export function ReferenceProvider({
           >
             <span className="play-tool-label">PLAY</span>
           </button>
-          {convenience.temporary.lastRoll && (
+          {convenience.hasLastRoll && (
             <button
               aria-label="마지막 굴림 다시 실행"
               title="R · 마지막 굴림"
@@ -515,55 +520,73 @@ export function ReferenceProvider({
             <button aria-label="창 안에서 검색" onClick={() => openSearch()}>
               <Search size={15} /> 검색
             </button>
-            <button onClick={() => openSearch('', 'recent')}>
-              <History size={15} /> 최근
-            </button>
-            <button onClick={() => openSearch('', 'pinned')}>
-              <Pin size={15} /> 고정
-            </button>
-            <button
-              aria-label="창 안에서 Play 도구"
-              onClick={() => {
-                setSearchOpen(false);
-                convenience.setPanel('play');
-              }}
-            >
-              PLAY
-            </button>
-            {convenience.temporary.lastRoll && (
-              <button
-                aria-label="마지막 굴림 다시 실행"
-                onClick={() => convenience.rerollLast()}
-              >
-                ↻ LAST
-              </button>
+            {!convenience.panel && (
+              <>
+                <button onClick={() => openSearch('', 'recent')}>
+                  <History size={15} /> 최근
+                </button>
+                <button onClick={() => openSearch('', 'pinned')}>
+                  <Pin size={15} /> 고정
+                </button>
+                <button
+                  aria-label="창 안에서 Play 도구"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    convenience.setPanel('play');
+                  }}
+                >
+                  PLAY
+                </button>
+                {convenience.hasLastRoll && (
+                  <button
+                    aria-label="마지막 굴림 다시 실행"
+                    onClick={() => convenience.rerollLast()}
+                  >
+                    ↻ LAST
+                  </button>
+                )}
+              </>
             )}
             {convenience.panel && selected && (
               <button onClick={() => convenience.setPanel(null)}>
                 결과로 돌아가기
               </button>
             )}
-            <div className="reference-inner-pins">
-              {prefs.pinnedIds
-                .map((key) => index.byId[key])
-                .filter(Boolean)
-                .map((entry) => (
-                  <button
-                    key={entry.id}
-                    title={entry.title}
-                    onClick={() => activate(entry.id, isOneClick(entry))}
-                  >
-                    {referenceShortName(entry)}
-                  </button>
-                ))}
-            </div>
+            {!convenience.panel && (
+              <div className="reference-inner-pins">
+                {prefs.pinnedIds
+                  .map((key) => index.byId[key])
+                  .filter(Boolean)
+                  .map((entry) => (
+                    <button
+                      key={entry.id}
+                      title={entry.title}
+                      onClick={() => activate(entry.id, isOneClick(entry))}
+                    >
+                      {referenceShortName(entry)}
+                    </button>
+                  ))}
+              </div>
+            )}
           </nav>
           {!convenience.panel && !!convenience.temporary.tray.length && (
             <div className="reference-inner-play">
               <PlayTrayStrip tools={convenience} />
             </div>
           )}
-          {convenience.panel && <ConveniencePanel tools={convenience} />}
+          {convenience.panel && (
+            <ConveniencePanel
+              tools={convenience}
+              current={selected ?? undefined}
+              registry={oracles.registry}
+              onPhysical={(entry) => {
+                activate(entry.id);
+                setTableView(false);
+                convenience.setManualId(entry.id);
+                convenience.setError('');
+              }}
+            />
+          )}
           {!convenience.panel && searchOpen && (
             <>
               {selected && (
@@ -664,7 +687,7 @@ export function ReferenceProvider({
                     disabled={convenience.temporary.tray.includes(selected.id)}
                     onClick={() => convenience.addTray(selected.id)}
                   >
-                    + Play Tray
+                    ADD TO PLAY · PLAY에 추가
                   </button>
                   <button
                     onClick={() => {
@@ -672,7 +695,7 @@ export function ReferenceProvider({
                       else convenience.scratch(selected.title);
                     }}
                   >
-                    스크랩에 추가
+                    SEND TO SCRATCH · 스크랩에 추가
                   </button>
                 </details>
                 <DialogTitle>
@@ -1220,7 +1243,7 @@ export function ReferenceProvider({
                         <button
                           onClick={() => convenience.sendReading(reading)}
                         >
-                          스크랩에 추가
+                          SEND TO SCRATCH · 스크랩에 추가
                         </button>
                         <button
                           onClick={() => convenience.sendReading(reading, true)}
@@ -1789,12 +1812,19 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
       <section className="desk-play-tools" aria-label="자주 쓰는 도구">
         <h2>
           QUICK TOOLS{' '}
-          <button
-            className="desk-pack-choice"
-            onClick={() => desk?.openTools?.('packs')}
-          >
-            {desk?.activePack ? `PACK · ${desk.activePack.name}` : 'PACK'}
-          </button>
+          {desk?.activePack && (
+            <span className="desk-active-pack">
+              <button
+                className="desk-pack-choice"
+                onClick={() => desk.openTools?.('packs')}
+              >
+                {desk.activePack.name}
+              </button>
+              <button aria-label="Pack 해제" onClick={() => desk.clearPack?.()}>
+                ×
+              </button>
+            </span>
+          )}
         </h2>
         <div className="desk-quick-grid">
           {quick.map((entry) => (

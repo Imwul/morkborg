@@ -7,7 +7,10 @@ import type { RegionId } from '../domain/types';
 export interface DeskContext {
   activePack?: import('../storage/conveniencePreferences').ReferencePack;
   focusedIds?: string[];
-  openTools?: (tab?: 'play' | 'recipes' | 'packs' | 'scratch') => void;
+  openTools?: (
+    tab?: 'play' | 'recipes' | 'packs' | 'scratch' | 'physical',
+  ) => void;
+  clearPack?: () => void;
   addTray?: (id: string) => void;
   entries: ReferenceEntry[];
   byId: Record<string, ReferenceEntry>;

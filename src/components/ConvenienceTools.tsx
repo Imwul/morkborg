@@ -57,7 +57,7 @@ export function PhysicalRollInput({
           tools.setManualId(e.currentTarget.open ? entry.id : null);
       }}
     >
-      <summary>ENTER ROLL · 실물 굴림 입력</summary>
+      <summary>실물 주사위 입력 ›</summary>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -138,6 +138,7 @@ export function PartialRollControls({
   const components = holdComponents(entry, reading, registry);
   if (components.length < 2) return null;
   const independent = components.every((c) => c.relation === 'INDEPENDENT');
+  if (!independent) return null;
   return (
     <details
       className="partial-roll-controls"
@@ -148,47 +149,36 @@ export function PartialRollControls({
           tools.setHoldOpen((p) => ({ ...p, [entry.id]: opened }));
       }}
     >
-      <summary>
-        {independent ? 'HOLD · 부분 재굴림' : '함께 바뀌는 결과'}
-      </summary>
-      {independent ? (
-        <>
-          {components.map((c) => (
-            <div key={c.id} className="held-component">
-              <span>
-                <small>{c.label}</small>
-                <b>{c.value}</b>
-              </span>
-              <button
-                aria-label={`${c.label} 고정`}
-                aria-pressed={tools.held[entry.id]?.includes(c.id) ?? false}
-                onClick={() => tools.toggleHold(entry.id, c.id)}
-              >
-                {tools.held[entry.id]?.includes(c.id) ? (
-                  <Lock size={15} />
-                ) : (
-                  <LockOpen size={15} />
-                )}
-              </button>
-              <button
-                aria-label={`${c.label} 다시 굴리기`}
-                disabled={tools.held[entry.id]?.includes(c.id)}
-                onClick={() => onReroll(c.id)}
-              >
-                <RotateCcw size={15} />
-              </button>
-            </div>
-          ))}
-          <button onClick={() => onReroll()}>
-            고정하지 않은 결과만 재굴림
-          </button>
-        </>
-      ) : (
-        <p>
-          원문에서 연결된 결과입니다. 부분 고정 없이 전체 절차를 다시
-          실행합니다.
-        </p>
-      )}
+      <summary>HOLD · 부분 재굴림</summary>
+      <>
+        {components.map((c) => (
+          <div key={c.id} className="held-component">
+            <span>
+              <small>{c.label}</small>
+              <b>{c.value}</b>
+            </span>
+            <button
+              aria-label={`${c.label} 고정`}
+              aria-pressed={tools.held[entry.id]?.includes(c.id) ?? false}
+              onClick={() => tools.toggleHold(entry.id, c.id)}
+            >
+              {tools.held[entry.id]?.includes(c.id) ? (
+                <Lock size={15} />
+              ) : (
+                <LockOpen size={15} />
+              )}
+            </button>
+            <button
+              aria-label={`${c.label} 다시 굴리기`}
+              disabled={tools.held[entry.id]?.includes(c.id)}
+              onClick={() => onReroll(c.id)}
+            >
+              <RotateCcw size={15} />
+            </button>
+          </div>
+        ))}
+        <button onClick={() => onReroll()}>고정하지 않은 결과만 재굴림</button>
+      </>
     </details>
   );
 }
@@ -223,13 +213,17 @@ export function PlayTrayStrip({ tools }: { tools: ReferenceConvenience }) {
     </div>
   );
 }
-const labels: Record<ConvenienceTab, string> = {
-  play: 'Play',
-  recipes: 'Recipes · 조합',
-  packs: 'Packs · 모음',
-  scratch: 'Scratch · 스크랩',
-};
-export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
+export function ConveniencePanel({
+  tools,
+  current,
+  registry,
+  onPhysical,
+}: {
+  tools: ReferenceConvenience;
+  current?: ReferenceEntry;
+  registry: OracleRegistry;
+  onPhysical: (entry: ReferenceEntry) => void;
+}) {
   const desk = useReferenceDesk();
   const [query, setQuery] = useState(''),
     [name, setName] = useState(''),
@@ -238,9 +232,18 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
     [editor, setEditor] = useState(false),
     [copyFailure, setCopyFailure] = useState(''),
     [editingResult, setEditingResult] = useState<number | null>(null),
-    [resultText, setResultText] = useState('');
+    [resultText, setResultText] = useState(''),
+    [scratchEditing, setScratchEditing] = useState(!tools.temporary.scratch),
+    [managing, setManaging] = useState(false);
   const tab = tools.panel ?? 'play';
   const found = desk?.search(query, 8) ?? [];
+  const physicalEligible = (entry: ReferenceEntry) =>
+    independentTables(entry, registry).length > 0 ||
+    (entry.action?.kind === 'procedure' &&
+      entry.action.procedureId === 'depths.rare-monster');
+  const physicalCurrent =
+    current && physicalEligible(current) ? current : undefined;
+
   const reset = () => {
     setEditor(false);
     setEditing(null);
@@ -248,11 +251,13 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
     setChosen([]);
     setQuery('');
     setEditingResult(null);
+    setManaging(false);
   };
   const switchTab = (tab: ConvenienceTab) => {
     tools.setPanel(tab);
     tools.setError('');
     reset();
+    setScratchEditing(!tools.temporary.scratch);
   };
   async function copy(text: string) {
     try {
@@ -311,126 +316,263 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
   }
   return (
     <>
-      <DialogTitle>PLAY TOOLS</DialogTitle>
+      <DialogTitle>
+        {tab === 'play'
+          ? 'PLAY'
+          : tab === 'recipes'
+            ? 'RECIPES'
+            : tab === 'packs'
+              ? 'PACKS'
+              : tab === 'physical'
+                ? 'ENTER ROLL'
+                : 'SCRATCH'}
+      </DialogTitle>
       <DialogDescription className="sr-only">
         임시 도구와 개인 조합. 캠페인 기록과 분리됩니다.
       </DialogDescription>
-      <nav className="convenience-tabs">
-        {Object.entries(labels).map(([key, label]) => (
-          <button
-            key={key}
-            aria-pressed={tab === key}
-            onClick={() => switchTab(key as ConvenienceTab)}
-          >
-            {label}
-          </button>
-        ))}
-      </nav>
+      {tab !== 'play' && (
+        <button className="convenience-back" onClick={() => switchTab('play')}>
+          ‹ PLAY
+        </button>
+      )}
       {tools.error && <p role="alert">{tools.error}</p>}
       {tab === 'play' && (
         <section className="convenience-play">
-          <p className="convenience-hint">
-            지금 쓰는 참조 · 이 탭에서만 유지됩니다.
-          </p>
-          {tools.temporary.tray.map((id) => {
-            const entry = desk?.byId[id];
-            return (
-              <div className="convenience-index-row" key={id}>
-                <button
-                  onClick={() =>
-                    entry &&
-                    desk?.activate(id, referenceAction(entry).immediate)
-                  }
-                >
-                  {entry ? referenceShortName(entry) : '사용할 수 없는 참조'}
-                </button>
-                <button
-                  aria-label={`${entry?.title ?? '참조'} Tray에서 제거`}
-                  onClick={() =>
-                    tools.updateTemporary((p) => ({
-                      ...p,
-                      tray: p.tray.filter((x) => x !== id),
-                    }))
-                  }
-                >
-                  ×
-                </button>
-              </div>
-            );
-          })}
-          <button
-            className="ref-text-action"
-            disabled={!tools.temporary.tray.length}
-            onClick={() => tools.updateTemporary((p) => ({ ...p, tray: [] }))}
-          >
-            Tray 비우기
-          </button>
-          <label>
-            참조 추가
+          <div className="convenience-tray-heading">
+            <span>TRAY · {tools.temporary.tray.length}</span>
+            {current && !tools.temporary.tray.includes(current.id) && (
+              <button onClick={() => tools.addTray(current.id)}>
+                + 현재 참조
+              </button>
+            )}
+          </div>
+          {!!tools.temporary.tray.length && (
+            <div className="convenience-tray-items">
+              {tools.temporary.tray.map((id) => {
+                const entry = desk?.byId[id];
+                return (
+                  <button
+                    key={id}
+                    onClick={() =>
+                      entry &&
+                      desk?.activate(id, referenceAction(entry).immediate)
+                    }
+                  >
+                    {entry ? referenceShortName(entry) : '사용할 수 없는 참조'}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          <details className="convenience-tray-add" name="play-discovery">
+            <summary>+ 참조 추가</summary>
             <input
               aria-label="Tray 참조 검색"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Reaction, Action…"
             />
+            {query &&
+              found.map((entry) => (
+                <button
+                  className="convenience-add-row"
+                  key={entry.id}
+                  disabled={tools.temporary.tray.includes(entry.id)}
+                  onClick={() => tools.addTray(entry.id)}
+                >
+                  + {referenceShortName(entry)}
+                </button>
+              ))}
+          </details>
+          {tools.hasLastRoll && (
+            <button
+              className="convenience-route"
+              onClick={() => tools.rerollLast()}
+            >
+              LAST ↻ <small>마지막 굴림</small>
+            </button>
+          )}
+          <button
+            className="convenience-route"
+            aria-label="Physical Roll · 실물 주사위 입력"
+            onClick={() =>
+              physicalCurrent
+                ? onPhysical(physicalCurrent)
+                : switchTab('physical')
+            }
+          >
+            실물 주사위 입력 ›{' '}
+            <small>
+              {physicalCurrent
+                ? referenceShortName(physicalCurrent)
+                : '표 선택'}
+            </small>
+          </button>
+          <button
+            className="convenience-route"
+            aria-label="Scratch · 스크랩"
+            onClick={() => switchTab('scratch')}
+          >
+            Scratch{' '}
+            <small>
+              {tools.temporary.scratch
+                ? tools.temporary.scratch.replace(/\s+/g, ' ')
+                : '임시 메모'}
+            </small>{' '}
+            ›
+          </button>
+          <button
+            className="convenience-route"
+            aria-label="Recipes · 조합"
+            onClick={() => switchTab('recipes')}
+          >
+            Recipes{' '}
+            <small>{tools.preferences.recipes.length || '아직 없음'}</small> ›
+          </button>
+          <details className="convenience-organization" name="play-discovery">
+            <summary>관리 · 도움말</summary>
+            <button
+              className="convenience-route"
+              aria-label="Packs · 모음"
+              onClick={() => switchTab('packs')}
+            >
+              Pack <small>{tools.activePack?.name ?? '전체 참조'}</small> ›
+            </button>
+            <details name="play-organization">
+              <summary>임시 도구 정리</summary>
+              {tools.temporary.tray.map((id) => (
+                <div className="convenience-index-row" key={id}>
+                  <span>
+                    {desk?.byId[id]
+                      ? referenceShortName(desk.byId[id])
+                      : '사용할 수 없는 참조'}
+                  </span>
+                  <button
+                    aria-label={`${desk?.byId[id]?.title ?? '참조'} Tray에서 제거`}
+                    onClick={() =>
+                      tools.updateTemporary((p) => ({
+                        ...p,
+                        tray: p.tray.filter((x) => x !== id),
+                      }))
+                    }
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+              {!!tools.temporary.tray.length && (
+                <button
+                  onClick={() =>
+                    tools.updateTemporary((p) => ({ ...p, tray: [] }))
+                  }
+                >
+                  Tray 비우기
+                </button>
+              )}
+              {!!tools.temporary.scratch && (
+                <button
+                  onClick={() =>
+                    tools.updateTemporary((p) => ({ ...p, scratch: '' }))
+                  }
+                >
+                  Scratch 비우기
+                </button>
+              )}
+              {tools.temporary.lastRoll && (
+                <button
+                  onClick={() =>
+                    tools.updateTemporary((p) => ({ ...p, lastRoll: null }))
+                  }
+                >
+                  Last 비우기
+                </button>
+              )}
+            </details>
+            <details className="convenience-help" name="play-organization">
+              <summary>보관 방식 · 단축키</summary>
+              <p>
+                ⌘ / Ctrl K 검색 · R 마지막 굴림. 입력 중에는 R이 작동하지
+                않습니다.
+              </p>
+              <p>
+                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last는 현재
+                탭에서 새로고침까지 유지됩니다. 캠페인 JSON에는 들어가지
+                않습니다.
+              </p>
+              <p>
+                모음과 사용자 조합은 APP_POLICY입니다. 실물 입력은 USER_ROLL로
+                구분합니다.
+              </p>
+            </details>
+          </details>
+        </section>
+      )}
+      {tab === 'physical' && (
+        <section className="convenience-physical-picker">
+          <label>
+            표 선택
+            <input
+              aria-label="실물 입력 표 검색"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Reaction, Building Type…"
+            />
           </label>
           {query &&
-            found.map((entry) => (
+            found.filter(physicalEligible).map((entry) => (
               <button
                 className="convenience-add-row"
                 key={entry.id}
-                disabled={tools.temporary.tray.includes(entry.id)}
-                onClick={() => tools.addTray(entry.id)}
+                onClick={() => onPhysical(entry)}
               >
-                + {referenceShortName(entry)}
+                {referenceShortName(entry)} · ENTER ROLL
               </button>
             ))}
-          {tools.temporary.lastRoll && (
-            <div className="convenience-last">
-              <button onClick={() => tools.rerollLast()}>↻ 마지막 굴림</button>
-              <button
-                onClick={() =>
-                  tools.updateTemporary((p) => ({ ...p, lastRoll: null }))
-                }
-              >
-                기억 지우기
-              </button>
-            </div>
+          {query && !found.some(physicalEligible) && (
+            <p className="convenience-hint">
+              입력할 수 있는 표를 찾지 못했습니다.
+            </p>
           )}
         </section>
       )}
       {tab === 'scratch' && (
         <section className="convenience-scratch">
-          <label>
-            임시 스크랩
-            <textarea
-              aria-label="임시 스크랩"
-              maxLength={12000}
-              rows={5}
-              value={tools.temporary.scratch}
-              onChange={(e) =>
-                tools.updateTemporary((p) => ({
-                  ...p,
-                  scratch: e.target.value,
-                }))
-              }
-            />
-          </label>
-          <div>
+          {scratchEditing ? (
+            <>
+              <label>
+                임시 스크랩
+                <textarea
+                  aria-label="임시 스크랩"
+                  maxLength={12000}
+                  rows={5}
+                  value={tools.temporary.scratch}
+                  onChange={(e) =>
+                    tools.updateTemporary((p) => ({
+                      ...p,
+                      scratch: e.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <button onClick={() => setScratchEditing(false)}>
+                작성 완료
+              </button>
+            </>
+          ) : (
+            <>
+              {tools.temporary.scratch && (
+                <p className="scratch-preview">{tools.temporary.scratch}</p>
+              )}
+              <button onClick={() => setScratchEditing(true)}>
+                {tools.temporary.scratch ? 'EDIT · 수정' : '+ 메모'}
+              </button>
+            </>
+          )}
+          {!!tools.temporary.scratch && (
             <button onClick={() => copy(tools.temporary.scratch)}>
               COPY ALL
             </button>
-            <button
-              onClick={() =>
-                tools.updateTemporary((p) => ({ ...p, scratch: '' }))
-              }
-            >
-              비우기
-            </button>
-          </div>
-          <small>
-            이 탭을 닫으면 사라집니다. 캠페인·내보내기에 포함되지 않습니다.
-          </small>
+          )}
           {copyFailure && <output>{copyFailure}</output>}
         </section>
       )}
@@ -474,7 +616,7 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
             open={tab !== 'recipes' || !results.length || editor}
           >
             <summary hidden={tab !== 'recipes'}>
-              조합 {list.length} · 선택 / 관리
+              Recipes · {list.length}
             </summary>
             <div className="convenience-saved-list">
               {list.map((item) => (
@@ -489,57 +631,82 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
                           }))
                     }
                   >
-                    {item.name} {tab === 'recipes' ? 'RUN ALL' : '선택'}
+                    {item.name} {tab === 'recipes' ? 'RUN' : '선택'}
                   </button>
-                  <details>
-                    <summary aria-label={`${item.name} 관리`}>⋯</summary>
-                    <button
-                      onClick={() => {
-                        setEditing(item.id);
-                        setName(item.name);
-                        setChosen(item.referenceIds);
-                        setEditor(true);
-                      }}
-                    >
-                      편집
-                    </button>
-                    <button
-                      onClick={() => {
-                        tools.updatePreferences((p) =>
-                          tab === 'recipes'
-                            ? {
-                                ...p,
-                                recipes: p.recipes.filter(
-                                  (r) => r.id !== item.id,
-                                ),
-                              }
-                            : {
-                                ...p,
-                                packs: p.packs.filter((r) => r.id !== item.id),
-                                activePackId:
-                                  p.activePackId === item.id
-                                    ? null
-                                    : p.activePackId,
-                              },
-                        );
-                        if (tools.recipeId === item.id) tools.setRecipeId(null);
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </details>
+                  {(tab === 'packs' || managing) && (
+                    <details>
+                      <summary aria-label={`${item.name} 관리`}>⋯</summary>
+                      <button
+                        onClick={() => {
+                          setEditing(item.id);
+                          setName(item.name);
+                          setChosen(item.referenceIds);
+                          setEditor(true);
+                        }}
+                      >
+                        편집
+                      </button>
+                      <button
+                        onClick={() => {
+                          tools.updatePreferences((p) =>
+                            tab === 'recipes'
+                              ? {
+                                  ...p,
+                                  recipes: p.recipes.filter(
+                                    (r) => r.id !== item.id,
+                                  ),
+                                }
+                              : {
+                                  ...p,
+                                  packs: p.packs.filter(
+                                    (r) => r.id !== item.id,
+                                  ),
+                                  activePackId:
+                                    p.activePackId === item.id
+                                      ? null
+                                      : p.activePackId,
+                                },
+                          );
+                          if (tools.recipeId === item.id)
+                            tools.setRecipeId(null);
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </details>
+                  )}
                 </div>
               ))}
             </div>
-            <button
-              className="ref-text-action"
-              onClick={() => {
-                reset();
-                setEditor(true);
-              }}
-            >
-              + {tab === 'recipes' ? '새 Recipe' : '새 Pack'}
-            </button>
+            {!list.length && <small>아직 없음</small>}
+            {!list.length ? (
+              <button
+                className="ref-text-action"
+                onClick={() => {
+                  reset();
+                  setEditor(true);
+                }}
+              >
+                + 만들기
+              </button>
+            ) : (
+              <details
+                className="recipe-management"
+                open={managing}
+                onToggle={(e) => setManaging(e.currentTarget.open)}
+              >
+                <summary>Manage · 관리</summary>
+                <button
+                  className="ref-text-action"
+                  onClick={() => {
+                    reset();
+                    setEditor(true);
+                  }}
+                >
+                  + {tab === 'recipes' ? '새 Recipe' : '새 Pack'}
+                </button>
+              </details>
+            )}
           </details>
           {editor && (
             <form
@@ -628,8 +795,24 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
             <section className="recipe-results">
               <h2>{recipe.name}</h2>
               <button onClick={() => tools.runRecipe(recipe.id)}>
-                RUN ALL · 고정 제외
+                RUN · 고정 제외
               </button>
+              {results.length > 1 && (
+                <button
+                  className="recipe-hold-discovery"
+                  aria-expanded={tools.holdOpen[`recipe:${recipe.id}`] ?? false}
+                  onClick={() =>
+                    tools.setHoldOpen((p) => ({
+                      ...p,
+                      [`recipe:${recipe.id}`]: !p[`recipe:${recipe.id}`],
+                    }))
+                  }
+                >
+                  HOLD ›{' '}
+                  {results.filter((r) => r.held || r.manualText !== undefined)
+                    .length || ''}
+                </button>
+              )}
               {results.map((result, n) => {
                 const entry = desk?.byId[result.referenceId],
                   reading = result.reading;
@@ -644,20 +827,23 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
                   <article key={n} className="recipe-result">
                     <header>
                       <h3>{entry ? referenceShortName(entry) : '참조 확인'}</h3>
-                      <button
-                        aria-label={`Recipe 결과 ${n + 1} 고정`}
-                        aria-pressed={
-                          result.held || result.manualText !== undefined
-                        }
-                        onClick={() => update({ held: !result.held })}
-                        disabled={result.manualText !== undefined}
-                      >
-                        {result.held || result.manualText !== undefined ? (
-                          <Lock size={15} />
-                        ) : (
-                          <LockOpen size={15} />
+                      {results.length > 1 &&
+                        tools.holdOpen[`recipe:${recipe.id}`] && (
+                          <button
+                            aria-label={`Recipe 결과 ${n + 1} 고정`}
+                            aria-pressed={
+                              result.held || result.manualText !== undefined
+                            }
+                            onClick={() => update({ held: !result.held })}
+                            disabled={result.manualText !== undefined}
+                          >
+                            {result.held || result.manualText !== undefined ? (
+                              <Lock size={15} />
+                            ) : (
+                              <LockOpen size={15} />
+                            )}
+                          </button>
                         )}
-                      </button>
                       <button
                         aria-label={`Recipe 결과 ${n + 1} 재굴림`}
                         disabled={
@@ -720,7 +906,7 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
                                 )
                               }
                             >
-                              스크랩에 추가
+                              SEND TO SCRATCH · 스크랩에 추가
                             </button>
                             <button
                               onClick={() =>
@@ -791,22 +977,6 @@ export function ConveniencePanel({ tools }: { tools: ReferenceConvenience }) {
           )}
         </>
       )}
-      <details className="convenience-help">
-        <summary>보관 방식 · 단축키</summary>
-        <p>
-          Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·마지막 굴림은 현재
-          탭에서 새로고침까지 유지됩니다. 고정(Pin)과 별개이며 캠페인 JSON에
-          들어가지 않습니다.
-        </p>
-        <p>
-          ⌘ / Ctrl K 검색 · R 마지막 굴림. 입력 중에는 R이 작동하지 않습니다.
-          실물 모드는 새 입력을 엽니다.
-        </p>
-        <p>
-          모음과 사용자 조합은 APP_POLICY입니다. 원문 절차나 서사 기록을 만들지
-          않습니다. 부분 고정·Recipe 결과는 현재 화면 세션에서만 유지합니다.
-        </p>
-      </details>
     </>
   );
 }
