@@ -236,11 +236,28 @@ export function ConveniencePanel({
     [scratchEditing, setScratchEditing] = useState(!tools.temporary.scratch),
     [managing, setManaging] = useState(false);
   const tab = tools.panel ?? 'play';
-  const found = desk?.search(query, 8) ?? [];
+  // These pickers have a narrower eligible set than global search. Limit
+  // after checking eligibility so definitions cannot crowd usable tables out.
+  const candidates = query.trim()
+    ? (desk?.search(
+        query,
+        tab === 'physical' || (tab === 'recipes' && editor)
+          ? desk.entries.length
+          : 8,
+      ) ?? [])
+    : [];
+  const found =
+    tab === 'recipes' && editor
+      ? [
+          ...candidates.filter(recipeRunnable),
+          ...candidates.filter((entry) => !recipeRunnable(entry)),
+        ].slice(0, 8)
+      : candidates;
   const physicalEligible = (entry: ReferenceEntry) =>
     independentTables(entry, registry).length > 0 ||
     (entry.action?.kind === 'procedure' &&
       entry.action.procedureId === 'depths.rare-monster');
+  const physicalFound = found.filter(physicalEligible).slice(0, 8);
   const physicalCurrent =
     current && physicalEligible(current) ? current : undefined;
 
@@ -519,7 +536,7 @@ export function ConveniencePanel({
             />
           </label>
           {query &&
-            found.filter(physicalEligible).map((entry) => (
+            physicalFound.map((entry) => (
               <button
                 className="convenience-add-row"
                 key={entry.id}
@@ -528,7 +545,7 @@ export function ConveniencePanel({
                 {referenceShortName(entry)} · ENTER ROLL
               </button>
             ))}
-          {query && !found.some(physicalEligible) && (
+          {query.trim() && !physicalFound.length && (
             <p className="convenience-hint">
               입력할 수 있는 표를 찾지 못했습니다.
             </p>
