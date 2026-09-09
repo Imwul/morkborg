@@ -49,6 +49,12 @@ export function Field({
     referenceTextSegments(desk.entries, value).some((s) => s.id);
   const [editing, setEditing] = useState(false);
   const [history, setHistory] = useState<RuleRoll[]>([]);
+  const helper =
+    spec.type !== 'number' &&
+    provenance?.origin !== 'source-edited' &&
+    provenance?.origin !== 'manual' ? (
+      <Translation text={String(value)} translation={translation} />
+    ) : null;
   function roll() {
     if (!reroll) return;
     const next = reroll();
@@ -127,10 +133,12 @@ export function Field({
           onClick={onOpenReference}
         >
           {value} <span aria-hidden="true">›</span>
+          {helper}
         </button>
       ) : !editing && linkedReadMode ? (
         <div className="field-value">
           <ReferenceLinkedText text={String(value)} />
+          {helper}
           <button
             className="ref-text-action"
             aria-label={`${spec.label} 편집`}
@@ -143,6 +151,7 @@ export function Field({
         <details className="long-source-result">
           <summary aria-label={`${spec.label} 전체 보기`}>
             <span>{value}</span>
+            {helper}
             <small>자세히</small>
           </summary>
           <button
@@ -152,6 +161,7 @@ export function Field({
             onClick={() => setEditing(true)}
           >
             {value}
+            {helper}
           </button>
         </details>
       ) : !editing ? (
@@ -162,6 +172,7 @@ export function Field({
           onClick={() => setEditing(true)}
         >
           {value === '' ? '직접 입력…' : value}
+          {helper}
         </button>
       ) : spec.type === 'number' ? (
         <Input
@@ -204,11 +215,7 @@ export function Field({
           placeholder="직접 입력…"
         />
       )}
-      {spec.type !== 'number' &&
-        editing &&
-        provenance?.origin !== 'source-edited' && (
-          <Translation text={String(value)} translation={translation} />
-        )}
+      {editing && helper}
       {editing && !hideSource && (
         <SourceDisclosure
           provenance={provenance}

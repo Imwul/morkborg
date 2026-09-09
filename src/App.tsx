@@ -27,6 +27,7 @@ import {
   Info,
   Dices,
   HardDrive,
+  House,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,6 +70,7 @@ import { registerCodexTools } from './webmcp';
 import type { RecordSection } from './components/Chronicle';
 import type { CaptureKind } from './domain/captureContext';
 import { DeferredView } from './components/DeferredView';
+import { HomeIndex } from './components/HomeIndex';
 import {
   ReferenceProvider,
   ReferenceDesk,
@@ -204,6 +206,8 @@ export default function App() {
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
   const [oracleOpen, setOracleOpen] = useState(true);
+  const [deskPage, setDeskPage] = useState<'home' | 'desk' | 'sources'>('home');
+  const [pendingSection, setPendingSection] = useState<Section | null>(null);
   const [cityOpen, setCityOpen] = useState(false);
   function openCity() {
     setOracleOpen(true);
@@ -223,11 +227,21 @@ export default function App() {
   }
   const [oracleContext, setOracleContext] = useState<NotesTarget | null>(null);
   function openOracles() {
+    setDeskPage('desk');
     setCityOpen(false);
     if (!oracleOpen) setOracleContext(c ? contextNotesTarget(c) : null);
     setOracleOpen(true);
     setLegacyOracleOpen(false);
     setDrawer(false);
+  }
+  function openHome() {
+    openOracles();
+    setDeskPage('home');
+    setPendingSection(null);
+  }
+  function openSources() {
+    openOracles();
+    setDeskPage('sources');
   }
   const fileRef = useRef<HTMLInputElement>(null);
   const confirm: Confirm = (title, description, action) =>
@@ -273,6 +287,9 @@ export default function App() {
     c?.workspace.selected.npcs,
     c?.workspace.selected.encounters,
     oracleOpen,
+    cityOpen,
+    legacyOracleOpen,
+    deskPage,
   ]);
   const campaignTitle = c?.title;
   const pageDungeon =
@@ -307,7 +324,13 @@ export default function App() {
   const recordPageTitle = oracleOpen
     ? cityOpen
       ? 'CITY CRAWL'
-      : 'REFERENCE DESK'
+      : legacyOracleOpen
+        ? 'ORACLES'
+        : deskPage === 'home'
+          ? 'HOME'
+          : deskPage === 'sources'
+            ? '자료 및 규칙'
+            : 'REFERENCE DESK'
     : dungeonPageTitle ||
       characterPageTitle ||
       monsterPageTitle ||
@@ -342,28 +365,38 @@ export default function App() {
     setSubtitle(campaign.description ?? campaign.subtitle);
     setForm('rename');
   }
-  function navigate(section: Section) {
+  function navigate(section: Section, campaign = c) {
     setOracleOpen(false);
     setCityOpen(false);
-    if (c)
+    if (!campaign) {
+      setPendingSection(section);
+      home();
+      return;
+    }
+    if (!c || c.id !== campaign.id)
+      transact((next) => openCampaignLibrary(next, campaign.id));
+    if (campaign)
       changeWorkspace(
-        c.id,
+        campaign.id,
         section === 'dungeons'
           ? { section, dungeonId: null, roomId: null, dungeonPreview: false }
           : section === 'characters'
             ? {
                 section,
-                selected: { ...c.workspace.selected, characters: null },
+                selected: { ...campaign.workspace.selected, characters: null },
               }
             : section === 'monsters'
               ? {
                   section,
-                  selected: { ...c.workspace.selected, monsters: null },
+                  selected: { ...campaign.workspace.selected, monsters: null },
                 }
               : section === 'npcs' || section === 'encounters'
                 ? {
                     section,
-                    selected: { ...c.workspace.selected, [section]: null },
+                    selected: {
+                      ...campaign.workspace.selected,
+                      [section]: null,
+                    },
                     contentTarget: null,
                   }
                 : section === 'sessions'
@@ -372,6 +405,7 @@ export default function App() {
                     ? { section, chronicleId: null }
                     : { section },
       );
+    setPendingSection(null);
     setDrawer(false);
   }
   function home() {
@@ -383,6 +417,10 @@ export default function App() {
     setDrawer(false);
   }
   function openCampaign(campaign: Campaign) {
+    if (pendingSection) {
+      navigate(pendingSection, campaign);
+      return;
+    }
     setOracleOpen(false);
     setCityOpen(false);
     transact((next) => {
@@ -460,6 +498,10 @@ export default function App() {
       <span className="nav-count">CF {mythicState.chaosFactor}</span>
     </button>
   );
+  const atHome =
+    oracleOpen && !cityOpen && !legacyOracleOpen && deskPage === 'home';
+  const homeCampaign =
+    c ?? save.campaigns.find((entry) => entry.id === save.activeCampaignId);
   return (
     <ReferenceProvider
       onCity={openCity}
@@ -488,12 +530,22 @@ export default function App() {
           />
         )}
         <aside className={`sidebar ${drawer ? 'open' : ''}`}>
-          <button className="brand" onClick={openOracles}>
+          <button
+            className="brand"
+            aria-label="MÖRK BORG 홈"
+            onClick={openHome}
+          >
             MÖRK
             <br />
             BORG<span>REFERENCE DESK</span>
           </button>
           <div className="side-divider" />
+          <button
+            className={`nav-item ${atHome ? 'active' : ''}`}
+            onClick={openHome}
+          >
+            <House size={17} /> HOME · 전체 목차
+          </button>
           {c ? (
             <>
               <button className="campaign-switch" onClick={home}>
@@ -503,7 +555,7 @@ export default function App() {
               </button>
               <nav aria-label="캠페인 메뉴">
                 <button
-                  className={`nav-item ${oracleOpen && !cityOpen ? 'active' : ''}`}
+                  className={`nav-item ${oracleOpen && !cityOpen && deskPage === 'desk' ? 'active' : ''}`}
                   onClick={openOracles}
                 >
                   <Dices size={17} /> REFERENCE DESK
@@ -614,7 +666,7 @@ export default function App() {
               </button>
               {fateLink}
               <button
-                className={`nav-item ${oracleOpen && !cityOpen ? 'active' : ''}`}
+                className={`nav-item ${oracleOpen && !cityOpen && deskPage === 'desk' ? 'active' : ''}`}
                 onClick={openOracles}
               >
                 <Dices size={17} /> REFERENCE DESK
@@ -652,11 +704,22 @@ export default function App() {
               >
                 <Menu size={20} />
               </Button>
+              <button
+                className="topbar-home"
+                aria-label="홈으로"
+                onClick={openHome}
+              >
+                <House size={16} aria-hidden="true" /> <span>홈</span>
+              </button>
               <span>
                 {oracleOpen
                   ? cityOpen
                     ? 'CITY CRAWL'
-                    : 'PLAY REFERENCE & ORACLES'
+                    : atHome
+                      ? '전체 목차'
+                      : deskPage === 'sources'
+                        ? '자료 및 규칙'
+                        : 'PLAY REFERENCE & ORACLES'
                   : (c?.title ?? '보관한 자료')}
               </span>
             </div>
@@ -745,7 +808,7 @@ export default function App() {
             </div>
           )}
           <main className="content" inert={blocked}>
-            {c && (
+            {c && !atHome && (
               <nav className="codex-breadcrumb" aria-label="현재 위치">
                 <button onClick={home}>캠페인 목록</button>
                 <span>/</span>
@@ -755,7 +818,7 @@ export default function App() {
                   {oracleOpen
                     ? cityOpen
                       ? 'CITY CRAWL'
-                      : 'REFERENCE DESK'
+                      : recordPageTitle
                     : c.workspace.section === 'notes'
                       ? '캠페인 노트'
                       : c.workspace.section === 'characters'
@@ -779,7 +842,7 @@ export default function App() {
               </nav>
             )}
             <DeferredView
-              resetKey={`${c?.id ?? 'standalone'}:${oracleOpen ? (cityOpen ? 'city' : legacyOracleOpen ? 'oracles' : 'desk') : (c?.workspace.section ?? 'campaigns')}`}
+              resetKey={`${c?.id ?? 'standalone'}:${oracleOpen ? (cityOpen ? 'city' : legacyOracleOpen ? 'oracles' : deskPage) : (c?.workspace.section ?? 'campaigns')}`}
             >
               {c &&
                 !oracleOpen &&
@@ -800,11 +863,44 @@ export default function App() {
                     onClose={() => setLegacyOracleOpen(false)}
                     notify={notify}
                   />
+                ) : deskPage === 'sources' ? (
+                  <Sources campaign={c} notify={notify} />
                 ) : (
-                  <ReferenceDesk onLibrary={() => setLegacyOracleOpen(true)} />
+                  <ReferenceDesk
+                    onLibrary={() => setLegacyOracleOpen(true)}
+                    homeIndex={
+                      atHome ? (
+                        <HomeIndex
+                          campaignName={homeCampaign?.title}
+                          onDesk={openOracles}
+                          onLibrary={() => setLegacyOracleOpen(true)}
+                          onSources={openSources}
+                          onCity={openCity}
+                          onFate={openFate}
+                          onCampaigns={() => {
+                            setPendingSection(null);
+                            home();
+                          }}
+                          onNavigate={(section) =>
+                            navigate(section, homeCampaign)
+                          }
+                          onImport={() => setImportText('')}
+                          onAbout={() => setAbout(true)}
+                        />
+                      ) : undefined
+                    }
+                  />
                 )
               ) : !c ? (
                 <>
+                  {pendingSection && (
+                    <output className="home-destination-note">
+                      <strong>
+                        {nav.find((item) => item.key === pendingSection)?.label}
+                      </strong>{' '}
+                      — 사용할 캠페인을 선택하거나 새로 만드세요.
+                    </output>
+                  )}
                   <div className="eyebrow">끔찍한 것들의 연대기 / 제1권</div>
                   <div className="page-heading">
                     <div>
@@ -1149,6 +1245,7 @@ export default function App() {
                     next.campaigns.push(value);
                     openCampaignLibrary(next, value.id);
                   });
+                  if (pendingSection) navigate(pendingSection, value);
                 } else if (form === 'rename' && renameId) {
                   editCampaign(renameId, (next) => {
                     next.title = title.trim();

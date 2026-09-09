@@ -90,7 +90,10 @@ test('generic packet preview avoids repeating an untouched composed title and la
   assert.doesNotMatch(html, /<strong>Descriptor A · Descriptor B<\/strong>/);
   assert.equal((html.match(/Descriptor A/g) ?? []).length, 1);
   assert.equal((html.match(/Descriptor B/g) ?? []).length, 1);
-  assert.match(html, /room-component-exits">EXITS 1<\/span>/);
+  assert.match(
+    html,
+    /room-component-exits"><span class="room-component-source">EXITS 1<\/span>/,
+  );
   assert.deepEqual(room, snapshot);
 });
 
@@ -159,7 +162,7 @@ test('Special Room preview retains source fragments and its correct identity wit
   assert.doesNotMatch(html, /<strong>ROOM 01<\/strong>/);
   assert.match(
     html,
-    /room-component-sample">Sample fixture · source fragment<\/span>/,
+    /room-component-sample"><span class="room-component-source">Sample fixture · source fragment<\/span>/,
   );
   assert.deepEqual(room, snapshot);
 });

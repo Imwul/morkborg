@@ -102,9 +102,17 @@ export function RoomPacket({
                   key={item.key}
                   className={`room-component-preview room-component-${item.key}`}
                 >
-                  {item.key === 'exits'
-                    ? `EXITS ${item.sourceText}`
-                    : item.sourceText}
+                  <span className="room-component-source">
+                    {item.key === 'exits'
+                      ? `EXITS ${item.sourceText}`
+                      : item.sourceText}
+                  </span>
+                  {item.provenance.origin === 'source' && (
+                    <Translation
+                      text={item.sourceText}
+                      translation={item.translationKo}
+                    />
+                  )}
                 </span>
               ))
             ) : (
@@ -224,6 +232,12 @@ export function RoomPacket({
                   )}
                   <p>
                     <ReferenceLinkedText text={item.sourceText} />
+                    {item.provenance.origin === 'source' && (
+                      <Translation
+                        text={item.sourceText}
+                        translation={item.translationKo}
+                      />
+                    )}
                   </p>
                 </>
               )}
@@ -238,18 +252,6 @@ export function RoomPacket({
               )}
             </section>
           ))}
-          {!editing && components.some((item) => item.translationKo) && (
-            <details className="packet-translation">
-              <summary>한국어 도움말</summary>
-              {components.map((item) => (
-                <Translation
-                  key={item.key}
-                  text={item.sourceText}
-                  translation={item.translationKo}
-                />
-              ))}
-            </details>
-          )}
           <GenerationDisclosure
             label="SOURCE"
             values={{

@@ -1,0 +1,199 @@
+/* Home is an index to existing surfaces, not a second dashboard. */
+.topbar-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 500 14px var(--font-ui);
+  cursor: pointer;
+}
+.reference-home .desk-heading {
+  align-items: center;
+}
+.reference-home .desk-heading > .eyebrow {
+  display: block;
+  font: 500 12px var(--font-ui);
+  white-space: nowrap;
+}
+.desk-personal-tools > section[hidden] {
+  display: none;
+}
+.reference-home .desk-personal-tools:has(> section:not([hidden])) {
+  margin-bottom: 20px;
+}
+.reference-home .desk-personal-tools:not(:has(> section:not([hidden]))) {
+  display: none;
+}
+.reference-home .desk-recent-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+  gap: 18px;
+}
+.reference-home .desk-recent-actions > button {
+  flex-shrink: 0;
+}
+.home-index {
+  border-top: 2px solid var(--ink);
+}
+.home-active-pack {
+  margin-bottom: 8px;
+  color: var(--muted-ink);
+}
+.home-active-pack button {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: 500 14px var(--font-ui);
+  cursor: pointer;
+}
+.home-index-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 36px;
+  padding: 24px 0;
+}
+.home-index-groups > section {
+  min-width: 0;
+}
+.home-index h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 10px;
+  font: 500 12px var(--font-mono);
+  color: var(--muted-ink);
+}
+.home-index h2 > span {
+  font: 700 25px/1 var(--font-display);
+  color: var(--ink);
+}
+.home-index-links {
+  display: grid;
+  align-content: start;
+}
+.home-library-links {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+}
+.home-index button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 500 16px/1.4 var(--font-ui);
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.home-index-links button > span,
+.home-record-links button > span {
+  color: var(--muted-ink);
+  font-weight: 400;
+}
+.home-index button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.home-campaign-context {
+  border-block: 1px solid var(--border);
+}
+.home-campaign-context > button {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 16px;
+}
+.home-campaign-context > button > span:first-child {
+  color: var(--muted-ink);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.home-campaign-context strong {
+  font: inherit;
+}
+.home-campaign-context > button > span:last-child {
+  margin-left: auto;
+}
+.home-records > summary {
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  color: var(--muted-ink);
+  font: 500 14px/20px var(--font-ui);
+}
+.home-record-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  column-gap: 24px;
+}
+.home-record-links button {
+  font-size: 14px;
+}
+.home-utilities {
+  display: flex;
+  gap: 24px;
+}
+.home-utilities button {
+  color: var(--muted-ink);
+  font-size: 14px;
+}
+.home-destination-note {
+  display: block;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .home-index-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .home-index-groups > section:last-child {
+    grid-column: 1 / -1;
+  }
+  .home-library-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .home-index-groups {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-block: 18px;
+  }
+  .home-index-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+  }
+  .home-index h2 {
+    margin-bottom: 4px;
+  }
+  .home-index button {
+    font-size: 14px;
+  }
+  .reference-home .desk-personal-tools > section {
+    display: block;
+  }
+  .reference-home .desk-personal-tools > section[hidden] {
+    display: none;
+  }
+  .reference-home .desk-personal-tools h2 {
+    min-height: 26px;
+  }
+  .reference-home .desk-personal-tools h2 button {
+    margin-left: 0;
+  }
+}

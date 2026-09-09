@@ -1700,7 +1700,13 @@ export function ContextReferences({
     </details>
   );
 }
-export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
+export function ReferenceDesk({
+  onLibrary,
+  homeIndex,
+}: {
+  onLibrary?: () => void;
+  homeIndex?: ReactNode;
+}) {
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
   const [query, setQuery] = useState('');
@@ -1717,11 +1723,26 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
         'procedure:workbench.stock-room',
         'procedure:workbench.npc',
       ]);
+  const activePack = desk?.activePack && (
+    <span className="desk-active-pack">
+      <button
+        className="desk-pack-choice"
+        onClick={() => desk.openTools?.('packs')}
+      >
+        {desk.activePack.name}
+      </button>
+      <button aria-label="Pack 해제" onClick={() => desk.clearPack?.()}>
+        ×
+      </button>
+    </span>
+  );
   return (
-    <section className="reference-desk">
+    <section className={`reference-desk${homeIndex ? ' reference-home' : ''}`}>
       <header className="desk-heading">
-        <h1>REFERENCE DESK</h1>
-        <span className="eyebrow">MÖRK BORG</span>
+        <h1>{homeIndex ? 'MÖRK BORG' : 'REFERENCE DESK'}</h1>
+        <span className="eyebrow">
+          {homeIndex ? 'HOME · 전체 목차' : 'MÖRK BORG'}
+        </span>
       </header>
       <form
         className="desk-search"
@@ -1733,7 +1754,7 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
         <Search size={21} />
         <Input
           aria-label="작업대 검색"
-          placeholder="reaction / Sarkash monster / corpse"
+          placeholder="규칙 · 표 · 이름 검색"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={(event) => {
@@ -1777,7 +1798,10 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
         </div>
       )}
       <div className="desk-personal-tools">
-        <section aria-label="고정한 표">
+        <section
+          aria-label="고정한 표"
+          hidden={!!homeIndex && !desk?.pinnedIds.length}
+        >
           <h2>
             PINNED <span>{desk?.pinnedIds.length ?? 0}</span>
           </h2>
@@ -1790,7 +1814,10 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
             <p className="desk-empty-hint">자주 쓰는 표는 결과에서 PIN.</p>
           )}
         </section>
-        <section aria-label="최근 사용한 표">
+        <section
+          aria-label="최근 사용한 표"
+          hidden={!!homeIndex && !desk?.recentIds.length}
+        >
           <h2>
             RECENT{' '}
             <button onClick={() => desk?.openSearch('', 'recent')}>
@@ -1799,7 +1826,7 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
           </h2>
           <div className="desk-recent-actions">
             {entries(desk?.recentIds ?? [])
-              .slice(0, 5)
+              .slice(0, homeIndex ? 3 : 5)
               .map((entry) => (
                 <QuickReferenceButton key={entry.id} entry={entry} />
               ))}
@@ -1809,54 +1836,55 @@ export function ReferenceDesk({ onLibrary }: { onLibrary?: () => void }) {
           )}
         </section>
       </div>
-      <section className="desk-play-tools" aria-label="자주 쓰는 도구">
-        <h2>
-          QUICK TOOLS{' '}
-          {desk?.activePack && (
-            <span className="desk-active-pack">
+      {homeIndex && activePack && (
+        <div className="home-active-pack">{activePack}</div>
+      )}
+      {homeIndex ?? (
+        <>
+          <section className="desk-play-tools" aria-label="자주 쓰는 도구">
+            <h2>QUICK TOOLS {activePack}</h2>
+            <div className="desk-quick-grid">
+              {quick.map((entry) => (
+                <ReferenceRow
+                  key={entry.id}
+                  entry={entry}
+                  showMetadata={false}
+                />
+              ))}
+            </div>
+          </section>
+          <div className="desk-regions">
+            <span className="eyebrow">REGION</span>
+            {regions.map((r) => (
               <button
-                className="desk-pack-choice"
-                onClick={() => desk.openTools?.('packs')}
+                key={r.id}
+                onClick={() => desk?.activate(`region:${r.id}`)}
               >
-                {desk.activePack.name}
+                {r.name}
+                <ArrowUpRight size={14} />
               </button>
-              <button aria-label="Pack 해제" onClick={() => desk.clearPack?.()}>
-                ×
-              </button>
-            </span>
-          )}
-        </h2>
-        <div className="desk-quick-grid">
-          {quick.map((entry) => (
-            <ReferenceRow key={entry.id} entry={entry} showMetadata={false} />
-          ))}
-        </div>
-      </section>
-      <div className="desk-regions">
-        <span className="eyebrow">REGION</span>
-        {regions.map((r) => (
-          <button key={r.id} onClick={() => desk?.activate(`region:${r.id}`)}>
-            {r.name}
-            <ArrowUpRight size={14} />
-          </button>
-        ))}
-      </div>
-      <details className="desk-index">
-        <summary>
-          전체 참조 색인 <b>{desk?.entries.length ?? 0}</b> ›
-        </summary>
-        <div className="desk-book-list">
-          {desk?.entries
-            .filter((entry) => entry.kind === 'book')
-            .map((entry) => (
-              <ReferenceRow key={entry.id} entry={entry} />
             ))}
-        </div>
-        <button onClick={() => desk?.openSearch()}>모든 표·규칙 검색 →</button>
-        {onLibrary && (
-          <button onClick={onLibrary}>기존 Oracle 라이브러리 →</button>
-        )}
-      </details>
+          </div>
+          <details className="desk-index">
+            <summary>
+              전체 참조 색인 <b>{desk?.entries.length ?? 0}</b> ›
+            </summary>
+            <div className="desk-book-list">
+              {desk?.entries
+                .filter((entry) => entry.kind === 'book')
+                .map((entry) => (
+                  <ReferenceRow key={entry.id} entry={entry} />
+                ))}
+            </div>
+            <button onClick={() => desk?.openSearch()}>
+              모든 표·규칙 검색 →
+            </button>
+            {onLibrary && (
+              <button onClick={onLibrary}>기존 Oracle 라이브러리 →</button>
+            )}
+          </details>
+        </>
+      )}
     </section>
   );
 }
