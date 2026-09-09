@@ -238,8 +238,9 @@ summary:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid currentColor !important;
+  outline: 2px solid var(--ink) !important;
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--paper) !important;
 }
 .field-value {
   font-weight: 500;
@@ -923,6 +924,14 @@ select:focus-visible {
 }
 .monster-sheet > .monster-identity-grid:first-child .is-editing {
   color: var(--ink);
+  background: var(--paper);
+  padding: 10px;
+}
+.monster-sheet
+  > .monster-identity-grid:first-child
+  .is-editing
+  .field-label label {
+  color: var(--muted-ink);
 }
 .monster-sheet > .monster-stats-grid {
   order: 1;

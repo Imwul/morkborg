@@ -160,6 +160,8 @@
 
 재현 자료: `before-metrics.json`, `after-metrics.json`, `acceptance-before-1440.json`, `acceptance-after-1440.json`, `acceptance-after-360.json`, `table-use-acceptance.json`, `tools/`.
 
+추가 요청에 따른 OS 라이트/다크 설정, 편집 입력, 키보드 포커스 검사는 [글자 대비 후속 점검](THEME-CONTRAST-CHECK.md)에 기록했다.
+
 ## 7. 남은 시각적 마찰 / 배포 경계
 
 - 길고 중요한 영문/한국어 절차는 여전히 세로로 스크롤한다. 작동 규칙을 숨기거나 줄여서 높이를 맞추지 않았다.

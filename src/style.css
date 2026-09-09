@@ -627,7 +627,7 @@ p {
 .region-line > p {
   font-size: 12px;
   line-height: 1.6;
-  color: #7d826e;
+  color: var(--muted-ink);
   max-width: 560px;
 }
 .dungeon-tabs,
@@ -640,7 +640,7 @@ p {
 }
 .tab {
   background: transparent !important;
-  color: #767c65 !important;
+  color: var(--muted-ink) !important;
   border: 0 !important;
   border-radius: 0 !important;
   padding: 14px 16px !important;
@@ -658,7 +658,7 @@ p {
   background: #ffe900 !important;
 }
 .tab > span {
-  color: #7a8558;
+  color: inherit;
   margin-left: 7px;
 }
 .section-toolbar {
@@ -935,10 +935,10 @@ p {
   background: #ffe900;
 }
 .empty-artifact > svg {
-  color: #7f8967;
+  color: var(--muted-ink);
 }
 .empty-artifact > .eyebrow {
-  color: #7d8962;
+  color: var(--muted-ink);
   font-size: 8px;
 }
 .empty-artifact h2 {
@@ -948,7 +948,7 @@ p {
 }
 .empty-artifact p {
   font-size: 12px;
-  color: #7c856b;
+  color: var(--muted-ink);
 }
 .status-select {
   font:

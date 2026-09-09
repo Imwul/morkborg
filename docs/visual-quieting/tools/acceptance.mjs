@@ -2,6 +2,7 @@ import { chromium } from '/Users/imwul/.cache/codex-runtimes/codex-primary-runti
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import assert from 'node:assert/strict';
 const url=process.env.QA_URL||'http://127.0.0.1:5175', phase=process.env.QA_PHASE||'after', width=Number(process.env.QA_WIDTH||1440);
+const colorScheme=process.env.QA_COLOR_SCHEME||'light';
 const out=`outputs/visual-quieting/acceptance-${phase}-${width}`;mkdirSync(out,{recursive:true});
 const storage=JSON.parse(readFileSync('outputs/pdf-remediation-batch-3/generated-accepted-storage.json'));
 const extra=JSON.parse(readFileSync('outputs/play-speed/library-qa-storage.json'));
@@ -10,7 +11,7 @@ const state=JSON.parse(stored(storage).value),c=state.campaigns[0],extraCampaign
 for(const kind of ['monsters','npcs','encounters']) c[kind]=extraCampaign[kind].map(o=>({...o,campaignId:c.id}));
 c.workspace.dungeonTab='overview';c.workspace.dungeonPreview=false;stored(storage).value=JSON.stringify(state);for(const o of storage.origins)o.origin=url;
 const browser=await chromium.launch({channel:'chrome',headless:true});
-const context=await browser.newContext({storageState:storage,viewport:{width,height:1000},hasTouch:width===360,reducedMotion:'reduce',permissions:['clipboard-read','clipboard-write']});
+const context=await browser.newContext({storageState:storage,colorScheme,viewport:{width,height:1000},hasTouch:width===360,reducedMotion:'reduce',permissions:['clipboard-read','clipboard-write']});
 const page=await context.newPage();page.setDefaultTimeout(12000);
 const events=[],checks=[],errors=[],targets=[];let clicks=0,queries=0;
 page.on('pageerror',e=>errors.push(e.message));
@@ -87,7 +88,7 @@ try {
  // Keyboard path is deliberately separate from the click metric.
  await page.keyboard.press('Control+k');await page.getByRole('textbox',{name:'통합 참조 검색'}).fill('reaction');await page.keyboard.press('Enter');await check('Keyboard palette → result → Escape works',async()=>{assert.equal(await inspector().locator('.reference-reading').isVisible(),true);await page.keyboard.press('Escape');await inspector().waitFor({state:'hidden'});assert.equal(await inspector().isVisible(),false);});
  assert.deepEqual(errors,[]);
- const report={phase,url,width,clicks,queryEntries:queries,events,checks,targets,errors,notes:'Every write occurred only in this isolated QA browser context. Queries counted separately; scroll/reload/keyboard listed outside click count. Source PDFs stayed closed.'};
+ const report={phase,url,width,colorScheme,clicks,queryEntries:queries,events,checks,targets,errors,notes:'Every write occurred only in this isolated QA browser context. Queries counted separately; scroll/reload/keyboard listed outside click count. Source PDFs stayed closed.'};
  const reportDir=process.env.QA_REPORT_DIR||'docs/visual-quieting';mkdirSync(reportDir,{recursive:true});
  writeFileSync(`${reportDir}/acceptance-${phase}-${width}.json`,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({phase,width,clicks,queries,checks:checks.length,errors}));
 }catch(e){await shot('failure');writeFileSync(`${out}/failure.txt`,String(e.stack)+'\n'+await page.locator('body').innerText());throw e;}finally{await browser.close();}

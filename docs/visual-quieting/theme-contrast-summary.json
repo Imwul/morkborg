@@ -1,0 +1,583 @@
+{
+  "date": "2026-09-09",
+  "baseCommit": "230610fa4e74839aa26665bbed7767c71d999aca",
+  "scope": "Presentation only. Fixed ink/paper app palette under both OS color-scheme preferences. Isolated QA browser storage.",
+  "captureCount": 126,
+  "surfaces": [
+    "reference-desk",
+    "search-results",
+    "oracle-result",
+    "source-disclosure",
+    "table-inspector",
+    "reclvse-procedure",
+    "depths-cards",
+    "character",
+    "character-edit",
+    "dungeon",
+    "expanded-room",
+    "room-translation",
+    "room-edit",
+    "monster",
+    "monster-edit",
+    "monster-name-input",
+    "npc",
+    "encounter",
+    "encounter-level",
+    "city-procedure",
+    "power"
+  ],
+  "groups": [
+    {
+      "systemColorScheme": "light",
+      "width": 360,
+      "captures": 21,
+      "scannedTextOccurrences": 1052,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    },
+    {
+      "systemColorScheme": "light",
+      "width": 1440,
+      "captures": 21,
+      "scannedTextOccurrences": 1442,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    },
+    {
+      "systemColorScheme": "light",
+      "width": 3440,
+      "captures": 21,
+      "scannedTextOccurrences": 1442,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    },
+    {
+      "systemColorScheme": "dark",
+      "width": 360,
+      "captures": 21,
+      "scannedTextOccurrences": 1052,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    },
+    {
+      "systemColorScheme": "dark",
+      "width": 1440,
+      "captures": 21,
+      "scannedTextOccurrences": 1442,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    },
+    {
+      "systemColorScheme": "dark",
+      "width": 3440,
+      "captures": 21,
+      "scannedTextOccurrences": 1442,
+      "minimumContrast": 5.26,
+      "enabledContrastFailures": 0,
+      "horizontalOverflow": 0,
+      "nativeColorSchemes": [
+        "light"
+      ]
+    }
+  ],
+  "errors": [],
+  "interactionChecks": [
+    {
+      "scheme": "light",
+      "name": "Oracle reroll",
+      "state": "hover",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 18.05,
+      "focusVisible": false,
+      "outline": "rgb(247, 245, 238)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Oracle reroll",
+      "state": "focus",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 18.05,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "name": "Copy",
+      "state": "hover",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 19.69,
+      "focusVisible": false,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Copy",
+      "state": "focus",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 19.69,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "name": "Source",
+      "state": "hover",
+      "foreground": "rgb(90, 86, 75)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 6.71,
+      "focusVisible": false,
+      "outline": "rgb(90, 86, 75)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Source",
+      "state": "focus",
+      "foreground": "rgb(90, 86, 75)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 6.71,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "name": "Class on black identity panel",
+      "state": "hover",
+      "foreground": "rgb(200, 195, 183)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 11.2,
+      "focusVisible": false,
+      "outline": "rgb(200, 195, 183)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Class on black identity panel",
+      "state": "focus",
+      "foreground": "rgb(200, 195, 183)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 11.2,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "name": "Monster name on black panel",
+      "state": "hover",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        44,
+        41,
+        36
+      ],
+      "contrast": 13.28,
+      "focusVisible": false,
+      "outline": "rgb(247, 245, 238)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Monster name on black panel",
+      "state": "focus",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        44,
+        41,
+        36
+      ],
+      "contrast": 13.28,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "name": "Monster name input",
+      "state": "hover",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 18.05,
+      "focusVisible": false,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "name": "Monster name input",
+      "state": "focus",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 19.69,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "light",
+      "width": 360,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "width": 1440,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "light",
+      "width": 3440,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Oracle reroll",
+      "state": "hover",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 18.05,
+      "focusVisible": false,
+      "outline": "rgb(247, 245, 238)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Oracle reroll",
+      "state": "focus",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 18.05,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "name": "Copy",
+      "state": "hover",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        123.999997,
+        122.5000227839,
+        119.0000100434
+      ],
+      "contrast": 4.62,
+      "focusVisible": false,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Copy",
+      "state": "focus",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        123.999997,
+        122.5000227839,
+        119.0000100434
+      ],
+      "contrast": 4.62,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "name": "Source",
+      "state": "hover",
+      "foreground": "rgb(90, 86, 75)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 6.71,
+      "focusVisible": false,
+      "outline": "rgb(90, 86, 75)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Source",
+      "state": "focus",
+      "foreground": "rgb(90, 86, 75)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 6.71,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "name": "Class on black identity panel",
+      "state": "hover",
+      "foreground": "rgb(200, 195, 183)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 11.2,
+      "focusVisible": false,
+      "outline": "rgb(200, 195, 183)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Class on black identity panel",
+      "state": "focus",
+      "foreground": "rgb(200, 195, 183)",
+      "background": [
+        11,
+        11,
+        10
+      ],
+      "contrast": 11.2,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "name": "Monster name on black panel",
+      "state": "hover",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        44,
+        41,
+        36
+      ],
+      "contrast": 13.28,
+      "focusVisible": false,
+      "outline": "rgb(247, 245, 238)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Monster name on black panel",
+      "state": "focus",
+      "foreground": "rgb(247, 245, 238)",
+      "background": [
+        44,
+        41,
+        36
+      ],
+      "contrast": 13.28,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "name": "Monster name input",
+      "state": "hover",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        247,
+        245,
+        238
+      ],
+      "contrast": 18.05,
+      "focusVisible": false,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "name": "Monster name input",
+      "state": "focus",
+      "foreground": "rgb(11, 11, 10)",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "contrast": 19.69,
+      "focusVisible": true,
+      "outline": "rgb(11, 11, 10)",
+      "shadow": "rgb(247, 245, 238) 0px 0px 0px 3px"
+    },
+    {
+      "scheme": "dark",
+      "width": 360,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "width": 1440,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    },
+    {
+      "scheme": "dark",
+      "width": 3440,
+      "name": "Room empty-state guidance",
+      "state": "read",
+      "foreground": "rgb(98, 96, 87)",
+      "background": [
+        255,
+        233,
+        0
+      ],
+      "contrast": 5.08,
+      "focusVisible": false,
+      "outline": "rgb(98, 96, 87)",
+      "shadow": "none"
+    }
+  ],
+  "disabledChecks": [
+    {
+      "scheme": "light",
+      "control": "First Room move-up",
+      "disabled": true,
+      "visible": true
+    },
+    {
+      "scheme": "dark",
+      "control": "First Room move-up",
+      "disabled": true,
+      "visible": true
+    }
+  ],
+  "notes": [
+    "Text occurrences include repetitions across screens, widths and schemes; these are not unique rules or unit tests.",
+    "Automatic solid-color contrast estimate plus representative screenshot review, not a complete accessibility certification.",
+    "Source-rich screenshots and text-level diagnostics stay in ignored local outputs.",
+    "A baseline scanner initially counted zero-opacity editing controls; they are excluded from findings.",
+    "Existing unit suite: 658 passed, no tests removed or weakened."
+  ]
+}
