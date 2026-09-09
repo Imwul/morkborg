@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useReferenceDesk } from './ReferenceContext';
 import { RotateCcw } from 'lucide-react';
 import type { Dungeon, DungeonRoom } from '../domain/types';
 import {
@@ -42,6 +43,7 @@ export function RoomPacket({
   confirm?: Confirm;
   expanded?: boolean;
 }) {
+  const desk = useReferenceDesk();
   const [editing, setEditing] = useState(false);
   const [previous, setPrevious] = useState<{
     before: DungeonRoom;
@@ -86,8 +88,14 @@ export function RoomPacket({
       aria-label={`${room.kind === 'special' ? 'Special Room' : 'Room'} ${index + 1}`}
       data-room-id={room.id}
     >
-      <details open={expanded || undefined}>
-        <summary className="room-packet-summary">
+      <details open={expanded || desk?.returnedRoomId === room.id || undefined}>
+        <summary
+          className="room-packet-summary"
+          onClick={(e) => {
+            if (!e.currentTarget.parentElement?.hasAttribute('open'))
+              desk?.rememberRoom?.(dungeon.id, room.id);
+          }}
+        >
           <span className="room-packet-number">
             <small>{room.kind === 'special' ? 'SPECIAL' : 'ROOM'}</small>
             {String(index + 1).padStart(2, '0')}

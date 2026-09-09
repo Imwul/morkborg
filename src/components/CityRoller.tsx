@@ -65,6 +65,13 @@ export function CityRoller({
     useState<Parameters<typeof prayerPlaceBonus>[0]>('statue');
   const [last, setLast] = useState<CityMoveResult | null>(null),
     [error, setError] = useState('');
+  function publish(reading: ReferenceReading) {
+    onReading({
+      ...reading,
+      rollMethod: { kind: 'APP_ROLL' },
+      procedureInputs: { move, mode, dr, modifier, allMet, place },
+    });
+  }
   function showMove(result: CityMoveResult) {
     setLast(result);
     const follow = result.metadata.followUp;
@@ -75,7 +82,7 @@ export function CityRoller({
     const dependencyWarning = oracleEntryDependencyWarning(entry, registry);
     const benefit = result.metadata.selectedDirections;
     const followLinks = oracleFollowUpLinks(entry?.metadata);
-    onReading({
+    publish({
       title: {
         crawl: '도시 크롤',
         directions: '방향 찾기',
@@ -132,7 +139,7 @@ export function CityRoller({
       setLast(null);
       if (move === 'merchant') {
         const r = rollMerchantDisposition(modifier);
-        onReading({
+        publish({
           title: '상인 반응',
           blocks: [
             {
@@ -147,7 +154,7 @@ export function CityRoller({
         });
       } else if (move === 'micro') {
         const r = rollMicroCrawl();
-        onReading({
+        publish({
           title: '마이크로 크롤',
           blocks: [
             {
@@ -160,7 +167,7 @@ export function CityRoller({
         });
       } else if (move === 'discovery') {
         const r = encounterSettlementChance();
-        onReading({
+        publish({
           title: '여행일 정착지 발견',
           blocks: [
             {
@@ -180,7 +187,7 @@ export function CityRoller({
         if (!table) throw new Error('정착지 규모 원문 표를 불러오세요.');
         const size = rollOracle(table, registry),
           r = rollSettlementStreets(size.roll);
-        onReading({
+        publish({
           title: '정착지 규모 / Dérive',
           blocks: [
             {

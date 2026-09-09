@@ -1,0 +1,137 @@
+/* Temporary memory uses the existing PLAY drawer; results retain visual priority. */
+.play-context-return {
+  max-width: min(100%, 28rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: 44px;
+  text-align: left;
+}
+.reference-rail > .play-context-return {
+  align-self: flex-start;
+  padding: 0.4rem 0.65rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid currentColor;
+}
+.play-memory-list {
+  display: flex;
+  flex-direction: column;
+}
+.play-memory-list > button {
+  display: grid;
+  gap: 0.25rem;
+  text-align: left;
+  min-height: 44px;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+  overflow-wrap: anywhere;
+}
+.play-memory-list > button > span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 0.95rem;
+  font-weight: normal;
+}
+.play-memory-list small {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+.roll-replay-view {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.roll-replay-view h2 {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  line-height: 1.05;
+  margin: 0.5rem 0 1rem;
+}
+.replay-actions {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.replay-actions button,
+.replay-actions summary {
+  min-height: 44px;
+}
+.replay-component {
+  margin: 1.5rem 0;
+}
+.replay-component h3 {
+  font-size: 1.25rem;
+}
+.replay-component h4 {
+  font-size: 0.85rem;
+  margin: 1rem 0 0.35rem;
+}
+.replay-component p {
+  white-space: pre-wrap;
+}
+.replay-component h3 small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.replay-card-trace,
+.replay-parameters {
+  margin-top: 0.8rem;
+}
+.replay-card-trace summary,
+.replay-parameters summary {
+  min-height: 44px;
+  display: list-item;
+  align-content: center;
+  font-size: 0.85rem;
+}
+.replay-card-trace .rare-card-strip {
+  margin: 1rem 0;
+}
+.replay-parameters dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding: 0.35rem 0;
+  font-size: 0.85rem;
+}
+.replay-parameters dd {
+  margin: 0;
+}
+.roll-replay-view textarea {
+  width: 100%;
+}
+
+.replay-reading {
+  font: 1.25rem/1.55 var(--font-reading);
+}
+.replay-reading .translation {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.roll-replay-view > .replay-actions {
+  margin-bottom: 0.5rem;
+}
+
+.reference-inspector > .play-context-return,
+.reference-search-dialog > .play-context-return,
+.reference-tools-dialog > .play-context-return {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--paper);
+  color: var(--ink);
+  max-width: calc(100% - 44px);
+  border: 0;
+  padding: 0.4rem 0;
+  font: 600 0.85rem var(--font-ui);
+}
+.play-context-return + .reference-inner-tray {
+  top: 44px;
+}

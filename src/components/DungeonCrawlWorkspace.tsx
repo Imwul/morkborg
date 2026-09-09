@@ -9,6 +9,7 @@ import { Field } from './Field';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { ReferenceReadingText } from './ReferenceReadingText';
 import type { Confirm } from './Library';
+import { useReferenceDesk } from './ReferenceContext';
 import {
   prepareDungeonCrawl,
   dungeonRoomFollowUps,
@@ -148,6 +149,7 @@ export function DungeonCrawlWorkspace({
   const { registry } = useOracleRegistry(),
     { pack } = useRules();
   const [viewRoomId, setViewRoomId] = useState<string | null>(null);
+  const desk = useReferenceDesk();
   const state = d.crawl;
   const room = d.rooms.find(
     (item) => item.id === (viewRoomId ?? state?.currentRoomId),
@@ -356,7 +358,10 @@ export function DungeonCrawlWorkspace({
               return (
                 <button
                   key={key}
-                  onClick={() => setViewRoomId(key)}
+                  onClick={() => {
+                    setViewRoomId(key);
+                    desk?.rememberRoom?.(d.id, key);
+                  }}
                   aria-current={
                     (viewRoomId ?? state.currentRoomId) === key
                       ? 'step'

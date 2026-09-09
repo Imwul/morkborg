@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useReferenceDesk } from './ReferenceContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { OracleRegistry } from '../domain/oracle';
@@ -45,6 +46,7 @@ export function CityCrawlWorkspace({
   registry: OracleRegistry;
   region?: RegionId;
 }) {
+  const desk = useReferenceDesk();
   const [saved] = useState(readCityCrawlWorkspace);
   const [config, updateConfig] = useState(saved.config);
   const [state, setState] = useState<CityCrawlState | null>(saved.state);
@@ -68,6 +70,12 @@ export function CityCrawlWorkspace({
   function perform(action: () => CityCrawlState, nextConfig = config) {
     try {
       const nextState = action();
+      if (nextState.reading !== state?.reading)
+        desk?.recordRoll?.(
+          'procedure:workbench.city',
+          { ...nextState.reading, procedureInputs: { ...nextConfig } },
+          { region },
+        );
       setState(nextState);
       updateConfig(nextConfig);
       setError('');
@@ -377,7 +385,16 @@ export function CityCrawlWorkspace({
           </summary>
           <CityRoller
             registry={registry}
-            onReading={setSupport}
+            onReading={(reading) => {
+              setSupport(reading);
+              desk?.recordRoll?.(
+                reading.procedureInputs?.move === 'merchant'
+                  ? 'procedure:workbench.city'
+                  : `procedure:city.${reading.procedureInputs?.move ?? 'directions'}`,
+                reading,
+                { region },
+              );
+            }}
             allowedMoves={['directions', 'pray', 'stash', 'merchant']}
             initialMove="directions"
           />

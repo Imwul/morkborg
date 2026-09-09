@@ -7,7 +7,18 @@ const schema = z.object({
   searchOpen: z.boolean(),
   query: z.string().max(2000),
   scope: z.enum(['all', 'pinned', 'recent']),
-  panel: z.enum(['play', 'recipes', 'packs', 'scratch', 'physical']).nullable(),
+  panel: z
+    .enum([
+      'play',
+      'recipes',
+      'packs',
+      'scratch',
+      'physical',
+      'context',
+      'replay',
+    ])
+    .nullable(),
+  replayId: z.string().max(200).nullable().optional(),
   region: z.enum(REGION_IDS),
 });
 export type ReferenceLocation = z.infer<typeof schema>;
@@ -30,4 +41,5 @@ export const referenceLocationKey = (value: ReferenceLocation) => ({
   searchOpen: value.searchOpen,
   scope: value.searchOpen ? value.scope : null,
   panel: value.panel,
+  ...(value.panel === 'replay' ? { replayId: value.replayId ?? null } : {}),
 });

@@ -1,3 +1,11 @@
+import { usePlayMemory } from './usePlayMemory';
+import {
+  contextLabel,
+  validContext,
+  type PlayContext,
+} from '../domain/playContext';
+import { replayResult, type RollReplay } from '../domain/rollReplay';
+import type { ExecutionParameters } from '../storage/conveniencePreferences';
 import {
   useNavigationBack,
   useNavigationChannel,
@@ -16,16 +24,17 @@ import {
 import { suppressRollShortcut } from '../domain/heldReferenceResults';
 import { focusedReferences } from '../domain/conveniencePacks';
 import { id } from '../generators/random';
-import { refsForOracle } from '../domain/referenceExecution';
+import {
+  refsForOracle,
+  referenceProducesRoll,
+} from '../domain/referenceExecution';
 import {
   referenceAction,
   referenceShortName,
 } from '../domain/referenceActions';
 import {
   emptyReferenceSession,
-  availableRecentRolls,
   retainReferenceReading,
-  restoreReferenceRoll,
 } from '../domain/referenceSession';
 import {
   authoritiesForReading,
@@ -58,7 +67,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import type { Campaign, RegionId, Workspace } from '../domain/types';
+import type { AppSave, Campaign, RegionId, Workspace } from '../domain/types';
 import type { OracleResult } from '../domain/oracle';
 import {
   buildReferenceRegistry,
@@ -101,12 +110,18 @@ import { PrivateDataTools } from './PrivateDataTools';
 const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
 export function ReferenceProvider({
+  save,
+  playContext,
+  onContextReturn,
   children,
   campaign,
   onCampaignOpen,
   onCity,
   notify,
 }: {
+  save: AppSave;
+  playContext: PlayContext | null;
+  onContextReturn: (context: PlayContext) => void;
   children: ReactNode;
   campaign?: Campaign;
   onCampaignOpen: (patch: Partial<Workspace>) => void;
@@ -119,6 +134,19 @@ export function ReferenceProvider({
     () => buildReferenceRegistry(oracles.registry, rules.pack),
     [oracles.registry, rules.pack],
   );
+  const memory = usePlayMemory(save, playContext, notify);
+  const returnTarget = memory.contexts.find((c) => c.kind !== 'desk');
+  function returnTo(context: PlayContext) {
+    if (!validContext(context, save)) return;
+    setSelectedId(null);
+    setSearchOpen(false);
+    convenience.setPanel(null);
+    memory.setReturnedRoomId(
+      context.kind === 'room' ? context.objectId! : null,
+    );
+    memory.rememberContext(context);
+    onContextReturn(context);
+  }
   const [prefs, setPrefs] = useState(readReferencePreferences);
   const [selectedId, setSelectedId] = useState<string | null>(null),
     [trail, setTrail] = useState<string[]>([]);
@@ -197,11 +225,21 @@ export function ReferenceProvider({
     entryId: string,
     result: ReferenceReading,
     rolled = true,
+    parameters?: ExecutionParameters,
   ) {
     setSession((state) =>
-      retainReferenceReading(state, entryId, result, rolled),
+      retainReferenceReading(state, entryId, result, false),
     );
     touchEntry(entryId);
+    if (rolled && result.blocks.length)
+      memory.record({
+        kind: 'reference',
+        referenceId: entryId,
+        title: result.title,
+        parameters: parameters ?? convenience.parameters(),
+        procedureInputs: result.procedureInputs,
+        results: [replayResult(entryId, result)],
+      });
     if (rolled && index.byId[entryId]?.action?.kind === 'city')
       convenience.remember({
         kind: 'reference',
@@ -226,7 +264,48 @@ export function ReferenceProvider({
       rareDeck,
     },
     accept: acceptReading,
-    open: (id) => activate(id),
+    open: (id) => activate(id, false, undefined, true),
+    onRecipeResolved: (id, title, results, parameters) => {
+      const snapshots = results.flatMap((r) =>
+        r.reading ? [replayResult(r.referenceId, r.reading, r)] : [],
+      );
+      if (snapshots.length)
+        memory.record({
+          kind: 'recipe',
+          referenceId: id,
+          title,
+          parameters,
+          results: snapshots,
+        });
+    },
+    onRecipeEdited: (id, results) =>
+      memory.update((p) => {
+        const latest = p.replays.find(
+          (r) => r.kind === 'recipe' && r.referenceId === id,
+        );
+        if (!latest) return p;
+        return {
+          ...p,
+          replays: p.replays.map((r) =>
+            r.id === latest.id
+              ? {
+                  ...r,
+                  results: results.flatMap((result) =>
+                    result.reading
+                      ? [
+                          replayResult(
+                            result.referenceId,
+                            result.reading,
+                            result,
+                          ),
+                        ]
+                      : [],
+                  ),
+                }
+              : r,
+          ),
+        };
+      }),
     notify,
     onDeck: setRareDeck,
     restoreParameters: (params) => {
@@ -239,6 +318,33 @@ export function ReferenceProvider({
       setRareDeck(params.rareDeck);
     },
   });
+  function rerollReplay(entry: RollReplay) {
+    const recipe = convenience.preferences.recipes.find(
+      (r) => r.id === entry.referenceId,
+    );
+    if (
+      entry.kind === 'recipe' &&
+      (!recipe ||
+        JSON.stringify(recipe.referenceIds) !==
+          JSON.stringify(entry.results.map((r) => r.referenceId)))
+    ) {
+      notify(
+        '레시피가 변경되거나 삭제됐습니다. 이전 결과는 그대로 볼 수 있습니다.',
+      );
+      return;
+    }
+    convenience.rerollLast({
+      kind: entry.kind,
+      id: entry.referenceId,
+      mode: entry.results.some((r) => r.mode !== 'APP_ROLL')
+        ? 'USER_ROLL'
+        : entry.procedureInputs
+          ? 'OPEN'
+          : 'APP_ROLL',
+      parameters: { ...entry.parameters, rareDeck },
+      inputs: entry.results[0]?.inputs,
+    });
+  }
   const navigation = useNavigationBack();
   useNavigationChannel(
     'reference',
@@ -250,6 +356,7 @@ export function ReferenceProvider({
       query,
       scope,
       panel: convenience.panel,
+      replayId: memory.replayId,
       region,
     },
     (location) => {
@@ -268,6 +375,7 @@ export function ReferenceProvider({
       setQuery(location.query);
       setScope(location.scope);
       convenience.setPanel(location.panel);
+      memory.setReplayId(location.replayId ?? null);
       setRegion(location.region);
       lastReferenceId.current = location.selectedId;
       setFailure('');
@@ -313,7 +421,12 @@ export function ReferenceProvider({
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
   });
-  function activate(entryId: string, roll = false, contextRegion?: RegionId) {
+  function activate(
+    entryId: string,
+    roll = false,
+    contextRegion?: RegionId,
+    viewOnly = false,
+  ) {
     const entry = index.byId[entryId];
     if (!entry) return;
     convenience.setPanel(null);
@@ -347,7 +460,7 @@ export function ReferenceProvider({
     setCopyFallback(null);
     setCopied('');
     touchEntry(entryId);
-    if (roll || entry.action?.kind === 'creature')
+    if (!viewOnly && (roll || entry.action?.kind === 'creature'))
       perform(entry, contextRegion);
   }
   function openSearch(value = '', nextScope: typeof scope = 'all') {
@@ -431,6 +544,35 @@ export function ReferenceProvider({
   return (
     <ReferenceContext.Provider
       value={{
+        returnedRoomId: memory.returnedRoomId,
+        recordRoll: (id, result, params) => {
+          const parameters = { ...convenience.parameters(), ...params };
+          acceptReading(id, result, true, parameters);
+          if (index.byId[id] && referenceProducesRoll(index.byId[id]))
+            convenience.remember({
+              kind: 'reference',
+              id,
+              parameters,
+              mode:
+                result.rollMethod?.kind === 'USER_ROLL'
+                  ? 'USER_ROLL'
+                  : 'APP_ROLL',
+              inputs: result.rollMethod?.inputs,
+            });
+        },
+        rememberRoom: (dungeonId, roomId) => {
+          const owner = save.campaigns.find((c) =>
+            c.dungeons.some((d) => d.id === dungeonId),
+          );
+          if (owner)
+            memory.rememberContext({
+              kind: 'room',
+              campaignId: owner.id,
+              dungeonId,
+              objectId: roomId,
+              dungeonTab: owner.workspace.dungeonTab,
+            });
+        },
         activePack: convenience.activePack,
         focusedIds: focusedReferences(index, convenience.activePack).map(
           (e) => e.id,
@@ -460,6 +602,18 @@ export function ReferenceProvider({
     >
       {children}
       <div className="reference-rail">
+        {returnTarget &&
+          playContext?.kind === 'desk' &&
+          !searchOpen &&
+          !selected &&
+          !convenience.panel && (
+            <button
+              className="play-context-return"
+              onClick={() => returnTo(returnTarget)}
+            >
+              ← {contextLabel(returnTarget, save)}
+            </button>
+          )}
         {!convenience.preferences.playOpened && (
           <small className="play-discovery-hint">PLAY — 임시 도구 모음</small>
         )}
@@ -540,6 +694,14 @@ export function ReferenceProvider({
                 : 'reference-inspector'
           }
         >
+          {returnTarget && (
+            <button
+              className="play-context-return"
+              onClick={() => returnTo(returnTarget)}
+            >
+              ← {contextLabel(returnTarget, save)}
+            </button>
+          )}
           <nav className="reference-inner-tray" aria-label="참조 도구 모음">
             {!convenience.panel && !searchOpen && navigation.canBack && (
               <button aria-label="이전 참조" onClick={navigation.back}>
@@ -605,6 +767,11 @@ export function ReferenceProvider({
           )}
           {convenience.panel && (
             <ConveniencePanel
+              memory={memory}
+              save={save}
+              index={index}
+              onReturn={returnTo}
+              onReplayReroll={rerollReplay}
               tools={convenience}
               current={selected ?? undefined}
               registry={oracles.registry}
@@ -659,27 +826,6 @@ export function ReferenceProvider({
                   }
                 }}
               />
-              {scope === 'recent' && session.rolls.length > 0 && (
-                <details className="reference-recent-rolls">
-                  <summary>최근 결과 · 이 탭에서만</summary>
-                  {availableRecentRolls(session, index.byId).map((item) => (
-                    <button
-                      key={item.sequence}
-                      onClick={() => {
-                        activate(item.referenceId);
-                        setSession((state) =>
-                          restoreReferenceRoll(state, item.sequence),
-                        );
-                      }}
-                    >
-                      <strong>
-                        {referenceShortName(index.byId[item.referenceId])}
-                      </strong>
-                      <span>{item.reading.blocks[0]?.text.slice(0, 110)}</span>
-                    </button>
-                  ))}
-                </details>
-              )}
               <div className="reference-results">
                 {found.map((entry) => (
                   <ReferenceRow key={entry.id} entry={entry} />
@@ -1541,18 +1687,25 @@ export function ReferenceProvider({
                               },
                             ],
                           };
-                          acceptReading(entryId, {
-                            title: table.title,
-                            blocks: [
-                              {
-                                title: `#${lookup.roll}`,
-                                text: oracleReadingText(value),
-                              },
-                            ],
-                            sourceRefs: refsForOracle(result, oracles.registry),
-                            oracle: result,
-                            ...oracleFollowUpLinks(value.metadata),
-                          });
+                          acceptReading(
+                            entryId,
+                            {
+                              title: table.title,
+                              blocks: [
+                                {
+                                  title: `#${lookup.roll}`,
+                                  text: oracleReadingText(value),
+                                },
+                              ],
+                              sourceRefs: refsForOracle(
+                                result,
+                                oracles.registry,
+                              ),
+                              oracle: result,
+                              ...oracleFollowUpLinks(value.metadata),
+                            },
+                            false,
+                          );
                         } catch (e) {
                           setFailure(
                             e instanceof Error

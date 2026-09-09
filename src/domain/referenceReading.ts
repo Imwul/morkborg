@@ -11,6 +11,7 @@ export interface ReferenceTextBlock {
   translation?: { ko?: string; titleKo?: string };
 }
 export interface ReferenceReading {
+  procedureInputs?: Record<string, string | number | boolean>;
   /** Transient workbench input metadata; never canonical source text or Campaign schema. */
   rollMethod?: {
     kind: 'APP_ROLL' | 'USER_ROLL' | 'MIXED';

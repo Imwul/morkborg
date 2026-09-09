@@ -38,6 +38,8 @@ export type ConvenienceTab =
   | 'recipes'
   | 'packs'
   | 'scratch'
+  | 'context'
+  | 'replay'
   | 'physical';
 export function useReferenceConvenience({
   index,
@@ -49,16 +51,30 @@ export function useReferenceConvenience({
   notify,
   onDeck,
   restoreParameters,
+  onRecipeResolved,
+  onRecipeEdited,
 }: {
   index: ReferenceRegistry;
   registry: OracleRegistry;
   options: ReferenceExecutionOptions;
   readings: Record<string, ReferenceReading>;
-  accept: (id: string, r: ReferenceReading, rolled?: boolean) => void;
+  accept: (
+    id: string,
+    r: ReferenceReading,
+    rolled?: boolean,
+    params?: ExecutionParameters,
+  ) => void;
   open: (id: string) => void;
   notify: (text: string) => void;
   onDeck: (deck: ReferenceExecutionOptions['rareDeck']) => void;
   restoreParameters: (params: ExecutionParameters) => void;
+  onRecipeResolved: (
+    id: string,
+    title: string,
+    results: RecipeResult[],
+    params: ExecutionParameters,
+  ) => void;
+  onRecipeEdited: (id: string, results: RecipeResult[]) => void;
 }) {
   const [preferences, setPreferences] = useState(readConveniencePreferences),
     [temporary, setTemporary] = useState(readPlaySession);
@@ -169,7 +185,7 @@ export function useReferenceConvenience({
       current && (holds.length || only !== undefined)
         ? rerollHeldReference(entry, current, holds, opts, only)
         : executeReference(entry, opts);
-    if (!output) return;
+    if (!output || output === current) return output;
     if (output.rareMonster) onDeck(output.rareMonster.remaining);
     const rolled = referenceProducesRoll(entry);
     accept(
@@ -178,6 +194,7 @@ export function useReferenceConvenience({
         ? { ...output, rollMethod: output.rollMethod ?? { kind: 'APP_ROLL' } }
         : output,
       rolled,
+      params,
     );
     if (rolled)
       remember({
@@ -213,7 +230,7 @@ export function useReferenceConvenience({
         );
       if (output.rareMonster) onDeck(output.rareMonster.remaining);
       setHeld((p) => ({ ...p, [entry.id]: [] }));
-      accept(entry.id, output);
+      accept(entry.id, output, true, parameters());
       setManualId(null);
       remember({
         kind: 'reference',
@@ -242,6 +259,8 @@ export function useReferenceConvenience({
     }
     setError('');
     let opts = { ...options, ...(override ?? parameters()) };
+    const initialParams = parameters(opts);
+    let resolved = false;
     const next = runRecipeSteps(
       recipe.referenceIds,
       index.byId,
@@ -251,6 +270,7 @@ export function useReferenceConvenience({
           ...opts,
           region: referenceRegion(entry, opts.region),
         });
+        if (result) resolved = true;
         if (result?.rareMonster) {
           opts = { ...opts, rareDeck: result.rareMonster.remaining };
           onDeck(result.rareMonster.remaining);
@@ -260,6 +280,7 @@ export function useReferenceConvenience({
       only,
     );
     setRecipeResults((p) => ({ ...p, [id]: next }));
+    if (resolved) onRecipeResolved(id, recipe.name, next, initialParams);
     remember({
       kind: 'recipe',
       id,
@@ -267,8 +288,8 @@ export function useReferenceConvenience({
       parameters: parameters(opts),
     });
   }
-  function rerollLast() {
-    const last = temporary.lastRoll;
+  function rerollLast(request?: LastRoll) {
+    const last = request ?? temporary.lastRoll;
     if (!last) return;
     try {
       setError('');
@@ -303,6 +324,14 @@ export function useReferenceConvenience({
       );
     }
   }
+  function editRecipeResults(
+    fn: (p: Record<string, RecipeResult[]>) => Record<string, RecipeResult[]>,
+  ) {
+    const next = fn(recipeResults);
+    setRecipeResults(next);
+    for (const [id, results] of Object.entries(next))
+      if (results !== recipeResults[id]) onRecipeEdited(id, results);
+  }
   return {
     preferences,
     temporary,
@@ -329,7 +358,7 @@ export function useReferenceConvenience({
     recipeId,
     setRecipeId,
     recipeResults,
-    setRecipeResults,
+    setRecipeResults: editRecipeResults,
     runRecipe,
     packs,
     activePack,

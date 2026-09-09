@@ -12,6 +12,8 @@ import { SourceDisclosure } from './SourceDisclosure';
 import { Translation } from './Translation';
 import { Input } from '@/components/ui/input';
 import type { Campaign } from '../domain/types';
+import { readingFromOracleRolls } from '../domain/manualReferenceRoll';
+import { useReferenceDesk } from './ReferenceContext';
 import {
   type OraclePreferences,
   type OracleResult,
@@ -56,6 +58,7 @@ export function Oracles({
   onClose: () => void;
   notify: (message: string) => void;
 }) {
+  const desk = useReferenceDesk();
   const { registry, issues, loading, error } = useOracleRegistry();
   const [prefs, setPrefs] = useState(readOraclePreferences);
   const [query, setQuery] = useState(''),
@@ -134,6 +137,10 @@ export function Oracles({
         registry,
       );
       setResult(next);
+      desk?.recordRoll?.(
+        `oracle:${selected!.id}`,
+        readingFromOracleRolls(next.title, next.rolls, registry),
+      );
       setHistory((h) => [next, ...h].slice(0, 5));
       setFailure('');
     } catch (e) {

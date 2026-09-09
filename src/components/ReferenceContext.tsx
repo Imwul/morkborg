@@ -5,10 +5,26 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  recordRoll?: (
+    id: string,
+    result: import('../domain/referenceReading').ReferenceReading,
+    params?: Partial<
+      import('../storage/conveniencePreferences').ExecutionParameters
+    >,
+  ) => void;
+  rememberRoom?: (dungeonId: string, roomId: string) => void;
+  returnedRoomId?: string | null;
   activePack?: import('../storage/conveniencePreferences').ReferencePack;
   focusedIds?: string[];
   openTools?: (
-    tab?: 'play' | 'recipes' | 'packs' | 'scratch' | 'physical',
+    tab?:
+      | 'play'
+      | 'recipes'
+      | 'packs'
+      | 'scratch'
+      | 'physical'
+      | 'context'
+      | 'replay',
   ) => void;
   clearPack?: () => void;
   addTray?: (id: string) => void;

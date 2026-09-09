@@ -1,5 +1,10 @@
 import { lazy, useEffect, useRef, useState } from 'react';
 import {
+  currentPlayContext,
+  contextWorkspace,
+  validContext,
+} from './domain/playContext';
+import {
   BookOpen,
   Play,
   ScrollText,
@@ -596,6 +601,44 @@ export default function App() {
     c ?? save.campaigns.find((entry) => entry.id === save.activeCampaignId);
   return (
     <ReferenceProvider
+      save={save}
+      playContext={currentPlayContext(save, {
+        oracleOpen,
+        deskPage,
+        cityOpen,
+        legacyOracleOpen,
+        pendingSection,
+      })}
+      onContextReturn={(context) => {
+        const live = getSnapshot().save;
+        if (!validContext(context, live)) return;
+        if (context.kind === 'desk') {
+          openOracles();
+          return;
+        }
+        transact((next) => {
+          const owner = next.campaigns.find((c) => c.id === context.campaignId);
+          if (!owner) return;
+          next.activeCampaignId = owner.id;
+          next.view = 'campaign';
+          Object.assign(
+            owner.workspace,
+            contextWorkspace(context, owner.workspace),
+          );
+          // Inspecting an earlier Room must never rewind the live crawl procedure.
+          if (
+            context.kind === 'room' &&
+            context.dungeonTab === 'crawl' &&
+            owner.dungeons.find((d) => d.id === context.dungeonId)?.crawl
+              ?.currentRoomId !== context.objectId
+          )
+            owner.workspace.dungeonTab = 'rooms';
+        });
+        setOracleOpen(false);
+        setCityOpen(false);
+        setLegacyOracleOpen(false);
+        setDrawer(false);
+      }}
       onCity={openCity}
       campaign={c}
       notify={notify}

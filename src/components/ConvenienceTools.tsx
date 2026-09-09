@@ -5,6 +5,12 @@ import type { OracleRegistry } from '../domain/oracle';
 import type { ReferenceEntry } from '../domain/references';
 import type { ReferenceReading } from '../domain/referenceReading';
 import { copyReferenceReading } from '../domain/referenceReading';
+import { RollReplayView } from './RollReplayView';
+import type { PlayMemoryTools } from './usePlayMemory';
+import { contextLabel, type PlayContext } from '../domain/playContext';
+import type { RollReplay } from '../domain/rollReplay';
+import type { AppSave } from '../domain/types';
+import type { ReferenceRegistry } from '../domain/references';
 import {
   holdComponents,
   independentTables,
@@ -214,11 +220,21 @@ export function PlayTrayStrip({ tools }: { tools: ReferenceConvenience }) {
   );
 }
 export function ConveniencePanel({
+  memory,
+  save: appSave,
+  index,
+  onReturn,
+  onReplayReroll,
   tools,
   current,
   registry,
   onPhysical,
 }: {
+  memory: PlayMemoryTools;
+  save: AppSave;
+  index: ReferenceRegistry;
+  onReturn: (context: PlayContext) => void;
+  onReplayReroll: (entry: RollReplay) => void;
   tools: ReferenceConvenience;
   current?: ReferenceEntry;
   registry: OracleRegistry;
@@ -333,16 +349,22 @@ export function ConveniencePanel({
   }
   return (
     <>
-      <DialogTitle>
-        {tab === 'play'
-          ? 'PLAY'
-          : tab === 'recipes'
-            ? 'RECIPES'
-            : tab === 'packs'
-              ? 'PACKS'
-              : tab === 'physical'
-                ? 'ENTER ROLL'
-                : 'SCRATCH'}
+      <DialogTitle
+        className={tab === 'replay' && memory.replayId ? 'sr-only' : undefined}
+      >
+        {tab === 'context'
+          ? 'CONTEXT · 돌아갈 곳'
+          : tab === 'replay'
+            ? 'RECENT ROLLS · 최근 결과'
+            : tab === 'play'
+              ? 'PLAY'
+              : tab === 'recipes'
+                ? 'RECIPES'
+                : tab === 'packs'
+                  ? 'PACKS'
+                  : tab === 'physical'
+                    ? 'ENTER ROLL'
+                    : 'SCRATCH'}
       </DialogTitle>
       <DialogDescription className="sr-only">
         임시 도구와 개인 조합. 캠페인 기록과 분리됩니다.
@@ -353,6 +375,84 @@ export function ConveniencePanel({
         </button>
       )}
       {tools.error && <p role="alert">{tools.error}</p>}
+      {tab === 'context' && (
+        <div className="play-memory-list">
+          {!memory.contexts.length && <p>아직 없음</p>}
+          {memory.contexts.map((context, n) => (
+            <button key={n} onClick={() => onReturn(context)}>
+              <strong>{contextLabel(context, appSave)}</strong>
+              {context.kind === 'room' && (
+                <small>
+                  {
+                    appSave.campaigns
+                      .find((c) => c.id === context.campaignId)
+                      ?.dungeons.find((d) => d.id === context.dungeonId)?.title
+                  }
+                </small>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+      {tab === 'replay' && (
+        <>
+          {memory.replayId &&
+          memory.memory.replays.some((r) => r.id === memory.replayId) ? (
+            <>
+              <button
+                className="convenience-back"
+                onClick={() => memory.setReplayId(null)}
+              >
+                ‹ 최근 결과
+              </button>
+              <RollReplayView
+                key={memory.replayId}
+                entry={memory.memory.replays.find(
+                  (r) => r.id === memory.replayId,
+                )!}
+                index={index}
+                registry={registry}
+                onReroll={() =>
+                  onReplayReroll(
+                    memory.memory.replays.find(
+                      (r) => r.id === memory.replayId,
+                    )!,
+                  )
+                }
+              />
+            </>
+          ) : (
+            <div className="play-memory-list replay-list">
+              {!memory.memory.replays.length && <p>아직 없음</p>}
+              {memory.memory.replays.map((entry) => (
+                <button
+                  key={entry.id}
+                  onClick={() => memory.setReplayId(entry.id)}
+                >
+                  <strong>{entry.title}</strong>
+                  <span>
+                    {entry.results
+                      .map((r) => r.manualText ?? r.reading.blocks[0]?.text)
+                      .join(' / ')}
+                  </span>
+                  <small>
+                    {entry.results
+                      .flatMap((r) =>
+                        r.rolls.map((d) => `${d.dice}: ${d.roll}`),
+                      )
+                      .join(' · ') ||
+                      entry.results
+                        .flatMap(
+                          (r) => r.cards?.map((c) => c.rank + c.suit) ?? [],
+                        )
+                        .join(' · ')}
+                  </small>
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      )}
       {tab === 'play' && (
         <section className="convenience-play">
           <div className="convenience-tray-heading">
@@ -411,6 +511,22 @@ export function ConveniencePanel({
           )}
           <button
             className="convenience-route"
+            onClick={() => {
+              memory.setReplayId(null);
+              switchTab('replay');
+            }}
+          >
+            Recent rolls{' '}
+            <small>최근 결과 · {memory.memory.replays.length}</small> ›
+          </button>
+          <button
+            className="convenience-route"
+            onClick={() => switchTab('context')}
+          >
+            Context <small>돌아갈 곳 · {memory.contexts.length}</small> ›
+          </button>
+          <button
+            className="convenience-route"
             aria-label="Physical Roll · 실물 주사위 입력"
             onClick={() =>
               physicalCurrent
@@ -457,6 +573,19 @@ export function ConveniencePanel({
             </button>
             <details name="play-organization">
               <summary>임시 도구 정리</summary>
+              <button
+                onClick={() => memory.update((p) => ({ ...p, contexts: [] }))}
+              >
+                Context 비우기
+              </button>
+              <button
+                onClick={() => {
+                  memory.update((p) => ({ ...p, replays: [] }));
+                  memory.setReplayId(null);
+                }}
+              >
+                최근 결과 비우기
+              </button>
               {tools.temporary.tray.map((id) => (
                 <div className="convenience-index-row" key={id}>
                   <span>
@@ -512,9 +641,9 @@ export function ConveniencePanel({
                 않습니다.
               </p>
               <p>
-                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last는 현재
-                탭에서 새로고침까지 유지됩니다. 캠페인 JSON에는 들어가지
-                않습니다.
+                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·Context·최근
+                결과는 현재 탭에서 새로고침까지 유지됩니다. 캠페인 JSON에는
+                들어가지 않습니다.
               </p>
               <p>
                 모음과 사용자 조합은 APP_POLICY입니다. 실물 입력은 USER_ROLL로

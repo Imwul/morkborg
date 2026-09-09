@@ -5,6 +5,7 @@ import { useRules } from '../storage/rulesStore';
 import { buildReferenceRegistry } from '../domain/references';
 import { executeReference } from '../domain/referenceExecution';
 import { referenceShortName } from '../domain/referenceActions';
+import { referenceProducesRoll } from '../domain/referenceExecution';
 import {
   copyReferenceReading,
   type ReferenceReading,
@@ -212,6 +213,8 @@ export function InlineReferenceTools({
         setTrail((past) => [...past.slice(-7), { id: active, reading }]);
       setActive(id);
       setReading(result);
+      if (referenceProducesRoll(entry))
+        desk?.recordRoll?.(id, result, { region, cityLarge, cityExits });
       desk?.touch(id);
     } catch (error) {
       setError(
