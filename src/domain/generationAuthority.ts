@@ -9,6 +9,10 @@ import type { ReferenceReading } from './referenceReading';
 
 /** Metadata only: application choices are never represented as quotations or source routing. */
 export const APP_GENERATION_POLICIES: Record<string, string> = {
+  'app.reference-entry-lookup':
+    'This is a read-only lookup of the cited source entry. A title qualifier distinguishes similarly named items; it adds no source mechanics or extra roll. / 인용한 원문 항목을 조회합니다. 제목의 출처 표시는 이름이 같은 항목을 구별하기 위한 앱 표기이며, 규칙이나 추가 굴림을 만들지 않습니다.',
+  'app.core-valuation-index':
+    'Individual Core creature sale values are collected in one read-only index. This is app navigation, not a source-defined market, random table or automatic loot procedure. / 각 Core 생물의 매각가를 모아 보여 주는 앱 색인입니다. 원문이 정한 시장·무작위 표·자동 전리품 절차가 아닙니다.',
   'app.reference-groups':
     'Rules are grouped for navigation. Grouping does not combine independent source procedures.',
   'app.card-session':

@@ -18,6 +18,7 @@ import {
 import { applyOracleSourceEvidence } from './sourceEvidence';
 import { referenceGeneratorProcedure } from '../../domain/referenceGeneratorProcedures';
 import { procedureAuthority } from '../../domain/generationAuthority';
+import { coreValuationTables } from './coreValuations';
 const noPack = {};
 const registryCache = new WeakMap<object, WeakMap<object, OracleRegistry>>();
 
@@ -184,6 +185,7 @@ export function buildOracleRegistry(
       : base;
   });
   tables.push(...(extra?.tables ?? []));
+  tables.push(...coreValuationTables(rules));
   for (const table of creatureIdentityTables(rules))
     if (!tables.some((existing) => existing.id === table.id))
       tables.push(table);

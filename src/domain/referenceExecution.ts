@@ -23,6 +23,7 @@ import {
 import { rollCityReference } from './cityReference';
 import { appPolicy, sourceProcedure } from './generationAuthority';
 import { referenceCreatureRecords } from './creatureReferences';
+import { wildWickheadBlocks } from './wildWickheadReference';
 import {
   drawRareMonster,
   checkEncounterLevel,
@@ -106,6 +107,8 @@ function creatureBlocks(
   preset: Record<string, unknown>,
   monster: Monster,
 ): ReferenceReading['blocks'] {
+  const outcast = wildWickheadBlocks(preset);
+  if (outcast) return outcast;
   if (
     preset.book === 'heretic' &&
     preset.name === 'Rotten Nurse' &&
@@ -182,7 +185,7 @@ export function executeReference(
       sourceRefs: entry.sourceRefs,
       relatedIds: entry.relatedIds,
       authority: [
-        sourceProcedure(entry.id, entry.sourceRefs),
+        ...(entry.authority ?? [sourceProcedure(entry.id, entry.sourceRefs)]),
         appPolicy('app.reference-groups'),
       ],
     };
@@ -196,6 +199,7 @@ export function executeReference(
       blocks: creatureBlocks(preset, monster),
       sourceRefs: entry.sourceRefs,
       childReferenceIds: entry.childReferenceIds,
+      valuationReferenceId: entry.valuationReferenceId,
     };
   } else if (
     action.kind === 'regional-monster' ||
@@ -396,6 +400,11 @@ export function executeReference(
             title: r.title,
             text: oracleReadingText(r),
             dice: `${r.dice} = ${r.roll}`,
+            ...(r.oracleId === 'core.treasures' &&
+            r.entryId &&
+            r.metadata?.referenceName
+              ? { definitionReferenceId: `definition:${r.entryId}` }
+              : {}),
           })),
       sourceRefs: refsForOracle(result, registry),
       oracle: result,

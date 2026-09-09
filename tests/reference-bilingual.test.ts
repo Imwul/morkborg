@@ -96,11 +96,15 @@ local(
 local(
   'Translation-only private enrichment retains every canonical English entry, selector and die',
   () => {
-    const rows = bundle.oracles.tables.map((t: any) => [
-      t.id,
-      t.dice,
-      t.entries.map((e: any) => [e.id, e.min, e.max, e.text]),
-    ]);
+    // Preserve the historical English checksum. The later five-row Core Beasts
+    // addition has its own complete source/price assertions in core-loose-ends.
+    const rows = bundle.oracles.tables
+      .filter((t: any) => t.id !== 'core.beasts')
+      .map((t: any) => [
+        t.id,
+        t.dice,
+        t.entries.map((e: any) => [e.id, e.min, e.max, e.text]),
+      ]);
     assert.equal(
       createHash('sha256').update(JSON.stringify(rows)).digest('hex'),
       'eed78fb00895c295f02942485588cfda90c0e92ec78a39edcf04842f11f0f2e3',

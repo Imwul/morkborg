@@ -13,9 +13,14 @@ export interface ReferenceTextBlock {
 export interface ReferenceReading {
   rareMonster?: import('./depthsProcedures').RareMonsterTrace;
   childReferenceIds?: string[];
+  valuationReferenceId?: string;
   authority?: GenerationAuthority[];
   title: string;
-  blocks: (ReferenceTextBlock & { dice?: string; kind?: 'creature' })[];
+  blocks: (ReferenceTextBlock & {
+    dice?: string;
+    kind?: 'creature';
+    definitionReferenceId?: string;
+  })[];
   copyContent?: { title: string; blocks: { title: string; text: string }[] };
   sourceRefs: SourceReference[];
   evidence?: ReferenceEvidence[];

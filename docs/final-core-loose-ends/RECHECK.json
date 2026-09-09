@@ -1,0 +1,546 @@
+{
+  "basis": "Batch 3 inherited classifications; only these 29 selected IDs rechecked. No inherited supplement pass.",
+  "rows": [
+    {
+      "needId": "core-outcast-loyalty",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "rule:core.outcasts",
+      "title": "Outcasts · Hiring / Loyalty",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": [
+            63
+          ],
+          "printedPage": 63,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core",
+          "pdfPage": 32,
+          "printedPage": 32,
+          "status": "VERIFIED"
+        },
+        {
+          "bookId": "core-full",
+          "pdfPage": 75,
+          "printedPage": 71,
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-outcast-wild-wickhead",
+      "before": "PARTIAL",
+      "after": "RESOLVED",
+      "referenceId": "creature:core:65:wild-wickhead",
+      "title": "Wild Wickhead",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 65,
+          "printedPage": 65,
+          "entryId": "creature:core:65:wild-wickhead",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-purchase-dog-trained",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.beasts:dog-trained",
+      "title": "Dog (trained)",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "tableId": "core.beasts",
+          "entryId": "core.beasts:dog-trained",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-purchase-dog-wild",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.beasts:dog-wild",
+      "title": "Dog (wild)",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "tableId": "core.beasts",
+          "entryId": "core.beasts:dog-wild",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-purchase-horse",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.beasts:horse",
+      "title": "Horse",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "tableId": "core.beasts",
+          "entryId": "core.beasts:horse",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-purchase-mule",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.beasts:mule",
+      "title": "Mule",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "tableId": "core.beasts",
+          "entryId": "core.beasts:mule",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-purchase-rat-tame",
+      "before": "MISSING",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.beasts:rat-tame",
+      "title": "Rat (tame)",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 26,
+          "printedPage": 26,
+          "tableId": "core.beasts",
+          "entryId": "core.beasts:rat-tame",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-1",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:1-1",
+      "title": "Ash-grey ring",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:1-1",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-2",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:2-2",
+      "title": "Vile flute",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:2-2",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-3",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:3-3",
+      "title": "Famine spoon",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:3-3",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-4",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:4-4",
+      "title": "Malevolently-accurate mirror",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:4-4",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-5",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:5-5",
+      "title": "Vampiric Phurba",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:5-5",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-6",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:6-6",
+      "title": "Black pearl",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:6-6",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-7",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:7-7",
+      "title": "Torch · Occult treasures",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:7-7",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-8",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:8-8",
+      "title": "Silver bird cage",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:8-8",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-9",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:9-9",
+      "title": "Black Crown of the Crippled King",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:9-9",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-treasure-10",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.treasures:10-10",
+      "title": "Ancient blindfold",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 3,
+          "printedPage": 3,
+          "tableId": "core.treasures",
+          "entryId": "core.treasures:10-10",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-goblin",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:seth",
+      "title": "Seth · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 58,
+          "printedPage": 58,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:seth",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-scum",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:bent",
+      "title": "Bent · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 58,
+          "printedPage": 58,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:bent",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-berserker",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:zukuma",
+      "title": "Zukuma · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 59,
+          "printedPage": 59,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:zukuma",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-wraith",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:wrat",
+      "title": "Wrat · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 59,
+          "printedPage": 59,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:wrat",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-blood-drenched-skeleton",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:belze",
+      "title": "Belze · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 60,
+          "printedPage": 60,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:belze",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-undead-weak-necromancer",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:lich",
+      "title": "Lich · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 60,
+          "printedPage": 60,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:lich",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-troll",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:arbint",
+      "title": "Arbint · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 60,
+          "printedPage": 60,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:arbint",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-zombie",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:nodh",
+      "title": "Nodh · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 61,
+          "printedPage": 61,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:nodh",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-undead-doll",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:lady-porcelain",
+      "title": "Lady Porcelain · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 61,
+          "printedPage": 61,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:lady-porcelain",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-grotesque",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:thinx",
+      "title": "Thinx · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 62,
+          "printedPage": 62,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:thinx",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-wickhead-knife-wielder",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:aland",
+      "title": "Aland · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 62,
+          "printedPage": 62,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:aland",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    },
+    {
+      "needId": "core-valuation-wyvern",
+      "before": "PRESENT_BUT_INDIRECT",
+      "after": "RESOLVED",
+      "referenceId": "definition:core.creatureValuations:eulotha",
+      "title": "Eulotha · Valuation",
+      "sources": [
+        {
+          "bookId": "core",
+          "pdfPage": 62,
+          "printedPage": 62,
+          "tableId": "core.creatureValuations",
+          "entryId": "core.creatureValuations:eulotha",
+          "status": "VERIFIED"
+        }
+      ],
+      "evidence": "Targeted definition/source tests plus actual browser checks of each workflow. All names/values tested programmatically; browser samples are listed separately."
+    }
+  ],
+  "deferred": [
+    {
+      "needId": "core-catastrophe-repeat",
+      "before": "PARTIAL",
+      "after": "PARTIAL",
+      "decision": "DEFER: complete global repeat-result consequences are absent; not a lookup-only repair."
+    }
+  ]
+}

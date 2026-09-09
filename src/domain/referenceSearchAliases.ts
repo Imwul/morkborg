@@ -3,6 +3,10 @@ export const REFERENCE_SEARCH_ALIASES: Record<
   string,
   { ko: string[]; en: string[] }
 > = {
+  'rule:core.outcasts': {
+    ko: ['고용', '충성', '추종자'],
+    en: ['Outcast', 'Outcasts', 'loyalty', 'hire', 'hireling', 'followers'],
+  },
   'rule:core.tests': {
     ko: ['난이도', '어려움', '판정 난이도'],
     en: ['DR', 'difficulty', 'difficulty scale', 'test difficulty'],

@@ -3,8 +3,10 @@ import {
   type PlayReferenceRuleSeed,
 } from './playReferenceRules';
 import { CORE_PLAY_RULES } from './corePlayRules';
+import { creatureRecordStatus } from '../generators/creatureProvenance';
+import { appPolicy } from './generationAuthority';
 import type { GenerationAuthority } from './generationProvenance';
-import { referenceCreatureRecords } from './creatureReferences';
+import { referenceCreatureRecords, isCoreOutcast } from './creatureReferences';
 import {
   buildReferenceDefinitions,
   type ReferenceDefinition,
@@ -73,6 +75,9 @@ export interface ReferenceEntry {
   keywords: string[];
   searchAliases?: { ko: string[]; en: string[] };
   definition?: ReferenceDefinition;
+  matchTexts?: string[];
+  valuationReferenceId?: string;
+  defaultView?: 'table';
   referenceGroupIds?: string[];
   childReferenceIds?: string[];
   parentId?: string;
@@ -445,6 +450,9 @@ export function buildReferenceRegistry(
         ...regionIds.flatMap((r) => [r, regions.find((x) => x.id === r)!.name]),
       ]),
       contexts: contextsFor(table),
+      ...(['core.beasts', 'core.creatureValuations'].includes(table.id)
+        ? { defaultView: 'table' as const }
+        : {}),
       regionIds,
       sourceRefs: refs,
       sourceChain: refs.map((source) => ({
@@ -585,6 +593,11 @@ export function buildReferenceRegistry(
         definition.title,
       ),
       definition,
+      ...(definition.kind === 'Valuation'
+        ? { authority: [appPolicy('app.core-valuation-index')] }
+        : ['Treasure', 'Purchase'].includes(definition.kind)
+          ? { authority: [appPolicy('app.reference-entry-lookup')] }
+          : {}),
       summary: definition.blocks
         .map((b) => [b.title, b.text].filter(Boolean).join('\n'))
         .join('\n\n'),
@@ -592,6 +605,9 @@ export function buildReferenceRegistry(
         definition.kind,
         ...(definition.kind === 'Power'
           ? ['power', 'powers', 'scroll', 'scrolls', '스크롤', '파워', '마법']
+          : []),
+        ...(definition.kind === 'Treasure'
+          ? ['treasure', '보물', 'relic', '유물']
           : []),
       ],
       searchAliases: definition.searchAliases?.length
@@ -668,6 +684,9 @@ export function buildReferenceRegistry(
             ? record.printedPage
             : undefined,
       entryId: typeof record.id === 'string' ? record.id : id,
+      ...(isCoreOutcast(record)
+        ? { status: creatureRecordStatus(record) }
+        : {}),
       ...(!eligibleCreature(record) &&
       !record.specialRuleOnly &&
       !record.variantOnly
@@ -680,6 +699,7 @@ export function buildReferenceRegistry(
     const available =
       !!book &&
       record.sourceVerified !== false &&
+      (!isCoreOutcast(record) || creatureRecordStatus(record) === 'VERIFIED') &&
       !!(ref.pdfPage || ref.printedPage) &&
       !!findReferenceCreature(rules, id);
     add({
@@ -725,7 +745,21 @@ export function buildReferenceRegistry(
       ],
       available,
       action: available ? { kind: 'creature', creatureId: id } : null,
+      ...(isCoreOutcast(record) ? { matchTexts: [name] } : {}),
     });
+    const valuation = entries.find(
+      (e) =>
+        e.definition?.kind === 'Valuation' &&
+        bookId === 'core' &&
+        e.definition.creatureIdentity?.name === name &&
+        e.definition.creatureIdentity?.pdfPage === record.pdfPage,
+    );
+    if (valuation) {
+      byId[id].valuationReferenceId = valuation.id;
+      valuation.relatedIds.unshift(id);
+    }
+    if (isCoreOutcast(record))
+      byId[id].relatedIds.unshift('rule:core.outcasts');
   }
   const groupNames: Record<string, string> = {
     resolution: 'RESOLUTION',
@@ -1024,6 +1058,19 @@ export function buildReferenceRegistry(
   }
   for (const entry of additions) add(entry);
   for (const entry of entries) {
+    if (entry.id === 'oracle:core.creatureValuations')
+      entry.authority = [appPolicy('app.core-valuation-index')];
+    if (entry.id === 'rule:core.services')
+      entry.relatedIds.unshift('oracle:core.beasts');
+    if (entry.id === 'rule:core.outcasts')
+      entry.relatedIds.unshift(
+        'rule:core.reaction-morale',
+        ...entries
+          .filter(
+            (e) => e.matchTexts?.length && e.sourceRefs[0]?.bookId === 'core',
+          )
+          .map((e) => e.id),
+      );
     entry.searchAliases =
       REFERENCE_SEARCH_ALIASES[entry.id] ?? entry.searchAliases;
     if (entry.id === 'rule:core.omens' || entry.id === 'rule:sd.solo-variant')

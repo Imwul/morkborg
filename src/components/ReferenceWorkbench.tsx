@@ -108,6 +108,10 @@ export function ReferenceProvider({
     [trail, setTrail] = useState<string[]>([]);
   const [tableView, setTableView] = useState(false);
   const lastReferenceId = useRef<string | null>(null);
+  const previousViews = useRef<
+    Record<string, { table: boolean; scrollTop: number }>
+  >({});
+  const restoreScroll = useRef<number | null>(null);
   const [session, setSession] = useState(emptyReferenceSession);
   const readings = session.readings;
   const [searchOpen, setSearchOpen] = useState(false),
@@ -129,7 +133,8 @@ export function ReferenceProvider({
     if (searchOpen) searchInputRef.current?.focus();
   }, [searchOpen, scope]);
   useEffect(() => {
-    inspectorRef.current?.scrollTo({ top: 0 });
+    inspectorRef.current?.scrollTo({ top: restoreScroll.current ?? 0 });
+    restoreScroll.current = null;
   }, [selectedId]);
   const selected = selectedId ? index.byId[selectedId] : null;
   const hubRegion =
@@ -150,7 +155,7 @@ export function ReferenceProvider({
           sourceRefs: selected.sourceRefs,
           authority: [
             ...(selected.authority ?? []),
-            ...(selected.definition
+            ...(selected.definition && !selected.authority
               ? [sourceProcedure(selected.id, selected.sourceRefs)]
               : []),
             ...(selected.referenceGroupIds
@@ -221,11 +226,16 @@ export function ReferenceProvider({
     )
       setRegion(entry.action.region);
     const previous = selectedId ?? lastReferenceId.current;
+    if (selectedId)
+      previousViews.current[selectedId] = {
+        table: tableView,
+        scrollTop: inspectorRef.current?.scrollTop ?? 0,
+      };
     if (previous && previous !== entryId)
       setTrail((t) => [...t, previous].slice(-20));
     lastReferenceId.current = entryId;
     setSelectedId(entryId);
-    setTableView(false);
+    setTableView(entry.defaultView === 'table');
     setSearchOpen(false);
     setFailure('');
     setCopyFallback(null);
@@ -386,8 +396,12 @@ export function ReferenceProvider({
                 onClick={() => {
                   const previous = trail.at(-1);
                   if (previous) {
+                    restoreScroll.current =
+                      previousViews.current[previous]?.scrollTop ?? 0;
                     setSelectedId(previous);
-                    setTableView(false);
+                    setTableView(
+                      previousViews.current[previous]?.table ?? false,
+                    );
                     setRegion(referenceRegion(index.byId[previous], region));
                     lastReferenceId.current = previous;
                     setTrail((t) => t.slice(0, -1));
@@ -979,12 +993,26 @@ export function ReferenceProvider({
                               />
                             </h3>
                           )}
-                        {block.kind === 'creature' &&
-                        block.text.split('\n').length > 2 ? (
+                        {block.definitionReferenceId &&
+                        index.byId[block.definitionReferenceId] ? (
+                          <button
+                            className="reference-inline-link"
+                            onClick={() =>
+                              activate(block.definitionReferenceId!, true)
+                            }
+                          >
+                            {index.byId[block.definitionReferenceId].title} ›
+                          </button>
+                        ) : block.kind === 'creature' &&
+                          block.text.split('\n').length > 2 ? (
                           <>
                             <ReferenceReadingText
                               text={block.text
                                 .split('\n')
+                                .slice(0, 2)
+                                .join('\n')}
+                              translation={block.translation?.ko
+                                ?.split('\n')
                                 .slice(0, 2)
                                 .join('\n')}
                               excludeId={selected.id}
@@ -995,6 +1023,10 @@ export function ReferenceProvider({
                               <ReferenceReadingText
                                 text={block.text
                                   .split('\n')
+                                  .slice(2)
+                                  .join('\n')}
+                                translation={block.translation?.ko
+                                  ?.split('\n')
                                   .slice(2)
                                   .join('\n')}
                                 excludeId={selected.id}
@@ -1012,6 +1044,17 @@ export function ReferenceProvider({
                         )}
                       </section>
                     ))}
+                    {reading.valuationReferenceId &&
+                      index.byId[reading.valuationReferenceId] && (
+                        <button
+                          className="ref-text-action"
+                          onClick={() =>
+                            activate(reading.valuationReferenceId!, true)
+                          }
+                        >
+                          Valuation · 매각가 ›
+                        </button>
+                      )}
                     {!!reading.childReferenceIds?.length && (
                       <details className="reading-participants">
                         <summary>

@@ -90,7 +90,7 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        572,
+        573, // Legacy local fixture (572) plus the live Core valuation projection.
       );
       const expected = parsePrivateData(bundle);
       assert.deepEqual(

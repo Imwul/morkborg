@@ -1,0 +1,549 @@
+{
+  "url": "http://127.0.0.1:5175",
+  "phase": "local",
+  "queryConvention": "Typing a complete search = 1; opening a result = 1. Closes/back/source/table actions are separate in actions. Resize/screenshots are not play interactions.",
+  "actions": [
+    "Search: Outcast",
+    "Open first result: Outcast",
+    "Outcasts RELATED",
+    "Named Outcast to definition (1 click)",
+    "Back to previous reference",
+    "Close / return",
+    "Search: loyalty",
+    "Open first result: loyalty",
+    "Close / return",
+    "Search: hire",
+    "Open first result: hire",
+    "Close / return",
+    "Search: hireling",
+    "Open first result: hireling",
+    "Close / return",
+    "Search: 고용",
+    "Open first result: 고용",
+    "Close / return",
+    "Search: 충성",
+    "Open first result: 충성",
+    "Close / return",
+    "Search: Wild Wickhead",
+    "Open first result: Wild Wickhead",
+    "Wild Wickhead MORE",
+    "Close / return",
+    "Search: trained dog",
+    "Open first result: trained dog",
+    "Close / return",
+    "Search: horse",
+    "Open first result: horse",
+    "Close / return",
+    "Search: services",
+    "Open first result: services",
+    "Services RELATED",
+    "Services to Core Beasts",
+    "Purchase row to Horse",
+    "Back to previous reference",
+    "Close / return",
+    "Search: Occult treasures",
+    "Open first result: Occult treasures",
+    "Generated Treasure to definition (1 click)",
+    "Back to previous reference",
+    "Open SOURCE",
+    "Open Treasure TABLE",
+    "Manual Treasure row to Vampiric Phurba",
+    "Back to previous reference",
+    "Close / return",
+    "Search: Vampiric Phurba",
+    "Open first result: Vampiric Phurba",
+    "Close / return",
+    "Search: Black Crown of the Crippled King",
+    "Open first result: Black Crown of the Crippled King",
+    "Open SOURCE",
+    "Close / return",
+    "Search: Seth",
+    "Open first result: Seth",
+    "Monster to valuation (1 click)",
+    "Open SOURCE",
+    "Back to previous reference",
+    "Close / return",
+    "Search: Prowler",
+    "Open first result: Prowler",
+    "Outcast RELATED",
+    "Follower to hiring rule",
+    "Close / return",
+    "Search: Vampiric Phurba",
+    "Open first result: Vampiric Phurba",
+    "Pin Treasure",
+    "Reload",
+    "Search: Vampiric Phurba",
+    "Open first result: Vampiric Phurba"
+  ],
+  "interactionCount": 71,
+  "queries": [
+    {
+      "query": "Outcast",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN",
+        "Earthbound · OutcastEarthbound · 추방자CREATURE · MB-BBOPEN",
+        "Pale one · Outcast창백한 자 · 추방자CREATURE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "loyalty",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "hire",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN",
+        "Hireling TraitsORACLE · RCLROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "hireling",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN",
+        "Hireling TraitsORACLE · RCLROLL",
+        "Hirelings — Broken MoraleORACLE · RCLROLL"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "고용",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "충성",
+      "top": [
+        "Outcasts · Hiring / Loyalty추종자 고용과 충성RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Wild Wickhead",
+      "top": [
+        "Wild Wickhead야생의 WickheadCREATURE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "trained dog",
+      "top": [
+        "Dog (trained)훈련된 개Purchase · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "horse",
+      "top": [
+        "Horse말Purchase · MB-BBOPEN",
+        "Barbarister the Incredible Horse비범한 말 BarbaristerClass ability · MB-BBOPEN",
+        "The Shoe of Death’s Horse죽음의 말 편자Class ability · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "services",
+      "top": [
+        "Core Services / Ammunition서비스와 탄약 가격RULE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Occult treasures",
+      "top": [
+        "Occult TreasuresORACLE · MB-BBROLL",
+        "Torch · Occult treasuresTreasure · MB-BBOPEN",
+        "Ancient blindfoldTreasure · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Vampiric Phurba",
+      "top": [
+        "Vampiric PhurbaTreasure · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Black Crown of the Crippled King",
+      "top": [
+        "Black Crown of the Crippled KingTreasure · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Seth",
+      "top": [
+        "Seth · GoblinSeth · 고블린CREATURE · MB-BBOPEN",
+        "Seth · ValuationValuation · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Prowler",
+      "top": [
+        "Prowler · OutcastProwler · 추방자CREATURE · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Vampiric Phurba",
+      "top": [
+        "Vampiric PhurbaTreasure · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    },
+    {
+      "query": "Vampiric Phurba",
+      "top": [
+        "Vampiric PhurbaTreasure · MB-BBOPEN"
+      ],
+      "interactions": 2,
+      "sourceClosed": true
+    }
+  ],
+  "checks": [
+    {
+      "label": "Outcast hiring and loyalty usable",
+      "passed": true
+    },
+    {
+      "label": "Outcast Korean",
+      "passed": true
+    },
+    {
+      "label": "Named follower opens its own stat block",
+      "passed": true
+    },
+    {
+      "label": "Wild Wickhead specialty, carry and helper",
+      "passed": true
+    },
+    {
+      "label": "Wild Wickhead Korean helper",
+      "passed": true
+    },
+    {
+      "label": "Trained dog price",
+      "passed": true
+    },
+    {
+      "label": "No fabricated dog stats",
+      "passed": true
+    },
+    {
+      "label": "Horse price",
+      "passed": true
+    },
+    {
+      "label": "Five-row purchase table",
+      "passed": true
+    },
+    {
+      "label": "Purchase definition",
+      "passed": true
+    },
+    {
+      "label": "Purchase TABLE restored on Back",
+      "passed": true
+    },
+    {
+      "label": "Rolled Treasure has mechanical effect",
+      "passed": true
+    },
+    {
+      "label": "Second named Treasure effect and Korean",
+      "passed": true
+    },
+    {
+      "label": "Two distinct Treasure definitions reached directly",
+      "rolledTitle": "Black pearl",
+      "manualTitle": "Vampiric Phurba",
+      "passed": true
+    },
+    {
+      "label": "Treasure TABLE restored on Back",
+      "passed": true
+    },
+    {
+      "label": "Exact named Treasure opens effect",
+      "passed": true
+    },
+    {
+      "label": "Treasure exact source",
+      "passed": true
+    },
+    {
+      "label": "Seth sale values and Korean",
+      "passed": true
+    },
+    {
+      "label": "Valuation source and app-policy boundary",
+      "passed": true
+    },
+    {
+      "label": "Return to same Monster",
+      "passed": true
+    },
+    {
+      "label": "Follower next rule",
+      "passed": true
+    },
+    {
+      "label": "Campaign byte-equivalent and pins persist after reload",
+      "passed": true
+    }
+  ],
+  "screens": [
+    {
+      "name": "outcast",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "outcast",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "outcast",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "outcast",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "wild-wickhead",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "wild-wickhead",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "wild-wickhead",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "wild-wickhead",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "animal-purchase",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "animal-purchase",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "animal-purchase",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "animal-purchase",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "treasure",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "treasure",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "treasure",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "treasure",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "treasure-source",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "treasure-source",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "treasure-source",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "treasure-source",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "valuation",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "valuation",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "valuation",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "valuation",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "valuation-source",
+      "width": 360,
+      "viewport": 360,
+      "document": 360,
+      "panel": 340,
+      "panelContent": 340
+    },
+    {
+      "name": "valuation-source",
+      "width": 768,
+      "viewport": 768,
+      "document": 768,
+      "panel": 732,
+      "panelContent": 732
+    },
+    {
+      "name": "valuation-source",
+      "width": 1440,
+      "viewport": 1440,
+      "document": 1440,
+      "panel": 776,
+      "panelContent": 776
+    },
+    {
+      "name": "valuation-source",
+      "width": 3440,
+      "viewport": 3440,
+      "document": 3440,
+      "panel": 776,
+      "panelContent": 776
+    }
+  ],
+  "errors": [],
+  "campaignHash": "d1590198540d48680837e39c8e90eada626cc3512880107052b9ed1454d37388",
+  "campaignUnchanged": true
+}

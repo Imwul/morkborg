@@ -31,6 +31,31 @@ function fullEditionSource(
 /** Targeted replacements for existing Core rules; IDs and canonical tables stay stable. */
 export const CORE_PLAY_RULES: CorePlayRuleSeed[] = [
   {
+    id: 'core.outcasts',
+    title: 'Outcasts · Hiring / Loyalty',
+    titleKo: '추종자 고용과 충성',
+    sourceTitle: 'Outcasts (followers)',
+    summary:
+      'Outcasts cost no silver to hire, although money may change hands. They may run away, often at a critical moment.\n\nThe GM makes a morale check from time to time and adds the group’s highest Presence to the roll. Success means the outcast stays. Consider whether the group provides what the outcast values; the source gives no fixed schedule or numeric modifier for this.\n\nMorale uses 2d6: a result above Morale fails. Use each outcast’s own Morale score.',
+    translationKo:
+      'Outcast를 고용하는 데 은화는 들지 않습니다. 다만 돈이 오갈 수는 있습니다. 급박한 순간에 달아나기도 합니다.\n\nGM은 때때로 사기 판정을 하고 굴림에 일행의 가장 높은 지각(Presence)을 더합니다. 성공하면 추종자는 남습니다. 그가 소중히 여기는 것을 일행이 제공하는지도 고려합니다. 원문에는 정해진 판정 주기나 이에 따른 수치 보정이 없습니다.\n\n사기 판정은 2d6 결과가 사기 수치를 초과하면 실패합니다. 각 추종자의 사기 수치를 사용합니다.',
+    book: 'core',
+    pages: [63],
+    printedPage: 63,
+    status: 'VERIFIED',
+    contexts: ['npc', 'character'],
+    additionalSourceRefs: [
+      {
+        bookId: 'core',
+        tableTitle: 'Morale',
+        pdfPage: 32,
+        printedPage: 32,
+        status: 'VERIFIED',
+      },
+      fullEditionSource('Outcasts (followers)', 75, 71),
+    ],
+  },
+  {
     id: 'core.tests',
     title: 'Core Tests / Difficulty Ratings',
     titleKo: '능력 판정과 난이도',

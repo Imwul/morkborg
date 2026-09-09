@@ -13,6 +13,9 @@ export interface ReferenceDefinition {
     | 'Weapon'
     | 'Armor'
     | 'Equipment'
+    | 'Treasure'
+    | 'Purchase'
+    | 'Valuation'
     | 'Class'
     | 'Class ability'
     | 'Rule'
@@ -30,6 +33,8 @@ export interface ReferenceDefinition {
   searchAliases?: string[];
   procedureId?: string;
   nextReferenceIds?: string[];
+  /** A secondary lookup attached only to this exact supplied creature. */
+  creatureIdentity?: { name: string; pdfPage: number };
 }
 export const definitionId = (entryId: string) => `definition:${entryId}`;
 const str = (value: unknown) => (typeof value === 'string' ? value : '');
@@ -98,6 +103,58 @@ export function buildReferenceDefinitions(
       (table.canonicalTableId && table.canonicalTableId !== table.id)
     )
       continue;
+    if (
+      ['core.treasures', 'core.beasts', 'core.creatureValuations'].includes(
+        table.id,
+      )
+    ) {
+      if (table.sourceStatus !== 'VERIFIED') continue;
+      for (const entry of table.entries) {
+        if (entry.sourceUnclear) continue;
+        const m = entry.metadata ?? {};
+        const treasure = table.id === 'core.treasures';
+        const valuation = table.id === 'core.creatureValuations';
+        const name = str(m.referenceName) || str(m.name);
+        if (!name) continue;
+        const title = valuation ? `${name} · Valuation` : name;
+        result.push({
+          id: definitionId(entry.id),
+          title,
+          kind: treasure ? 'Treasure' : valuation ? 'Valuation' : 'Purchase',
+          blocks: [
+            {
+              title: '',
+              text: treasure ? entry.text : str(m.effect) || str(m.price),
+              translation: {
+                ko: str(m.translationKo) || (treasure ? str(m.ko) : ''),
+                titleKo: str(m.ko),
+              },
+            },
+          ],
+          sourceRefs: [ref(table, entry)],
+          canonicalIds: [table.id],
+          relatedIds: [
+            `oracle:${table.id}`,
+            ...(!treasure && !valuation ? ['rule:core.services'] : []),
+          ],
+          // Common nouns (Torch, Mirror) must not hijack mundane equipment links.
+          matchTexts: valuation ? [] : [title, entry.text],
+          searchAliases: Array.isArray(m.searchAliases)
+            ? m.searchAliases.filter((s): s is string => typeof s === 'string')
+            : [],
+          tableEntry: { tableId: table.id, entryId: entry.id },
+          ...(valuation
+            ? {
+                creatureIdentity: {
+                  name: str(m.creatureName),
+                  pdfPage: Number(m.creaturePage),
+                },
+              }
+            : {}),
+        });
+      }
+      continue;
+    }
     if (table.id === 'core.gearA' || table.id === 'core.gearB') {
       for (const entry of table.entries) {
         const lookup = STARTING_GEAR_REFERENCES[entry.id];

@@ -232,6 +232,73 @@ export function mergePrivateLibraryUpdate(
   };
   return {
     ...translated,
+    tables: {
+      ...translated.tables,
+      ...(translated.tables['core.treasures'] &&
+      incoming.tables['core.treasures']
+        ? {
+            'core.treasures': {
+              ...translated.tables['core.treasures'],
+              entries: translated.tables['core.treasures'].entries.map(
+                (entry) => {
+                  const match = incoming.tables['core.treasures'].entries.find(
+                    (candidate) =>
+                      candidate.text === entry.text &&
+                      candidate.weight === entry.weight &&
+                      candidate.meta.roll === entry.meta.roll,
+                  );
+                  if (!match) return entry;
+                  // Add lookup identities to unchanged legacy rows, never alter saved prose/dice.
+                  const navigation = Object.fromEntries(
+                    ['referenceName', 'canonicalName', 'searchAliases']
+                      .filter(
+                        (key) =>
+                          entry.meta[key] == null && match.meta[key] != null,
+                      )
+                      .map((key) => [key, match.meta[key]]),
+                  );
+                  return { ...entry, meta: { ...entry.meta, ...navigation } };
+                },
+              ),
+            },
+          }
+        : {}),
+    },
+    outcasts: translated.outcasts.map((record) => {
+      if (
+        record.book !== 'core' ||
+        record.pdfPage !== 65 ||
+        record.name !== 'Wild Wickhead' ||
+        record.referenceTranslationKo
+      )
+        return record;
+      const match = incoming.outcasts.find((candidate) =>
+        sameSource(record, candidate),
+      );
+      const fields = [
+        'hp',
+        'morale',
+        'armor',
+        'attack',
+        'damage',
+        'traits',
+        'specialty',
+        'values',
+        'description',
+        'sourceNotes',
+      ];
+      if (
+        !match?.referenceTranslationKo ||
+        !fields.every(
+          (key) => JSON.stringify(record[key]) === JSON.stringify(match[key]),
+        )
+      )
+        return record;
+      return {
+        ...record,
+        referenceTranslationKo: match.referenceTranslationKo,
+      };
+    }),
     creatures: [
       ...current.creatures.map(enrich),
       ...incoming.creatures.filter(

@@ -67,5 +67,27 @@ export function referenceCreatureRecords(
         id: 'heretic.outcast.mikhael',
         section: 'Outcasts',
       });
+    else if (
+      record.book === 'core' &&
+      record.name === 'Wild Wickhead' &&
+      record.pdfPage === 65
+    )
+      result.push({ ...record, printedPage: 65, section: 'Outcasts' });
   return result;
+}
+
+/** Four explicitly verified Core followers, not a general cross-source name matcher. */
+export function isCoreOutcast(record: RecordData): boolean {
+  return (
+    record.book === 'core' &&
+    record.section === 'Outcasts' &&
+    (
+      {
+        Earthbound: 64,
+        'Wild Wickhead': 65,
+        'Pale one': 66,
+        Prowler: 67,
+      } as Record<string, number>
+    )[String(record.name)] === record.pdfPage
+  );
 }

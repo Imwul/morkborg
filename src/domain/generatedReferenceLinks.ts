@@ -3,6 +3,8 @@ import type { GeneratedValueProvenance } from './generationProvenance';
 
 const fold = (text: string) =>
   text.normalize('NFC').toLocaleLowerCase().replace(/\s+/g, ' ').trim();
+const matchesFor = (entry: ReferenceEntry) =>
+  entry.definition?.matchTexts ?? entry.matchTexts ?? [];
 /** Links are navigation only. They neither modify saved text nor claim its origin. */
 export function generatedReference(
   entries: ReferenceEntry[],
@@ -10,13 +12,15 @@ export function generatedReference(
 ): ReferenceEntry | undefined {
   const value = fold(text);
   if (!value) return;
-  const definitions = entries.filter((e) => e.definition && e.available);
+  const definitions = entries.filter(
+    (e) => matchesFor(e).length && e.available,
+  );
   const exact = definitions.filter((e) =>
-    e.definition!.matchTexts.some(
+    matchesFor(e).some(
       (t) =>
         fold(t) === value &&
         !(
-          e.definition!.kind === 'Power' &&
+          e.definition?.kind === 'Power' &&
           e.title === 'Death' &&
           text.trim() !== 'Death'
         ),
@@ -24,7 +28,7 @@ export function generatedReference(
   );
   if (exact.length === 1) return exact[0];
   const matches = definitions.filter((e) =>
-    e.definition!.matchTexts.some((t) => {
+    matchesFor(e).some((t) => {
       const name = fold(t);
       return (
         name &&
@@ -70,11 +74,13 @@ export function referenceTextSegments(
   if (whole) return [{ text, id: whole.id }];
   // Longest exact source names win (e.g. Shortbow must never be split into Bow).
   const names = entries
-    .filter((e) => e.definition && e.available)
+    .filter((e) => matchesFor(e).length && e.available)
     // "death" in ordinary prose is not the named Power. A canonical whole
     // result or an explicit scroll/Power prefix can still resolve it above.
-    .filter((e) => !(e.definition!.kind === 'Power' && e.title === 'Death'))
-    .map((e) => ({ name: e.title, id: e.id }))
+    .filter((e) => !(e.definition?.kind === 'Power' && e.title === 'Death'))
+    .flatMap((e) =>
+      (e.matchTexts ?? [e.title]).map((name) => ({ name, id: e.id })),
+    )
     .filter((e) => e.name.length >= 3)
     .sort((a, b) => b.name.length - a.name.length);
   const byName = new Map<string, string | null>();
