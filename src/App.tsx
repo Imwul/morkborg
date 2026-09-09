@@ -28,6 +28,7 @@ import {
   Dices,
   HardDrive,
   House,
+  ArrowLeft,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,6 +51,7 @@ import {
   downloadText,
   resetDamagedSave,
   retrySave,
+  getSnapshot,
 } from './storage/saveStore';
 import { parseImport } from './storage/schema';
 import { MIGRATION_BACKUP_KEY } from './storage/migrations';
@@ -71,6 +73,15 @@ import type { RecordSection } from './components/Chronicle';
 import type { CaptureKind } from './domain/captureContext';
 import { DeferredView } from './components/DeferredView';
 import { HomeIndex } from './components/HomeIndex';
+import {
+  useNavigationBack,
+  useNavigationChannel,
+} from './navigation/useNavigationHistory';
+import {
+  captureAppLocation,
+  normalizeAppLocation,
+  applyAppLocation,
+} from './navigation/appLocation';
 import {
   ReferenceProvider,
   ReferenceDesk,
@@ -243,6 +254,87 @@ export default function App() {
     openOracles();
     setDeskPage('sources');
   }
+  const navigation = useNavigationBack();
+  useNavigationChannel(
+    'app',
+    captureAppLocation(save, {
+      oracleOpen,
+      deskPage,
+      cityOpen,
+      legacyOracleOpen,
+      pendingSection,
+    }),
+    (location) => {
+      const snapshot = getSnapshot();
+      if (!snapshot.blocked) {
+        const current = captureAppLocation(snapshot.save, location);
+        if (
+          current.view !== location.view ||
+          current.campaignId !== location.campaignId ||
+          JSON.stringify(current.workspace) !==
+            JSON.stringify(location.workspace)
+        )
+          transact((next) => {
+            applyAppLocation(next, location);
+          });
+      }
+      setOracleOpen(location.oracleOpen);
+      setDeskPage(location.deskPage);
+      setCityOpen(location.cityOpen);
+      setLegacyOracleOpen(location.legacyOracleOpen);
+      setPendingSection(location.pendingSection);
+      setDrawer(false);
+      setConfirmation(null);
+    },
+    { normalize: (raw) => normalizeAppLocation(raw, getSnapshot().save) },
+  );
+  useNavigationChannel(
+    'fate',
+    fateOpen,
+    (open) => {
+      if (open) setFateRequested(true);
+      setFateOpen(open);
+    },
+    { normalize: (raw) => raw === true, open: (value) => value },
+  );
+  useNavigationChannel(
+    'app-dialog',
+    {
+      form,
+      about,
+      importing: importText !== null,
+      exporting: exportData !== null,
+    },
+    (state) => {
+      setForm(state.form);
+      setAbout(state.about);
+      if (!state.importing) setImportText(null);
+      if (!state.exporting) setExportData(null);
+    },
+    {
+      normalize: (raw) => {
+        const state = raw as {
+          form?: typeof form;
+          about?: boolean;
+          importing?: boolean;
+          exporting?: boolean;
+        } | null;
+        return {
+          form:
+            state?.form === 'campaign'
+              ? ('campaign' as const)
+              : state?.form === 'rename' && renameId !== null
+                ? ('rename' as const)
+                : null,
+          about: state?.about === true,
+          importing: !!state?.importing && importText !== null,
+          exporting: !!state?.exporting && exportData !== null,
+        };
+      },
+      open: (state) =>
+        !!state.form || state.about || state.importing || state.exporting,
+    },
+  );
   const fileRef = useRef<HTMLInputElement>(null);
   const confirm: Confirm = (title, description, action) =>
     setConfirmation({ title, description, action });
@@ -704,6 +796,15 @@ export default function App() {
               >
                 <Menu size={20} />
               </Button>
+              {navigation.canBack && (
+                <button
+                  className="topbar-back"
+                  aria-label="뒤로가기"
+                  onClick={navigation.back}
+                >
+                  <ArrowLeft size={18} aria-hidden="true" />
+                </button>
+              )}
               <button
                 className="topbar-home"
                 aria-label="홈으로"

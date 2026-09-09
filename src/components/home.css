@@ -1,5 +1,6 @@
 /* Home cover and index. Deliberately stronger than the reference reading surfaces. */
-.topbar-home {
+.topbar-home,
+.topbar-back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -11,6 +12,10 @@
   color: var(--ink);
   font: 500 14px var(--font-ui);
   cursor: pointer;
+}
+.topbar-back {
+  justify-content: center;
+  min-width: 44px;
 }
 .reference-home {
   max-width: 1280px;

@@ -1,3 +1,11 @@
+import {
+  useNavigationBack,
+  useNavigationChannel,
+} from '../navigation/useNavigationHistory';
+import {
+  normalizeReferenceLocation,
+  referenceLocationKey,
+} from '../navigation/referenceLocation';
 import { useReferenceConvenience } from './useReferenceConvenience';
 import {
   ConveniencePanel,
@@ -12,7 +20,6 @@ import { refsForOracle } from '../domain/referenceExecution';
 import {
   referenceAction,
   referenceShortName,
-  referenceRegion,
 } from '../domain/referenceActions';
 import {
   emptyReferenceSession,
@@ -232,6 +239,48 @@ export function ReferenceProvider({
       setRareDeck(params.rareDeck);
     },
   });
+  const navigation = useNavigationBack();
+  useNavigationChannel(
+    'reference',
+    {
+      selectedId,
+      trail,
+      tableView,
+      searchOpen,
+      query,
+      scope,
+      panel: convenience.panel,
+      region,
+    },
+    (location) => {
+      if (selectedId)
+        previousViews.current[selectedId] = {
+          table: tableView,
+          scrollTop: inspectorRef.current?.scrollTop ?? 0,
+        };
+      restoreScroll.current = location.selectedId
+        ? (previousViews.current[location.selectedId]?.scrollTop ?? 0)
+        : 0;
+      setSelectedId(location.selectedId);
+      setTrail(location.trail);
+      setTableView(location.tableView);
+      setSearchOpen(location.searchOpen);
+      setQuery(location.query);
+      setScope(location.scope);
+      convenience.setPanel(location.panel);
+      setRegion(location.region);
+      lastReferenceId.current = location.selectedId;
+      setFailure('');
+      setCopied('');
+      setCopyFallback(null);
+    },
+    {
+      normalize: normalizeReferenceLocation,
+      identity: referenceLocationKey,
+      open: (location) =>
+        !!location.selectedId || location.searchOpen || !!location.panel,
+    },
+  );
   function perform(
     entry: ReferenceEntry,
     contextRegion = region,
@@ -492,28 +541,8 @@ export function ReferenceProvider({
           }
         >
           <nav className="reference-inner-tray" aria-label="참조 도구 모음">
-            {!convenience.panel && !searchOpen && !!trail.length && (
-              <button
-                aria-label="이전 참조"
-                onClick={() => {
-                  const previous = trail.at(-1);
-                  if (previous) {
-                    restoreScroll.current =
-                      previousViews.current[previous]?.scrollTop ?? 0;
-                    setSelectedId(previous);
-                    setTableView(
-                      previousViews.current[previous]?.table ?? false,
-                    );
-                    setRegion(referenceRegion(index.byId[previous], region));
-                    lastReferenceId.current = previous;
-                    setTrail((t) => t.slice(0, -1));
-                    setFailure('');
-                    setCopied('');
-                    setCopyFallback(null);
-                    touchEntry(previous);
-                  }
-                }}
-              >
+            {!convenience.panel && !searchOpen && navigation.canBack && (
+              <button aria-label="이전 참조" onClick={navigation.back}>
                 <ArrowLeft size={15} />
               </button>
             )}
@@ -1710,6 +1739,11 @@ export function ReferenceDesk({
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
   const [query, setQuery] = useState('');
+  useNavigationChannel('desk-query', query, setQuery, {
+    normalize: (value) =>
+      typeof value === 'string' ? value.slice(0, 2000) : '',
+    identity: () => 'query',
+  });
   const found = query.trim() ? (desk?.search(query, 8) ?? []) : [];
   const entries = (ids: string[]) =>
     ids

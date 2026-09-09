@@ -15,6 +15,7 @@ const navigation = performance.getEntriesByType('navigation')[0] as
 const initial = getSnapshot();
 if (
   navigation?.type !== 'reload' &&
+  !window.history.state?.morkborgNavigationV1 &&
   !initial.blocked &&
   initial.save.view !== 'campaigns'
 )
