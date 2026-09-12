@@ -70,11 +70,25 @@ export function mergeOracleTranslations(
   return {
     ...current,
     tables: current.tables.map((table) => {
-      const entries = new Map(
-        tables.get(table.id)?.entries.map((e) => [e.id, e]),
-      );
+      const source = tables.get(table.id);
+      // Older imports predate this non-rollable source field. Fill only its absence;
+      // keep all existing rows, edits and any explicitly supplied final result.
+      const final = source?.forcedFinal;
+      const restoreFinal =
+        table.id === 'core.miseries' &&
+        table.sourceBookId === 'core' &&
+        table.dice === 'd66' &&
+        table.forcedFinal === undefined &&
+        source?.sourceBookId === 'core' &&
+        source.dice === 'd66' &&
+        source.sourceVerified &&
+        final?.label === '7:7' &&
+        final.sourcePage === 20 &&
+        final.text.trim().length > 0;
+      const entries = new Map(source?.entries.map((e) => [e.id, e]));
       return {
         ...table,
+        ...(restoreFinal ? { forcedFinal: { ...final } } : {}),
         entries: table.entries.map((entry) => {
           const match = entries.get(entry.id);
           const asMetadata = (value: unknown): Record<string, unknown> =>

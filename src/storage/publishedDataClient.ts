@@ -117,13 +117,23 @@ export function createPublishedDataClient(deps: Dependencies) {
         )
           deps.activate(current);
         const missing = !usableCache || rejectedCache;
+        // A previous merge could acknowledge a revision without its fixed 7:7
+        // field. Re-fetch that source even at the same revision, without
+        // rejecting the usable cache or replacing the user's d66 rows.
+        const missingMiseryFinal = current.oracles?.tables.some(
+          (table) =>
+            table.id === 'core.miseries' &&
+            table.sourceBookId === 'core' &&
+            table.dice === 'd66' &&
+            table.forcedFinal === undefined,
+        );
         emit({ enabled: connection.enabled, revision: connection.revision });
         if (!connection.enabled && !force && !(fillMissing && missing)) return;
         lastCheck = now();
         emit({ busy: true, error: '', message: '' });
         const response = responseSchema.parse(
           await deps.fetch(
-            `/api/rulebook-data?revision=${missing ? 0 : connection.revision}`,
+            `/api/rulebook-data?revision=${missing || missingMiseryFinal ? 0 : connection.revision}`,
           ),
         );
         if (generation !== deps.generation()) return;
@@ -133,7 +143,11 @@ export function createPublishedDataClient(deps: Dependencies) {
             'Server revision is older than the accepted revision.',
           );
         }
-        if (!missing && response.revision === connection.revision) {
+        if (
+          !missing &&
+          !missingMiseryFinal &&
+          response.revision === connection.revision
+        ) {
           emit({ connected: true, message: '최신 자료입니다.' });
           return;
         }
@@ -142,10 +156,34 @@ export function createPublishedDataClient(deps: Dependencies) {
           throw new Error('Incomplete server bundle.');
         deps.validate(incoming);
         // With updates paused, a missing pack can still be loaded for first use.
-        const merged =
+        let merged =
           !connection.enabled && !force
             ? { ...incoming, ...current }
             : deps.merge(current, incoming);
+        const repairOnly =
+          !missing &&
+          missingMiseryFinal &&
+          response.revision === connection.revision;
+        if (repairOnly) {
+          const restored = merged.oracles?.tables.find(
+            (table) => table.id === 'core.miseries',
+          )?.forcedFinal;
+          if (!restored)
+            throw new Error('Canonical fixed misery is unavailable.');
+          // A same-revision repair must not replay unrelated translation/source
+          // enrichment. Carry over only the field accepted by the guarded merge.
+          merged = {
+            ...current,
+            oracles: {
+              ...current.oracles!,
+              tables: current.oracles!.tables.map((table) =>
+                table.id === 'core.miseries' && restored
+                  ? { ...table, forcedFinal: restored }
+                  : table,
+              ),
+            },
+          };
+        }
         deps.validate(merged);
         if (generation !== deps.generation()) return;
         const nextConnection = {
@@ -156,7 +194,10 @@ export function createPublishedDataClient(deps: Dependencies) {
               : connection.revision,
         };
         await deps.persist(
-          { ...merged, serverConnection: nextConnection },
+          {
+            ...(repairOnly ? { oracles: merged.oracles } : merged),
+            serverConnection: nextConnection,
+          },
           expected,
         );
         if (generation !== deps.generation()) return;

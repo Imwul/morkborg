@@ -209,6 +209,196 @@ async function pending(h: ReturnType<typeof harness>) {
   return { work, finish, fail };
 }
 
+// Synthetic source text: tests the fixed-result contract without shipping book text.
+function miseryPacks(withFooter = true): PublishedPacks {
+  const packs = structuredClone(fixture);
+  packs.oracles!.tables.push({
+    id: 'core.miseries',
+    sourceBookId: 'core',
+    sourcePage: [18, 19, 20],
+    title: 'Core misery fixture',
+    category: 'EVENT',
+    dice: 'd66',
+    tags: [],
+    sourceVerified: true,
+    ...(withFooter
+      ? {
+          forcedFinal: {
+            label: '7:7',
+            text: 'Verified final fixture',
+            sourcePage: 20,
+          },
+        }
+      : {}),
+    entries: Array.from({ length: 36 }, (_, index) => {
+      const value = (Math.floor(index / 6) + 1) * 10 + (index % 6) + 1;
+      return {
+        id: `core.miseries:${index + 1}`,
+        min: value,
+        max: value,
+        text: `Fixture ${value}`,
+      };
+    }),
+  });
+  return packs;
+}
+const misery = (packs: PublishedPacks) =>
+  packs.oracles!.tables.find((t) => t.id === 'core.miseries')!;
+
+test('same-revision legacy misery cache repairs only the missing fixed result', async () => {
+  const old = miseryPacks(false),
+    incoming = miseryPacks();
+  misery(old).entries[0].text = 'User edited prose';
+  misery(old).entries[0].metadata = {
+    ko: '사용자 번역',
+    note: 'Keep this note',
+  };
+  incoming.library!.tables.fixture.entries[0].meta.ko =
+    'Unrelated incoming translation';
+  incoming.oracles!.tables[0].entries[0].metadata = {
+    ko: 'Unrelated incoming translation',
+  };
+  const h = harness({ ...old, serverConnection: connection() });
+  h.fetch(async () => payload(10, incoming));
+  await h.client.check();
+  const expected = structuredClone(old);
+  misery(expected).forcedFinal = misery(incoming).forcedFinal;
+  assert.deepEqual(h.active, expected);
+  for (const key of ['library', 'oracles', 'fateChart'] as const)
+    assert.deepEqual(h.storage[key], expected[key]);
+  assert.equal(h.requests[0], '/api/rulebook-data?revision=0');
+  assert.equal(h.writes, 1);
+  assert.equal(h.storage['morkborg-codex:v5'], h.campaign);
+  h.clearActive();
+  h.advance();
+  h.fetch(async () => ({ schemaVersion: 1, revision: 10 }));
+  await h.client.check();
+  assert.equal(h.requests.at(-1), '/api/rulebook-data?revision=10');
+  assert.equal(
+    h.writes,
+    1,
+    'repaired reload does not write or fetch the full bundle again',
+  );
+  assert.deepEqual(h.active, expected);
+});
+
+test('new revision merges the missing misery footer without replacing edited d66 rows', async () => {
+  const old = miseryPacks(false),
+    incoming = miseryPacks();
+  misery(old).entries[0].text = 'User edited prose';
+  const h = harness({ ...old, serverConnection: connection(9) });
+  h.fetch(async () => payload(10, incoming));
+  await h.client.check();
+  assert.deepEqual(misery(h.active).forcedFinal, misery(incoming).forcedFinal);
+  assert.deepEqual(misery(h.active).entries, misery(old).entries);
+});
+
+test('misery recovery preserves an existing user supplied fixed result', async () => {
+  const old = miseryPacks(),
+    incoming = miseryPacks();
+  misery(old).forcedFinal!.text = 'My existing final note';
+  assert.deepEqual(
+    misery(mergePublishedPacks(old, incoming)).forcedFinal,
+    misery(old).forcedFinal,
+  );
+  const h = harness({ ...old, serverConnection: connection() });
+  h.fetch(async () => ({ schemaVersion: 1, revision: 10 }));
+  await h.client.check();
+  assert.equal(h.requests[0], '/api/rulebook-data?revision=10');
+  assert.equal(h.writes, 0);
+});
+
+test('fixed-result recovery requires the exact Core d66 source and verified PDF20 field', () => {
+  const patches = [
+    { sourceBookId: 'sd' },
+    { dice: 'd100' },
+    { sourceVerified: false },
+    { forcedFinal: { label: '7:7', text: 'Fixture', sourcePage: 21 } },
+    { forcedFinal: { label: '6:6', text: 'Fixture', sourcePage: 20 } },
+    { forcedFinal: { label: '7:7', text: ' ', sourcePage: 20 } },
+  ];
+  for (const patch of patches) {
+    const incoming = miseryPacks();
+    Object.assign(misery(incoming), patch);
+    assert.equal(
+      misery(mergePublishedPacks(miseryPacks(false), incoming)).forcedFinal,
+      undefined,
+    );
+  }
+  const old = miseryPacks(false);
+  misery(old).sourceBookId = 'sd';
+  assert.equal(
+    misery(mergePublishedPacks(old, miseryPacks())).forcedFinal,
+    undefined,
+  );
+});
+
+test('paused updates keep a usable legacy misery cache untouched until explicit check', async () => {
+  const old = miseryPacks(false);
+  const h = harness({ ...old, serverConnection: connection(10, false) });
+  h.fetch(async () => payload(10, miseryPacks()));
+  await h.client.check(false, true);
+  assert.equal(h.requests.length, 0);
+  assert.equal(h.writes, 0);
+  await h.client.check(true);
+  assert.ok(misery(h.active).forcedFinal);
+  assert.equal(h.writes, 1);
+  assert.equal(
+    (h.storage.serverConnection as { enabled: boolean }).enabled,
+    false,
+  );
+});
+
+test('offline legacy misery recovery keeps cached rows and revision intact', async () => {
+  const old = miseryPacks(false);
+  const h = harness({ ...old, serverConnection: connection() });
+  h.fetch(async () => {
+    throw new Error('offline');
+  });
+  await h.client.check();
+  assert.equal(h.writes, 0);
+  assert.deepEqual(h.active, old);
+  assert.deepEqual(h.storage.serverConnection, connection());
+  assert.match(h.client.getState().error, /저장된 자료/);
+});
+
+test('a source response without the fixed misery cannot acknowledge an empty repair', async () => {
+  const old = miseryPacks(false);
+  const h = harness({ ...old, serverConnection: connection() });
+  h.fetch(async () => payload(10, old));
+  await h.client.check();
+  assert.equal(h.writes, 0);
+  assert.deepEqual(h.active, old);
+  assert.ok(h.client.getState().error);
+});
+
+test('an import during fixed-result recovery supersedes the pending server response', async () => {
+  const old = miseryPacks(false);
+  const h = harness({ ...old, serverConnection: connection() });
+  const p = await pending(h);
+  const imported = miseryPacks();
+  misery(imported).forcedFinal!.text = 'Imported final';
+  h.manualImport(imported);
+  p.finish(payload(10, miseryPacks()));
+  await p.work;
+  assert.equal(h.writes, 0);
+  assert.deepEqual(h.active, imported);
+});
+
+test('importing an old backup can restore the fixed misery after its revision reset', async () => {
+  const h = harness({ ...miseryPacks(), serverConnection: connection() });
+  h.manualImport(miseryPacks(false));
+  h.storage.serverConnection = connection(0);
+  h.fetch(async () => payload(10, miseryPacks()));
+  await h.client.afterImport();
+  assert.equal(misery(h.active).entries.length, 36);
+  assert.deepEqual(
+    misery(h.active).forcedFinal,
+    misery(miseryPacks()).forcedFinal,
+  );
+  assert.equal(h.writes, 1);
+});
+
 test('fresh entry coalesces three loaders, caches all packs, and never touches campaign bytes', async () => {
   const h = harness();
   const requests = [
