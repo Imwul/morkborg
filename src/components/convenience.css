@@ -24,20 +24,20 @@
 }
 .reference-play-tray > small {
   padding: 0 10px;
-  font: 700 10px var(--font-label);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-label);
 }
 .reference-play-tray > button {
   min-width: 44px;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 4px 9px;
   flex-shrink: 0;
   border: 0;
   background: transparent;
-  font-size: 12px;
+  font-size: var(--text-ui);
 }
 .reference-rail .reference-dock .play-tool-label {
   display: inline;
-  font-size: 11px;
+  font-size: var(--text-meta);
 }
 .reference-tools-dialog {
   font-family: var(--font-ui);
@@ -62,7 +62,7 @@
 .physical-roll-input button,
 .partial-roll-controls button {
   min-width: 44px;
-  min-height: 44px;
+  min-height: var(--control-height);
   cursor: pointer;
 }
 .reference-tools-dialog label,
@@ -70,14 +70,14 @@
   display: grid;
   gap: 6px;
   margin: 10px 0;
-  font-size: 13px;
+  font-size: var(--text-ui);
 }
 .reference-tools-dialog input,
 .reference-tools-dialog textarea,
 .physical-roll-input input {
   width: 100%;
   min-width: 0;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 8px;
   background: var(--group-paper);
   color: var(--ink);
@@ -87,7 +87,7 @@
 .physical-roll-input small,
 .convenience-hint {
   color: var(--muted-ink);
-  font-size: 12px;
+  font-size: var(--text-ui);
 }
 .convenience-index-row {
   display: flex;
@@ -106,7 +106,7 @@
 .recipe-more summary,
 .reference-convenience-actions summary {
   cursor: pointer;
-  min-height: 44px;
+  min-height: var(--control-height);
   min-width: 44px;
   display: flex;
   align-items: center;
@@ -122,8 +122,8 @@
 .recipe-more button,
 .reference-convenience-actions button {
   display: block;
-  font-size: 12px;
-  min-height: 44px;
+  font-size: var(--text-ui);
+  min-height: var(--control-height);
 }
 .convenience-add-row {
   display: block;
@@ -137,7 +137,7 @@
   gap: 6px;
 }
 .convenience-pack-list button {
-  font-size: 12px;
+  font-size: var(--text-ui);
   padding: 4px 10px;
 }
 .convenience-editor {
@@ -152,7 +152,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 13px;
+  font-size: var(--text-meta);
   border-bottom: 1px solid var(--border);
 }
 .convenience-editor li span {
@@ -182,7 +182,7 @@
 }
 .recipe-result header h3 {
   flex: 1;
-  font-size: 16px;
+  font-size: var(--text-body);
   margin: 0;
 }
 .recipe-result header button {
@@ -194,17 +194,17 @@
   color: var(--paper);
 }
 .recipe-result h4 {
-  font-size: 12px;
+  font-size: var(--text-meta);
   color: var(--muted-ink);
   margin: 10px 0 4px;
 }
 .recipe-result p {
-  font-size: 18px;
+  font-size: var(--text-body);
   line-height: 1.5;
   margin: 6px 0;
 }
 .recipe-result .translation-ko {
-  font-size: 13px;
+  font-size: var(--text-meta);
 }
 .recipe-manual-text {
   white-space: pre-wrap;
@@ -216,16 +216,16 @@
   border-top: 1px solid var(--border);
   margin-top: 24px;
   padding-top: 8px;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .convenience-help summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   cursor: pointer;
   color: var(--muted-ink);
 }
 .reference-inspector-top .reference-convenience-actions {
   order: 2;
-  font-size: 12px;
+  font-size: var(--text-meta);
   position: relative;
 }
 .reference-inspector-top .reference-convenience-actions[open] {
@@ -233,12 +233,12 @@
 }
 .physical-roll-input,
 .partial-roll-controls {
-  font-size: 13px;
+  font-size: var(--text-ui);
   margin: 8px 0;
 }
 .physical-roll-input > summary,
 .partial-roll-controls > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -271,19 +271,19 @@
   padding: 8px 0;
 }
 .held-component small {
-  font-size: 11px;
+  font-size: var(--text-meta);
   color: var(--muted-ink);
 }
 .held-component b {
   font-weight: 500;
-  font-size: 15px;
+  font-size: var(--text-secondary);
 }
 .held-component button {
   min-width: 44px;
 }
 .desk-play-tools .desk-pack-choice {
   margin-left: 10px;
-  font: 500 11px var(--font-label);
+  font: 500 var(--text-meta)/var(--leading-text) var(--font-label);
   min-height: 44px;
   max-width: 100%;
   color: var(--muted-ink);
@@ -323,7 +323,7 @@
   z-index: 60;
 }
 .reference-tools-dialog > h2 {
-  font: 700 12px/1.2 var(--font-label);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-label);
   color: var(--muted-ink);
   margin: 12px 32px 8px 0;
 }
@@ -364,9 +364,9 @@
 }
 
 .convenience-library > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--text-ui);
   color: var(--muted-ink);
   padding: 12px 0;
 }
@@ -382,11 +382,11 @@
   padding: 5px 8px;
   background: var(--paper);
   color: var(--muted-ink);
-  font: 500 11px/1.4 var(--font-ui);
+  font: 500 var(--text-meta)/var(--leading-text) var(--font-ui);
 }
 .convenience-back {
   justify-self: start;
-  font-size: 12px;
+  font-size: var(--text-meta);
   color: var(--muted-ink);
 }
 .convenience-route {
@@ -398,7 +398,7 @@
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
   background: transparent;
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .convenience-route small {
   min-width: 0;
@@ -412,11 +412,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font: 600 11px var(--font-label);
+  font: 600 var(--text-meta)/var(--leading-text) var(--font-label);
   min-height: 28px;
 }
 .convenience-tray-heading button {
-  font: 400 12px var(--font-ui);
+  font: 400 var(--text-ui)/var(--leading-control) var(--font-ui);
 }
 .convenience-tray-items {
   display: flex;
@@ -426,16 +426,16 @@
   gap: 0 12px;
 }
 .convenience-tray-items button {
-  font-size: 13px;
+  font-size: var(--text-ui);
   text-align: left;
 }
 .convenience-tray-add > summary,
 .convenience-organization summary,
 .recipe-management > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 12px 0;
   color: var(--muted-ink);
-  font-size: 12px;
+  font-size: var(--text-ui);
   cursor: pointer;
 }
 .convenience-organization {
@@ -443,7 +443,7 @@
 }
 .convenience-organization .convenience-index-row > span {
   flex: 1;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .convenience-organization .convenience-help {
   margin-top: 0;
@@ -457,18 +457,18 @@
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font-size: 15px;
+  font-size: var(--text-secondary);
   line-height: 1.6;
 }
 .convenience-scratch > button {
   margin-right: 12px;
-  font-size: 12px;
+  font-size: var(--text-ui);
 }
 .recipe-results > .recipe-hold-discovery {
   margin-left: 8px;
   background: transparent;
   color: var(--muted-ink);
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .desk-active-pack {
   display: inline-flex;
@@ -477,6 +477,6 @@
 }
 .desk-active-pack > button:last-child {
   min-width: 44px;
-  min-height: 44px;
+  min-height: var(--control-height);
   color: var(--muted-ink);
 }

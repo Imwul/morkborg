@@ -4,7 +4,7 @@
 }
 .source-authority-group h5 {
   margin: 0 0 0.4rem;
-  font: 700 0.75rem/1.4 var(--font-mono, monospace);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono, monospace);
   letter-spacing: 0.08em;
 }
 .source-authority-entry + .source-authority-entry {
@@ -12,7 +12,7 @@
 }
 .source-authority-entry > strong {
   display: block;
-  font-size: 0.85rem;
+  font-size: var(--text-meta);
   overflow-wrap: anywhere;
 }
 .source-authority-entry p {
@@ -23,7 +23,7 @@
   flex-wrap: wrap;
   gap: 0.25rem 0.65rem;
   align-items: baseline;
-  font-size: 0.8rem;
+  font-size: var(--text-meta);
 }
 .source-authority-proof .source-roll-link {
   min-height: 2.75rem;

@@ -25,7 +25,7 @@
   font: 700 28px/1.2 var(--font-display);
 }
 .dungeon-encounter-table h3 span {
-  font: 12px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .dungeon-encounter-table ol {
   list-style: none;
@@ -52,7 +52,7 @@
 .dungeon-encounter-title {
   text-align: left;
   width: 100%;
-  font: 700 18px/1.5 var(--font-reading);
+  font: 700 var(--text-body)/var(--leading-text) var(--font-reading);
   overflow-wrap: anywhere;
   padding: 0;
 }
@@ -70,15 +70,15 @@
   vertical-align: top;
 }
 .dungeon-encounter-slot > .source-disclosure > summary {
-  min-height: 32px;
+  min-height: var(--control-height);
 }
 .dungeon-encounter-edit {
   margin-top: 4px;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .dungeon-encounter-edit summary {
   cursor: pointer;
-  min-height: 32px;
+  min-height: var(--control-height);
   display: list-item;
 }
 .dungeon-encounter-edit select {
@@ -93,7 +93,7 @@
   gap: 8px;
 }
 .dungeon-encounter-actions .btn {
-  min-height: 40px;
+  min-height: var(--control-height);
 }
 .dungeon-encounter-roller {
   margin: 16px 0;
@@ -122,7 +122,7 @@
   flex: 0 0 180px;
 }
 .dungeon-encounter-dr small {
-  font-size: 11px;
+  font-size: var(--text-meta);
 }
 @media (max-width: 1100px) {
   .dungeon-encounter-columns {
@@ -137,7 +137,7 @@
     flex-basis: auto;
   }
   .dungeon-encounter-actions .btn {
-    min-height: 44px;
+    min-height: var(--control-height);
   }
 }
 .dungeon-encounter-heading {

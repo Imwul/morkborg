@@ -607,6 +607,7 @@ export default function App() {
       !!c &&
       (['play', 'procedures'].includes(c.workspace.section) ||
         (c.workspace.section === 'dungeons' &&
+          !!c.workspace.dungeonId &&
           c.workspace.dungeonTab === 'crawl')));
   const homeCampaign =
     c ?? save.campaigns.find((entry) => entry.id === save.activeCampaignId);

@@ -1,0 +1,296 @@
+/* One reading scale for the desk, source library, dialogs and optional records.
+   Keep the root at the browser's default: rem sizes also follow text enlargement. */
+:root {
+  --text-meta: 0.875rem;
+  --text-secondary: 1rem;
+  --text-ui: 1rem;
+  --text-body: 1.125rem;
+  --text-section: 1.375rem;
+  --text-result: 1.5rem;
+  --text-title: 2.5rem;
+  --text-rule-title: 2rem;
+  --leading-text: 1.6;
+  --leading-control: 1.35;
+  --control-height: 2.75rem;
+  --fate-width: 34rem;
+  font-size: 100%;
+}
+@media (min-width: 1900px) {
+  :root {
+    --text-meta: 1rem;
+    --text-secondary: 1.125rem;
+    --text-ui: 1.125rem;
+    --text-body: 1.25rem;
+    --text-section: 1.5rem;
+    --text-result: 1.75rem;
+    --text-title: 3rem;
+    --text-rule-title: 2.5rem;
+    --control-height: 3rem;
+    --fate-width: 39rem;
+    --nav-width: 16rem;
+  }
+}
+@media (max-width: 800px) {
+  :root {
+    --text-meta: 0.8125rem;
+    --text-secondary: 0.875rem;
+    --text-ui: 0.875rem;
+    --text-body: 1rem;
+    --text-section: 1.25rem;
+    --text-result: 1.375rem;
+    --text-title: 2.125rem;
+    --text-rule-title: 1.75rem;
+  }
+}
+body {
+  font-size: var(--text-body);
+  font-weight: 450;
+  line-height: var(--leading-text);
+}
+p {
+  line-height: var(--leading-text);
+}
+small {
+  font-size: var(--text-meta);
+}
+.reference-app .dungeon-workbench:has(.rdesk) {
+  max-width: none;
+}
+/* Labels and controls share a baseline; text fields retain room for ascenders. */
+button,
+input,
+select,
+textarea,
+summary {
+  font-family: var(--font-ui);
+}
+:is(.btn, .tab, .nav-item, .back-button, .object-edit-toggle),
+[data-slot='button'],
+[data-slot='input'],
+[data-slot='textarea'],
+:root select:not([multiple]):not([size]) {
+  font-size: var(--text-ui);
+  line-height: var(--leading-control);
+}
+:is(.btn, .tab, .nav-item, .back-button, .object-edit-toggle),
+[data-slot='input'],
+[data-slot='button'],
+:root select:not([multiple]):not([size]) {
+  min-height: var(--control-height);
+  height: auto;
+}
+[data-slot='input'],
+:root select:not([multiple]):not([size]) {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+:is(.field-label, .character-sheet .field-label) label,
+:is(.solo-grid, .fate-form, .dice-settings, .physical-roll-input) label {
+  font-size: var(--text-ui);
+  font-weight: 550;
+  line-height: var(--leading-control);
+}
+.field-value {
+  line-height: var(--leading-text);
+}
+.icon-btn,
+.codex-sheet .icon-btn,
+.codex-sheet .field-tools .icon-btn,
+.quantity-control .icon-btn {
+  width: var(--control-height) !important;
+  height: var(--control-height) !important;
+  min-width: var(--control-height);
+  min-height: var(--control-height);
+}
+.number-input {
+  height: var(--control-height) !important;
+}
+.quantity-control {
+  grid-template-columns: var(--control-height) minmax(3rem, 1fr) var(
+      --control-height
+    );
+  align-items: center;
+}
+.quantity-control input,
+.solo-grid input,
+.solo-grid select {
+  height: var(--control-height);
+  padding-block: 0.5rem;
+  line-height: var(--leading-control);
+  font-size: var(--text-ui);
+}
+.physical-roll-input form {
+  gap: 0.75rem;
+  align-items: end;
+}
+.physical-roll-input form label {
+  margin: 0;
+}
+.physical-roll-input form :is(input, button),
+.dice-settings :is(input, button) {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  padding-block: 0.5rem;
+  font-size: var(--text-ui);
+  line-height: var(--leading-control);
+}
+.dice-settings {
+  grid-template-columns: minmax(0, 1fr) 5rem 5rem 6rem;
+}
+.compact-menu {
+  width: max-content;
+  min-width: 12rem;
+  max-width: calc(100vw - 2rem);
+}
+.compact-menu button {
+  min-height: var(--control-height);
+  font-size: var(--text-ui);
+  white-space: normal;
+}
+.reference-rail {
+  max-width: min(70rem, calc(100vw - var(--nav-width) - 3rem));
+}
+.reference-dock > button,
+.reference-dock .dock-pinned > button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  height: var(--control-height);
+  min-height: var(--control-height);
+  line-height: var(--leading-control);
+  align-items: center;
+}
+.reference-dock button > span {
+  white-space: nowrap;
+}
+.character-sheet-header h1,
+.dungeon-workbench .title-edit .field-value,
+.dungeon-workbench .title-edit textarea {
+  font-size: var(--text-title) !important;
+  line-height: 1.2 !important;
+}
+.character-sheet-spine .field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.character-sheet-spine .field-label {
+  min-height: calc(var(--text-meta) * 3);
+  align-items: start;
+}
+.character-sheet-spine > .character-status {
+  display: grid;
+  grid-template-rows: calc(var(--text-meta) * 3) auto;
+  align-self: start;
+  gap: 5px;
+  padding: 0;
+  line-height: 1.5;
+}
+.compact-card-title {
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+.compact-card-title,
+.compact-card-main strong {
+  font-size: var(--text-section);
+}
+.compact-secondary,
+.compact-metadata {
+  font-size: var(--text-secondary);
+  line-height: var(--leading-text);
+}
+.page-heading h1 {
+  font-size: var(--text-title);
+  line-height: 1.2;
+}
+.page-heading p {
+  font-size: var(--text-body);
+  line-height: var(--leading-text);
+}
+.section-title h2,
+.source-section h2 {
+  font: 700 var(--text-section)/1.4 var(--font-ui);
+}
+.source-section > p {
+  max-width: 76ch;
+  font-weight: 450;
+}
+.source-disclosure-body,
+.source-disclosure-body p,
+.source-proof-list,
+.source-authority p {
+  font-size: var(--text-secondary);
+  line-height: var(--leading-text);
+}
+.sidebar .nav-item,
+.sidebar nav .nav-item {
+  font-size: var(--text-ui);
+  min-height: var(--control-height);
+  line-height: var(--leading-control);
+}
+.sidebar .brand {
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+.sidebar .brand span {
+  font-size: var(--text-meta);
+  letter-spacing: 0.035em;
+}
+.topbar {
+  min-height: 4rem;
+  height: auto;
+}
+.fate-panel {
+  width: min(var(--fate-width), 100%) !important;
+  font-size: var(--text-body);
+  line-height: var(--leading-text);
+}
+.fate-form :is(label, select),
+.fate-chaos-stepper input {
+  font-size: var(--text-ui);
+}
+.fate-form :is(input, select),
+.fate-chaos-stepper :is(button, input) {
+  min-height: var(--control-height);
+  line-height: var(--leading-control);
+}
+.fate-options {
+  align-items: end;
+}
+@media (min-width: 1600px) {
+  .fate-open .shell {
+    margin-right: var(--fate-width);
+  }
+}
+@media (min-width: 1900px) {
+  .character-workbench,
+  .monster-workbench,
+  .dungeon-workbench,
+  .content-detail {
+    max-width: 78rem;
+  }
+  .character-sheet-spine {
+    grid-template-columns: minmax(11rem, 1.5fr) repeat(
+        5,
+        minmax(0, 1fr)
+      ) minmax(9rem, 1.1fr);
+    gap: 0 1rem;
+  }
+  .rooms-layout {
+    grid-template-columns: 18rem minmax(0, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .reference-rail {
+    max-width: calc(100vw - 1.5rem);
+  }
+  .physical-roll-input form {
+    display: grid;
+  }
+  .dice-settings {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .dice-heading {
+    grid-column: 1/-1;
+  }
+}

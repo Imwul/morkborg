@@ -32,7 +32,8 @@
   margin: 0;
   padding: 0;
   color: var(--desk-text);
-  font: 450 16px/1.5 var(--font-ui);
+  border: 0;
+  font: 450 var(--text-body)/var(--leading-text) var(--font-ui);
 }
 .rdesk ::selection {
   background: #ffe90080;
@@ -49,23 +50,28 @@
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: 236px minmax(260px, 600px) auto;
+  grid-template-columns: 264px minmax(260px, 720px) auto;
   align-items: center;
   gap: 28px;
   padding: 0 0 12px;
   background: var(--paper);
   border-bottom: 1px solid var(--desk-rule);
 }
-.rdesk-header h1 {
+.rdesk-header .desk-wordmark {
   display: grid;
-  gap: 3px;
+  gap: 0.35rem;
   margin: 0;
-  font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.08em;
+  width: max-content;
+  border-left: 4px solid var(--ink);
+  padding-left: 0.75rem;
 }
-.rdesk-header h1 span {
-  font: 900 26px/1 var(--font-display);
+.rdesk-header .desk-wordmark-name {
+  font: 900 2.25rem/1 var(--font-display);
   letter-spacing: -0.015em;
+}
+.rdesk-header .desk-wordmark-caption {
+  font: 550 var(--text-meta)/1.25 var(--font-mono);
+  letter-spacing: 0.035em;
 }
 .rdesk .desk-search {
   display: flex;
@@ -84,13 +90,13 @@
   border-bottom-color: var(--ink);
 }
 .rdesk .desk-search input {
-  height: 40px;
-  min-height: 40px;
+  height: var(--control-height);
+  min-height: var(--control-height);
   padding: 4px;
   border: 0;
   background: transparent;
   color: var(--ink);
-  font: 500 16px/1.4 var(--font-ui);
+  font: 500 var(--text-body)/var(--leading-control) var(--font-ui);
 }
 .rdesk .desk-search input::placeholder {
   color: var(--muted-ink);
@@ -103,9 +109,9 @@
 }
 .rdesk .desk-search :is(button, kbd) {
   min-width: 30px;
-  min-height: 32px;
+  min-height: var(--control-height);
   color: var(--muted-ink);
-  font: 12px/32px var(--font-mono);
+  font: var(--text-ui)/32px var(--font-mono);
   background: none;
   border: 0;
 }
@@ -114,10 +120,10 @@
   justify-content: end;
   align-items: center;
   gap: 20px;
-  font: 500 12px var(--font-ui);
+  font: 500 var(--text-meta)/var(--leading-text) var(--font-ui);
 }
 .rdesk-utilities > button {
-  min-height: 36px;
+  min-height: var(--control-height);
 }
 .desk-records-menu {
   position: relative;
@@ -144,13 +150,13 @@
 }
 .desk-layout {
   display: grid;
-  grid-template-columns: 236px minmax(0, 960px);
+  grid-template-columns: 264px minmax(0, 1040px);
   gap: 32px;
   align-items: start;
   padding-top: 28px;
 }
 .desk-layout[data-has-pages='true'] {
-  grid-template-columns: 236px minmax(0, 1.45fr) minmax(370px, 1fr);
+  grid-template-columns: 264px minmax(0, 1.45fr) minmax(390px, 1fr);
 }
 .desk-browser,
 .desk-current-page,
@@ -181,7 +187,7 @@
   align-items: baseline;
   padding: 3px 0;
   min-height: 27px;
-  font: 500 13px var(--font-ui);
+  font: 500 var(--text-ui)/var(--leading-control) var(--font-ui);
   border-bottom: 1px solid transparent;
 }
 .desk-browse-types button[aria-pressed='true'] {
@@ -189,7 +195,7 @@
   font-weight: 700;
 }
 .desk-browse-types small {
-  font: 11px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
   color: var(--muted-ink);
 }
 .desk-browse-filters {
@@ -201,15 +207,15 @@
 .desk-browse-filters label {
   display: grid;
   gap: 1px;
-  font: 11px var(--font-ui);
+  font: var(--text-meta)/var(--leading-text) var(--font-ui);
   color: var(--muted-ink);
 }
 .reference-app .rdesk .desk-browse-filters select {
   width: 100%;
   min-width: 0;
-  min-height: 32px;
+  min-height: var(--control-height);
   padding: 5px 26px 5px 0;
-  font: 12px var(--font-ui);
+  font: var(--text-ui)/var(--leading-control) var(--font-ui);
   border: 0;
   border-bottom: 1px solid var(--desk-rule);
   background-color: transparent;
@@ -229,7 +235,7 @@
   align-items: baseline;
   gap: 6px;
   margin: 0 0 5px;
-  font: 650 12px/1.5 var(--font-ui);
+  font: 650 var(--text-meta)/var(--leading-text) var(--font-ui);
   color: var(--muted-ink);
 }
 .desk-nav-history h2 button {
@@ -244,7 +250,7 @@
   padding: 3px 0;
   border: 0;
   min-height: 26px;
-  font: 450 13px/1.4 var(--font-ui);
+  font: 450 var(--text-meta)/var(--leading-text) var(--font-ui);
   text-align: left;
 }
 .rdesk .quick-reference-action:hover {
@@ -258,13 +264,13 @@
 }
 .desk-index-results h2 > button {
   margin-left: auto;
-  font-size: 12px;
+  font-size: var(--text-ui);
   text-decoration: underline;
 }
 .rdesk .reference-row {
   display: flex;
-  align-items: end;
-  gap: 8px;
+  align-items: start;
+  gap: 12px;
   border: 0;
   padding: 0;
   background: none;
@@ -304,7 +310,7 @@
 }
 .rdesk .reference-select-action strong {
   display: block;
-  font: 600 14px/1.35 var(--font-ui);
+  font: 600 var(--text-ui)/var(--leading-control) var(--font-ui);
   word-break: normal;
   overflow-wrap: break-word;
 }
@@ -313,7 +319,7 @@
   strong
   :is(.translation, .generated-translation) {
   display: block;
-  font: 450 12px/1.4 var(--font-ui);
+  font: 450 var(--text-ui)/var(--leading-control) var(--font-ui);
   color: var(--muted-ink);
   margin: 2px 0 0;
 }
@@ -322,7 +328,7 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  font: 12px/1.4 var(--font-ui);
+  font: var(--text-meta)/var(--leading-text) var(--font-ui);
   color: var(--muted-ink);
   margin: 3px 0;
 }
@@ -331,22 +337,22 @@
   align-items: baseline;
   gap: 8px;
   flex-wrap: wrap;
-  font: 11px/1.4 var(--font-mono);
+  font: var(--text-ui)/var(--leading-control) var(--font-mono);
   color: var(--muted-ink);
   margin-top: 3px;
 }
 .rdesk .reference-select-action code {
-  font: 12px/1.4 var(--font-mono);
+  font: var(--text-ui)/var(--leading-control) var(--font-mono);
   color: var(--desk-text);
   overflow-wrap: break-word;
 }
 .rdesk .reference-row-roll {
   flex: 0 0 auto;
   padding: 5px 0;
-  margin-bottom: 5px;
+  margin: 2px 0 0;
   min-width: 34px;
   min-height: 28px;
-  font: 450 12px var(--font-ui);
+  font: 450 var(--text-meta)/var(--leading-text) var(--font-ui);
   border: 0;
   background: none;
   color: var(--muted-ink);
@@ -357,16 +363,16 @@
 }
 .desk-more {
   padding: 12px 0;
-  font-size: 12px;
+  font-size: var(--text-meta);
   text-decoration: underline;
 }
 .desk-no-results {
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .reference-page {
   min-width: 0;
   color: var(--desk-text);
-  font: 450 16px/1.5 var(--font-ui);
+  font: 450 var(--text-body)/var(--leading-text) var(--font-ui);
 }
 .reference-page .reference-inspector-top {
   display: flex;
@@ -378,7 +384,7 @@
   border: 0;
 }
 .reference-page h2 {
-  font: 900 38px/1.1 var(--font-display);
+  font: 900 var(--text-title)/1.15 var(--font-display);
   letter-spacing: 0;
   color: var(--ink);
   margin: 0;
@@ -387,21 +393,29 @@
   overflow-wrap: break-word;
   text-wrap: balance;
 }
-.reference-page:is([data-reference-kind='rule'], [data-reference-kind='procedure']) h2 {
-  font: 750 30px/1.2 var(--font-ui);
+.reference-page:is(
+    [data-reference-kind='rule'],
+    [data-reference-kind='procedure']
+  )
+  h2 {
+  font: 750 var(--text-rule-title)/1.3 var(--font-ui);
   letter-spacing: -0.025em;
 }
-.reference-page:is([data-reference-kind='book'], [data-reference-kind='region']) h2 {
-  font-size: 36px;
+.reference-page:is([data-reference-kind='book'], [data-reference-kind='region'])
+  h2 {
+  font-size: var(--text-title);
 }
-.reference-page[data-reference-kind='creature'] .reference-reading section:first-child > p:first-of-type {
+.reference-page[data-reference-kind='creature']
+  .reference-reading
+  section:first-child
+  > p:first-of-type {
   font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 .reference-page h2 :is(.translation, .generated-translation) {
   display: block;
   margin-top: 5px;
-  font: 500 14px/1.4 var(--font-ui);
+  font: 500 var(--text-secondary)/var(--leading-text) var(--font-ui);
   letter-spacing: 0;
 }
 .reference-page .ref-pin,
@@ -413,7 +427,7 @@
   background: none;
   padding: 5px 3px;
   min-height: 32px;
-  font: 450 12px var(--font-ui);
+  font: 450 var(--text-meta)/var(--leading-text) var(--font-ui);
   color: var(--muted-ink);
 }
 .reference-page .ref-pin[aria-pressed='true'] {
@@ -429,19 +443,19 @@
 }
 .reference-page .reference-convenience-actions {
   order: 5;
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .reference-page .reference-convenience-actions[open] {
   position: relative;
 }
 .reference-page .reference-convenience-actions button {
   display: block;
-  font: 12px var(--font-ui);
+  font: var(--text-ui)/var(--leading-control) var(--font-ui);
   padding: 8px;
 }
 .reference-page .reference-summary {
   margin: 0 0 10px;
-  font: 450 16px/1.5 var(--font-ui);
+  font: 450 var(--text-body)/var(--leading-control) var(--font-ui);
   max-width: 72ch;
 }
 .reference-page .reference-formula {
@@ -453,16 +467,16 @@
   padding: 0;
 }
 .reference-page .reference-formula code {
-  font: 600 16px/1.4 var(--font-mono);
+  font: 600 var(--text-body)/var(--leading-text) var(--font-mono);
   overflow-wrap: anywhere;
 }
 .rdesk .reference-roll,
 .rdesk .reference-inline-dice button {
   min-width: 0;
-  min-height: 34px;
+  min-height: var(--control-height);
   padding: 5px 12px;
   margin: 0;
-  font: 650 12px var(--font-ui);
+  font: 650 var(--text-ui)/var(--leading-control) var(--font-ui);
   border: 1px solid #8f8b80;
   background: transparent;
   color: var(--ink);
@@ -487,32 +501,32 @@
   margin: 0 0 12px;
 }
 .reference-page .reference-reading p {
-  font: 450 16px/1.55 var(--font-ui);
+  font: 450 var(--text-body)/var(--leading-text) var(--font-ui);
   color: var(--desk-text);
   margin: 0 0 9px;
   max-width: 72ch;
   letter-spacing: 0;
 }
 .reference-page .reference-reading .short-answer p {
-  font: 650 22px/1.35 var(--font-ui);
+  font: 650 var(--text-result)/1.5 var(--font-ui);
   margin: 3px 0;
 }
 .reference-page .reference-result-dice,
 .reference-page .reference-reading .short-answer .reference-result-dice {
-  font: 600 15px/1.5 var(--font-mono);
+  font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
   margin: 0 0 4px;
 }
 .reference-result-dice code {
   font: inherit;
 }
 .reference-page .reference-reading h3 {
-  font: 650 18px/1.4 var(--font-ui);
+  font: 650 var(--text-body)/var(--leading-text) var(--font-ui);
   color: var(--ink);
   margin: 0 0 9px;
 }
 .reference-page .reference-reading :is(.translation, .generated-translation) {
   display: block;
-  font: 450 14px/1.5 var(--font-ui);
+  font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
   margin-top: 4px;
   color: var(--muted-ink);
 }
@@ -531,9 +545,9 @@
   padding: 0;
 }
 .reference-page .ref-copy-actions button {
-  min-height: 30px;
+  min-height: var(--control-height);
   padding: 4px 0;
-  font: 500 12px var(--font-ui);
+  font: 500 var(--text-ui)/var(--leading-control) var(--font-ui);
   background: none;
   color: var(--muted-ink);
   border: 0;
@@ -562,7 +576,7 @@
 }
 .reference-page table caption,
 .desk-open-page table caption {
-  font: 650 13px/1.4 var(--font-ui);
+  font: 650 var(--text-meta)/var(--leading-text) var(--font-ui);
   text-align: left;
   padding: 7px 0;
 }
@@ -570,12 +584,12 @@
 .reference-page table td,
 .desk-open-page table th,
 .desk-open-page table td {
-  padding: 7px 9px;
+  padding: 10px 12px;
   border: 0;
   border-bottom: 1px solid var(--desk-rule);
   vertical-align: top;
   color: var(--desk-text);
-  font: 450 16px/1.45 var(--font-ui);
+  font: 450 var(--text-body)/var(--leading-text) var(--font-ui);
 }
 .reference-page table th.table-number-selector,
 .desk-open-page table th.table-number-selector {
@@ -586,7 +600,7 @@
   padding-left: 0;
   padding-right: 16px;
   border-bottom: 0;
-  font: 600 15px/1.55 var(--font-mono);
+  font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 .table-dice-number {
@@ -600,7 +614,7 @@
 .reference-page table p,
 .desk-open-page table p {
   font: inherit;
-  line-height: 1.45;
+  line-height: var(--leading-text);
   margin: 0;
   max-width: 72ch;
   overflow-wrap: break-word;
@@ -609,7 +623,7 @@
 .reference-page table :is(.translation, .generated-translation),
 .desk-open-page table :is(.translation, .generated-translation) {
   display: block;
-  font: 450 14px/1.45 var(--font-ui);
+  font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
   margin: 3px 0 0;
   color: var(--muted-ink);
 }
@@ -635,7 +649,7 @@
 }
 .reference-page .table-use-entry {
   opacity: 0;
-  font: 11px var(--font-ui);
+  font: var(--text-meta)/var(--leading-text) var(--font-ui);
   padding: 3px 0;
   min-height: 22px;
 }
@@ -650,7 +664,7 @@
   padding: 10px 0 0;
 }
 .reference-page .reference-procedure-parts h3 {
-  font: 650 13px var(--font-ui);
+  font: 650 var(--text-meta)/var(--leading-text) var(--font-ui);
   color: var(--muted-ink);
   margin: 0 0 5px;
 }
@@ -663,15 +677,15 @@
 }
 .reference-page .reference-procedure-parts span {
   flex: 1;
-  font: 500 15px/1.4 var(--font-ui);
+  font: 500 var(--text-secondary)/var(--leading-text) var(--font-ui);
 }
 .reference-page .reference-procedure-parts code {
-  font: 12px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
   white-space: nowrap;
   margin-left: 8px;
 }
 .reference-page .reference-procedure-parts button {
-  font: 12px var(--font-ui);
+  font: var(--text-ui)/var(--leading-control) var(--font-ui);
   text-decoration: underline;
   text-underline-offset: 3px;
   white-space: nowrap;
@@ -687,9 +701,9 @@
 }
 .rdesk .source-disclosure > summary {
   padding: 6px 0;
-  min-height: 32px;
+  min-height: var(--control-height);
   color: var(--muted-ink);
-  font: 12px/1.5 var(--font-ui);
+  font: var(--text-ui)/var(--leading-control) var(--font-ui);
 }
 .rdesk .source-disclosure > summary::before {
   content: '';
@@ -714,7 +728,7 @@
   padding: 8px 0;
 }
 .reference-inline-dice output {
-  font: 650 16px var(--font-mono);
+  font: 650 var(--text-body)/var(--leading-text) var(--font-mono);
 }
 .desk-related {
   display: grid;
@@ -735,7 +749,7 @@
   break-inside: avoid;
 }
 .desk-related .reference-select-action strong {
-  font-size: 14px;
+  font-size: var(--text-ui);
 }
 .desk-side-pages {
   position: sticky;
@@ -754,8 +768,8 @@
   padding: 12px 0 20px;
   margin: 0 0 12px;
   border: 0;
-  max-height: none;
-  overflow: visible;
+  max-height: 32rem;
+  overflow: auto;
   scrollbar-width: thin;
 }
 .desk-open-page > header {
@@ -774,12 +788,12 @@
   text-align: left;
 }
 .desk-open-page > header button:last-child {
-  font: 400 18px/1 var(--font-ui);
+  font: 400 var(--text-body)/var(--leading-control) var(--font-ui);
   color: var(--muted-ink);
   min-width: 24px;
 }
 .desk-open-page > code {
-  font: 12px/1.4 var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .desk-open-page .open-page-roll {
   margin-left: 12px;
@@ -787,28 +801,28 @@
   background: none;
   text-decoration: underline;
   text-underline-offset: 3px;
-  font: 500 12px var(--font-ui);
+  font: 500 var(--text-meta)/var(--leading-text) var(--font-ui);
 }
 .desk-open-page-body {
   margin-top: 10px;
 }
 .desk-open-page-body > p {
-  font: 450 15px/1.5 var(--font-ui);
+  font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
   max-width: 68ch;
 }
 .desk-open-page table th,
 .desk-open-page table td {
-  font-size: 15px;
-  padding: 6px 7px;
+  font-size: var(--text-secondary);
+  padding: 9px 10px;
 }
 .desk-open-page table th.table-number-selector {
   width: 4rem;
-  font-size: 14px;
+  font-size: var(--text-secondary);
   padding-left: 0;
   padding-right: 12px;
 }
 .desk-open-page table :is(.translation, .generated-translation) {
-  font-size: 13px;
+  font-size: var(--text-meta);
 }
 .desk-open-page .inline-reading {
   display: flex;
@@ -834,14 +848,14 @@
   margin: 3px 0;
 }
 .desk-open-page .inline-reading-part p {
-  font: 450 15px/1.5 var(--font-ui);
+  font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
   max-width: 68ch;
 }
 .desk-open-page .inline-actions {
   flex-wrap: wrap;
 }
 .desk-open-page .inline-actions button {
-  font-size: 12px;
+  font-size: var(--text-ui);
   padding: 4px 0;
 }
 .desk-open-page .table-use-entry {
@@ -856,19 +870,19 @@
     padding: 20px 32px 40px;
   }
   .rdesk-header {
-    grid-template-columns: 280px minmax(300px, 600px) auto;
+    grid-template-columns: 320px minmax(300px, 800px) auto;
     gap: 40px;
   }
   .desk-layout {
-    grid-template-columns: 280px minmax(0, 960px);
+    grid-template-columns: 320px minmax(0, 1120px);
     gap: 40px;
   }
   .desk-layout[data-has-pages='true'] {
-    grid-template-columns: 280px minmax(650px, 960px) minmax(0, 1fr);
+    grid-template-columns: 320px minmax(720px, 1120px) minmax(0, 1fr);
   }
   .desk-open-pages {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
     align-items: start;
     gap: 0 28px;
   }
@@ -876,7 +890,7 @@
     grid-column: 1/-1;
   }
   .desk-open-page {
-    max-height: calc(100dvh - 180px);
+    max-height: min(32rem, calc(100dvh - 180px));
     overflow: auto;
   }
 }
@@ -909,28 +923,22 @@
     gap: 5px 12px;
     padding-bottom: 8px;
   }
-  .rdesk-header h1 {
-    font-size: 8px;
-  }
-  .rdesk-header h1 span {
-    font-size: 23px;
-  }
   .rdesk-header .desk-search {
     grid-column: 1/-1;
     grid-row: 2;
     min-height: 36px;
   }
   .rdesk .desk-search input {
-    min-height: 36px;
-    height: 36px;
-    font-size: 16px;
+    min-height: var(--control-height);
+    height: var(--control-height);
+    font-size: var(--text-body);
   }
   .rdesk .desk-search > svg {
     display: block;
   }
   .rdesk-utilities {
     gap: 12px;
-    font-size: 12px;
+    font-size: var(--text-meta);
   }
   .desk-layout,
   .desk-layout[data-has-pages='true'] {
@@ -952,7 +960,7 @@
     width: 100%;
     padding: 3px 0;
     min-height: 28px;
-    font: 600 12px var(--font-ui);
+    font: 600 var(--text-meta)/var(--leading-text) var(--font-ui);
   }
   .desk-browser[data-expanded='false']
     :is(.desk-browse-types, .desk-browse-filters, .desk-index-results) {
@@ -973,7 +981,7 @@
   .rdesk .desk-nav-history h2 {
     flex: 0 0 40px;
     margin: 0;
-    font-size: 11px;
+    font-size: var(--text-meta);
   }
   .desk-nav-history > div {
     flex: 1;
@@ -988,7 +996,7 @@
     max-width: 230px;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 12px;
+    font-size: var(--text-meta);
     min-height: 28px;
   }
   .desk-index-results {
@@ -1002,11 +1010,15 @@
     width: 100%;
   }
   .reference-page h2 {
-    font-size: 34px;
+    font-size: var(--text-title);
     flex-basis: 100%;
   }
-  .reference-page:is([data-reference-kind='rule'], [data-reference-kind='procedure']) h2 {
-    font-size: 28px;
+  .reference-page:is(
+      [data-reference-kind='rule'],
+      [data-reference-kind='procedure']
+    )
+    h2 {
+    font-size: var(--text-rule-title);
   }
   .reference-page .reference-inspector-top {
     gap: 5px;
@@ -1021,16 +1033,16 @@
   .reference-page table th,
   .reference-page table td {
     padding: 7px 4px;
-    font-size: 16px;
+    font-size: var(--text-body);
   }
   .reference-page table th.table-number-selector {
     width: 4rem;
-    font-size: 15px;
+    font-size: var(--text-secondary);
     padding-left: 0;
     padding-right: 12px;
   }
   .reference-page table :is(.translation, .generated-translation) {
-    font-size: 14px;
+    font-size: var(--text-secondary);
   }
   .reference-page .table-use-entry {
     opacity: 1;
@@ -1079,7 +1091,7 @@
     margin: 0;
   }
   .desk-open-page > header button {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
   .desk-open-page .reference-inline-dice {
     padding: 4px 0;
@@ -1096,11 +1108,11 @@
   padding: 0;
   border: 0;
   background: none;
-  font: 12px/1.5 var(--font-ui);
+  font: var(--text-ui)/var(--leading-control) var(--font-ui);
 }
 .reference-page .reference-formula .physical-roll-input summary {
   padding: 4px 0;
-  min-height: 28px;
+  min-height: var(--control-height);
   color: var(--muted-ink);
 }
 .reference-page .reference-formula .physical-roll-input[open] {
@@ -1124,14 +1136,163 @@
 }
 .reference-page .result-more-actions[open] > summary {
   justify-self: end;
-  min-height: 28px;
+  min-height: var(--control-height);
 }
 .reference-page .ref-copy-actions .result-more-actions > button {
   position: static;
   width: auto;
-  min-height: 34px;
+  min-height: var(--control-height);
   padding: 6px 0;
   text-align: left;
-  font-size: 13px;
+  font-size: var(--text-ui);
   background: transparent;
+}
+
+/* Shared control rhythm. Their position follows the text row, never a guessed offset. */
+.rdesk .desk-search input,
+.rdesk .desk-search,
+.reference-app .rdesk .desk-browse-filters select,
+.reference-page :is(.ref-pin, .ref-open-page, .reference-roll),
+.reference-page .reference-convenience-actions > summary,
+.reference-page .reference-formula .physical-roll-input > summary {
+  min-height: var(--control-height);
+  height: auto;
+  font-size: var(--text-ui);
+  line-height: var(--leading-control);
+}
+.rdesk-utilities,
+.rdesk-utilities > button,
+.desk-records-menu summary,
+.rdesk .quick-reference-action,
+.desk-browse-types button,
+.rdesk .reference-row-roll,
+.desk-open-page .open-page-roll,
+.reference-page .ref-copy-actions button {
+  font-size: var(--text-ui);
+  line-height: var(--leading-control);
+}
+.rdesk-utilities > button,
+.desk-records-menu > summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--control-height);
+}
+.rdesk .quick-reference-action,
+.desk-browse-types button {
+  padding-block: 0.4rem;
+}
+.rdesk .reference-select-action strong {
+  font-size: var(--text-ui);
+  line-height: 1.45;
+}
+.rdesk
+  .reference-select-action
+  strong
+  :is(.translation, .generated-translation) {
+  font-size: var(--text-ui);
+}
+.rdesk .reference-row-roll {
+  margin: 0;
+  padding: 7px 0;
+  line-height: 1.45;
+}
+.reference-page .reference-reading h3 {
+  font-size: var(--text-section);
+  line-height: 1.4;
+}
+.reference-page .reference-procedure-parts > div {
+  align-items: start;
+  padding-block: 0.75rem;
+}
+.reference-page .reference-procedure-parts :is(span, button) {
+  font-size: var(--text-ui);
+  line-height: var(--leading-text);
+}
+.reference-page table th.table-number-selector,
+.desk-open-page table th.table-number-selector {
+  width: 5.5em;
+  line-height: var(--leading-text);
+}
+.desk-open-page > header {
+  align-items: start;
+}
+.desk-open-page > header button:first-child {
+  font-size: var(--text-section);
+  line-height: 1.3;
+}
+.desk-open-page > header button:last-child {
+  min-height: 2rem;
+  min-width: 2rem;
+}
+.desk-browser,
+.desk-side-pages {
+  top: 100px;
+}
+@media (min-width: 1900px) {
+  .rdesk:has(.desk-layout[data-has-pages='false']) {
+    max-width: 1480px;
+    margin-inline: auto;
+  }
+  .rdesk-header {
+    grid-template-columns: 320px minmax(300px, 800px) 1fr;
+  }
+  .rdesk-header .desk-wordmark-name {
+    font-size: 2.75rem;
+  }
+}
+@media (max-width: 800px) {
+  .rdesk-header .desk-wordmark-name {
+    font-size: 1.75rem;
+  }
+  .rdesk-header .desk-wordmark-caption {
+    font-size: 0.75rem;
+  }
+  .rdesk-header .desk-wordmark {
+    padding-left: 0.5rem;
+  }
+  .rdesk .desk-search input {
+    font-size: 1rem;
+  }
+  .rdesk .desk-nav-history h2 {
+    flex-basis: 2.5rem;
+  }
+  .desk-nav-history .quick-reference-action {
+    min-height: 2rem;
+  }
+  .reference-page .reference-inspector-top {
+    gap: 0.375rem;
+  }
+  .reference-page .reference-formula {
+    gap: 0.75rem;
+  }
+  .reference-page table th,
+  .reference-page table td {
+    padding-block: 0.5rem;
+  }
+  .reference-page table th.table-number-selector {
+    width: 4.75em;
+    padding-right: 0.75rem;
+  }
+  .reference-page .reference-procedure-parts > div {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+  .reference-page .reference-procedure-parts code {
+    white-space: normal;
+  }
+  .desk-related {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .desk-open-page > .inline-reading {
+    display: none;
+  }
+}
+
+.rdesk :is(.desk-nav-history, .desk-index-results, .desk-open-pages) h2 small {
+  font-size: var(--text-meta);
+}
+@media (min-width: 1900px) and (max-width: 2299px) {
+  .desk-layout[data-has-pages='true'] {
+    grid-template-columns: 320px minmax(0, 1.45fr) minmax(440px, 1fr);
+  }
 }

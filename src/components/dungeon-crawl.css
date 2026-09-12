@@ -15,7 +15,7 @@
   font-size: clamp(1.5rem, 4vw, 2.3rem);
 }
 .crawl-overview > strong {
-  font-size: 1.1rem;
+  font-size: var(--text-body);
   white-space: nowrap;
 }
 .crawl-preparation {
@@ -44,7 +44,7 @@
   min-width: 0;
 }
 .crawl-preparation li > span {
-  font-size: 0.7rem;
+  font-size: var(--text-meta);
   opacity: 0.7;
 }
 .crawl-preparation li summary {
@@ -64,7 +64,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  font-size: 0.75rem;
+  font-size: var(--text-meta);
 }
 .crawl-settings select {
   padding: 0.4rem;
@@ -82,7 +82,7 @@
   flex-shrink: 0;
   border: 1px solid currentColor;
   padding: 0.4rem 0.65rem;
-  font-size: 0.75rem;
+  font-size: var(--text-ui);
 }
 .crawl-path [aria-current='step'] {
   background: var(--foreground, #ecebdd);
@@ -105,7 +105,7 @@
 .crawl-saved-entrance > summary,
 .crawl-saved-fields > summary {
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: var(--text-ui);
 }
 .crawl-preparation .room-packet {
   margin-top: 0.5rem;
@@ -116,7 +116,7 @@
   margin: 1rem 0;
 }
 .crawl-step h3 {
-  font-size: 1.2rem;
+  font-size: var(--text-body);
   margin: 0 0 0.6rem;
 }
 .crawl-step p {
@@ -143,7 +143,7 @@
 }
 .crawl-outcome > span,
 .crawl-outcome small {
-  font-size: 0.75rem;
+  font-size: var(--text-meta);
 }
 .crawl-outcome.miss {
   color: #d27080;
@@ -164,7 +164,7 @@
     align-items: flex-start;
   }
   .crawl-overview > strong {
-    font-size: 0.8rem;
+    font-size: var(--text-meta);
   }
   .crawl-outcome {
     align-items: flex-start;

@@ -20,12 +20,12 @@
 }
 .desk-search kbd {
   color: #c8c3b7;
-  font: 12px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
   white-space: nowrap;
 }
 .desk-search button {
   min-width: 44px;
-  min-height: 44px;
+  min-height: var(--control-height);
   background: transparent;
   color: inherit;
   border: 0;
@@ -55,7 +55,7 @@
   align-items: center;
   gap: 10px;
   margin: 0;
-  font: 600 11px var(--font-mono);
+  font: 600 var(--text-meta)/var(--leading-text) var(--font-mono);
   color: var(--muted-ink);
   min-width: 72px;
 }
@@ -65,7 +65,7 @@
 .desk-personal-tools h2 button {
   margin-left: auto;
   padding: 0 8px;
-  min-height: 44px;
+  min-height: var(--control-height);
   background: transparent;
   border: 0;
   color: inherit;
@@ -74,7 +74,7 @@
 }
 .desk-empty-hint {
   color: var(--muted-ink);
-  font-size: 13px;
+  font-size: var(--text-meta);
   margin: 10px 0;
 }
 .desk-pinned-actions {
@@ -95,10 +95,10 @@
   color: inherit;
   text-align: left;
   cursor: pointer;
-  font: 650 14px var(--font-ui);
+  font: 650 var(--text-secondary)/var(--leading-text) var(--font-ui);
 }
 .quick-reference-action small {
-  font: 750 10px var(--font-mono);
+  font: 750 var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .desk-pinned-actions .quick-reference-action {
   background: transparent;
@@ -110,7 +110,7 @@
   width: auto;
   padding: 4px 0;
   border: 0;
-  font: 500 13px var(--font-ui);
+  font: 500 var(--text-meta)/var(--leading-text) var(--font-ui);
 }
 .desk-play-tools {
   border-top: 1px solid var(--border);
@@ -142,7 +142,7 @@
   font-size: clamp(18px, 2vw, 24px);
   border-radius: 0;
   color: inherit;
-  min-height: 44px;
+  min-height: var(--control-height);
 }
 .desk-search button {
   flex-shrink: 0;
@@ -165,7 +165,7 @@
   min-width: 0;
 }
 .desk-columns aside h3 {
-  font: 700 13px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   border-top: 4px solid var(--ink);
   margin: 25px 0 8px;
   padding-top: 14px;
@@ -189,24 +189,24 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-  min-height: 44px;
+  min-height: var(--control-height);
 }
 .reference-row strong {
   display: block;
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.25;
   font-weight: 750;
   overflow-wrap: anywhere;
 }
 .reference-row small {
   display: block;
-  font: 11px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
   line-height: 1.4;
   color: var(--muted-ink);
   margin-top: 3px;
 }
 .reference-row b {
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   flex-shrink: 0;
 }
 .reference-row:hover {
@@ -223,7 +223,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .ref-pin[aria-pressed='true'] {
   color: var(--ink);
@@ -242,18 +242,18 @@
   margin-bottom: 4px;
 }
 .desk-regions button {
-  min-height: 44px;
+  min-height: var(--control-height);
   border: 0;
   border-bottom: 0;
   background: transparent;
   color: inherit;
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: var(--text-body);
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  font: 600 15px var(--font-reading);
+  font: 600 var(--text-ui)/var(--leading-control) var(--font-reading);
 }
 .ref-text-action,
 .recent-reference {
@@ -264,7 +264,7 @@
   cursor: pointer;
 }
 .ref-text-action {
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   padding: 8px 0;
 }
 .recent-reference {
@@ -274,7 +274,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .recent-reference svg {
   flex-shrink: 0;
@@ -286,12 +286,12 @@
 }
 .desk-index summary {
   cursor: pointer;
-  min-height: 32px;
+  min-height: var(--control-height);
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--text-ui);
 }
 .desk-index > button {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 10px;
   background: transparent;
   border: 0;
@@ -318,13 +318,13 @@
   align-items: center;
   gap: 6px;
   padding: 0 12px;
-  min-height: 44px;
+  min-height: var(--control-height);
   color: inherit;
   border: 0;
   border-right: 1px solid #6f6f60;
   background: transparent;
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--text-ui);
 }
 .reference-dock button:last-child {
   border-right: 0;
@@ -348,10 +348,10 @@
 }
 .universal-search-trigger span {
   flex: 1;
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .universal-search-trigger kbd {
-  font-size: 12px;
+  font-size: var(--text-meta);
   border: 1px solid var(--border);
   padding: 2px 5px;
 }
@@ -388,9 +388,9 @@
   overflow-wrap: anywhere;
 }
 .reference-search-dialog > input {
-  min-height: 44px;
+  min-height: var(--control-height);
   margin: 12px 0 5px;
-  font-size: 16px;
+  font-size: var(--text-body);
 }
 .reference-results {
   max-height: 60dvh;
@@ -408,7 +408,7 @@
 }
 .reference-owned small {
   display: block;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .reference-inspector-top {
   display: flex;
@@ -417,11 +417,11 @@
   padding-right: 28px;
 }
 .reference-inspector-top button {
-  min-height: 44px;
-  font-size: 12px;
+  min-height: var(--control-height);
+  font-size: var(--text-ui);
 }
 .reference-summary {
-  font-size: 15px;
+  font-size: var(--text-ui);
   line-height: 1.6;
   white-space: pre-line;
 }
@@ -429,7 +429,7 @@
   min-height: 44px;
   margin: 8px 0 12px;
   min-width: 135px;
-  font: 900 17px var(--font-mono);
+  font: 900 var(--text-body)/var(--leading-text) var(--font-mono);
   border-radius: 0;
 }
 .reference-reading {
@@ -444,13 +444,13 @@
   border-bottom: 0;
 }
 .reference-reading small {
-  font: 12px var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
   color: var(--muted-ink);
   overflow-wrap: anywhere;
 }
 .reference-reading h3 {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--text-meta);
   line-height: 1.1;
   margin: 0 0 5px;
   overflow-wrap: anywhere;
@@ -458,7 +458,7 @@
 }
 .reference-reading p {
   margin: 6px 0 0;
-  font-size: 17px;
+  font-size: var(--text-body);
   line-height: 1.55;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -471,8 +471,8 @@
   background: transparent;
 }
 .ref-copy-actions button {
-  font-size: 12px;
-  min-height: 44px;
+  font-size: var(--text-ui);
+  min-height: var(--control-height);
 }
 .ref-controls {
   display: flex;
@@ -486,23 +486,23 @@
   gap: 7px;
   flex: 1 1 120px;
   min-width: 0;
-  font-size: 12px;
+  font-size: var(--text-meta);
   font-weight: 650;
 }
 .ref-controls select,
 .ref-controls input {
   width: 100%;
   min-width: 0;
-  min-height: 44px;
-  height: 44px;
-  font-size: 14px;
+  min-height: var(--control-height);
+  height: var(--control-height);
+  font-size: var(--text-ui);
 }
 .ref-check {
   display: flex;
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  font-size: 14px;
+  font-size: var(--text-secondary);
 }
 .ref-check input {
   width: 18px;
@@ -518,17 +518,17 @@
 }
 .ref-related > small {
   width: 100%;
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .ref-related button {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 8px 0;
   background: transparent;
   color: inherit;
   border: 0;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--text-ui);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -538,10 +538,10 @@
   border-top: 1px solid var(--ink);
 }
 .reference-hub-list summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 12px 0;
   cursor: pointer;
-  font: 700 14px var(--font-mono);
+  font: 700 var(--text-ui)/var(--leading-control) var(--font-mono);
 }
 .reference-hub-list summary b {
   margin-left: 8px;
@@ -555,7 +555,7 @@
   border-bottom: 1px solid var(--ink);
 }
 .context-references small {
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   color: var(--muted-ink);
 }
 .context-references button,
@@ -564,8 +564,8 @@
   border: 0;
   border-bottom: 1px solid currentColor;
   color: inherit;
-  min-height: 44px;
-  font-size: 13px;
+  min-height: var(--control-height);
+  font-size: var(--text-ui);
   padding: 5px 0;
   cursor: pointer;
 }
@@ -582,7 +582,7 @@
 .optional-record-nav summary {
   padding: 12px 18px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--text-ui);
   color: #b9b9ac;
 }
 .optional-record-nav .nav-group-label {
@@ -632,7 +632,7 @@
     margin: 0;
   }
   .desk-heading p {
-    font-size: 14px;
+    font-size: var(--text-secondary);
     max-width: 260px;
   }
   .desk-search {
@@ -644,7 +644,7 @@
     display: none;
   }
   .desk-search input {
-    font-size: 14px;
+    font-size: var(--text-ui);
     padding: 8px;
   }
   .desk-search button {
@@ -655,16 +655,16 @@
     font-size: 23px;
   }
   .reference-row strong {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   .reference-row small {
-    font-size: 12px;
+    font-size: var(--text-meta);
   }
   .desk-regions {
     gap: 5px 14px;
   }
   .desk-regions button {
-    font-size: 18px;
+    font-size: var(--text-body);
   }
   .desk-book-list {
     grid-template-columns: 1fr;
@@ -673,7 +673,7 @@
     width: auto;
   }
   .universal-search-trigger span {
-    font-size: 12px;
+    font-size: var(--text-meta);
   }
   .universal-search-trigger kbd {
     display: none;
@@ -692,10 +692,10 @@
     padding: 0 10px;
   }
   .reference-reading h3 {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   .reference-reading p {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
   .ref-controls label {
     flex-basis: 100px;
@@ -711,7 +711,7 @@
 .reference-static-table table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 16px;
+  font-size: var(--text-body);
 }
 .reference-static-table caption {
   text-align: left;
@@ -746,7 +746,7 @@
 }
 .copy-feedback {
   display: block;
-  font-size: 13px;
+  font-size: var(--text-meta);
   font-weight: 700;
   padding: 8px 0;
 }
@@ -788,7 +788,7 @@
   align-self: center;
   min-height: 44px;
   padding: 8px 10px;
-  font: 800 11px var(--font-mono);
+  font: 800 var(--text-meta)/var(--leading-text) var(--font-mono);
   background: var(--ink);
   color: var(--acid);
   border: 0;
@@ -818,8 +818,8 @@
   border: 0;
   background: transparent;
   color: var(--muted-ink);
-  font: 600 11px var(--font-mono);
-  min-height: 44px;
+  font: 600 var(--text-ui)/var(--leading-control) var(--font-mono);
+  min-height: var(--control-height);
   padding: 8px;
   cursor: pointer;
 }
@@ -835,10 +835,10 @@
   white-space: nowrap;
   background: transparent;
   color: var(--ink);
-  min-height: 44px;
+  min-height: var(--control-height);
 }
 .reference-reading .short-answer h3 {
-  font: 700 12px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   color: var(--muted-ink);
 }
 .reference-reading .short-answer p {
@@ -846,11 +846,11 @@
   letter-spacing: -0.035em;
 }
 .reference-rule-reading p {
-  font-size: 17px;
+  font-size: var(--text-body);
   line-height: 1.55;
 }
 .reference-inspector .generated-translation {
-  font-size: 14px;
+  font-size: var(--text-secondary);
   line-height: 1.55;
   letter-spacing: normal;
   color: #514b3f;
@@ -861,7 +861,7 @@
 .reference-inspector h4 > .generated-translation,
 .reference-rule-group .generated-translation,
 .reference-table-section summary .generated-translation {
-  font-size: 13px;
+  font-size: var(--text-ui);
 }
 .reference-inspector .rare-card-strip span {
   line-height: 1.5;
@@ -870,7 +870,7 @@
 }
 .source-role {
   display: block;
-  font: 700 11px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   margin-bottom: 6px;
 }
 .source-reference[data-confidence='conflicting-citation'] {
@@ -882,9 +882,9 @@
   border-bottom: 2px solid var(--ink);
 }
 .reference-recent-rolls summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 10px 0;
-  font-size: 13px;
+  font-size: var(--text-ui);
   cursor: pointer;
 }
 .reference-recent-rolls button {
@@ -892,7 +892,7 @@
   width: 100%;
   text-align: left;
   padding: 10px 0;
-  min-height: 44px;
+  min-height: var(--control-height);
   background: transparent;
   color: inherit;
   border: 0;
@@ -901,11 +901,11 @@
 }
 .reference-recent-rolls strong {
   display: block;
-  font-size: 13px;
+  font-size: var(--text-meta);
 }
 .reference-recent-rolls span {
   display: block;
-  font-size: 14px;
+  font-size: var(--text-secondary);
   margin-top: 5px;
   overflow-wrap: anywhere;
 }
@@ -918,16 +918,16 @@
 }
 .region-quick-tools small {
   width: 100%;
-  font: 700 11px var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .region-quick-tools button {
-  min-height: 44px;
+  min-height: var(--control-height);
   border: 0;
   border-bottom: 1px solid var(--ink);
   background: transparent;
   color: inherit;
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--text-ui);
 }
 @media (max-width: 600px) {
   .reference-inner-tray {
@@ -936,11 +936,11 @@
     gap: 0;
   }
   .reference-inner-tray button {
-    min-height: 44px;
+    min-height: var(--control-height);
     padding: 6px;
   }
   .reference-primary-action {
-    font-size: 10px;
+    font-size: var(--text-meta);
     padding: 7px;
   }
   .reference-row {
@@ -953,7 +953,7 @@
     min-width: 44px;
   }
   .reference-rule-reading p {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
 }
 
@@ -967,7 +967,7 @@
 }
 .source-full-titles {
   margin-top: 10px;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .source-full-titles > summary {
   cursor: pointer;
@@ -987,7 +987,7 @@
 }
 .reference-static-table > summary {
   cursor: pointer;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 0.7rem 0;
 }
 .reference-static-table .current-table-result {
@@ -1000,15 +1000,15 @@
 }
 .ref-related-disclosure > summary,
 .reading-more > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   cursor: pointer;
   padding: 0.75rem 0;
-  font-size: 0.8rem;
+  font-size: var(--text-ui);
   letter-spacing: 0.08em;
 }
 .ref-related-disclosure button {
   margin: 0.25rem 0.4rem 0.25rem 0;
-  min-height: 44px;
+  min-height: var(--control-height);
 }
 .reading-more > p {
   margin-top: 0.5rem;
@@ -1017,10 +1017,10 @@
   border-bottom: 0;
 }
 .context-reference-disclosure > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 12px 0;
   cursor: pointer;
-  font: 600 11px var(--font-mono);
+  font: 600 var(--text-ui)/var(--leading-control) var(--font-mono);
   color: var(--muted-ink);
 }
 .context-reference-disclosure .context-references {
@@ -1037,7 +1037,7 @@
   color: var(--muted-ink);
   border: 0;
   cursor: pointer;
-  font-size: 19px;
+  font-size: var(--text-body);
 }
 .reference-action-label {
   padding: 8px 0 8px 10px;
@@ -1055,11 +1055,11 @@
   display: none;
 }
 .reference-options > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 12px;
+  font-size: var(--text-ui);
 }
 .reference-options > summary::before {
   content: '+ ';
@@ -1077,7 +1077,7 @@
   align-items: center;
   justify-content: center;
   list-style: none;
-  min-height: 44px;
+  min-height: var(--control-height);
   width: 44px;
   cursor: pointer;
   font-size: 24px;
@@ -1090,11 +1090,11 @@
   z-index: 4;
   right: 0;
   width: 185px;
-  min-height: 44px;
+  min-height: var(--control-height);
   background: var(--paper);
   border: 1px solid var(--ink);
   color: var(--ink);
-  font: 700 11px var(--font-mono);
+  font: 700 var(--text-ui)/var(--leading-control) var(--font-mono);
   cursor: pointer;
 }
 .reference-reading .result-reroll {
@@ -1118,7 +1118,7 @@
   border-top: 1px solid var(--border);
   margin-top: 12px;
   padding-top: 10px;
-  font: 12px/1.6 var(--font-mono);
+  font: var(--text-meta)/var(--leading-text) var(--font-mono);
 }
 .reference-roll-trace h4 {
   margin: 0 0 6px;
@@ -1155,7 +1155,7 @@
     gap: 8px;
   }
   .desk-heading > .eyebrow {
-    font-size: 9px;
+    font-size: var(--text-meta);
   }
   .desk-personal-tools {
     margin-bottom: 18px;
@@ -1168,10 +1168,10 @@
     gap: 8px;
   }
   .desk-search input {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
   .desk-regions button {
-    font-size: 18px;
+    font-size: var(--text-body);
   }
   .reference-inspector,
   .reference-search-dialog {
@@ -1179,7 +1179,7 @@
     max-height: calc(100dvh - 24px);
   }
   .reference-reading p {
-    font-size: 17px;
+    font-size: var(--text-body);
   }
   .reference-reading .short-answer p {
     font-size: 32px;
@@ -1260,7 +1260,7 @@
 }
 .table-entry-detail {
   margin-top: 0.3rem;
-  font-size: 0.9rem;
+  font-size: var(--text-secondary);
   font-weight: 400;
 }
 .table-entry-detail > summary {
@@ -1274,13 +1274,13 @@
   white-space: pre-line;
 }
 .table-use-entry {
-  font-size: 0.75rem;
+  font-size: var(--text-meta);
   min-height: 36px;
   margin-top: 0.15rem;
 }
 .table-use-context,
 .city-move-guidance {
-  font-size: 0.95rem;
+  font-size: var(--text-secondary);
   line-height: 1.5;
   max-width: 70ch;
 }
@@ -1300,7 +1300,7 @@
   justify-content: space-between;
   gap: 0.75rem;
   text-align: left;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 0.65rem 0.2rem;
   border: 0;
   border-bottom: 1px solid var(--line, #555);
@@ -1326,37 +1326,37 @@
 }
 .rare-card-strip small,
 .rare-card-strip span {
-  font-size: 0.75rem;
+  font-size: var(--text-meta);
 }
 .rare-card-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
-  font-size: 0.8rem;
+  font-size: var(--text-meta);
 }
 .rare-card-controls button,
 .rare-look-choice button {
   background: transparent;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 0.5rem;
 }
 .rare-look-choice summary,
 .reading-participants summary {
   cursor: pointer;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 0.7rem 0;
 }
 .depths-controls {
   align-items: start;
 }
 .depths-controls p {
-  font-size: 0.85rem;
+  font-size: var(--text-meta);
   max-width: 28rem;
 }
 .reference-procedure-rule > summary {
   cursor: pointer;
-  min-height: 44px;
+  min-height: var(--control-height);
   padding-block: 0.7rem;
 }
 .reference-procedure-rule p {
@@ -1376,10 +1376,10 @@
   > .generated-translation {
   display: block;
   margin: 8px 0 0;
-  font: 400 14px/1.6 var(--font-ui);
+  font: 400 var(--text-secondary)/var(--leading-text) var(--font-ui);
 }
 .rare-monster-reading > section:not(:first-of-type) h3 {
-  font: 700 11px/1.3 var(--font-mono);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
   letter-spacing: 0.06em;
 }
 .rare-monster-reading > section p {
@@ -1417,7 +1417,7 @@
 .reference-inspector:has(.short-answer, .rare-monster-reading)
   .reference-inspector-top
   h2 {
-  font: 600 15px/1.3 var(--font-mono);
+  font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
 }
 .reference-reading section + section {
   border-top: 1px solid var(--border);
@@ -1428,11 +1428,11 @@
 .reference-reading h3 > .generated-translation {
   display: inline;
   margin-left: 0.6em;
-  font: 400 12px/1.5 var(--font-ui);
+  font: 400 var(--text-meta)/var(--leading-text) var(--font-ui);
 }
 .reference-static-table .generated-translation {
   margin-top: 3px;
-  font-size: 13px;
+  font-size: var(--text-meta);
 }
 .reference-inspector > .ref-text-action {
   display: inline-flex;
@@ -1442,10 +1442,10 @@
   width: fit-content;
 }
 .rare-card-details > summary {
-  min-height: 44px;
+  min-height: var(--control-height);
   padding: 12px 0;
   cursor: pointer;
-  font: 600 12px var(--font-ui);
+  font: 600 var(--text-ui)/var(--leading-control) var(--font-ui);
 }
 .reference-procedure-rule,
 .rare-card-details {
@@ -1460,6 +1460,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .desk-search input {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
 }

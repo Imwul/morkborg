@@ -2030,8 +2030,9 @@ export function ReferenceDesk({
   return (
     <section className="reference-desk rdesk" aria-label="Reference Desk">
       <header className="rdesk-header">
-        <h1>
-          <span>MÖRK BORG</span> REFERENCE DESK
+        <h1 className="desk-wordmark">
+          <span className="desk-wordmark-name">MÖRK BORG</span>
+          <span className="desk-wordmark-caption">REFERENCE DESK</span>
         </h1>
         <form
           className="desk-search"

@@ -12,7 +12,7 @@
 .reference-shelves button {
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--line, #555);
-  font-size: 0.9rem;
+  font-size: var(--text-ui);
 }
 .reference-shelves button[aria-pressed='true'] {
   background: var(--acid, #f1ff00);
@@ -31,7 +31,7 @@
 }
 .reference-shelf-heading p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: var(--text-secondary);
   opacity: 0.75;
 }
 .reference-dice {
@@ -53,16 +53,16 @@
   align-self: center;
 }
 .dice-heading strong {
-  font-size: 1rem;
+  font-size: var(--text-body);
 }
 .dice-heading code {
-  font-size: 1rem;
+  font-size: var(--text-body);
 }
 .dice-settings label,
 .road-situation-test label {
   display: grid;
   gap: 0.4rem;
-  font-size: 0.875rem;
+  font-size: var(--text-secondary);
 }
 .dice-settings input,
 .dice-settings > button {
@@ -99,7 +99,7 @@
   height: 2.65rem;
 }
 .die-choice span {
-  font-size: 0.875rem;
+  font-size: var(--text-secondary);
   line-height: 1.2;
   font-weight: 600;
 }
@@ -118,7 +118,7 @@
 .reference-dice output {
   display: block;
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: var(--text-body);
   overflow-wrap: anywhere;
 }
 .reference-dice output:empty {
@@ -157,23 +157,23 @@
   gap: 0.5rem;
 }
 .reference-card-kind {
-  font-size: 0.75rem;
+  font-size: var(--text-meta);
   letter-spacing: 0.05em;
   opacity: 0.7;
 }
 .freeform-reference-card h3 {
-  font-size: 1.12rem;
+  font-size: var(--text-body);
   line-height: 1.5;
   margin: 0.65rem 0 1rem;
 }
 .freeform-reference-card h3 small {
   display: block;
-  font-size: 0.875rem;
+  font-size: var(--text-secondary);
   font-weight: normal;
   opacity: 0.75;
 }
 .freeform-reference-card p {
-  font-size: 1rem;
+  font-size: var(--text-body);
   line-height: 1.65;
   white-space: pre-line;
 }
@@ -190,7 +190,7 @@
 }
 .reference-pin {
   margin-left: auto;
-  font-size: 0.875rem;
+  font-size: var(--text-secondary);
   padding: 0.5rem;
 }
 .road-situation-test {
@@ -257,7 +257,7 @@
   margin-top: 0.8rem;
 }
 .reference-recipe-parts button {
-  font-size: 0.875rem;
+  font-size: var(--text-ui);
   text-decoration: underline;
 }
 
@@ -266,10 +266,10 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0.7rem 0;
-  font-size: 0.95rem;
+  font-size: var(--text-secondary);
 }
 .reference-result-dice {
-  font-size: 0.9rem;
+  font-size: var(--text-secondary);
   margin: 0.5rem 0;
 }
 .reference-recipe input[type='number'] {
@@ -315,5 +315,5 @@
 .reference-procedure-parts button {
   padding: 0.4rem;
   text-decoration: underline;
-  font-size: 0.875rem;
+  font-size: var(--text-ui);
 }

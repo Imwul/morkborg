@@ -14,11 +14,11 @@
 }
 .city-workspace-heading p {
   margin: 0;
-  font-size: 0.84rem;
+  font-size: var(--text-meta);
   opacity: 0.75;
 }
 .city-workspace-heading small {
-  font-size: 0.65rem;
+  font-size: var(--text-meta);
   letter-spacing: 0.1em;
 }
 .city-crawl-sheet {
@@ -32,7 +32,7 @@
   padding: 0.8rem 1rem;
 }
 .city-crawl-sheet > header small {
-  font-size: 0.65rem;
+  font-size: var(--text-meta);
   letter-spacing: 0.12em;
 }
 .city-crawl-sheet h3 {
@@ -57,7 +57,7 @@
   display: grid;
   gap: 0.35rem;
   min-width: 0;
-  font-size: 0.72rem;
+  font-size: var(--text-meta);
 }
 .city-crawl-controls > label:first-child {
   flex: 1 1 13rem;
@@ -84,12 +84,12 @@
   padding-top: 0.55rem;
 }
 .city-crawl-options > summary {
-  font-size: 0.72rem;
+  font-size: var(--text-ui);
   cursor: pointer;
 }
 .city-crawl-options p,
 .city-crawl-instruction {
-  font-size: 0.8rem;
+  font-size: var(--text-meta);
   line-height: 1.65;
 }
 .city-crawl-options .ref-check {
@@ -101,7 +101,7 @@
   border-top: 2px solid currentColor;
 }
 .city-crawl-next p {
-  font-size: 0.83rem;
+  font-size: var(--text-meta);
 }
 .city-crawl-next button {
   max-width: 100%;
@@ -120,11 +120,11 @@
 }
 .city-crawl-move > span {
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: var(--text-meta);
 }
 .city-crawl-move > small,
 .city-crawl-move summary {
-  font-size: 0.7rem;
+  font-size: var(--text-ui);
 }
 .city-crawl-move summary {
   margin-top: 0.45rem;
@@ -144,10 +144,10 @@
   cursor: pointer;
 }
 .city-support-moves > summary strong {
-  font-size: 0.85rem;
+  font-size: var(--text-ui);
 }
 .city-support-moves > summary small {
-  font-size: 0.63rem;
+  font-size: var(--text-ui);
   opacity: 0.7;
 }
 .city-support-moves > .city-roller {
@@ -156,7 +156,7 @@
 .city-crawl-error {
   border-left: 0.25rem solid #ee1873;
   padding: 0.6rem 0.8rem;
-  font-size: 0.85rem;
+  font-size: var(--text-meta);
 }
 @media (max-width: 540px) {
   .city-crawl-sheet {

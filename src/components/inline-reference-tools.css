@@ -20,10 +20,10 @@
 .inline-tools > summary small {
   margin-left: auto;
   opacity: 0.65;
-  font-size: 0.65rem;
+  font-size: var(--text-ui);
 }
 .inline-tools-note {
-  font-size: 0.8rem;
+  font-size: var(--text-meta);
   opacity: 0.8;
   margin: 0.6rem 0;
 }

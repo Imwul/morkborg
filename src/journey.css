@@ -15,13 +15,13 @@
 .journey-heading label {
   display: grid;
   gap: 4px;
-  font-size: 12px;
+  font-size: var(--text-meta);
 }
 .journey-route {
   margin: 0 0 8px;
   padding-bottom: 12px;
   border-bottom: 2px solid currentColor;
-  font-size: 13px;
+  font-size: var(--text-meta);
 }
 .journey-block {
   border: 1px solid var(--border, #626150);
@@ -65,7 +65,7 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   overflow-wrap: anywhere;
-  font-size: 12px;
+  font-size: var(--text-ui);
   font-weight: 400;
   line-height: 1.5;
   color: var(--muted-foreground, #b4b4a3);
@@ -79,12 +79,12 @@
   flex-shrink: 0;
 }
 .journey-number {
-  font-size: 12px;
+  font-size: var(--text-meta);
   font-weight: 700;
 }
 .journey-status {
   margin-left: auto;
-  font-size: 11px;
+  font-size: var(--text-meta);
   white-space: nowrap;
 }
 .journey-block-body {
@@ -139,7 +139,7 @@
 }
 .journey-alternatives > summary {
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--text-ui);
 }
 .journey-finish {
   padding: 20px;
