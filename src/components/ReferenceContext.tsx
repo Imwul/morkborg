@@ -48,6 +48,7 @@ export interface DeskContext {
   entries: ReferenceEntry[];
   byId: Record<string, ReferenceEntry>;
   activate: (id: string, roll?: boolean, region?: RegionId) => void;
+  dismiss?: () => void;
   openSearch: (query?: string, scope?: 'all' | 'pinned' | 'recent') => void;
   search: (query: string, limit?: number) => ReferenceEntry[];
   openTable?: (id: string) => void;

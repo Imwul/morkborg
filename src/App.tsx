@@ -1043,6 +1043,8 @@ export default function App() {
                   <Sources campaign={c} notify={notify} />
                 ) : (
                   <ReferenceDesk
+                    initialPage={deskPage === 'home' ? 'home' : 'reference'}
+                    onGenerator={(section) => navigate(section, homeCampaign)}
                     initialShelf={
                       cityOpen
                         ? 'city'

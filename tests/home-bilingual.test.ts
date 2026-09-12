@@ -155,3 +155,22 @@ test('Desk search precedes the real type index and keeps pin/history navigation 
     /reference-card-grid|reference-dock|desk-play-tools/,
   );
 });
+
+test('Home exposes real generator destinations without running a generator or requiring a session', () => {
+  let calls = 0;
+  const html = renderToStaticMarkup(
+    createElement(ReferenceDesk, {
+      initialPage: 'home',
+      onGenerator: () => calls++,
+    }),
+  );
+  assert.match(html, /aria-label="주요 페이지"/);
+  assert.match(html, /aria-current="page">홈<\/button>/);
+  for (const title of ['캐릭터', '몬스터', '던전'])
+    assert.ok(html.includes(`<strong>${title}</strong>`), title);
+  assert.equal(calls, 0);
+  assert.doesNotMatch(
+    html,
+    /세션 시작|이전 단계|<button[^>]*\sdisabled(?:=|\s|>)/,
+  );
+});

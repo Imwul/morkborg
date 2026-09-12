@@ -82,7 +82,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import type { AppSave, Campaign, RegionId, Workspace } from '../domain/types';
+import type {
+  AppSave,
+  Campaign,
+  RegionId,
+  Workspace,
+  Section,
+} from '../domain/types';
 import type { OracleResult } from '../domain/oracle';
 import {
   buildReferenceRegistry,
@@ -121,6 +127,7 @@ import { ReferenceReadingText } from './ReferenceReadingText';
 import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
+import { DeskLanding } from './DeskLanding';
 
 const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
@@ -889,7 +896,7 @@ export function ReferenceProvider({
       {reading && !!reading.blocks.some((b) => b.text) && (
         <article
           key={`${selected.id}:${session.sequence}`}
-          className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
+          className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
           aria-label="참조 결과"
         >
           {reading.title !== selected.title &&
@@ -1478,6 +1485,11 @@ export function ReferenceProvider({
       value={{
         selectedId: selected?.id,
         content: referenceContent,
+        dismiss: () => {
+          setSelectedId(null);
+          setSearchOpen(false);
+          convenience.setPanel(null);
+        },
         query,
         setQuery,
         scope,
@@ -1953,13 +1965,28 @@ export function ContextReferences({
 export function ReferenceDesk({
   homeIndex,
   initialShelf = 'quick',
+  initialPage = 'reference',
+  onGenerator,
 }: {
   onLibrary?: () => void;
   homeIndex?: ReactNode;
   initialShelf?: ReferenceShelf;
+  initialPage?: 'home' | 'reference';
+  onGenerator?: (section: Section) => void;
 }) {
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
+  const [page, setPage] = useState<'home' | 'reference' | 'generators'>(
+    initialPage,
+  );
+  useNavigationChannel('desk-surface', page, setPage, {
+    normalize: (value) =>
+      value === 'home' || value === 'generators' ? value : 'reference',
+  });
+  const openReference = (entryId: string, roll = false, region?: RegionId) => {
+    setPage('reference');
+    desk?.activate(entryId, roll, region);
+  };
   const query = desk?.query ?? '';
   useEffect(() => {
     if (window.matchMedia('(min-width: 801px)').matches)
@@ -2003,6 +2030,7 @@ export function ReferenceDesk({
     setLimit(24);
   };
   function search(value: string) {
+    if (value) setPage('reference');
     setBrowserOpen(!!value);
     desk?.setQuery?.(value);
     desk?.setScope?.('all');
@@ -2028,240 +2056,292 @@ export function ReferenceDesk({
     ...new Map([...dynamic, ...related].map((e) => [e.id, e])).values(),
   ];
   return (
-    <section className="reference-desk rdesk" aria-label="Reference Desk">
-      <header className="rdesk-header">
-        <h1 className="desk-wordmark">
-          <span className="desk-wordmark-name">MÖRK BORG</span>
-          <span className="desk-wordmark-caption">REFERENCE DESK</span>
-        </h1>
-        <form
-          className="desk-search"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setBrowserOpen(false);
-            if (found[0]) desk?.activate(found[0].id);
-          }}
-        >
-          <Search size={19} />
-          <Input
-            id="desk-primary-search"
-            aria-label="참조 검색"
-            placeholder="참조 검색…"
-            value={query}
-            onChange={(e) => search(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                (
-                  document.querySelector(
-                    '.desk-index-results .reference-select-action',
-                  ) as HTMLButtonElement | null
-                )?.focus();
-              }
-            }}
-          />
-          {query ? (
+    <ReferenceContext.Provider
+      value={desk ? { ...desk, activate: openReference } : null}
+    >
+      <section className="reference-desk rdesk" aria-label="Reference Desk">
+        <header className="rdesk-header">
+          <h1 className="desk-wordmark">
             <button
-              type="button"
-              aria-label="검색 지우기"
-              onClick={() => search('')}
+              aria-label="Reference Desk 홈"
+              onClick={() => {
+                setPage('home');
+                search('');
+                setBrowserOpen(false);
+              }}
             >
-              ×
+              <span className="desk-wordmark-name">MÖRK BORG</span>
+              <span className="desk-wordmark-caption">REFERENCE DESK</span>
             </button>
-          ) : (
-            <kbd>⌘ K</kbd>
-          )}
-        </form>
-        <div className="rdesk-utilities">
-          <button
-            aria-expanded={diceOpen}
-            onClick={() => setDiceOpen(!diceOpen)}
+          </h1>
+          <form
+            className="desk-search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setBrowserOpen(false);
+              if (found[0]) openReference(found[0].id);
+            }}
           >
-            주사위
-          </button>
-          {homeIndex}
-        </div>
-      </header>
-      {source.loading && <output>룰북 자료를 불러오는 중…</output>}
-      {source.error && (
-        <div role="alert">
-          <p>{source.error}</p>
-          <PrivateDataTools />
-        </div>
-      )}
-      {diceOpen && <ReferenceDice />}
-      <div className="desk-layout" data-has-pages={!!desk?.trayIds?.length}>
-        <aside
-          className="desk-browser"
-          aria-label="참조 탐색"
-          data-expanded={browserOpen}
-        >
-          <button
-            className="desk-browse-toggle"
-            aria-expanded={browserOpen}
-            onClick={() => setBrowserOpen(!browserOpen)}
-          >
-            색인 · {index.entries.length}{' '}
-            <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
-          </button>
-          <nav className="desk-browse-types" aria-label="참조 종류">
-            {REFERENCE_TYPES.map(([id, label]) => (
+            <Search size={19} />
+            <Input
+              id="desk-primary-search"
+              aria-label="참조 검색"
+              placeholder="참조 검색…"
+              value={query}
+              onChange={(e) => search(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowDown') {
+                  e.preventDefault();
+                  (
+                    document.querySelector(
+                      '.desk-index-results .reference-select-action',
+                    ) as HTMLButtonElement | null
+                  )?.focus();
+                }
+              }}
+            />
+            {query ? (
               <button
-                key={id}
-                aria-pressed={kind === id && desk?.scope === 'all'}
+                type="button"
+                aria-label="검색 지우기"
+                onClick={() => search('')}
+              >
+                ×
+              </button>
+            ) : (
+              <kbd>⌘ K</kbd>
+            )}
+          </form>
+          <div className="rdesk-utilities">
+            <button
+              aria-expanded={diceOpen}
+              onClick={() => setDiceOpen(!diceOpen)}
+            >
+              주사위
+            </button>
+            {homeIndex}
+          </div>
+          <nav className="desk-primary-nav" aria-label="주요 페이지">
+            {(
+              [
+                ['home', '홈'],
+                ['reference', '참조'],
+                ['generators', '생성기'],
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                aria-current={page === value ? 'page' : undefined}
                 onClick={() => {
-                  setKind(id);
-                  setLimit(24);
-                  desk?.setScope?.('all');
+                  setPage(value);
+                  if (value !== 'reference') {
+                    search('');
+                    setBrowserOpen(false);
+                  }
                 }}
               >
                 {label}
-                <small>{count(id)}</small>
               </button>
             ))}
           </nav>
-          <div className="desk-browse-filters">
-            <label>
-              출처
-              <select
-                aria-label="출처로 좁히기"
-                value={book}
-                onChange={(e) => {
-                  setBook(e.target.value);
-                  setLimit(24);
-                }}
-              >
-                <option value="">모든 책</option>
-                {books.map((e) => (
-                  <option key={e.id} value={e.id.slice(5)}>
-                    {referenceShortName(e)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              관련 상황
-              <select
-                aria-label="관련 상황 바로가기"
-                value={context}
-                onChange={(e) => {
-                  setContext(e.target.value);
-                  setLimit(24);
-                }}
-              >
-                <option value="">모든 상황</option>
-                {REFERENCE_CONTEXTS.map(([id, label]) => (
-                  <option key={id} value={id}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
+        </header>
+        {source.loading && <output>룰북 자료를 불러오는 중…</output>}
+        {source.error && (
+          <div role="alert">
+            <p>{source.error}</p>
+            <PrivateDataTools />
           </div>
-          <section className="desk-nav-history" aria-label="고정한 참조">
-            <h2>
-              <button
-                onClick={() => {
-                  setBrowserOpen(true);
-                  desk?.setScope?.('pinned');
-                  desk?.setQuery?.('');
-                  resetFilters();
-                }}
-              >
-                고정 <small>{desk?.pinnedIds.length ?? 0}</small>
-              </button>
-            </h2>
-            <div>
-              {entries(desk?.pinnedIds ?? []).map((e) => (
-                <QuickReferenceButton key={e.id} entry={e} />
-              ))}
-            </div>
-          </section>
-          <section className="desk-nav-history" aria-label="최근 참조">
-            <h2>
-              <button
-                onClick={() => {
-                  setBrowserOpen(true);
-                  desk?.setScope?.('recent');
-                  desk?.setQuery?.('');
-                  resetFilters();
-                }}
-              >
-                최근
-              </button>
-            </h2>
-            <div>
-              {entries(desk?.recentIds ?? [])
-                .slice(0, 6)
-                .map((e) => (
-                  <QuickReferenceButton key={e.id} entry={e} />
-                ))}
-            </div>
-          </section>
-          <section className="desk-index-results" aria-label="검색 결과">
-            <h2>
-              {query
-                ? '검색 결과'
-                : desk?.scope === 'pinned'
-                  ? '고정한 참조'
-                  : desk?.scope === 'recent'
-                    ? '최근 참조'
-                    : '색인'}{' '}
-              <small>{found.length}</small>
-              {(kind !== 'all' || book || context || desk?.scope !== 'all') && (
+        )}
+        {diceOpen && <ReferenceDice />}
+        <div className="desk-layout" data-has-pages={!!desk?.trayIds?.length}>
+          <aside
+            className="desk-browser"
+            aria-label="참조 탐색"
+            data-expanded={browserOpen}
+          >
+            <button
+              className="desk-browse-toggle"
+              aria-expanded={browserOpen}
+              onClick={() => setBrowserOpen(!browserOpen)}
+            >
+              색인 · {index.entries.length}{' '}
+              <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
+            </button>
+            <nav className="desk-browse-types" aria-label="참조 종류">
+              {REFERENCE_TYPES.map(([id, label]) => (
                 <button
+                  key={id}
+                  aria-pressed={kind === id && desk?.scope === 'all'}
                   onClick={() => {
-                    resetFilters();
+                    setPage('reference');
+                    setKind(id);
+                    setLimit(24);
                     desk?.setScope?.('all');
                   }}
                 >
-                  전체 보기
+                  {label}
+                  <small>{count(id)}</small>
                 </button>
-              )}
-            </h2>
-            {found.slice(0, limit).map((e) => (
-              <ReferenceRow key={e.id} entry={e} />
-            ))}
-            {!found.length && (
-              <p className="desk-no-results">
-                일치하는 참조가 없습니다. 짧은 단어나 책 이름으로 찾아보세요.
-              </p>
-            )}
-            {found.length > limit && (
-              <button
-                className="desk-more"
-                onClick={() => setLimit(limit + 40)}
-              >
-                더 보기 · {found.length - limit}개
-              </button>
-            )}
-          </section>
-        </aside>
-        <div className="desk-current-page">
-          {desk?.content ?? <p>색인에서 페이지를 펼치세요.</p>}
-          {!!relatedItems.length && (
-            <section className="desk-related" aria-label="관련 참조">
-              <h2>관련 참조</h2>
-              {relatedItems.map((e) => (
+              ))}
+            </nav>
+            <div className="desk-browse-filters">
+              <label>
+                출처
+                <select
+                  aria-label="출처로 좁히기"
+                  value={book}
+                  onChange={(e) => {
+                    setBook(e.target.value);
+                    setLimit(24);
+                  }}
+                >
+                  <option value="">모든 책</option>
+                  {books.map((e) => (
+                    <option key={e.id} value={e.id.slice(5)}>
+                      {referenceShortName(e)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                관련 상황
+                <select
+                  aria-label="관련 상황 바로가기"
+                  value={context}
+                  onChange={(e) => {
+                    setContext(e.target.value);
+                    setLimit(24);
+                  }}
+                >
+                  <option value="">모든 상황</option>
+                  {REFERENCE_CONTEXTS.map(([id, label]) => (
+                    <option key={id} value={id}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <section className="desk-nav-history" aria-label="고정한 참조">
+              <h2>
+                <button
+                  onClick={() => {
+                    setPage('reference');
+                    setBrowserOpen(true);
+                    desk?.setScope?.('pinned');
+                    desk?.setQuery?.('');
+                    resetFilters();
+                  }}
+                >
+                  고정 <small>{desk?.pinnedIds.length ?? 0}</small>
+                </button>
+              </h2>
+              <div>
+                {entries(desk?.pinnedIds ?? []).map((e) => (
+                  <QuickReferenceButton key={e.id} entry={e} />
+                ))}
+              </div>
+            </section>
+            <section className="desk-nav-history" aria-label="최근 참조">
+              <h2>
+                <button
+                  onClick={() => {
+                    setPage('reference');
+                    setBrowserOpen(true);
+                    desk?.setScope?.('recent');
+                    desk?.setQuery?.('');
+                    resetFilters();
+                  }}
+                >
+                  최근
+                </button>
+              </h2>
+              <div>
+                {entries(desk?.recentIds ?? [])
+                  .slice(0, 6)
+                  .map((e) => (
+                    <QuickReferenceButton key={e.id} entry={e} />
+                  ))}
+              </div>
+            </section>
+            <section className="desk-index-results" aria-label="검색 결과">
+              <h2>
+                {query
+                  ? '검색 결과'
+                  : desk?.scope === 'pinned'
+                    ? '고정한 참조'
+                    : desk?.scope === 'recent'
+                      ? '최근 참조'
+                      : '색인'}{' '}
+                <small>{found.length}</small>
+                {(kind !== 'all' ||
+                  book ||
+                  context ||
+                  desk?.scope !== 'all') && (
+                  <button
+                    onClick={() => {
+                      resetFilters();
+                      desk?.setScope?.('all');
+                    }}
+                  >
+                    전체 보기
+                  </button>
+                )}
+              </h2>
+              {found.slice(0, limit).map((e) => (
                 <ReferenceRow key={e.id} entry={e} />
               ))}
-            </section>
-          )}
-        </div>
-        {!!desk?.trayIds?.length && (
-          <aside className="desk-side-pages" aria-label="펼친 페이지">
-            <section className="desk-open-pages" aria-label="작업대">
-              <h2>
-                펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
-              </h2>
-              {entries(desk.trayIds).map((e) => (
-                <OpenReferencePage key={e.id} entry={e} />
-              ))}
+              {!found.length && (
+                <p className="desk-no-results">
+                  일치하는 참조가 없습니다. 짧은 단어나 책 이름으로 찾아보세요.
+                </p>
+              )}
+              {found.length > limit && (
+                <button
+                  className="desk-more"
+                  onClick={() => setLimit(limit + 40)}
+                >
+                  더 보기 · {found.length - limit}개
+                </button>
+              )}
             </section>
           </aside>
-        )}
-      </div>
-    </section>
+          <div className="desk-current-page">
+            {page !== 'reference' ? (
+              <DeskLanding
+                generators={page === 'generators'}
+                onGenerator={onGenerator}
+                onGenerators={() => setPage('generators')}
+              />
+            ) : (
+              <>
+                {desk?.content ?? <p>색인에서 페이지를 펼치세요.</p>}
+                {!!relatedItems.length && (
+                  <section className="desk-related" aria-label="관련 참조">
+                    <h2>관련 참조</h2>
+                    {relatedItems.map((e) => (
+                      <ReferenceRow key={e.id} entry={e} />
+                    ))}
+                  </section>
+                )}
+              </>
+            )}
+          </div>
+          {!!desk?.trayIds?.length && (
+            <aside className="desk-side-pages" aria-label="펼친 페이지">
+              <section className="desk-open-pages" aria-label="작업대">
+                <h2>
+                  펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
+                </h2>
+                {entries(desk.trayIds).map((e) => (
+                  <OpenReferencePage key={e.id} entry={e} />
+                ))}
+              </section>
+            </aside>
+          )}
+        </div>
+      </section>
+    </ReferenceContext.Provider>
   );
 }
 

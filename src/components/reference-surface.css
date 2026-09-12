@@ -25,6 +25,9 @@
   padding: 16px 24px 40px;
 }
 .rdesk.reference-desk {
+  --desk-result: #85382b;
+  --desk-result-wash: #f2e4d7;
+  --desk-selected: #f6ecc3;
   --desk-rule: #d8d5cc;
   --desk-text: #24231f;
   max-width: none;
@@ -72,6 +75,93 @@
 .rdesk-header .desk-wordmark-caption {
   font: 550 var(--text-meta)/1.25 var(--font-mono);
   letter-spacing: 0.035em;
+}
+.desk-wordmark > button {
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+  color: inherit;
+}
+.rdesk-header {
+  row-gap: 8px;
+}
+.desk-primary-nav {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+.desk-primary-nav button {
+  min-height: var(--control-height);
+  padding: 6px 20px;
+  border-bottom: 3px solid transparent;
+  font: 650 var(--text-ui)/var(--leading-control) var(--font-ui);
+}
+.desk-primary-nav button[aria-current='page'] {
+  background: var(--desk-selected);
+  border-color: var(--ink);
+}
+.desk-primary-nav button:hover {
+  background: var(--desk-selected);
+}
+.desk-landing > header {
+  margin-bottom: 24px;
+}
+.desk-landing h2 {
+  font: 850 var(--text-title)/1.2 var(--font-display);
+  margin: 0 0 8px;
+}
+.desk-landing > header p {
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: var(--text-secondary);
+}
+.desk-landing > section {
+  margin: 0 0 28px;
+}
+.desk-landing h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--desk-rule);
+  font: 650 var(--text-section)/1.4 var(--font-ui);
+}
+.desk-landing h3 button {
+  font: 500 var(--text-ui)/var(--leading-text) var(--font-ui);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.desk-shortcut-list,
+.desk-generator-records {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+}
+.desk-generator-records {
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 16px;
+}
+.desk-landing :is(.desk-shortcut-list, .desk-generator-records) > button {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.6fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  min-width: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--desk-rule);
+  text-align: left;
+}
+.desk-landing button strong {
+  font: 650 var(--text-body)/1.4 var(--font-ui);
+}
+.desk-landing button span {
+  font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
+  color: var(--muted-ink);
+}
+.desk-landing button:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .rdesk .desk-search {
   display: flex;
@@ -524,6 +614,32 @@
   color: var(--ink);
   margin: 0 0 9px;
 }
+/* Labels identify the source field; the warm rule and ink identify its answer. */
+.reference-page .reference-generated-reading > section {
+  border: 0;
+  border-left: 3px solid var(--desk-result, #85382b);
+  padding: 4px 0 8px 18px;
+  margin: 18px 0;
+}
+.reference-page .reference-generated-reading > section h3 {
+  color: var(--muted-ink);
+  font: 550 var(--text-secondary)/var(--leading-text) var(--font-ui);
+  margin: 4px 0 8px;
+}
+.reference-page
+  .reference-generated-reading
+  .short-answer
+  > p:not(.reference-result-dice) {
+  color: var(--desk-result, #85382b);
+  font-weight: 750;
+}
+.reference-page .reference-generated-reading .reference-result-dice code {
+  display: inline-block;
+  background: var(--desk-result-wash, #f2e4d7);
+  color: #51261e;
+  padding: 2px 8px;
+  font-weight: 650;
+}
 .reference-page .reference-reading :is(.translation, .generated-translation) {
   display: block;
   font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
@@ -629,7 +745,7 @@
 }
 .rdesk tr.current-table-result {
   border-left: 0;
-  background: none;
+  background: var(--desk-selected);
   box-shadow: none;
 }
 .rdesk tr.current-table-result .table-dice-number {
@@ -1226,7 +1342,14 @@
 }
 .desk-browser,
 .desk-side-pages {
-  top: 100px;
+  top: 150px;
+}
+.desk-browser {
+  max-height: calc(100dvh - 170px);
+}
+.rdesk .reference-row:has([aria-current='page']) {
+  background: var(--desk-selected);
+  box-shadow: -4px 0 var(--ink);
 }
 @media (min-width: 1900px) {
   .rdesk:has(.desk-layout[data-has-pages='false']) {
@@ -1241,6 +1364,23 @@
   }
 }
 @media (max-width: 800px) {
+  .desk-primary-nav {
+    gap: 4px;
+  }
+  .desk-primary-nav button {
+    flex: 1;
+    padding-inline: 8px;
+  }
+  .desk-shortcut-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .desk-landing :is(.desk-shortcut-list, .desk-generator-records) > button {
+    grid-template-columns: minmax(5rem, 0.6fr) minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .desk-browser {
+    max-height: none;
+  }
   .rdesk-header .desk-wordmark-name {
     font-size: 1.75rem;
   }

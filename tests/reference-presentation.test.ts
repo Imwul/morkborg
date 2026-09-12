@@ -15,6 +15,10 @@ import {
 } from '../src/domain/referencePresentation.ts';
 import { ReferenceDice } from '../src/components/ReferenceDice.tsx';
 import { ReferenceTable } from '../src/components/ReferenceTable.tsx';
+import {
+  DESK_REFERENCE_SHORTCUTS,
+  DESK_GENERATOR_SHORTCUTS,
+} from '../src/components/DeskLanding.tsx';
 const fixture = JSON.parse(
   readFileSync(
     process.env.MORKBORG_PRIVATE_AUDIT_FIXTURE ??
@@ -26,6 +30,15 @@ setRules(fixture.library);
 setOraclePack(fixture.oracles);
 const registry = buildOracleRegistry(getRules()!, getOraclePack());
 const index = buildReferenceRegistry(registry, getRules()!);
+test('home and generator shortcuts resolve to existing canonical references', () => {
+  for (const [id] of [
+    ...DESK_REFERENCE_SHORTCUTS,
+    ...DESK_GENERATOR_SHORTCUTS,
+  ]) {
+    assert.ok(index.byId[id], `Missing shortcut target: ${id}`);
+    assert.ok(index.byId[id].available, `Unavailable shortcut target: ${id}`);
+  }
+});
 test('compact table presentation retains every source row, accessible title and selected physical result', () => {
   for (const dice of ['d6', 'd20', 'd66']) {
     const table = registry.tables.find(
