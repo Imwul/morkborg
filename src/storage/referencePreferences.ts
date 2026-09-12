@@ -1,4 +1,5 @@
 import { readOraclePreferences } from './oraclePreferences';
+import { isScenarioReference } from '../data/scenarioExclusions';
 
 export const REFERENCE_PREFERENCES_KEY = 'morkborg-reference-desk:v1';
 export interface ReferencePreferences {
@@ -13,7 +14,10 @@ const ids = (value: unknown, limit: number): string[] =>
         ...new Set(
           value.filter(
             (id): id is string =>
-              typeof id === 'string' && id.length > 0 && id.length < 250,
+              typeof id === 'string' &&
+              id.length > 0 &&
+              id.length < 250 &&
+              !isScenarioReference(id),
           ),
         ),
       ].slice(0, limit)

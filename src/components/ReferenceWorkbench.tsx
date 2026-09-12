@@ -1,3 +1,18 @@
+import {
+  ReferenceDice,
+  RoadSituationRoller,
+  DungeonReferenceRoller,
+} from './ReferenceDice';
+import { DungeonActionMoves } from './DungeonActionMoves';
+import { ReferenceReadingBlock } from './InlineReferenceTools';
+import {
+  browseReferences,
+  REFERENCE_TYPES,
+  REFERENCE_CONTEXTS,
+  referenceEntryFormula,
+  referenceEntryDescription,
+} from '../domain/referencePresentation';
+import { type ReferenceShelf } from '../domain/freeformReference';
 import { usePlayMemory } from './usePlayMemory';
 import {
   contextLabel,
@@ -111,15 +126,16 @@ const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
 export function ReferenceProvider({
   save,
+  inline = false,
   playContext,
   onContextReturn,
   children,
   campaign,
   onCampaignOpen,
-  onCity,
   notify,
 }: {
   save: AppSave;
+  inline?: boolean;
   playContext: PlayContext | null;
   onContextReturn: (context: PlayContext) => void;
   children: ReactNode;
@@ -148,7 +164,9 @@ export function ReferenceProvider({
     onContextReturn(context);
   }
   const [prefs, setPrefs] = useState(readReferencePreferences);
-  const [selectedId, setSelectedId] = useState<string | null>(null),
+  const [selectedId, setSelectedId] = useState<string | null>(
+      inline ? 'oracle:core.reaction' : null,
+    ),
     [trail, setTrail] = useState<string[]>([]);
   const [tableView, setTableView] = useState(false);
   const lastReferenceId = useRef<string | null>(null);
@@ -180,7 +198,27 @@ export function ReferenceProvider({
     inspectorRef.current?.scrollTo({ top: restoreScroll.current ?? 0 });
     restoreScroll.current = null;
   }, [selectedId]);
-  const selected = selectedId ? index.byId[selectedId] : null;
+  const selected =
+    index.byId[selectedId ?? (inline ? 'oracle:core.reaction' : '')] ?? null;
+  const procedureParts =
+    selected && ['procedure', 'rule'].includes(selected.kind)
+      ? [
+          ...new Set([
+            ...(oracles.registry.procedures.find(
+              (p) =>
+                p.id ===
+                (selected.action?.kind === 'procedure'
+                  ? selected.action.procedureId
+                  : ''),
+            )?.oracleIds ?? []),
+            ...selected.canonicalIds,
+          ]),
+        ].flatMap((id) => {
+          const table = oracles.registry.tables.find((t) => t.id === id);
+          const entry = index.byId[`oracle:${id}`];
+          return table && entry ? [{ table, entry }] : [];
+        })
+      : [];
   const hubRegion =
     selected?.action?.kind === 'region' ? selected.action.region : undefined;
   const reading: ReferenceReading | undefined =
@@ -413,9 +451,9 @@ export function ReferenceProvider({
         suppressRollShortcut(event.target)
       )
         return;
-      if (convenience.temporary.lastRoll) {
+      if (selected && referenceProducesRoll(selected)) {
         event.preventDefault();
-        convenience.rerollLast();
+        perform(selected);
       }
     };
     window.addEventListener('keydown', key);
@@ -431,13 +469,6 @@ export function ReferenceProvider({
     if (!entry) return;
     convenience.setPanel(null);
     entryId = entry.id;
-    if (entry.action?.kind === 'city' && !entry.action.move && onCity) {
-      touchEntry(entryId);
-      setSearchOpen(false);
-      setSelectedId(null);
-      onCity();
-      return;
-    }
     if (contextRegion) setRegion(contextRegion);
     if (
       entry.action?.kind === 'region' ||
@@ -454,7 +485,11 @@ export function ReferenceProvider({
       setTrail((t) => [...t, previous].slice(-20));
     lastReferenceId.current = entryId;
     setSelectedId(entryId);
-    setTableView(entry.defaultView === 'table');
+    if (inline && window.matchMedia('(max-width: 800px)').matches)
+      window.scrollTo({ top: 0 });
+    setTableView(
+      !roll && (entry.kind === 'oracle' || entry.defaultView === 'table'),
+    );
     setSearchOpen(false);
     setFailure('');
     setCopyFallback(null);
@@ -467,14 +502,20 @@ export function ReferenceProvider({
     convenience.setPanel(null);
     setQuery(value);
     setScope(nextScope);
-    setSearchOpen(true);
+    if (inline) {
+      setSearchOpen(false);
+      requestAnimationFrame(() =>
+        document.getElementById('desk-primary-search')?.focus(),
+      );
+    } else setSearchOpen(true);
   }
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         convenience.setPanel(null);
-        setSearchOpen((open) => !open);
+        if (inline) openSearch(query);
+        else setSearchOpen((open) => !open);
         setScope('all');
       }
     };
@@ -541,9 +582,923 @@ export function ReferenceProvider({
       setCopyFallback(text);
     }
   }
+  const referenceContent = selected ? (
+    <section
+      className="reference-page"
+      aria-label="현재 참조"
+      data-reference-id={selected.id}
+      data-reference-kind={selected.kind}
+      ref={inspectorRef}
+    >
+      <div className="reference-inspector-top">
+        <details className="reference-convenience-actions">
+          <summary aria-label="참조 편의 동작">⋯</summary>
+          <button
+            onClick={() => {
+              if (reading) convenience.sendReading(reading);
+              else convenience.scratch(selected.title);
+            }}
+          >
+            SEND TO SCRATCH · 스크랩에 추가
+          </button>
+        </details>
+        <h2 id="current-reference-title">
+          {referenceShortName(selected)}
+          <Translation
+            text={selected.title}
+            translation={selected.titleTranslationKo}
+          />
+        </h2>
+        <button
+          className="ref-pin"
+          aria-label={
+            prefs.pinnedIds.includes(selected.id) ? '고정 해제' : '참조 고정'
+          }
+          aria-pressed={prefs.pinnedIds.includes(selected.id)}
+          onClick={() => savePrefs(toggleReferencePin(prefs, selected.id))}
+        >
+          <Pin size={16} />
+          {prefs.pinnedIds.includes(selected.id) ? 'PINNED' : 'PIN'}
+        </button>
+        <button
+          className="ref-open-page"
+          aria-pressed={convenience.temporary.tray.includes(selected.id)}
+          onClick={() =>
+            convenience.temporary.tray.includes(selected.id)
+              ? convenience.updateTemporary((p) => ({
+                  ...p,
+                  tray: p.tray.filter((id) => id !== selected.id),
+                }))
+              : convenience.addTray(selected.id)
+          }
+        >
+          {convenience.temporary.tray.includes(selected.id)
+            ? '작업대에서 접기'
+            : '작업대에 펼치기'}
+        </button>
+      </div>
+      <p className="sr-only">
+        {selected.kind.toUpperCase()} ·{' '}
+        {regions.find((r) => r.id === region)?.name} ·{' '}
+        {selected.canonicalIds.length
+          ? `${selected.canonicalIds.length}개 연결 표`
+          : '빠른 참조'}
+      </p>
+      {!plainRule &&
+        selected.kind !== 'creature' &&
+        !/^\d*d\d+\s*·/.test(referenceEntryDescription(selected)) && (
+          <p className="reference-summary">
+            {referenceEntryDescription(selected)}
+          </p>
+        )}
+      {referenceEntryFormula(selected, oracles.registry) && (
+        <div className="reference-formula">
+          <span className="sr-only">굴림 공식</span>
+          <code>{referenceEntryFormula(selected, oracles.registry)}</code>
+          {selected.kind === 'oracle' && roller && !reading && (
+            <Button
+              className="reference-roll"
+              disabled={!selected.available}
+              onClick={() => perform(selected)}
+            >
+              <Dices size={16} /> ROLL
+            </Button>
+          )}
+          {selected.kind === 'oracle' && (
+            <PhysicalRollInput
+              key={`manual:${selected.id}`}
+              entry={selected}
+              registry={oracles.registry}
+              tools={convenience}
+            />
+          )}
+        </div>
+      )}
+      {selected.action?.kind === 'region' &&
+        index.byId[`rule:regional-monsters:${selected.action.region}`] && (
+          <ReferenceRow
+            showMetadata={false}
+            entry={
+              index.byId[`rule:regional-monsters:${selected.action.region}`]
+            }
+          />
+        )}
+      {selected.action?.kind === 'region' && (
+        <div className="region-quick-tools">
+          <small>QUICK TOOLS · {selected.title}</small>
+          {[
+            'procedure:workbench.stock-room',
+            'rule:sd.stockCommon',
+            'rule:feretory.roads',
+            'procedure:workbench.npc',
+          ]
+            .map((key) => index.byId[key])
+            .filter(Boolean)
+            .map((entry) => (
+              <button
+                key={entry.id}
+                onClick={() => activate(entry.id, false, hubRegion)}
+              >
+                {referenceShortName(entry)} ↗
+              </button>
+            ))}
+        </div>
+      )}
+      {city && !(selected.action?.kind === 'city' && selected.action.move) && (
+        <div className="ref-related city-start-tools">
+          {[
+            'procedure:aitc.street',
+            'procedure:aitc.settlement',
+            'oracle:aitc.npc-encounters',
+            'oracle:aitc.businesses',
+          ]
+            .map((key) => index.byId[key])
+            .filter(Boolean)
+            .map((entry) => (
+              <button
+                key={entry.id}
+                title={entry.title}
+                onClick={() => activate(entry.id)}
+              >
+                {referenceShortName(entry)} ↗
+              </button>
+            ))}
+        </div>
+      )}
+      {!selected.available && (
+        <output>이 참조에 필요한 원문 자료가 준비되지 않았습니다.</output>
+      )}
+      {selected.referenceGroupIds && (
+        <nav className="reference-rule-group" aria-label="참조 묶음">
+          {selected.referenceGroupIds
+            .map((key) => index.byId[key])
+            .filter(Boolean)
+            .map((entry) => (
+              <button key={entry.id} onClick={() => activate(entry.id)}>
+                <span>
+                  {entry.title}
+                  <Translation
+                    text={entry.title}
+                    translation={entry.titleTranslationKo}
+                  />
+                </span>{' '}
+                <span>›</span>
+              </button>
+            ))}
+        </nav>
+      )}
+      {selected.id === 'rule:sd.leaving-road' && <RoadSituationRoller />}
+      {procedureId === 'depths.encounter-level' && (
+        <div className="ref-controls depths-controls">
+          <label>
+            Depths region · 지역
+            <select
+              value={encounterRegion}
+              onChange={(e) => setEncounterRegion(e.target.value)}
+            >
+              {encounterRegions(oracles.registry).map((r) => (
+                <option key={r.key} value={r.key}>
+                  {r.name} · EL {r.level}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p>
+            Unmarked region: choose the closest, or randomly choose one of the
+            two closest.
+            <Translation text="Unmarked region: choose the closest, or randomly choose one of the two closest." />
+          </p>
+        </div>
+      )}
+      <details
+        className="reference-options"
+        open={!reading || undefined}
+        hidden={
+          ![
+            'workbench.npc',
+            'workbench.epk',
+            'workbench.stock-room',
+            'aitc.street',
+          ].includes(procedureId)
+        }
+      >
+        <summary>굴림 설정</summary>
+        {['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
+          procedureId,
+        ) && (
+          <div className="ref-controls">
+            <label>
+              지역
+              <select
+                value={region}
+                onChange={(e) => setRegion(e.target.value as RegionId)}
+              >
+                {regions.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {procedureId === 'workbench.stock-room' && (
+              <>
+                <label>
+                  절차
+                  <select
+                    value={stockKind}
+                    onChange={(e) =>
+                      setStockKind(e.target.value as typeof stockKind)
+                    }
+                  >
+                    <option value="common">Common · 지역 / SD d12</option>
+                    <option value="rare">Rare · SD d8 + DR</option>
+                    <option value="room">Room · RECLVSE</option>
+                  </select>
+                </label>
+                <label>
+                  Dungeon DR
+                  <Input
+                    type="number"
+                    min={1}
+                    max={30}
+                    value={stockDR}
+                    onChange={(e) =>
+                      setStockDR(
+                        Math.max(1, Math.trunc(Number(e.target.value)) || 1),
+                      )
+                    }
+                  />
+                </label>
+              </>
+            )}
+          </div>
+        )}
+        {procedureId === 'aitc.street' && (
+          <div className="ref-controls">
+            <label>
+              정착지 규모
+              <select
+                value={cityLarge ? 'large' : 'small'}
+                onChange={(e) => setCityLarge(e.target.value === 'large')}
+              >
+                <option value="small">Town 이하 · 내용 1회</option>
+                <option value="large">City / Metropolis · 내용 d2회</option>
+              </select>
+            </label>
+            <label className="ref-check">
+              <input
+                type="checkbox"
+                checked={cityExits}
+                onChange={(e) => setCityExits(e.target.checked)}
+              />{' '}
+              출구도 굴리기
+            </label>
+          </div>
+        )}
+      </details>
+      {city && (
+        <CityRoller
+          key={selected.id}
+          registry={oracles.registry}
+          initialMove={
+            selected.action?.kind === 'city' ? selected.action.move : undefined
+          }
+          allowedMoves={
+            selected.action?.kind === 'city' && selected.action.move
+              ? [selected.action.move]
+              : undefined
+          }
+          onReading={(value) => acceptReading(selected.id, value)}
+        />
+      )}
+      {roller && !reading && selected.kind !== 'oracle' && (
+        <Button
+          className="reference-roll"
+          disabled={!selected.available}
+          onClick={() => perform(selected)}
+        >
+          <Dices size={20} />
+          {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
+        </Button>
+      )}
+      {failure && (
+        <p role="alert" className="error">
+          {failure}
+        </p>
+      )}
+      {reading && !!reading.blocks.some((b) => b.text) && (
+        <article
+          key={`${selected.id}:${session.sequence}`}
+          className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
+          aria-label="참조 결과"
+        >
+          {reading.title !== selected.title &&
+            !reading.blocks.some((block) => block.title === reading.title) && (
+              <h3 className="reading-identity">
+                {reading.title}
+                <Translation text={reading.title} />
+              </h3>
+            )}
+          {reading.blocks.map((block, n) => (
+            <section
+              key={n}
+              className={
+                block.kind === 'creature'
+                  ? 'creature-answer'
+                  : !plainRule &&
+                      !reading.rareMonster &&
+                      block.text.length < 160 &&
+                      !block.text.includes('\n')
+                    ? 'short-answer'
+                    : ''
+              }
+            >
+              {block.dice && (
+                <p className="reference-result-dice">
+                  <code>{block.dice}</code>
+                </p>
+              )}
+              {block.title &&
+                !(
+                  selected.kind === 'creature' &&
+                  selected.title.startsWith(block.title)
+                ) &&
+                !(
+                  reading.blocks.length === 1 &&
+                  [selected.title, referenceShortName(selected)].includes(
+                    block.title,
+                  )
+                ) && (
+                  <h3>
+                    <ReferenceLinkedText
+                      text={block.title}
+                      excludeId={selected.id}
+                    />
+                    <Translation
+                      text={block.title}
+                      translation={
+                        block.translation?.titleKo ??
+                        (reading.rareMonster
+                          ? (
+                              {
+                                INTENTION: '의도',
+                                SPECIAL: '특수 능력',
+                              } as Record<string, string>
+                            )[block.title]
+                          : procedureId === 'depths.encounter-level' &&
+                              block.title === 'NEXT'
+                            ? '다음 절차'
+                            : undefined)
+                      }
+                    />
+                  </h3>
+                )}
+              {block.definitionReferenceId &&
+              index.byId[block.definitionReferenceId] ? (
+                <button
+                  className="reference-inline-link"
+                  onClick={() => activate(block.definitionReferenceId!)}
+                >
+                  {index.byId[block.definitionReferenceId].title} ›
+                </button>
+              ) : block.kind === 'creature' &&
+                block.text.split('\n').length > 2 ? (
+                <>
+                  <ReferenceReadingText
+                    text={block.text.split('\n').slice(0, 2).join('\n')}
+                    translation={block.translation?.ko
+                      ?.split('\n')
+                      .slice(0, 2)
+                      .join('\n')}
+                    excludeId={selected.id}
+                    splitLines
+                  />
+                  <div className="reading-more">
+                    <ReferenceReadingText
+                      text={block.text.split('\n').slice(2).join('\n')}
+                      translation={block.translation?.ko
+                        ?.split('\n')
+                        .slice(2)
+                        .join('\n')}
+                      excludeId={selected.id}
+                      splitLines
+                    />
+                  </div>
+                </>
+              ) : (
+                <ReferenceReadingText
+                  text={block.text}
+                  translation={block.translation?.ko}
+                  excludeId={selected.id}
+                  splitLines={!!reading.rareMonster}
+                />
+              )}
+            </section>
+          ))}
+          {reading.valuationReferenceId &&
+            index.byId[reading.valuationReferenceId] && (
+              <button
+                className="ref-text-action"
+                onClick={() => activate(reading.valuationReferenceId!, true)}
+              >
+                매각가 ›
+              </button>
+            )}
+          {!!reading.childReferenceIds?.length && (
+            <details className="reading-participants">
+              <summary>변종 · 참가자</summary>
+              <div className="reference-rule-group">
+                {reading.childReferenceIds
+                  .map((key) => index.byId[key])
+                  .filter(Boolean)
+                  .map((entry) => (
+                    <button
+                      key={entry.id}
+                      onClick={() => activate(entry.id, true)}
+                    >
+                      {entry.title} ›
+                      <Translation
+                        text={entry.title}
+                        translation={entry.titleTranslationKo}
+                      />
+                    </button>
+                  ))}
+              </div>
+            </details>
+          )}
+          {reading.rareMonster && (
+            <details className="rare-look-choice">
+              <summary>Look이 던전과 맞지 않을 때</summary>
+              <button
+                onClick={() => {
+                  try {
+                    acceptReading(
+                      selected.id,
+                      nextRareLook(reading, oracles.registry),
+                      false,
+                    );
+                  } catch (e) {
+                    setFailure((e as Error).message);
+                  }
+                }}
+              >
+                원문의 다음 Look 선택
+              </button>
+            </details>
+          )}
+          {procedureId === 'depths.encounter-level' && (
+            <ReferenceNextSteps ids={reading.relatedIds} />
+          )}
+          <ReferenceNextSteps ids={selected.definition?.nextReferenceIds} />
+          {reading.oracle?.rolls
+            .filter((roll) =>
+              Array.isArray(roll.metadata?.followUpReferenceIds),
+            )
+            .map((roll, n) => (
+              <ReferenceNextSteps key={n} metadata={roll.metadata} />
+            ))}
+          {roller && (
+            <PartialRollControls
+              entry={selected}
+              reading={reading}
+              registry={oracles.registry}
+              tools={convenience}
+              onReroll={(key) => perform(selected, region, key)}
+            />
+          )}
+          <div className="ref-copy-actions">
+            {roller && (
+              <Button
+                variant="ghost"
+                onClick={() => perform(selected)}
+                className="result-reroll"
+              >
+                <Dices size={16} />{' '}
+                {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
+              </Button>
+            )}
+            <Button variant="ghost" onClick={() => copyReading()}>
+              <Copy size={14} /> COPY
+            </Button>
+            <details className="result-more-actions">
+              <summary aria-label="결과 추가 동작">⋯</summary>
+              <button onClick={() => copyReading(true)}>
+                COPY WITH SOURCE
+              </button>
+              <button onClick={() => convenience.sendReading(reading)}>
+                SEND TO SCRATCH · 스크랩에 추가
+              </button>
+              <button onClick={() => convenience.sendReading(reading, true)}>
+                출처와 스크랩에 추가
+              </button>
+            </details>
+          </div>
+        </article>
+      )}
+      {procedureId === 'depths.rare-monster' && (
+        <details className="rare-card-details">
+          <summary>
+            카드 {reading?.rareMonster?.cards.length ?? 0} · 기록
+          </summary>
+          <div className="rare-card-controls">
+            <span>
+              {rareDeck
+                ? `${rareDeck.length} cards left · 남은 카드 ${rareDeck.length}장`
+                : 'New 52-card deck · 새 덱 52장'}
+            </span>
+            <button
+              onClick={() => {
+                setRareDeck(undefined);
+                convenience.updateTemporary((p) => ({
+                  ...p,
+                  lastRoll:
+                    p.lastRoll?.id === selected.id
+                      ? {
+                          ...p.lastRoll,
+                          parameters: {
+                            ...p.lastRoll.parameters,
+                            rareDeck: undefined,
+                          },
+                        }
+                      : p.lastRoll,
+                }));
+                setFailure('');
+              }}
+            >
+              SHUFFLE · 새 던전
+            </button>
+          </div>
+          {reading?.rareMonster && (
+            <ol className="rare-card-strip" aria-label="Rare monster cards">
+              {reading.rareMonster.cards.map((card, n) => (
+                <li key={n}>
+                  <small>CARD {n + 1}</small>
+                  <strong>{cardIdentity(card)}</strong>
+                  <span>
+                    {
+                      [
+                        'Look · 외형',
+                        'Feature · 특징',
+                        'HP / Armor · 방어구',
+                        'Morale · 사기',
+                        'Attack · 공격',
+                        'Special · 특수',
+                      ][n]
+                    }
+                  </span>
+                </li>
+              ))}
+            </ol>
+          )}
+        </details>
+      )}
+      {procedureId.startsWith('depths.') && selected.definition && (
+        <details className="reference-procedure-rule" open>
+          <summary>절차</summary>
+          {selected.definition.blocks.map((block, n) => (
+            <section key={n}>
+              <h4>
+                {block.title}
+                <Translation
+                  text={block.title}
+                  translation={block.translation?.titleKo}
+                />
+              </h4>
+              <ReferenceReadingText
+                text={block.text}
+                translation={block.translation?.ko}
+                excludeId={selected.id}
+              />
+            </section>
+          ))}
+        </details>
+      )}
+      {selected.kind === 'oracle' && (
+        <div className="reference-static-table">
+          {[...new Set(selected.canonicalIds)]
+            .flatMap((key) =>
+              oracles.registry.tables.filter((table) => table.id === key),
+            )
+            .map((table) => (
+              <ReferenceTable
+                key={table.id}
+                table={table}
+                hideCaption={selected.canonicalIds.length === 1}
+                currentEntryIds={
+                  reading?.oracle?.rolls.map((roll) => roll.entryId) ?? []
+                }
+                onChoose={(table, entry) => {
+                  acceptReading(
+                    selected.id,
+                    selectReferenceReading(table, entry, oracles.registry),
+                    false,
+                  );
+                  setTableView(false);
+                }}
+              />
+            ))}
+        </div>
+      )}
+      {procedureParts.length > 0 && (
+        <section
+          className="reference-procedure-parts"
+          aria-label="절차의 독립 구성 표"
+        >
+          <h3>함께 쓰는 표</h3>
+          {procedureParts.map(({ table, entry }) => (
+            <div key={table.id}>
+              <span>
+                {table.title} <code>{table.originalDice ?? table.dice}</code>
+              </span>
+              <button onClick={() => activate(entry.id)}>표 보기</button>
+              <button onClick={() => activate(entry.id, true)}>굴리기</button>
+            </div>
+          ))}
+        </section>
+      )}
+      {selected.id === 'rule:core.reaction-morale' && (
+        <ReferenceDice
+          key={selected.id}
+          initialCount={2}
+          initialSides={6}
+          compact
+        />
+      )}
+      {selected.id === 'rule:sd.dungeonCrawling' && <DungeonReferenceRoller />}
+      {selected.id === 'rule:sd.camping-move' && (
+        <DungeonActionMoves threatRating={12} registry={oracles.registry} />
+      )}
+      {copied && <output className="copy-feedback">{copied}</output>}
+      {copyFallback != null && (
+        <label>
+          복사할 결과
+          <Textarea
+            readOnly
+            value={copyFallback}
+            onFocus={(e) => e.target.select()}
+          />
+        </label>
+      )}
+      {selected.kind !== 'oracle' && (
+        <PhysicalRollInput
+          key={`manual:${selected.id}`}
+          entry={selected}
+          registry={oracles.registry}
+          tools={convenience}
+        />
+      )}
+      <SourceDisclosure
+        key={`source:${selected.id}`}
+        label="SOURCE"
+        summaryLabel={
+          selected.sourceRefs[0] && (
+            <>
+              <BookLabel
+                bookId={selected.sourceRefs[0].bookId}
+                title={selected.sourceRefs[0].bookTitle ?? ''}
+              />{' '}
+              · 출처
+            </>
+          )
+        }
+        authorities={
+          reading
+            ? authoritiesForReading(
+                reading,
+                selected.action?.kind === 'procedure'
+                  ? selected.action.procedureId
+                  : undefined,
+              )
+            : undefined
+        }
+        refs={reading?.sourceRefs ?? selected.sourceRefs}
+        evidence={
+          reading?.evidence ??
+          (!reading && selected.sourceChain.some((step) => step.role)
+            ? selected.sourceChain.map((step) => ({
+                source: step.source,
+                role: step.role ?? 'primary',
+                confidence:
+                  step.confidence ??
+                  (selected.available ? 'verified' : 'unavailable-source'),
+              }))
+            : sourceEvidence(
+                reading?.sourceRefs ?? selected.sourceRefs,
+                selected.available,
+              ))
+        }
+      >
+        {reading?.rollMethod && (
+          <p className="reference-roll-method">
+            {reading.rollMethod.kind === 'USER_ROLL'
+              ? 'MANUAL ROLL · USER_ROLL · 실물 입력'
+              : reading.rollMethod.kind === 'MIXED'
+                ? 'MIXED · 실물 입력과 앱 재굴림'
+                : 'APP ROLL · 앱 굴림'}
+          </p>
+        )}
+        {reading?.oracle?.rolls.some(
+          (r) => r.metadata?.rollOrigin === 'USER_ROLL',
+        ) && (
+          <ul>
+            {reading.oracle.rolls.map((r, n) => (
+              <li key={n}>
+                {r.title} · {r.dice} = {r.roll} ·{' '}
+                {r.metadata?.rollOrigin === 'USER_ROLL'
+                  ? 'USER_ROLL'
+                  : 'APP_ROLL'}
+              </li>
+            ))}
+          </ul>
+        )}
+        {reading?.blocks.some((block) => block.dice) && (
+          <section className="reference-roll-trace">
+            <h4>ROLL</h4>
+            {reading.blocks
+              .filter((block) => block.dice)
+              .map((block, n) => (
+                <p key={n}>
+                  {block.title ? `${block.title} · ` : ''}
+                  {block.dice}
+                </p>
+              ))}
+          </section>
+        )}
+        {!reading &&
+          selected.sourceChain
+            .filter((step) => step.via)
+            .map((step, n) => (
+              <p key={n}>
+                <SourceText text={step.label} />
+                {step.via && (
+                  <>
+                    {' '}
+                    → <SourceText text={step.via} />
+                  </>
+                )}
+              </p>
+            ))}
+        {selected.canonicalIds
+          .map((key) => index.byId[`oracle:${key}`])
+          .filter(
+            (entry, i, all) =>
+              entry &&
+              entry.id !== selected.id &&
+              all.findIndex((item) => item?.id === entry.id) === i,
+          )
+          .map((entry) => (
+            <ReferenceRow key={entry.id} entry={entry} />
+          ))}
+      </SourceDisclosure>
+      {!!grouped.length && (
+        <div className="reference-hub-list">
+          {(['procedure', 'creature', 'oracle', 'rule'] as const).map(
+            (kind) => {
+              const entries = grouped.filter((entry) => entry.kind === kind);
+              return entries.length ? (
+                <details key={kind}>
+                  <summary>
+                    {kind.toUpperCase()} <b>{entries.length}</b> ›
+                  </summary>
+                  {entries.map((entry) => (
+                    <ReferenceRow key={entry.id} entry={entry} />
+                  ))}
+                </details>
+              ) : null;
+            },
+          )}
+        </div>
+      )}
+      {!!reading?.fixedLookups?.length && (
+        <div className="ref-related">
+          <small>지정된 항목</small>
+          {reading.fixedLookups.map((lookup, n) => (
+            <button
+              key={n}
+              onClick={() => {
+                const table = oracles.registry.tables.find(
+                  (item) => item.id === lookup.oracleId,
+                );
+                if (!table) return;
+                try {
+                  const value = selectOracleEntry(table, lookup.roll);
+                  if (!value) return;
+                  const entryId = `oracle:${table.id}`;
+                  activate(entryId);
+                  const result: OracleResult = {
+                    id: id(),
+                    title: table.title,
+                    rolls: [
+                      {
+                        oracleId: table.id,
+                        title: table.title,
+                        dice: '지정 항목',
+                        roll: lookup.roll,
+                        diceValues: [],
+                        entryId: value.id,
+                        text: value.text,
+                        source: sourceLabel(table, oracles.registry),
+                        metadata: value.metadata,
+                      },
+                    ],
+                  };
+                  acceptReading(
+                    entryId,
+                    {
+                      title: table.title,
+                      blocks: [
+                        {
+                          title: `#${lookup.roll}`,
+                          text: oracleReadingText(value),
+                        },
+                      ],
+                      sourceRefs: refsForOracle(result, oracles.registry),
+                      oracle: result,
+                      ...oracleFollowUpLinks(value.metadata),
+                    },
+                    false,
+                  );
+                } catch (e) {
+                  setFailure(
+                    e instanceof Error ? e.message : '참조 항목을 확인하세요.',
+                  );
+                }
+              }}
+            >
+              {index.byId[`oracle:${lookup.oracleId}`]?.title ??
+                lookup.oracleId}{' '}
+              #{lookup.roll} 열기
+            </button>
+          ))}
+        </div>
+      )}
+      {!inline && !!(related.length + dynamicRelated.length) && (
+        <section
+          className="ref-related ref-related-disclosure"
+          aria-label="관련 참조"
+        >
+          <h3>관련 참조</h3>
+          {[
+            ...new Map(
+              [...dynamicRelated, ...related].map((entry) => [entry.id, entry]),
+            ).values(),
+          ]
+            .filter(
+              (entry) =>
+                !city ||
+                ![
+                  'procedure:aitc.street',
+                  'procedure:aitc.settlement',
+                  'oracle:aitc.npc-encounters',
+                  'oracle:aitc.businesses',
+                ].includes(entry.id),
+            )
+            .slice(0, city ? 4 : 8)
+            .map((entry) => (
+              <button
+                key={entry.id}
+                title={entry.title}
+                aria-label={entry.title}
+                onClick={() => activate(entry.id)}
+              >
+                {referenceShortName(entry)}
+                <Translation
+                  text={entry.title}
+                  translation={entry.titleTranslationKo}
+                />
+                <ArrowUpRight size={12} />
+              </button>
+            ))}
+        </section>
+      )}
+    </section>
+  ) : null;
   return (
     <ReferenceContext.Provider
       value={{
+        selectedId: selected?.id,
+        content: referenceContent,
+        query,
+        setQuery,
+        scope,
+        setScope,
+        trayIds: convenience.temporary.tray,
+        readings,
+        perform: (id) => {
+          const entry = index.byId[id];
+          if (entry) perform(entry);
+        },
+        removeTray: (id) =>
+          convenience.updateTemporary((p) => ({
+            ...p,
+            tray: p.tray.filter((key) => key !== id),
+          })),
+        choose: (table, entry) =>
+          acceptReading(
+            `oracle:${table.id}`,
+            selectReferenceReading(table, entry, oracles.registry),
+            false,
+          ),
         returnedRoomId: memory.returnedRoomId,
         recordRoll: (id, result, params) => {
           const parameters = { ...convenience.parameters(), ...params };
@@ -601,78 +1556,82 @@ export function ReferenceProvider({
       }}
     >
       {children}
-      <div className="reference-rail">
-        {returnTarget &&
-          playContext?.kind === 'desk' &&
-          !searchOpen &&
-          !selected &&
-          !convenience.panel && (
-            <button
-              className="play-context-return"
-              onClick={() => returnTo(returnTarget)}
-            >
-              ← {contextLabel(returnTarget, save)}
-            </button>
+      {!inline && (
+        <div className="reference-rail">
+          {returnTarget &&
+            playContext?.kind === 'desk' &&
+            !searchOpen &&
+            !selected &&
+            !convenience.panel && (
+              <button
+                className="play-context-return"
+                onClick={() => returnTo(returnTarget)}
+              >
+                ← {contextLabel(returnTarget, save)}
+              </button>
+            )}
+          {!convenience.preferences.playOpened && (
+            <small className="play-discovery-hint">
+              WORKBENCH · 임시 도구 모음
+            </small>
           )}
-        {!convenience.preferences.playOpened && (
-          <small className="play-discovery-hint">PLAY — 임시 도구 모음</small>
-        )}
-        <PlayTrayStrip tools={convenience} />
-        <div className="reference-dock" aria-label="빠른 참조">
-          <button aria-label="참조 검색" onClick={() => openSearch()}>
-            <Search size={16} />
-            <span>검색</span>
-          </button>
-          <button
-            aria-label={`고정한 참조 ${prefs.pinnedIds.length}`}
-            onClick={() => openSearch('', 'pinned')}
-          >
-            <Pin size={15} />
-            <span>고정 {prefs.pinnedIds.length}</span>
-          </button>
-          <button
-            aria-label="최근 참조"
-            onClick={() => openSearch('', 'recent')}
-          >
-            <History size={16} />
-            <span>최근</span>
-          </button>
-          <button
-            aria-label="Play 도구 열기"
-            onClick={() => {
-              setSearchOpen(false);
-              convenience.setPanel('play');
-            }}
-          >
-            <span className="play-tool-label">PLAY</span>
-          </button>
-          {convenience.hasLastRoll && (
-            <button
-              aria-label="마지막 굴림 다시 실행"
-              title="R · 마지막 굴림"
-              onClick={() => convenience.rerollLast()}
-            >
-              ↻<span>LAST</span>
+          <PlayTrayStrip tools={convenience} />
+          <div className="reference-dock" aria-label="빠른 참조">
+            <button aria-label="참조 검색" onClick={() => openSearch()}>
+              <Search size={16} />
+              <span>검색</span>
             </button>
-          )}
-          <div className="dock-pinned">
-            {prefs.pinnedIds
-              .map((key) => index.byId[key])
-              .filter(Boolean)
-              .map((entry) => (
-                <button
-                  key={entry.id}
-                  title={entry.title}
-                  onClick={() => activate(entry.id, isOneClick(entry))}
-                >
-                  {referenceShortName(entry)}
-                </button>
-              ))}
+            <button
+              aria-label={`고정한 참조 ${prefs.pinnedIds.length}`}
+              onClick={() => openSearch('', 'pinned')}
+            >
+              <Pin size={15} />
+              <span>고정 {prefs.pinnedIds.length}</span>
+            </button>
+            <button
+              aria-label="최근 참조"
+              onClick={() => openSearch('', 'recent')}
+            >
+              <History size={16} />
+              <span>최근</span>
+            </button>
+            <button
+              aria-label="Play 도구 열기"
+              onClick={() => {
+                setSearchOpen(false);
+                convenience.setPanel('play');
+              }}
+            >
+              <span className="play-tool-label">작업대</span>
+            </button>
+            {convenience.hasLastRoll && (
+              <button
+                aria-label="마지막 굴림 다시 실행"
+                title="R · 마지막 굴림"
+                onClick={() => convenience.rerollLast()}
+              >
+                ↻<span>LAST</span>
+              </button>
+            )}
+            <div className="dock-pinned">
+              {prefs.pinnedIds
+                .map((key) => index.byId[key])
+                .filter(Boolean)
+                .map((entry) => (
+                  <button
+                    key={entry.id}
+                    title={entry.title}
+                    onClick={() => activate(entry.id)}
+                  >
+                    {referenceShortName(entry)}
+                  </button>
+                ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <Dialog
-        open={searchOpen || !!selected || !!convenience.panel}
+        open={(!inline && (searchOpen || !!selected)) || !!convenience.panel}
         onOpenChange={(open) => {
           if (!open) {
             convenience.setPanel(null);
@@ -726,7 +1685,7 @@ export function ReferenceProvider({
                     convenience.setPanel('play');
                   }}
                 >
-                  PLAY
+                  작업대
                 </button>
                 {convenience.hasLastRoll && (
                   <button
@@ -752,7 +1711,7 @@ export function ReferenceProvider({
                     <button
                       key={entry.id}
                       title={entry.title}
-                      onClick={() => activate(entry.id, isOneClick(entry))}
+                      onClick={() => activate(entry.id)}
                     >
                       {referenceShortName(entry)}
                     </button>
@@ -853,914 +1812,10 @@ export function ReferenceProvider({
               </div>
             </>
           )}
-          {!convenience.panel && !searchOpen && selected && (
+          {!convenience.panel && !searchOpen && !inline && (
             <>
-              <div className="reference-inspector-top">
-                <details className="reference-convenience-actions">
-                  <summary aria-label="참조 편의 동작">⋯</summary>
-                  <button
-                    disabled={convenience.temporary.tray.includes(selected.id)}
-                    onClick={() => convenience.addTray(selected.id)}
-                  >
-                    ADD TO PLAY · PLAY에 추가
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (reading) convenience.sendReading(reading);
-                      else convenience.scratch(selected.title);
-                    }}
-                  >
-                    SEND TO SCRATCH · 스크랩에 추가
-                  </button>
-                </details>
-                <DialogTitle>
-                  {referenceShortName(selected)}
-                  <Translation
-                    text={selected.title}
-                    translation={selected.titleTranslationKo}
-                  />
-                </DialogTitle>
-                <button
-                  className="ref-pin"
-                  aria-label={
-                    prefs.pinnedIds.includes(selected.id)
-                      ? '고정 해제'
-                      : '참조 고정'
-                  }
-                  aria-pressed={prefs.pinnedIds.includes(selected.id)}
-                  onClick={() =>
-                    savePrefs(toggleReferencePin(prefs, selected.id))
-                  }
-                >
-                  <Pin size={16} />
-                  {prefs.pinnedIds.includes(selected.id) ? 'PINNED' : 'PIN'}
-                </button>
-              </div>
-              <DialogDescription className="sr-only">
-                {selected.kind.toUpperCase()} ·{' '}
-                {regions.find((r) => r.id === region)?.name} ·{' '}
-                {selected.canonicalIds.length
-                  ? `${selected.canonicalIds.length}개 연결 표`
-                  : '빠른 참조'}
-              </DialogDescription>
-              {!reading &&
-                !plainRule &&
-                !procedureId.startsWith('depths.') &&
-                !city &&
-                !tableView &&
-                selected.kind !== 'region' && (
-                  <p className="reference-summary">
-                    {procedureId === 'aitc.street'
-                      ? '거리 묘사·종류·내용을 함께 굴립니다. City·Metropolis의 내용은 d2회이며, 출구는 선택할 수 있습니다.'
-                      : selected.summary}
-                  </p>
-                )}
-              {selected.action?.kind === 'region' &&
-                index.byId[
-                  `rule:regional-monsters:${selected.action.region}`
-                ] && (
-                  <ReferenceRow
-                    showMetadata={false}
-                    entry={
-                      index.byId[
-                        `rule:regional-monsters:${selected.action.region}`
-                      ]
-                    }
-                  />
-                )}
-              {selected.action?.kind === 'region' && (
-                <div className="region-quick-tools">
-                  <small>QUICK TOOLS · {selected.title}</small>
-                  {[
-                    'procedure:workbench.stock-room',
-                    'rule:sd.stockCommon',
-                    'rule:feretory.roads',
-                    'procedure:workbench.npc',
-                  ]
-                    .map((key) => index.byId[key])
-                    .filter(Boolean)
-                    .map((entry) => (
-                      <button
-                        key={entry.id}
-                        onClick={() =>
-                          activate(entry.id, isOneClick(entry), hubRegion)
-                        }
-                      >
-                        {referenceShortName(entry)} ↗
-                      </button>
-                    ))}
-                </div>
-              )}
-              {city &&
-                !(selected.action?.kind === 'city' && selected.action.move) && (
-                  <div className="ref-related city-start-tools">
-                    {[
-                      'procedure:aitc.street',
-                      'procedure:aitc.settlement',
-                      'oracle:aitc.npc-encounters',
-                      'oracle:aitc.businesses',
-                    ]
-                      .map((key) => index.byId[key])
-                      .filter(Boolean)
-                      .map((entry) => (
-                        <button
-                          key={entry.id}
-                          title={entry.title}
-                          onClick={() => activate(entry.id, isOneClick(entry))}
-                        >
-                          {referenceShortName(entry)} ↗
-                        </button>
-                      ))}
-                  </div>
-                )}
-              {tableView && selected.kind === 'oracle' && (
-                <details className="reference-static-table" open>
-                  <summary>표 보기</summary>
-                  {[...new Set(selected.canonicalIds)]
-                    .flatMap((key) =>
-                      oracles.registry.tables.filter(
-                        (table) => table.id === key,
-                      ),
-                    )
-                    .map((table) => (
-                      <ReferenceTable
-                        key={table.id}
-                        table={table}
-                        currentEntryIds={
-                          reading?.oracle?.rolls.map((roll) => roll.entryId) ??
-                          []
-                        }
-                        onChoose={(table, entry) => {
-                          acceptReading(
-                            selected.id,
-                            selectReferenceReading(
-                              table,
-                              entry,
-                              oracles.registry,
-                            ),
-                            false,
-                          );
-                          setTableView(false);
-                        }}
-                      />
-                    ))}
-                </details>
-              )}
-              {tableView && reading && (
-                <button
-                  className="ref-text-action"
-                  onClick={() => setTableView(false)}
-                >
-                  <ArrowLeft size={14} /> 결과로 돌아가기
-                </button>
-              )}
-              {tableView && roller && (
-                <button
-                  className="ref-text-action"
-                  onClick={() => {
-                    setTableView(false);
-                    perform(selected);
-                  }}
-                >
-                  ROLL
-                </button>
-              )}
-              {!selected.available && (
-                <output>
-                  이 참조에 필요한 원문 자료가 준비되지 않았습니다.
-                </output>
-              )}
-              {!tableView && selected.referenceGroupIds && (
-                <nav className="reference-rule-group" aria-label="참조 묶음">
-                  {selected.referenceGroupIds
-                    .map((key) => index.byId[key])
-                    .filter(Boolean)
-                    .map((entry) => (
-                      <button
-                        key={entry.id}
-                        onClick={() => activate(entry.id, isOneClick(entry))}
-                      >
-                        <span>
-                          {entry.title}
-                          <Translation
-                            text={entry.title}
-                            translation={entry.titleTranslationKo}
-                          />
-                        </span>{' '}
-                        <span>›</span>
-                      </button>
-                    ))}
-                </nav>
-              )}
-              {!tableView && procedureId === 'depths.encounter-level' && (
-                <div className="ref-controls depths-controls">
-                  <label>
-                    Depths region · 지역
-                    <select
-                      value={encounterRegion}
-                      onChange={(e) => setEncounterRegion(e.target.value)}
-                    >
-                      {encounterRegions(oracles.registry).map((r) => (
-                        <option key={r.key} value={r.key}>
-                          {r.name} · EL {r.level}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <p>
-                    Unmarked region: choose the closest, or randomly choose one
-                    of the two closest.
-                    <Translation text="Unmarked region: choose the closest, or randomly choose one of the two closest." />
-                  </p>
-                </div>
-              )}
-              <details
-                className="reference-options"
-                open={!reading || undefined}
-                hidden={
-                  tableView ||
-                  ![
-                    'workbench.npc',
-                    'workbench.epk',
-                    'workbench.stock-room',
-                    'aitc.street',
-                  ].includes(procedureId)
-                }
-              >
-                <summary>굴림 설정</summary>
-                {[
-                  'workbench.npc',
-                  'workbench.epk',
-                  'workbench.stock-room',
-                ].includes(procedureId) && (
-                  <div className="ref-controls">
-                    <label>
-                      지역
-                      <select
-                        value={region}
-                        onChange={(e) => setRegion(e.target.value as RegionId)}
-                      >
-                        {regions.map((r) => (
-                          <option key={r.id} value={r.id}>
-                            {r.name}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    {procedureId === 'workbench.stock-room' && (
-                      <>
-                        <label>
-                          절차
-                          <select
-                            value={stockKind}
-                            onChange={(e) =>
-                              setStockKind(e.target.value as typeof stockKind)
-                            }
-                          >
-                            <option value="common">
-                              Common · 지역 / SD d12
-                            </option>
-                            <option value="rare">Rare · SD d8 + DR</option>
-                            <option value="room">Room · RECLVSE</option>
-                          </select>
-                        </label>
-                        <label>
-                          Dungeon DR
-                          <Input
-                            type="number"
-                            min={1}
-                            max={30}
-                            value={stockDR}
-                            onChange={(e) =>
-                              setStockDR(
-                                Math.max(
-                                  1,
-                                  Math.trunc(Number(e.target.value)) || 1,
-                                ),
-                              )
-                            }
-                          />
-                        </label>
-                      </>
-                    )}
-                  </div>
-                )}
-                {procedureId === 'aitc.street' && (
-                  <div className="ref-controls">
-                    <label>
-                      정착지 규모
-                      <select
-                        value={cityLarge ? 'large' : 'small'}
-                        onChange={(e) =>
-                          setCityLarge(e.target.value === 'large')
-                        }
-                      >
-                        <option value="small">Town 이하 · 내용 1회</option>
-                        <option value="large">
-                          City / Metropolis · 내용 d2회
-                        </option>
-                      </select>
-                    </label>
-                    <label className="ref-check">
-                      <input
-                        type="checkbox"
-                        checked={cityExits}
-                        onChange={(e) => setCityExits(e.target.checked)}
-                      />{' '}
-                      출구도 굴리기
-                    </label>
-                  </div>
-                )}
-              </details>
-              {city && (
-                <CityRoller
-                  key={selected.id}
-                  registry={oracles.registry}
-                  initialMove={
-                    selected.action?.kind === 'city'
-                      ? selected.action.move
-                      : undefined
-                  }
-                  allowedMoves={
-                    selected.action?.kind === 'city' && selected.action.move
-                      ? [selected.action.move]
-                      : undefined
-                  }
-                  onReading={(value) => acceptReading(selected.id, value)}
-                />
-              )}
-              {roller && !reading && !tableView && (
-                <Button
-                  className="reference-roll"
-                  disabled={!selected.available}
-                  onClick={() => perform(selected)}
-                >
-                  <Dices size={20} />
-                  {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
-                </Button>
-              )}
-              {failure && (
-                <p role="alert" className="error">
-                  {failure}
-                </p>
-              )}
-              {reading &&
-                !tableView &&
-                !!reading.blocks.some((b) => b.text) && (
-                  <article
-                    key={`${selected.id}:${session.sequence}`}
-                    className={`reference-reading ${plainRule ? 'reference-rule-reading' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
-                    aria-label="참조 결과"
-                  >
-                    {reading.title !== selected.title &&
-                      !reading.blocks.some(
-                        (block) => block.title === reading.title,
-                      ) && (
-                        <h3 className="reading-identity">
-                          {reading.title}
-                          <Translation text={reading.title} />
-                        </h3>
-                      )}
-                    {reading.blocks.map((block, n) => (
-                      <section
-                        key={n}
-                        className={
-                          block.kind === 'creature'
-                            ? 'creature-answer'
-                            : !plainRule &&
-                                !reading.rareMonster &&
-                                block.text.length < 160 &&
-                                !block.text.includes('\n')
-                              ? 'short-answer'
-                              : ''
-                        }
-                      >
-                        {block.title &&
-                          !(
-                            reading.blocks.length === 1 &&
-                            [
-                              selected.title,
-                              referenceShortName(selected),
-                            ].includes(block.title)
-                          ) && (
-                            <h3>
-                              <ReferenceLinkedText
-                                text={block.title}
-                                excludeId={selected.id}
-                              />
-                              <Translation
-                                text={block.title}
-                                translation={
-                                  block.translation?.titleKo ??
-                                  (reading.rareMonster
-                                    ? (
-                                        {
-                                          INTENTION: '의도',
-                                          SPECIAL: '특수 능력',
-                                        } as Record<string, string>
-                                      )[block.title]
-                                    : procedureId ===
-                                          'depths.encounter-level' &&
-                                        block.title === 'NEXT'
-                                      ? '다음 절차'
-                                      : undefined)
-                                }
-                              />
-                            </h3>
-                          )}
-                        {block.definitionReferenceId &&
-                        index.byId[block.definitionReferenceId] ? (
-                          <button
-                            className="reference-inline-link"
-                            onClick={() =>
-                              activate(block.definitionReferenceId!, true)
-                            }
-                          >
-                            {index.byId[block.definitionReferenceId].title} ›
-                          </button>
-                        ) : block.kind === 'creature' &&
-                          block.text.split('\n').length > 2 ? (
-                          <>
-                            <ReferenceReadingText
-                              text={block.text
-                                .split('\n')
-                                .slice(0, 2)
-                                .join('\n')}
-                              translation={block.translation?.ko
-                                ?.split('\n')
-                                .slice(0, 2)
-                                .join('\n')}
-                              excludeId={selected.id}
-                              splitLines
-                            />
-                            <details className="reading-more">
-                              <summary>자세히</summary>
-                              <ReferenceReadingText
-                                text={block.text
-                                  .split('\n')
-                                  .slice(2)
-                                  .join('\n')}
-                                translation={block.translation?.ko
-                                  ?.split('\n')
-                                  .slice(2)
-                                  .join('\n')}
-                                excludeId={selected.id}
-                                splitLines
-                              />
-                            </details>
-                          </>
-                        ) : (
-                          <ReferenceReadingText
-                            text={block.text}
-                            translation={block.translation?.ko}
-                            excludeId={selected.id}
-                            splitLines={!!reading.rareMonster}
-                          />
-                        )}
-                      </section>
-                    ))}
-                    {reading.valuationReferenceId &&
-                      index.byId[reading.valuationReferenceId] && (
-                        <button
-                          className="ref-text-action"
-                          onClick={() =>
-                            activate(reading.valuationReferenceId!, true)
-                          }
-                        >
-                          매각가 ›
-                        </button>
-                      )}
-                    {!!reading.childReferenceIds?.length && (
-                      <details className="reading-participants">
-                        <summary>변종 · 참가자</summary>
-                        <div className="reference-rule-group">
-                          {reading.childReferenceIds
-                            .map((key) => index.byId[key])
-                            .filter(Boolean)
-                            .map((entry) => (
-                              <button
-                                key={entry.id}
-                                onClick={() => activate(entry.id, true)}
-                              >
-                                {entry.title} ›
-                                <Translation
-                                  text={entry.title}
-                                  translation={entry.titleTranslationKo}
-                                />
-                              </button>
-                            ))}
-                        </div>
-                      </details>
-                    )}
-                    {reading.rareMonster && (
-                      <details className="rare-look-choice">
-                        <summary>Look이 던전과 맞지 않을 때</summary>
-                        <button
-                          onClick={() => {
-                            try {
-                              acceptReading(
-                                selected.id,
-                                nextRareLook(reading, oracles.registry),
-                                false,
-                              );
-                            } catch (e) {
-                              setFailure((e as Error).message);
-                            }
-                          }}
-                        >
-                          원문의 다음 Look 선택
-                        </button>
-                      </details>
-                    )}
-                    {procedureId === 'depths.encounter-level' && (
-                      <ReferenceNextSteps ids={reading.relatedIds} />
-                    )}
-                    <ReferenceNextSteps
-                      ids={selected.definition?.nextReferenceIds}
-                    />
-                    {reading.oracle?.rolls
-                      .filter((roll) =>
-                        Array.isArray(roll.metadata?.followUpReferenceIds),
-                      )
-                      .map((roll, n) => (
-                        <ReferenceNextSteps key={n} metadata={roll.metadata} />
-                      ))}
-                    {roller && (
-                      <PartialRollControls
-                        entry={selected}
-                        reading={reading}
-                        registry={oracles.registry}
-                        tools={convenience}
-                        onReroll={(key) => perform(selected, region, key)}
-                      />
-                    )}
-                    <div className="ref-copy-actions">
-                      {roller && (
-                        <Button
-                          variant="ghost"
-                          onClick={() => perform(selected)}
-                          className="result-reroll"
-                        >
-                          <Dices size={16} />{' '}
-                          {procedureId === 'depths.rare-monster'
-                            ? 'DRAW'
-                            : 'REROLL'}
-                        </Button>
-                      )}
-                      <Button variant="ghost" onClick={() => copyReading()}>
-                        <Copy size={14} /> COPY
-                      </Button>
-                      <details className="result-more-actions">
-                        <summary aria-label="결과 추가 동작">⋯</summary>
-                        <button onClick={() => copyReading(true)}>
-                          COPY WITH SOURCE
-                        </button>
-                        <button
-                          onClick={() => convenience.sendReading(reading)}
-                        >
-                          SEND TO SCRATCH · 스크랩에 추가
-                        </button>
-                        <button
-                          onClick={() => convenience.sendReading(reading, true)}
-                        >
-                          출처와 스크랩에 추가
-                        </button>
-                      </details>
-                    </div>
-                  </article>
-                )}
-              {!tableView && procedureId === 'depths.rare-monster' && (
-                <details className="rare-card-details">
-                  <summary>
-                    카드 {reading?.rareMonster?.cards.length ?? 0} · 기록
-                  </summary>
-                  <div className="rare-card-controls">
-                    <span>
-                      {rareDeck
-                        ? `${rareDeck.length} cards left · 남은 카드 ${rareDeck.length}장`
-                        : 'New 52-card deck · 새 덱 52장'}
-                    </span>
-                    <button
-                      onClick={() => {
-                        setRareDeck(undefined);
-                        convenience.updateTemporary((p) => ({
-                          ...p,
-                          lastRoll:
-                            p.lastRoll?.id === selected.id
-                              ? {
-                                  ...p.lastRoll,
-                                  parameters: {
-                                    ...p.lastRoll.parameters,
-                                    rareDeck: undefined,
-                                  },
-                                }
-                              : p.lastRoll,
-                        }));
-                        setFailure('');
-                      }}
-                    >
-                      SHUFFLE · 새 던전
-                    </button>
-                  </div>
-                  {reading?.rareMonster && (
-                    <ol
-                      className="rare-card-strip"
-                      aria-label="Rare monster cards"
-                    >
-                      {reading.rareMonster.cards.map((card, n) => (
-                        <li key={n}>
-                          <small>CARD {n + 1}</small>
-                          <strong>{cardIdentity(card)}</strong>
-                          <span>
-                            {
-                              [
-                                'Look · 외형',
-                                'Feature · 특징',
-                                'HP / Armor · 방어구',
-                                'Morale · 사기',
-                                'Attack · 공격',
-                                'Special · 특수',
-                              ][n]
-                            }
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </details>
-              )}
-              {!tableView &&
-                procedureId.startsWith('depths.') &&
-                selected.definition && (
-                  <details className="reference-procedure-rule">
-                    <summary>절차</summary>
-                    {selected.definition.blocks.map((block, n) => (
-                      <section key={n}>
-                        <h4>
-                          {block.title}
-                          <Translation
-                            text={block.title}
-                            translation={block.translation?.titleKo}
-                          />
-                        </h4>
-                        <ReferenceReadingText
-                          text={block.text}
-                          translation={block.translation?.ko}
-                          excludeId={selected.id}
-                        />
-                      </section>
-                    ))}
-                  </details>
-                )}
-              {copied && <output className="copy-feedback">{copied}</output>}
-              {copyFallback != null && (
-                <label>
-                  복사할 결과
-                  <Textarea
-                    readOnly
-                    value={copyFallback}
-                    onFocus={(e) => e.target.select()}
-                  />
-                </label>
-              )}
-              {!tableView && (
-                <PhysicalRollInput
-                  key={`manual:${selected.id}`}
-                  entry={selected}
-                  registry={oracles.registry}
-                  tools={convenience}
-                />
-              )}
-              <SourceDisclosure
-                key={`source:${selected.id}`}
-                label="SOURCE"
-                authorities={
-                  reading
-                    ? authoritiesForReading(
-                        reading,
-                        selected.action?.kind === 'procedure'
-                          ? selected.action.procedureId
-                          : undefined,
-                      )
-                    : undefined
-                }
-                refs={reading?.sourceRefs ?? selected.sourceRefs}
-                evidence={
-                  reading?.evidence ??
-                  (!reading && selected.sourceChain.some((step) => step.role)
-                    ? selected.sourceChain.map((step) => ({
-                        source: step.source,
-                        role: step.role ?? 'primary',
-                        confidence:
-                          step.confidence ??
-                          (selected.available
-                            ? 'verified'
-                            : 'unavailable-source'),
-                      }))
-                    : sourceEvidence(
-                        reading?.sourceRefs ?? selected.sourceRefs,
-                        selected.available,
-                      ))
-                }
-              >
-                {reading?.rollMethod && (
-                  <p className="reference-roll-method">
-                    {reading.rollMethod.kind === 'USER_ROLL'
-                      ? 'MANUAL ROLL · USER_ROLL · 실물 입력'
-                      : reading.rollMethod.kind === 'MIXED'
-                        ? 'MIXED · 실물 입력과 앱 재굴림'
-                        : 'APP ROLL · 앱 굴림'}
-                  </p>
-                )}
-                {reading?.oracle?.rolls.some(
-                  (r) => r.metadata?.rollOrigin === 'USER_ROLL',
-                ) && (
-                  <ul>
-                    {reading.oracle.rolls.map((r, n) => (
-                      <li key={n}>
-                        {r.title} · {r.dice} = {r.roll} ·{' '}
-                        {r.metadata?.rollOrigin === 'USER_ROLL'
-                          ? 'USER_ROLL'
-                          : 'APP_ROLL'}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {selected.kind === 'oracle' && !tableView && (
-                  <button
-                    className="ref-text-action"
-                    onClick={() => setTableView(true)}
-                  >
-                    표 보기
-                  </button>
-                )}
-                {reading?.blocks.some((block) => block.dice) && (
-                  <section className="reference-roll-trace">
-                    <h4>ROLL</h4>
-                    {reading.blocks
-                      .filter((block) => block.dice)
-                      .map((block, n) => (
-                        <p key={n}>
-                          {block.title ? `${block.title} · ` : ''}
-                          {block.dice}
-                        </p>
-                      ))}
-                  </section>
-                )}
-                {!reading &&
-                  selected.sourceChain
-                    .filter((step) => step.via)
-                    .map((step, n) => (
-                      <p key={n}>
-                        <SourceText text={step.label} />
-                        {step.via && (
-                          <>
-                            {' '}
-                            → <SourceText text={step.via} />
-                          </>
-                        )}
-                      </p>
-                    ))}
-                {selected.canonicalIds
-                  .map((key) => index.byId[`oracle:${key}`])
-                  .filter(
-                    (entry, i, all) =>
-                      entry &&
-                      entry.id !== selected.id &&
-                      all.findIndex((item) => item?.id === entry.id) === i,
-                  )
-                  .map((entry) => (
-                    <ReferenceRow key={entry.id} entry={entry} />
-                  ))}
-              </SourceDisclosure>
-              {!!grouped.length && (
-                <div className="reference-hub-list">
-                  {(['procedure', 'creature', 'oracle', 'rule'] as const).map(
-                    (kind) => {
-                      const entries = grouped.filter(
-                        (entry) => entry.kind === kind,
-                      );
-                      return entries.length ? (
-                        <details key={kind}>
-                          <summary>
-                            {kind.toUpperCase()} <b>{entries.length}</b> ›
-                          </summary>
-                          {entries.map((entry) => (
-                            <ReferenceRow key={entry.id} entry={entry} />
-                          ))}
-                        </details>
-                      ) : null;
-                    },
-                  )}
-                </div>
-              )}
-              {!!reading?.fixedLookups?.length && (
-                <div className="ref-related">
-                  <small>지정된 항목</small>
-                  {reading.fixedLookups.map((lookup, n) => (
-                    <button
-                      key={n}
-                      onClick={() => {
-                        const table = oracles.registry.tables.find(
-                          (item) => item.id === lookup.oracleId,
-                        );
-                        if (!table) return;
-                        try {
-                          const value = selectOracleEntry(table, lookup.roll);
-                          if (!value) return;
-                          const entryId = `oracle:${table.id}`;
-                          activate(entryId);
-                          const result: OracleResult = {
-                            id: id(),
-                            title: table.title,
-                            rolls: [
-                              {
-                                oracleId: table.id,
-                                title: table.title,
-                                dice: '지정 항목',
-                                roll: lookup.roll,
-                                diceValues: [],
-                                entryId: value.id,
-                                text: value.text,
-                                source: sourceLabel(table, oracles.registry),
-                                metadata: value.metadata,
-                              },
-                            ],
-                          };
-                          acceptReading(
-                            entryId,
-                            {
-                              title: table.title,
-                              blocks: [
-                                {
-                                  title: `#${lookup.roll}`,
-                                  text: oracleReadingText(value),
-                                },
-                              ],
-                              sourceRefs: refsForOracle(
-                                result,
-                                oracles.registry,
-                              ),
-                              oracle: result,
-                              ...oracleFollowUpLinks(value.metadata),
-                            },
-                            false,
-                          );
-                        } catch (e) {
-                          setFailure(
-                            e instanceof Error
-                              ? e.message
-                              : '참조 항목을 확인하세요.',
-                          );
-                        }
-                      }}
-                    >
-                      {index.byId[`oracle:${lookup.oracleId}`]?.title ??
-                        lookup.oracleId}{' '}
-                      #{lookup.roll} 열기
-                    </button>
-                  ))}
-                </div>
-              )}
-              {!!(related.length + dynamicRelated.length) && (
-                <details className="ref-related ref-related-disclosure">
-                  <summary>관련</summary>
-                  {[
-                    ...new Map(
-                      [...dynamicRelated, ...related].map((entry) => [
-                        entry.id,
-                        entry,
-                      ]),
-                    ).values(),
-                  ]
-                    .filter(
-                      (entry) =>
-                        !city ||
-                        ![
-                          'procedure:aitc.street',
-                          'procedure:aitc.settlement',
-                          'oracle:aitc.npc-encounters',
-                          'oracle:aitc.businesses',
-                        ].includes(entry.id),
-                    )
-                    .slice(0, city ? 4 : 8)
-                    .map((entry) => (
-                      <button
-                        key={entry.id}
-                        title={entry.title}
-                        aria-label={entry.title}
-                        onClick={() => activate(entry.id, isOneClick(entry))}
-                      >
-                        {referenceShortName(entry)}
-                        <Translation
-                          text={entry.title}
-                          translation={entry.titleTranslationKo}
-                        />
-                        <ArrowUpRight size={12} />
-                      </button>
-                    ))}
-                </details>
-              )}
+              <DialogTitle className="sr-only">{selected?.title}</DialogTitle>
+              {referenceContent}
             </>
           )}
         </DialogContent>
@@ -1776,60 +1831,73 @@ export function ReferenceRow({
   entry: ReferenceEntry;
   showMetadata?: boolean;
 }) {
-  const desk = useReferenceDesk();
-  const action = referenceAction(entry);
+  const desk = useReferenceDesk(),
+    { registry } = useOracleRegistry();
+  const formula = referenceEntryFormula(entry, registry);
+  const description = referenceEntryDescription(entry);
+  const showDescription =
+    entry.kind !== 'creature' &&
+    entry.kind !== 'book' &&
+    !/^\d*d\d+\s*·/.test(description);
   return (
-    <div className="reference-row">
+    <div className="reference-row" data-reference-row={entry.id}>
       <button
         className="reference-select-action"
-        aria-label={`${entry.title} ${action.label}`}
-        onClick={() => desk?.activate(entry.id, action.immediate)}
+        aria-label={`${entry.title} 열기`}
+        aria-current={desk?.selectedId === entry.id ? 'page' : undefined}
+        onClick={() => desk?.activate(entry.id)}
       >
-        <span>
-          <strong>{referenceShortName(entry)}</strong>
-          {showMetadata && (
+        <strong>
+          {referenceShortName(entry)}
+          <Translation
+            text={entry.title}
+            translation={entry.titleTranslationKo}
+          />
+        </strong>
+        {showMetadata && (
+          <>
             <small>
-              {entry.definition?.kind ?? entry.kind.toUpperCase()}
-              {entry.kind !== 'book' && entry.sourceRefs[0]?.bookTitle && (
-                <>
-                  {' '}
-                  ·{' '}
+              {formula && <code>{formula}</code>}
+              <span>
+                {entry.kind === 'book' ? (
+                  'BOOK'
+                ) : entry.sourceRefs[0] ? (
                   <BookLabel
                     bookId={entry.sourceRefs[0].bookId}
-                    title={entry.sourceRefs[0].bookTitle}
+                    title={entry.sourceRefs[0].bookTitle ?? ''}
                   />
-                </>
-              )}
+                ) : (
+                  entry.kind
+                )}
+              </span>
             </small>
-          )}
-        </span>
-        <b className="reference-action-label">{action.label}</b>
+            {showDescription && (
+              <span className="reference-row-description">{description}</span>
+            )}
+          </>
+        )}
       </button>
-      {action.immediate && (
+      {referenceProducesRoll(entry) && (
         <button
-          className="reference-inspect-action"
-          aria-label={`${entry.title} DETAILS`}
-          title="굴리지 않고 참조 열기"
-          onClick={() => desk?.activate(entry.id)}
+          className="reference-row-roll"
+          aria-label={`${entry.title} 굴리기`}
+          onClick={() => desk?.activate(entry.id, true)}
         >
-          ⓘ
+          굴리기
         </button>
       )}
     </div>
   );
 }
-
 export function QuickReferenceButton({ entry }: { entry: ReferenceEntry }) {
   const desk = useReferenceDesk();
-  const action = referenceAction(entry);
   return (
     <button
       className="quick-reference-action"
-      aria-label={`${entry.title} ${action.label}`}
-      onClick={() => desk?.activate(entry.id, action.immediate)}
+      aria-label={`${entry.title} 열기`}
+      onClick={() => desk?.activate(entry.id)}
     >
-      <span>{referenceShortName(entry)}</span>
-      <small>{action.label}</small>
+      {referenceShortName(entry)}
     </button>
   );
 }
@@ -1869,7 +1937,7 @@ export function ContextReferences({
               entry.id === 'procedure:workbench.stock-room' &&
               onDungeonEncounters
                 ? onDungeonEncounters()
-                : desk?.activate(entry.id, isOneClick(entry), region)
+                : desk?.activate(entry.id, false, region)
             }
           >
             {entry.id === 'procedure:workbench.stock-room' &&
@@ -1883,113 +1951,136 @@ export function ContextReferences({
   );
 }
 export function ReferenceDesk({
-  onLibrary,
   homeIndex,
+  initialShelf = 'quick',
 }: {
   onLibrary?: () => void;
   homeIndex?: ReactNode;
+  initialShelf?: ReferenceShelf;
 }) {
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
-  const [query, setQuery] = useState('');
-  useNavigationChannel('desk-query', query, setQuery, {
-    normalize: (value) =>
-      typeof value === 'string' ? value.slice(0, 2000) : '',
-    identity: () => 'query',
-  });
-  const found = query.trim() ? (desk?.search(query, 8) ?? []) : [];
-  const entries = (ids: string[]) =>
-    ids
-      .map((id) => desk?.byId[id])
-      .filter((entry): entry is ReferenceEntry => !!entry);
-  const quick = desk?.activePack
-    ? entries(desk.focusedIds ?? []).slice(0, 6)
-    : entries([
-        'oracle:core.reaction',
-        'procedure:reclvse.action-theme',
-        'procedure:workbench.stock-room',
-        'procedure:workbench.npc',
-      ]);
-  const activePack = desk?.activePack && (
-    <span className="desk-active-pack">
-      <button
-        className="desk-pack-choice"
-        onClick={() => desk.openTools?.('packs')}
-      >
-        {desk.activePack.name}
-      </button>
-      <button aria-label="Pack 해제" onClick={() => desk.clearPack?.()}>
-        ×
-      </button>
-    </span>
+  const query = desk?.query ?? '';
+  useEffect(() => {
+    if (window.matchMedia('(min-width: 801px)').matches)
+      document.getElementById('desk-primary-search')?.focus();
+  }, []);
+  const [kind, setKind] = useState('all'),
+    [book, setBook] = useState('');
+  const [context, setContext] = useState(
+    initialShelf === 'quick' || initialShelf === 'rules' ? '' : initialShelf,
   );
+  const [limit, setLimit] = useState(24);
+  const [diceOpen, setDiceOpen] = useState(false);
+  const [browserState, setBrowserState] = useState({
+    open: false,
+    referenceId: desk?.selectedId,
+  });
+  // A return through Recent must not revive an old mobile search expansion.
+  if (browserState.referenceId !== desk?.selectedId)
+    setBrowserState({ open: false, referenceId: desk?.selectedId });
+  const browserOpen =
+    browserState.open && browserState.referenceId === desk?.selectedId;
+  const setBrowserOpen = (open: boolean) =>
+    setBrowserState({ open, referenceId: desk?.selectedId });
+  const index = useMemo(
+    () => ({ entries: desk?.entries ?? [], byId: desk?.byId ?? {} }),
+    [desk?.entries, desk?.byId],
+  );
+  const ids =
+    desk?.scope === 'pinned'
+      ? desk.pinnedIds
+      : desk?.scope === 'recent'
+        ? desk.recentIds
+        : undefined;
+  const found = browseReferences(index, query, { kind, book, context, ids });
+  const entries = (ids: string[]) =>
+    ids.map((id) => index.byId[id]).filter(Boolean);
+  const resetFilters = () => {
+    setKind('all');
+    setBook('');
+    setContext('');
+    setLimit(24);
+  };
+  function search(value: string) {
+    setBrowserOpen(!!value);
+    desk?.setQuery?.(value);
+    desk?.setScope?.('all');
+    resetFilters();
+  }
+  const books = index.entries.filter((e) => e.kind === 'book');
+  const count = (type: string) =>
+    type === 'all'
+      ? index.entries.length
+      : index.entries.filter((e) => e.kind === type).length;
+  const selected = desk?.selectedId ? index.byId[desk.selectedId] : undefined;
+  const related = selected
+    ? relatedReferences(index, selected.id, 10).filter(
+        (e) => e.id !== selected.id,
+      )
+    : [];
+  const dynamic = selected
+    ? (desk?.readings?.[selected.id]?.relatedIds ?? [])
+        .map((id) => index.byId[id])
+        .filter(Boolean)
+    : [];
+  const relatedItems = [
+    ...new Map([...dynamic, ...related].map((e) => [e.id, e])).values(),
+  ];
   return (
-    <section className={`reference-desk${homeIndex ? ' reference-home' : ''}`}>
-      <header className="desk-heading">
-        {homeIndex ? (
-          <>
-            <div className="home-cover-meta">
-              <span>REFERENCE DESK</span>
-              <span>HOME · 전체 목차</span>
-            </div>
-            <h1>
-              <span>MÖRK</span> <span>BORG</span>
-            </h1>
-            <p className="home-cover-caption">규칙 · 오라클 · 생성 도구</p>
-          </>
-        ) : (
-          <>
-            <h1>REFERENCE DESK</h1>
-            <span className="eyebrow">MÖRK BORG</span>
-          </>
-        )}
-      </header>
-      <form
-        className="desk-search"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (found[0]) desk?.activate(found[0].id, isOneClick(found[0]));
-        }}
-      >
-        <Search size={21} />
-        <Input
-          aria-label="작업대 검색"
-          placeholder="규칙 · 표 · 이름 검색"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowDown') {
-              event.preventDefault();
-              (
-                event.currentTarget
-                  .closest('.reference-desk')
-                  ?.querySelector(
-                    '.desk-search-results button',
-                  ) as HTMLButtonElement | null
-              )?.focus();
-            }
+    <section className="reference-desk rdesk" aria-label="Reference Desk">
+      <header className="rdesk-header">
+        <h1>
+          <span>MÖRK BORG</span> REFERENCE DESK
+        </h1>
+        <form
+          className="desk-search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setBrowserOpen(false);
+            if (found[0]) desk?.activate(found[0].id);
           }}
-        />
-        {query ? (
+        >
+          <Search size={19} />
+          <Input
+            id="desk-primary-search"
+            aria-label="참조 검색"
+            placeholder="참조 검색…"
+            value={query}
+            onChange={(e) => search(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                (
+                  document.querySelector(
+                    '.desk-index-results .reference-select-action',
+                  ) as HTMLButtonElement | null
+                )?.focus();
+              }
+            }}
+          />
+          {query ? (
+            <button
+              type="button"
+              aria-label="검색 지우기"
+              onClick={() => search('')}
+            >
+              ×
+            </button>
+          ) : (
+            <kbd>⌘ K</kbd>
+          )}
+        </form>
+        <div className="rdesk-utilities">
           <button
-            type="button"
-            aria-label="검색 지우기"
-            onClick={() => setQuery('')}
+            aria-expanded={diceOpen}
+            onClick={() => setDiceOpen(!diceOpen)}
           >
-            ×
+            주사위
           </button>
-        ) : (
-          <kbd>⌘ K</kbd>
-        )}
-      </form>
-      {query.trim() && (
-        <section className="desk-search-results" aria-label="검색 결과">
-          {found.map((entry) => (
-            <ReferenceRow key={entry.id} entry={entry} />
-          ))}
-          {!found.length && <p>일치하는 참조가 없습니다.</p>}
-        </section>
-      )}
+          {homeIndex}
+        </div>
+      </header>
       {source.loading && <output>룰북 자료를 불러오는 중…</output>}
       {source.error && (
         <div role="alert">
@@ -1997,94 +2088,237 @@ export function ReferenceDesk({
           <PrivateDataTools />
         </div>
       )}
-      <div className="desk-personal-tools">
-        <section
-          aria-label="고정한 표"
-          hidden={!!homeIndex && !desk?.pinnedIds.length}
+      {diceOpen && <ReferenceDice />}
+      <div className="desk-layout" data-has-pages={!!desk?.trayIds?.length}>
+        <aside
+          className="desk-browser"
+          aria-label="참조 탐색"
+          data-expanded={browserOpen}
         >
-          <h2>
-            PINNED <span>{desk?.pinnedIds.length ?? 0}</span>
-          </h2>
-          <div className="desk-pinned-actions">
-            {entries(desk?.pinnedIds ?? []).map((entry) => (
-              <QuickReferenceButton key={entry.id} entry={entry} />
+          <button
+            className="desk-browse-toggle"
+            aria-expanded={browserOpen}
+            onClick={() => setBrowserOpen(!browserOpen)}
+          >
+            색인 · {index.entries.length}{' '}
+            <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
+          </button>
+          <nav className="desk-browse-types" aria-label="참조 종류">
+            {REFERENCE_TYPES.map(([id, label]) => (
+              <button
+                key={id}
+                aria-pressed={kind === id && desk?.scope === 'all'}
+                onClick={() => {
+                  setKind(id);
+                  setLimit(24);
+                  desk?.setScope?.('all');
+                }}
+              >
+                {label}
+                <small>{count(id)}</small>
+              </button>
             ))}
+          </nav>
+          <div className="desk-browse-filters">
+            <label>
+              출처
+              <select
+                aria-label="출처로 좁히기"
+                value={book}
+                onChange={(e) => {
+                  setBook(e.target.value);
+                  setLimit(24);
+                }}
+              >
+                <option value="">모든 책</option>
+                {books.map((e) => (
+                  <option key={e.id} value={e.id.slice(5)}>
+                    {referenceShortName(e)}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              관련 상황
+              <select
+                aria-label="관련 상황 바로가기"
+                value={context}
+                onChange={(e) => {
+                  setContext(e.target.value);
+                  setLimit(24);
+                }}
+              >
+                <option value="">모든 상황</option>
+                {REFERENCE_CONTEXTS.map(([id, label]) => (
+                  <option key={id} value={id}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
-          {!desk?.pinnedIds.length && (
-            <p className="desk-empty-hint">자주 쓰는 표는 결과에서 PIN.</p>
-          )}
-        </section>
-        <section
-          aria-label="최근 사용한 표"
-          hidden={!!homeIndex && !desk?.recentIds.length}
-        >
-          <h2>
-            RECENT{' '}
-            <button onClick={() => desk?.openSearch('', 'recent')}>
-              전체 ›
-            </button>
-          </h2>
-          <div className="desk-recent-actions">
-            {entries(desk?.recentIds ?? [])
-              .slice(0, homeIndex ? 3 : 5)
-              .map((entry) => (
-                <QuickReferenceButton key={entry.id} entry={entry} />
-              ))}
-          </div>
-          {!desk?.recentIds.length && (
-            <p className="desk-empty-hint">다시 쓸 표가 여기에 남습니다.</p>
-          )}
-        </section>
-      </div>
-      {homeIndex && activePack && (
-        <div className="home-active-pack">{activePack}</div>
-      )}
-      {homeIndex ?? (
-        <>
-          <section className="desk-play-tools" aria-label="자주 쓰는 도구">
-            <h2>QUICK TOOLS {activePack}</h2>
-            <div className="desk-quick-grid">
-              {quick.map((entry) => (
-                <ReferenceRow
-                  key={entry.id}
-                  entry={entry}
-                  showMetadata={false}
-                />
+          <section className="desk-nav-history" aria-label="고정한 참조">
+            <h2>
+              <button
+                onClick={() => {
+                  setBrowserOpen(true);
+                  desk?.setScope?.('pinned');
+                  desk?.setQuery?.('');
+                  resetFilters();
+                }}
+              >
+                고정 <small>{desk?.pinnedIds.length ?? 0}</small>
+              </button>
+            </h2>
+            <div>
+              {entries(desk?.pinnedIds ?? []).map((e) => (
+                <QuickReferenceButton key={e.id} entry={e} />
               ))}
             </div>
           </section>
-          <div className="desk-regions">
-            <span className="eyebrow">REGION</span>
-            {regions.map((r) => (
+          <section className="desk-nav-history" aria-label="최근 참조">
+            <h2>
               <button
-                key={r.id}
-                onClick={() => desk?.activate(`region:${r.id}`)}
+                onClick={() => {
+                  setBrowserOpen(true);
+                  desk?.setScope?.('recent');
+                  desk?.setQuery?.('');
+                  resetFilters();
+                }}
               >
-                {r.name}
-                <ArrowUpRight size={14} />
+                최근
               </button>
-            ))}
-          </div>
-          <details className="desk-index">
-            <summary>
-              전체 참조 색인 <b>{desk?.entries.length ?? 0}</b> ›
-            </summary>
-            <div className="desk-book-list">
-              {desk?.entries
-                .filter((entry) => entry.kind === 'book')
-                .map((entry) => (
-                  <ReferenceRow key={entry.id} entry={entry} />
+            </h2>
+            <div>
+              {entries(desk?.recentIds ?? [])
+                .slice(0, 6)
+                .map((e) => (
+                  <QuickReferenceButton key={e.id} entry={e} />
                 ))}
             </div>
-            <button onClick={() => desk?.openSearch()}>
-              모든 표·규칙 검색 →
-            </button>
-            {onLibrary && (
-              <button onClick={onLibrary}>기존 Oracle 라이브러리 →</button>
+          </section>
+          <section className="desk-index-results" aria-label="검색 결과">
+            <h2>
+              {query
+                ? '검색 결과'
+                : desk?.scope === 'pinned'
+                  ? '고정한 참조'
+                  : desk?.scope === 'recent'
+                    ? '최근 참조'
+                    : '색인'}{' '}
+              <small>{found.length}</small>
+              {(kind !== 'all' || book || context || desk?.scope !== 'all') && (
+                <button
+                  onClick={() => {
+                    resetFilters();
+                    desk?.setScope?.('all');
+                  }}
+                >
+                  전체 보기
+                </button>
+              )}
+            </h2>
+            {found.slice(0, limit).map((e) => (
+              <ReferenceRow key={e.id} entry={e} />
+            ))}
+            {!found.length && (
+              <p className="desk-no-results">
+                일치하는 참조가 없습니다. 짧은 단어나 책 이름으로 찾아보세요.
+              </p>
             )}
-          </details>
-        </>
+            {found.length > limit && (
+              <button
+                className="desk-more"
+                onClick={() => setLimit(limit + 40)}
+              >
+                더 보기 · {found.length - limit}개
+              </button>
+            )}
+          </section>
+        </aside>
+        <div className="desk-current-page">
+          {desk?.content ?? <p>색인에서 페이지를 펼치세요.</p>}
+          {!!relatedItems.length && (
+            <section className="desk-related" aria-label="관련 참조">
+              <h2>관련 참조</h2>
+              {relatedItems.map((e) => (
+                <ReferenceRow key={e.id} entry={e} />
+              ))}
+            </section>
+          )}
+        </div>
+        {!!desk?.trayIds?.length && (
+          <aside className="desk-side-pages" aria-label="펼친 페이지">
+            <section className="desk-open-pages" aria-label="작업대">
+              <h2>
+                펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
+              </h2>
+              {entries(desk.trayIds).map((e) => (
+                <OpenReferencePage key={e.id} entry={e} />
+              ))}
+            </section>
+          </aside>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function OpenReferencePage({ entry }: { entry: ReferenceEntry }) {
+  const desk = useReferenceDesk(),
+    { registry } = useOracleRegistry();
+  const reading = desk?.readings?.[entry.id];
+  const tables =
+    entry.kind === 'oracle'
+      ? registry.tables.filter((t) => entry.canonicalIds.includes(t.id))
+      : [];
+  return (
+    <section className="desk-open-page" data-open-reference-id={entry.id}>
+      <header>
+        <button onClick={() => desk?.activate(entry.id)}>
+          {referenceShortName(entry)}
+        </button>
+        <button
+          aria-label={`${entry.title} 페이지 접기`}
+          onClick={() => desk?.removeTray?.(entry.id)}
+        >
+          ×
+        </button>
+      </header>
+      <code>{referenceEntryFormula(entry, registry)}</code>
+      {referenceProducesRoll(entry) && (
+        <button
+          className="open-page-roll"
+          onClick={() => desk?.perform?.(entry.id)}
+        >
+          {reading ? '다시 굴리기' : '굴리기'}
+        </button>
       )}
+      {entry.id === 'rule:core.reaction-morale' && (
+        <ReferenceDice initialCount={2} initialSides={6} compact />
+      )}
+      {reading && <ReferenceReadingBlock reading={reading} />}
+      <div className="desk-open-page-body">
+        {entry.action?.kind === 'rule' && !reading && (
+          <ReferenceReadingText
+            text={entry.summary}
+            translation={entry.summaryTranslationKo}
+          />
+        )}
+        {tables.map((table) => (
+          <ReferenceTable
+            key={table.id}
+            table={table}
+            hideCaption
+            currentEntryIds={reading?.oracle?.rolls.map((r) => r.entryId) ?? []}
+            onChoose={(t, e) => desk?.choose?.(t, e)}
+          />
+        ))}
+        {!tables.length && entry.action?.kind !== 'rule' && !reading && (
+          <p>{referenceEntryDescription(entry)}</p>
+        )}
+        {!reading && <SourceDisclosure refs={entry.sourceRefs} />}
+      </div>
     </section>
   );
 }

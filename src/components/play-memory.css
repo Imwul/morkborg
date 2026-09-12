@@ -111,7 +111,7 @@
 .replay-reading {
   font: 1.25rem/1.55 var(--font-reading);
 }
-.replay-reading .translation {
+.replay-reading .generated-translation {
   font-size: 0.9rem;
   line-height: 1.5;
 }

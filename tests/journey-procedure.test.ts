@@ -12,13 +12,6 @@ import {
   setCampaignDay,
 } from '../src/domain/campaignProcedures.ts';
 import {
-  emptyJourneyDay,
-  consumeJourneyRoadEvents,
-  journeyRepeatedRoadEvent,
-  readJourneyDay,
-  journeyRoadNeedsCheck,
-  journeyReadyForEncounters,
-  journeyReadyToFinish,
   rollJourneyActivity,
   rollJourneyTable,
   rollRoadNavigation,
@@ -130,15 +123,7 @@ test('daily road action does not repeat morning weather; fork and changed weathe
     ['feretory.forage', 'feretory.village'],
   );
 });
-test('only animal tracks and disrepair trigger the single d20 DR10 road test', () => {
-  for (let road = 1; road <= 8; road++) {
-    const result = rollJourneyActivity(
-      'road',
-      registry,
-      sequence((road - 1) / 8, 0),
-    );
-    assert.equal(journeyRoadNeedsCheck(result), [3, 4, 5].includes(road));
-  }
+test('situational tracks / broken road test is callable without a journey or prior roll', () => {
   let calls = 0;
   assert.deepEqual(
     rollRoadNavigation(2, () => {
@@ -151,27 +136,7 @@ test('only animal tracks and disrepair trigger the single d20 DR10 road test', (
   assert.equal(rollRoadNavigation(2, () => 0.3).success, false);
   assert.throws(() => rollRoadNavigation(NaN));
 });
-test('encounter gate requires dawn prerequisites, applicable road test, wilderness result and daily discovery', () => {
-  const day = emptyJourneyDay(4);
-  assert.equal(journeyReadyForEncounters(day), false);
-  day.weather = rollJourneyTable('core.weather', registry, () => 0);
-  day.activity = rollJourneyActivity('road', registry, sequence(0.3, 0));
-  day.discovery = 8;
-  assert.equal(journeyReadyForEncounters(day), false);
-  day.navigation = rollRoadNavigation(0, () => 0);
-  assert.equal(journeyReadyForEncounters(day), false);
-  day.wilderness = rollJourneyTable('feretory.leaveRoad', registry, () => 0);
-  assert.equal(journeyReadyForEncounters(day), true);
-  day.discovery = null;
-  assert.equal(journeyReadyForEncounters(day), false);
-  const foraging = {
-    ...emptyJourneyDay(4),
-    weather: day.weather,
-    mode: 'forage' as const,
-    activity: rollJourneyActivity('forage', registry, () => 0),
-  };
-  assert.equal(journeyReadyForEncounters(foraging), true);
-});
+
 test('camping compares independent d20s to DR12; failure recovery requires a distinct 50:50 retry', () => {
   const strong = rollJourneyCamp(2, false, sequence(0.45, 0.45, 0.99));
   assert.equal(strong.outcome, 'strong');
@@ -191,28 +156,6 @@ test('camping compares independent d20s to DR12; failure recovery requires a dis
   assert.equal(rollJourneyCamp(99, true, sequence(0.99, 0)).outcome, 'weak');
   assert.match(journeyCampReading(weak).blocks[0].text, /Omen 1개/);
   assert.match(journeyCampReading(fail).blocks[0].text, /50:50/);
-});
-test('resumable daily worksheet retains results across reload and discards stale day without affecting campaign', () => {
-  const day = emptyJourneyDay(9);
-  day.weather = rollJourneyTable('core.weather', registry, () => 0);
-  day.mode = 'forage';
-  day.activity = rollJourneyActivity('forage', registry, () => 0);
-  day.encountersResolved = true;
-  day.campsite = rollJourneyTable('feretory.campsite', registry, () => 0);
-  day.camp = rollJourneyCamp(0, false, () => 0.99);
-  assert.equal(journeyReadyToFinish(day), true);
-  day.completed = true;
-  assert.deepEqual(
-    readJourneyDay(JSON.stringify(day), 9),
-    JSON.parse(JSON.stringify(day)),
-  );
-  assert.deepEqual(
-    readJourneyDay(JSON.stringify(day), 10),
-    emptyJourneyDay(10),
-  );
-  assert.deepEqual(readJourneyDay('{broken', 9), emptyJourneyDay(9));
-  day.camp = rollJourneyCamp(0, false, () => 0);
-  assert.equal(journeyReadyToFinish(day), false);
 });
 
 test('campsite dream result follows its canonical embedded d6 table and preserves parent provenance', () => {
@@ -241,35 +184,4 @@ test('campsite dream result follows its canonical embedded d6 table and preserve
     () => rollJourneyTable('feretory.campsite', registry, () => 0.75),
     /원문/,
   );
-});
-
-test('region routing and navigation ability persist while the next day drops old dice', () => {
-  const day = {
-    ...emptyJourneyDay(1),
-    region: 'kergus' as const,
-    navigationAbility: 'omens' as const,
-    weather: rollJourneyTable('core.weather', registry, () => 0),
-  };
-  const resumed = readJourneyDay(JSON.stringify(day), 1);
-  assert.equal(resumed.region, 'kergus');
-  assert.equal(resumed.navigationAbility, 'omens');
-  const next = readJourneyDay(JSON.stringify(day), 2);
-  assert.equal(next.region, 'kergus');
-  assert.equal(next.weather, null);
-  assert.equal(next.discovery, null);
-});
-
-test('consumed one-off road rows persist mechanically across days and flag a later reuse', () => {
-  let day = emptyJourneyDay(1);
-  day.activity = rollJourneyActivity('road', registry, sequence(0, 0.45));
-  assert.equal(journeyRepeatedRoadEvent(day), false);
-  day = consumeJourneyRoadEvents(day);
-  assert.deepEqual(day.usedRoadEvents, [10]);
-  const next = readJourneyDay(JSON.stringify(day), 2);
-  assert.deepEqual(next.usedRoadEvents, [10]);
-  next.activity = rollJourneyActivity('road', registry, sequence(0, 0.45));
-  assert.equal(journeyRepeatedRoadEvent(next), true);
-  assert.deepEqual(consumeJourneyRoadEvents(next).usedRoadEvents, [10]);
-  next.activity = rollJourneyActivity('road', registry, sequence(0, 0));
-  assert.equal(journeyRepeatedRoadEvent(next), false);
 });

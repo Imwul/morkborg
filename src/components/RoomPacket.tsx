@@ -15,6 +15,7 @@ import { Field } from './Field';
 import { GenerationDisclosure } from './GenerationDisclosure';
 import { Translation } from './Translation';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { TranslatedValue } from './TranslatedValue';
 import type { Confirm } from './Library';
 
 const rollableComponents = new Set([
@@ -124,7 +125,13 @@ export function RoomPacket({
                 </span>
               ))
             ) : (
-              <span>{room.description || '직접 작성'}</span>
+              <span>
+                <TranslatedValue
+                  text={room.description || '직접 작성'}
+                  provenance={room.fieldProvenance?.description}
+                  linked={false}
+                />
+              </span>
             )}
             <small className="room-packet-open">OPEN ›</small>
             <small className="room-packet-close">CLOSE ‹</small>

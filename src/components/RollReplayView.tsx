@@ -8,6 +8,7 @@ import {
 import type { ReferenceRegistry } from '../domain/references';
 import type { OracleRegistry } from '../domain/oracle';
 import { ReferenceReadingText } from './ReferenceReadingText';
+import { Translation } from './Translation';
 import { SourceDisclosure } from './SourceDisclosure';
 import { appPolicy, sourceProcedure } from '../domain/generationAuthority';
 import { cardIdentity } from '../domain/depthsProcedures';
@@ -69,7 +70,13 @@ export function RollReplayView({
                 result.reading.blocks.map((b, i) => (
                   <section key={i}>
                     {b.title && b.title !== result.reading.title && (
-                      <h4>{b.title}</h4>
+                      <h4>
+                        {b.title}
+                        <Translation
+                          text={b.title}
+                          translation={b.translation?.titleKo}
+                        />
+                      </h4>
                     )}
                     <ReferenceReadingText
                       text={b.text}
@@ -151,7 +158,7 @@ export function RollReplayView({
                 {result.cardComponents?.map((c, i) => (
                   <div key={i}>
                     <strong>{c.title}</strong>
-                    <p>{c.text}</p>
+                    <ReferenceReadingText text={c.text} splitLines />
                     <small>CARD {c.cards.join(' / ')}</small>
                     <SourceDisclosure
                       refs={replaySources(

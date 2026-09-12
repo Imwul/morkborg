@@ -4,6 +4,7 @@ import { readPrivateData } from './privateData';
 import { mergeRuleTranslations } from './ruleTranslations';
 import { loadPublishedData } from './publishedData';
 import { correctRuleSourcePages } from '../data/oracles/sourceCorrections';
+import { isScenarioTable } from '../data/scenarioExclusions';
 export interface RuleEntry {
   text: string;
   weight: number;
@@ -173,6 +174,9 @@ export const useRules = () =>
 export const getRules = () => state.pack;
 export function parseRulesPack(input: unknown): RulesPack {
   const pack = schema.parse(input);
+  pack.tables = Object.fromEntries(
+    Object.entries(pack.tables).filter(([id]) => !isScenarioTable(id)),
+  );
   validateGeneratorTables(pack);
   return correctRuleSourcePages(pack);
 }

@@ -6,6 +6,10 @@ import { useRules } from './rulesStore';
 import { validateOracleRegistry } from '../validation/oracleValidation';
 import { readPrivateData } from './privateData';
 import { loadPublishedData } from './publishedData';
+import {
+  isScenarioReference,
+  isScenarioTable,
+} from '../data/scenarioExclusions';
 const tableSchema = z.object({
   id: z.string().min(1),
   sourceBookId: z.string().min(1),
@@ -18,6 +22,13 @@ const tableSchema = z.object({
   category: z.enum(ORACLE_CATEGORIES),
   dice: z.string(),
   originalDice: z.string().optional(),
+  forcedFinal: z
+    .object({
+      label: z.string(),
+      text: z.string(),
+      sourcePage: z.number().int().positive(),
+    })
+    .optional(),
   printedPage: z.union([z.number(), z.string(), z.null()]).optional(),
   description: z.string().optional(),
   tags: z.array(z.string()),
@@ -91,7 +102,24 @@ const schema = z.object({
     .optional(),
 });
 export function parseOraclePack(input: unknown): OraclePack {
-  return schema.parse(input);
+  const pack = schema.parse(input);
+  pack.tables = pack.tables.filter((table) => !isScenarioTable(table.id));
+  pack.procedures = pack.procedures.filter(
+    (procedure) =>
+      !isScenarioReference(`procedure:${procedure.id}`) &&
+      !procedure.oracleIds.some(isScenarioTable),
+  );
+  if (pack.overrides)
+    pack.overrides = Object.fromEntries(
+      Object.entries(pack.overrides).filter(([id]) => !isScenarioTable(id)),
+    );
+  if (pack.entrySelectors)
+    pack.entrySelectors = Object.fromEntries(
+      Object.entries(pack.entrySelectors).filter(
+        ([id]) => !isScenarioTable(id),
+      ),
+    );
+  return pack;
 }
 let state: { pack: OraclePack | null; loading: boolean; error: string | null } =
   { pack: null, loading: true, error: null };

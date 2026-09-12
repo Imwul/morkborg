@@ -16,10 +16,12 @@ export function ReferenceTable({
   table,
   currentEntryIds,
   onChoose,
+  hideCaption = false,
 }: {
   table: OracleDefinition;
   currentEntryIds: (string | null)[];
   onChoose: (table: OracleDefinition, entry: OracleEntry) => void;
+  hideCaption?: boolean;
 }) {
   const exits = table.id === 'sd.room.exits';
   const desk = useReferenceDesk();
@@ -30,9 +32,15 @@ export function ReferenceTable({
           <ReferenceReadingText text={table.description} />
         </div>
       )}
+      {table.id === 'core.miseries' && (
+        <p className="core-misery-guidance">
+          Core · d66 (1:1–6:6). 이미 발생한 재앙은 다시 굴립니다. 일곱 번째
+          재앙은 굴리지 않고 7:7을 사용합니다.
+        </p>
+      )}
       {exits && <p>Special Rooms Uncovered</p>}
       <table>
-        <caption>
+        <caption className={hideCaption ? 'sr-only' : undefined}>
           {table.title} · {table.originalDice ?? table.dice}
         </caption>
         {exits && (
@@ -50,6 +58,11 @@ export function ReferenceTable({
         <tbody>
           {table.entries.map((entry) => {
             const notes = tableEntryNotes(entry);
+            const noteTranslation = (note: string) =>
+              note === entry.metadata?.effect &&
+              typeof entry.metadata?.translationKo === 'string'
+                ? entry.metadata.translationKo
+                : undefined;
             const blocks = Array.isArray(entry.metadata?.blocks)
               ? entry.metadata.blocks.filter(
                   (b) =>
@@ -75,7 +88,14 @@ export function ReferenceTable({
                     : undefined
                 }
               >
-                <th scope="row">
+                <th
+                  scope="row"
+                  className={
+                    namedSelector
+                      ? 'table-name-selector'
+                      : 'table-number-selector'
+                  }
+                >
                   {namedSelector ? (
                     typeof entry.metadata?.referenceId === 'string' &&
                     desk?.byId[entry.metadata.referenceId] ? (
@@ -109,7 +129,7 @@ export function ReferenceTable({
                       </>
                     )
                   ) : (
-                    tableSelector(entry)
+                    <span className="table-dice-number">{tableSelector(entry)}</span>
                   )}
                 </th>
                 {exits && columns ? (
@@ -125,7 +145,12 @@ export function ReferenceTable({
                       <details className="table-entry-detail">
                         <summary>
                           {notes[0].split('\n')[0]}
-                          <Translation text={notes[0].split('\n')[0]} />
+                          <Translation
+                            text={notes[0].split('\n')[0]}
+                            translation={
+                              noteTranslation(notes[0])?.split('\n')[0]
+                            }
+                          />
                         </summary>
                         {blocks.map((block, n) => (
                           <section key={n}>
@@ -142,11 +167,15 @@ export function ReferenceTable({
                             />
                           </section>
                         ))}
-                        <ReferenceReadingText
-                          text={notes
-                            .filter((note) => !blockNotes.has(note))
-                            .join('\n\n')}
-                        />
+                        {notes
+                          .filter((note) => !blockNotes.has(note))
+                          .map((note, i) => (
+                            <ReferenceReadingText
+                              key={i}
+                              text={note}
+                              translation={noteTranslation(note)}
+                            />
+                          ))}
                       </details>
                     )}
                     {Array.isArray(entry.metadata?.followup) && (
@@ -186,6 +215,20 @@ export function ReferenceTable({
             );
           })}
         </tbody>
+        {table.id === 'core.miseries' &&
+          table.sourceBookId === 'core' &&
+          table.forcedFinal?.label === '7:7' && (
+            <tfoot>
+              <tr>
+                <th scope="row">7:7</th>
+                <td>
+                  <strong>일곱 번째 재앙 · 고정 결과</strong>
+                  <ReferenceReadingText text={table.forcedFinal.text} />
+                  <small>Core · PDF {table.forcedFinal.sourcePage}</small>
+                </td>
+              </tr>
+            </tfoot>
+          )}
       </table>
     </section>
   );

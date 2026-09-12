@@ -115,47 +115,43 @@ const home = () =>
     onAbout: noop,
   });
 
-test('Home exposes all existing destinations without requiring a campaign; optional records stay closed', () => {
+test('Optional records and source management are a closed menu, without a launcher grid', () => {
   const html = renderToStaticMarkup(home());
   for (const label of [
-    '레퍼런스 작업대',
-    'Oracle 라이브러리',
-    '자료 및 규칙',
-    'City Crawl',
+    '자료 · 기록',
+    '출처 · 자료 관리',
     'Mythic Fate',
-    '재앙 · 여행',
-    '플레이 화면',
     '던전 보관함',
-    '캐릭터',
-    '몬스터',
-    'NPC',
-    '조우',
-    '보관한 자료',
-    '캠페인',
-    '세션',
-    '연대기',
-    '실마리',
-    '소문',
-    '유물',
-    '짧은 기록',
+    '캐릭터 보관함',
     '캠페인 노트',
-    '가져오기',
+    '캠페인 가져오기',
     '소개 · 출처',
   ])
     assert.ok(html.includes(label), label);
-  assert.match(html, /<details class="home-records"><summary>보조 기록/);
-  assert.doesNotMatch(html, /disabled|<details[^>]*\sopen|<input|<textarea/);
+  assert.match(html, /<details class="desk-records-menu"><summary>자료 · 기록/);
+  assert.doesNotMatch(
+    html,
+    /disabled|<details[^>]*\sopen|home-grid|home-section/,
+  );
 });
 
-test('Home keeps direct search above the index and omits empty or duplicate tool sections', () => {
+test('Desk search precedes the real type index and keeps pin/history navigation visible', () => {
   const html = renderToStaticMarkup(
     createElement(ReferenceDesk, { homeIndex: home() }),
   );
   assert.ok(
-    html.indexOf('aria-label="작업대 검색"') <
-      html.indexOf('aria-label="전체 항목"'),
+    html.indexOf('aria-label="참조 검색"') <
+      html.indexOf('aria-label="참조 종류"'),
   );
-  assert.match(html, /aria-label="고정한 표" hidden=""/);
-  assert.match(html, /aria-label="최근 사용한 표" hidden=""/);
-  assert.doesNotMatch(html, /desk-play-tools|desk-regions|desk-index/);
+  for (const label of [
+    '고정한 참조',
+    '최근 참조',
+    '검색 결과',
+    '관련 상황 바로가기',
+  ])
+    assert.ok(html.includes(`aria-label="${label}"`));
+  assert.doesNotMatch(
+    html,
+    /reference-card-grid|reference-dock|desk-play-tools/,
+  );
 });

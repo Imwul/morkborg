@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/fonts/BarlowCondensed-Black.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
 /* Typography and working widths are shared by every generator. */
 @font-face {
   font-family: 'Grenze Gotisch';
@@ -29,10 +36,12 @@
 }
 :root {
   --font-ui: 'Pretendard Variable', 'Apple SD Gothic Neo', sans-serif;
-  --font-reading: 'Alegreya', var(--font-ui);
-  --font-display: 'Grenze Gotisch', var(--font-ui);
+  --font-reading: var(--font-ui);
+  --font-body: var(--font-ui);
+  --font-display: 'Barlow Condensed', var(--font-ui);
   --font-proper: var(--font-reading);
   font-family: var(--font-reading);
+  font-weight: 550;
   font-size: 16px;
   line-height: 1.85;
 }
@@ -2342,9 +2351,6 @@ h1 {
   gap: 8px;
   margin-bottom: 8px;
 }
-.monster-workbench > .page-heading .generated-translation {
-  display: none;
-}
 .monster-workbench > .page-heading {
   margin: 8px 0;
   min-height: 44px;
@@ -2724,6 +2730,12 @@ button:disabled {
 .compact-secondary {
   font-size: 14px;
   line-height: 1.5;
+}
+.compact-card-main .generated-translation {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 2px 0 0;
+  font-weight: 400;
 }
 .compact-metadata {
   font-size: 12px;

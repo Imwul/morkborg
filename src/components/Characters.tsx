@@ -53,6 +53,7 @@ import {
 import { id } from '../generators/random';
 import { Field } from './Field';
 import { CompactCard } from './CompactCard';
+import { translateGeneratedText } from '../generators/translation';
 import type { Confirm } from './Library';
 
 type ItemKind =
@@ -466,6 +467,12 @@ export function Characters({
               key={ch.id}
               title={ch.name || 'Unnamed Character'}
               secondary={ch.className}
+              secondaryTranslation={
+                ch.fieldProvenance?.className?.origin === 'manual' ||
+                ch.fieldProvenance?.className?.origin === 'source-edited'
+                  ? undefined
+                  : translateGeneratedText(ch.className)
+              }
               metadata={
                 'HP ' +
                 ch.hp +
@@ -475,6 +482,7 @@ export function Characters({
                 ch.omens +
                 (ch.status === 'dead' ? ' · 사망' : '')
               }
+              metadataTranslation={`HP ${ch.hp} / ${ch.maxHp} · 오멘 ${ch.omens}${ch.status === 'dead' ? ' · 사망' : ''}`}
               onOpen={() => {
                 setMode(ch.classId ?? 'classless');
                 select(ch.id);

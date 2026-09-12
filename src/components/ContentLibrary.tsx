@@ -41,6 +41,9 @@ import { CompactCard } from './CompactCard';
 import { SourceDisclosure } from './SourceDisclosure';
 import { Field } from './Field';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { TranslatedValue } from './TranslatedValue';
+import { Translation } from './Translation';
+import { translateGeneratedText } from '../generators/translation';
 import { QuantityControl, RoomSelector } from './MonsterAssignments';
 import {
   ContentPlacementRows,
@@ -275,6 +278,24 @@ export function ContentLibrary({
       )}
     </div>
   );
+  const translationFor = (entity: NPC | Encounter, key: string) => {
+    const provenance = entity.fieldProvenance?.[key];
+    if (
+      provenance?.origin === 'manual' ||
+      provenance?.origin === 'source-edited'
+    )
+      return '';
+    const raw = (entity as unknown as Record<string, unknown>)[key];
+    const value =
+      typeof raw === 'string' || typeof raw === 'number' ? String(raw) : '';
+    const ref = entity.sourceRefs.find((ref) => ref.field === key);
+    const entry = registry.tables
+      .find((t) => t.id === ref?.tableId)
+      ?.entries.find((e) => e.id === ref?.entryId);
+    return entry?.text === value && typeof entry.metadata?.ko === 'string'
+      ? entry.metadata.ko
+      : translateGeneratedText(value);
+  };
   if (!selected)
     return (
       <div className="content-library">
@@ -319,6 +340,19 @@ export function ContentLibrary({
                   : encounterCategories.find((x) => x.id === entity.category)
                       ?.label
               }
+              titleTranslation={
+                'category' in entity && !entity.name
+                  ? translationFor(entity, 'text')
+                  : undefined
+              }
+              secondaryTranslation={
+                'archetype' in entity
+                  ? translationFor(
+                      entity,
+                      entity.archetype ? 'archetype' : 'behaviour',
+                    )
+                  : undefined
+              }
               metadata={
                 'archetype' in entity
                   ? [
@@ -343,17 +377,6 @@ export function ContentLibrary({
       </div>
     );
   const fields = kind === 'npcs' ? npcFields : encounterFields;
-  const translationFor = (key: string) => {
-    const ref = selected.sourceRefs.find((ref) => ref.field === key);
-    const entry = registry.tables
-      .find((t) => t.id === ref?.tableId)
-      ?.entries.find((e) => e.id === ref?.entryId);
-    return entry &&
-      entry.text === (selected as unknown as Record<string, unknown>)[key] &&
-      typeof entry.metadata?.ko === 'string'
-      ? entry.metadata.ko
-      : undefined;
-  };
   const field = (spec: FieldSpec) => (
     <Field
       key={spec.key}
@@ -361,7 +384,7 @@ export function ContentLibrary({
       value={
         (selected as unknown as Record<string, string | number>)[spec.key] ?? ''
       }
-      translation={translationFor(spec.key)}
+      translation={translationFor(selected, spec.key)}
       source={selected.sources?.[spec.key]}
       provenance={selected.fieldProvenance?.[spec.key]}
       onChange={(value, source) => patch(spec.key, value, source)}
@@ -486,14 +509,35 @@ export function ContentLibrary({
                   .filter(Boolean)
                   .join(' · ')}
               />
+              {['archetype', 'reaction'].some((key) =>
+                translationFor(selected, key),
+              ) && (
+                <Translation
+                  text={[selected.archetype, selected.reaction]
+                    .filter(Boolean)
+                    .join(' · ')}
+                  translation={['archetype', 'reaction']
+                    .map((key) => translationFor(selected, key))
+                    .filter(Boolean)
+                    .join(' · ')}
+                />
+              )}
             </p>
             <p>
-              <ReferenceLinkedText text={selected.appearance} />
+              <TranslatedValue
+                text={selected.appearance}
+                translation={translationFor(selected, 'appearance')}
+                provenance={selected.fieldProvenance?.appearance}
+              />
             </p>
           </>
         ) : (
           <p className="encounter-reading-text">
-            <ReferenceLinkedText text={selected.text} />
+            <TranslatedValue
+              text={selected.text}
+              translation={translationFor(selected, 'text')}
+              provenance={selected.fieldProvenance?.text}
+            />
           </p>
         )}
       </div>

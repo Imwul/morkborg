@@ -414,7 +414,12 @@ export function Oracles({
                         항목
                       </p>
                     ))}
-                    {selected.description && <p>{selected.description}</p>}
+                    {selected.description && (
+                      <p>
+                        {selected.description}
+                        <Translation text={selected.description} />
+                      </p>
+                    )}
                     {selected.sourceNote && <p>{selected.sourceNote}</p>}
                   </SourceDisclosure>
                   {selected.rollable === false && (
@@ -470,10 +475,6 @@ export function Oracles({
                         </span>
                         <p className="oracle-result-text" lang="en">
                           <ReferenceLinkedText text={r.text} />
-                        </p>
-                        <ReferenceNextSteps metadata={r.metadata} />
-                        <details className="packet-translation">
-                          <summary>한국어 도움말</summary>
                           <Translation
                             text={r.text}
                             translation={
@@ -482,7 +483,8 @@ export function Oracles({
                                 : undefined
                             }
                           />
-                        </details>
+                        </p>
+                        <ReferenceNextSteps metadata={r.metadata} />
                         <SourceDisclosure
                           source={r.source}
                           provenance={r.metadata?.provenance}

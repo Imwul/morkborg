@@ -1,3 +1,4 @@
+import { TranslatedValue } from './TranslatedValue';
 import { useState } from 'react';
 import { Dices, Copy, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -107,8 +108,22 @@ export function DungeonEncounterRoller({
           <small>
             {label(result.kind)} {result.roll} / d6 · {d.title}
           </small>
-          <h3>{contentTitle(encounter) || '직접 작성할 조우'}</h3>
-          {encounter.name && <p>{encounter.text || encounter.description}</p>}
+          <h3>
+            <TranslatedValue
+              text={contentTitle(encounter) || '직접 작성할 조우'}
+              provenance={
+                encounter.fieldProvenance?.[encounter.name ? 'name' : 'text']
+              }
+            />
+          </h3>
+          {encounter.name && (
+            <p>
+              <TranslatedValue
+                text={encounter.text || encounter.description}
+                provenance={encounter.fieldProvenance?.text}
+              />
+            </p>
+          )}
           {encounter.unresolved && (
             <p>원문 표 범위 밖의 준비 결과입니다. 해당 칸을 직접 확인하세요.</p>
           )}
@@ -292,7 +307,13 @@ export function DungeonEncounterTables({
                             })
                           }
                         >
-                          {contentTitle(e) || '직접 작성할 조우'}
+                          <TranslatedValue
+                            text={contentTitle(e) || '직접 작성할 조우'}
+                            provenance={
+                              e.fieldProvenance?.[e.name ? 'name' : 'text']
+                            }
+                            linked={false}
+                          />
                         </button>
                       ) : (
                         <span className="help-line">준비할 조우</span>

@@ -16,6 +16,18 @@ const vocabulary: Record<string, string> = {
   'Consume part of the canvas for a permanent effect. The picture’s monetary worth is halved.':
     '화포 일부를 먹으면 영구 효과를 얻습니다. 그림의 금전 가치는 절반이 됩니다.',
   Attack: '공격',
+  Armor: '방어구',
+  Omens: '오멘',
+  Reaction: '반응',
+  Tier: '등급',
+  Traits: '특성',
+  Values: '중시하는 것',
+  Specialty: '특기',
+  'Speciality options': '특기 선택지',
+  'once per day': '하루 한 번',
+  'Starting weapon': '시작 무기',
+  'Tie — referee choice': '동률 · 진행자가 선택',
+  'SOURCE UNAVAILABLE': '출처 자료 없음',
   Defence: '방어',
   Defense: '방어',
   Damage: '피해',
@@ -89,9 +101,8 @@ let root: Trie = { next: new Map() },
 let previousRules: unknown, previousOracles: unknown;
 const normalize = (s: string) => s.normalize('NFC').replace(/\s+/g, ' ').trim();
 export function polishKoreanTranslation(text: string): string {
-  if (!/[가-힣]/.test(text)) return text;
   return text.replace(
-    /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Attack|Defence|Defense|Damage)\b/gi,
+    /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Omens|Armor|Attack|Defence|Defense|Damage)\b/gi,
     (word) =>
       vocabulary[
         Object.keys(vocabulary).find(
@@ -209,9 +220,33 @@ export function translateGeneratedText(input: string): string {
   )
     return '';
   refresh();
+  // Serialized stat blocks are independent lines. Resolve each line before
+  // joining, so price notation or a proper name cannot swallow other helpers.
+  if (input.includes('\n')) {
+    const lines = input.split('\n');
+    const helpers = lines.map((line) => translateGeneratedText(line));
+    if (
+      helpers.some((ko) => /[가-힣]/.test(ko)) &&
+      lines.every(
+        (line, i) =>
+          !line.trim() ||
+          helpers[i] ||
+          !/[A-Za-zÀ-ž]/.test(
+            line.replace(/\b(?:HP|DR\d*|\d*d\d+|\d+s)\b/g, ''),
+          ),
+      )
+    )
+      return lines.map((line, i) => helpers[i] || line).join('\n');
+  }
   const text = normalize(input);
   const direct = exact.get(text.toLocaleLowerCase());
   if (direct !== undefined) return polishKoreanTranslation(direct);
+  const silver = /^((?:\d+d?\d*|d\d+)(?:[+−–-](?:\d+|d\d+))*)s$/i.exec(text);
+  if (silver) return `은화 ${silver[1]}`;
+  const days = /^([\dd+ −–-]+) days?$/i.exec(text);
+  if (days) return `${days[1]}일`;
+  const hit = /^DR(\d+) to hit\.$/i.exec(text);
+  if (hit) return `명중에 DR${hit[1]} 필요.`;
   const food = /^(\d+) days of food$/i.exec(text);
   if (food) return `${food[1]}일치 식량`;
   const torch = /^(\d+) torches$/i.exec(text);
@@ -269,13 +304,14 @@ export function translateGeneratedText(input: string): string {
     .replace(/\bcreature\(s\)/gi, '마리')
     .replace(/\b(\d+) doses total\b/gi, '총 $1회분')
     .replace(/\bDecoctions:/gi, '탕약:')
-    .replace(/\b24h\b/g, '24시간');
+    .replace(/\b24h\b/g, '24시간')
+    .replace(/\b(\d+)s\b/g, '은화 $1');
   // A few matched words are not a sentence translation. Only grammatical
   // source fragments and explicit game notation may form a composite result.
   const unknown = unmatched
     .replace(/^The\s+/i, '')
     .replace(/\b\d+\s+(?:arrows|bolts|doses total)\b/gi, '')
-    .replace(/\b(?:HP|DR\s*\d*|[dD]\d+|24h)\b/g, '');
+    .replace(/\b(?:HP|DR\s*\d*|\d*[dD]\d+|\d+s|24h)\b/g, '');
   if (/[\p{L}]/u.test(unknown)) return '';
   return (changed || output !== text) && /[가-힣]/.test(output)
     ? polishKoreanTranslation(output)

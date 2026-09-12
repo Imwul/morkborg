@@ -17,7 +17,8 @@ import {
 import type { AppSave } from '../domain/types';
 import { getPublishedDataState } from '../storage/publishedData';
 
-let sessionMemory = readPlayMemory();
+// Readings expire with this browser document. Existing saved replay data remains untouched.
+let sessionMemory = { ...readPlayMemory(), replays: [] } as PlayMemory;
 const listeners = new Set<() => void>();
 const subscribe = (listener: () => void) => {
   listeners.add(listener);
@@ -49,7 +50,7 @@ export function usePlayMemory(
       const next = fn(p);
       if (JSON.stringify(next) === JSON.stringify(p)) return p;
       try {
-        writePlayMemory(next);
+        writePlayMemory({ ...next, replays: readPlayMemory().replays });
       } catch {
         notify('임시 기억을 저장하지 못했습니다. 이 화면에서만 유지합니다.');
       }
@@ -78,7 +79,7 @@ export function usePlayMemory(
         if (JSON.stringify(contexts) === JSON.stringify(p.contexts)) return p;
         const updated = { ...p, contexts };
         try {
-          writePlayMemory(updated);
+          writePlayMemory({ ...updated, replays: readPlayMemory().replays });
         } catch {
           /* Volatile memory still works. */
         }
@@ -95,7 +96,7 @@ export function usePlayMemory(
       ...value,
       datasetRevision: getPublishedDataState().revision || undefined,
     });
-    update((p) => ({ ...p, replays: appendReplay(p.replays, entry) }));
+    changeMemory((p) => ({ ...p, replays: appendReplay(p.replays, entry) }));
   }
   return {
     memory,

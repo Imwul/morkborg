@@ -238,7 +238,7 @@ export function Dungeons({
           >
             {
               {
-                crawl: 'DUNGEON CRAWL',
+                crawl: '던전 참고집',
                 overview: '개요',
                 rooms: '방',
                 monsters: '몬스터',

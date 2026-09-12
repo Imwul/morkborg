@@ -17,7 +17,6 @@ import { fixedReferenceReading } from '../domain/referenceFixedLookup';
 import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
-import './inline-reference-tools.css';
 
 export function ReferenceReadingBlock({
   reading,
@@ -107,12 +106,17 @@ export function ReferenceReadingBlock({
           {block.title && block.title !== reading.title && (
             <strong>
               <ReferenceLinkedText text={block.title} />
-              <Translation text={block.title} />
+              <Translation
+                text={block.title}
+                translation={block.translation?.titleKo}
+              />
             </strong>
           )}
           {block.dice && <small>{block.dice}</small>}
           <ReferenceReadingText
             text={block.text}
+            translation={block.translation?.ko}
+            splitLines={!!reading.rareMonster || block.kind === 'creature'}
             source={sourceRows.find(
               (row) =>
                 block.text === row.text ||

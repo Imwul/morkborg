@@ -14,6 +14,7 @@ import type {
   DungeonRoom,
   MonsterTarget,
 } from '../domain/types';
+import { TranslatedValue } from './TranslatedValue';
 import { editCampaign, changeWorkspace } from '../storage/saveStore';
 import {
   addContentPlacement,
@@ -127,7 +128,13 @@ export function ContentPlacementRows({
             >
               <strong>
                 {p.quantity > 1 ? p.quantity + ' × ' : ''}
-                {title}
+                <TranslatedValue
+                  text={title}
+                  linked={false}
+                  provenance={
+                    entity.fieldProvenance?.[entity.name ? 'name' : 'text']
+                  }
+                />
               </strong>
               <small>
                 {roomIndex >= 0 ? 'Room ' + (roomIndex + 1) : 'Dungeon only'}

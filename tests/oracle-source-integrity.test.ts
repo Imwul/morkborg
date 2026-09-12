@@ -44,7 +44,7 @@ local(
   () => {
     assert.deepEqual(unresolvedOracleSources(registry), []);
     assert.deepEqual(validateOracleRegistry(registry), []);
-    assert.equal(registry.tables.length, 574);
+    assert.equal(registry.tables.length, 546); // 28 scenario-only tables removed by request.
   },
 );
 local(

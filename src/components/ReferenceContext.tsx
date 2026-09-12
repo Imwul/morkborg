@@ -1,10 +1,27 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import type {
   ReferenceEntry,
   ReferenceContext as ContextKind,
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  selectedId?: string | null;
+  content?: ReactNode;
+  query?: string;
+  setQuery?: (query: string) => void;
+  scope?: 'all' | 'pinned' | 'recent';
+  setScope?: (scope: 'all' | 'pinned' | 'recent') => void;
+  trayIds?: string[];
+  readings?: Record<
+    string,
+    import('../domain/referenceReading').ReferenceReading
+  >;
+  perform?: (id: string) => void;
+  removeTray?: (id: string) => void;
+  choose?: (
+    table: import('../domain/oracle').OracleDefinition,
+    entry: import('../domain/oracle').OracleEntry,
+  ) => void;
   recordRoll?: (
     id: string,
     result: import('../domain/referenceReading').ReferenceReading,

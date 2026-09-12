@@ -20,7 +20,6 @@ import {
   type FateReading,
   type MythicState,
 } from '../domain/mythic';
-import { editMythic } from '../domain/mythicOperations';
 import {
   appendOracleNotes,
   notesDestinations,
@@ -49,6 +48,7 @@ interface Props {
   onOpenChange: (open: boolean) => void;
   campaign?: Campaign;
   state: MythicState;
+  onStateChange?: (state: MythicState) => void;
   context?: NotesTarget | null;
   saveError: string | null;
   notify: (message: string) => void;
@@ -58,12 +58,17 @@ export function MythicPanel({
   open,
   onOpenChange,
   campaign,
-  state,
+  state: initialState,
+  onStateChange,
   context,
   saveError,
   notify,
   launcherRef,
 }: Props) {
+  const [state, setState] = useState<MythicState>(() => ({
+    ...initialState,
+    history: [],
+  }));
   const [wide, setWide] = useState(
     () => window.matchMedia('(min-width: 1600px)').matches,
   );
@@ -113,7 +118,10 @@ export function MythicPanel({
   }, [open]);
   function change(action: (next: MythicState) => void) {
     try {
-      transact((save) => editMythic(save, campaign?.id ?? null, action));
+      const next = structuredClone(state);
+      action(next);
+      setState(next);
+      onStateChange?.(next);
       setError('');
     } catch (e) {
       setError(e instanceof Error ? e.message : '저장할 수 없습니다.');
@@ -130,11 +138,7 @@ export function MythicPanel({
               isCheck ? [Number(diceA), Number(diceB)] : [Number(diceA)],
             )
         : rollFate(state, chartState.chart);
-      transact((save) =>
-        editMythic(save, campaign?.id ?? null, (next) =>
-          rememberFate(next, result),
-        ),
-      );
+      change((next) => rememberFate(next, result));
       setSelectedId(result.id);
       setError('');
     } catch (e) {

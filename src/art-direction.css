@@ -3179,6 +3179,13 @@ ol.ledger-list {
   font-weight: 700;
   font-size: 1.3rem;
 }
+.content-reading .generated-translation,
+.monster-statblock-reading .generated-translation,
+.monster-workbench > .page-heading .generated-translation {
+  color: var(--muted-ink);
+  font: 400 14px/1.6 var(--font-ui);
+  margin: 4px 0 8px;
+}
 .encounter-reading-text {
   white-space: pre-line;
 }

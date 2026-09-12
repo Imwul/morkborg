@@ -10,6 +10,7 @@ import { getRules, loadRules } from '../src/storage/rulesStore.ts';
 import { getOraclePack, loadOraclePack } from '../src/storage/oracleStore.ts';
 import { getFateChart, loadFateChart } from '../src/storage/fateChartStore.ts';
 import { buildOracleRegistry } from '../src/data/oracles/index.ts';
+import { isScenarioTable } from '../src/data/scenarioExclusions.ts';
 const available = ['library', 'oracles', 'mythic-fate'].every((name) =>
   existsSync(`public/rules/${name}.json`),
 );
@@ -46,10 +47,12 @@ test(
         assert.deepEqual(Object.keys(saved), ['oracles']);
       });
       assert.equal(writes, 1);
-      assert.equal(result.oracles!.tables.length, 369);
+      assert.equal(result.oracles!.tables.length, 348); // 21 scenario tables removed from this legacy pack.
       assert.deepEqual(
         result.oracles!.tables.map((table) => table.id),
-        data.oracles.tables.map((table: { id: string }) => table.id),
+        data.oracles.tables
+          .map((table: { id: string }) => table.id)
+          .filter((id: string) => !isScenarioTable(id)),
       );
       const imported = getOraclePack();
       finish?.(new Response('', { status: 404 }));
@@ -90,7 +93,7 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        573, // Legacy local fixture (572) plus the live Core valuation projection.
+        545, // Legacy fixture + Core valuation, minus 28 scenario tables.
       );
       const expected = parsePrivateData(bundle);
       assert.deepEqual(

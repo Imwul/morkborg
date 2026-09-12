@@ -1,0 +1,319 @@
+.freeform-workbench {
+  min-width: 0;
+  margin: 1.5rem 0;
+}
+.reference-shelves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line, #444);
+  padding-bottom: 0.8rem;
+}
+.reference-shelves button {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--line, #555);
+  font-size: 0.9rem;
+}
+.reference-shelves button[aria-pressed='true'] {
+  background: var(--acid, #f1ff00);
+  color: #111;
+}
+.reference-shelf-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin: 1.2rem 0;
+}
+.reference-shelf-heading h2 {
+  font-size: 1.35rem;
+  margin: 0;
+}
+.reference-shelf-heading p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+.reference-dice {
+  container-type: inline-size;
+  padding: 1rem;
+  border: 1px solid var(--line, #444);
+  margin-bottom: 1rem;
+}
+.dice-settings {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5rem 4.5rem 5.5rem;
+  gap: 0.75rem;
+  align-items: end;
+}
+.dice-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  align-self: center;
+}
+.dice-heading strong {
+  font-size: 1rem;
+}
+.dice-heading code {
+  font-size: 1rem;
+}
+.dice-settings label,
+.road-situation-test label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+}
+.dice-settings input,
+.dice-settings > button {
+  width: 100%;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  margin: 0;
+}
+.dice-picker {
+  display: grid;
+  min-inline-size: 0;
+  grid-template-columns: repeat(8, minmax(0, 4.5rem));
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--line, #ccc);
+  padding: 0.85rem 0 0;
+}
+.die-choice {
+  --dice-face: var(--paper, #f7f5ed);
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.2rem;
+  min-height: 4.5rem;
+  border: 1px solid transparent;
+  color: var(--ink, #111);
+  border-radius: 0.15rem;
+}
+.die-choice svg {
+  display: block;
+  width: 2.65rem;
+  height: 2.65rem;
+}
+.die-choice span {
+  font-size: 0.875rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.die-choice:hover {
+  border-color: var(--ink, #111);
+}
+.die-choice[aria-pressed='true'] {
+  --dice-face: var(--acid, #ffe600);
+  background: var(--dice-face);
+  border-color: var(--ink, #111);
+}
+.die-choice:focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 3px;
+}
+.reference-dice output {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+.reference-dice output:empty {
+  display: none;
+}
+@container (max-width: 420px) {
+  .dice-settings {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 0.6rem;
+  }
+  .dice-heading {
+    grid-column: 1 / -1;
+    margin-bottom: 0.3rem;
+  }
+  .dice-picker {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+}
+.reference-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+.freeform-reference-card {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line, #444);
+  overflow-wrap: anywhere;
+}
+.freeform-reference-card > header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.reference-card-kind {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+.freeform-reference-card h3 {
+  font-size: 1.12rem;
+  line-height: 1.5;
+  margin: 0.65rem 0 1rem;
+}
+.freeform-reference-card h3 small {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: normal;
+  opacity: 0.75;
+}
+.freeform-reference-card p {
+  font-size: 1rem;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+.reference-card-actions {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.reference-card-actions button {
+  min-height: 2.5rem;
+  white-space: normal;
+}
+.reference-pin {
+  margin-left: auto;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+.road-situation-test {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--line, #444);
+}
+.road-situation-test input {
+  width: 6rem;
+}
+.road-situation-test output {
+  display: block;
+  margin: 0.75rem 0;
+}
+.reference-recipe {
+  padding: 1rem;
+  border: 1px solid var(--line, #444);
+  margin: 1rem 0;
+}
+.reference-all-link {
+  display: block;
+  margin: 1.5rem 0;
+  text-decoration: underline;
+}
+.reference-home .desk-heading h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+.reference-home .desk-heading {
+  padding-bottom: 1rem;
+}
+@media (min-width: 2000px) {
+  .reference-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .reference-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reference-shelves {
+    gap: 0.35rem;
+  }
+  .reference-shelves button {
+    padding: 0.5rem 0.65rem;
+  }
+}
+
+.reference-home .desk-heading h1 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.1;
+  margin: 0.3rem 0 0.4rem;
+  letter-spacing: -0.025em;
+}
+.reference-home .desk-heading {
+  padding: 1rem 1.4rem;
+}
+.home-cover-meta {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.reference-recipe-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.reference-recipe-parts button {
+  font-size: 0.875rem;
+  text-decoration: underline;
+}
+
+.reference-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.7rem 0;
+  font-size: 0.95rem;
+}
+.reference-result-dice {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+.reference-recipe input[type='number'] {
+  max-width: 8rem;
+}
+.reference-recipe output {
+  display: block;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 650px) {
+  .reference-shelf-heading {
+    margin: 0.85rem 0;
+  }
+  .reference-shelf-heading p {
+    display: none;
+  }
+  .reference-home .desk-personal-tools {
+    margin: 0.7rem 0;
+    gap: 0.5rem;
+  }
+  .reference-home .desk-personal-tools section {
+    padding-block: 0.35rem;
+  }
+}
+
+.reference-procedure-parts {
+  margin: 1rem 0;
+  border-block: 1px solid var(--line, #aaa);
+  padding: 0.75rem 0;
+}
+.reference-procedure-parts > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+.reference-procedure-parts span {
+  flex: 1 1 55%;
+  overflow-wrap: anywhere;
+}
+.reference-procedure-parts button {
+  padding: 0.4rem;
+  text-decoration: underline;
+  font-size: 0.875rem;
+}

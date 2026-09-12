@@ -25,7 +25,10 @@ import {
 } from '../src/domain/referenceTable.ts';
 import { parseRulesPack, setRules } from '../src/storage/rulesStore.ts';
 import { parseOraclePack, setOraclePack } from '../src/storage/oracleStore.ts';
-import { buildOracleRegistry } from '../src/data/oracles/index.ts';
+import {
+  adaptRuleTable,
+  buildOracleRegistry,
+} from '../src/data/oracles/index.ts';
 import { validateOracleRegistry } from '../src/validation/oracleValidation.ts';
 import { unresolvedOracleSources } from '../src/validation/oracleSourceIntegrity.ts';
 import { generateCharacter } from '../src/generators/character.ts';
@@ -133,12 +136,9 @@ privateTest(
       assert.ok(r.summary.includes(s));
     assert.equal(r.sourceRefs[0].pdfPage?.toString(), '5');
     assert.equal(r.sourceRefs[0].printedPage, 3);
-    for (const id of [
-      'rule:sd.travel-day',
-      'rule:core.miseries',
-      'oracle:core.miseries',
-    ])
-      assert.ok(index.byId[id].relatedIds.includes(r.id), id);
+    assert.ok(index.byId['rule:sd.travel-day'].relatedIds.includes(r.id));
+    for (const id of ['rule:core.miseries', 'oracle:core.miseries'])
+      assert.ok(!index.byId[id].relatedIds.includes(r.id), id);
     assert.doesNotMatch(
       index.byId['rule:sd.solo-variant'].summary,
       /단계 상승/,
@@ -379,7 +379,11 @@ privateTest(
       tableSelector(table('heretic.songbird.spinalHusk').entries[0]),
       '6+',
     );
-    for (const e of table('heretic.gravesKnowledge').entries)
+    // Test archival truth metadata without reinstating this scenario in the desk.
+    for (const e of adaptRuleTable(
+      'heretic.gravesKnowledge',
+      bundle.library.tables['heretic.gravesKnowledge'],
+    ).entries)
       assert.ok(tableEntryNotes(e).includes(`Truth: ${e.metadata!.truth}`));
     assert.deepEqual(
       Object.keys(

@@ -1,6 +1,8 @@
 import { markCopiedIdentity } from '../domain/duplicationProvenance';
 import { GenerationDisclosure } from './GenerationDisclosure';
-import { ReferenceLinkedText } from './ReferenceLinkedText';
+import { TranslatedValue } from './TranslatedValue';
+import { Translation } from './Translation';
+import { translateGeneratedText } from '../generators/translation';
 import { CreatureParticipants } from './CreatureParticipants';
 import { hasManualEdits } from '../domain/generationProvenance';
 import { SourceText } from './SourceText';
@@ -336,6 +338,11 @@ export function Monsters({
             <CompactCard
               key={m.id}
               title={m.name || 'Unnamed Monster'}
+              titleTranslation={
+                m.fieldProvenance?.name?.origin === 'source'
+                  ? translateGeneratedText(m.name)
+                  : undefined
+              }
               secondary={
                 [
                   m.hp !== '' ? `HP ${m.hp}` : '',
@@ -345,10 +352,33 @@ export function Monsters({
                   .filter(Boolean)
                   .join(' · ') || 'SOURCE UNAVAILABLE'
               }
+              secondaryTranslation={translateGeneratedText(
+                [
+                  m.morale !== '' ? `Morale ${m.morale}` : '',
+                  !['manual', 'source-edited'].includes(
+                    m.fieldProvenance?.armor?.origin ?? '',
+                  )
+                    ? m.armor
+                    : '',
+                ]
+                  .filter(Boolean)
+                  .join(' · '),
+              )}
               metadata={m.attacks
                 .map((attack) =>
                   [attack.name, attack.damage].filter(Boolean).join(' '),
                 )
+                .filter(Boolean)
+                .join(' · ')}
+              metadataTranslation={m.attacks
+                .map((attack) => {
+                  const p = attack.fieldProvenance?.name;
+                  return p?.origin === 'manual' || p?.origin === 'source-edited'
+                    ? ''
+                    : translateGeneratedText(
+                        [attack.name, attack.damage].filter(Boolean).join(' '),
+                      );
+                })
                 .filter(Boolean)
                 .join(' · ')}
               onOpen={() => select(m.id)}
@@ -390,7 +420,13 @@ export function Monsters({
               ? '저장된 몬스터 · 자동 저장'
               : '생성 후보 · 보관함에 저장되지 않음'}
           </span>
-          <h1>{selected.name || '이름 없는 후보'}</h1>
+          <h1>
+            <TranslatedValue
+              text={selected.name || '이름 없는 후보'}
+              provenance={selected.fieldProvenance?.name}
+              linked={false}
+            />
+          </h1>
 
           <p>
             {[
@@ -400,6 +436,16 @@ export function Monsters({
             ]
               .filter(Boolean)
               .join(' · ')}
+            <Translation
+              text={[
+                selected.morale !== '' && `Morale ${selected.morale}`,
+                !['manual', 'source-edited'].includes(
+                  selected.fieldProvenance?.armor?.origin ?? '',
+                ) && selected.armor,
+              ]
+                .filter(Boolean)
+                .join(' · ')}
+            />
           </p>
         </div>
         <div className="actions">
@@ -425,15 +471,22 @@ export function Monsters({
         {selected.attacks.map((attack) => (
           <p key={attack.id}>
             <strong>
-              <ReferenceLinkedText
+              <TranslatedValue
                 text={[attack.name, attack.damage].filter(Boolean).join(' · ')}
+                provenance={attack.fieldProvenance?.name}
               />
             </strong>
           </p>
         ))}
         {selected.special[0] && (
           <p className="statblock-special-preview">
-            <ReferenceLinkedText text={selected.special[0].text} />
+            <TranslatedValue
+              text={selected.special[0].text}
+              provenance={
+                selected.special[0].provenance ??
+                selected.special[0].fieldProvenance?.text
+              }
+            />
           </p>
         )}
       </section>

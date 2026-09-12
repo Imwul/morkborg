@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { REGION_IDS } from '../domain/types';
 import { CARD_RANKS, CARD_SUITS } from '../domain/depthsProcedures';
+import { isScenarioReference } from '../data/scenarioExclusions';
 
 export const CONVENIENCE_KEY = 'morkborg-convenience:v1';
 export const PLAY_SESSION_KEY = 'morkborg-play-session:v1';
@@ -93,8 +94,22 @@ export function readConveniencePreferences(
     return {
       schemaVersion: 1,
       playOpened: v.playOpened === true,
-      recipes: valid(v.recipes, recipeSchema),
-      packs: valid(v.packs, packSchema),
+      recipes: valid(v.recipes, recipeSchema)
+        .map((recipe) => ({
+          ...recipe,
+          referenceIds: recipe.referenceIds.filter(
+            (id) => !isScenarioReference(id),
+          ),
+        }))
+        .filter((recipe) => recipe.referenceIds.length > 0),
+      packs: valid(v.packs, packSchema)
+        .map((pack) => ({
+          ...pack,
+          referenceIds: pack.referenceIds.filter(
+            (id) => !isScenarioReference(id),
+          ),
+        }))
+        .filter((pack) => pack.referenceIds.length > 0),
       activePackId:
         referenceId.nullable().safeParse(v.activePackId).data ?? null,
     };
@@ -106,11 +121,18 @@ export function readPlaySession(storage?: Reader): PlaySession {
   try {
     const v = parsed(storage ?? sessionStorage, PLAY_SESSION_KEY);
     const tray = z.array(referenceId).safeParse(v.tray).data ?? [];
+    const lastRoll =
+      lastRollSchema.nullable().safeParse(v.lastRoll).data ?? null;
     return {
       schemaVersion: 1,
-      tray: [...new Set(tray)].slice(0, 12),
+      tray: [...new Set(tray)]
+        .filter((id) => !isScenarioReference(id))
+        .slice(0, 12),
       scratch: typeof v.scratch === 'string' ? v.scratch.slice(0, 12000) : '',
-      lastRoll: lastRollSchema.nullable().safeParse(v.lastRoll).data ?? null,
+      lastRoll:
+        lastRoll?.kind === 'reference' && isScenarioReference(lastRoll.id)
+          ? null
+          : lastRoll,
     };
   } catch {
     return emptyPlaySession();

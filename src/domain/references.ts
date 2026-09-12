@@ -1108,14 +1108,7 @@ export function buildReferenceRegistry(
             e.definition?.referenceGroup === 'blackpowder' && e.id !== entry.id,
         )
         .map((e) => e.id);
-    if (
-      [
-        'rule:sd.travel-day',
-        'rule:sd.solo-variant',
-        'rule:core.miseries',
-        'oracle:core.miseries',
-      ].includes(entry.id)
-    )
+    if (['rule:sd.travel-day', 'rule:sd.solo-variant'].includes(entry.id))
       entry.relatedIds.unshift('rule:sd.daily-misery');
     if (
       ['rule:sd.travel-day', 'rule:feretory.roads'].includes(entry.id) ||
@@ -1199,6 +1192,7 @@ const COMMON_REFERENCE_QUERIES: Record<string, string> = {
   omens: 'rule:core.omens',
   miseries: 'oracle:core.miseries',
   travel: 'rule:sd.travel-day',
+  room: 'oracle:sd.room.contents',
   'useful item': 'oracle:sd.usefulItems',
   'useful items': 'oracle:sd.usefulItems',
   npc: 'procedure:workbench.npc',
@@ -1250,6 +1244,8 @@ export function searchReferences(
         meta = tokens(
           [
             entry.id,
+            entry.kind,
+            entry.titleTranslationKo ?? '',
             entry.summary,
             entry.summaryTranslationKo ?? '',
             ...entry.keywords,
@@ -1272,21 +1268,46 @@ export function searchReferences(
         )
       )
         return { entry, score: -1 };
+      const titleTerms = terms.filter(
+        (term) =>
+          ![
+            'rule',
+            'oracle',
+            'procedure',
+            'creature',
+            'book',
+            'region',
+          ].includes(term),
+      );
+      const titlePhrase = titleTerms.join(' ');
+      const titlePrefix =
+        !!titlePhrase && title.join(' ').startsWith(titlePhrase);
       const score =
+        (titlePrefix ? 32 : 0) +
+        (titlePhrase && title.join(' ') === titlePhrase ? 20 : 0) +
+        (entry.kind === 'book' &&
+        terms.length > 0 &&
+        terms.every((term) => title.includes(term))
+          ? 50
+          : 0) +
         // Preserve an explicitly typed source name where it also names a situation (Death / Shield).
         (entry.definition &&
         query.trim().normalize('NFC') === entry.title.normalize('NFC')
           ? 150
           : 0) +
-        (exactAlias ? 150 : 0) +
-        terms.reduce((n, term) => n + (title.includes(term) ? 12 : 4), 0) +
+        (exactAlias ? 220 : 0) +
+        terms.reduce(
+          (n, term) =>
+            n + (title.some((word) => word.startsWith(term)) ? 12 : 4),
+          0,
+        ) +
         (phrase &&
         (title.join(' ') === phrase ||
           (entry.kind === 'creature' &&
             tokens(entry.title.split('·')[0]).join(' ') === phrase))
           ? 40
           : 0) +
-        (entry.id === preferredId && entry.available && entry.action ? 80 : 0) +
+        (entry.id === preferredId && entry.available && entry.action ? 150 : 0) +
         (entry.available ? 5 : 0) +
         (entry.action ? 3 : 0) +
         (entry.action?.kind === 'regional-monster' ? 5 : 0) +
@@ -1388,6 +1409,17 @@ export function contextReferences(
 }
 
 const SEMANTIC_RELATED: Record<string, string[]> = {
+  'rule:sd.travel-day': [
+    'oracle:core.weather',
+    'oracle:feretory.roadType',
+    'oracle:feretory.roadEvent',
+    'rule:sd.leaving-road',
+    'oracle:feretory.campsite',
+    'rule:sd.camping-move',
+    'rule:feretory.travel-distances',
+    'oracle:core.miseries',
+  ],
+
   'oracle:feretory.A': [
     'oracle:feretory.desire',
     'oracle:feretory.trait',

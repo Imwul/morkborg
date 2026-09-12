@@ -1,5 +1,6 @@
 import type { OraclePreferences } from '../domain/oracle';
 import { oracleLibraryId } from '../data/oracles/library';
+import { isScenarioTable } from '../data/scenarioExclusions';
 export const ORACLE_PREFERENCES_KEY = 'morkborg-oracle-preferences:v1';
 const defaults = (): OraclePreferences => ({
   schemaVersion: 1,
@@ -23,7 +24,8 @@ export function readOraclePreferences(
             ...new Set<string>(
               value.favoriteIds
                 .filter((v: unknown) => typeof v === 'string')
-                .map(oracleLibraryId),
+                .map(oracleLibraryId)
+                .filter((id: string) => !isScenarioTable(id)),
             ),
           ]
         : [],

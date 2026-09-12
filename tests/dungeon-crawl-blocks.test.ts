@@ -9,11 +9,7 @@ import type {
   OracleRegistry,
 } from '../src/domain/oracle.ts';
 import {
-  advanceDungeonCrawl,
-  completeDungeonRoom,
-  prepareDungeonCrawl,
   resolveCrawlDice,
-  resolveDungeonTransitionDanger,
   rollGenericCrawlRoom,
 } from '../src/domain/dungeonCrawl.ts';
 import { cloneCampaign } from '../src/domain/operations.ts';
@@ -25,7 +21,6 @@ import {
   createCampaign,
   createDungeon,
   createDungeonCandidate,
-  createRoom,
 } from '../src/generators/index.ts';
 import {
   prepareSpecialRooms,
@@ -104,38 +99,17 @@ function prepared() {
     dungeonDR: 12,
   };
   c.dungeons.push(d);
-  prepareDungeonCrawl(d, true);
+  d.rooms.push(...prepareSpecialRooms(d, true));
+  d.crawl = {
+    phase: 'entrance',
+    specialRoomIds: d.rooms.map((r) => r.id),
+    discoveredSpecialIds: [],
+    visitedRoomIds: [],
+    currentRoomId: null,
+    threatRating: 12,
+  };
   return { c, d };
 }
-
-test('crawl preparation preserves legacy rooms and notes, adds four separate undiscovered anchors, and is idempotent', () => {
-  const c = createCampaign('Legacy');
-  const d = createDungeon(c.id, 'Old dungeon', 'sarkash', true);
-  d.rooms = [createRoom('sarkash', true), createRoom('sarkash', true)];
-  d.rooms[0].notes = 'Already played by hand';
-  const legacy = digest(d.rooms);
-  prepareDungeonCrawl(d, true);
-  assert.equal(d.rooms.length, 6);
-  assert.equal(digest(d.rooms.slice(0, 2)), legacy);
-  assert.equal(d.crawl!.specialRoomIds.length, 4);
-  assert.deepEqual(d.crawl!.discoveredSpecialIds, []);
-  assert.deepEqual(d.crawl!.visitedRoomIds, []);
-  assert.equal(d.crawl!.phase, 'entrance');
-  const before = digest(d);
-  prepareDungeonCrawl(d);
-  assert.equal(digest(d), before);
-});
-
-test('preparing already defined four special rooms reuses their IDs without changing their content', () => {
-  const { d } = prepared();
-  delete d.crawl;
-  const before = digest(d.rooms),
-    ids = d.rooms.map((room) => room.id);
-  prepareDungeonCrawl(d);
-  assert.equal(digest(d.rooms), before);
-  assert.deepEqual(d.crawl!.specialRoomIds, ids);
-  assert.deepEqual(d.crawl!.discoveredSpecialIds, []);
-});
 
 test('crawl dice apply found-room bonus to each die and reject invalid dice, counts and DR', () => {
   assert.equal(resolveCrawlDice([11, 11], 0, 12).outcome, 'miss');
@@ -154,92 +128,6 @@ test('crawl dice apply found-room bonus to each die and reject invalid dice, cou
     [[1, 1], 0, 12.5],
   ] as const)
     assert.throws(() => resolveCrawlDice([...dice], bonus, dr));
-});
-
-test('Strong discovers each prepared room in order; the fifth Strong becomes a generic room with no extra special discovery', () => {
-  const { d } = prepared(),
-    originalIds = [...d.crawl!.specialRoomIds];
-  for (let found = 0; found < 4; found++) {
-    const face = 12 - found,
-      rolls = queue([die(face, 20), die(face, 20)]);
-    const result = advanceDungeonCrawl(d, registry, rolls.rng);
-    assert.equal(result.outcome, 'strong');
-    assert.equal(result.bonus, found);
-    assert.equal(rolls.count(), 2);
-    assert.equal(d.crawl!.currentRoomId, originalIds[found]);
-    assert.equal(d.rooms.length, 4);
-    assert.deepEqual(
-      d.crawl!.discoveredSpecialIds,
-      originalIds.slice(0, found + 1),
-    );
-    completeDungeonRoom(d);
-  }
-  const rolls = queue([die(8, 20), die(8, 20), 0, 0, 0, die(4, 4)]);
-  const result = advanceDungeonCrawl(d, registry, rolls.rng);
-  assert.equal(result.exhausted, true);
-  assert.equal(result.outcome, 'weak');
-  assert.equal(d.rooms.length, 5);
-  assert.equal(d.rooms.at(-1)!.kind, 'generic');
-  assert.equal(d.rooms.at(-1)!.exits, 0);
-  assert.deepEqual(d.crawl!.discoveredSpecialIds, originalIds);
-  assert.equal(rolls.count(), 6);
-});
-
-test('an unresolved room or danger blocks advancing and invalid resolution calls do not mutate state', () => {
-  const { d } = prepared();
-  for (const phase of ['entrance', 'ready', 'danger', 'room'] as const) {
-    d.crawl!.phase = phase;
-    const before = digest(d);
-    if (phase === 'danger' || phase === 'room')
-      assert.throws(
-        () =>
-          advanceDungeonCrawl(d, registry, () => {
-            throw Error('must not roll');
-          }),
-        /먼저 해결/,
-      );
-    if (phase !== 'danger')
-      assert.throws(() => resolveDungeonTransitionDanger(d, registry));
-    if (phase !== 'room') assert.throws(() => completeDungeonRoom(d));
-    assert.equal(digest(d), before);
-  }
-});
-
-test('Miss creates no room until its danger is resolved, survives reload, and resolution never rolls another Crawl', () => {
-  const { c, d } = prepared();
-  const rolls = queue([0, 0]);
-  advanceDungeonCrawl(d, registry, rolls.rng);
-  assert.equal(rolls.count(), 2);
-  assert.equal(d.rooms.length, 4);
-  assert.equal(d.crawl!.phase, 'danger');
-  assert.equal(d.crawl!.currentRoomId, null);
-  const restored = validateCampaign(JSON.parse(JSON.stringify(c))).dungeons[0];
-  assert.equal(restored.crawl!.phase, 'danger');
-  const lastRoll = digest(restored.crawl!.lastRoll);
-  const contentsOnly = queue([0, 0, 0, 0]);
-  resolveDungeonTransitionDanger(restored, registry, contentsOnly.rng);
-  assert.equal(contentsOnly.count(), 4);
-  assert.equal(digest(restored.crawl!.lastRoll), lastRoll);
-  assert.equal(restored.crawl!.phase, 'room');
-  assert.equal(restored.rooms.length, 5);
-  assert.equal(restored.rooms.at(-1)!.kind, 'generic');
-  assert.deepEqual(restored.crawl!.discoveredSpecialIds, []);
-});
-
-test('Weak creates exactly one generic room; completing it only unlocks the next deliberate Crawl', () => {
-  const { d } = prepared();
-  const rolls = queue([0.999, 0, 0, 0, 0, 0]);
-  assert.equal(advanceDungeonCrawl(d, registry, rolls.rng).outcome, 'weak');
-  assert.equal(rolls.count(), 6);
-  assert.equal(d.crawl!.phase, 'room');
-  assert.equal(d.rooms.length, 5);
-  assert.deepEqual(d.crawl!.discoveredSpecialIds, []);
-  const rooms = digest(d.rooms),
-    lastRoll = digest(d.crawl!.lastRoll);
-  completeDungeonRoom(d);
-  assert.equal(d.crawl!.phase, 'ready');
-  assert.equal(digest(d.rooms), rooms);
-  assert.equal(digest(d.crawl!.lastRoll), lastRoll);
 });
 
 function checkExitMatrix(source: OracleRegistry) {
@@ -266,9 +154,7 @@ test('missing source or invalid exit context leaves the pending crawl state unto
     ...registry,
     tables: registry.tables.filter((t) => t.id !== 'sd.room.exits'),
   };
-  assert.throws(() =>
-    advanceDungeonCrawl(d, incomplete, queue([0.999, 0, 0, 0, 0]).rng),
-  );
+  assert.throws(() => rollGenericCrawlRoom(incomplete, 0, () => 0));
   assert.equal(digest(d), before);
   for (const found of [-1, 5])
     assert.throws(() => rollGenericCrawlRoom(registry, found, () => 0));
@@ -276,7 +162,11 @@ test('missing source or invalid exit context leaves the pending crawl state unto
 
 test('campaign and dungeon copies remap all crawl room references and leave the source intact', () => {
   const { c, d } = prepared();
-  advanceDungeonCrawl(d, registry, () => 0.999);
+  // Fixture of a previously exported play record, not a new game operation.
+  d.crawl!.phase = 'room';
+  d.crawl!.currentRoomId = d.rooms[0].id;
+  d.crawl!.discoveredSpecialIds = [d.rooms[0].id];
+  d.crawl!.visitedRoomIds = [d.rooms[0].id];
   const original = digest(d);
   const campaignCopy = cloneCampaign(c),
     dungeonCopy = duplicateDungeon(c, d.id);

@@ -506,19 +506,22 @@ test('d6 × d8 and d4 × d8 keep both printed coordinates', () => {
   }
 });
 localTest(
-  'source-inferred dice and stateful/removal charts remain manual references',
+  'source-inferred and ambiguous charts stay manual; removed scenario charts are absent',
   () => {
     for (const id of [
       'core.hereticalPriestOrigins',
       'feretory.philosopherItem',
       'feretory.ochreTablets',
-      'heretic.nurse.corridorNorth',
       'heretic.curseCure',
     ]) {
       const t = all.tables.find((t) => t.id === id)!;
       assert.equal(t.rollable, false);
       assert.throws(() => rollOracle(t, all));
     }
+    assert.equal(
+      all.tables.find((t) => t.id === 'heretic.nurse.corridorNorth'),
+      undefined,
+    );
   },
 );
 localTest(

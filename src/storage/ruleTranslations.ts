@@ -23,6 +23,10 @@ export function mergeRuleTranslations(
   const key = (text: string) =>
     text.normalize('NFC').replace(/\s+/g, ' ').trim();
   const fillMissing = incoming.notes.translationUpdatePolicy === 'fill-missing';
+  const meaningfulHelper = (source: string, helper: unknown) =>
+    typeof helper === 'string' &&
+    !!helper.trim() &&
+    key(helper) !== key(source);
   const update = (entries: RuleEntry[], source: RuleEntry[]): RuleEntry[] => {
     const byText = new Map<string, RuleEntry[]>();
     const counts = new Map<string, number>();
@@ -58,11 +62,7 @@ export function mergeRuleTranslations(
             ? { scrollRestriction: match.meta.scrollRestriction }
             : {}),
           ...(typeof match?.meta.ko === 'string' &&
-          !(
-            fillMissing &&
-            typeof entry.meta.ko === 'string' &&
-            entry.meta.ko.trim()
-          )
+          !(fillMissing && meaningfulHelper(entry.text, entry.meta.ko))
             ? { ko: match.meta.ko }
             : {}),
         },
@@ -79,7 +79,13 @@ export function mergeRuleTranslations(
       translations: {
         ...Object(current.notes.translations),
         ...Object(incoming.notes.translations),
-        ...(fillMissing ? Object(current.notes.translations) : {}),
+        ...(fillMissing
+          ? Object.fromEntries(
+              Object.entries(Object(current.notes.translations)).filter(
+                ([source, helper]) => meaningfulHelper(source, helper),
+              ),
+            )
+          : {}),
       },
       ...(incoming.notes.aitcTranslationEdition
         ? { aitcTranslationEdition: incoming.notes.aitcTranslationEdition }

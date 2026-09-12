@@ -30,6 +30,7 @@ import type {
 } from './useReferenceConvenience';
 import { SourceDisclosure } from './SourceDisclosure';
 import { ReferenceReadingText } from './ReferenceReadingText';
+import { Translation } from './Translation';
 import { useReferenceDesk } from './ReferenceContext';
 import { DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
@@ -193,7 +194,7 @@ export function PlayTrayStrip({ tools }: { tools: ReferenceConvenience }) {
   if (!tools.temporary.tray.length) return null;
   return (
     <div className="reference-play-tray" aria-label="Play Tray">
-      <small>PLAY</small>
+      <small>작업대</small>
       {tools.temporary.tray.map((id) => {
         const entry = desk?.byId[id];
         return entry ? (
@@ -357,7 +358,7 @@ export function ConveniencePanel({
           : tab === 'replay'
             ? 'RECENT ROLLS · 최근 결과'
             : tab === 'play'
-              ? 'PLAY'
+              ? '작업대'
               : tab === 'recipes'
                 ? 'RECIPES'
                 : tab === 'packs'
@@ -371,7 +372,7 @@ export function ConveniencePanel({
       </DialogDescription>
       {tab !== 'play' && (
         <button className="convenience-back" onClick={() => switchTab('play')}>
-          ‹ PLAY
+          ‹ 작업대
         </button>
       )}
       {tools.error && <p role="alert">{tools.error}</p>}
@@ -431,9 +432,18 @@ export function ConveniencePanel({
                 >
                   <strong>{entry.title}</strong>
                   <span>
-                    {entry.results
-                      .map((r) => r.manualText ?? r.reading.blocks[0]?.text)
-                      .join(' / ')}
+                    {entry.results.map((r, i) => (
+                      <span key={i}>
+                        {i > 0 && ' / '}
+                        {r.manualText ?? r.reading.blocks[0]?.text}
+                        {r.manualText === undefined && r.reading.blocks[0] && (
+                          <Translation
+                            text={r.reading.blocks[0].text}
+                            translation={r.reading.blocks[0].translation?.ko}
+                          />
+                        )}
+                      </span>
+                    ))}
                   </span>
                   <small>
                     {entry.results
@@ -1010,7 +1020,13 @@ export function ConveniencePanel({
                         reading.blocks.map((b, i) => (
                           <section key={i}>
                             {b.title && b.title !== entry?.title && (
-                              <h4>{b.title}</h4>
+                              <h4>
+                                {b.title}
+                                <Translation
+                                  text={b.title}
+                                  translation={b.translation?.titleKo}
+                                />
+                              </h4>
                             )}
                             <ReferenceReadingText
                               text={b.text}

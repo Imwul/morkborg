@@ -21,7 +21,7 @@ const section = z.enum([
 const identifier = z.string().max(200).nullable();
 const locationSchema = z.object({
   oracleOpen: z.boolean(),
-  deskPage: z.enum(['home', 'desk', 'sources']),
+  deskPage: z.enum(['home', 'desk', 'sources', 'travel', 'dungeon']),
   cityOpen: z.boolean(),
   legacyOracleOpen: z.boolean(),
   pendingSection: section.nullable(),

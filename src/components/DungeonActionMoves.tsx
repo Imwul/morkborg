@@ -36,8 +36,7 @@ export function DungeonActionMoves({
       'normal' | 'preoccupied' | 'alerted'
     >('normal');
   const [result, setResult] = useState<DungeonActionResult>(),
-    [error, setError] = useState(''),
-    [resolved, setResolved] = useState(false);
+    [error, setError] = useState('');
   const entry = DUNGEON_ACTIONS.find((a) => a.id === action)!;
   const input: DungeonActionInput = {
     action,
@@ -55,13 +54,12 @@ export function DungeonActionMoves({
       setError('');
       const next = rollDungeonAction({ ...input, retry }, registry);
       setResult(next);
-      setResolved(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : '규칙 자료를 확인하세요.');
     }
   }
   return (
-    <details className="inline-tools dungeon-action-moves">
+    <details className="inline-tools dungeon-action-moves" open>
       <summary>도망 · 탐색 · 휴식 · 위험 판정</summary>
       <div className="procedure-controls">
         <label htmlFor={`${uid}-action`}>
@@ -72,7 +70,6 @@ export function DungeonActionMoves({
             onChange={(e) => {
               setAction(e.target.value as DungeonAction);
               setResult(undefined);
-              setResolved(false);
               setError('');
             }}
           >
@@ -157,10 +154,7 @@ export function DungeonActionMoves({
             많은 시간 / 큰 소음 · 2-in-6
           </label>
         )}
-        <Button
-          disabled={rest && result?.outcome === 'fail'}
-          onClick={() => roll()}
-        >
+        <Button onClick={() => roll()}>
           {action === 'noise'
             ? `위험 d6 · ${loud ? 2 : 1}-in-6`
             : `${entry.title} 2d20 · DR${dungeonActionDR(input)}`}
@@ -184,29 +178,19 @@ export function DungeonActionMoves({
           결과를 피합니다.
         </p>
       )}
+      {rest && (
+        <Button onClick={() => roll(true)}>
+          방해 후 휴식 · Strong / Weak 50:50
+        </Button>
+      )}
       {error && <p role="alert">{error}</p>}
       {result && (
         <>
           <ReferenceReadingBlock reading={result.reading} />
-          {rest && result.outcome === 'fail' && (
-            <>
-              <label className="journey-acknowledge">
-                <input
-                  type="checkbox"
-                  checked={resolved}
-                  onChange={(e) => setResolved(e.target.checked)}
-                />
-                휴식을 방해한 사건을 해결했습니다.
-              </label>
-              <Button disabled={!resolved} onClick={() => roll(true)}>
-                다시 쉬기 · Strong / Weak 50:50
-              </Button>
-            </>
-          )}
           {result.relatedIds.length > 0 && (
             <InlineReferenceTools
               key={`${action}-${result.values.join('-')}`}
-              title="이 결과의 다음 판정"
+              title="관련 판정"
               ids={result.relatedIds}
               region={region}
               initiallyOpen

@@ -49,6 +49,8 @@ export interface OracleDefinition {
   category: OracleCategory;
   dice: string;
   originalDice?: string;
+  /** A printed, non-random final result, outside the table's dice domain. */
+  forcedFinal?: { label: string; text: string; sourcePage: number };
   description?: string;
   entries: OracleEntry[];
   tags: string[];

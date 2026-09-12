@@ -1,3 +1,4 @@
+import './components/inline-reference-tools.css';
 import './components/play-memory.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -10,6 +11,8 @@ import './reference.css';
 import './components/source-authority.css';
 import './components/convenience.css';
 import './components/home.css';
+import './components/freeform-workbench.css';
+import './components/reference-surface.css';
 const navigation = performance.getEntriesByType('navigation')[0] as
   | PerformanceNavigationTiming
   | undefined;

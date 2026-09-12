@@ -172,6 +172,7 @@ test('Source confidence distinguishes verified pages, partial references and una
 test('Source disclosure keeps primary and conflicting routing evidence distinct and closed', () => {
   const html = renderToStaticMarkup(
     createElement(SourceDisclosure, {
+      summaryLabel: 'Actual source · 출처',
       evidence: [
         {
           source: {
@@ -196,6 +197,7 @@ test('Source disclosure keeps primary and conflicting routing evidence distinct 
     }),
   );
   assert.match(html, /PRIMARY/);
+  assert.match(html, /Actual source · 출처/);
   assert.match(html, /ROUTING SOURCE/);
   assert.match(html, /conflicting-citation/);
   assert.match(html, /III/);

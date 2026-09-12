@@ -19,6 +19,7 @@ import { applyOracleSourceEvidence } from './sourceEvidence';
 import { referenceGeneratorProcedure } from '../../domain/referenceGeneratorProcedures';
 import { procedureAuthority } from '../../domain/generationAuthority';
 import { coreValuationTables } from './coreValuations';
+import { isScenarioReference, isScenarioTable } from '../scenarioExclusions';
 const noPack = {};
 const registryCache = new WeakMap<object, WeakMap<object, OracleRegistry>>();
 
@@ -185,6 +186,9 @@ export function buildOracleRegistry(
       : base;
   });
   tables.push(...(extra?.tables ?? []));
+  // Also cover callers using an archival bundle without the import parsers.
+  for (let i = tables.length - 1; i >= 0; i--)
+    if (isScenarioTable(tables[i].id)) tables.splice(i, 1);
   tables.push(...coreValuationTables(rules));
   for (const table of creatureIdentityTables(rules))
     if (!tables.some((existing) => existing.id === table.id))
@@ -194,13 +198,12 @@ export function buildOracleRegistry(
   for (const parent of parents)
     for (const nested of nestedOracleTables(parent))
       if (!tables.some((table) => table.id === nested.id)) tables.push(nested);
-  const procedures = [...(extra?.procedures ?? [])];
+  const procedures = (extra?.procedures ?? []).filter(
+    (procedure) =>
+      !isScenarioReference(`procedure:${procedure.id}`) &&
+      !procedure.oracleIds.some(isScenarioTable),
+  );
   const shared = [
-    {
-      id: 'heretic.graves-loot-bodies',
-      title: 'Loot the Bodies · two independent d6 rolls',
-      oracleIds: ['heretic.gravesLootBodies', 'heretic.gravesLootBodies'],
-    },
     {
       id: 'reclvse.action-theme',
       title: 'RECLVSE · Action + Theme',
@@ -391,7 +394,7 @@ export function nestedOracleTables(
 }
 /** All existing generators use this same canonical pack; their weighted sampling stays unchanged. */
 export function getCanonicalRuleTable(id: string): RuleTable | undefined {
-  return getRules()?.tables[id];
+  return isScenarioTable(id) ? undefined : getRules()?.tables[id];
 }
 export function filterOracles(
   registry: OracleRegistry,

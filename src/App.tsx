@@ -68,7 +68,6 @@ import {
 import { type Confirm } from './components/Library';
 import { defaultMythicState } from './domain/mythic';
 import { contextNotesTarget, type NotesTarget } from './domain/oracleNotes';
-import { useOracleRegistry } from './storage/oracleStore';
 import { useRules, loadRules } from './storage/rulesStore';
 import { PrivateDataTools } from './components/PrivateDataTools';
 import { TranslationDataNotice } from './components/TranslationDataNotice';
@@ -92,11 +91,6 @@ import {
   ReferenceDesk,
   ReferenceSearchButton,
 } from './components/ReferenceWorkbench';
-const CityCrawlWorkspace = lazy(() =>
-  import('./components/CityCrawlWorkspace').then((module) => ({
-    default: module.CityCrawlWorkspace,
-  })),
-);
 const ContentLibrary = lazy(() =>
   import('./components/ContentLibrary').then((module) => ({
     default: module.ContentLibrary,
@@ -175,7 +169,7 @@ const CampaignHome = lazy(() =>
 
 const nav = [
   { key: 'overview', label: '보관한 자료', icon: BookOpen, group: 'CAMPAIGN' },
-  { key: 'play', label: 'PLAY · 플레이', icon: Play, group: '' },
+  { key: 'play', label: 'WORKBENCH · 도구', icon: Play, group: '' },
   { key: 'sessions', label: '세션', icon: ScrollText, group: '' },
   { key: 'timeline', label: '연대기', icon: NotebookPen, group: '' },
   { key: 'procedures', label: '재앙 · 여행', icon: CalendarDays, group: '' },
@@ -199,7 +193,6 @@ interface Confirmation {
 export default function App() {
   useEffect(startPublishedDataUpdates, []);
   const rules = useRules();
-  const oracles = useOracleRegistry();
   const { save, error, blocked, recovery } = useSave();
   const c =
     save.view === 'campaign'
@@ -222,7 +215,9 @@ export default function App() {
   const [importError, setImportError] = useState('');
   const [about, setAbout] = useState(false);
   const [oracleOpen, setOracleOpen] = useState(true);
-  const [deskPage, setDeskPage] = useState<'home' | 'desk' | 'sources'>('home');
+  const [deskPage, setDeskPage] = useState<
+    'home' | 'desk' | 'sources' | 'travel' | 'dungeon'
+  >('home');
   const [pendingSection, setPendingSection] = useState<Section | null>(null);
   const [cityOpen, setCityOpen] = useState(false);
   function openCity() {
@@ -235,7 +230,7 @@ export default function App() {
   const [fateOpen, setFateOpen] = useState(false);
   const [fateRequested, setFateRequested] = useState(false);
   const fateLauncherRef = useRef<HTMLButtonElement>(null);
-  const mythicState = (c ? c.mythic : save.mythic) ?? defaultMythicState();
+  const [mythicState, setMythicState] = useState(defaultMythicState);
   function openFate() {
     setFateRequested(true);
     setFateOpen(true);
@@ -420,7 +415,7 @@ export default function App() {
       : undefined;
   const recordPageTitle = oracleOpen
     ? cityOpen
-      ? 'CITY CRAWL'
+      ? '도시 참고집'
       : legacyOracleOpen
         ? 'ORACLES'
         : deskPage === 'home'
@@ -463,6 +458,15 @@ export default function App() {
     setForm('rename');
   }
   function navigate(section: Section, campaign = c) {
+    if (section === 'play' || section === 'procedures') {
+      setOracleOpen(true);
+      setCityOpen(false);
+      setLegacyOracleOpen(false);
+      setDeskPage(section === 'procedures' ? 'travel' : 'desk');
+      setPendingSection(null);
+      setDrawer(false);
+      return;
+    }
     setOracleOpen(false);
     setCityOpen(false);
     if (!campaign) {
@@ -597,10 +601,18 @@ export default function App() {
   );
   const atHome =
     oracleOpen && !cityOpen && !legacyOracleOpen && deskPage === 'home';
+  const referenceSurface =
+    (oracleOpen && !legacyOracleOpen && deskPage !== 'sources') ||
+    (!oracleOpen &&
+      !!c &&
+      (['play', 'procedures'].includes(c.workspace.section) ||
+        (c.workspace.section === 'dungeons' &&
+          c.workspace.dungeonTab === 'crawl')));
   const homeCampaign =
     c ?? save.campaigns.find((entry) => entry.id === save.activeCampaignId);
   return (
     <ReferenceProvider
+      inline={referenceSurface}
       save={save}
       playContext={currentPlayContext(save, {
         oracleOpen,
@@ -653,6 +665,7 @@ export default function App() {
       <div
         className={
           'app' +
+          (referenceSurface ? ' reference-app' : '') +
           (fateOpen ? ' fate-open' : '') +
           (c?.workspace.section === 'play' && !oracleOpen ? ' play-active' : '')
         }
@@ -684,7 +697,7 @@ export default function App() {
           {c ? (
             <>
               <button className="campaign-switch" onClick={home}>
-                <span className="eyebrow">진행 중인 캠페인</span>
+                <span className="eyebrow">보관한 캠페인</span>
                 <strong>{c.title}</strong>
                 <ChevronDown size={14} />
               </button>
@@ -699,7 +712,7 @@ export default function App() {
                   className={`nav-item ${cityOpen ? 'active' : ''}`}
                   onClick={openCity}
                 >
-                  <Castle size={17} /> CITY CRAWL
+                  <Castle size={17} /> 도시 참고집
                 </button>
                 {nav
                   .filter(
@@ -813,9 +826,27 @@ export default function App() {
               className={`nav-item ${cityOpen ? 'active' : ''}`}
               onClick={openCity}
             >
-              <Castle size={17} /> CITY CRAWL
+              <Castle size={17} /> 도시 참고집
             </button>
           )}
+          <button
+            className={`nav-item ${oracleOpen && deskPage === 'travel' && !cityOpen ? 'active' : ''}`}
+            onClick={() => navigate('procedures')}
+          >
+            여행 · 재앙 참고집
+          </button>
+          <button
+            className={`nav-item ${oracleOpen && deskPage === 'dungeon' && !cityOpen ? 'active' : ''}`}
+            onClick={() => {
+              setOracleOpen(true);
+              setCityOpen(false);
+              setLegacyOracleOpen(false);
+              setDeskPage('dungeon');
+              setDrawer(false);
+            }}
+          >
+            던전 · 방 참고집
+          </button>
           <div className="sidebar-bottom">
             <Skull size={30} />
             <p>
@@ -858,7 +889,7 @@ export default function App() {
               <span>
                 {oracleOpen
                   ? cityOpen
-                    ? 'CITY CRAWL'
+                    ? '도시 참고집'
                     : atHome
                       ? '전체 목차'
                       : deskPage === 'sources'
@@ -961,7 +992,7 @@ export default function App() {
                 <span aria-current="page">
                   {oracleOpen
                     ? cityOpen
-                      ? 'CITY CRAWL'
+                      ? '도시 참고집'
                       : recordPageTitle
                     : c.workspace.section === 'notes'
                       ? '캠페인 노트'
@@ -993,14 +1024,14 @@ export default function App() {
                 !(
                   c.workspace.section === 'dungeons' &&
                   c.workspace.dungeonTab === 'crawl'
-                ) && <ObjectPlayTools campaign={c} />}
+                ) && (
+                  <details className="optional-object-records">
+                    <summary>선택적 상태 기록</summary>
+                    <ObjectPlayTools campaign={c} />
+                  </details>
+                )}
               {oracleOpen ? (
-                cityOpen ? (
-                  <CityCrawlWorkspace
-                    registry={oracles.registry}
-                    region={d?.region}
-                  />
-                ) : legacyOracleOpen ? (
+                legacyOracleOpen ? (
                   <Oracles
                     campaign={c}
                     context={oracleContext}
@@ -1011,27 +1042,34 @@ export default function App() {
                   <Sources campaign={c} notify={notify} />
                 ) : (
                   <ReferenceDesk
+                    initialShelf={
+                      cityOpen
+                        ? 'city'
+                        : deskPage === 'travel'
+                          ? 'travel'
+                          : deskPage === 'dungeon'
+                            ? 'dungeon'
+                            : 'quick'
+                    }
                     onLibrary={() => setLegacyOracleOpen(true)}
                     homeIndex={
-                      atHome ? (
-                        <HomeIndex
-                          campaignName={homeCampaign?.title}
-                          onDesk={openOracles}
-                          onLibrary={() => setLegacyOracleOpen(true)}
-                          onSources={openSources}
-                          onCity={openCity}
-                          onFate={openFate}
-                          onCampaigns={() => {
-                            setPendingSection(null);
-                            home();
-                          }}
-                          onNavigate={(section) =>
-                            navigate(section, homeCampaign)
-                          }
-                          onImport={() => setImportText('')}
-                          onAbout={() => setAbout(true)}
-                        />
-                      ) : undefined
+                      <HomeIndex
+                        campaignName={homeCampaign?.title}
+                        onDesk={openOracles}
+                        onLibrary={() => setLegacyOracleOpen(true)}
+                        onSources={openSources}
+                        onCity={openCity}
+                        onFate={openFate}
+                        onCampaigns={() => {
+                          setPendingSection(null);
+                          home();
+                        }}
+                        onNavigate={(section) =>
+                          navigate(section, homeCampaign)
+                        }
+                        onImport={() => setImportText('')}
+                        onAbout={() => setAbout(true)}
+                      />
                     }
                   />
                 )
@@ -1325,7 +1363,7 @@ export default function App() {
               <button onClick={() => setAbout(true)}>
                 MÖRK BORG 비공식 보조 도구 ↗
               </button>
-              <span>당신의 세계는 이 기기에 저장됩니다.</span>
+              <span>규칙과 오라클을 필요할 때 펼치세요.</span>
               {/* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- Keep this horizontal scroll region reachable by keyboard. */}
               <section
                 className="footer-source-key"
@@ -1760,11 +1798,11 @@ export default function App() {
             resetKey={c?.id ?? 'standalone'}
           >
             <MythicPanel
-              key={c?.id ?? 'standalone'}
               open={fateOpen}
               onOpenChange={setFateOpen}
               campaign={c}
               state={mythicState}
+              onStateChange={setMythicState}
               context={oracleOpen ? oracleContext : null}
               saveError={error}
               notify={notify}

@@ -9,6 +9,7 @@ import { id, random, rollDie, type RandomSource } from './random';
 import { oracleValueProvenance } from '../domain/oracleProvenance';
 import { traceReferenceProcedure } from '../domain/referenceGeneratorProcedures';
 import { assertOracleEntryDependenciesAvailable } from '../domain/oracleDependencies';
+import { isScenarioTable } from '../data/scenarioExclusions';
 import {
   FERETORY_TABLE_IDS,
   FERETORY_MONSTER_TITLE,
@@ -80,7 +81,24 @@ export function sourceLabel(
       : `PDF ${[table.sourcePage].flat().join(', ')}쪽`;
   return `${book} · ${pages}${table.printedPage == null ? '' : ` / p. ${table.printedPage}`} · ${table.title}`;
 }
+function assertCoreMiseryTable(table: OracleDefinition) {
+  if (
+    table.id === 'core.miseries' &&
+    (table.sourceBookId !== 'core' ||
+      table.dice !== 'd66' ||
+      table.entries.length !== 36 ||
+      !diceDomain('d66').every((value) =>
+        table.entries.some(
+          (entry) => entry.min === value && entry.max === value,
+        ),
+      ))
+  )
+    throw new Error('재앙은 Core의 d66 원문 36개 항목만 사용합니다.');
+}
 export function selectOracleEntry(table: OracleDefinition, value: number) {
+  if (isScenarioTable(table.id))
+    throw new Error('제거된 시나리오 전용 표입니다.');
+  assertCoreMiseryTable(table);
   if (!diceDomain(table.dice).includes(value))
     throw new Error('주사위 범위 밖의 값입니다.');
   const matches = table.entries.filter((e) => e.min <= value && e.max >= value);
@@ -97,6 +115,9 @@ export function rollOracle(
   registry: OracleRegistry,
   rng: RandomSource = random,
 ): OracleRoll {
+  if (isScenarioTable(table.id))
+    throw new Error('제거된 시나리오 전용 표입니다.');
+  assertCoreMiseryTable(table);
   if (table.rollable === false || !table.sourceVerified)
     throw new Error('이 표는 원문과 사용 조건을 확인한 뒤 직접 참조하세요.');
   const rolled = rollOracleDice(table.dice, rng);

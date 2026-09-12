@@ -30,6 +30,7 @@ export function SourceDisclosure({
   provenance,
   hideWarning = false,
   authorities = [],
+  summaryLabel,
 }: {
   refs?: SourceReference[];
   evidence?: ReferenceEvidence[];
@@ -39,6 +40,7 @@ export function SourceDisclosure({
   provenance?: GeneratedValueProvenance;
   hideWarning?: boolean;
   authorities?: GenerationAuthority[];
+  summaryLabel?: ReactNode;
 }) {
   const desk = useReferenceDesk();
   const authorityItems = uniqueAuthorities([
@@ -99,7 +101,11 @@ export function SourceDisclosure({
         )}
       <details className="sheet-source source-disclosure">
         <summary aria-label={label === '출처' ? '출처' : `출처 · ${label}`}>
-          <span aria-hidden="true">ⓘ</span> 출처
+          {summaryLabel ?? (
+            <>
+              <span aria-hidden="true">ⓘ</span> 출처
+            </>
+          )}
         </summary>
         <div className="source-disclosure-body">
           {!!provenance?.unresolvedSourceIds?.length && (

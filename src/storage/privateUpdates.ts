@@ -88,7 +88,9 @@ export function mergeOracleTranslations(
           const preserveKo =
             fillMissing &&
             typeof entry.metadata?.ko === 'string' &&
-            entry.metadata.ko.trim();
+            entry.metadata.ko.trim() &&
+            entry.metadata.ko.normalize('NFC').trim() !==
+              entry.text.normalize('NFC').trim();
           const effectiveMetadata = { ...match?.metadata, ...entry.metadata };
           const matchingGuidance = Object.fromEntries(
             Object.entries(asMetadata(incomingTranslation.guidance)).filter(

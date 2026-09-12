@@ -122,6 +122,8 @@ export function rollMisery(
   if (
     !table ||
     !table.sourceVerified ||
+    table.sourceBookId !== 'core' ||
+    table.entries.length !== 36 ||
     table.rollable === false ||
     table.dice !== 'd66'
   )

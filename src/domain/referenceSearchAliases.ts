@@ -3,6 +3,22 @@ export const REFERENCE_SEARCH_ALIASES: Record<
   string,
   { ko: string[]; en: string[] }
 > = {
+  'rule:sd.leaving-road': {
+    ko: ['동물 흔적', '흔적', '망가진 도로', '망가진 길'],
+    en: ['Animal Tracks', 'Tracks', 'Broken Road'],
+  },
+  'oracle:core.weather': {
+    ko: ['날씨', '오늘 날씨', '오늘의 날씨', '비가 오나'],
+    en: ['weather', 'today weather'],
+  },
+  'oracle:feretory.roadType': {
+    ko: ['길 상태', '도로 상태', '길의 상태', '망가진 도로 상태'],
+    en: ['road condition', 'road conditions', 'road type'],
+  },
+  'oracle:core.miseries': {
+    ko: ['재앙', '종말'],
+    en: ['Disaster', 'Miseries', 'Misery'],
+  },
   'rule:core.outcasts': {
     ko: ['고용', '충성', '추종자'],
     en: ['Outcast', 'Outcasts', 'loyalty', 'hire', 'hireling', 'followers'],
@@ -137,11 +153,25 @@ export const REFERENCE_SEARCH_ALIASES: Record<
     en: ['morale', 'monster morale'],
   },
   'oracle:core.reaction': {
-    ko: ['반응', 'NPC가 나를 좋아하나'],
+    ko: [
+      '반응',
+      'NPC가 나를 좋아하나',
+      'NPC가 나를 어떻게 대하는지',
+      '얘가 우리를 공격하려나',
+      '상대의 태도',
+      '적대적인가',
+    ],
     en: ['reaction', 'NPC reaction'],
   },
   'oracle:core.corpsePlundering': {
-    ko: ['시체', '시체 뒤지기'],
+    ko: [
+      '시체',
+      '시체 뒤지기',
+      '시체에서 뭐가 나오는 표',
+      '시체 뒤져본다',
+      '시체를 뒤진다',
+      '시체 전리품',
+    ],
     en: ['corpse', 'corpse loot'],
   },
   'oracle:core.treasures': { ko: ['보물', '전리품'], en: ['treasure', 'loot'] },

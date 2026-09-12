@@ -1,3 +1,4 @@
+import { TranslatedValue } from './TranslatedValue';
 import { useState, type ReactNode } from 'react';
 import {
   dungeonFields,
@@ -148,7 +149,13 @@ export function DungeonSheet({
                   </span>
                   <span className="room-packet-preview">
                     <strong>{room.name}</strong>
-                    <span>{room.description}</span>
+                    <span>
+                      <TranslatedValue
+                        text={room.description}
+                        provenance={room.fieldProvenance?.description}
+                        linked={false}
+                      />
+                    </span>
                   </span>
                 </summary>
                 <div className="room-packet-body">

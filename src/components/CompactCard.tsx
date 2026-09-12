@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Translation } from './Translation';
 export interface CompactAction {
   label: string;
   onSelect: () => void;
@@ -8,12 +9,18 @@ export function CompactCard({
   title,
   secondary,
   metadata,
+  titleTranslation,
+  secondaryTranslation,
+  metadataTranslation,
   onOpen,
   actions = [],
 }: {
   title: string;
   secondary?: ReactNode;
   metadata?: ReactNode;
+  titleTranslation?: string;
+  secondaryTranslation?: string;
+  metadataTranslation?: string;
   onOpen: () => void;
   actions?: CompactAction[];
 }) {
@@ -21,8 +28,28 @@ export function CompactCard({
     <article className="compact-card">
       <button className="compact-card-main" onClick={onOpen}>
         <strong className="compact-card-title">{title}</strong>
-        {secondary && <span className="compact-secondary">{secondary}</span>}
-        {metadata && <span className="compact-metadata">{metadata}</span>}
+        {titleTranslation && (
+          <Translation text={title} translation={titleTranslation} />
+        )}
+        {secondary && (
+          <span className="compact-secondary">
+            {secondary}
+            {typeof secondary === 'string' && secondaryTranslation && (
+              <Translation
+                text={secondary}
+                translation={secondaryTranslation}
+              />
+            )}
+          </span>
+        )}
+        {metadata && (
+          <span className="compact-metadata">
+            {metadata}
+            {typeof metadata === 'string' && metadataTranslation && (
+              <Translation text={metadata} translation={metadataTranslation} />
+            )}
+          </span>
+        )}
       </button>
       {!!actions.length && (
         <details className="compact-overflow">

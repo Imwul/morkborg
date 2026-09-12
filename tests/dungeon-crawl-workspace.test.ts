@@ -8,7 +8,6 @@ import { buildReferenceRegistry } from '../src/domain/references.ts';
 import { executeReference } from '../src/domain/referenceExecution.ts';
 import { DUNGEON_REFERENCE_TOPICS } from '../src/domain/referenceTopics.ts';
 import { createDungeonCandidate } from '../src/generators/index.ts';
-import { prepareDungeonCrawl } from '../src/domain/dungeonCrawl.ts';
 
 const fixturePath =
   process.env.MORKBORG_PRIVATE_AUDIT_FIXTURE ??
@@ -61,7 +60,14 @@ test(
   () => {
     const { rules, registry, references } = installed();
     const dungeon = createDungeonCandidate('isolated-entrance-qa', 'sarkash');
-    prepareDungeonCrawl(dungeon);
+    dungeon.crawl = {
+      phase: 'danger',
+      specialRoomIds: dungeon.rooms.map((r) => r.id),
+      discoveredSpecialIds: [],
+      visitedRoomIds: [],
+      currentRoomId: null,
+      threatRating: 12,
+    };
     const saved = JSON.stringify(dungeon);
     for (const id of DUNGEON_REFERENCE_TOPICS[0].ids) {
       const reading = executeReference(references.byId[id], {

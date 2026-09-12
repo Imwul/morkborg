@@ -10,7 +10,7 @@ export function Translation({
   translation?: string;
 }) {
   const ko = polishKoreanTranslation(
-    translation ?? translateGeneratedText(text),
+    translation?.trim() ? translation : translateGeneratedText(text),
   );
   return ko && ko.normalize('NFC') !== text.normalize('NFC') ? (
     <span className="generated-translation" lang="ko">

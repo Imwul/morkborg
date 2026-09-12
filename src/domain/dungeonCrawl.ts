@@ -16,7 +16,6 @@ import {
   generationAuthorities,
   uniqueAuthorities,
 } from './generationAuthority';
-import { prepareSpecialRooms } from '../generators/specialRooms';
 export interface DungeonCrawlRoll {
   dice: [number, number];
   bonus: number;
@@ -24,6 +23,7 @@ export interface DungeonCrawlRoll {
   outcome: 'strong' | 'weak' | 'miss';
   exhausted: boolean;
 }
+/** Historical save data only. No runtime tool creates or advances this state. */
 export interface DungeonCrawlState {
   phase: 'entrance' | 'ready' | 'danger' | 'room';
   specialRoomIds: string[];
@@ -32,23 +32,6 @@ export interface DungeonCrawlState {
   currentRoomId: string | null;
   threatRating: 9 | 12 | 15;
   lastRoll?: DungeonCrawlRoll;
-}
-export function prepareDungeonCrawl(d: Dungeon, blank = false) {
-  if (d.crawl) return;
-  let special = d.rooms.filter((room) => room.kind === 'special');
-  if (special.length !== 4) {
-    // Old rooms are never converted or removed. A legacy dungeon gains a separate preparation set.
-    special = prepareSpecialRooms(d, blank);
-    d.rooms.push(...special);
-  }
-  d.crawl = {
-    phase: 'entrance',
-    specialRoomIds: special.map((room) => room.id),
-    discoveredSpecialIds: [],
-    visitedRoomIds: [],
-    currentRoomId: null,
-    threatRating: 12,
-  };
 }
 export function resolveCrawlDice(
   dice: [number, number],
@@ -197,64 +180,6 @@ export function rollGenericCrawlRoom(
         ` · d4 ${die} / Special Rooms ${discovered}`,
     },
   };
-}
-function enter(d: Dungeon, room: DungeonRoom) {
-  const state = d.crawl!;
-  state.currentRoomId = room.id;
-  state.visitedRoomIds.push(room.id);
-  state.phase = 'room';
-}
-export function advanceDungeonCrawl(
-  d: Dungeon,
-  registry: OracleRegistry,
-  rng: RandomSource = random,
-) {
-  const state = d.crawl;
-  if (!state || !['entrance', 'ready'].includes(state.phase))
-    throw new Error('현재 방이나 위험을 먼저 해결하세요.');
-  const result = resolveCrawlDice(
-    [rollDie(20, rng), rollDie(20, rng)],
-    state.discoveredSpecialIds.length,
-    d.encounterTables?.dungeonDR ?? 12,
-  );
-  if (result.outcome === 'strong') {
-    const roomId = state.specialRoomIds.find(
-      (key) => !state.discoveredSpecialIds.includes(key),
-    );
-    const room = d.rooms.find((item) => item.id === roomId);
-    if (!room) throw new Error('준비된 특별한 방을 확인하세요.');
-    state.discoveredSpecialIds.push(room.id);
-    enter(d, room);
-  } else if (result.outcome === 'weak') {
-    const room = rollGenericCrawlRoom(
-      registry,
-      state.discoveredSpecialIds.length,
-      rng,
-    );
-    d.rooms.push(room);
-    enter(d, room);
-  } else state.phase = 'danger';
-  state.lastRoll = result;
-  return result;
-}
-export function resolveDungeonTransitionDanger(
-  d: Dungeon,
-  registry: OracleRegistry,
-  rng: RandomSource = random,
-) {
-  if (d.crawl?.phase !== 'danger')
-    throw new Error('해결할 이동 위험이 없습니다.');
-  const room = rollGenericCrawlRoom(
-    registry,
-    d.crawl.discoveredSpecialIds.length,
-    rng,
-  );
-  d.rooms.push(room);
-  enter(d, room);
-}
-export function completeDungeonRoom(d: Dungeon) {
-  if (d.crawl?.phase !== 'room') throw new Error('현재 방을 먼저 확인하세요.');
-  d.crawl.phase = 'ready';
 }
 export function remapDungeonCrawl(d: Dungeon, replace: (id: string) => string) {
   if (!d.crawl) return;
