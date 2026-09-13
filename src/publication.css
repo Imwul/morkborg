@@ -142,7 +142,7 @@ body,
   opacity: 0.45;
 }
 .reference-app .rdesk .desk-search:focus-within {
-  border-bottom-width: 6px;
+  box-shadow: 0 2px 0 currentColor;
 }
 .reference-app .rdesk .desk-search input:focus-visible {
   outline: 2px solid currentColor !important;
@@ -216,7 +216,7 @@ body,
   padding: 0;
   align-items: stretch;
   width: 100%;
-  min-height: calc(100dvh - 92px);
+  min-height: calc(100dvh - var(--desk-header-height, 92px));
   background: var(--paper);
 }
 .reference-app .desk-layout[data-has-pages='true'] {
@@ -226,12 +226,17 @@ body,
     );
 }
 
+.reference-app .desk-current-page {
+  container: current-reference / inline-size;
+  scroll-margin-top: var(--desk-header-height, 92px);
+}
+
 /* Index: white margin, readable type, larger filters. */
 .reference-app .desk-browser {
   position: sticky;
-  top: 92px;
-  min-height: calc(100dvh - 92px);
-  max-height: calc(100dvh - 92px);
+  top: var(--desk-header-height, 92px);
+  min-height: calc(100dvh - var(--desk-header-height, 92px));
+  max-height: calc(100dvh - var(--desk-header-height, 92px));
   margin: 0;
   padding: 22px 22px 48px 28px;
   overflow: auto;
@@ -368,7 +373,7 @@ body,
 
 .reference-app .desk-current-page {
   min-width: 0;
-  min-height: calc(100dvh - 92px);
+  min-height: calc(100dvh - var(--desk-header-height, 92px));
   padding: 22px 36px 64px;
   background: var(--paper);
   color: var(--ink);
@@ -605,6 +610,7 @@ body,
   .reference-page[data-reference-kind='procedure']
   .reference-generated-reading {
   position: relative;
+  clear: both;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
   gap: 1.4rem 2.4rem;
@@ -626,15 +632,19 @@ body,
   box-shadow: none;
 }
 .reference-app .reference-page .reference-generated-reading > section {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 1rem;
-  row-gap: 0.15rem;
-  align-items: start;
+  display: block;
   min-width: 0;
   border: 0;
   padding: 0;
   margin: 0;
+}
+/* Keep simple dice/result pairs aligned; compound traces need the full line. */
+.reference-app .reference-page .reference-generated-reading > section[data-dice-layout='paired'] {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  column-gap: 1rem;
+  row-gap: 0.15rem;
+  align-items: start;
 }
 .reference-app .reference-page .reference-generated-reading > :not(section) {
   grid-column: 1 / -1;
@@ -652,7 +662,11 @@ body,
   font: 600 clamp(1.55rem, 2.4vw, 2.4rem) / 1.08 var(--font-blackletter);
   letter-spacing: 0.03em;
   text-transform: none;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.reference-app .reference-page .reference-generated-reading > section:not([data-dice-layout='paired']) > .reference-result-dice {
+  margin-bottom: 0.75rem;
 }
 .reference-app .reference-result-dice code,
 .reference-app
@@ -773,23 +787,34 @@ body,
   opacity: 0.72;
   font-size: 0.92em;
 }
-@media (min-width: 1100px) {
-  .reference-app .reference-table-section.dice-d66 tbody,
-  .reference-app .reference-table-section.dice-d20 tbody {
+/* Choose columns by page width, including narrow Workbench pages. */
+.reference-app .reference-table-section {
+  container: reference-table / inline-size;
+  clear: both;
+}
+@container reference-table (min-width: 48rem) {
+  /* Keep the footer out of native table column sizing when the body is a grid. */
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table,
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table > :is(caption, tfoot) {
+    display: block;
+  }
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table > tfoot > tr {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 5.6rem minmax(0, 1fr);
+    column-gap: 12px;
+  }
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table > tbody {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 36px;
   }
-  .reference-app .reference-table-section.dice-d66 tr,
-  .reference-app .reference-table-section.dice-d20 tr {
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table > tbody > tr {
     display: grid;
     grid-template-columns: 5.6rem minmax(0, 1fr);
     column-gap: 12px;
     width: 100%;
   }
-  .reference-app
-    .reference-table-section:is(.dice-d66, .dice-d20)
-    tr.current-table-result {
+  .reference-app .reference-table-section:is(.dice-d66, .dice-d20) > table > tbody > tr.current-table-result {
     grid-column: 1 / -1;
     grid-template-columns: 7.5rem minmax(0, 1fr);
     margin: 10px 0;
@@ -820,6 +845,8 @@ body,
   border-top: 4px solid currentColor;
 }
 .reference-app .desk-side-pages {
+  top: var(--desk-header-height, 92px);
+  max-height: calc(100dvh - var(--desk-header-height, 92px));
   padding: 18px 20px 40px 22px;
   border: 0;
   background: var(--paper);
@@ -877,6 +904,9 @@ body,
     max-width: 38%;
     margin: 0 0 12px 24px;
   }
+}
+/* Creature columns need reading space, not merely a desktop viewport. */
+@container current-reference (min-width: 60rem) {
   .reference-app .reference-page[data-reference-kind='creature'] {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -1040,10 +1070,6 @@ body,
     font-size: clamp(1.45rem, 8vw, 2rem);
     white-space: normal;
   }
-  .reference-app .reference-table-section.dice-d66 tbody,
-  .reference-app .reference-table-section.dice-d20 tbody {
-    columns: 1;
-  }
   .reference-app .rdesk tr.current-table-result .table-dice-number {
     font-size: clamp(2.1rem, 12vw, 3.2rem);
   }
@@ -1055,6 +1081,7 @@ body,
     order: 3;
   }
   .reference-app .desk-side-pages {
+    max-height: none;
     padding: 12px 14px 32px;
   }
 }

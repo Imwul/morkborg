@@ -914,6 +914,9 @@ export function ReferenceProvider({
           {reading.blocks.map((block, n) => (
             <section
               key={n}
+              data-dice-layout={
+                block.dice && !block.dice.includes(' · ') ? 'paired' : undefined
+              }
               className={
                 block.kind === 'creature'
                   ? 'creature-answer'
@@ -1981,6 +1984,24 @@ export function ReferenceDesk({
 }) {
   const desk = useReferenceDesk(),
     source = useOracleRegistry();
+  const surfaceRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const revealPageRef = useRef(false);
+  useEffect(() => {
+    const surface = surfaceRef.current;
+    const header = headerRef.current;
+    if (!surface || !header) return;
+    // The masthead can wrap differently as fonts load or the viewport changes.
+    const measure = () =>
+      surface.style.setProperty(
+        '--desk-header-height',
+        `${header.getBoundingClientRect().height}px`,
+      );
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
   const [page, setPage] = useState<'home' | 'reference' | 'generators'>(
     initialPage,
   );
@@ -1989,10 +2010,28 @@ export function ReferenceDesk({
       value === 'home' || value === 'generators' ? value : 'reference',
   });
   const openReference = (entryId: string, roll = false, region?: RegionId) => {
+    revealPageRef.current = true;
     setPage('reference');
+    setBrowserOpen(false);
     desk?.activate(entryId, roll, region);
   };
   const query = desk?.query ?? '';
+  const previousLocation = useRef({ page, id: desk?.selectedId });
+  useEffect(() => {
+    const previous = previousLocation.current;
+    previousLocation.current = { page, id: desk?.selectedId };
+    // Opening another page starts at its title. Typing in Search stays in place.
+    if (
+      revealPageRef.current ||
+      previous.id !== desk?.selectedId ||
+      (previous.page !== page && !query)
+    ) {
+      revealPageRef.current = false;
+      surfaceRef.current
+        ?.querySelector('.desk-current-page')
+        ?.scrollIntoView({ block: 'start' });
+    }
+  });
   useEffect(() => {
     if (window.matchMedia('(min-width: 801px)').matches)
       document.getElementById('desk-primary-search')?.focus();
@@ -2064,8 +2103,12 @@ export function ReferenceDesk({
     <ReferenceContext.Provider
       value={desk ? { ...desk, activate: openReference } : null}
     >
-      <section className="reference-desk rdesk" aria-label="Reference Desk">
-        <header className="rdesk-header">
+      <section
+        ref={surfaceRef}
+        className="reference-desk rdesk"
+        aria-label="Reference Desk"
+      >
+        <header ref={headerRef} className="rdesk-header">
           <h1 className="desk-wordmark">
             <button
               aria-label="Reference Desk 홈"
