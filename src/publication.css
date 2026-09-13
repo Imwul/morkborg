@@ -392,8 +392,8 @@ body,
   max-width: none;
   margin: 0 0 12px;
   overflow: visible;
-  font: 900 clamp(2.8rem, 5.5vw, 5.6rem) / 1.05 var(--font-ui);
-  letter-spacing: -0.05em;
+  font: 700 clamp(2.6rem, 4.8vw, 4.8rem) / 1.12 var(--font-blackletter);
+  letter-spacing: 0.01em;
 }
 .reference-app .desk-landing > header p {
   max-width: 40ch;
@@ -442,8 +442,8 @@ body,
 }
 .reference-app .desk-landing button strong {
   overflow: visible;
-  font: 800 clamp(1.35rem, 1.6vw, 1.85rem) / 1.15 var(--font-ui);
-  letter-spacing: -0.03em;
+  font: 700 clamp(1.35rem, 1.5vw, 1.8rem) / 1.2 var(--font-blackletter);
+  letter-spacing: 0.01em;
 }
 .reference-app .desk-landing button span {
   color: var(--muted-ink);
@@ -477,30 +477,22 @@ body,
   border: 0;
 }
 .reference-app .reference-page h2 {
-  flex: 1 1 12rem;
+  flex: 1 1 18rem;
   min-width: 0;
   margin: 0;
   overflow: visible;
   color: inherit;
-  font: 800 clamp(2.4rem, 5vw, 5.4rem) / 0.92 var(--font-blackletter);
-  letter-spacing: -0.04em;
+  font: 700 clamp(2rem, 3.4vw, 3.5rem) / 1.14 var(--font-blackletter);
+  letter-spacing: 0.015em;
+  text-transform: none;
   text-wrap: wrap;
+  overflow-wrap: break-word;
 }
 .reference-app .reference-page h2 :is(.translation, .generated-translation) {
   display: block;
-  margin-top: 0.15em;
-  font: 800 clamp(1.15rem, 2.4vw, 1.8rem) / 1.05 var(--font-ui);
-  letter-spacing: -0.04em;
-}
-.reference-app
-  .reference-page:is(
-    [data-reference-kind='rule'],
-    [data-reference-kind='procedure']
-  )
-  h2 {
-  font: 800 clamp(2.2rem, 5.5vw, 4.6rem) / 0.86 var(--font-display);
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
+  margin-top: 0.2em;
+  font: 700 clamp(1.15rem, 2vw, 1.65rem) / 1.25 var(--font-ui);
+  letter-spacing: -0.02em;
 }
 .reference-app .reference-page .ref-pin,
 .reference-app .reference-page .ref-open-page,
@@ -592,8 +584,8 @@ body,
 
 /* Creature: giant identity, pink stat block. */
 .reference-app .reference-page[data-reference-kind='creature'] h2 {
-  max-width: 11ch;
-  font-size: clamp(2.8rem, 8vw, 6.4rem);
+  max-width: none;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
 }
 .reference-app
   .reference-page[data-reference-kind='creature']
@@ -665,7 +657,7 @@ body,
   > p:not(.reference-result-dice) {
   max-width: 22ch;
   color: inherit;
-  font: 800 clamp(1.6rem, 3.4vw, 2.6rem) / 0.95 var(--font-blackletter);
+  font: 700 clamp(1.5rem, 2.6vw, 2.2rem) / 1.15 var(--font-blackletter);
 }
 .reference-app
   .reference-page
@@ -695,7 +687,8 @@ body,
 .reference-app .reference-page table caption,
 .reference-app .desk-open-page table caption {
   padding: 0 0 12px;
-  font: 800 clamp(1.6rem, 3vw, 2.6rem) / 0.9 var(--font-blackletter);
+  font: 700 clamp(1.5rem, 2.4vw, 2.2rem) / 1.15 var(--font-blackletter);
+  letter-spacing: 0.01em;
   text-align: left;
   caption-side: top;
 }
@@ -999,13 +992,13 @@ body,
     padding: 16px 14px 48px;
   }
   .reference-app .desk-landing h2 {
-    font-size: clamp(2.4rem, 12vw, 3.4rem);
-    line-height: 1.08;
+    font-size: clamp(2.2rem, 10vw, 3rem);
+    line-height: 1.14;
   }
   .reference-app .reference-page h2 {
     flex-basis: 100%;
-    font-size: clamp(2.2rem, 11vw, 3.2rem);
-    line-height: 1.05;
+    font-size: clamp(1.85rem, 8vw, 2.6rem);
+    line-height: 1.16;
   }
   .reference-app .reference-page .reference-formula code {
     font-size: clamp(2.2rem, 16vw, 3.6rem);
