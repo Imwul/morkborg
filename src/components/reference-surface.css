@@ -597,12 +597,7 @@
   max-width: 72ch;
   letter-spacing: 0;
 }
-.reference-page .reference-reading .short-answer p {
-  font: 650 var(--text-result)/1.5 var(--font-ui);
-  margin: 3px 0;
-}
-.reference-page .reference-result-dice,
-.reference-page .reference-reading .short-answer .reference-result-dice {
+.reference-page .reference-result-dice {
   font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
   margin: 0 0 4px;
 }

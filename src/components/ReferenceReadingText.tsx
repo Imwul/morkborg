@@ -6,15 +6,46 @@ export function ReferenceReadingText({
   text,
   source,
   translation,
+  resultText,
   excludeId,
   splitLines = false,
 }: {
   text: string;
   source?: { text: string; metadata?: Record<string, unknown> };
   translation?: string;
+  /** The source result, excluding appended rules or follow-up instructions. */
+  resultText?: string;
   excludeId?: string;
   splitLines?: boolean;
 }) {
+  const resultEnd =
+    resultText && (text === resultText || text.startsWith(`${resultText}\n\n`))
+      ? resultText.length
+      : 0;
+  let cursor = 0;
+  function originalText(original: string) {
+    const start = text.indexOf(original, cursor);
+    cursor = start + original.length;
+    const length = Math.max(0, Math.min(original.length, resultEnd - start));
+    return (
+      <>
+        {length > 0 && (
+          <span className="reference-result-text">
+            <ReferenceLinkedText
+              text={original.slice(0, length)}
+              excludeId={excludeId}
+            />
+          </span>
+        )}
+        {length < original.length && (
+          <ReferenceLinkedText
+            text={original.slice(length)}
+            excludeId={excludeId}
+          />
+        )}
+      </>
+    );
+  }
   if (translation) {
     const english = text.split(/\n\s*\n/);
     const korean = translation.split(/\n\s*\n/);
@@ -26,7 +57,7 @@ export function ReferenceReadingText({
         : [[text, translation]];
     return pairs.map(([original, helper], index) => (
       <p key={index}>
-        <ReferenceLinkedText text={original} excludeId={excludeId} />
+        {originalText(original)}
         <Translation text={original} translation={helper} />
       </p>
     ));
@@ -51,7 +82,7 @@ export function ReferenceReadingText({
     .filter((paragraph) => paragraph.trim())
     .map((paragraph, index) => (
       <p key={index}>
-        <ReferenceLinkedText text={paragraph} excludeId={excludeId} />
+        {originalText(paragraph)}
         {!(hasSource && index === 0 && preserveName && !explicitHelper) && (
           <Translation
             text={paragraph}

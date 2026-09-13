@@ -837,14 +837,6 @@
   color: var(--ink);
   min-height: var(--control-height);
 }
-.reference-reading .short-answer h3 {
-  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
-  color: var(--muted-ink);
-}
-.reference-reading .short-answer p {
-  font: 850 clamp(24px, 3.4vw, 38px)/1.2 var(--font-ui);
-  letter-spacing: -0.035em;
-}
 .reference-rule-reading p {
   font-size: var(--text-body);
   line-height: 1.55;
@@ -1102,15 +1094,6 @@
   color: var(--paper);
   border-radius: 0;
 }
-.reference-reading .short-answer p {
-  font-family: var(--font-display);
-  font-size: clamp(30px, 4vw, 50px);
-  letter-spacing: -0.02em;
-}
-.reference-reading .short-answer {
-  border-bottom: 0;
-  padding: 14px 0;
-}
 .reference-reading {
   animation: reference-result-arrive 180ms ease-out;
 }
@@ -1180,9 +1163,6 @@
   }
   .reference-reading p {
     font-size: var(--text-body);
-  }
-  .reference-reading .short-answer p {
-    font-size: 32px;
   }
   .reference-dock .dock-pinned {
     max-width: calc(100vw - 168px);
@@ -1414,16 +1394,13 @@
   outline-offset: 3px;
   box-shadow: none;
 }
-.reference-inspector:has(.short-answer, .rare-monster-reading)
+.reference-inspector:has(.rare-monster-reading)
   .reference-inspector-top
   h2 {
   font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
 }
 .reference-reading section + section {
   border-top: 1px solid var(--border);
-}
-.reference-reading .short-answer p {
-  font-size: clamp(34px, 5vw, 64px);
 }
 .reference-reading h3 > .generated-translation {
   display: inline;

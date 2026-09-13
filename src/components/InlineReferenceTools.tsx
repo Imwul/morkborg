@@ -94,37 +94,44 @@ export function ReferenceReadingBlock({
           )}
         </div>
       </header>
-      {reading.blocks.map((block, index) => (
-        <section
-          key={index}
-          className={
-            block.kind === 'creature'
-              ? 'inline-reading-part creature-answer'
-              : 'inline-reading-part'
-          }
-        >
-          {block.title && block.title !== reading.title && (
-            <strong>
-              <ReferenceLinkedText text={block.title} />
-              <Translation
-                text={block.title}
-                translation={block.translation?.titleKo}
-              />
-            </strong>
-          )}
-          {block.dice && <small>{block.dice}</small>}
-          <ReferenceReadingText
-            text={block.text}
-            translation={block.translation?.ko}
-            splitLines={!!reading.rareMonster || block.kind === 'creature'}
-            source={sourceRows.find(
-              (row) =>
-                block.text === row.text ||
-                block.text.startsWith(`${row.text}\n\n`),
+      {reading.blocks.map((block, index) => {
+        const source = sourceRows.find(
+          (row) =>
+            block.text === row.text || block.text.startsWith(`${row.text}\n\n`),
+        );
+        return (
+          <section
+            key={index}
+            className={
+              block.kind === 'creature'
+                ? 'inline-reading-part creature-answer'
+                : 'inline-reading-part'
+            }
+          >
+            {block.title && block.title !== reading.title && (
+              <strong>
+                <ReferenceLinkedText text={block.title} />
+                <Translation
+                  text={block.title}
+                  translation={block.translation?.titleKo}
+                />
+              </strong>
             )}
-          />
-        </section>
-      ))}
+            {block.dice && <small>{block.dice}</small>}
+            <ReferenceReadingText
+              text={block.text}
+              resultText={
+                block.dice && !reading.rareMonster && block.kind !== 'creature'
+                  ? (source?.text ?? block.text)
+                  : undefined
+              }
+              translation={block.translation?.ko}
+              splitLines={!!reading.rareMonster || block.kind === 'creature'}
+              source={source}
+            />
+          </section>
+        );
+      })}
       {copyState && <output>{copyState}</output>}
       {fallback && (
         <textarea
