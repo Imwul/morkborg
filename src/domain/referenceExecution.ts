@@ -155,24 +155,39 @@ export interface ReferenceExecutionOptions {
   encounterRegion?: string;
   rareDeck?: PlayingCard[];
 }
+const NPC_READING_FIELDS = [
+  ['name', 'Name', '이름'],
+  ['archetype', 'Profession', '직업'],
+  ['appearance', 'Appearance', '외모'],
+  ['behaviour', 'Behaviour', '행동'],
+  ['personality', 'Personality', '성격'],
+  ['wants', 'Wants', '원하는 것'],
+  ['reaction', 'Reaction', '반응'],
+] as const;
+
+function npcFieldDice(npc: NPC, field: string): string | undefined {
+  const rolls = npc.fieldProvenance?.[field]?.rolls;
+  if (!rolls?.length) return;
+  return rolls.map((roll) => `${roll.dice} = ${roll.value}`).join(' · ');
+}
+
 export function npcReferenceReading(npc: NPC): ReferenceReading {
   return {
     title: npc.name,
     npcSnapshot: npc,
-    blocks: [
-      {
-        title: npc.archetype,
-        text: [
-          npc.appearance,
-          npc.behaviour,
-          npc.personality,
-          npc.wants,
-          `Reaction: ${npc.reaction}`,
-        ]
-          .filter(Boolean)
-          .join('\n'),
-      },
-    ],
+    blocks: NPC_READING_FIELDS.flatMap(([key, title, titleKo]) => {
+      const text = npc[key];
+      if (typeof text !== 'string' || !text) return [];
+      const tableTitle = npc.fieldProvenance?.[key]?.sourceRefs?.[0]?.tableTitle;
+      return [
+        {
+          title: tableTitle || title,
+          text,
+          dice: npcFieldDice(npc, key),
+          translation: { titleKo },
+        },
+      ];
+    }),
     sourceRefs: npc.sourceRefs,
     authority: [appPolicy('workbench.npc')],
   };

@@ -904,6 +904,7 @@ export function ReferenceProvider({
           aria-label="참조 결과"
         >
           {reading.title !== selected.title &&
+            !reading.npcSnapshot &&
             !reading.blocks.some((block) => block.title === reading.title) && (
               <h3 className="reading-identity">
                 {reading.title}

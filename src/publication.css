@@ -516,9 +516,9 @@ body,
   margin: 4px 0 22px;
 }
 .reference-app .reference-page .reference-formula code {
-  font: 800 clamp(2.4rem, 8vw, 6.5rem) / 0.78 var(--font-display);
-  letter-spacing: -0.06em;
-  text-transform: uppercase;
+  font: 600 clamp(1.7rem, 3.6vw, 3rem) / 1.08 var(--font-blackletter);
+  letter-spacing: 0.03em;
+  text-transform: none;
   overflow-wrap: anywhere;
 }
 .reference-app .rdesk .reference-roll,
@@ -605,8 +605,11 @@ body,
   .reference-page[data-reference-kind='procedure']
   .reference-generated-reading {
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1.4rem 2.4rem;
   margin: 8px 0 28px;
-  padding: 18px 18px 16px;
+  padding: 22px 24px 18px;
   background: var(--acid);
   color: var(--void);
   border: 0;
@@ -615,6 +618,7 @@ body,
 .reference-app
   .reference-page[data-reference-kind='creature']
   .reference-generated-reading {
+  display: block;
   margin: 8px 0 24px;
   padding: 0;
   background: none;
@@ -622,9 +626,18 @@ body,
   box-shadow: none;
 }
 .reference-app .reference-page .reference-generated-reading > section {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1rem;
+  row-gap: 0.15rem;
+  align-items: start;
+  min-width: 0;
   border: 0;
   padding: 0;
   margin: 0;
+}
+.reference-app .reference-page .reference-generated-reading > :not(section) {
+  grid-column: 1 / -1;
 }
 .reference-app .reference-page .reference-result-dice,
 .reference-app
@@ -632,11 +645,14 @@ body,
   .reference-reading
   .short-answer
   .reference-result-dice {
-  margin: 0 0 4px;
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  margin: 0;
   color: inherit;
-  font: 800 var(--text-event) / 0.75 var(--font-display);
-  letter-spacing: -0.07em;
-  text-transform: uppercase;
+  font: 600 clamp(1.55rem, 2.4vw, 2.4rem) / 1.08 var(--font-blackletter);
+  letter-spacing: 0.03em;
+  text-transform: none;
+  white-space: nowrap;
 }
 .reference-app .reference-result-dice code,
 .reference-app
@@ -650,14 +666,22 @@ body,
   padding: 0;
   font: inherit;
 }
+.reference-app .reference-page .reference-generated-reading > section h3 {
+  grid-column: 2;
+  margin: 0;
+  font: 650 0.95rem / 1.35 var(--font-ui);
+  letter-spacing: 0;
+}
 .reference-app
   .reference-page
   .reference-generated-reading
-  .short-answer
+  > section
   > p:not(.reference-result-dice) {
-  max-width: 22ch;
+  grid-column: 2;
+  max-width: none;
+  min-width: 0;
   color: inherit;
-  font: 700 clamp(1.5rem, 2.6vw, 2.2rem) / 1.15 var(--font-blackletter);
+  font: 700 clamp(1.25rem, 1.8vw, 1.7rem) / 1.25 var(--font-blackletter);
 }
 .reference-app
   .reference-page
@@ -904,6 +928,15 @@ body,
   .reference-app .desk-browse-types button {
     font-size: 1.15rem;
   }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-generated-reading,
+  .reference-app
+    .reference-page[data-reference-kind='procedure']
+    .reference-generated-reading {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    padding: 28px 32px 22px;
+  }
   .reference-app .rdesk .reference-select-action strong {
     font-size: 1.2rem;
   }
@@ -1001,10 +1034,11 @@ body,
     line-height: 1.16;
   }
   .reference-app .reference-page .reference-formula code {
-    font-size: clamp(2.2rem, 16vw, 3.6rem);
+    font-size: clamp(1.45rem, 8vw, 2.1rem);
   }
   .reference-app .reference-page .reference-result-dice {
-    font-size: clamp(3.2rem, 22vw, 5.2rem);
+    font-size: clamp(1.45rem, 8vw, 2rem);
+    white-space: normal;
   }
   .reference-app .reference-table-section.dice-d66 tbody,
   .reference-app .reference-table-section.dice-d20 tbody {
