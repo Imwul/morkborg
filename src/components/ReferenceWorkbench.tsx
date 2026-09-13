@@ -900,7 +900,7 @@ export function ReferenceProvider({
       {reading && !!reading.blocks.some((b) => b.text) && (
         <article
           key={`${selected.id}:${session.sequence}`}
-          className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
+          className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
           aria-label="참조 결과"
         >
           {reading.title !== selected.title &&
@@ -911,105 +911,105 @@ export function ReferenceProvider({
                 <Translation text={reading.title} />
               </h3>
             )}
-          {reading.blocks.map((block, n) => (
-            <section
-              key={n}
-              data-dice-layout={
-                block.dice && !block.dice.includes(' · ') ? 'paired' : undefined
-              }
-              className={
-                block.kind === 'creature'
-                  ? 'creature-answer'
-                  : !plainRule &&
-                      !reading.rareMonster &&
-                      block.text.length < 160 &&
-                      !block.text.includes('\n')
-                    ? 'short-answer'
-                    : ''
-              }
-            >
-              {block.dice && (
-                <p className="reference-result-dice">
-                  <code>{block.dice}</code>
-                </p>
-              )}
-              {block.title &&
-                !(
-                  selected.kind === 'creature' &&
-                  selected.title.startsWith(block.title)
-                ) &&
-                !(
-                  reading.blocks.length === 1 &&
-                  [selected.title, referenceShortName(selected)].includes(
-                    block.title,
-                  )
-                ) && (
-                  <h3>
-                    <ReferenceLinkedText
-                      text={block.title}
-                      excludeId={selected.id}
-                    />
-                    <Translation
-                      text={block.title}
-                      translation={
-                        block.translation?.titleKo ??
-                        (reading.rareMonster
-                          ? (
-                              {
-                                INTENTION: '의도',
-                                SPECIAL: '특수 능력',
-                              } as Record<string, string>
-                            )[block.title]
-                          : procedureId === 'depths.encounter-level' &&
-                              block.title === 'NEXT'
-                            ? '다음 절차'
-                            : undefined)
-                      }
-                    />
-                  </h3>
+          <div className="reference-reading-items">
+            {reading.blocks.map((block, n) => (
+              <section
+                key={n}
+                data-compound-dice={block.dice?.includes(' · ') || undefined}
+                className={
+                  block.kind === 'creature'
+                    ? 'creature-answer'
+                    : !plainRule &&
+                        !reading.rareMonster &&
+                        block.text.length < 160 &&
+                        !block.text.includes('\n')
+                      ? 'short-answer'
+                      : ''
+                }
+              >
+                {block.dice && (
+                  <p className="reference-result-dice">
+                    <code>{block.dice}</code>
+                  </p>
                 )}
-              {block.definitionReferenceId &&
-              index.byId[block.definitionReferenceId] ? (
-                <button
-                  className="reference-inline-link"
-                  onClick={() => activate(block.definitionReferenceId!)}
-                >
-                  {index.byId[block.definitionReferenceId].title} ›
-                </button>
-              ) : block.kind === 'creature' &&
-                block.text.split('\n').length > 2 ? (
-                <>
-                  <ReferenceReadingText
-                    text={block.text.split('\n').slice(0, 2).join('\n')}
-                    translation={block.translation?.ko
-                      ?.split('\n')
-                      .slice(0, 2)
-                      .join('\n')}
-                    excludeId={selected.id}
-                    splitLines
-                  />
-                  <div className="reading-more">
+                {block.title &&
+                  !(
+                    selected.kind === 'creature' &&
+                    selected.title.startsWith(block.title)
+                  ) &&
+                  !(
+                    reading.blocks.length === 1 &&
+                    [selected.title, referenceShortName(selected)].includes(
+                      block.title,
+                    )
+                  ) && (
+                    <h3>
+                      <ReferenceLinkedText
+                        text={block.title}
+                        excludeId={selected.id}
+                      />
+                      <Translation
+                        text={block.title}
+                        translation={
+                          block.translation?.titleKo ??
+                          (reading.rareMonster
+                            ? (
+                                {
+                                  INTENTION: '의도',
+                                  SPECIAL: '특수 능력',
+                                } as Record<string, string>
+                              )[block.title]
+                            : procedureId === 'depths.encounter-level' &&
+                                block.title === 'NEXT'
+                              ? '다음 절차'
+                              : undefined)
+                        }
+                      />
+                    </h3>
+                  )}
+                {block.definitionReferenceId &&
+                index.byId[block.definitionReferenceId] ? (
+                  <button
+                    className="reference-inline-link"
+                    onClick={() => activate(block.definitionReferenceId!)}
+                  >
+                    {index.byId[block.definitionReferenceId].title} ›
+                  </button>
+                ) : block.kind === 'creature' &&
+                  block.text.split('\n').length > 2 ? (
+                  <>
                     <ReferenceReadingText
-                      text={block.text.split('\n').slice(2).join('\n')}
+                      text={block.text.split('\n').slice(0, 2).join('\n')}
                       translation={block.translation?.ko
                         ?.split('\n')
-                        .slice(2)
+                        .slice(0, 2)
                         .join('\n')}
                       excludeId={selected.id}
                       splitLines
                     />
-                  </div>
-                </>
-              ) : (
-                <ReferenceReadingText
-                  text={block.text}
-                  translation={block.translation?.ko}
-                  excludeId={selected.id}
-                  splitLines={!!reading.rareMonster}
-                />
-              )}
-            </section>
-          ))}
+                    <div className="reading-more">
+                      <ReferenceReadingText
+                        text={block.text.split('\n').slice(2).join('\n')}
+                        translation={block.translation?.ko
+                          ?.split('\n')
+                          .slice(2)
+                          .join('\n')}
+                        excludeId={selected.id}
+                        splitLines
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <ReferenceReadingText
+                    text={block.text}
+                    translation={block.translation?.ko}
+                    excludeId={selected.id}
+                    splitLines={!!reading.rareMonster}
+                  />
+                )}
+              </section>
+            ))}
+          </div>
           {reading.valuationReferenceId &&
             index.byId[reading.valuationReferenceId] && (
               <button

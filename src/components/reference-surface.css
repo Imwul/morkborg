@@ -614,32 +614,6 @@
   color: var(--ink);
   margin: 0 0 9px;
 }
-/* Labels identify the source field; the warm rule and ink identify its answer. */
-.reference-page .reference-generated-reading > section {
-  border: 0;
-  border-left: 3px solid var(--desk-result, #85382b);
-  padding: 4px 0 8px 18px;
-  margin: 18px 0;
-}
-.reference-page .reference-generated-reading > section h3 {
-  color: var(--muted-ink);
-  font: 550 var(--text-secondary)/var(--leading-text) var(--font-ui);
-  margin: 4px 0 8px;
-}
-.reference-page
-  .reference-generated-reading
-  .short-answer
-  > p:not(.reference-result-dice) {
-  color: var(--desk-result, #85382b);
-  font-weight: 750;
-}
-.reference-page .reference-generated-reading .reference-result-dice code {
-  display: inline-block;
-  background: var(--desk-result-wash, #f2e4d7);
-  color: #51261e;
-  padding: 2px 8px;
-  font-weight: 650;
-}
 .reference-page .reference-reading :is(.translation, .generated-translation) {
   display: block;
   font: 450 var(--text-secondary)/var(--leading-text) var(--font-ui);
