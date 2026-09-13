@@ -1,15 +1,15 @@
 /* Campaign artifact skin. Stable controls; deliberate differences in visual weight. */
 :root {
-  --ink: #050505;
-  --paper: #f3efe4;
-  --void: #050505;
-  --group-paper: #fffef6;
-  --group-tint: #ece7d8;
+  --ink: #111111;
+  --paper: #ffffff;
+  --void: #111111;
+  --group-paper: #ffffff;
+  --group-tint: #f4f4f4;
   --group-shadow: 4px 4px 0 #111;
   --acid: #ffe900;
-  --magenta: #ff2d92;
-  --muted-ink: #5c584e;
-  --border: #b7b19f;
+  --magenta: #c4006a;
+  --muted-ink: #5a5a5a;
+  --border: #d2d2d2;
   --background: var(--paper);
   --foreground: var(--ink);
   --primary: var(--acid);
