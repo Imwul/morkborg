@@ -1,14 +1,15 @@
 /* Campaign artifact skin. Stable controls; deliberate differences in visual weight. */
 :root {
-  --ink: #0b0b0a;
-  --paper: #f7f5ee;
-  --group-paper: #fffef9;
-  --group-tint: #eeebe0;
-  --group-shadow: 3px 3px 0 #d5d0c2;
+  --ink: #050505;
+  --paper: #f3efe4;
+  --void: #050505;
+  --group-paper: #fffef6;
+  --group-tint: #ece7d8;
+  --group-shadow: 4px 4px 0 #111;
   --acid: #ffe900;
-  --magenta: #ff3697;
-  --muted-ink: #626057;
-  --border: #c9c5ba;
+  --magenta: #ff2d92;
+  --muted-ink: #5c584e;
+  --border: #b7b19f;
   --background: var(--paper);
   --foreground: var(--ink);
   --primary: var(--acid);
@@ -58,13 +59,18 @@ body,
   background: var(--ink);
 }
 .brand {
-  font-size: 48px;
-  letter-spacing: -2px;
+  font-family: var(--font-blackletter);
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.03em;
+  color: var(--acid);
 }
 .brand span {
-  font: var(--text-meta)/var(--leading-text) var(--font-mono);
-  letter-spacing: 1px;
-  margin-top: 12px;
+  font: 700 0.7rem/1.2 var(--font-display);
+  letter-spacing: 0.16em;
+  margin-top: 10px;
+  color: var(--acid);
 }
 .side-divider {
   margin: 22px 0 18px;

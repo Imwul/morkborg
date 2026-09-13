@@ -14,6 +14,7 @@ import './components/home.css';
 import './components/freeform-workbench.css';
 import './typography.css';
 import './components/reference-surface.css';
+import './publication.css';
 const navigation = performance.getEntriesByType('navigation')[0] as
   | PerformanceNavigationTiming
   | undefined;

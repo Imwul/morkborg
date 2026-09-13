@@ -1,0 +1,1013 @@
+/* Digital MÖRK BORG publication. Composition and type first; texture last. */
+html {
+  overflow-x: clip;
+}
+body,
+.app {
+  background: var(--paper);
+  color: var(--ink);
+}
+.reference-app,
+.reference-app .content,
+.reference-app > .shell {
+  background: var(--paper);
+}
+.reference-app:has(.desk-landing),
+.reference-app:has(.desk-landing) .content,
+.reference-app:has(.desk-landing) > .shell {
+  background: var(--acid);
+}
+.reference-app:has(.reference-page[data-reference-kind='oracle']),
+.reference-app:has(.reference-page[data-reference-kind='oracle']) .content,
+.reference-app:has(
+    .reference-page[data-reference-kind='region']
+  ) {
+  background: var(--void);
+}
+.reference-app .content {
+  padding: 0;
+}
+.rdesk.reference-desk {
+  --desk-result: var(--magenta);
+  --desk-result-wash: #2a0014;
+  --desk-selected: var(--acid);
+  --desk-rule: color-mix(in srgb, currentColor 22%, transparent);
+  --desk-text: var(--ink);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Masthead: black binding strip. Home turns it yellow like the cover. */
+.reference-app .rdesk:has(.desk-landing) {
+  min-height: 100dvh;
+  background: var(--acid);
+}
+.reference-app .rdesk-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.9fr) minmax(0, 1.8fr) auto;
+  grid-template-areas:
+    'mark search util'
+    'nav search util';
+  align-items: end;
+  gap: 0 28px;
+  margin: 0;
+  padding: 10px 24px 12px;
+  background: var(--void);
+  color: var(--acid);
+  border-bottom: 0;
+}
+.reference-app .rdesk:has(.desk-landing) .rdesk-header {
+  background: var(--acid);
+  color: var(--void);
+}
+.reference-app .desk-wordmark {
+  grid-area: mark;
+  display: block;
+  width: min(100%, 16rem);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.reference-app .desk-wordmark > button {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  color: inherit;
+  background: none;
+}
+.reference-app .desk-wordmark-name {
+  display: block;
+  max-width: 7.2ch;
+  overflow: visible;
+  font: 800 clamp(2.5rem, 6.4vw, 5.6rem) / 0.72 var(--font-blackletter);
+  letter-spacing: -0.045em;
+  text-transform: none;
+  white-space: normal;
+}
+.reference-app .desk-wordmark-caption {
+  display: block;
+  margin-top: 0.15rem;
+  font: 700 0.7rem / 1 var(--font-display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.reference-app .desk-folio {
+  display: none;
+}
+.reference-app .rdesk .desk-search {
+  grid-area: search;
+  align-self: end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  margin: 0 0 2px;
+  padding: 0 2px 8px;
+  border: 0;
+  border-bottom: 4px solid currentColor;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+}
+.reference-app .rdesk:has(.desk-landing) .desk-search {
+  padding: 4px 14px 4px;
+  border-bottom: 0;
+  background: var(--void);
+  color: var(--acid);
+}
+.reference-app .rdesk .desk-search .desk-search-field,
+.reference-app .rdesk .desk-search input,
+.reference-app .rdesk .desk-search [data-slot='input'] {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+  min-height: var(--control-height);
+  padding: 4px 0;
+  border: 0 none !important;
+  border-width: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  color: inherit;
+  font: 650 clamp(1.2rem, 2.4vw, 2rem) / 1.15 var(--font-ui);
+  letter-spacing: -0.03em;
+}
+.reference-app .rdesk .desk-search input::placeholder {
+  color: inherit;
+  opacity: 0.45;
+}
+.reference-app .rdesk .desk-search:focus-within {
+  border-bottom-width: 6px;
+}
+.reference-app .rdesk .desk-search input:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 4px;
+  box-shadow: none !important;
+}
+.reference-app .rdesk .desk-search :is(button, kbd) {
+  color: inherit;
+  opacity: 0.7;
+  font: 700 0.8rem / 1 var(--font-display);
+  letter-spacing: 0.08em;
+}
+.reference-app .rdesk .desk-search > svg {
+  display: none;
+}
+.reference-app .rdesk-utilities {
+  grid-area: util;
+  align-self: end;
+  gap: 0;
+  color: inherit;
+  font: 700 0.75rem / 1 var(--font-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.reference-app .rdesk-utilities > button,
+.reference-app .desk-records-menu summary {
+  min-height: var(--control-height);
+  padding: 0 10px;
+  color: inherit;
+  background: none;
+}
+.reference-app .desk-records-menu > div {
+  border: 0;
+  background: var(--void);
+  color: var(--acid);
+  box-shadow: 8px 8px 0 var(--acid);
+}
+.reference-app .desk-primary-nav {
+  grid-area: nav;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 4px 0 0;
+}
+.reference-app .desk-primary-nav button {
+  min-height: var(--control-height);
+  padding: 8px 12px 8px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 800 0.82rem / 1 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.reference-app .desk-primary-nav button[aria-current='page'] {
+  background: var(--acid);
+  color: var(--void);
+  padding-inline: 10px;
+}
+.reference-app .rdesk:has(.desk-landing)
+  .desk-primary-nav
+  button[aria-current='page'] {
+  background: var(--void);
+  color: var(--acid);
+}
+
+.reference-app .desk-layout {
+  display: grid;
+  grid-template-columns: minmax(210px, 280px) minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+  min-height: calc(100dvh - 92px);
+}
+.reference-app .desk-layout:has(.desk-landing) {
+  background: var(--acid);
+}
+.reference-app .desk-layout:has(.reference-page[data-reference-kind='oracle']),
+.reference-app .desk-layout:has(.reference-page[data-reference-kind='region']) {
+  background: var(--void);
+}
+.reference-app .desk-layout[data-has-pages='true'] {
+  grid-template-columns: minmax(210px, 260px) minmax(0, 1.35fr) minmax(
+      320px,
+      0.9fr
+    );
+}
+
+/* Index: yellow endpaper, hanging entries. */
+.reference-app .desk-browser {
+  position: sticky;
+  top: 92px;
+  min-height: calc(100dvh - 92px);
+  max-height: calc(100dvh - 92px);
+  margin: 0;
+  padding: 22px 18px 48px 24px;
+  overflow: auto;
+  background: var(--acid);
+  color: var(--void);
+  border: 0;
+}
+.reference-app .desk-browse-toggle {
+  font: 800 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.reference-app .desk-browse-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.reference-app .desk-browse-types button {
+  min-height: 36px;
+  padding: 6px 0;
+  border: 0;
+  font: 800 0.95rem / 1 var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 0;
+}
+.reference-app .desk-browse-types button[aria-pressed='true'] {
+  background: var(--void);
+  color: var(--acid);
+  padding-inline: 8px;
+  font-weight: 800;
+}
+.reference-app .desk-browse-types small {
+  font: 600 0.7rem / 1 var(--font-display);
+  letter-spacing: 0;
+  color: inherit;
+  opacity: 0.7;
+}
+.reference-app .desk-browse-filters {
+  display: grid;
+  gap: 6px;
+  padding: 0 0 16px;
+}
+.reference-app .rdesk .desk-browse-filters select {
+  min-height: var(--control-height);
+  border: 0;
+  border-bottom: 2px solid var(--void);
+  background: transparent;
+  color: inherit;
+  font: 650 var(--text-ui) / var(--leading-control) var(--font-ui);
+}
+.reference-app .rdesk .desk-nav-history h2,
+.reference-app .rdesk .desk-index-results h2,
+.reference-app .rdesk .desk-related h2,
+.reference-app .rdesk .desk-open-pages > h2 {
+  margin: 10px 0 6px;
+  color: inherit;
+  font: 800 0.68rem / 1 var(--font-display);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.reference-app .desk-index-results {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 4px solid var(--void);
+}
+.reference-app .rdesk .reference-row {
+  align-items: start;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.reference-app .rdesk .reference-row > .reference-select-action:first-child {
+  padding: 8px 0;
+}
+.reference-app .rdesk .reference-select-action strong {
+  font: 800 1.02rem / 1.15 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.reference-app
+  .rdesk
+  .reference-select-action
+  strong
+  :is(.translation, .generated-translation) {
+  margin-top: 1px;
+  color: inherit;
+  font: 500 0.82rem / 1.3 var(--font-ui);
+  opacity: 0.75;
+}
+.reference-app .reference-row-description {
+  display: none;
+}
+.reference-app .rdesk .reference-select-action small,
+.reference-app .rdesk .reference-select-action code {
+  font: 600 0.68rem / 1.3 var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.62;
+}
+.reference-app .rdesk .reference-row:has([aria-current='page'])::before {
+  top: 1.05em;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-left-color: var(--void);
+  transform: none;
+}
+.reference-app .rdesk .reference-row:has([aria-current='page']) {
+  background: var(--void);
+  color: var(--acid);
+  margin-left: -8px;
+  padding-left: 8px;
+}
+.reference-app .rdesk .quick-reference-action {
+  font: 700 0.9rem / 1.2 var(--font-display);
+  color: inherit;
+}
+.reference-app .rdesk .reference-row-roll {
+  font: 800 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.reference-app .desk-current-page {
+  min-width: 0;
+  min-height: calc(100dvh - 92px);
+  padding: 18px 28px 64px;
+}
+.reference-app .desk-layout:has(.desk-landing) .desk-current-page {
+  background: var(--acid);
+  color: var(--void);
+}
+
+/* Landing = INDEX page. */
+.reference-app .desk-landing {
+  max-width: 54rem;
+}
+.reference-app .desk-landing-folio {
+  margin: 0 0 8px;
+  font: 800 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.reference-app .desk-landing h2 {
+  max-width: 12ch;
+  margin: 0 0 10px;
+  overflow: hidden;
+  font: 800 clamp(3.4rem, 9vw, 8rem) / 0.78 var(--font-blackletter);
+  letter-spacing: -0.04em;
+}
+.reference-app .desk-landing > header p {
+  max-width: 28ch;
+  margin: 0 0 28px;
+  color: inherit;
+  font: 650 1.05rem / 1.35 var(--font-ui);
+}
+.reference-app .desk-landing > section {
+  margin: 0 0 32px;
+}
+.reference-app .desk-landing h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+  font: 800 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.reference-app .desk-landing h3 button {
+  font: 700 0.75rem / 1 var(--font-display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.reference-app .desk-shortcut-list,
+.reference-app .desk-generator-records {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.reference-app .desk-landing :is(.desk-shortcut-list, .desk-generator-records) > button {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.42fr) minmax(0, 1fr) 1.2rem;
+  gap: 12px;
+  align-items: baseline;
+  min-height: 52px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  text-align: left;
+}
+.reference-app .desk-landing button strong {
+  font: 800 clamp(1.35rem, 2.2vw, 2rem) / 0.95 var(--font-blackletter);
+  letter-spacing: -0.02em;
+}
+.reference-app .desk-landing button span {
+  color: inherit;
+  font: 500 0.95rem / 1.35 var(--font-ui);
+  opacity: 0.8;
+}
+.reference-app .desk-landing > section[aria-label='생성 도구'] {
+  padding: 18px 18px 8px;
+  background: var(--void);
+  color: var(--acid);
+}
+.reference-app .desk-landing > section[aria-label='생성 도구'] h3,
+.reference-app .desk-landing > section[aria-label='생성 도구'] button span {
+  color: inherit;
+}
+
+/* Reference page as a printed spread, grammar by kind. */
+.reference-app .reference-page {
+  position: relative;
+  max-width: 58rem;
+  color: var(--ink);
+}
+.reference-app .reference-page .reference-inspector-top {
+  display: flex;
+  align-items: start;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  padding: 0 0 8px;
+  border: 0;
+}
+.reference-app .reference-page h2 {
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: inherit;
+  font: 800 clamp(2.8rem, 7.5vw, 7.2rem) / 0.78 var(--font-blackletter);
+  letter-spacing: -0.04em;
+  text-wrap: unset;
+}
+.reference-app .reference-page h2 :is(.translation, .generated-translation) {
+  display: block;
+  margin-top: 0.15em;
+  font: 800 clamp(1.15rem, 2.4vw, 1.8rem) / 1.05 var(--font-ui);
+  letter-spacing: -0.04em;
+}
+.reference-app
+  .reference-page:is(
+    [data-reference-kind='rule'],
+    [data-reference-kind='procedure']
+  )
+  h2 {
+  font: 800 clamp(2.2rem, 5.5vw, 4.6rem) / 0.86 var(--font-display);
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.reference-app .reference-page .ref-pin,
+.reference-app .reference-page .ref-open-page,
+.reference-app .reference-page .reference-convenience-actions {
+  color: inherit;
+  opacity: 0.7;
+  font: 700 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.reference-app .reference-page .reference-summary {
+  max-width: 46ch;
+  margin: 0 0 18px;
+  font: 500 var(--text-body) / 1.45 var(--font-ui);
+}
+.reference-app .reference-page .reference-formula {
+  display: flex;
+  align-items: end;
+  gap: 16px 22px;
+  flex-wrap: wrap;
+  margin: 4px 0 22px;
+}
+.reference-app .reference-page .reference-formula code {
+  font: 800 clamp(2.4rem, 8vw, 6.5rem) / 0.78 var(--font-display);
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.reference-app .rdesk .reference-roll,
+.reference-app .rdesk .reference-inline-dice button {
+  min-height: var(--control-height);
+  padding: 8px 16px;
+  border: 0;
+  background: var(--void);
+  color: var(--acid);
+  font: 800 0.9rem / 1 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.reference-app .rdesk .reference-roll:hover,
+.reference-app .rdesk .reference-inline-dice button:hover {
+  background: var(--magenta);
+  color: var(--void);
+}
+
+/* Oracle / table pages: black mass, pink rules, yellow event. */
+.reference-app
+  .desk-current-page:has(
+    .reference-page[data-reference-kind='oracle']
+  ) {
+  background: var(--void);
+  color: #f4f1e8;
+}
+.reference-app .reference-page[data-reference-kind='oracle'] {
+  color: #f4f1e8;
+}
+.reference-app .reference-page[data-reference-kind='oracle'] h2 {
+  color: #fff;
+}
+.reference-app .reference-page[data-reference-kind='oracle'] .reference-formula code {
+  color: #fff;
+}
+.reference-app .reference-page[data-reference-kind='oracle'] .reference-summary {
+  color: var(--magenta);
+}
+
+.reference-app
+  .desk-current-page:has(
+    .reference-page[data-reference-kind='region']
+  ) {
+  background: var(--void);
+  color: var(--acid);
+}
+.reference-app .reference-page[data-reference-kind='region'] h2 {
+  color: var(--acid);
+}
+.reference-app .reference-page[data-reference-kind='region'] .reference-summary {
+  max-width: 42ch;
+  color: #fff;
+}
+
+.reference-app
+  .desk-current-page:has(
+    .reference-page[data-reference-kind='book']
+  ) {
+  background: var(--acid);
+  color: var(--void);
+}
+
+/* Creature: giant identity, pink stat block. */
+.reference-app .reference-page[data-reference-kind='creature'] h2 {
+  max-width: 11ch;
+  font-size: clamp(2.8rem, 8vw, 6.4rem);
+}
+.reference-app
+  .reference-page[data-reference-kind='creature']
+  .reference-reading
+  section:first-child
+  > p:first-of-type {
+  max-width: 36ch;
+  color: var(--magenta);
+  font: 700 1.15rem / 1.35 var(--font-ui);
+}
+
+/* Dice result is an event. */
+.reference-app
+  .reference-page[data-reference-kind='oracle']
+  .reference-generated-reading,
+.reference-app
+  .reference-page[data-reference-kind='procedure']
+  .reference-generated-reading {
+  position: relative;
+  margin: 8px 0 28px;
+  padding: 18px 18px 16px;
+  background: var(--acid);
+  color: var(--void);
+  border: 0;
+  box-shadow: 10px 10px 0 var(--void);
+}
+.reference-app
+  .reference-page[data-reference-kind='creature']
+  .reference-generated-reading {
+  margin: 8px 0 24px;
+  padding: 0;
+  background: none;
+  color: inherit;
+  box-shadow: none;
+}
+.reference-app .reference-page .reference-generated-reading > section {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.reference-app .reference-page .reference-result-dice,
+.reference-app
+  .reference-page
+  .reference-reading
+  .short-answer
+  .reference-result-dice {
+  margin: 0 0 4px;
+  color: inherit;
+  font: 800 var(--text-event) / 0.75 var(--font-display);
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+.reference-app .reference-result-dice code,
+.reference-app
+  .reference-page
+  .reference-generated-reading
+  .reference-result-dice
+  code {
+  display: block;
+  background: none !important;
+  color: inherit !important;
+  padding: 0;
+  font: inherit;
+}
+.reference-app
+  .reference-page
+  .reference-generated-reading
+  .short-answer
+  > p:not(.reference-result-dice) {
+  max-width: 22ch;
+  color: inherit;
+  font: 800 clamp(1.6rem, 3.4vw, 2.6rem) / 0.95 var(--font-blackletter);
+}
+.reference-app
+  .reference-page
+  .reference-generated-reading
+  :is(.translation, .generated-translation) {
+  color: inherit;
+  font: 600 1rem / 1.35 var(--font-ui);
+  opacity: 0.8;
+}
+.reference-app .reference-page .ref-copy-actions {
+  margin-top: 12px;
+}
+.reference-app .reference-page .ref-copy-actions button,
+.reference-app .reference-page .ref-copy-actions .result-reroll {
+  color: inherit;
+  font: 800 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Tables leave the spreadsheet. */
+.reference-app .reference-page .reference-static-table,
+.reference-app .desk-open-page table {
+  margin: 8px 0 0;
+}
+.reference-app .reference-page table caption,
+.reference-app .desk-open-page table caption {
+  padding: 0 0 12px;
+  font: 800 clamp(1.6rem, 3vw, 2.6rem) / 0.9 var(--font-blackletter);
+  text-align: left;
+  caption-side: top;
+}
+.reference-app .reference-page table,
+.reference-app .desk-open-page table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.reference-app .reference-page table th,
+.reference-app .reference-page table td,
+.reference-app .desk-open-page table th,
+.reference-app .desk-open-page table td {
+  padding: 0.45rem 0.75rem 0.55rem 0;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  background: none;
+  color: inherit;
+  vertical-align: top;
+  font: 450 var(--text-body) / 1.4 var(--font-ui);
+}
+.reference-app .reference-page table th.table-number-selector,
+.reference-app .desk-open-page table th.table-number-selector {
+  width: 5.6rem;
+  padding: 0.35rem 0.85rem 0.35rem 0;
+  border-bottom: 0;
+  text-align: right;
+  font: 800 clamp(1.05rem, 1.8vw, 1.5rem) / 1.05 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.reference-app .table-dice-number {
+  display: inline-block;
+}
+.reference-app .rdesk tr.current-table-result {
+  background: var(--acid);
+  color: var(--void);
+  box-shadow: none;
+}
+.reference-app .rdesk tr.current-table-result .table-number-selector::before {
+  display: none;
+}
+.reference-app .rdesk tr.current-table-result .table-dice-number {
+  color: inherit;
+  box-shadow: none;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+}
+.reference-app .rdesk tr.current-table-result td {
+  font-weight: 650;
+  border-bottom-color: transparent;
+}
+.reference-app .reference-page table :is(.translation, .generated-translation),
+.reference-app .desk-open-page table :is(.translation, .generated-translation) {
+  color: inherit;
+  opacity: 0.72;
+  font-size: 0.92em;
+}
+@media (min-width: 1100px) {
+  .reference-app .reference-table-section.dice-d66 tbody,
+  .reference-app .reference-table-section.dice-d20 tbody {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 36px;
+  }
+  .reference-app .reference-table-section.dice-d66 tr,
+  .reference-app .reference-table-section.dice-d20 tr {
+    display: grid;
+    grid-template-columns: 5.6rem minmax(0, 1fr);
+    column-gap: 12px;
+    width: 100%;
+  }
+  .reference-app
+    .reference-table-section:is(.dice-d66, .dice-d20)
+    tr.current-table-result {
+    grid-column: 1 / -1;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    margin: 10px 0;
+    padding: 8px 12px;
+  }
+}
+.reference-app .core-misery-guidance,
+.reference-app .table-use-context {
+  max-width: 46ch;
+  color: var(--magenta);
+  font: 600 0.95rem / 1.4 var(--font-ui);
+}
+
+.reference-app .reference-page .reference-procedure-parts {
+  border-top: 4px solid currentColor;
+  margin-top: 28px;
+}
+.reference-app .rdesk .source-disclosure > summary {
+  color: inherit;
+  opacity: 0.62;
+  font: 700 0.72rem / 1 var(--font-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.reference-app .desk-related {
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 4px solid currentColor;
+}
+.reference-app .desk-side-pages {
+  padding: 18px 20px 40px 22px;
+  border: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+.reference-app .desk-open-page {
+  max-height: 34rem;
+  margin: 0 0 18px;
+  padding: 0 0 16px;
+  border-bottom: 4px solid var(--void);
+}
+.reference-app .desk-open-page > header button {
+  font: 800 1.6rem / 0.9 var(--font-blackletter);
+}
+
+/* Campaign spine and PLAY. */
+.sidebar {
+  background: var(--void);
+}
+.sidebar .nav-item.active {
+  background: var(--acid);
+  color: var(--void);
+  border-left: 0;
+}
+.new-campaign {
+  background: var(--acid);
+  color: var(--void);
+}
+.play-active .content,
+.app.play-active {
+  background: var(--acid);
+}
+.freeform-workbench {
+  color: var(--void);
+}
+.reference-shelves button[aria-pressed='true'] {
+  background: var(--void);
+  color: var(--acid);
+  border-color: var(--void);
+}
+.reference-dice {
+  border: 0;
+  background: var(--void);
+  color: var(--acid);
+}
+
+@media (min-width: 1440px) {
+  .reference-app .desk-landing .desk-shortcut-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 36px;
+  }
+  .reference-app .reference-page[data-reference-kind='oracle'] .reference-formula {
+    float: right;
+    max-width: 42%;
+    margin: 0 0 12px 24px;
+  }
+  .reference-app .reference-page[data-reference-kind='creature'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: 28px;
+    align-items: start;
+  }
+  .reference-app .reference-page[data-reference-kind='creature'] .reference-inspector-top {
+    grid-column: 1 / -1;
+  }
+  .reference-app .reference-page[data-reference-kind='creature'] .reference-reading {
+    grid-column: 1;
+  }
+  .reference-app .reference-page[data-reference-kind='creature'] .source-disclosure {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1900px) {
+  .reference-app .content {
+    padding: 0;
+  }
+  .reference-app .rdesk-header {
+    grid-template-columns: 340px minmax(0, 1fr) auto;
+    padding-inline: 32px;
+  }
+  .reference-app .desk-layout {
+    grid-template-columns: 320px minmax(0, 1fr);
+  }
+  .reference-app .desk-layout[data-has-pages='true'] {
+    grid-template-columns: 320px minmax(720px, 1fr) minmax(0, 1fr);
+  }
+  .reference-app .desk-browser {
+    padding-left: 32px;
+  }
+  .reference-app .desk-current-page {
+    padding-inline: 48px 56px;
+  }
+  .reference-app .reference-page {
+    max-width: 68rem;
+  }
+}
+@media (min-width: 3000px) {
+  .reference-app .desk-layout[data-has-pages='true'] {
+    grid-template-columns: 300px minmax(640px, 960px) minmax(0, 1fr);
+  }
+  .reference-app .desk-open-pages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 0 28px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 801px) {
+  .reference-app .rdesk-header {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr) auto;
+    gap: 0 16px;
+    padding-inline: 18px;
+  }
+  .reference-app .desk-layout,
+  .reference-app .desk-layout[data-has-pages='true'] {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+  .reference-app .desk-side-pages {
+    grid-column: 2;
+    border-top: 4px solid var(--void);
+  }
+}
+
+@media (max-width: 800px) {
+  .reference-app .content {
+    padding: 0 0 40px;
+  }
+  .reference-app .rdesk-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'mark util'
+      'search search'
+      'nav nav';
+    gap: 0 8px;
+    padding: 8px 14px 10px;
+  }
+  .reference-app .desk-wordmark-name {
+    font-size: clamp(2.4rem, 14vw, 3.4rem);
+    max-width: 100%;
+  }
+  .reference-app .rdesk .desk-search {
+    min-height: 48px;
+  }
+  .reference-app .rdesk .desk-search input {
+    font-size: 1.2rem;
+  }
+  .reference-app .desk-layout,
+  .reference-app .desk-layout[data-has-pages='true'] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .reference-app .desk-layout {
+    min-height: 0;
+  }
+  .reference-app .desk-browser {
+    position: static;
+    min-height: 0;
+    max-height: none;
+    padding: 12px 14px 16px;
+  }
+  .reference-app .desk-current-page {
+    min-height: 0;
+    padding: 16px 14px 48px;
+  }
+  .reference-app .desk-landing h2 {
+    font-size: clamp(3rem, 16vw, 4.4rem);
+  }
+  .reference-app .reference-page h2 {
+    flex-basis: 100%;
+    font-size: clamp(2.6rem, 14vw, 3.8rem);
+  }
+  .reference-app .reference-page .reference-formula code {
+    font-size: clamp(2.2rem, 16vw, 3.6rem);
+  }
+  .reference-app .reference-page .reference-result-dice {
+    font-size: clamp(3.2rem, 22vw, 5.2rem);
+  }
+  .reference-app .reference-table-section.dice-d66 tbody,
+  .reference-app .reference-table-section.dice-d20 tbody {
+    columns: 1;
+  }
+  .reference-app .rdesk tr.current-table-result .table-dice-number {
+    font-size: clamp(2.1rem, 12vw, 3.2rem);
+  }
+  .reference-app .desk-landing :is(.desk-shortcut-list, .desk-generator-records) > button {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .reference-app .desk-landing button span:not(:last-child) {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+  .reference-app .desk-side-pages {
+    padding: 12px 14px 32px;
+  }
+}
+
+#desk-primary-search {
+  border: 0 none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+}
+
+@media (forced-colors: active) {
+  .reference-app .rdesk tr.current-table-result,
+  .reference-app .desk-primary-nav button[aria-current='page'],
+  .reference-app .reference-generated-reading {
+    outline: 3px solid Highlight;
+  }
+}

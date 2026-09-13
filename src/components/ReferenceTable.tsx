@@ -26,7 +26,12 @@ export function ReferenceTable({
   const exits = table.id === 'sd.room.exits';
   const desk = useReferenceDesk();
   return (
-    <section className="reference-table-section">
+    <section
+      className={`reference-table-section dice-${String(table.originalDice ?? table.dice ?? 'table')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')}`}
+    >
       {table.description && (
         <div className="table-use-context">
           <ReferenceReadingText text={table.description} />

@@ -595,6 +595,10 @@ export function ReferenceProvider({
       aria-label="현재 참조"
       data-reference-id={selected.id}
       data-reference-kind={selected.kind}
+      data-has-reading={reading ? 'true' : undefined}
+      data-formula={
+        referenceEntryFormula(selected, oracles.registry) || undefined
+      }
       ref={inspectorRef}
     >
       <div className="reference-inspector-top">
@@ -2074,6 +2078,9 @@ export function ReferenceDesk({
               <span className="desk-wordmark-caption">REFERENCE DESK</span>
             </button>
           </h1>
+          <p className="desk-folio" aria-hidden="true">
+            00
+          </p>
           <form
             className="desk-search"
             onSubmit={(e) => {
@@ -2085,6 +2092,7 @@ export function ReferenceDesk({
             <Search size={19} />
             <Input
               id="desk-primary-search"
+              className="desk-search-field border-0 shadow-none rounded-none ring-0 outline-none"
               aria-label="참조 검색"
               placeholder="참조 검색…"
               value={query}

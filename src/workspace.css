@@ -39,6 +39,7 @@
   --font-reading: var(--font-ui);
   --font-body: var(--font-ui);
   --font-display: 'Barlow Condensed', var(--font-ui);
+  --font-blackletter: 'Grenze Gotisch', 'Barlow Condensed', var(--font-ui);
   --font-proper: var(--font-reading);
   font-family: var(--font-reading);
   font-weight: 550;

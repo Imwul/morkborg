@@ -40,6 +40,9 @@ export function DeskLanding({
       aria-label={generators ? '생성기 모음' : '홈'}
     >
       <header>
+        <p className="desk-landing-folio">
+          {generators ? 'MB · GEN' : 'MB · DESK'}
+        </p>
         <h2>{generators ? '생성기' : 'Reference Desk'}</h2>
         <p>
           {generators ? '캐릭터부터 방 하나까지.' : '찾고, 펼치고, 굴리세요.'}
