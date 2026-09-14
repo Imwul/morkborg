@@ -1938,16 +1938,29 @@ export function QuickReferenceButton({ entry }: { entry: ReferenceEntry }) {
     </button>
   );
 }
+function SearchShortcut() {
+  return (
+    <span
+      className="desk-search-shortcut"
+      aria-hidden="true"
+      title="검색 단축키: Command + K 또는 Ctrl + K"
+    >
+      <kbd>⌘ / Ctrl</kbd>
+      <kbd>K</kbd>
+    </span>
+  );
+}
 export function ReferenceSearchButton() {
   const desk = useReferenceDesk();
   return (
     <button
       className="universal-search-trigger"
+      aria-keyshortcuts="Meta+K Control+K"
       onClick={() => desk?.openSearch()}
     >
       <Search size={16} />
       <span>규칙·표·지역 검색…</span>
-      <kbd>⌘ K</kbd>
+      <SearchShortcut />
     </button>
   );
 }
@@ -2199,6 +2212,7 @@ export function ReferenceDesk({
               id="desk-primary-search"
               className="desk-search-field border-0 shadow-none rounded-none ring-0 outline-none"
               aria-label="참조 검색"
+              aria-keyshortcuts="Meta+K Control+K"
               placeholder="참조 검색…"
               value={query}
               onChange={(e) => search(e.target.value)}
@@ -2222,7 +2236,7 @@ export function ReferenceDesk({
                 ×
               </button>
             ) : (
-              <kbd>⌘ K</kbd>
+              <SearchShortcut />
             )}
           </form>
           <div className="rdesk-utilities">
