@@ -135,7 +135,7 @@ test('Optional records and source management are a closed menu, without a launch
   );
 });
 
-test('Desk search precedes the real type index and keeps pin/history navigation visible', () => {
+test('Desk opens without an unsolicited full index, keeping search, header sections and bookmarks available', () => {
   const html = renderToStaticMarkup(
     createElement(ReferenceDesk, { homeIndex: home() }),
   );
@@ -143,13 +143,10 @@ test('Desk search precedes the real type index and keeps pin/history navigation 
     html.indexOf('aria-label="참조 검색"') <
       html.indexOf('aria-label="참조 종류"'),
   );
-  for (const label of [
-    '고정한 참조',
-    '최근 참조',
-    '검색 결과',
-    '관련 상황 바로가기',
-  ])
+  for (const label of ['고정한 참조', '최근 참조', '관련 상황 바로가기'])
     assert.ok(html.includes(`aria-label="${label}"`));
+  assert.ok(html.indexOf('aria-label="참조 종류"') < html.indexOf('</header>'));
+  assert.doesNotMatch(html, /aria-label="검색 결과"|색인 ·|desk-folio/);
   assert.doesNotMatch(
     html,
     /reference-card-grid|reference-dock|desk-play-tools/,

@@ -37,16 +37,22 @@ export function DeskLanding({
   return (
     <section
       className="desk-landing"
+      data-generators={generators}
       aria-label={generators ? '생성기 모음' : '홈'}
     >
       <header>
         <p className="desk-landing-folio">
           {generators ? 'MB · GEN' : 'MB · DESK'}
         </p>
-        <h2>{generators ? '생성기' : 'Reference Desk'}</h2>
-        <p>
-          {generators ? '캐릭터부터 방 하나까지.' : '찾고, 펼치고, 굴리세요.'}
-        </p>
+        <h2>
+          {generators ? (
+            '생성기'
+          ) : (
+            <>
+              <span>Reference</span> <em>Desk</em>
+            </>
+          )}
+        </h2>
       </header>
       {!generators && (
         <section aria-label="빠른 참조">
@@ -54,7 +60,11 @@ export function DeskLanding({
           <div className="desk-shortcut-list">
             {DESK_REFERENCE_SHORTCUTS.filter(([id]) => desk?.byId[id]).map(
               ([id, title, description]) => (
-                <button key={id} onClick={() => desk?.activate(id)}>
+                <button
+                  key={id}
+                  data-shortcut={id}
+                  onClick={() => desk?.activate(id)}
+                >
                   <strong>{title}</strong>
                   <span>{description}</span>
                   <span aria-hidden="true">↗</span>
