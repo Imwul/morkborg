@@ -1945,8 +1945,7 @@ function SearchShortcut() {
       aria-hidden="true"
       title="검색 단축키: Command + K 또는 Ctrl + K"
     >
-      <kbd>⌘ / Ctrl</kbd>
-      <kbd>K</kbd>
+      <kbd>⌘ / Ctrl + K</kbd>
     </span>
   );
 }
@@ -2273,6 +2272,9 @@ export function ReferenceDesk({
               ))}
             </nav>
             <nav className="desk-browse-types" aria-label="참조 종류">
+              <span className="desk-browse-label" aria-hidden="true">
+                분류
+              </span>
               {REFERENCE_TYPES.map(([id, label]) => (
                 <button
                   key={id}
