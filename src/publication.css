@@ -1,5 +1,78 @@
-/* Editorial apparatus: an archive, field sheets, and rare exceptional breaks.
-   The source data, order of controls and navigation do not participate in the disorder. */
+@font-face {
+  font-family: 'SUIT Variable';
+  src: url('/fonts/SUIT-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+/* Korean-only faces keep the established Latin type composition intact. */
+@font-face {
+  font-family: 'Hahmlet Hangul';
+  src: url('/fonts/Hahmlet-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+1100-11FF, U+2E80-9FFF, U+A960-A97F, U+AC00-D7FF, U+F900-FAFF;
+}
+@font-face {
+  font-family: 'Song Myung Hangul';
+  src: url('/fonts/SongMyung-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range:
+    U+1100-11FF, U+2E80-9FFF, U+A960-A97F, U+AC00-D7FF, U+F900-FAFF;
+}
+@font-face {
+  font-family: 'Pirata One';
+  src: url('/fonts/PirataOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/BodoniModa-Variable.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/BodoniModa-Italic-Variable.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/fonts/SpaceMono-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+/* A ruled printing surface. Shared geometry carries the interface;
+   expressive type and large colour fields stay inside that geometry. */
+:root {
+  --acid: #ffeb00;
+  --paper: #fffef9;
+  --sky: #6fc9f5;
+  --coral: #ff604a;
+  --mint: #b8ca66;
+  --lilac: #f29ad1;
+  --font-ui: 'Hahmlet Hangul', 'SUIT Variable', sans-serif;
+  --font-korean-display: 'Song Myung Hangul', 'SUIT Variable', serif;
+  --font-reading: var(--font-ui);
+  --font-body: var(--font-ui);
+  --font-proper: var(--font-ui);
+  --font-editorial: 'Bodoni Moda', var(--font-korean-display);
+  --font-display: var(--font-editorial);
+  --font-blackletter: 'Pirata One', var(--font-korean-display);
+  --font-mono: 'Space Mono', var(--font-ui);
+  --font-label: var(--font-mono);
+  --text-body: 1.375rem;
+  --text-secondary: 1.125rem;
+  --text-ui: 1.125rem;
+  --text-meta: 0.875rem;
+  --text-result: 2.75rem;
+  font-synthesis: none;
+}
 body,
 .app {
   background: var(--paper);
@@ -17,6 +90,8 @@ body,
   padding: 0;
 }
 .rdesk.reference-desk {
+  --index-width: 304px;
+  --page-gutter: 36px;
   --desk-text: var(--ink);
   --desk-result: var(--ink);
   --desk-rule: #d2d2d2;
@@ -32,21 +107,36 @@ body,
   outline-offset: 4px;
 }
 
-/* A spine, not a banner. Search and navigation keep their positions. */
+/* Header and document share their left edge at every desktop width. */
 .reference-app .rdesk-header {
   position: sticky;
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) auto;
+  grid-template-columns: calc(var(--index-width) - var(--page-gutter)) minmax(
+      0,
+      1fr
+    ) auto;
   grid-template-areas: 'mark search util' 'mark nav nav';
   align-items: center;
-  gap: 0 32px;
+  gap: 0 var(--page-gutter);
   margin: 0;
-  padding: 12px 28px 0;
+  padding: 12px var(--page-gutter) 0;
   background: var(--paper);
   color: var(--ink);
-  border-bottom: 1px solid var(--ink);
+  border-top: 8px solid transparent;
+  background:
+    linear-gradient(
+        90deg,
+        var(--coral) 0 20%,
+        var(--sky) 20% 52%,
+        var(--acid) 52% 76%,
+        var(--mint) 76%
+      )
+      top / 100% 8px no-repeat,
+    var(--paper);
+  background-origin: border-box;
+  border-bottom: 3px solid var(--ink);
 }
 .reference-app .desk-wordmark {
   grid-area: mark;
@@ -67,7 +157,7 @@ body,
   display: block;
   max-width: none;
   white-space: nowrap;
-  font: 800 2.45rem / 0.92 var(--font-blackletter);
+  font: 400 3rem / 1 var(--font-blackletter);
   letter-spacing: -0.035em;
 }
 .reference-app .desk-wordmark-caption {
@@ -84,13 +174,13 @@ body,
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 46px;
+  min-height: 54px;
   margin: 0;
   padding: 0;
   background: transparent;
   color: inherit;
   border: 0;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
   box-shadow: none;
 }
 .reference-app .rdesk .desk-search input,
@@ -108,7 +198,7 @@ body,
   box-shadow: none !important;
   --tw-ring-shadow: 0 0 #0000 !important;
   --tw-ring-offset-shadow: 0 0 #0000 !important;
-  font: 550 1.1rem / 1.4 var(--font-ui);
+  font: 700 1.4rem / 1.4 var(--font-ui);
   letter-spacing: 0;
 }
 .reference-app .rdesk .desk-search input::placeholder {
@@ -116,8 +206,8 @@ body,
   opacity: 1;
 }
 .reference-app .rdesk .desk-search:focus-within {
-  border-bottom: 3px solid var(--ink);
-  margin-bottom: -2px;
+  border-bottom-color: var(--ink);
+  background: var(--acid);
 }
 .reference-app .rdesk .desk-search input:focus-visible {
   outline: 0;
@@ -176,12 +266,12 @@ body,
   align-items: baseline;
   gap: 8px;
   min-height: 44px;
-  padding: 10px 0 8px;
+  padding: 12px 14px 10px;
   border: 0;
   border-bottom: 4px solid transparent;
   color: inherit;
   background: none;
-  font: 750 0.95rem / 1.4 var(--font-ui);
+  font: 800 1.15rem / 1.4 var(--font-ui);
 }
 .reference-app .desk-primary-nav button::before {
   content: '0' counter(desk-nav);
@@ -190,8 +280,14 @@ body,
 }
 .reference-app .desk-primary-nav button[aria-current='page'] {
   color: inherit;
-  background: none;
+  background: var(--acid);
   border-bottom-color: currentColor;
+}
+.reference-app .desk-primary-nav button:nth-child(2)[aria-current='page'] {
+  background: var(--sky);
+}
+.reference-app .desk-primary-nav button:nth-child(3)[aria-current='page'] {
+  background: var(--mint);
 }
 .reference-app .desk-primary-nav button:hover {
   background: none;
@@ -202,14 +298,14 @@ body,
 /* The index is a narrow, ruled margin. Search candidates move above history. */
 .reference-app .desk-layout {
   display: grid;
-  grid-template-columns: 308px minmax(0, 1fr);
+  grid-template-columns: var(--index-width) minmax(0, 1fr);
   gap: 0;
   align-items: start;
   min-height: calc(100dvh - var(--desk-header-height, 100px));
   padding: 0;
 }
 .reference-app .desk-layout[data-has-pages='true'] {
-  grid-template-columns: 280px minmax(0, 1fr) 340px;
+  grid-template-columns: var(--index-width) minmax(0, 1fr) 380px;
 }
 .reference-app .desk-browser {
   position: sticky;
@@ -220,7 +316,7 @@ body,
   min-height: 0;
   max-height: calc(100dvh - var(--desk-header-height, 100px));
   overflow: auto;
-  padding: 24px 24px 40px 28px;
+  padding: 28px 24px 40px var(--page-gutter);
   margin: 0;
   border: 0;
   border-right: 1px solid var(--border);
@@ -246,7 +342,7 @@ body,
   padding: 6px 0;
   border: 0;
   background: none;
-  font: 650 0.925rem / 1.4 var(--font-ui);
+  font: 750 1.05rem / 1.4 var(--font-ui);
   letter-spacing: 0;
 }
 .reference-app .desk-browse-types button[aria-pressed='true'] {
@@ -304,7 +400,7 @@ body,
 .reference-app .rdesk .quick-reference-action {
   min-height: 32px;
   padding: 4px 0;
-  font: 550 0.95rem / 1.45 var(--font-ui);
+  font: 650 1.05rem / 1.45 var(--font-ui);
   color: inherit;
 }
 .reference-app .desk-index-results {
@@ -338,7 +434,7 @@ body,
 }
 .reference-app .rdesk .reference-select-action strong {
   display: block;
-  font: 650 1rem / 1.4 var(--font-ui);
+  font: 750 1.15rem / 1.4 var(--font-ui);
   letter-spacing: 0;
   overflow-wrap: break-word;
 }
@@ -392,177 +488,63 @@ body,
 .reference-app .desk-current-page {
   container: current-reference / inline-size;
   min-width: 0;
-  padding: 36px 48px 80px;
+  padding: 28px var(--page-gutter) 64px;
   color: var(--ink);
   background: var(--paper);
   scroll-margin-top: calc(var(--desk-header-height, 100px) + 12px);
 }
 
-/* Opening spread: a large narrow title, a working index, and an indented tool list. */
-.reference-app .desk-landing {
-  display: grid;
-  grid-template-columns: minmax(10rem, 0.7fr) minmax(0, 1.3fr);
-  gap: 28px 40px;
-  max-width: none;
-}
-.reference-app .desk-landing > header {
-  container-type: inline-size;
-  grid-row: 1 / 3;
-  align-self: start;
-  margin: 0;
-  padding: 0 0 32px;
-  border-bottom: 6px solid currentColor;
-}
-.reference-app .desk-landing-folio {
-  margin: 0 0 22px;
-  font: 500 0.8rem / 1.4 var(--font-mono);
-  letter-spacing: 0.12em;
-}
-.reference-app .desk-landing h2 {
-  margin: 0;
-  font: 900 clamp(2.8rem, 24cqi, 7.5rem) / 0.86 var(--font-display);
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-  overflow-wrap: normal;
-}
-.reference-app .desk-landing h2 > span {
-  display: block;
-}
-.reference-app .desk-landing h2 > em {
-  display: block;
-  margin: 0.1em 0 0 0.16em;
-  font: 750 1.38em / 0.9 var(--font-blackletter);
-  letter-spacing: -0.04em;
-  text-transform: none;
-}
-.reference-app .desk-landing > section {
-  min-width: 0;
-  margin: 0;
-}
-.reference-app .desk-landing h3 {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin: 0 0 10px;
-  padding: 0 0 8px;
-  border: 0;
-  border-bottom: 1px solid currentColor;
-  font: 650 0.9rem / 1.4 var(--font-ui);
-}
-.reference-app .desk-landing h3 button {
-  font: 500 0.875rem / 1.4 var(--font-ui);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-.reference-app :is(.desk-shortcut-list, .desk-generator-records) {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-}
-.reference-app
-  .desk-landing
-  :is(.desk-shortcut-list, .desk-generator-records)
-  > button {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(5rem, 0.7fr) 1.5rem;
-  gap: 12px;
-  align-items: baseline;
-  min-width: 0;
-  min-height: 54px;
-  padding: 9px 0;
-  border: 0;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-  color: inherit;
-  background: none;
-}
-.reference-app .desk-landing button strong {
-  font: 750 clamp(1.45rem, 2.2vw, 2rem) / 1.2 var(--font-blackletter);
-  letter-spacing: 0;
-}
-.reference-app .desk-landing button span {
-  color: var(--muted-ink);
-  font: 450 0.925rem / 1.45 var(--font-ui);
-  opacity: 1;
-}
-.reference-app .desk-landing button[data-shortcut='oracle:core.miseries'] {
-  margin-top: 12px;
-  border-bottom: 3px solid var(--ink);
-}
-.reference-app
-  .desk-landing
-  button[data-shortcut='oracle:core.miseries']
-  strong {
-  font-family: var(--font-display);
-  font-size: 2.3rem;
-  text-transform: uppercase;
-}
-.reference-app .desk-landing > section[aria-label='생성 도구'] {
-  margin: 12px 0 0 32px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-}
-.reference-app .desk-generator-records {
-  margin-bottom: 20px;
-}
-.reference-app .desk-landing[data-generators='true'] {
-  grid-template-columns: minmax(10rem, 0.6fr) minmax(0, 1.4fr);
-}
-.reference-app .desk-landing[data-generators='true'] > header {
-  border-bottom-color: var(--acid);
-}
-.reference-app .desk-landing[data-generators='true'] h2 {
-  font: 900 clamp(3rem, 7vw, 7rem) / 1.12 var(--font-ui);
-  letter-spacing: -0.065em;
-}
-.reference-app .desk-landing[data-generators='true'] > section {
-  margin: 0;
-}
-.reference-app .desk-landing[data-generators='true'] .desk-generator-records {
-  border-bottom: 5px solid var(--acid);
-  padding-bottom: 24px;
-  margin-bottom: 40px;
-}
-.reference-app
-  .desk-landing[data-generators='true']
-  .desk-generator-records
-  button {
-  min-height: 90px;
-}
-.reference-app
-  .desk-landing[data-generators='true']
-  .desk-generator-records
-  strong {
-  font: 850 clamp(1.8rem, 3.2vw, 3rem) / 1.2 var(--font-ui);
-  letter-spacing: -0.045em;
-}
-
 /* Document grammar: titles can differ; the reading measures cannot drift. */
 .reference-app .reference-page {
+  --reference-accent: var(--acid);
   position: relative;
-  max-width: 84rem;
+  max-width: none;
   min-width: 0;
   color: var(--ink);
 }
+.reference-app .reference-page[data-reference-kind='rule'] {
+  --reference-accent: var(--mint);
+}
+.reference-app .reference-page[data-reference-kind='procedure'] {
+  --reference-accent: var(--lilac);
+}
+.reference-app .reference-page[data-reference-kind='creature'] {
+  --reference-accent: var(--coral);
+}
 .reference-app .reference-page .reference-inspector-top {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto 44px;
   align-items: start;
   gap: 8px 16px;
   flex-wrap: wrap;
-  padding: 0 0 16px;
+  padding: 20px 0 16px;
   margin: 0;
   border: 0;
+  border-top: 5px solid var(--reference-accent);
+}
+.reference-app .reference-page .reference-inspector-top > h2 {
+  grid-area: 1 / 1;
+}
+.reference-app .reference-page .reference-inspector-top > .ref-pin {
+  grid-area: 1 / 2;
+}
+.reference-app .reference-page .reference-inspector-top > .ref-open-page {
+  grid-area: 1 / 3;
+}
+.reference-app
+  .reference-page
+  .reference-inspector-top
+  > .reference-convenience-actions {
+  grid-area: 1 / 4;
+  margin: 0;
 }
 .reference-app .reference-page h2 {
   flex: 1 1 100%;
   min-width: 0;
   max-width: 22ch;
-  margin: 0 0 2px -0.025em;
+  margin: 0 0 2px;
   color: inherit;
-  font: 750 clamp(2.75rem, 4.5vw, 5rem) / 1.02 var(--font-blackletter);
+  font: 400 clamp(3.5rem, 6vw, 7rem) / 1 var(--font-blackletter);
   letter-spacing: -0.035em;
   text-transform: none;
   overflow-wrap: break-word;
@@ -578,13 +560,13 @@ body,
   max-width: 20ch;
   font: 900 clamp(3.2rem, 5.5vw, 5.8rem) / 0.95 var(--font-display);
   letter-spacing: -0.035em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .reference-app .reference-page[data-reference-kind='procedure'] h2 {
   max-width: 25ch;
   font: 900 clamp(2.8rem, 4.5vw, 5rem) / 0.98 var(--font-display);
   letter-spacing: -0.02em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .reference-app .reference-page[data-reference-kind='creature'] h2 {
   font-size: clamp(3.5rem, 6vw, 6.5rem);
@@ -604,7 +586,7 @@ body,
 .reference-app .reference-page .reference-summary {
   max-width: 64ch;
   margin: 0 0 20px;
-  font: 450 var(--text-body) / 1.55 var(--font-ui);
+  font: 550 var(--text-body) / 1.55 var(--font-ui);
   color: var(--ink);
 }
 .reference-app .reference-page .reference-formula {
@@ -616,11 +598,11 @@ body,
   gap: 14px 20px;
   margin: 16px 0 24px;
   padding: 12px 0 0;
-  border-top: 1px solid var(--ink);
+  border-top: 2px solid var(--ink);
 }
 .reference-app .reference-page .reference-formula code {
   color: inherit;
-  font: 800 clamp(1.9rem, 3vw, 3rem) / 1.15 var(--font-display);
+  font: 700 clamp(1.5rem, 2vw, 2.25rem) / 1.35 var(--font-mono);
   letter-spacing: -0.01em;
   overflow-wrap: anywhere;
 }
@@ -641,7 +623,7 @@ body,
 }
 .reference-app .reference-page .reference-reading p {
   max-width: 66ch;
-  font: 450 var(--text-body) / 1.55 var(--font-ui);
+  font: 550 var(--text-body) / 1.55 var(--font-ui);
   color: var(--ink);
 }
 .reference-app .reference-page[data-reference-kind='rule'] .reference-reading {
@@ -677,26 +659,12 @@ body,
   font: 650 0.9rem / 1.4 var(--font-ui);
 }
 
-/* Existing generators are field sheets. This is derived presentation, never a mode. */
-.reference-app .rdesk[data-desk-space='field'] .desk-current-page {
-  --paper: #111111;
-  --ink: #fafafa;
-  --desk-text: #fafafa;
-  --muted-ink: #c3c3c3;
-  --border: #4b4b4b;
-  --desk-rule: #4b4b4b;
-  background: var(--paper);
-  color: var(--ink);
-  min-height: calc(100dvh - var(--desk-header-height, 100px));
+/* The generator sheet shares the same white reading surface. */
+.reference-app .rdesk[data-desk-space='field'] .reference-inspector-top {
+  border-top-color: var(--lilac);
 }
 .reference-app .rdesk[data-desk-space='field'] .reference-formula {
-  border-top: 5px solid var(--acid);
-}
-.reference-app .rdesk[data-desk-space='field'] .reference-formula code {
-  color: var(--acid);
-}
-.reference-app .rdesk[data-desk-space='field'] .reference-procedure-parts {
-  max-width: 64rem;
+  border-top-color: var(--ink);
 }
 
 /* Independent results. A single value can escape scale; a multi-field result stays aligned. */
@@ -713,7 +681,7 @@ body,
 .reference-page .reference-roll-results .reference-reading-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
-  gap: 28px 40px;
+  gap: 28px 36px;
   align-items: start;
 }
 .reference-page .reference-roll-results .reference-reading-items > section {
@@ -722,12 +690,13 @@ body,
   align-items: baseline;
   align-content: start;
   gap: 12px 20px;
+  grid-template-rows: minmax(4rem, auto);
   min-width: 0;
-  max-width: 72ch;
+  max-width: none;
   margin: 0;
   padding: 12px 0 0;
   border: 0;
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--ink);
   background: none;
 }
 .reference-page .reference-roll-results .reference-result-dice {
@@ -756,11 +725,11 @@ body,
 }
 .reference-page .reference-result-dice .roll-value {
   white-space: nowrap;
-  font: 900 2.75rem / 0.95 var(--font-display);
+  font: 700 3rem / 1 var(--font-mono);
   letter-spacing: -0.04em;
   padding: 0 0.12em 0.04em;
   color: var(--void);
-  background: var(--acid);
+  background: var(--reference-accent, var(--acid));
 }
 .reference-page .reference-roll-results .reference-reading-items > section h3 {
   grid-column: 2;
@@ -786,11 +755,11 @@ body,
   .reference-reading-items
   > section
   > p:not(.reference-result-dice) {
-  font: 450 var(--text-body) / 1.55 var(--font-ui);
+  font: 550 var(--text-body) / 1.55 var(--font-ui);
   color: var(--ink);
 }
 .reference-page .reference-reading .reference-result-text {
-  font: 650 clamp(1.4rem, 1.8vw, 1.85rem) / 1.35 var(--font-blackletter);
+  font: 400 clamp(2rem, 2.8vw, 3.5rem) / 1.15 var(--font-blackletter);
 }
 .inline-reading .reference-result-text {
   font: 650 clamp(1.25rem, 1.4vw, 1.6rem) / 1.4 var(--font-blackletter);
@@ -886,7 +855,7 @@ body,
 }
 .reference-app :is(.reference-page, .desk-open-page) table {
   width: 100%;
-  max-width: 76rem;
+  max-width: none;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -904,14 +873,14 @@ body,
   background: none;
   color: inherit;
   vertical-align: top;
-  font: 450 var(--text-body) / 1.5 var(--font-ui);
+  font: 550 var(--text-body) / 1.5 var(--font-ui);
 }
 .reference-app :is(.reference-page, .desk-open-page) th.table-number-selector {
-  width: 4.5rem;
+  width: 6rem;
   padding: 12px 18px 8px 0;
   text-align: right;
   white-space: nowrap;
-  font: 800 1.3rem / 1.25 var(--font-display);
+  font: 700 1.3rem / 1.4 var(--font-mono);
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
@@ -971,7 +940,7 @@ body,
     > :is(tbody, tfoot)
     > tr {
     display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
+    grid-template-columns: 6rem minmax(0, 1fr);
     gap: 0 12px;
     width: 100%;
   }
@@ -1006,8 +975,7 @@ body,
   .roll-value {
   color: var(--magenta);
   font-size: 8rem;
-  transform: rotate(-5deg);
-  transform-origin: center;
+  transform: none;
 }
 .reference-app .reference-page[data-reference-id='oracle:core.miseries'] tfoot {
   margin-top: 32px;
@@ -1052,12 +1020,9 @@ body,
   letter-spacing: 0;
   text-transform: none;
 }
-.reference-app .source-disclosure > summary::before {
-  content: '↳';
-  font-size: 1rem;
-}
+
 .reference-app .desk-related {
-  margin: 40px 0 0 36px;
+  margin: 40px 0 0;
   padding: 16px 0 0;
   border: 0;
   border-top: 1px solid var(--ink);
@@ -1071,25 +1036,25 @@ body,
   max-height: calc(100dvh - var(--desk-header-height, 100px));
   min-width: 0;
   overflow: auto;
-  padding: 32px 24px 40px;
+  padding: 28px 28px 40px;
   border: 0;
-  background: #f4f4f4;
+  background: #f5f1e4;
   color: #111;
 }
 .reference-app .desk-open-page {
   max-height: 38rem;
-  margin: 20px 0 36px;
+  margin: 0 0 32px;
   padding: 16px 0 0;
   background: none;
   border: 0;
-  border-top: 2px solid var(--ink);
+  border-top: 3px solid var(--ink);
   box-shadow: none;
 }
 .reference-app .desk-open-page > header button {
   font: 750 1.45rem / 1.2 var(--font-blackletter);
 }
 .reference-app .desk-open-page > header {
-  background: none;
+  background: #f5f1e4;
   border: 0;
 }
 .reference-app .desk-open-page > header button:last-child {
@@ -1118,6 +1083,44 @@ body,
 .app:not(.reference-app) .content > .page-header {
   border-bottom: 3px solid var(--ink);
 }
+.app:not(.reference-app) .compact-card {
+  background: transparent;
+  box-shadow: none;
+}
+.app:not(.reference-app) .compact-card-main > strong {
+  font-family: var(--font-blackletter);
+  font-weight: 400;
+}
+@media (min-width: 1900px) {
+  .app:not(.reference-app) {
+    --content-max: 166rem;
+  }
+  .app:not(.reference-app) .content > .page-heading {
+    padding-block: 20px 28px;
+    border-block: 4px solid var(--ink);
+  }
+  .app:not(.reference-app) .content > .page-heading h1 {
+    font-size: clamp(5rem, 4vw, 8rem);
+    line-height: 1.1;
+  }
+  .app:not(.reference-app) .compact-card-main {
+    padding: 24px 20px;
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+  .app:not(.reference-app) .compact-card-main > strong {
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+  .app:not(.reference-app)
+    :is(.character-generation-mode, .monster-generation-controls) {
+    align-items: end;
+  }
+  .app:not(.reference-app) .content > .page-heading p {
+    max-width: 70ch;
+    font-size: 1.75rem;
+  }
+}
 .reference-dice {
   border: 0;
   background: var(--paper);
@@ -1135,32 +1138,36 @@ body,
 /* Extra width becomes adjacent reading measures, never a 160-character text line. */
 @media (min-width: 1900px) {
   .reference-app .rdesk-header {
-    grid-template-columns: 300px minmax(0, 1fr) auto;
-    padding-inline: 36px;
-    column-gap: 48px;
+    grid-template-columns: calc(var(--index-width) - var(--page-gutter)) minmax(
+        0,
+        1fr
+      ) auto;
   }
   .reference-app .desk-layout {
-    grid-template-columns: 336px minmax(0, 1fr);
+    grid-template-columns: var(--index-width) minmax(0, 1fr);
   }
   .reference-app .desk-layout[data-has-pages='true'] {
-    grid-template-columns: 320px minmax(0, 1.5fr) minmax(400px, 1fr);
+    grid-template-columns: var(--index-width) minmax(0, 1.5fr) minmax(
+        400px,
+        1fr
+      );
   }
   .reference-app .desk-current-page {
-    padding: 48px 64px 100px;
+    padding: 36px var(--page-gutter) 80px;
   }
   .reference-app
     .desk-current-page:has(> .reference-page):has(> .desk-related) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.26fr);
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.32fr);
     align-items: start;
-    gap: 48px;
+    gap: var(--page-gutter);
   }
   .reference-app .desk-current-page > .desk-related {
     display: block;
-    margin: 48px 0 0;
-    padding: 20px 0 0 20px;
-    border-top: 0;
-    border-left: 1px solid var(--border);
+    margin: 0;
+    padding: 20px 0 0;
+    border-top: 5px solid var(--ink);
+    border-left: 0;
   }
   .reference-app .desk-current-page > .desk-related .reference-row {
     display: block;
@@ -1168,41 +1175,24 @@ body,
   .reference-app .desk-current-page > .desk-related .reference-row-roll {
     padding-top: 0;
   }
-  .reference-app .desk-landing {
-    grid-template-columns: minmax(16rem, 0.65fr) minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 64px;
-  }
-  .reference-app .desk-landing > header {
-    grid-row: 1;
-  }
-  .reference-app .desk-landing > section[aria-label='생성 도구'] {
-    margin: 88px 0 0;
-  }
-  .reference-app .desk-landing[data-generators='true'] > section {
-    margin: 0;
-  }
-  .reference-app
-    .desk-landing[data-generators='true']
-    :is(.desk-shortcut-list, .desk-generator-records) {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 40px;
-  }
   .reference-app .rdesk .reference-select-action strong {
-    font-size: 1.125rem;
+    font-size: 1.375rem;
   }
   .reference-app .rdesk .quick-reference-action {
-    font-size: 1.05rem;
+    font-size: 1.375rem;
   }
 }
 @media (min-width: 2800px) {
   .reference-app .rdesk {
-    --text-body: 1.375rem;
-    --text-secondary: 1.125rem;
-    --text-ui: 1.125rem;
+    --index-width: 416px;
+    --page-gutter: 48px;
+    --text-body: 1.875rem;
+    --text-secondary: 1.375rem;
+    --text-ui: 1.5rem;
     --text-meta: 0.875rem;
   }
   .reference-app .rdesk .desk-search input {
-    font-size: 1.3rem;
+    font-size: 1.75rem;
   }
   .reference-app
     .rdesk
@@ -1211,10 +1201,10 @@ body,
       .desk-browse-filters select,
       .quick-reference-action
     ) {
-    font-size: 1.125rem;
+    font-size: 1.375rem;
   }
   .reference-app .rdesk .reference-select-action strong {
-    font-size: 1.25rem;
+    font-size: 1.625rem;
   }
   .reference-app
     .rdesk
@@ -1224,29 +1214,29 @@ body,
       .rdesk-utilities > button,
       .desk-records-menu > summary
     ) {
-    font-size: 1.05rem;
+    font-size: 1.375rem;
   }
   .reference-app .reference-page .reference-result-text {
-    font-size: 2rem;
+    font-size: 3.5rem;
   }
   .reference-app .reference-page .reference-reading-items > section h3 {
-    font-size: 1.125rem;
+    font-size: 1.375rem;
   }
   .reference-app .reference-page .reference-result-dice .roll-expression {
-    font-size: 1.05rem;
+    font-size: 1.375rem;
   }
   .reference-app .reference-page :is(.ref-pin, .ref-open-page),
   .reference-app .reference-page .ref-copy-actions button {
-    font-size: 1.05rem;
+    font-size: 1.375rem;
   }
   .reference-app .rdesk .source-disclosure > summary {
     font-size: 0.9rem;
   }
   .reference-app .reference-table-section.dice-d100 :is(th, td) {
-    font-size: 1.25rem;
+    font-size: 1.625rem;
   }
   .reference-app .desk-current-page {
-    padding-inline: 80px;
+    padding-inline: var(--page-gutter);
   }
   .reference-app .desk-open-pages {
     display: grid;
@@ -1257,16 +1247,39 @@ body,
   .reference-app .desk-open-pages > h2 {
     grid-column: 1 / -1;
   }
-  .reference-app .desk-open-page:nth-of-type(even) {
-    margin-top: 64px;
-  }
   .reference-app .desk-side-pages {
-    padding-inline: 36px;
+    padding: 36px 36px 40px;
+  }
+  .reference-app .rdesk .desk-open-pages > h2 {
+    border-top: 5px solid var(--ink);
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+  .reference-app
+    .rdesk
+    :is(
+      .desk-browse-filters label,
+      .desk-nav-history > h2,
+      .desk-index-results > h2,
+      .desk-related > h2,
+      .desk-open-pages > h2
+    ) {
+    font-size: 1rem;
+  }
+  .reference-app .rdesk .reference-select-action small {
+    font-size: 0.9rem;
+  }
+
+  .reference-app .reference-page h2 {
+    font-size: 9rem;
+  }
+  .reference-app .reference-page[data-reference-kind='rule'] h2 {
+    font-size: 9rem;
   }
 }
 @media (max-width: 1599px) and (min-width: 801px) {
   .reference-app .desk-layout[data-has-pages='true'] {
-    grid-template-columns: 260px minmax(0, 1fr);
+    grid-template-columns: var(--index-width) minmax(0, 1fr);
   }
   .reference-app .desk-side-pages {
     position: static;
@@ -1287,25 +1300,21 @@ body,
   }
 }
 @media (max-width: 1199px) and (min-width: 801px) {
+  .reference-app .rdesk {
+    --index-width: 256px;
+    --page-gutter: 24px;
+  }
   .reference-app .rdesk-header {
-    grid-template-columns: 230px minmax(0, 1fr) auto;
-    column-gap: 20px;
-    padding-inline: 20px;
+    grid-template-columns: calc(var(--index-width) - var(--page-gutter)) minmax(
+        0,
+        1fr
+      ) auto;
   }
   .reference-app .desk-layout {
-    grid-template-columns: 260px minmax(0, 1fr);
+    grid-template-columns: var(--index-width) minmax(0, 1fr);
   }
   .reference-app .desk-current-page {
-    padding-inline: 28px;
-  }
-  .reference-app .desk-landing {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .reference-app .desk-landing > header {
-    grid-row: auto;
-  }
-  .reference-app .desk-landing > section[aria-label='생성 도구'] {
-    margin-left: 0;
+    padding-inline: var(--page-gutter);
   }
 }
 /* Mobile is a pocket index above a page, not three desktop panels stacked. */
@@ -1398,49 +1407,6 @@ body,
     min-height: 0;
     padding: 24px 20px 48px;
   }
-  .reference-app .desk-landing {
-    display: block;
-  }
-  .reference-app .desk-landing > header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 3px solid var(--ink);
-  }
-  .reference-app .desk-landing-folio {
-    max-width: 5ch;
-    margin: 0;
-    font-size: 0.75rem;
-  }
-  .reference-app .desk-landing h2 {
-    font-size: clamp(3rem, 12vw, 5rem);
-  }
-  .reference-app .desk-landing h2 > em {
-    font-size: 1.3em;
-  }
-  .reference-app .desk-landing > section[aria-label='생성 도구'] {
-    margin: 32px 0 0 16px;
-  }
-  .reference-app .desk-landing[data-generators='true'] h2 {
-    font-size: 3.3rem;
-  }
-  .reference-app .desk-landing[data-generators='true'] > section {
-    margin-left: 0;
-  }
-  .reference-app
-    .desk-landing
-    :is(.desk-shortcut-list, .desk-generator-records)
-    > button {
-    grid-template-columns: minmax(0, 1fr) minmax(5rem, 0.9fr) 1rem;
-    gap: 8px;
-    min-height: 56px;
-  }
-  .reference-app .desk-landing button span {
-    font-size: 0.875rem;
-  }
   .reference-app .reference-page h2 {
     font-size: clamp(2.55rem, 9vw, 3.8rem);
   }
@@ -1462,7 +1428,24 @@ body,
     padding-left: 16px;
   }
   .reference-app .reference-page .reference-inspector-top {
+    grid-template-columns: auto minmax(0, 1fr) 44px;
     padding-bottom: 12px;
+  }
+  .reference-app .reference-page .reference-inspector-top > h2 {
+    grid-area: 1 / 1 / auto / -1;
+  }
+  .reference-app .reference-page .reference-inspector-top > .ref-pin {
+    grid-area: 2 / 1;
+  }
+  .reference-app .reference-page .reference-inspector-top > .ref-open-page {
+    grid-area: 2 / 2;
+    justify-self: start;
+  }
+  .reference-app
+    .reference-page
+    .reference-inspector-top
+    > .reference-convenience-actions {
+    grid-area: 2 / 3;
   }
   .reference-page .reference-roll-results .reference-reading-items {
     gap: 24px;
@@ -1502,7 +1485,7 @@ body,
     padding-block: 10px;
   }
   .reference-app .desk-related {
-    margin: 32px 0 0 16px;
+    margin: 32px 0 0;
   }
   .reference-app .desk-side-pages {
     position: static;
@@ -1517,7 +1500,7 @@ body,
     border-top-width: 1px;
   }
   .reference-app .desk-open-page > header button {
-    font: 650 1rem / 1.4 var(--font-ui);
+    font: 750 1.15rem / 1.4 var(--font-ui);
   }
 }
 @media (forced-colors: active) {
@@ -1527,5 +1510,561 @@ body,
   }
   .reference-app .desk-primary-nav button[aria-current='page'] {
     border-bottom-color: Highlight;
+  }
+}
+
+/* Opening spread: colour fields, a shared ruled grid, and typographic counterpoint.
+   The six quick references and six generator shortcuts share the SAME row tracks. */
+.reference-app .desk-landing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-rows: auto auto repeat(6, minmax(5.6rem, auto));
+  gap: 0 32px;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  max-width: none;
+}
+.reference-app .desk-landing > header {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  container-type: inline-size;
+}
+.reference-app .desk-landing-folio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 20px;
+  background: var(--paper);
+  border-block: 4px solid var(--ink);
+  font: 550 0.8rem / 1.4 var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.reference-app .desk-landing-folio span:last-child {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.reference-app .desk-landing h2 {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  align-items: baseline;
+  gap: 24px;
+  margin: 0 0 24px;
+  padding: 8px 20px 28px;
+  background: linear-gradient(90deg, var(--acid) 0 61.5%, var(--sky) 61.5%);
+  font: italic 800 clamp(3rem, 9cqi, 15rem) / 1 var(--font-editorial);
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  overflow-wrap: normal;
+}
+.reference-app .desk-landing h2 > span {
+  display: block;
+}
+.reference-app .desk-landing h2 > em {
+  display: block;
+  justify-self: end;
+  font: 400 1.4em / 1 var(--font-blackletter);
+  letter-spacing: -0.05em;
+  text-transform: none;
+}
+.reference-app .desk-landing > section {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 2 / span 7;
+  margin: 0;
+  min-width: 0;
+  background: var(--paper);
+}
+.reference-app .desk-landing > section[aria-label='빠른 참조'] {
+  grid-column: 1;
+}
+.reference-app .desk-landing > section[aria-label='생성 도구'] {
+  grid-column: 2;
+}
+.reference-app .desk-landing h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 16px 20px;
+  border-block: 4px solid var(--ink);
+  background: var(--paper);
+  font: 750 1rem / 1.4 var(--font-ui);
+}
+.reference-app .desk-landing h3 em {
+  font: italic 600 1.45rem / 1 var(--font-editorial);
+}
+.reference-app .desk-landing > section[aria-label='생성 도구'] h3 {
+  color: var(--paper);
+  background: var(--ink);
+}
+.reference-app .desk-landing h3 button {
+  color: inherit;
+  font: 550 0.925rem / 1.4 var(--font-ui);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.reference-app .desk-landing button[data-shortcut='oracle:core.miseries'] {
+  background: #ffe7df;
+}
+.reference-app .desk-landing :is(.desk-shortcut-list, .desk-generator-records) {
+  display: contents;
+}
+.reference-app
+  .desk-landing
+  :is(.desk-shortcut-list, .desk-generator-records)
+  > button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(6rem, 0.8fr) 1.5rem;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 20px;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--paper);
+  text-align: left;
+}
+.reference-app .desk-landing button strong {
+  font: 700 clamp(2rem, 3vw, 4.75rem) / 1.1 var(--font-editorial);
+  letter-spacing: -0.025em;
+}
+.reference-app .desk-landing button span {
+  color: var(--muted-ink);
+  font: 500 1rem / 1.45 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.reference-app .desk-landing button span[aria-hidden] {
+  color: var(--ink);
+  font-size: 1.5rem;
+}
+.reference-app
+  .desk-landing
+  button[data-shortcut='oracle:core.miseries']
+  strong {
+  font-family: var(--font-blackletter);
+  font-weight: 750;
+}
+.reference-app
+  .desk-landing
+  :is(.desk-shortcut-list, .desk-generator-records)
+  > button:hover,
+.reference-app
+  .desk-landing
+  :is(.desk-shortcut-list, .desk-generator-records)
+  > button:focus-visible {
+  background: var(--acid);
+  outline-offset: -4px;
+}
+.reference-app .desk-landing[data-generators='true'] {
+  grid-template-rows: auto auto;
+}
+.reference-app .desk-landing[data-generators='true'] h2 {
+  grid-template-columns: 1.6fr 1fr;
+  font-size: clamp(3rem, 10cqi, 18rem);
+}
+.reference-app .desk-landing[data-generators='true'] h2 em {
+  font: 400 0.75em / 1.1 var(--font-korean-display);
+}
+.reference-app .desk-landing[data-generators='true'] > section {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto;
+  column-gap: 32px;
+  background: none;
+}
+.reference-app .desk-landing[data-generators='true'] h3 {
+  grid-column: 1 / -1;
+}
+.reference-app .desk-landing[data-generators='true'] button {
+  min-height: 7rem;
+}
+.reference-app
+  .desk-landing[data-generators='true']
+  :is(.desk-shortcut-list, .desk-generator-records)
+  > button {
+  grid-template-columns: minmax(0, 1fr) 1.5rem;
+  align-content: start;
+  align-items: start;
+  gap: 8px 16px;
+}
+.reference-app .desk-landing[data-generators='true'] button strong {
+  grid-column: 1;
+}
+.reference-app
+  .desk-landing[data-generators='true']
+  button
+  span:not([aria-hidden]) {
+  grid-column: 1;
+  grid-row: 2;
+}
+.reference-app .desk-landing[data-generators='true'] button span[aria-hidden] {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+.reference-app .desk-landing[data-generators='true'] h3 button {
+  min-height: 0;
+}
+@media (min-width: 2800px) {
+  .reference-app .desk-landing {
+    grid-template-rows: auto auto repeat(6, minmax(8rem, auto));
+    padding: 0;
+    gap: 0 48px;
+  }
+  .reference-app .desk-landing h3 {
+    padding: 20px 28px;
+    font-size: 1.625rem;
+  }
+  .reference-app .desk-landing h3 :is(em, button) {
+    font-size: 1.625rem;
+  }
+  .reference-app .desk-landing-folio {
+    font-size: 1rem;
+    padding-block: 14px;
+  }
+  .reference-app
+    .desk-landing
+    :is(.desk-shortcut-list, .desk-generator-records)
+    > button {
+    padding: 16px 28px;
+  }
+  .reference-app .desk-landing button span {
+    font-size: 1.625rem;
+  }
+  .reference-app .desk-landing[data-generators='true'] {
+    grid-template-rows: auto auto;
+  }
+  .reference-app .desk-landing[data-generators='true'] button {
+    min-height: 9rem;
+  }
+}
+@media (max-width: 1199px) {
+  .reference-app .desk-landing {
+    padding: 16px;
+    gap: 0 20px;
+  }
+  .reference-app
+    .desk-landing
+    :is(.desk-shortcut-list, .desk-generator-records)
+    > button {
+    grid-template-columns: minmax(0, 1fr) 1.5rem;
+    gap: 6px 12px;
+    padding: 12px;
+    align-content: center;
+  }
+  .reference-app .desk-landing button strong {
+    grid-column: 1;
+  }
+  .reference-app .desk-landing button span:not([aria-hidden]) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .reference-app .desk-landing button span[aria-hidden] {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .reference-app .desk-landing h3 {
+    padding: 14px 12px;
+  }
+  .reference-app .desk-landing[data-generators='true'] > section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+  }
+}
+@media (max-width: 800px) {
+  .reference-app .desk-landing {
+    padding: 12px;
+    gap: 0 16px;
+  }
+  .reference-app .desk-landing h2 {
+    padding-bottom: 18px;
+    gap: 16px;
+  }
+  .reference-app .desk-landing h3 em {
+    display: none;
+  }
+  .reference-app .desk-landing-folio {
+    font-size: 0.65rem;
+    gap: 8px;
+    border-width: 3px;
+  }
+  .reference-app .desk-landing button span {
+    font-size: 0.875rem;
+  }
+  .reference-app .desk-landing h3 {
+    font-size: 0.9rem;
+  }
+  .reference-app .desk-landing h3 button {
+    font-size: 0.8rem;
+  }
+  .reference-app .rdesk .desk-primary-nav {
+    gap: 12px;
+  }
+  .reference-app .desk-primary-nav button {
+    padding-inline: 10px;
+  }
+}
+@media (max-width: 540px) {
+  .reference-app .desk-current-page:has(> .desk-landing) {
+    padding: 16px 12px 36px;
+  }
+  .reference-app .desk-landing {
+    display: block;
+  }
+  .reference-app .desk-landing h2 {
+    display: block;
+    font-size: 15cqi;
+    padding-block: 12px 20px;
+  }
+  .reference-app .desk-landing h2 em {
+    text-align: right;
+    margin-top: -0.05em;
+    font-size: 1.4em;
+  }
+  .reference-app .desk-landing-folio span:nth-child(2) {
+    display: none;
+  }
+  .reference-app .desk-landing > section {
+    display: block;
+  }
+  .reference-app .desk-landing > section[aria-label='생성 도구'] {
+    margin-top: 24px;
+  }
+  .reference-app
+    .desk-landing
+    :is(.desk-shortcut-list, .desk-generator-records)
+    > button {
+    width: 100%;
+    min-height: 76px;
+  }
+  .reference-app .desk-landing h3 {
+    min-height: 56px;
+  }
+  .reference-app .desk-landing[data-generators='true'] h2 {
+    font-size: 13.5cqi;
+  }
+  .reference-app .desk-landing[data-generators='true'] h2 em {
+    font-size: 2.5rem;
+    margin-top: 12px;
+  }
+  .reference-app .desk-landing[data-generators='true'] > section {
+    display: block;
+  }
+}
+
+/* Song Myung headings and Hahmlet prose follow the selected Korean reference. */
+.reference-app .desk-landing h3 > span {
+  font: 400 clamp(2rem, 2.2vw, 3.5rem) / 1.2 var(--font-korean-display);
+}
+.reference-app .desk-landing h3 {
+  min-height: 78px;
+}
+.reference-app .desk-landing > section[aria-label='빠른 참조'] button strong {
+  letter-spacing: -0.045em;
+}
+.reference-app .desk-landing > section[aria-label='생성 도구'] button strong {
+  font-family: var(--font-korean-display);
+  font-weight: 900;
+  font-size: clamp(1.8rem, 2.4vw, 3.4rem);
+}
+.reference-app .desk-landing button span {
+  word-break: keep-all;
+}
+.reference-app .reference-body {
+  min-width: 0;
+}
+.reference-app
+  .reference-page
+  :is(.reference-result-dice, .reference-formula code) {
+  font-family: var(--font-mono);
+}
+.reference-app
+  .reference-page
+  .reference-generated-reading
+  .reference-result-text {
+  font-family: var(--font-blackletter);
+}
+.reference-app .reference-page .reference-body .reference-reading {
+  margin-top: 24px;
+}
+.reference-app .reference-page .reference-body .reference-result-text {
+  line-height: 1.18;
+}
+.reference-app .reference-page :is(.reference-roll, .result-reroll) {
+  font: 700 1.125rem / 1.4 var(--font-mono);
+}
+.reference-app .desk-current-page > .desk-related {
+  border-top: 5px solid var(--ink);
+}
+/* Allow for the Related margin: the reference itself still has at least 85rem. */
+@container current-reference (min-width: 116rem) {
+  /* An oracle becomes a facing-page spread: large current result, raw source table. */
+  .reference-app .reference-page[data-reference-kind='oracle'] {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 32px 48px;
+    align-items: start;
+  }
+  .reference-app .reference-page[data-reference-kind='oracle'] > * {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    > .reference-body {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 28px;
+    background: var(--acid);
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    > .reference-static-table {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-summary {
+    font-weight: 650;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-formula {
+    margin-top: 0;
+    border-top: 3px solid var(--ink);
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-reading-items
+    > section:only-child:has(.roll-value) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    > * {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    .reference-result-dice
+    code {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    .roll-value {
+    font-size: clamp(6rem, 7vw, 12rem);
+    margin: 0;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-body
+    .reference-result-text {
+    font-size: clamp(3rem, 3.3vw, 5rem);
+  }
+}
+@media (min-width: 2800px) {
+  .reference-app .reference-page .reference-summary {
+    font-size: 1.875rem;
+  }
+  .reference-app .reference-page .reference-procedure-parts > div {
+    min-height: 76px;
+    font-size: 1.5rem;
+  }
+  .reference-app .reference-page .reference-procedure-parts h3 {
+    font-size: 1.125rem;
+  }
+  .reference-app
+    .reference-page
+    .reference-roll-results
+    .reference-reading-items {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 32rem), 1fr));
+  }
+  .reference-app
+    .reference-page
+    .reference-roll-results
+    .reference-reading-items
+    > section {
+    grid-template-rows: minmax(5rem, auto);
+  }
+  .reference-app .desk-open-page > header button {
+    font-size: 2rem;
+  }
+  .reference-app .desk-open-page .inline-reading {
+    font-size: 1.5rem;
+  }
+  .reference-app .desk-open-page .inline-reading .reference-result-text {
+    font-size: 2.5rem;
+  }
+}
+@media (max-width: 800px) {
+  :root {
+    --text-body: 1.1875rem;
+    --text-ui: 1.0625rem;
+    --text-secondary: 1rem;
+  }
+  .reference-app .rdesk .desk-search input {
+    font-size: 1.125rem;
+  }
+  .reference-app .desk-wordmark-name {
+    font-size: 2rem;
+  }
+  .reference-app .reference-page .reference-body .reference-result-text {
+    font-size: 2rem;
+  }
+  .reference-app
+    :is(.reference-page, .desk-open-page)
+    th.table-number-selector {
+    width: 5rem;
+    font-size: 1.125rem;
+  }
+  .reference-app .reference-page .reference-inspector-top {
+    gap: 12px;
+  }
+  .reference-app .desk-landing h2 {
+    font-size: 9cqi;
+  }
+  .reference-app .desk-landing h3 > span {
+    font-size: 2.25rem;
+  }
+  .reference-app .desk-landing button strong {
+    font-size: 2rem;
+  }
+  .reference-app .desk-landing > section[aria-label='생성 도구'] button strong {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 540px) {
+  .reference-app .desk-landing h2 {
+    font-size: 12.5cqi;
+    padding-inline: 8px;
+  }
+  .reference-app .desk-landing h2 em {
+    font-size: 1.6em;
+  }
+  .reference-app .desk-landing-folio {
+    padding-inline: 8px;
+  }
+  .reference-app .desk-landing[data-generators='true'] h2 {
+    font-size: 10.5cqi;
   }
 }

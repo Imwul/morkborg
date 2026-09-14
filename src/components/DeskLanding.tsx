@@ -42,11 +42,17 @@ export function DeskLanding({
     >
       <header>
         <p className="desk-landing-folio">
-          {generators ? 'MB · GEN' : 'MB · DESK'}
+          <span>MÖRK BORG</span>
+          <span>
+            {generators ? 'GENERATORS' : 'RULES / ORACLES / GENERATORS'}
+          </span>
+          <span aria-hidden="true">↙</span>
         </p>
         <h2>
           {generators ? (
-            '생성기'
+            <>
+              <span>Generators</span> <em>생성기</em>
+            </>
           ) : (
             <>
               <span>Reference</span> <em>Desk</em>
@@ -56,7 +62,10 @@ export function DeskLanding({
       </header>
       {!generators && (
         <section aria-label="빠른 참조">
-          <h3>빠른 참조</h3>
+          <h3>
+            <span>빠른 참조</span>
+            <em aria-hidden="true">At hand.</em>
+          </h3>
           <div className="desk-shortcut-list">
             {DESK_REFERENCE_SHORTCUTS.filter(([id]) => desk?.byId[id]).map(
               ([id, title, description]) => (
@@ -75,11 +84,10 @@ export function DeskLanding({
         </section>
       )}
       <section aria-label="생성 도구">
-        {!generators && (
-          <h3>
-            생성기 <button onClick={onGenerators}>전체 보기 ↗</button>
-          </h3>
-        )}
+        <h3>
+          <span>{generators ? '생성 도구' : '생성기'}</span>
+          {!generators && <button onClick={onGenerators}>전체 보기 ↗</button>}
+        </h3>
         {onGenerator && (
           <div className="desk-generator-records">
             <button onClick={() => openGenerator('characters')}>
