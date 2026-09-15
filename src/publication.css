@@ -1761,13 +1761,6 @@ body,
 }
 .reference-app
   .desk-landing
-  button[data-shortcut='oracle:core.miseries']
-  strong {
-  font-family: var(--font-blackletter);
-  font-weight: 750;
-}
-.reference-app
-  .desk-landing
   :is(.desk-shortcut-list, .desk-generator-records)
   > button:hover,
 .reference-app
