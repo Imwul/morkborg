@@ -1,0 +1,1866 @@
+{
+  "baselineCommit": "641f635",
+  "denominators": {
+    "rawRowEdges": "metadata occurrences including definition projections; Core inline views separately classified",
+    "distinctRowEdges": "source row + canonical target + fixed selector",
+    "relatedVisible": "per reference capped at 8, no active row context"
+  },
+  "counts": {
+    "references": 1001,
+    "tables": 546,
+    "rows": 12310
+  },
+  "rowInventory": {
+    "formats": {
+      "followup": {
+        "rows": 5,
+        "tables": 3,
+        "references": 3,
+        "raw": 5,
+        "resolved": 0,
+        "alias": 0,
+        "self": 0,
+        "visible": 5,
+        "projected": 0,
+        "dangling": 0
+      },
+      "scrollTable": {
+        "rows": 2,
+        "tables": 2,
+        "references": 2,
+        "raw": 2,
+        "resolved": 2,
+        "alias": 0,
+        "self": 0,
+        "visible": 2,
+        "projected": 0,
+        "dangling": 0
+      },
+      "subtable": {
+        "rows": 1,
+        "tables": 1,
+        "references": 1,
+        "raw": 1,
+        "resolved": 1,
+        "alias": 0,
+        "self": 0,
+        "visible": 1,
+        "projected": 0,
+        "dangling": 0
+      },
+      "subtableId": {
+        "rows": 8,
+        "tables": 2,
+        "references": 2,
+        "raw": 8,
+        "resolved": 8,
+        "alias": 0,
+        "self": 0,
+        "visible": 8,
+        "projected": 0,
+        "dangling": 0
+      },
+      "nestedRolls.table": {
+        "rows": 1,
+        "tables": 1,
+        "references": 1,
+        "raw": 1,
+        "resolved": 1,
+        "alias": 0,
+        "self": 1,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUp.choices.procedure": {
+        "rows": 1,
+        "tables": 1,
+        "references": 1,
+        "raw": 1,
+        "resolved": 1,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUp.procedure": {
+        "rows": 9,
+        "tables": 3,
+        "references": 3,
+        "raw": 9,
+        "resolved": 9,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUp.tables": {
+        "rows": 1,
+        "tables": 1,
+        "references": 1,
+        "raw": 2,
+        "resolved": 2,
+        "alias": 0,
+        "self": 0,
+        "visible": 2,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUp.table": {
+        "rows": 5,
+        "tables": 5,
+        "references": 5,
+        "raw": 5,
+        "resolved": 5,
+        "alias": 0,
+        "self": 1,
+        "visible": 5,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUpReferenceIds": {
+        "rows": 20,
+        "tables": 3,
+        "references": 3,
+        "raw": 20,
+        "resolved": 20,
+        "alias": 0,
+        "self": 0,
+        "visible": 20,
+        "projected": 0,
+        "dangling": 0
+      },
+      "followUpOracleIds": {
+        "rows": 101,
+        "tables": 20,
+        "references": 20,
+        "raw": 165,
+        "resolved": 165,
+        "alias": 33,
+        "self": 0,
+        "visible": 165,
+        "projected": 0,
+        "dangling": 0
+      },
+      "fixedLookups": {
+        "rows": 5,
+        "tables": 2,
+        "references": 2,
+        "raw": 5,
+        "resolved": 5,
+        "alias": 0,
+        "self": 0,
+        "visible": 5,
+        "projected": 0,
+        "dangling": 0
+      },
+      "fixedEntry": {
+        "rows": 2,
+        "tables": 1,
+        "references": 1,
+        "raw": 2,
+        "resolved": 2,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "procedureId": {
+        "rows": 4,
+        "tables": 2,
+        "references": 2,
+        "raw": 4,
+        "resolved": 4,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "fixedEntries": {
+        "rows": 1,
+        "tables": 1,
+        "references": 1,
+        "raw": 2,
+        "resolved": 2,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      },
+      "relatedIds": {
+        "rows": 53,
+        "tables": 5,
+        "references": 5,
+        "raw": 131,
+        "resolved": 131,
+        "alias": 1,
+        "self": 0,
+        "visible": 0,
+        "projected": 131,
+        "dangling": 0
+      },
+      "referenceId": {
+        "rows": 55,
+        "tables": 5,
+        "references": 5,
+        "raw": 55,
+        "resolved": 55,
+        "alias": 0,
+        "self": 0,
+        "visible": 55,
+        "projected": 0,
+        "dangling": 0
+      },
+      "creatureId": {
+        "rows": 54,
+        "tables": 9,
+        "references": 9,
+        "raw": 54,
+        "resolved": 54,
+        "alias": 0,
+        "self": 0,
+        "visible": 0,
+        "projected": 0,
+        "dangling": 0
+      }
+    },
+    "raw": 472,
+    "resolved": 467,
+    "deduplicatedResolved": 441,
+    "duplicateMetadata": 26,
+    "inlineViews": 5,
+    "aliases": 34,
+    "dangling": 0,
+    "self": 2,
+    "nonIdInstructions": 44
+  },
+  "rowCoverage": {
+    "before": {
+      "edges": 185,
+      "rows": 137,
+      "tables": 33,
+      "references": 33
+    },
+    "after": {
+      "edges": 247,
+      "rows": 200,
+      "tables": 43,
+      "references": 43
+    },
+    "reader": {
+      "edges": 278,
+      "rows": 201,
+      "tables": 44,
+      "references": 44
+    },
+    "fixedBefore": 5,
+    "fixedAfter": 9,
+    "rawAliases": 33,
+    "rawSelf": 1,
+    "visibleSelf": 0,
+    "danglingCount": 0
+  },
+  "globalCoverage": {
+    "before": {
+      "visible": 2047,
+      "nonBookNonRegionRefs": 469,
+      "bookOnly": 499
+    },
+    "after": {
+      "visible": 2127,
+      "nonBookNonRegionRefs": 541,
+      "bookOnly": 427,
+      "labeled": 158,
+      "labeledReferences": 131,
+      "usesVisible": 79,
+      "usedByVisible": 79
+    }
+  },
+  "procedureEvidence": {
+    "raw": 137,
+    "forward": 79,
+    "reverse": 79,
+    "aliases": 7,
+    "unresolved": 0
+  },
+  "sourceRelationships": [
+    {
+      "sourceId": "procedure:mythic2.action-pair",
+      "targetId": "oracle:mythic2.meaning.action-1",
+      "origins": [
+        "procedures.mythic2.action-pair.oracleIds[0]",
+        "procedures.mythic2.action-pair.oracleIds[1]"
+      ],
+      "aliasIds": [
+        "oracle:mythic2.meaning.action-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 48,
+          "printedPage": 47
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.description-pair",
+      "targetId": "oracle:mythic2.meaning.descriptor-1",
+      "origins": [
+        "procedures.mythic2.description-pair.oracleIds[0]",
+        "procedures.mythic2.description-pair.oracleIds[1]"
+      ],
+      "aliasIds": [
+        "oracle:mythic2.meaning.descriptor-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 49,
+          "printedPage": 48
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.the-4w",
+      "targetId": "oracle:mythic2.meaning.characters",
+      "origins": [
+        "procedures.mythic2.the-4w.oracleIds[0]",
+        "procedures.mythic2.the-4w.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 66,
+          "printedPage": 65
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.the-4w",
+      "targetId": "oracle:mythic2.meaning.action-1",
+      "origins": [
+        "procedures.mythic2.the-4w.oracleIds[2]",
+        "procedures.mythic2.the-4w.oracleIds[3]",
+        "procedures.mythic2.the-4w.oracleIds[6]",
+        "procedures.mythic2.the-4w.oracleIds[7]"
+      ],
+      "aliasIds": [
+        "oracle:mythic2.meaning.action-2"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 66,
+          "printedPage": 65
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.the-4w",
+      "targetId": "oracle:mythic2.meaning.locations",
+      "origins": [
+        "procedures.mythic2.the-4w.oracleIds[4]",
+        "procedures.mythic2.the-4w.oracleIds[5]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "pdfPage": 66,
+          "printedPage": 65
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.adventure-tone.pair",
+      "targetId": "oracle:mythic2.meaning.adventure-tone",
+      "origins": [
+        "procedures.mythic2.meaning.adventure-tone.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.adventure-tone.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.adventure-tone",
+          "pdfPage": 88,
+          "printedPage": 87
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.alien-species-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.alien-species-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.alien-species-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.alien-species-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.alien-species-descriptors",
+          "pdfPage": 88,
+          "printedPage": 87
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.animal-actions.pair",
+      "targetId": "oracle:mythic2.meaning.animal-actions",
+      "origins": [
+        "procedures.mythic2.meaning.animal-actions.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.animal-actions.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.animal-actions",
+          "pdfPage": 88,
+          "printedPage": 87
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.army-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.army-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.army-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.army-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.army-descriptors",
+          "pdfPage": 89,
+          "printedPage": 88
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.cavern-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.cavern-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.cavern-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.cavern-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.cavern-descriptors",
+          "pdfPage": 89,
+          "printedPage": 88
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.characters.pair",
+      "targetId": "oracle:mythic2.meaning.characters",
+      "origins": [
+        "procedures.mythic2.meaning.characters.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.characters.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.characters",
+          "pdfPage": 50,
+          "printedPage": 49
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-actions-combat.pair",
+      "targetId": "oracle:mythic2.meaning.character-actions-combat",
+      "origins": [
+        "procedures.mythic2.meaning.character-actions-combat.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-actions-combat.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-actions-combat",
+          "pdfPage": 90,
+          "printedPage": 89
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-actions-general.pair",
+      "targetId": "oracle:mythic2.meaning.character-actions-general",
+      "origins": [
+        "procedures.mythic2.meaning.character-actions-general.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-actions-general.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-actions-general",
+          "pdfPage": 90,
+          "printedPage": 89
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-appearance.pair",
+      "targetId": "oracle:mythic2.meaning.character-appearance",
+      "origins": [
+        "procedures.mythic2.meaning.character-appearance.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-appearance.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-appearance",
+          "pdfPage": 90,
+          "printedPage": 89
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-background.pair",
+      "targetId": "oracle:mythic2.meaning.character-background",
+      "origins": [
+        "procedures.mythic2.meaning.character-background.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-background.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-background",
+          "pdfPage": 91,
+          "printedPage": 90
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-conversations.pair",
+      "targetId": "oracle:mythic2.meaning.character-conversations",
+      "origins": [
+        "procedures.mythic2.meaning.character-conversations.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-conversations.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-conversations",
+          "pdfPage": 91,
+          "printedPage": 90
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.character-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.character-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-descriptors",
+          "pdfPage": 91,
+          "printedPage": 90
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-identity.pair",
+      "targetId": "oracle:mythic2.meaning.character-identity",
+      "origins": [
+        "procedures.mythic2.meaning.character-identity.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-identity.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-identity",
+          "pdfPage": 92,
+          "printedPage": 91
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-motivations.pair",
+      "targetId": "oracle:mythic2.meaning.character-motivations",
+      "origins": [
+        "procedures.mythic2.meaning.character-motivations.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-motivations.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-motivations",
+          "pdfPage": 92,
+          "printedPage": 91
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-personality.pair",
+      "targetId": "oracle:mythic2.meaning.character-personality",
+      "origins": [
+        "procedures.mythic2.meaning.character-personality.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-personality.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-personality",
+          "pdfPage": 92,
+          "printedPage": 91
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-skills.pair",
+      "targetId": "oracle:mythic2.meaning.character-skills",
+      "origins": [
+        "procedures.mythic2.meaning.character-skills.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-skills.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-skills",
+          "pdfPage": 93,
+          "printedPage": 92
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.character-traits-flaws.pair",
+      "targetId": "oracle:mythic2.meaning.character-traits-flaws",
+      "origins": [
+        "procedures.mythic2.meaning.character-traits-flaws.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.character-traits-flaws.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.character-traits-flaws",
+          "pdfPage": 93,
+          "printedPage": 92
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.city-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.city-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.city-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.city-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.city-descriptors",
+          "pdfPage": 93,
+          "printedPage": 92
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.civilization-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.civilization-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.civilization-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.civilization-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.civilization-descriptors",
+          "pdfPage": 94,
+          "printedPage": 93
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.creature-abilities.pair",
+      "targetId": "oracle:mythic2.meaning.creature-abilities",
+      "origins": [
+        "procedures.mythic2.meaning.creature-abilities.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.creature-abilities.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.creature-abilities",
+          "pdfPage": 94,
+          "printedPage": 93
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.creature-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.creature-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.creature-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.creature-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.creature-descriptors",
+          "pdfPage": 94,
+          "printedPage": 93
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.cryptic-message.pair",
+      "targetId": "oracle:mythic2.meaning.cryptic-message",
+      "origins": [
+        "procedures.mythic2.meaning.cryptic-message.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.cryptic-message.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.cryptic-message",
+          "pdfPage": 95,
+          "printedPage": 94
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.curses.pair",
+      "targetId": "oracle:mythic2.meaning.curses",
+      "origins": [
+        "procedures.mythic2.meaning.curses.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.curses.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.curses",
+          "pdfPage": 95,
+          "printedPage": 94
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.domicile-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.domicile-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.domicile-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.domicile-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.domicile-descriptors",
+          "pdfPage": 95,
+          "printedPage": 94
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.dungeon-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.dungeon-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.dungeon-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.dungeon-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.dungeon-descriptors",
+          "pdfPage": 96,
+          "printedPage": 95
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.dungeon-traps.pair",
+      "targetId": "oracle:mythic2.meaning.dungeon-traps",
+      "origins": [
+        "procedures.mythic2.meaning.dungeon-traps.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.dungeon-traps.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.dungeon-traps",
+          "pdfPage": 96,
+          "printedPage": 95
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.forest-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.forest-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.forest-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.forest-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.forest-descriptors",
+          "pdfPage": 96,
+          "printedPage": 95
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.gods.pair",
+      "targetId": "oracle:mythic2.meaning.gods",
+      "origins": [
+        "procedures.mythic2.meaning.gods.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.gods.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.gods",
+          "pdfPage": 97,
+          "printedPage": 96
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.legends.pair",
+      "targetId": "oracle:mythic2.meaning.legends",
+      "origins": [
+        "procedures.mythic2.meaning.legends.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.legends.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.legends",
+          "pdfPage": 97,
+          "printedPage": 96
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.locations.pair",
+      "targetId": "oracle:mythic2.meaning.locations",
+      "origins": [
+        "procedures.mythic2.meaning.locations.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.locations.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.locations",
+          "pdfPage": 50,
+          "printedPage": 49
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.magic-item-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.magic-item-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.magic-item-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.magic-item-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.magic-item-descriptors",
+          "pdfPage": 98,
+          "printedPage": 97
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.mutation-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.mutation-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.mutation-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.mutation-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.mutation-descriptors",
+          "pdfPage": 98,
+          "printedPage": 97
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.names.pair",
+      "targetId": "oracle:mythic2.meaning.names",
+      "origins": [
+        "procedures.mythic2.meaning.names.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.names.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.names",
+          "pdfPage": 98,
+          "printedPage": 97
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.noble-house.pair",
+      "targetId": "oracle:mythic2.meaning.noble-house",
+      "origins": [
+        "procedures.mythic2.meaning.noble-house.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.noble-house.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.noble-house",
+          "pdfPage": 99,
+          "printedPage": 98
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.objects.pair",
+      "targetId": "oracle:mythic2.meaning.objects",
+      "origins": [
+        "procedures.mythic2.meaning.objects.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.objects.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.objects",
+          "pdfPage": 50,
+          "printedPage": 49
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.plot-twists.pair",
+      "targetId": "oracle:mythic2.meaning.plot-twists",
+      "origins": [
+        "procedures.mythic2.meaning.plot-twists.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.plot-twists.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.plot-twists",
+          "pdfPage": 99,
+          "printedPage": 98
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.powers.pair",
+      "targetId": "oracle:mythic2.meaning.powers",
+      "origins": [
+        "procedures.mythic2.meaning.powers.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.powers.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.powers",
+          "pdfPage": 100,
+          "printedPage": 99
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.scavenging-results.pair",
+      "targetId": "oracle:mythic2.meaning.scavenging-results",
+      "origins": [
+        "procedures.mythic2.meaning.scavenging-results.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.scavenging-results.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.scavenging-results",
+          "pdfPage": 100,
+          "printedPage": 99
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.smells.pair",
+      "targetId": "oracle:mythic2.meaning.smells",
+      "origins": [
+        "procedures.mythic2.meaning.smells.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.smells.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.smells",
+          "pdfPage": 100,
+          "printedPage": 99
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.sounds.pair",
+      "targetId": "oracle:mythic2.meaning.sounds",
+      "origins": [
+        "procedures.mythic2.meaning.sounds.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.sounds.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.sounds",
+          "pdfPage": 101,
+          "printedPage": 100
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.spell-effects.pair",
+      "targetId": "oracle:mythic2.meaning.spell-effects",
+      "origins": [
+        "procedures.mythic2.meaning.spell-effects.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.spell-effects.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.spell-effects",
+          "pdfPage": 101,
+          "printedPage": 100
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.starship-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.starship-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.starship-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.starship-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.starship-descriptors",
+          "pdfPage": 101,
+          "printedPage": 100
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.terrain-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.terrain-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.terrain-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.terrain-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.terrain-descriptors",
+          "pdfPage": 102,
+          "printedPage": 101
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.undead-descriptors.pair",
+      "targetId": "oracle:mythic2.meaning.undead-descriptors",
+      "origins": [
+        "procedures.mythic2.meaning.undead-descriptors.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.undead-descriptors.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.undead-descriptors",
+          "pdfPage": 102,
+          "printedPage": 101
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:mythic2.meaning.visions-dreams.pair",
+      "targetId": "oracle:mythic2.meaning.visions-dreams",
+      "origins": [
+        "procedures.mythic2.meaning.visions-dreams.pair.oracleIds[0]",
+        "procedures.mythic2.meaning.visions-dreams.pair.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "mythic2",
+          "tableId": "mythic2.meaning.visions-dreams",
+          "pdfPage": 102,
+          "printedPage": 101
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.festival",
+      "targetId": "oracle:aitc.festival-adjective",
+      "origins": [
+        "procedures.aitc.festival.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.festival-adjective",
+          "pdfPage": 9,
+          "printedPage": 7
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.festival-subject",
+          "pdfPage": 9,
+          "printedPage": 7
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.festival",
+      "targetId": "oracle:aitc.festival-subject",
+      "origins": [
+        "procedures.aitc.festival.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.festival-adjective",
+          "pdfPage": 9,
+          "printedPage": 7
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.festival-subject",
+          "pdfPage": 9,
+          "printedPage": 7
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.artefact-depiction",
+      "targetId": "oracle:aitc.notable-artefact-composition",
+      "origins": [
+        "procedures.aitc.artefact-depiction.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-composition",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-adjective",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-subject",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.artefact-depiction",
+      "targetId": "oracle:aitc.notable-artefact-adjective",
+      "origins": [
+        "procedures.aitc.artefact-depiction.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-composition",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-adjective",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-subject",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.artefact-depiction",
+      "targetId": "oracle:aitc.notable-artefact-subject",
+      "origins": [
+        "procedures.aitc.artefact-depiction.oracleIds[2]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-composition",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-adjective",
+          "pdfPage": 11,
+          "printedPage": 9
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.notable-artefact-subject",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement-name",
+      "targetId": "oracle:aitc.settlement-name-prefix",
+      "origins": [
+        "procedures.aitc.settlement-name.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement-name",
+      "targetId": "oracle:aitc.settlement-name-suffix",
+      "origins": [
+        "procedures.aitc.settlement-name.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement",
+      "targetId": "oracle:aitc.settlement-size",
+      "origins": [
+        "procedures.aitc.settlement.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-size",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-descriptor",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement",
+      "targetId": "oracle:aitc.settlement-name-prefix",
+      "origins": [
+        "procedures.aitc.settlement.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-size",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-descriptor",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement",
+      "targetId": "oracle:aitc.settlement-name-suffix",
+      "origins": [
+        "procedures.aitc.settlement.oracleIds[2]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-size",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-descriptor",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.settlement",
+      "targetId": "oracle:aitc.settlement-descriptor",
+      "origins": [
+        "procedures.aitc.settlement.oracleIds[3]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-size",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-prefix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-name-suffix",
+          "pdfPage": 12,
+          "printedPage": 10
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.settlement-descriptor",
+          "pdfPage": 11,
+          "printedPage": 9
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street",
+      "targetId": "oracle:aitc.street-adjective",
+      "origins": [
+        "procedures.aitc.street.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-contents",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street",
+      "targetId": "oracle:aitc.street-type",
+      "origins": [
+        "procedures.aitc.street.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-contents",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street",
+      "targetId": "oracle:aitc.street-contents",
+      "origins": [
+        "procedures.aitc.street.oracleIds[2]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-contents",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street",
+      "targetId": "oracle:aitc.street-exits",
+      "origins": [
+        "procedures.aitc.street.generatorSteps[4].tableId"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-contents",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street-description",
+      "targetId": "oracle:aitc.street-adjective",
+      "origins": [
+        "procedures.aitc.street-description.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:aitc.street-description",
+      "targetId": "oracle:aitc.street-type",
+      "origins": [
+        "procedures.aitc.street-description.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-adjective",
+          "pdfPage": 17,
+          "printedPage": 15
+        },
+        {
+          "bookId": "aitc",
+          "tableId": "aitc.street-type",
+          "pdfPage": 17,
+          "printedPage": 15
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:reclvse.action-theme",
+      "targetId": "oracle:reclvse.action",
+      "origins": [
+        "procedures.reclvse.action-theme.oracleIds[0]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.action",
+          "pdfPage": 134,
+          "printedPage": 134
+        },
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.theme",
+          "pdfPage": 135,
+          "printedPage": 135
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:reclvse.action-theme",
+      "targetId": "oracle:reclvse.theme",
+      "origins": [
+        "procedures.reclvse.action-theme.oracleIds[1]"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.action",
+          "pdfPage": 134,
+          "printedPage": 134
+        },
+        {
+          "bookId": "reclvse",
+          "tableId": "reclvse.theme",
+          "pdfPage": 135,
+          "printedPage": 135
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.room-description",
+      "targetId": "oracle:sd.room.adjective",
+      "origins": [
+        "procedures.sd.room-description.oracleIds[0]",
+        "procedures.sd.room-description.oracleIds[1]"
+      ],
+      "aliasIds": [
+        "oracle:sd.room.type"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.room.adjective",
+          "pdfPage": 15,
+          "printedPage": 13
+        },
+        {
+          "bookId": "sd",
+          "tableId": "sd.room.type",
+          "pdfPage": 15,
+          "printedPage": 13
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.material",
+      "targetId": "oracle:sd.material.quality",
+      "origins": [
+        "procedures.sd.material.oracleIds[0]",
+        "procedures.sd.material.oracleIds[1]"
+      ],
+      "aliasIds": [
+        "oracle:sd.material.composition"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.material.quality",
+          "pdfPage": 13,
+          "printedPage": 11
+        },
+        {
+          "bookId": "sd",
+          "tableId": "sd.material.composition",
+          "pdfPage": 13,
+          "printedPage": 11
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.sound",
+      "targetId": "oracle:sd.sound.quality",
+      "origins": [
+        "procedures.sd.sound.oracleIds[0]",
+        "procedures.sd.sound.oracleIds[1]"
+      ],
+      "aliasIds": [
+        "oracle:sd.sound.type"
+      ],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "tableId": "sd.sound.quality",
+          "pdfPage": 13,
+          "printedPage": 11
+        },
+        {
+          "bookId": "sd",
+          "tableId": "sd.sound.type",
+          "pdfPage": 13,
+          "printedPage": 11
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.titleA",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.name.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.titleB",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.name.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.status",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.status.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.danger",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.danger.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.inhabitants",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.inhabitants.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.feature",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.feature.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    },
+    {
+      "sourceId": "procedure:sd.dungeon-preparation",
+      "targetId": "oracle:core.rooms",
+      "origins": [
+        "DUNGEON_PREPARATION_FIELDS.special1.tableIds",
+        "DUNGEON_PREPARATION_FIELDS.special2.tableIds",
+        "DUNGEON_PREPARATION_FIELDS.special3.tableIds",
+        "DUNGEON_PREPARATION_FIELDS.special4.tableIds"
+      ],
+      "aliasIds": [],
+      "sourceRefs": [
+        {
+          "bookId": "sd",
+          "pdfPage": [
+            9,
+            19
+          ],
+          "printedPage": "7, 17"
+        }
+      ]
+    }
+  ],
+  "performance": {
+    "buildIterations": 50,
+    "buildMedianMs": 0.14695899999992434,
+    "buildMeanMs": 0.16686159999999745,
+    "adjacencyQueries": 100100,
+    "queryTotalMs": 46.80316699999992,
+    "queryMeanMs": 0.0004675641058941051
+  }
+}

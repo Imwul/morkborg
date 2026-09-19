@@ -143,7 +143,11 @@ export function DungeonPreparation({
                       tableId={roll.oracleId}
                     />
                     {table && entry && (
-                      <InlineSourceSubtable table={table} entry={entry} />
+                      <InlineSourceSubtable
+                        table={table}
+                        entry={entry}
+                        parentContext={roll}
+                      />
                     )}
                   </div>
                 );

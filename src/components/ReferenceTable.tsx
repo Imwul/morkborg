@@ -1,4 +1,8 @@
-import type { OracleDefinition, OracleEntry } from '../domain/oracle';
+import type {
+  OracleDefinition,
+  OracleEntry,
+  OracleResult,
+} from '../domain/oracle';
 import type { RuleEntry } from '../storage/rulesStore';
 import {
   canSelectTableEntry,
@@ -19,11 +23,13 @@ export function ReferenceTable({
   currentEntryIds,
   onChoose,
   hideCaption = false,
+  parentResult,
 }: {
   table: OracleDefinition;
   currentEntryIds: (string | null)[];
   onChoose: (table: OracleDefinition, entry: OracleEntry) => void;
   hideCaption?: boolean;
+  parentResult?: OracleResult;
 }) {
   const exits = table.id === 'sd.room.exits';
   const desk = useReferenceDesk();
@@ -196,6 +202,7 @@ export function ReferenceTable({
                         key={entry.id}
                         table={table}
                         entry={entry}
+                        parentContext={parentResult}
                       />
                     ) : Array.isArray(entry.metadata?.followup) ? (
                       <details className="table-followup">

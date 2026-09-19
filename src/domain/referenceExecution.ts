@@ -260,7 +260,9 @@ export function executeReference(
   if (action.kind === 'creature') {
     const preset = findReferenceCreature(rules, action.creatureId);
     if (!preset) throw new Error('확인된 생물 원문 자료를 불러오세요.');
-    const monster = loadMonsterPreset(id(), preset);
+    const monster = loadMonsterPreset(id(), preset, {
+      attackTable: 'reference',
+    });
     output = {
       title: entry.title,
       blocks: creatureBlocks(preset, monster),

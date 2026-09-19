@@ -5,6 +5,8 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  relationships?: import('../domain/referenceRelationships').ReferenceRelationshipIndex;
+  openLookup?: (lookup: { oracleId: string; roll: number }) => void;
   selectedId?: string | null;
   content?: ReactNode;
   query?: string;

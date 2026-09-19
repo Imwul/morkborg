@@ -96,11 +96,15 @@ import type { OracleResult } from '../domain/oracle';
 import {
   buildReferenceRegistry,
   searchReferences,
-  relatedReferences,
   contextReferences,
   type ReferenceEntry,
   type ReferenceContext as ContextKind,
 } from '../domain/references';
+import {
+  getReferenceRelationships,
+  relatedReferenceRelationships,
+} from '../domain/referenceRelationships';
+import { RelationshipLabel } from './RelationshipLabel';
 import { ReferenceContext, useReferenceDesk } from './ReferenceContext';
 import { useOracleRegistry } from '../storage/oracleStore';
 import { useRules } from '../storage/rulesStore';
@@ -160,6 +164,10 @@ export function ReferenceProvider({
   const index = useMemo(
     () => buildReferenceRegistry(oracles.registry, rules.pack),
     [oracles.registry, rules.pack],
+  );
+  const relationships = useMemo(
+    () => getReferenceRelationships(index, oracles.registry),
+    [index, oracles.registry],
   );
   const memory = usePlayMemory(save, playContext, notify);
   const returnTarget = memory.contexts.find((c) => c.kind !== 'desk');
@@ -524,6 +532,54 @@ export function ReferenceProvider({
     if (!viewOnly && (roll || entry.action?.kind === 'creature'))
       perform(entry, contextRegion);
   }
+  function openLookup(lookup: { oracleId: string; roll: number }) {
+    const table = oracles.registry.tables.find(
+      (item) => item.id === lookup.oracleId,
+    );
+    if (!table) return;
+    try {
+      const value = selectOracleEntry(table, lookup.roll);
+      if (!value) return;
+      const entryId = index.byId[`oracle:${table.id}`]?.id;
+      if (!entryId) return;
+      activate(entryId);
+      const result: OracleResult = {
+        id: id(),
+        title: table.title,
+        rolls: [
+          {
+            oracleId: table.id,
+            title: table.title,
+            dice: '지정 항목',
+            roll: lookup.roll,
+            diceValues: [],
+            entryId: value.id,
+            text: value.text,
+            source: sourceLabel(table, oracles.registry),
+            metadata: value.metadata,
+          },
+        ],
+      };
+      acceptReading(
+        entryId,
+        {
+          title: table.title,
+          blocks: [
+            {
+              title: `#${lookup.roll}`,
+              text: oracleReadingText(value),
+            },
+          ],
+          sourceRefs: refsForOracle(result, oracles.registry),
+          oracle: result,
+          ...oracleFollowUpLinks(value.metadata, table.id),
+        },
+        false,
+      );
+    } catch (e) {
+      setFailure(e instanceof Error ? e.message : '참조 항목을 확인하세요.');
+    }
+  }
   function openSearch(value = '', nextScope: typeof scope = 'all') {
     convenience.setPanel(null);
     setQuery(value);
@@ -562,9 +618,9 @@ export function ReferenceProvider({
           );
   const owned =
     campaign && query ? searchCampaign(campaign, query).slice(0, 8) : [];
-  const related = selected ? relatedReferences(index, selected.id, 8) : [];
-  const dynamicRelated =
-    reading?.relatedIds?.map((key) => index.byId[key]).filter(Boolean) ?? [];
+  const related = selected
+    ? relatedReferenceRelationships(index, relationships, selected.id, 8)
+    : [];
   const grouped =
     selected?.kind === 'region'
       ? searchReferences(index, '', {
@@ -1112,8 +1168,16 @@ export function ReferenceProvider({
                 </button>
               </details>
             )}
-            {procedureId === 'depths.encounter-level' && (
+            {procedureId === 'depths.encounter-level' ? (
               <ReferenceNextSteps ids={reading.relatedIds} />
+            ) : (
+              <ReadingRelatedReferences
+                reading={reading}
+                omitIds={[
+                  ...related.map(({ entry }) => entry.id),
+                  ...(selected.definition?.nextReferenceIds ?? []),
+                ]}
+              />
             )}
             <ReferenceNextSteps ids={selected.definition?.nextReferenceIds} />
             {procedureId !== 'sd.dungeon-preparation' &&
@@ -1129,6 +1193,11 @@ export function ReferenceProvider({
                     <ReferenceNextSteps
                       metadata={roll.metadata}
                       tableId={roll.oracleId}
+                      contextLabel={
+                        reading.oracle!.rolls.length > 1
+                          ? `${roll.title} · #${roll.roll}`
+                          : undefined
+                      }
                     />
                     {table &&
                       entry &&
@@ -1295,6 +1364,7 @@ export function ReferenceProvider({
                 key={table.id}
                 table={table}
                 hideCaption={selected.canonicalIds.length === 1}
+                parentResult={reading?.oracle}
                 currentEntryIds={
                   reading?.oracle?.rolls.map((roll) => roll.entryId) ?? []
                 }
@@ -1481,82 +1551,18 @@ export function ReferenceProvider({
           )}
         </div>
       )}
-      {!!reading?.fixedLookups?.length && (
-        <div className="ref-related">
-          <small>지정된 항목</small>
-          {reading.fixedLookups.map((lookup, n) => (
-            <button
-              key={n}
-              onClick={() => {
-                const table = oracles.registry.tables.find(
-                  (item) => item.id === lookup.oracleId,
-                );
-                if (!table) return;
-                try {
-                  const value = selectOracleEntry(table, lookup.roll);
-                  if (!value) return;
-                  const entryId = `oracle:${table.id}`;
-                  activate(entryId);
-                  const result: OracleResult = {
-                    id: id(),
-                    title: table.title,
-                    rolls: [
-                      {
-                        oracleId: table.id,
-                        title: table.title,
-                        dice: '지정 항목',
-                        roll: lookup.roll,
-                        diceValues: [],
-                        entryId: value.id,
-                        text: value.text,
-                        source: sourceLabel(table, oracles.registry),
-                        metadata: value.metadata,
-                      },
-                    ],
-                  };
-                  acceptReading(
-                    entryId,
-                    {
-                      title: table.title,
-                      blocks: [
-                        {
-                          title: `#${lookup.roll}`,
-                          text: oracleReadingText(value),
-                        },
-                      ],
-                      sourceRefs: refsForOracle(result, oracles.registry),
-                      oracle: result,
-                      ...oracleFollowUpLinks(value.metadata, table.id),
-                    },
-                    false,
-                  );
-                } catch (e) {
-                  setFailure(
-                    e instanceof Error ? e.message : '참조 항목을 확인하세요.',
-                  );
-                }
-              }}
-            >
-              {index.byId[`oracle:${lookup.oracleId}`]?.title ??
-                lookup.oracleId}{' '}
-              #{lookup.roll} 열기
-            </button>
-          ))}
-        </div>
+      {!reading?.oracle && !!reading?.fixedLookups?.length && (
+        <ReferenceNextSteps lookups={reading.fixedLookups} />
       )}
-      {!inline && !!(related.length + dynamicRelated.length) && (
+      {!inline && !!related.length && (
         <section
           className="ref-related ref-related-disclosure"
           aria-label="관련 참조"
         >
           <h3>관련 참조</h3>
-          {[
-            ...new Map(
-              [...dynamicRelated, ...related].map((entry) => [entry.id, entry]),
-            ).values(),
-          ]
+          {related
             .filter(
-              (entry) =>
+              ({ entry }) =>
                 !city ||
                 ![
                   'procedure:aitc.street',
@@ -1566,13 +1572,14 @@ export function ReferenceProvider({
                 ].includes(entry.id),
             )
             .slice(0, city ? 4 : 8)
-            .map((entry) => (
+            .map(({ entry, kind }) => (
               <button
                 key={entry.id}
                 title={entry.title}
                 aria-label={entry.title}
                 onClick={() => activate(entry.id)}
               >
+                <RelationshipLabel kind={kind} />
                 {referenceShortName(entry)}
                 <Translation
                   text={entry.title}
@@ -1658,6 +1665,8 @@ export function ReferenceProvider({
         addTray: convenience.addTray,
         entries: index.entries,
         byId: index.byId,
+        relationships,
+        openLookup,
         activate,
         openSearch,
         search: (value, limit = 8) => searchReferences(index, value, { limit }),
@@ -1941,12 +1950,69 @@ export function ReferenceProvider({
   );
 }
 
+/** Preserve existing reading-local shortcuts without claiming a source edge type. */
+export function ReadingRelatedReferences({
+  reading,
+  omitIds = [],
+}: {
+  reading: ReferenceReading;
+  omitIds?: string[];
+}) {
+  const desk = useReferenceDesk();
+  // Oracle relationships are rendered beside their exact source roll below.
+  if (reading.oracle || !desk) return null;
+  const omitted = new Set(
+    [
+      desk.selectedId,
+      ...omitIds,
+      ...(reading.fixedLookups ?? []).map(
+        (lookup) => `oracle:${lookup.oracleId}`,
+      ),
+    ].map((id) => desk.byId[id ?? '']?.id ?? id),
+  );
+  const entries = [
+    ...new Map(
+      (reading.relatedIds ?? []).flatMap((id) => {
+        const entry = desk.byId[id];
+        return entry && !omitted.has(entry.id)
+          ? [[entry.id, entry] as const]
+          : [];
+      }),
+    ).values(),
+  ];
+  if (!entries.length) return null;
+  return (
+    <div
+      className="ref-related reference-next-steps"
+      aria-label="결과의 연결된 참조"
+    >
+      {entries.map((entry) => (
+        <button
+          key={entry.id}
+          data-relationship-target={entry.id}
+          onClick={() => desk.activate(entry.id)}
+        >
+          <span>
+            {entry.title} ›
+            <Translation
+              text={entry.title}
+              translation={entry.titleTranslationKo}
+            />
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function ReferenceRow({
   entry,
   showMetadata = true,
+  relationshipKind,
 }: {
   entry: ReferenceEntry;
   showMetadata?: boolean;
+  relationshipKind?: 'USES' | 'USED BY';
 }) {
   const desk = useReferenceDesk(),
     { registry } = useOracleRegistry();
@@ -1965,6 +2031,7 @@ export function ReferenceRow({
         onClick={() => desk?.activate(entry.id)}
       >
         <strong>
+          <RelationshipLabel kind={relationshipKind} />
           {referenceShortName(entry)}
           <Translation
             text={entry.title}
@@ -2198,19 +2265,10 @@ export function ReferenceDesk({
     !!context ||
     (desk?.scope ?? 'all') !== 'all';
   const selected = desk?.selectedId ? index.byId[desk.selectedId] : undefined;
-  const related = selected
-    ? relatedReferences(index, selected.id, 10).filter(
-        (e) => e.id !== selected.id,
-      )
-    : [];
-  const dynamic = selected
-    ? (desk?.readings?.[selected.id]?.relatedIds ?? [])
-        .map((id) => index.byId[id])
-        .filter(Boolean)
-    : [];
-  const relatedItems = [
-    ...new Map([...dynamic, ...related].map((e) => [e.id, e])).values(),
-  ];
+  const relatedItems =
+    selected && desk?.relationships
+      ? relatedReferenceRelationships(index, desk.relationships, selected.id, 8)
+      : [];
   const resultIndex = (
     <section className="desk-index-results" aria-label="검색 결과">
       <h2>
@@ -2496,8 +2554,12 @@ export function ReferenceDesk({
                 {!!relatedItems.length && (
                   <section className="desk-related" aria-label="관련 참조">
                     <h2>관련 참조</h2>
-                    {relatedItems.map((e) => (
-                      <ReferenceRow key={e.id} entry={e} />
+                    {relatedItems.map(({ entry, kind }) => (
+                      <ReferenceRow
+                        key={entry.id}
+                        entry={entry}
+                        relationshipKind={kind}
+                      />
                     ))}
                   </section>
                 )}
@@ -2568,6 +2630,7 @@ function OpenReferencePage({ entry }: { entry: ReferenceEntry }) {
             key={table.id}
             table={table}
             hideCaption
+            parentResult={reading?.oracle}
             currentEntryIds={reading?.oracle?.rolls.map((r) => r.entryId) ?? []}
             onChoose={(t, e) => desk?.choose?.(t, e)}
           />

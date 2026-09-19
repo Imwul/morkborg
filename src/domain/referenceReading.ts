@@ -3,10 +3,7 @@ import type { GenerationAuthority } from './generationProvenance';
 import type { SourceReference } from './types';
 import type { OracleEntry, OracleResult, OracleRoll } from './oracle';
 import { FERETORY_TABLE_IDS } from '../generators/feretory';
-import {
-  isScenarioReference,
-  isScenarioTable,
-} from '../data/scenarioExclusions';
+import { readRowRelationships } from './rowRelationships';
 import { BOOK_ABBREVIATIONS, shortBookTitle } from './sourceDisplay';
 export interface ReferenceTextBlock {
   title: string;
@@ -134,73 +131,27 @@ export function oracleFollowUpLinks(
   metadata?: Record<string, unknown>,
   tableId?: string,
 ): Pick<ReferenceReading, 'relatedIds' | 'fixedLookups'> {
-  const tableIds: string[] = [];
-  const addTable = (value: unknown, legacy = false) => {
-    // Legacy fields also contain prose; existing explicit IDs retain their schema.
-    if (
-      typeof value === 'string' &&
-      (!legacy || /^[a-z][a-z0-9-]*(?:\.[a-zA-Z0-9-]+)+$/.test(value)) &&
-      !isScenarioTable(value)
-    )
-      tableIds.push(value);
-  };
-  if (Array.isArray(metadata?.followUpOracleIds))
-    metadata.followUpOracleIds.forEach((value) => addTable(value));
-  const follow = metadata?.followUp;
-  if (follow && typeof follow === 'object' && !Array.isArray(follow)) {
-    const value = follow as Record<string, unknown>;
-    addTable(value.table, true);
-    if (Array.isArray(value.tables))
-      value.tables.forEach((id) => addTable(id, true));
-  }
-  // These local IDs belong to source-verified canonical RECLVSE columns.
-  if (
-    tableId === 'reclvse.quickContents' ||
-    tableId === 'reclvse.contentsCategory'
-  ) {
-    const id = metadata?.subtableId;
-    if (
-      typeof id === 'string' &&
-      ['roomDiscovery', 'roomHazard', 'roomEncounter', 'roomLoot'].includes(id)
-    )
-      addTable(`reclvse.${id}`);
-  }
-  const nested = metadata?.subtable;
-  if (
-    tableId &&
-    nested &&
-    typeof nested === 'object' &&
-    !Array.isArray(nested)
-  ) {
-    const id = (nested as Record<string, unknown>).id;
-    if (typeof id === 'string' && /^[a-zA-Z0-9-]+$/.test(id))
-      addTable(`${tableId}.${id}`);
-  }
-  if (
-    (tableId === 'core.gearA' || tableId === 'core.gearB') &&
-    (metadata?.scrollTable === 'unclean' || metadata?.scrollTable === 'sacred')
-  )
-    addTable(`core.${metadata.scrollTable}`);
+  const relationships = readRowRelationships(metadata, tableId);
   return {
     relatedIds: [
-      ...new Set([
-        ...(Array.isArray(metadata?.followUpReferenceIds)
-          ? metadata.followUpReferenceIds.filter(
-              (v): v is string =>
-                typeof v === 'string' && !isScenarioReference(v),
-            )
-          : []),
-        ...tableIds.map((key) => `oracle:${key}`),
-      ]),
+      ...new Set(
+        relationships
+          .filter((edge) => edge.lookupRoll == null)
+          .map((edge) => edge.targetId),
+      ),
     ],
-    fixedLookups: Array.isArray(metadata?.fixedLookups)
-      ? metadata.fixedLookups.filter(
-          (value): value is { oracleId: string; roll: number } =>
-            !!value &&
-            typeof value.oracleId === 'string' &&
-            !isScenarioTable(value.oracleId) &&
-            Number.isInteger(value.roll),
-        )
-      : [],
+    fixedLookups: [
+      ...new Map(
+        relationships
+          .filter((edge) => edge.lookupRoll != null)
+          .map((edge) => [
+            `${edge.targetId}:${edge.lookupRoll}`,
+            {
+              oracleId: edge.targetId.replace(/^oracle:/, ''),
+              roll: edge.lookupRoll!,
+            },
+          ]),
+      ).values(),
+    ],
   };
 }

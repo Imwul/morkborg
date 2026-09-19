@@ -515,7 +515,10 @@ export function MythicPanel({
                       {r.title} · {r.roll}
                     </small>
                     <p>{r.text}</p>
-                    <ReferenceNextSteps metadata={r.metadata} />
+                    <ReferenceNextSteps
+                      metadata={r.metadata}
+                      tableId={r.oracleId}
+                    />
                     <Translation
                       text={r.text}
                       translation={

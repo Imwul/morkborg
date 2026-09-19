@@ -17,6 +17,28 @@ import { tableSelector } from '../domain/referenceTable';
 export function InlineSourceSubtable({
   table,
   entry,
+  parentContext,
+}: {
+  table: OracleDefinition;
+  entry: OracleEntry;
+  /** A new parent result invalidates only its temporary child reading. */
+  parentContext?: object;
+}) {
+  const [context, setContext] = useState({ parentContext, revision: 0 });
+  if (context.parentContext !== parentContext)
+    setContext({ parentContext, revision: context.revision + 1 });
+  return (
+    <InlineSourceSubtableBody
+      key={`${entry.id}:${context.revision}`}
+      table={table}
+      entry={entry}
+    />
+  );
+}
+
+function InlineSourceSubtableBody({
+  table,
+  entry,
 }: {
   table: OracleDefinition;
   entry: OracleEntry;

@@ -520,6 +520,30 @@
   width: 100%;
   font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
 }
+.relationship-label {
+  display: inline-block;
+  margin-inline-end: 0.55em;
+  color: var(--muted-ink);
+  font: 700 var(--text-meta)/var(--leading-text) var(--font-mono);
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.reference-next-steps > button {
+  min-width: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: baseline;
+  text-align: left;
+}
+.reference-next-steps > button > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* Link labels wrap within the source row instead of widening auto-layout tables. */
+td > .reference-next-steps {
+  contain: inline-size;
+}
 .ref-related button {
   min-height: var(--control-height);
   padding: 8px 0;
@@ -1248,7 +1272,8 @@
   max-width: 65ch;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .table-entry-detail p {
   white-space: pre-line;
@@ -1394,9 +1419,7 @@
   outline-offset: 3px;
   box-shadow: none;
 }
-.reference-inspector:has(.rare-monster-reading)
-  .reference-inspector-top
-  h2 {
+.reference-inspector:has(.rare-monster-reading) .reference-inspector-top h2 {
   font: 600 var(--text-secondary)/var(--leading-text) var(--font-mono);
 }
 .reference-reading section + section {

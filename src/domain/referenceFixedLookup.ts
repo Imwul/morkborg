@@ -32,6 +32,6 @@ export function fixedReferenceReading(
         note: '원문의 지정 참조 · 재굴림하지 않음',
       },
     ],
-    ...oracleFollowUpLinks(entry.metadata),
+    ...oracleFollowUpLinks(entry.metadata, table.id),
   };
 }

@@ -362,6 +362,7 @@ export function rerollMonsterSpecial(m: Monster, itemId: string): void {
 export function loadMonsterPreset(
   campaignId: string,
   record: Record<string, unknown>,
+  options: { attackTable?: 'roll' | 'reference' } = {},
 ): Monster {
   const hasHP = typeof record.hp === 'number' && Number.isFinite(record.hp);
   const sourceRef = creatureRecordReference(record);
@@ -439,9 +440,20 @@ export function loadMonsterPreset(
       }),
     ];
   const table = record.attackTable as
-    | { entries?: Record<string, unknown>[] }
+    | { entries?: Record<string, unknown>[]; dice?: string }
     | undefined;
-  if (table?.entries?.length) {
+  if (table?.entries?.length && options.attackTable === 'reference') {
+    // A printed creature page shows all weapon options. Only instantiation
+    // chooses an attack; opening a reference must never spend a die.
+    m.attacks = table.entries.map((entry) => {
+      const result = attack(entry);
+      const selector = `${scalarText(entry.roll ?? entry.min)}${entry.max && entry.max !== entry.min ? `–${scalarText(entry.max)}` : ''}`;
+      result.name = [table.dice, selector, result.name]
+        .filter(Boolean)
+        .join(' · ');
+      return result;
+    });
+  } else if (table?.entries?.length) {
     const index = rollDie(table.entries.length) - 1;
     m.attacks = [attack(table.entries[index])];
     for (const provenance of Object.values(m.attacks[0].fieldProvenance ?? {}))

@@ -484,7 +484,10 @@ export function Oracles({
                             }
                           />
                         </p>
-                        <ReferenceNextSteps metadata={r.metadata} />
+                        <ReferenceNextSteps
+                          metadata={r.metadata}
+                          tableId={r.oracleId}
+                        />
                         <SourceDisclosure
                           source={r.source}
                           provenance={r.metadata?.provenance}
