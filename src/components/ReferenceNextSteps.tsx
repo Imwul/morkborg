@@ -5,16 +5,23 @@ import { Translation } from './Translation';
 export function ReferenceNextSteps({
   ids = [],
   metadata,
+  tableId,
 }: {
   ids?: string[];
   metadata?: Record<string, unknown>;
+  tableId?: string;
 }) {
   const desk = useReferenceDesk();
-  const entries = [
-    ...new Set([...ids, ...(oracleFollowUpLinks(metadata).relatedIds ?? [])]),
+  const candidates = [
+    ...ids,
+    ...(oracleFollowUpLinks(metadata, tableId).relatedIds ?? []),
   ]
     .map((id) => desk?.byId[id])
     .filter(Boolean);
+  // Several source tables can resolve to the same paired Reference.
+  const entries = [
+    ...new Map(candidates.map((entry) => [entry!.id, entry!])).values(),
+  ];
   if (!entries.length) return null;
   return (
     <div className="ref-related reference-next-steps" aria-label="연결된 참조">

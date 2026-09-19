@@ -58,7 +58,15 @@ test('Source disclosure separates source procedure, app choice and manual edits 
   assert.match(html, /PRIMARY SOURCE/);
   assert.doesNotMatch(html, /ROUTING SOURCE/);
   assert.match(html, /SD는 네 개의 Special Room 준비 슬롯/);
-  assert.match(html, /SD는 이 표를 지정하지 않습니다/);
+  const appPolicySection = html
+    .split('aria-label="APP POLICY"')[1]
+    .split('</section>')[0];
+  assert.match(
+    appPolicySection,
+    /SD가 허용하는 준비 방법 중 Core Bedeviled Dungeons의 Sample Rooms/,
+  );
+  assert.match(appPolicySection, /DNGNGEN의 복합 방 생성 방식과는 다릅니다/);
+  assert.doesNotMatch(html, /SD는 이 표를 지정하지 않습니다/);
   assert.doesNotMatch(html, /<details[^>]*\sopen/);
   assert.ok(html.indexOf('SOURCE PROCEDURE') > html.indexOf('<summary>'));
   assert.ok(html.indexOf('APP POLICY') < html.lastIndexOf('</details>'));

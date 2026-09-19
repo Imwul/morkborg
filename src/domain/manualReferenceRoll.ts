@@ -87,11 +87,13 @@ export function readingFromOracleRolls(
     sourceRefs: refsForOracle(oracle, registry),
     relatedIds: [
       ...new Set(
-        rolls.flatMap((r) => oracleFollowUpLinks(r.metadata).relatedIds ?? []),
+        rolls.flatMap(
+          (r) => oracleFollowUpLinks(r.metadata, r.oracleId).relatedIds ?? [],
+        ),
       ),
     ],
     fixedLookups: rolls.flatMap(
-      (r) => oracleFollowUpLinks(r.metadata).fixedLookups ?? [],
+      (r) => oracleFollowUpLinks(r.metadata, r.oracleId).fixedLookups ?? [],
     ),
   };
 }

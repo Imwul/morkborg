@@ -22,7 +22,11 @@ export function referenceAction(entry: ReferenceEntry) {
     )
       return { label: 'OPEN', immediate: false } as const;
     return {
-      label: ['workbench.npc', 'workbench.epk'].includes(action.procedureId)
+      label: [
+        'workbench.npc',
+        'workbench.epk',
+        'sd.dungeon-preparation',
+      ].includes(action.procedureId)
         ? 'GENERATE'
         : 'RUN',
       immediate: true,

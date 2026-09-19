@@ -30,6 +30,7 @@ export function referenceEntryFormula(
   entry: ReferenceEntry,
   registry: OracleRegistry,
 ) {
+  if (entry.id === 'procedure:sd.dungeon-preparation') return ''; // Each independent field displays its own source dice on the preparation sheet.
   if (entry.id === 'procedure:depths.encounter-level')
     return 'd20 ≤ Encounter Level';
   if (entry.id === 'rule:sd.leaving-road')
@@ -63,6 +64,8 @@ export function referenceEntryFormula(
 }
 export function referenceEntryDescription(entry: ReferenceEntry) {
   const descriptions: Record<string, string> = {
+    'procedure:sd.dungeon-preparation':
+      'SD의 던전 준비 양식. 필요한 항목만 독립적으로 굴립니다.',
     'oracle:core.reaction': '상대의 반응이 불분명할 때',
     'oracle:core.weather': '오늘의 날씨',
     'oracle:core.corpsePlundering': '시체에서 발견하는 물건',

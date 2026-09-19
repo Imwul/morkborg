@@ -1,3 +1,6 @@
+import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
+import { DungeonPreparation } from './DungeonPreparation';
+import { InlineSourceSubtable } from './InlineSourceSubtable';
 import {
   ReferenceDice,
   RoadSituationRoller,
@@ -198,6 +201,7 @@ export function ReferenceProvider({
     [stockKind, setStockKind] = useState<'common' | 'rare' | 'room'>('common'),
     [stockDR, setStockDR] = useState(10);
   const inspectorRef = useRef<HTMLDivElement>(null);
+  const pendingPhysicalRow = useRef<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (searchOpen) searchInputRef.current?.focus();
@@ -256,6 +260,18 @@ export function ReferenceProvider({
       : selectedId
         ? readings[selectedId]
         : undefined;
+  useEffect(() => {
+    if (pendingPhysicalRow.current !== selectedId) return;
+    pendingPhysicalRow.current = null;
+    const frame = requestAnimationFrame(() => {
+      inspectorRef.current
+        ?.querySelector(
+          '.reference-static-table .reference-table-section > table > tbody > tr.current-table-result',
+        )
+        ?.scrollIntoView({ block: 'center', behavior: 'instant' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [session.sequence, selectedId]);
   function savePrefs(next: typeof prefs) {
     setPrefs(next);
     try {
@@ -273,6 +289,8 @@ export function ReferenceProvider({
     rolled = true,
     parameters?: ExecutionParameters,
   ) {
+    if (result.rollMethod?.kind === 'USER_ROLL')
+      pendingPhysicalRow.current = entryId;
     setSession((state) =>
       retainReferenceReading(state, entryId, result, false),
     );
@@ -887,15 +905,29 @@ export function ReferenceProvider({
             onReading={(value) => acceptReading(selected.id, value)}
           />
         )}
-        {roller && !reading && selected.kind !== 'oracle' && (
-          <Button
-            className="reference-roll"
-            disabled={!selected.available}
-            onClick={() => perform(selected)}
-          >
-            <Dices size={20} />
-            {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
-          </Button>
+        {roller &&
+          (!reading ||
+            (procedureId === 'sd.dungeon-preparation' &&
+              !reading.blocks.some((block) => block.text))) &&
+          selected.kind !== 'oracle' && (
+            <Button
+              className="reference-roll"
+              disabled={!selected.available}
+              onClick={() => perform(selected)}
+            >
+              <Dices size={20} />
+              {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
+            </Button>
+          )}
+        {procedureId === 'sd.dungeon-preparation' && (
+          <DungeonPreparation
+            reading={reading}
+            registry={oracles.registry}
+            onChange={(value, rolled) =>
+              acceptReading(selected.id, value, rolled)
+            }
+            onOpen={(id) => activate(id)}
+          />
         )}
         {failure && (
           <p role="alert" className="error">
@@ -919,7 +951,10 @@ export function ReferenceProvider({
                 </h3>
               )}
             <div className="reference-reading-items">
-              {reading.blocks.map((block, n) => {
+              {(procedureId === 'sd.dungeon-preparation'
+                ? []
+                : reading.blocks
+              ).map((block, n) => {
                 const source = reading.oracle?.rolls.find(
                   (row) =>
                     block.text === row.text ||
@@ -1081,13 +1116,57 @@ export function ReferenceProvider({
               <ReferenceNextSteps ids={reading.relatedIds} />
             )}
             <ReferenceNextSteps ids={selected.definition?.nextReferenceIds} />
-            {reading.oracle?.rolls
-              .filter((roll) =>
-                Array.isArray(roll.metadata?.followUpReferenceIds),
-              )
-              .map((roll, n) => (
-                <ReferenceNextSteps key={n} metadata={roll.metadata} />
-              ))}
+            {procedureId !== 'sd.dungeon-preparation' &&
+              reading.oracle?.rolls.map((roll, n) => {
+                const table = oracles.registry.tables.find(
+                  (table) => table.id === roll.oracleId,
+                );
+                const entry = table?.entries.find(
+                  (entry) => entry.id === roll.entryId,
+                );
+                return (
+                  <div key={n}>
+                    <ReferenceNextSteps
+                      metadata={roll.metadata}
+                      tableId={roll.oracleId}
+                    />
+                    {table &&
+                      entry &&
+                      (selected.kind === 'oracle' ? (
+                        inlineSourceSubtable(table, entry) && (
+                          <button
+                            className="reference-inline-link"
+                            onClick={() => {
+                              const row = inspectorRef.current?.querySelector(
+                                `.reference-static-table [data-table-id="${CSS.escape(table.id)}"] > table > tbody > [data-entry-id="${CSS.escape(entry.id)}"]`,
+                              );
+                              const details =
+                                row?.querySelector<HTMLDetailsElement>(
+                                  '.table-followup',
+                                );
+                              if (details) {
+                                details.open = true;
+                                details.scrollIntoView({
+                                  block: 'center',
+                                  behavior: 'instant',
+                                });
+                              }
+                            }}
+                          >
+                            조건부 추가 표 보기 ·{' '}
+                            {inlineSourceSubtable(table, entry)!.dice} ↗
+                          </button>
+                        )
+                      ) : (
+                        <InlineSourceSubtable
+                          key={`${reading.oracle!.id}:${entry.id}`}
+                          table={table}
+                          entry={entry}
+                        />
+                      ))}
+                  </div>
+                );
+              })}
             {roller && (
               <PartialRollControls
                 entry={selected}
@@ -1231,23 +1310,24 @@ export function ReferenceProvider({
             ))}
         </div>
       )}
-      {procedureParts.length > 0 && (
-        <section
-          className="reference-procedure-parts"
-          aria-label="절차의 독립 구성 표"
-        >
-          <h3>함께 쓰는 표</h3>
-          {procedureParts.map(({ table, entry }) => (
-            <div key={table.id}>
-              <span>
-                {table.title} <code>{table.originalDice ?? table.dice}</code>
-              </span>
-              <button onClick={() => activate(entry.id)}>표 보기</button>
-              <button onClick={() => activate(entry.id, true)}>굴리기</button>
-            </div>
-          ))}
-        </section>
-      )}
+      {procedureParts.length > 0 &&
+        procedureId !== 'sd.dungeon-preparation' && (
+          <section
+            className="reference-procedure-parts"
+            aria-label="절차의 독립 구성 표"
+          >
+            <h3>함께 쓰는 표</h3>
+            {procedureParts.map(({ table, entry }) => (
+              <div key={table.id}>
+                <span>
+                  {table.title} <code>{table.originalDice ?? table.dice}</code>
+                </span>
+                <button onClick={() => activate(entry.id)}>표 보기</button>
+                <button onClick={() => activate(entry.id, true)}>굴리기</button>
+              </div>
+            ))}
+          </section>
+        )}
       {selected.id === 'rule:core.reaction-morale' && (
         <ReferenceDice
           key={selected.id}
@@ -1446,7 +1526,7 @@ export function ReferenceProvider({
                       ],
                       sourceRefs: refsForOracle(result, oracles.registry),
                       oracle: result,
-                      ...oracleFollowUpLinks(value.metadata),
+                      ...oracleFollowUpLinks(value.metadata, table.id),
                     },
                     false,
                   );

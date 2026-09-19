@@ -8,8 +8,8 @@ export const REFERENCE_SEARCH_ALIASES: Record<
     en: ['Animal Tracks', 'Tracks', 'Broken Road'],
   },
   'oracle:core.weather': {
-    ko: ['날씨', '오늘 날씨', '오늘의 날씨', '비가 오나'],
-    en: ['weather', 'today weather'],
+    ko: ['날씨', '오늘 날씨', '오늘의 날씨', '비가 오나', '비', '폭풍', '기상'],
+    en: ['weather', 'today weather', 'rain', 'storm'],
   },
   'oracle:feretory.roadType': {
     ko: ['길 상태', '도로 상태', '길의 상태', '망가진 도로 상태'],
@@ -160,8 +160,9 @@ export const REFERENCE_SEARCH_ALIASES: Record<
       '얘가 우리를 공격하려나',
       '상대의 태도',
       '적대적인가',
+      '우호적',
     ],
-    en: ['reaction', 'NPC reaction'],
+    en: ['reaction', 'NPC reaction', 'attitude', 'how do they react'],
   },
   'oracle:core.corpsePlundering': {
     ko: [
@@ -171,8 +172,9 @@ export const REFERENCE_SEARCH_ALIASES: Record<
       '시체 뒤져본다',
       '시체를 뒤진다',
       '시체 전리품',
+      '시체 수색',
     ],
-    en: ['corpse', 'corpse loot'],
+    en: ['corpse', 'corpse loot', 'search body', 'search a corpse'],
   },
   'oracle:core.treasures': { ko: ['보물', '전리품'], en: ['treasure', 'loot'] },
   'rule:core.omens': {

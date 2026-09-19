@@ -2,6 +2,8 @@
 
 Verified 2026-09-05 against the supplied **Solitary Defilement Rules.pdf** (SD), **Solitary Depths Compressed.pdf** (DEP), **Mörk_Borg_English.pdf** (MB-F), and the installed canonical rules registry. PDF page numbers below are one-based physical pages; printed pages are separately identified. These notes summarize the sources without replacing their complete rules.
 
+Rechecked 2026-09-20 for the functional pass. The supplied SD PDF was reopened directly (SHA-256 `c0ddd13cd79fa975e4a2e1bf0284924b28e033408feb55853d3b06f40126722e`). The active desk presents these procedures as independent references; descriptions of source play order below are not interface prerequisites or saved progression.
+
 ## Preparation and exploration are separate
 
 SD printed pp. 7, 17 / PDF pp. 9, 19 defines four prepared **Special Rooms**, plus generic rooms encountered during exploration. The four prepared rooms begin undiscovered. The fourth discovery marks the dungeon climax; preparation must not count as discovery.
@@ -16,7 +18,7 @@ For each new room, roll two d20, adding the number of Special Rooms already disc
 
 SD printed p. 17 / PDF p. 19 also prepares two dungeon encounter tables: six Common and six Rare entries, selected by d6 during play. Their preparation and subsequent selection are different operations.
 
-An entrance → crawl → outcome resolution → room resolution → next-room prompt is an application workflow implementing this order. The prompt itself is interface design, not quoted source text. An unresolved transition must survive reload without secretly rerolling or advancing.
+The earlier application's entrance → crawl → outcome resolution → next-room prompt was interface policy, not quoted source text. That runner is no longer the Reference Desk model. A reader may inspect or roll any reference directly, supplying the discovered-room count when relevant. The desk does not create, resolve or advance an exploration state.
 
 ## Canonical references and page mapping
 
@@ -81,6 +83,26 @@ SD printed pp. 10–11 / PDF pp. 12–13 contains building, material, sound and 
 
 ## DNGNGEN comparison
 
-The official [DNGNGEN](https://dngngen.makedatanotlore.dev/) implementation was inspected through its public JavaScript and [source map](https://dngngen.makedatanotlore.dev/static/js/main.76dfbfd0.chunk.js.map). Its room generator creates four rooms with two curated details each: A+B, A+C, B+D, then A/B+C/D. Results used in other rooms are excluded when selecting details.
+The official [DNGNGEN](https://dngngen.makedatanotlore.dev/) implementation was inspected through its public JavaScript and [source map](https://dngngen.makedatanotlore.dev/static/js/main.76dfbfd0.chunk.js.map). On 2026-09-20 the live HTML still served `main.76dfbfd0.chunk.js`; its source map was byte-identical to the previously inspected local copy (SHA-256 `b2805f31a42624d767c2fc5a7441b8bd271b1d7afbea05ea41e2f39f16f84d24`). Its room generator creates four rooms with two curated details each: A+B, A+C, B+D, then AB+CD, where AB and CD concatenate those two source pools. Results used in other rooms are excluded when selecting details.
 
-The original independently generates dungeon name and other features. It does not weight room details by region or dungeon name. Four distinct anchors with meaningful canonical details are source-supported inspiration; interpreting those details through this application's saved name, region, inhabitants and imminent danger is application-authored connective material and must be identified accordingly. Do not attribute invented statistics or connective prose to the PDFs or DNGNGEN.
+Those pools contain A39/B39/C34/D34 entries, 146 total. They are **not** the Core book's 24 Sample Rooms cells. DNGNGEN additionally has separate pools for reasons (29), entrances (25), guards (25), dangers (22), inhabitants (29), distinctive features (20), and status (12 selectable positions, including repeated active-status entries). Variable values are generated within some selected entries. The original independently generates dungeon name and other features. It does not weight room details by region or dungeon name. Its feature reroll excludes the previous feature ID. These details describe DNGNGEN, not Core dice odds, and must not be imposed on the canonical Core tables.
+
+SD printed p.7 / PDF9 explicitly allows DNGNGEN rooms **or Core Bedeviled Dungeons (full edition p.93)** as Special Rooms, and also allows the SD Room Descriptor alternative. Thus using one Core Sample Rooms result per slot is a valid choice among SD's alternatives; it is not a verbatim DNGNGEN reconstruction. Earlier notes that only mentioned SD's DNGNGEN suggestion omitted this explicit Core alternative. The specific decision to use Core by default remains an app choice, not a mandatory SD recipe.
+
+## Reference-first preparation stat block
+
+The new `domain/dungeonReferencePreparation.ts` helper reads existing canonical tables and produces the existing `ReferenceReading` structure. It has no campaign, region, migration, save, or exploration-state input. Opening the empty reading performs no roll. Its fields match SD printed p.17 / PDF19:
+
+| SD field                     | Desk source or handling                                                                                              |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Dungeon name                 | Core's printed two d12 title columns, including its printed prefix; one atomic name action.                          |
+| Status                       | Core d6 root table. Its conditional reason remains optional.                                                         |
+| Imminent danger              | Core d10 root table. Its conditional flood result remains optional.                                                  |
+| Who or what dwells here now? | Core inhabitants d12.                                                                                                |
+| What brings you here?        | Always visible, handwritten. No installed source pool is falsely labelled as DNGNGEN's reasons.                      |
+| Entrance                     | Existing RECLVSE d20, explicitly an app source choice rather than DNGNGEN's pool.                                    |
+| Guarded by                   | Always visible, handwritten. No guard is inferred from inhabitants.                                                  |
+| Distinctive feature          | Core d12.                                                                                                            |
+| Special Room 1–4             | Four independent Core d4 × d6 selections. Repeats are valid. Each printed child table remains separately accessible. |
+
+An explicit full-sheet roll prepares the ten rollable fields; it does not roll manual fields or follow conditional child tables. An explicit field reroll changes only that field and its provenance. A full reroll can preserve previously handwritten reason and guard text. Every generated roll keeps its canonical table ID, entry ID, original dice values, translation metadata, source pages, and optional child metadata. No DNGNGEN text pools or new canonical tables are copied into the application. The original DNGNGEN link remains available for readers who want that site's expanded generation.

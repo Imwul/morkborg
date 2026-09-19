@@ -178,7 +178,7 @@ export function useReferenceConvenience({
   ) {
     const params =
         override ?? parameters({ region: referenceRegion(entry, context) }),
-      opts = { ...options, ...params };
+      opts = { ...options, ...params, currentReading: readings[entry.id] };
     const current = readings[entry.id],
       holds = held[entry.id] ?? [];
     const output =
@@ -231,7 +231,7 @@ export function useReferenceConvenience({
       if (output.rareMonster) onDeck(output.rareMonster.remaining);
       setHeld((p) => ({ ...p, [entry.id]: [] }));
       accept(entry.id, output, true, parameters());
-      setManualId(null);
+      // Keep the existing physical input ready for another lookup.
       remember({
         kind: 'reference',
         id: entry.id,

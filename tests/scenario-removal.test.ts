@@ -41,7 +41,20 @@ test('all 28 scenario tables and their combined roll disappear from every active
   const index = buildReferenceRegistry(registry, fixture.library);
   assert.equal(SCENARIO_TABLE_IDS.length, 28);
   assert.equal(registry.tables.length, 546);
-  assert.equal(index.entries.length, 1000);
+  assert.equal(index.entries.length, 1001);
+  const preparation = index.entries.filter(
+    (entry) => entry.id === 'procedure:sd.dungeon-preparation',
+  );
+  assert.equal(preparation.length, 1);
+  assert.equal(preparation[0].kind, 'procedure');
+  assert.deepEqual(preparation[0].action, {
+    kind: 'procedure',
+    procedureId: 'sd.dungeon-preparation',
+  });
+  assert.equal(
+    index.entries.filter((entry) => entry.id !== preparation[0].id).length,
+    1000,
+  );
   for (const id of SCENARIO_TABLE_IDS) {
     assert.ok(!registry.tables.some((t) => t.id === id), id);
     assert.equal(index.byId[`oracle:${id}`], undefined, id);

@@ -28,7 +28,7 @@ export const APP_GENERATION_POLICIES: Record<string, string> = {
   'app.dungeon-dossier':
     '던전 준비 필드에 Core와 RECLVSE의 표를 배정한 앱의 구성입니다. 여러 책 전체가 하나의 필수 생성 절차라는 뜻은 아닙니다.',
   'app.core-sample-room-slots':
-    'SD의 특별방 준비 슬롯을 Core Sample Rooms 결과로 채우는 앱의 선택입니다. SD는 이 표를 지정하지 않습니다.',
+    'SD가 허용하는 준비 방법 중 Core Bedeviled Dungeons의 Sample Rooms를 사용합니다. DNGNGEN의 복합 방 생성 방식과는 다릅니다.',
   'app.region-weighting':
     '지역 태그로 기존 원문 항목의 선택 확률만 조정합니다. 원문의 기본 주사위 확률이나 지역 전용 문구라는 뜻은 아닙니다.',
   'app.structural-identifier':

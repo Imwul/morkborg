@@ -2173,3 +2173,57 @@ body,
     font-size: 10.5cqi;
   }
 }
+
+/* Existing document grammar for SD's independent preparation fields. */
+.dungeon-preparation-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  gap: 1.5rem 2rem;
+}
+.dungeon-preparation-fields > section {
+  min-width: 0;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.75rem;
+}
+.dungeon-preparation-fields header,
+.dungeon-field-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.dungeon-preparation-fields header h3 {
+  margin: 0;
+  font: inherit;
+  font-weight: 700;
+}
+.dungeon-preparation-fields header code {
+  margin-left: auto;
+}
+.dungeon-preparation-fields textarea {
+  width: 100%;
+  min-height: 5rem;
+  margin-top: 0.75rem;
+  font: inherit;
+}
+.dungeon-field-actions button,
+.dungeon-preparation-method a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.dungeon-field-note,
+.dungeon-preparation-method,
+.dungeon-field-empty {
+  color: var(--muted-ink);
+}
+.dungeon-preparation-fields .reference-result-text {
+  font-family: var(--font-blackletter);
+}
+.dungeon-preparation :is(.translation, .generated-translation),
+.dungeon-field-note,
+.dungeon-preparation-method {
+  font: 450 var(--text-secondary) / 1.5 var(--font-ui);
+}
+.dungeon-preparation-fields > section > p {
+  margin-block: 0.5rem;
+}

@@ -1,3 +1,4 @@
+import { rollDungeonPreparationReading } from './dungeonReferencePreparation';
 import type { OracleRegistry, OracleResult } from './oracle';
 import type { Monster, NPC, RegionId, SourceReference } from './types';
 import type { RulesPack } from '../storage/rulesStore';
@@ -144,6 +145,7 @@ function creatureChildren(
     .map(creatureReferenceId);
 }
 export interface ReferenceExecutionOptions {
+  currentReading?: ReferenceReading;
   rng?: RandomSource;
   registry: OracleRegistry;
   rules: RulesPack | null;
@@ -178,7 +180,8 @@ export function npcReferenceReading(npc: NPC): ReferenceReading {
     blocks: NPC_READING_FIELDS.flatMap(([key, title, titleKo]) => {
       const text = npc[key];
       if (typeof text !== 'string' || !text) return [];
-      const tableTitle = npc.fieldProvenance?.[key]?.sourceRefs?.[0]?.tableTitle;
+      const tableTitle =
+        npc.fieldProvenance?.[key]?.sourceRefs?.[0]?.tableTitle;
       return [
         {
           title: tableTitle || title,
@@ -219,6 +222,15 @@ export function executeReference(
     options;
   const action = entry.action;
   if (!action || !entry.available) return;
+  if (
+    action.kind === 'procedure' &&
+    action.procedureId === 'sd.dungeon-preparation'
+  )
+    return rollDungeonPreparationReading(
+      registry,
+      options.rng,
+      options.currentReading,
+    );
   if (
     action.kind === 'procedure' &&
     action.procedureId === 'depths.rare-monster'
@@ -449,7 +461,9 @@ export function executeReference(
       relatedIds: [
         ...new Set(
           result.rolls.flatMap(
-            (roll) => oracleFollowUpLinks(roll.metadata).relatedIds ?? [],
+            (roll) =>
+              oracleFollowUpLinks(roll.metadata, roll.oracleId).relatedIds ??
+              [],
           ),
         ),
       ],

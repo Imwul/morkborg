@@ -11,6 +11,8 @@ import { useReferenceDesk } from './ReferenceContext';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { ReferenceReadingText } from './ReferenceReadingText';
 import { Translation } from './Translation';
+import { InlineSourceSubtable } from './InlineSourceSubtable';
+import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 
 export function ReferenceTable({
   table,
@@ -27,7 +29,10 @@ export function ReferenceTable({
   const desk = useReferenceDesk();
   return (
     <section
-      className={`reference-table-section dice-${String(table.originalDice ?? table.dice ?? 'table')
+      data-table-id={table.id}
+      className={`reference-table-section dice-${String(
+        table.originalDice ?? table.dice ?? 'table',
+      )
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')}`}
@@ -87,6 +92,7 @@ export function ReferenceTable({
             return (
               <tr
                 key={entry.id}
+                data-entry-id={entry.id}
                 className={
                   currentEntryIds.includes(entry.id)
                     ? 'current-table-result'
@@ -134,7 +140,9 @@ export function ReferenceTable({
                       </>
                     )
                   ) : (
-                    <span className="table-dice-number">{tableSelector(entry)}</span>
+                    <span className="table-dice-number">
+                      {tableSelector(entry)}
+                    </span>
                   )}
                 </th>
                 {exits && columns ? (
@@ -183,7 +191,13 @@ export function ReferenceTable({
                           ))}
                       </details>
                     )}
-                    {Array.isArray(entry.metadata?.followup) && (
+                    {inlineSourceSubtable(table, entry) ? (
+                      <InlineSourceSubtable
+                        key={entry.id}
+                        table={table}
+                        entry={entry}
+                      />
+                    ) : Array.isArray(entry.metadata?.followup) ? (
                       <details className="table-followup">
                         <summary>조건부 추가 표</summary>
                         <ul>
@@ -204,8 +218,11 @@ export function ReferenceTable({
                           )}
                         </ul>
                       </details>
-                    )}
-                    <ReferenceNextSteps metadata={entry.metadata} />
+                    ) : null}
+                    <ReferenceNextSteps
+                      metadata={entry.metadata}
+                      tableId={table.id}
+                    />
                     {canSelectTableEntry(table, entry) && (
                       <button
                         className="ref-text-action table-use-entry"

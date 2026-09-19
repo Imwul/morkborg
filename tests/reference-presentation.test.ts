@@ -55,9 +55,21 @@ test('compact table presentation retains every source row, accessible title and 
       full,
       dice,
     );
-    assert.equal(
-      (compact.match(/<tr(?:\s|>)/g) ?? []).length,
-      table.entries.length,
+    // Optional inline child tables have their own rows. Verify every original
+    // parent row, in order, using the same identity used for physical lookup.
+    const sourceRows = [
+      ...compact.matchAll(/<tr\b[^>]*data-entry-id="([^"]+)"[^>]*>/g),
+    ];
+    assert.deepEqual(
+      sourceRows.map((row) => row[1]),
+      table.entries.map((entry) => entry.id),
+      dice,
+    );
+    assert.deepEqual(
+      sourceRows
+        .filter((row) => row[0].includes('class="current-table-result"'))
+        .map((row) => row[1]),
+      [selected.id],
       dice,
     );
     assert.equal(

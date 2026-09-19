@@ -392,7 +392,27 @@ export function buildReferenceRegistry(
 ): ReferenceRegistry {
   const entries: ReferenceEntry[] = [],
     byId: Record<string, ReferenceEntry> = {};
+  // Index supplied, exact title translations only. The display helper's word-by-word
+  // fallback is intentionally excluded: it is not a reliable translated title.
+  const translations = rules?.notes.translations;
+  const exactTitleTranslation = (title: string): string | undefined => {
+    if (
+      !translations ||
+      typeof translations !== 'object' ||
+      Array.isArray(translations)
+    )
+      return undefined;
+    const value = (translations as Record<string, unknown>)[title];
+    return typeof value === 'string' &&
+      /[가-힣]/u.test(value) &&
+      value.trim() !== title.trim()
+      ? value.trim()
+      : undefined;
+  };
   const add = (entry: ReferenceEntry) => {
+    const titleKo =
+      entry.titleTranslationKo ?? exactTitleTranslation(entry.title);
+    if (titleKo) entry = { ...entry, titleTranslationKo: titleKo };
     if (!byId[entry.id]) {
       entries.push(entry);
       byId[entry.id] = entry;
@@ -601,6 +621,10 @@ export function buildReferenceRegistry(
       summary: definition.blocks
         .map((b) => [b.title, b.text].filter(Boolean).join('\n'))
         .join('\n\n'),
+      summaryTranslationKo: definition.blocks
+        .flatMap((block) => [block.translation?.titleKo, block.translation?.ko])
+        .filter(Boolean)
+        .join('\n'),
       keywords: [
         definition.kind,
         ...(definition.kind === 'Power'
@@ -712,6 +736,13 @@ export function buildReferenceRegistry(
         eligibleCreature(record) || record.specialRuleOnly || record.variantOnly
           ? '제공된 책의 고정 능력치입니다. 생물의 원문 이름과 특수 규칙을 그대로 확인합니다.'
           : 'SOURCE UNAVAILABLE · 확인된 생물의 이름과 설명만 제공합니다. 별도 능력치는 원문에 없습니다.',
+      searchAliases:
+        record.ko &&
+        typeof record.ko === 'object' &&
+        !Array.isArray(record.ko) &&
+        typeof (record.ko as Record<string, unknown>).name === 'string'
+          ? { ko: [(record.ko as Record<string, string>).name], en: [] }
+          : undefined,
       keywords: unique([
         name,
         concept,
@@ -868,6 +899,69 @@ export function buildReferenceRegistry(
       action: available ? { kind: 'procedure', procedureId: tool.id } : null,
     });
   }
+  const dungeonPreparationIds = [
+    'core.titleA',
+    'core.titleB',
+    'core.status',
+    'core.danger',
+    'core.inhabitants',
+    'core.feature',
+    'core.rooms',
+    'reclvse.dungeonEntrance',
+  ];
+  const dungeonPreparationSources: SourceReference[] = [
+    {
+      bookId: 'sd',
+      bookTitle: oracles.books.find((book) => book.id === 'sd')?.title,
+      tableTitle: 'Dungeon Crawling',
+      pdfPage: 9,
+      printedPage: 7,
+      role: 'routing',
+      status: 'VERIFIED',
+    },
+    {
+      bookId: 'sd',
+      bookTitle: oracles.books.find((book) => book.id === 'sd')?.title,
+      tableTitle: 'Dungeon Preparation',
+      pdfPage: 19,
+      printedPage: 17,
+      role: 'routing',
+      status: 'VERIFIED',
+    },
+    ...dungeonPreparationIds.flatMap(
+      (id) => byId[`oracle:${id}`]?.sourceRefs ?? [],
+    ),
+  ];
+  const dungeonPreparationAvailable = dungeonPreparationIds.every(
+    (id) => byId[`oracle:${id}`]?.available,
+  );
+  add({
+    ...defaultEntry(
+      'procedure:sd.dungeon-preparation',
+      'procedure',
+      'Dungeon Preparation · 던전 준비',
+    ),
+    summary:
+      'Sölitary Defilement의 던전 준비 항목을 펼칩니다. 이름·상태·위험·주민·특징·입구와 특수방 네 칸을 준비합니다. 이 도구는 특수방에 Core Sample Rooms 방식을 사용하며, RECLVSE의 입구 표를 함께 참조합니다.',
+    keywords: ['dungeon', 'preparation', '던전', '준비'],
+    contexts: ['dungeon', 'room'],
+    canonicalIds: dungeonPreparationIds,
+    sourceRefs: dungeonPreparationSources,
+    sourceChain: dungeonPreparationSources.map((source) => ({
+      label: source.tableTitle ?? '',
+      source,
+      role: source.role ?? 'primary',
+    })),
+    relatedIds: [
+      'rule:sd.dungeonCrawling',
+      ...dungeonPreparationIds.map((id) => `oracle:${id}`),
+      'oracle:sd.room.exits',
+    ],
+    available: dungeonPreparationAvailable,
+    action: dungeonPreparationAvailable
+      ? { kind: 'procedure', procedureId: 'sd.dungeon-preparation' }
+      : null,
+  });
   const cityTables = oracles.tables.filter(
     (t) => t.sourceBookId === 'aitc' || t.id.startsWith('aitc.'),
   );
@@ -1071,8 +1165,12 @@ export function buildReferenceRegistry(
           )
           .map((e) => e.id),
       );
-    entry.searchAliases =
-      REFERENCE_SEARCH_ALIASES[entry.id] ?? entry.searchAliases;
+    const curatedAliases = REFERENCE_SEARCH_ALIASES[entry.id];
+    if (curatedAliases)
+      entry.searchAliases = {
+        ko: unique([...(entry.searchAliases?.ko ?? []), ...curatedAliases.ko]),
+        en: unique([...(entry.searchAliases?.en ?? []), ...curatedAliases.en]),
+      };
     if (entry.id === 'rule:core.omens' || entry.id === 'rule:sd.solo-variant')
       entry.relatedIds.unshift('rule:sd.omens');
     if (entry.id === 'rule:core.casting' || entry.id === 'rule:sd.solo-variant')
@@ -1166,6 +1264,13 @@ const aliases: Record<string, string> = {
   cities: 'city',
   규칙: 'rule',
   오라클: 'oracle',
+  표: 'oracle',
+  table: 'oracle',
+  tables: 'oracle',
+  절차: 'procedure',
+  생성기: 'procedure',
+  책: 'book',
+  생물: 'monster',
   지역: 'region',
   사르카쉬: 'sarkash',
 };
@@ -1241,6 +1346,8 @@ export function searchReferences(
         !!phrase &&
         navigationAliases.some((alias) => tokens(alias).join(' ') === phrase);
       const title = tokens(entry.title),
+        translatedTitle = tokens(entry.titleTranslationKo ?? ''),
+        aliasTerms = unique(navigationAliases.flatMap(tokens)),
         meta = tokens(
           [
             entry.id,
@@ -1280,11 +1387,18 @@ export function searchReferences(
           ].includes(term),
       );
       const titlePhrase = titleTerms.join(' ');
+      const titleForms = [title.join(' '), translatedTitle.join(' ')];
       const titlePrefix =
-        !!titlePhrase && title.join(' ').startsWith(titlePhrase);
+        !!titlePhrase &&
+        titleForms.some((value) => value.startsWith(titlePhrase));
+      const aliasCoverage =
+        !!titleTerms.length &&
+        titleTerms.every((term) =>
+          aliasTerms.some((word) => word.startsWith(term)),
+        );
       const score =
         (titlePrefix ? 32 : 0) +
-        (titlePhrase && title.join(' ') === titlePhrase ? 20 : 0) +
+        (titlePhrase && titleForms.includes(titlePhrase) ? 20 : 0) +
         (entry.kind === 'book' &&
         terms.length > 0 &&
         terms.every((term) => title.includes(term))
@@ -1296,18 +1410,30 @@ export function searchReferences(
           ? 150
           : 0) +
         (exactAlias ? 220 : 0) +
+        // An observed play concept is stronger than an incidental rule/source mention.
+        // Keep exact named source titles and established canonical intents above it.
+        (aliasCoverage && !exactAlias ? 80 : 0) +
         terms.reduce(
           (n, term) =>
-            n + (title.some((word) => word.startsWith(term)) ? 12 : 4),
+            n +
+            ([...title, ...translatedTitle].some((word) =>
+              word.startsWith(term),
+            )
+              ? 12
+              : aliasTerms.some((word) => word.startsWith(term))
+                ? 8
+                : 4),
           0,
         ) +
         (phrase &&
-        (title.join(' ') === phrase ||
+        (titleForms.includes(phrase) ||
           (entry.kind === 'creature' &&
             tokens(entry.title.split('·')[0]).join(' ') === phrase))
           ? 40
           : 0) +
-        (entry.id === preferredId && entry.available && entry.action ? 150 : 0) +
+        (entry.id === preferredId && entry.available && entry.action
+          ? 150
+          : 0) +
         (entry.available ? 5 : 0) +
         (entry.action ? 3 : 0) +
         (entry.action?.kind === 'regional-monster' ? 5 : 0) +

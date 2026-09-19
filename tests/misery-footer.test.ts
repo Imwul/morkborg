@@ -55,7 +55,20 @@ test('source fixture, import, repaired legacy pack, registry and rendering retai
   const index = buildReferenceRegistry(registry, getRules());
   const table = registry.tables.find((t) => t.id === source.id)!;
   assert.equal(registry.tables.filter((t) => t.id === source.id).length, 1);
-  assert.equal(index.entries.length, 1000);
+  assert.equal(index.entries.length, 1001);
+  const preparation = index.entries.filter(
+    (entry) => entry.id === 'procedure:sd.dungeon-preparation',
+  );
+  assert.equal(preparation.length, 1);
+  assert.equal(preparation[0].kind, 'procedure');
+  assert.deepEqual(preparation[0].action, {
+    kind: 'procedure',
+    procedureId: 'sd.dungeon-preparation',
+  });
+  assert.equal(
+    index.entries.filter((entry) => entry.id !== preparation[0].id).length,
+    1000,
+  );
   assert.equal(registry.tables.length, 546);
   assert.deepEqual(index.byId['oracle:core.miseries'].action, {
     kind: 'oracle',

@@ -100,9 +100,11 @@ export function DeskLanding({
               <span>The Monster Approaches · Eat Prey Kill</span>
               <span aria-hidden="true">↗</span>
             </button>
-            <button onClick={() => openGenerator('dungeons')}>
+            <button
+              onClick={() => desk?.activate('procedure:sd.dungeon-preparation')}
+            >
               <strong>던전</strong>
-              <span>던전 후보 · 방 · 세부 항목</span>
+              <span>SD 준비 · 특별한 방 4개</span>
               <span aria-hidden="true">↗</span>
             </button>
           </div>

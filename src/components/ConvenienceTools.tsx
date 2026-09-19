@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Lock, LockOpen, RotateCcw, Plus } from 'lucide-react';
 import { id, now } from '../generators/random';
 import type { OracleRegistry } from '../domain/oracle';
@@ -43,13 +43,20 @@ export function PhysicalRollInput({
   registry: OracleRegistry;
   tools: ReferenceConvenience;
 }) {
+  const inputRegion = useRef<HTMLDetailsElement>(null);
+  const expanded = tools.manualId === entry.id;
+  useEffect(() => {
+    if (!expanded) return;
+    const input = inputRegion.current?.querySelector('input');
+    input?.focus({ preventScroll: true });
+    input?.select();
+  }, [expanded]);
   const tables = independentTables(entry, registry),
     cards =
       entry.action?.kind === 'procedure' &&
       entry.action.procedureId === 'depths.rare-monster';
   if (!tables.length && !cards) return null;
-  const expanded = tools.manualId === entry.id,
-    values = tools.manualInputs[entry.id] ?? {};
+  const values = tools.manualInputs[entry.id] ?? {};
   const update = (key: string, value: string) =>
     tools.setManualInputs((p) => ({
       ...p,
@@ -58,6 +65,7 @@ export function PhysicalRollInput({
   return (
     <details
       className="physical-roll-input"
+      ref={inputRegion}
       open={expanded}
       onToggle={(e) => {
         if (e.currentTarget.open !== expanded)
