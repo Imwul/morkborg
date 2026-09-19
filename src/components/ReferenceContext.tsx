@@ -5,6 +5,11 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  inlineChildren?: import('../domain/inlineReadingContinuity').InlineChildResults;
+  onInlineChild?: (
+    parent: import('../domain/oracle').OracleRoll,
+    child: import('../domain/oracle').OracleRoll,
+  ) => void;
   relationships?: import('../domain/referenceRelationships').ReferenceRelationshipIndex;
   openLookup?: (lookup: { oracleId: string; roll: number }) => void;
   selectedId?: string | null;

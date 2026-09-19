@@ -2,6 +2,11 @@ import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
 import {
+  createInlineChildResults,
+  retainInlineChild,
+  copyReadingWithInlineChildren,
+} from '../domain/inlineReadingContinuity';
+import {
   ReferenceDice,
   RoadSituationRoller,
   DungeonReferenceRoller,
@@ -116,7 +121,6 @@ import {
 } from '../storage/referencePreferences';
 import { selectOracleEntry, sourceLabel } from '../generators/oracleRoller';
 import {
-  copyReferenceReading,
   oracleReadingText,
   oracleFollowUpLinks,
   type ReferenceReading,
@@ -194,6 +198,8 @@ export function ReferenceProvider({
   >({});
   const restoreScroll = useRef<number | null>(null);
   const [session, setSession] = useState(emptyReferenceSession);
+  const [inlineChildren] = useState(createInlineChildResults);
+  const [, refreshInlineChildren] = useState(0);
   const readings = session.readings;
   const [searchOpen, setSearchOpen] = useState(false),
     [query, setQuery] = useState(''),
@@ -654,7 +660,11 @@ export function ReferenceProvider({
     );
   async function copyReading(withSource = false) {
     if (!reading) return;
-    const text = copyReferenceReading(reading, withSource);
+    const text = copyReadingWithInlineChildren(
+      reading,
+      inlineChildren,
+      withSource,
+    );
     try {
       await navigator.clipboard.writeText(text);
       setCopied(
@@ -1231,6 +1241,8 @@ export function ReferenceProvider({
                           key={`${reading.oracle!.id}:${entry.id}`}
                           table={table}
                           entry={entry}
+                          parentRoll={roll}
+                          parentContext={roll}
                         />
                       ))}
                   </div>
@@ -1608,6 +1620,11 @@ export function ReferenceProvider({
         setScope,
         trayIds: convenience.temporary.tray,
         readings,
+        inlineChildren,
+        onInlineChild: (parent, child) => {
+          if (retainInlineChild(inlineChildren, parent, child))
+            refreshInlineChildren((revision) => revision + 1);
+        },
         perform: (id) => {
           const entry = index.byId[id];
           if (entry) perform(entry);

@@ -203,6 +203,11 @@ export function ReferenceTable({
                         table={table}
                         entry={entry}
                         parentContext={parentResult}
+                        parentRoll={parentResult?.rolls.find(
+                          (roll) =>
+                            roll.oracleId === table.id &&
+                            roll.entryId === entry.id,
+                        )}
                       />
                     ) : Array.isArray(entry.metadata?.followup) ? (
                       <details className="table-followup">

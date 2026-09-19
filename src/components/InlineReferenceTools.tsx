@@ -14,6 +14,7 @@ import type { RegionId } from '../domain/types';
 import { SourceDisclosure } from './SourceDisclosure';
 import { useReferenceDesk } from './ReferenceContext';
 import { fixedReferenceReading } from '../domain/referenceFixedLookup';
+import { copyReadingWithInlineChildren } from '../domain/inlineReadingContinuity';
 import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
@@ -59,7 +60,9 @@ export function ReferenceReadingBlock({
     }
   }
   async function copy(withSource = false) {
-    const text = copyReferenceReading(reading, withSource);
+    const text = desk?.inlineChildren
+      ? copyReadingWithInlineChildren(reading, desk.inlineChildren, withSource)
+      : copyReferenceReading(reading, withSource);
     try {
       await navigator.clipboard.writeText(text);
       setCopyState('복사됨');
