@@ -1,4 +1,4 @@
-import { Translation } from './Translation';
+import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 import { useReferenceDesk } from './ReferenceContext';
 export function CreatureParticipants({
@@ -26,7 +26,7 @@ export function CreatureParticipants({
           .filter(Boolean)
           .map((e) => (
             <button key={e.id} onClick={() => desk!.activate(e.id, true)}>
-              {e.title} ›<Translation text={e.title} />
+              {e.title} ›<ReferenceTitleTranslation entry={e} />
             </button>
           ))}
       </div>

@@ -1,6 +1,6 @@
 import { useReferenceDesk } from './ReferenceContext';
 import { resolveRowRelationships } from '../domain/rowRelationships';
-import { Translation } from './Translation';
+import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { RelationshipLabel } from './RelationshipLabel';
 /** Only explicit source outcome relations; no narrative inference or keyword routing. */
 export function ReferenceNextSteps({
@@ -58,7 +58,7 @@ export function ReferenceNextSteps({
           <span>
             {entry.title}
             {lookupRoll == null ? '' : ` #${lookupRoll}`} ›
-            <Translation text={entry.title} />
+            <ReferenceTitleTranslation entry={entry} />
           </span>
         </button>
       ))}

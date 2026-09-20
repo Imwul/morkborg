@@ -1,3 +1,4 @@
+import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
@@ -700,10 +701,7 @@ export function ReferenceProvider({
         </details>
         <h2 id="current-reference-title">
           {referenceShortName(selected)}
-          <Translation
-            text={selected.title}
-            translation={selected.titleTranslationKo}
-          />
+          <ReferenceTitleTranslation entry={selected} />
         </h2>
         <button
           className="ref-pin"
@@ -835,10 +833,7 @@ export function ReferenceProvider({
                 <button key={entry.id} onClick={() => activate(entry.id)}>
                   <span>
                     {entry.title}
-                    <Translation
-                      text={entry.title}
-                      translation={entry.titleTranslationKo}
-                    />
+                    <ReferenceTitleTranslation entry={entry} />
                   </span>{' '}
                   <span>›</span>
                 </button>
@@ -1149,10 +1144,7 @@ export function ReferenceProvider({
                         onClick={() => activate(entry.id, true)}
                       >
                         {entry.title} ›
-                        <Translation
-                          text={entry.title}
-                          translation={entry.titleTranslationKo}
-                        />
+                        <ReferenceTitleTranslation entry={entry} />
                       </button>
                     ))}
                 </div>
@@ -1593,10 +1585,7 @@ export function ReferenceProvider({
               >
                 <RelationshipLabel kind={kind} />
                 {referenceShortName(entry)}
-                <Translation
-                  text={entry.title}
-                  translation={entry.titleTranslationKo}
-                />
+                <ReferenceTitleTranslation entry={entry} />
                 <ArrowUpRight size={12} />
               </button>
             ))}
@@ -2011,10 +2000,7 @@ export function ReadingRelatedReferences({
         >
           <span>
             {entry.title} ›
-            <Translation
-              text={entry.title}
-              translation={entry.titleTranslationKo}
-            />
+            <ReferenceTitleTranslation entry={entry} />
           </span>
         </button>
       ))}
@@ -2050,10 +2036,7 @@ export function ReferenceRow({
         <strong>
           <RelationshipLabel kind={relationshipKind} />
           {referenceShortName(entry)}
-          <Translation
-            text={entry.title}
-            translation={entry.titleTranslationKo}
-          />
+          <ReferenceTitleTranslation entry={entry} />
         </strong>
         {showMetadata && (
           <>
