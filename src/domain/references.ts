@@ -13,6 +13,10 @@ import {
 } from './referenceDefinitions';
 import { REFERENCE_SEARCH_ALIASES } from './referenceSearchAliases';
 import {
+  indexTrustedReferenceTitles,
+  trustedReferenceSearchTitle,
+} from './referenceSearchTitles';
+import {
   CITY_MOVE_DEFAULTS,
   CITY_MOVE_GUIDANCE,
   type CityMove,
@@ -1245,7 +1249,16 @@ export function buildReferenceRegistry(
         .map((id) => byId[id]?.id ?? id)
         .filter((id) => id !== entry.id && !!byId[id]),
     );
-  return { entries, byId };
+  const registry = { entries, byId };
+  indexTrustedReferenceTitles(
+    registry,
+    oracles,
+    rules,
+    new Map(
+      creatureRecords.map((record) => [creatureReferenceId(record), record]),
+    ),
+  );
+  return registry;
 }
 const aliases: Record<string, string> = {
   몬스터: 'monster',
@@ -1319,6 +1332,7 @@ export function searchReferences(
   } = {},
 ): ReferenceEntry[] {
   const terms = unique(tokens(query));
+  const exactQuery = fold(query);
   const phrase = tokens(query).join(' '),
     regionalIntent = regions.find((region) =>
       [region.id, region.name].some(
@@ -1338,6 +1352,19 @@ export function searchReferences(
         (!options.region || e.regionIds.includes(options.region)),
     )
     .map((entry) => {
+      const trustedTitle = trustedReferenceSearchTitle(registry, entry)?.text;
+      // Exact names use text normalization, not type aliases (던전 → dungeon).
+      const exactTrustedTitle =
+        !!trustedTitle && fold(trustedTitle) === exactQuery;
+      // Some displayed names also name an established gameplay intent (죽음,
+      // 방패, 회복). Preserve that explicit route while keeping the named source
+      // immediately discoverable. Partial aliases never receive this protection.
+      const exactKoreanIntent =
+        /[가-힣]/u.test(exactQuery) &&
+        (REFERENCE_SEARCH_ALIASES[entry.id]?.ko.some(
+          (alias) => fold(alias) === exactQuery,
+        ) ??
+          false);
       const navigationAliases = [
         ...(entry.searchAliases?.ko ?? []),
         ...(entry.searchAliases?.en ?? []),
@@ -1346,13 +1373,16 @@ export function searchReferences(
         !!phrase &&
         navigationAliases.some((alias) => tokens(alias).join(' ') === phrase);
       const title = tokens(entry.title),
-        translatedTitle = tokens(entry.titleTranslationKo ?? ''),
+        translatedTitle = tokens(
+          trustedTitle ?? entry.titleTranslationKo ?? '',
+        ),
         aliasTerms = unique(navigationAliases.flatMap(tokens)),
         meta = tokens(
           [
             entry.id,
             entry.kind,
             entry.titleTranslationKo ?? '',
+            trustedTitle ?? '',
             entry.summary,
             entry.summaryTranslationKo ?? '',
             ...entry.keywords,
@@ -1397,6 +1427,9 @@ export function searchReferences(
           aliasTerms.some((word) => word.startsWith(term)),
         );
       const score =
+        // A certified displayed name outranks incidental body/source text and
+        // broad aliases. Existing English title/intent scoring stays intact.
+        (exactTrustedTitle || exactKoreanIntent ? 500 : 0) +
         (titlePrefix ? 32 : 0) +
         (titlePhrase && titleForms.includes(titlePhrase) ? 20 : 0) +
         (entry.kind === 'book' &&

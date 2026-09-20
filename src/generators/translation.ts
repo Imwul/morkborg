@@ -100,6 +100,16 @@ let root: Trie = { next: new Map() },
   exact = new Map<string, string>();
 let previousRules: unknown, previousOracles: unknown;
 const normalize = (s: string) => s.normalize('NFC').replace(/\s+/g, ' ').trim();
+const exactUiNames = new Map(
+  Object.entries(vocabulary).map(([en, ko]) => [
+    normalize(en).toLocaleLowerCase(),
+    ko,
+  ]),
+);
+/** An existing whole-name mapping only; never invokes generated translation. */
+export function exactUiTranslation(text: string): string | undefined {
+  return exactUiNames.get(normalize(text).toLocaleLowerCase());
+}
 export function polishKoreanTranslation(text: string): string {
   return text.replace(
     /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Omens|Armor|Attack|Defence|Defense|Damage)\b/gi,
