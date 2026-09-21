@@ -33,7 +33,7 @@ const registry: OracleRegistry = {
     entries: [{ id: suffix, min: 1, max: 100, text: suffix }],
   })),
 };
-test('library merges only Action and Descriptor, preserving all canonical source tables', () => {
+test('library merges paired source columns while preserving all canonical source tables', () => {
   const before = structuredClone(registry);
   const cards = oracleLibraryTables(registry);
   assert.deepEqual(
@@ -57,6 +57,47 @@ test('library merges only Action and Descriptor, preserving all canonical source
     );
     assert.equal(calls, card.title === 'locations' ? 1 : 2);
   }
+});
+test('First/Second source columns collapse to one rollable library card', () => {
+  const paired: OracleRegistry = {
+    ...registry,
+    tables: [
+      ...registry.tables,
+      {
+        id: 'core.titleA',
+        title: 'What Is It Called? — First Column',
+        sourceBookId: 'core',
+        sourcePage: 71,
+        sourceVerified: true,
+        dice: 'd12',
+        category: 'NAME',
+        tags: [],
+        entries: [{ id: 'a', min: 1, max: 12, text: 'Black' }],
+      },
+      {
+        id: 'core.titleB',
+        title: 'What Is It Called? — Second Column',
+        sourceBookId: 'core',
+        sourcePage: 71,
+        sourceVerified: true,
+        dice: 'd12',
+        category: 'NAME',
+        tags: [],
+        entries: [{ id: 'b', min: 1, max: 12, text: 'Crypt' }],
+      },
+    ],
+  };
+  const cards = oracleLibraryTables(paired);
+  assert.equal(
+    cards.filter((table) => table.id === 'core.titleA' || table.id === 'core.titleB')
+      .length,
+    1,
+  );
+  assert.deepEqual(oracleLibraryRollIds('core.titleA'), [
+    'core.titleA',
+    'core.titleB',
+  ]);
+  assert.equal(oracleLibraryRollIds('core.titleB')[0], 'core.titleA');
 });
 test('legacy second-column favorites migrate to their combined library entry without duplication', () => {
   const prefs = readOraclePreferences({

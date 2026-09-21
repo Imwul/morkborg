@@ -224,6 +224,27 @@ export function buildOracleRegistry(
       title: 'Sölitary Defilement · Sound Quality + Type',
       oracleIds: ['sd.sound.quality', 'sd.sound.type'],
     },
+    {
+      id: 'character.core-classless',
+      title: 'Core · Character creation',
+      oracleIds: [
+        'core.containers',
+        'core.gearA',
+        'core.gearB',
+        'core.weapons',
+        'core.armor',
+        'core.names',
+        'core.traits',
+        'core.bodies',
+        'core.badHabits',
+        'core.troublingTales',
+      ],
+    },
+    {
+      id: 'core.dungeon-title',
+      title: 'What Is It Called?',
+      oracleIds: ['core.titleA', 'core.titleB'],
+    },
   ];
   for (const p of shared)
     if (

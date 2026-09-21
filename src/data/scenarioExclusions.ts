@@ -36,6 +36,9 @@ export const SCENARIO_TABLE_IDS = [
   'feretory.goblinGrinderHooks',
   'feretory.lickLiquid',
   'feretory.alchemyTables',
+  'feretory.threeDeadSkulls',
+  'feretory.reliquaryEyes',
+  'feretory.reliquaryTeeth',
 ] as const;
 
 export function isScenarioTable(id: string): boolean {

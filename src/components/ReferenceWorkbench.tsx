@@ -16,6 +16,7 @@ import { DungeonActionMoves } from './DungeonActionMoves';
 import { ReferenceReadingBlock } from './InlineReferenceTools';
 import {
   browseReferences,
+  isDeskClutter,
   REFERENCE_TYPES,
   REFERENCE_CONTEXTS,
   referenceEntryFormula,
@@ -2256,7 +2257,8 @@ export function ReferenceDesk({
     desk?.setScope?.('all');
     resetFilters();
   }
-  const books = index.entries.filter((e) => e.kind === 'book');
+  const visibleEntries = index.entries.filter((e) => !isDeskClutter(e));
+  const books = visibleEntries.filter((e) => e.kind === 'book');
   const showIndex =
     !!query ||
     browserOpen ||

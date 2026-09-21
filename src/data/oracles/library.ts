@@ -38,6 +38,42 @@ const tableGroups = [
     title: 'Descriptor',
     ids: ['mythic2.meaning.descriptor-1', 'mythic2.meaning.descriptor-2'],
   },
+  {
+    title: 'What Is It Called?',
+    ids: ['core.titleA', 'core.titleB'],
+  },
+  {
+    title: 'Starting Equipment d12',
+    ids: ['core.gearA', 'core.gearB'],
+  },
+  {
+    title: 'Seeds of a Cvlt — Its Name',
+    ids: ['heretic.cultName0', 'heretic.cultName1'],
+  },
+  {
+    title: 'Seeds of a Cvlt — Key Member',
+    ids: [
+      'heretic.cultKeyMember0',
+      'heretic.cultKeyMember1',
+      'heretic.cultKeyMember2',
+    ],
+  },
+  {
+    title: 'Pale One — You Call Yourself',
+    ids: ['feretory.paleNameA', 'feretory.paleNameB', 'feretory.paleNameC'],
+  },
+  {
+    title: 'Name Your God',
+    ids: [
+      'feretory.deadGodNameA',
+      'feretory.deadGodNameB',
+      'feretory.deadGodNameC',
+    ],
+  },
+  {
+    title: 'Dungeon Purpose',
+    ids: ['reclvse.dungeonPurposeThen', 'reclvse.dungeonPurposeNow'],
+  },
 ];
 export function oracleLibraryId(id: string): string {
   return tableGroups.find((group) => group.ids.includes(id))?.ids[0] ?? id;

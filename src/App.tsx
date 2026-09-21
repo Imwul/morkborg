@@ -1658,32 +1658,8 @@ export default function App() {
                 Kartell.
               </p>
               <p>
-                작업 흐름 참고:{' '}
-                <a
-                  href="https://dngngen.makedatanotlore.dev"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  DNGNGEN
-                </a>
-                ,{' '}
-                <a
-                  href="https://monster.makedatanotlore.dev"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  The Monster Approaches
-                </a>
-                , and{' '}
-                <a
-                  href="https://1d105.itch.io/dngnstock"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  DNGNSTOCK by 1d10+5
-                </a>
-                . 공개된 생성 구조를 참고했으며, 생성 문구는 제공된 룰북의 실제
-                표를 사용합니다.
+                생성 문구는 제공된 룰북의 실제 표를 사용합니다. 외부 생성기
+                사이트로 연결하지 않습니다.
               </p>
               <p>
                 생성표는 사용자가 제공한 MÖRK BORG, FERETORY, HERETIC, Sölitary

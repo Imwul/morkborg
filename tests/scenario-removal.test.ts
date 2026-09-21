@@ -39,7 +39,7 @@ const fixture = JSON.parse(
 test('all 28 scenario tables and their combined roll disappear from every active registry route', () => {
   const registry = buildOracleRegistry(fixture.library, fixture.oracles);
   const index = buildReferenceRegistry(registry, fixture.library);
-  assert.equal(SCENARIO_TABLE_IDS.length, 28);
+  assert.equal(SCENARIO_TABLE_IDS.length, 31);
   assert.equal(registry.tables.length, 546);
   assert.equal(index.entries.length, 1001);
   const preparation = index.entries.filter(

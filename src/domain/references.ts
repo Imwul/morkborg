@@ -1535,6 +1535,7 @@ const CONTEXT_IDS: Record<ReferenceContext, string[]> = {
     'oracle:sd.npc.profession',
   ],
   character: [
+    'procedure:character.core-classless',
     'rule:core.rest',
     'rule:core.broken',
     'rule:core.omens',

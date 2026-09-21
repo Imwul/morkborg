@@ -77,6 +77,28 @@ export function referenceEntryDescription(entry: ReferenceEntry) {
     (entry.summaryTranslationKo || entry.summary).split('\n')[0]
   );
 }
+/** Price lists and bounty indexes are source data, not desk oracles. */
+export function isDeskClutter(entry: ReferenceEntry) {
+  const kind = entry.definition?.kind;
+  if (kind === 'Valuation' || kind === 'Purchase') return true;
+  if (
+    entry.id === 'oracle:core.creatureValuations' ||
+    entry.id === 'oracle:core.beasts'
+  )
+    return true;
+  const body = (entry.definition?.blocks ?? [])
+    .map((block) => block.text)
+    .join('\n')
+    .trim();
+  if (
+    kind === 'Equipment' &&
+    body &&
+    /^(?:\d+(?:–\d+)?s(?:\n|$))+$/.test(body.replace(/ /g, ''))
+  )
+    return true;
+  return false;
+}
+
 export function browseReferences(
   index: ReferenceRegistry,
   query: string,
@@ -94,6 +116,7 @@ export function browseReferences(
       : [...index.entries].sort((a, b) => a.title.localeCompare(b.title));
   return pool.filter(
     (e) =>
+      !isDeskClutter(e) &&
       (!options.kind || options.kind === 'all' || e.kind === options.kind) &&
       (!options.context ||
         e.contexts.includes(options.context as ReferenceContext)) &&

@@ -26,6 +26,7 @@ export function referenceAction(entry: ReferenceEntry) {
         'workbench.npc',
         'workbench.epk',
         'sd.dungeon-preparation',
+        'character.core-classless',
       ].includes(action.procedureId)
         ? 'GENERATE'
         : 'RUN',
@@ -39,6 +40,7 @@ const SHORT_NAMES: Record<string, string> = {
   'procedure:reclvse.action-theme': 'Action + Theme',
   'procedure:workbench.stock-room': 'Encounter Prep',
   'procedure:workbench.npc': 'NPC',
+  'procedure:character.core-classless': '캐릭터',
   'procedure:workbench.city': 'City',
   'rule:core.reaction-morale': 'Morale',
   'oracle:sd.usefulItems': 'Useful Item',
