@@ -2,6 +2,13 @@ import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
 import { usePrivateDngngen } from './usePrivateDngngen';
+import { usePrivateGenerator } from './usePrivateGenerator';
+import {
+  parsePrivateMonster,
+  parsePrivateScvm,
+} from '../storage/privateGeneratorClient';
+import { scvmReferenceReading } from '../generators/scvmCharacter';
+import { monsterSiteReferenceReading } from '../generators/monsterSite';
 import { eligibleForReferenceReplay } from '../domain/referenceReading';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
 import {
@@ -209,6 +216,29 @@ export function ReferenceProvider({
   );
   const dngngenPack =
     privateDngngen.status === 'ready' ? privateDngngen.pack : undefined;
+  const [characterSource, setCharacterSource] = useState<'core' | 'scvm'>(
+    'core',
+  );
+  const [scvmHomebrew, setScvmHomebrew] = useState(false);
+  const privateScvm = usePrivateGenerator(
+    '/__private/scvmbirther',
+    parsePrivateScvm,
+    selectedId === 'procedure:character.core-classless',
+  );
+  const scvmPack =
+    privateScvm.status === 'ready' ? privateScvm.pack : undefined;
+  const monsterReference =
+    selectedId === 'procedure:workbench.epk' ||
+    selectedId === 'rule:feretory.monster-approaches' ||
+    selectedId === 'procedure:feretory.monster-approaches';
+  const [monsterSource, setMonsterSource] = useState<'book' | 'site'>('book');
+  const privateMonster = usePrivateGenerator(
+    '/__private/monster',
+    parsePrivateMonster,
+    monsterReference,
+  );
+  const monsterPack =
+    privateMonster.status === 'ready' ? privateMonster.pack : undefined;
   const [inlineChildren] = useState(createInlineChildResults);
   const [, refreshInlineChildren] = useState(0);
   const readings = session.readings;
@@ -500,6 +530,26 @@ export function ReferenceProvider({
   ) {
     try {
       setFailure('');
+      if (
+        !only &&
+        entry.id === 'procedure:character.core-classless' &&
+        characterSource === 'scvm' &&
+        scvmPack
+      ) {
+        acceptReading(entry.id, scvmReferenceReading(scvmPack, scvmHomebrew));
+        return;
+      }
+      if (
+        !only &&
+        monsterSource === 'site' &&
+        monsterPack &&
+        (entry.id === 'procedure:workbench.epk' ||
+          entry.id === 'rule:feretory.monster-approaches' ||
+          entry.id === 'procedure:feretory.monster-approaches')
+      ) {
+        acceptReading(entry.id, monsterSiteReferenceReading(monsterPack));
+        return;
+      }
       convenience.run(entry, contextRegion, undefined, only);
     } catch (e) {
       setFailure(e instanceof Error ? e.message : '원문 자료를 확인하세요.');
@@ -771,7 +821,82 @@ export function ReferenceProvider({
               {referenceEntryDescription(selected)}
             </p>
           )}
-        {referenceEntryFormula(selected, oracles.registry) && (
+        {procedureId === 'character.core-classless' &&
+          privateScvm.status !== 'public' && (
+            <div className="dungeon-room-source">
+              <label>
+                캐릭터 원문{' '}
+                <select
+                  aria-label="캐릭터 생성 원문"
+                  value={characterSource === 'scvm' && scvmPack ? 'scvm' : 'core'}
+                  onChange={(event) =>
+                    setCharacterSource(
+                      event.target.value === 'scvm' ? 'scvm' : 'core',
+                    )
+                  }
+                >
+                  <option value="core">룰북</option>
+                  <option value="scvm" disabled={!scvmPack}>
+                    SCVMBIRTHER
+                  </option>
+                </select>
+              </label>
+              {characterSource === 'scvm' && scvmPack && (
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={scvmHomebrew}
+                    onChange={(event) => setScvmHomebrew(event.target.checked)}
+                  />{' '}
+                  추가 직업 · homebrew
+                </label>
+              )}
+              <small>
+                {scvmPack
+                  ? `${scvmPack.source.attribution} 선택은 다음 ROLL부터 적용됩니다.`
+                  : privateScvm.status === 'loading'
+                    ? 'SCVMBIRTHER 스냅샷을 확인하고 있습니다.'
+                    : 'SCVMBIRTHER 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
+              </small>
+            </div>
+          )}
+        {monsterReference && privateMonster.status !== 'public' && (
+          <div className="dungeon-room-source">
+            <label>
+              몬스터 원문{' '}
+              <select
+                aria-label="몬스터 생성 원문"
+                value={monsterSource === 'site' && monsterPack ? 'site' : 'book'}
+                onChange={(event) =>
+                  setMonsterSource(event.target.value === 'site' ? 'site' : 'book')
+                }
+              >
+                <option value="book">룰북</option>
+                <option value="site" disabled={!monsterPack}>
+                  The Monster Approaches · 사이트
+                </option>
+              </select>
+            </label>
+            {monsterSource === 'site' && monsterPack && plainRule && (
+              <Button className="reference-roll" onClick={() => perform(selected)}>
+                <Dices size={16} /> ROLL
+              </Button>
+            )}
+            <small>
+              {monsterPack
+                ? `${monsterPack.source.attribution} 선택은 다음 ROLL부터 적용됩니다.`
+                : privateMonster.status === 'loading'
+                  ? '몬스터 스냅샷을 확인하고 있습니다.'
+                  : '몬스터 사이트 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
+            </small>
+          </div>
+        )}
+        {referenceEntryFormula(selected, oracles.registry) &&
+          !(
+            procedureId === 'character.core-classless' &&
+            characterSource === 'scvm' &&
+            scvmPack
+          ) && (
           <div className="reference-formula">
             <span className="sr-only">굴림 공식</span>
             <code>{referenceEntryFormula(selected, oracles.registry)}</code>
@@ -1266,7 +1391,9 @@ export function ReferenceProvider({
                   </div>
                 );
               })}
-            {roller && (
+            {roller &&
+              reading.procedureInputs?.generator !== 'scvmbirther' &&
+              reading.procedureInputs?.generator !== 'monster-site' && (
               <PartialRollControls
                 entry={selected}
                 reading={reading}

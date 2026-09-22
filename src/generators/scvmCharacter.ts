@@ -1,4 +1,5 @@
 import type { Character, CharacterItem, CharacterWeapon } from '../domain/types';
+import type { ReferenceReading } from '../domain/referenceReading';
 import type { ScvmPack } from '../domain/scvmPack';
 import { rollScvm, SCVM_URL } from '../domain/scvmPack';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
@@ -33,6 +34,64 @@ const line = (text: string, homebrew: boolean): CharacterItem => ({
   source: 'SCVMBIRTHER',
   provenance: provenance(text, homebrew),
 });
+
+export function scvmReferenceReading(
+  pack: ScvmPack,
+  homebrew = false,
+): ReferenceReading {
+  const rolled = rollScvm(pack, random, { homebrew });
+  const line = (title: string, text: string) => ({ title, text });
+  const abilities = (['Strength', 'Agility', 'Presence', 'Toughness'] as const)
+    .map((label, index) => {
+      const key = (['strength', 'agility', 'presence', 'toughness'] as const)[
+        index
+      ];
+      const value = rolled.abilities[key];
+      return `${label} ${value > 0 ? `+${value}` : value}`;
+    })
+    .join('\n');
+  const blocks = [
+    line('Class', rolled.className),
+    line('Name', rolled.name),
+    line('Abilities', abilities),
+    line('HP', String(rolled.hp)),
+    line('Omens', String(rolled.omens)),
+    line('Silver', `${rolled.silver} silver`),
+    ...(rolled.armor ? [line('Armor', rolled.armor)] : []),
+    ...rolled.weapons.map((text, index) =>
+      line(rolled.weapons.length > 1 ? `Weapon ${index + 1}` : 'Weapon', text),
+    ),
+    ...rolled.equipment.map((text, index) =>
+      line(
+        rolled.equipment.length > 1 ? `Equipment ${index + 1}` : 'Equipment',
+        text,
+      ),
+    ),
+    ...(rolled.origin ? [line('Origin', rolled.origin)] : []),
+    ...rolled.powers
+      .filter((power) => power.title || power.description)
+      .map((power) => line(power.title || 'Power', power.description || power.title)),
+    ...(rolled.description ? [line('Description', rolled.description)] : []),
+  ].filter((block) => block.text.trim());
+  const title = `${rolled.className} — ${rolled.name}`;
+  return {
+    title,
+    blocks,
+    sourceRefs: [
+      {
+        bookTitle: 'SCVMBIRTHER',
+        tableTitle: homebrew ? 'SCVMBIRTHER homebrew' : 'SCVMBIRTHER',
+        note: pack.source.attribution,
+      },
+    ],
+    procedureInputs: { generator: 'scvmbirther', homebrew },
+    copyContent: { title, blocks },
+  };
+}
+
+export function isScvmReference(reading?: { procedureInputs?: Record<string, string | number | boolean> }) {
+  return reading?.procedureInputs?.generator === 'scvmbirther';
+}
 
 export function generateScvmCharacter(
   campaignId: string,

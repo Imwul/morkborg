@@ -17,7 +17,7 @@ import {
   rollMonsterSite,
   type MonsterSitePack,
 } from '../src/domain/monsterSitePack.ts';
-import { generateScvmCharacter } from '../src/generators/scvmCharacter.ts';
+import { generateScvmCharacter, scvmReferenceReading } from '../src/generators/scvmCharacter.ts';
 import { generateMonsterSite } from '../src/generators/monsterSite.ts';
 import { readPrivateGeneratorPack } from '../server/privateGeneratorPack.ts';
 import type { RandomSource } from '../src/generators/random.ts';
@@ -67,6 +67,10 @@ test('SCVMBIRTHER scroll handling follows the published string comparison', () =
   const character = generateScvmCharacter('11111111-1111-4111-8111-111111111111', pack, false, () => 0);
   assert.equal(character.generation?.system, 'scvmbirther');
   assert.equal(character.weapons[0]?.damage, 'd6');
+  const reading = scvmReferenceReading(pack);
+  assert.equal(reading.procedureInputs?.generator, 'scvmbirther');
+  assert.equal(reading.blocks[0]?.text, 'Scroll Class');
+  assert.ok(reading.blocks.some((block) => block.title === 'Weapon' && block.text.startsWith('Small')));
 });
 
 test('monster site armor follows its published C-before-B parity', () => {

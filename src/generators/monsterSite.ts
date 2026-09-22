@@ -1,4 +1,5 @@
 import type { Monster } from '../domain/types';
+import type { ReferenceReading } from '../domain/referenceReading';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 import {
   MONSTER_SITE_URL,
@@ -44,6 +45,36 @@ export function monsterSitePrevious(monster: Monster): MonsterSitePrevious {
     ability: read('ability'),
     loot: read('loot'),
     armor: read('armor'),
+  };
+}
+
+export function monsterSiteReferenceReading(
+  pack: MonsterSitePack,
+): ReferenceReading {
+  const rolled = rollMonsterSite(pack, random);
+  const blocks = [
+    { title: 'Appearance', text: rolled.introduction },
+    { title: 'Wants', text: rolled.want },
+    { title: 'HP', text: String(rolled.hp) },
+    { title: 'Morale', text: String(rolled.morale) },
+    { title: 'Armor', text: rolled.armor },
+    { title: 'Attack', text: `${rolled.attack}\n${rolled.damage}` },
+    ...(rolled.ability ? [{ title: 'Ability', text: rolled.ability }] : []),
+    ...(rolled.lair ? [{ title: 'Lair', text: rolled.lair }] : []),
+    ...(rolled.loot ? [{ title: 'Loot', text: rolled.loot }] : []),
+  ].filter((block) => block.text.trim());
+  return {
+    title: rolled.name,
+    blocks,
+    sourceRefs: [
+      {
+        bookTitle: 'The Monster Approaches',
+        tableTitle: 'The Monster Approaches',
+        note: pack.source.attribution,
+      },
+    ],
+    procedureInputs: { generator: 'monster-site' },
+    copyContent: { title: rolled.name, blocks },
   };
 }
 
