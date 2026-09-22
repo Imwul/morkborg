@@ -98,6 +98,12 @@ export function ReferenceReadingBlock({
         </div>
       </header>
       {reading.blocks.map((block, index) => {
+        const roomSlot = /^Special Room ([1-4])$/.exec(block.title)?.[1];
+        const nativeRoom = roomSlot
+          ? reading.preparation?.rooms?.[Number(roomSlot) as 1 | 2 | 3 | 4]
+          : undefined;
+        const hasPrivateRooms = !!Object.keys(reading.preparation?.rooms ?? {})
+          .length;
         const source = sourceRows.find(
           (row) =>
             block.text === row.text || block.text.startsWith(`${row.text}\n\n`),
@@ -121,17 +127,40 @@ export function ReferenceReadingBlock({
               </strong>
             )}
             {block.dice && <small>{block.dice}</small>}
-            <ReferenceReadingText
-              text={block.text}
-              resultText={
-                block.dice && !reading.rareMonster && block.kind !== 'creature'
-                  ? (source?.text ?? block.text)
-                  : undefined
-              }
-              translation={block.translation?.ko}
-              splitLines={!!reading.rareMonster || block.kind === 'creature'}
-              source={source}
-            />
+            {roomSlot && block.text && hasPrivateRooms && (
+              <small className="dungeon-room-provenance">
+                {nativeRoom
+                  ? `DNGNGEN${nativeRoom.synthetic ? ' · SYNTHETIC DEMO' : ''}`
+                  : 'CORE'}
+              </small>
+            )}
+            {nativeRoom ? (
+              nativeRoom.components.map((component, componentIndex) => (
+                <p
+                  className="dungeon-native-component"
+                  key={componentIndex}
+                  lang="en"
+                >
+                  <span className="reference-result-text">
+                    {component.text}
+                  </span>
+                </p>
+              ))
+            ) : (
+              <ReferenceReadingText
+                text={block.text}
+                resultText={
+                  block.dice &&
+                  !reading.rareMonster &&
+                  block.kind !== 'creature'
+                    ? (source?.text ?? block.text)
+                    : undefined
+                }
+                translation={block.translation?.ko}
+                splitLines={!!reading.rareMonster || block.kind === 'creature'}
+                source={source}
+              />
+            )}
           </section>
         );
       })}

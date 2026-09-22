@@ -73,8 +73,9 @@ export function beginMonsterDraft(
     const dungeon = c.dungeons.find((d) => d.id === target?.dungeonId);
     const region = dungeon?.region ?? c.workspace.monsterRegion ?? 'sarkash';
     if (dungeon) c.workspace.monsterRegion = region;
+    const mode = c.workspace.monsterGenerationMode;
     c.drafts.monsters =
-      !blank && c.workspace.monsterGenerationMode !== 'tma'
+      !blank && mode !== 'tma' && mode !== 'site'
         ? generateEatPreyKillMonster(c.id, region)
         : generateMonster(c.id, blank);
   }

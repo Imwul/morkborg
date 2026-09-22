@@ -6,6 +6,8 @@ import { oracleRollProvenance } from './oracleProvenance';
 import { appPolicy, sourceProcedure } from './generationAuthority';
 import { rollOracle } from '../generators/oracleRoller';
 import { id, random, type RandomSource } from '../generators/random';
+import type { DngngenPack } from './dngngenPack';
+import { rollDngngenRoom } from '../generators/dngngen';
 
 export const DNGNGEN_URL = 'https://dngngen.makedatanotlore.dev/';
 
@@ -135,6 +137,17 @@ function fieldFor(key: DungeonPreparationKey) {
   return field;
 }
 
+/** Source choice changes future explicit actions, never existing results or their provenance. */
+export function selectDungeonRoomSource(
+  current: ReferenceReading,
+  roomSource: 'CORE' | 'DNGNGEN',
+  privatePack?: DngngenPack,
+): ReferenceReading {
+  if (roomSource === 'DNGNGEN' && !privatePack)
+    throw new Error('사용 가능한 private DNGNGEN pack이 없습니다.');
+  return { ...current, preparation: { ...current.preparation, roomSource } };
+}
+
 /** Rebuild only derived evidence/navigation; the source registry and saved campaigns are untouched. */
 function withEvidence(
   reading: ReferenceReading,
@@ -228,9 +241,47 @@ export function rerollDungeonPreparationField(
   key: DungeonPreparationKey,
   registry: OracleRegistry,
   rng: RandomSource = random,
+  privatePack?: DngngenPack,
 ): ReferenceReading {
   const field = fieldFor(key);
+  if (field.kind === 'room' && current.preparation?.roomSource === 'DNGNGEN') {
+    if (!privatePack)
+      throw new Error(
+        '사용 가능한 private DNGNGEN pack이 없습니다. CORE를 선택하거나 pack을 확인하세요.',
+      );
+    const slot = Number(key.slice(-1)) as 1 | 2 | 3 | 4;
+    const result = rollDngngenRoom(
+      privatePack,
+      slot,
+      Object.values(current.preparation.rooms ?? {}),
+      rng,
+    );
+    return withEvidence(
+      {
+        ...current,
+        preparation: {
+          ...current.preparation,
+          rooms: { ...current.preparation.rooms, [slot]: result },
+        },
+        blocks: current.blocks.map((block) =>
+          block.title === field.title
+            ? {
+                title: field.title,
+                text: result.text,
+                translation: { titleKo: field.titleKo },
+              }
+            : block,
+        ),
+      },
+      (current.oracle?.rolls ?? []).filter(
+        (roll) => roll.metadata?.preparationField !== key,
+      ),
+    );
+  }
   const replacement = rollDungeonPreparationField(key, registry, rng);
+  const rooms = current.preparation?.rooms && { ...current.preparation.rooms };
+  if (field.kind === 'room' && rooms)
+    delete rooms[Number(key.slice(-1)) as 1 | 2 | 3 | 4];
   const rolls = DUNGEON_PREPARATION_FIELDS.flatMap((candidate) =>
     candidate.key === key
       ? (replacement.oracle?.rolls ?? [])
@@ -241,6 +292,9 @@ export function rerollDungeonPreparationField(
   return withEvidence(
     {
       ...current,
+      ...(current.preparation
+        ? { preparation: { ...current.preparation, rooms } }
+        : {}),
       blocks: current.blocks.map((block) =>
         block.title === field.title ? replacement.blocks[0] : block,
       ),
@@ -254,13 +308,29 @@ export function rollDungeonPreparationReading(
   registry: OracleRegistry,
   rng: RandomSource = random,
   current: ReferenceReading = emptyDungeonPreparationReading(),
+  privatePack?: DngngenPack,
 ): ReferenceReading {
+  if (current.preparation?.roomSource === 'DNGNGEN' && !privatePack)
+    throw new Error(
+      '사용 가능한 private DNGNGEN pack이 없습니다. CORE를 선택하거나 pack을 확인하세요.',
+    );
+  // A full source batch excludes new earlier rooms only, never stale rooms being replaced.
+  const start =
+    current.preparation?.roomSource === 'DNGNGEN'
+      ? { ...current, preparation: { ...current.preparation, rooms: {} } }
+      : current;
   return DUNGEON_PREPARATION_FIELDS.reduce(
     (reading, field) =>
       field.kind === 'manual'
         ? reading
-        : rerollDungeonPreparationField(reading, field.key, registry, rng),
-    current,
+        : rerollDungeonPreparationField(
+            reading,
+            field.key,
+            registry,
+            rng,
+            privatePack,
+          ),
+    start,
   );
 }
 

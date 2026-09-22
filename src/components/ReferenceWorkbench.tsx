@@ -1,6 +1,8 @@
 import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
+import { usePrivateDngngen } from './usePrivateDngngen';
+import { eligibleForReferenceReplay } from '../domain/referenceReading';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
 import {
   createInlineChildResults,
@@ -200,6 +202,13 @@ export function ReferenceProvider({
   >({});
   const restoreScroll = useRef<number | null>(null);
   const [session, setSession] = useState(emptyReferenceSession);
+  const privateDngngen = usePrivateDngngen(
+    selectedId === 'procedure:sd.dungeon-preparation' ||
+      !!session.readings['procedure:sd.dungeon-preparation']?.preparation,
+    selectedId,
+  );
+  const dngngenPack =
+    privateDngngen.status === 'ready' ? privateDngngen.pack : undefined;
   const [inlineChildren] = useState(createInlineChildResults);
   const [, refreshInlineChildren] = useState(0);
   const readings = session.readings;
@@ -311,7 +320,7 @@ export function ReferenceProvider({
       retainReferenceReading(state, entryId, result, false),
     );
     touchEntry(entryId);
-    if (rolled && result.blocks.length)
+    if (rolled && result.blocks.length && eligibleForReferenceReplay(result))
       memory.record({
         kind: 'reference',
         referenceId: entryId,
@@ -333,6 +342,7 @@ export function ReferenceProvider({
     registry: oracles.registry,
     readings,
     options: {
+      dngngenPack,
       registry: oracles.registry,
       rules: rules.pack,
       region,
@@ -346,6 +356,13 @@ export function ReferenceProvider({
     accept: acceptReading,
     open: (id) => activate(id, false, undefined, true),
     onRecipeResolved: (id, title, results, parameters) => {
+      if (
+        results.some(
+          (result) =>
+            result.reading && !eligibleForReferenceReplay(result.reading),
+        )
+      )
+        return;
       const snapshots = results.flatMap((r) =>
         r.reading ? [replayResult(r.referenceId, r.reading, r)] : [],
       );
@@ -364,6 +381,13 @@ export function ReferenceProvider({
           (r) => r.kind === 'recipe' && r.referenceId === id,
         );
         if (!latest) return p;
+        if (
+          results.some(
+            (result) =>
+              result.reading && !eligibleForReferenceReplay(result.reading),
+          )
+        )
+          return { ...p, replays: p.replays.filter((r) => r.id !== latest.id) };
         return {
           ...p,
           replays: p.replays.map((r) =>
@@ -984,6 +1008,7 @@ export function ReferenceProvider({
         {procedureId === 'sd.dungeon-preparation' && (
           <DungeonPreparation
             reading={reading}
+            privateDngngen={privateDngngen}
             registry={oracles.registry}
             onChange={(value, rolled) =>
               acceptReading(selected.id, value, rolled)

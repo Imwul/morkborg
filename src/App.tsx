@@ -1659,7 +1659,9 @@ export default function App() {
               </p>
               <p>
                 생성 문구는 제공된 룰북의 실제 표를 사용합니다. 외부 생성기
-                사이트로 연결하지 않습니다.
+                사이트로 연결하지 않습니다. 프라이빗 서버에서는 따로 받아 둔
+                DNGNGEN, SCVMBIRTHER, The Monster Approaches 스냅샷으로도
+                생성할 수 있습니다.
               </p>
               <p>
                 생성표는 사용자가 제공한 MÖRK BORG, FERETORY, HERETIC, Sölitary

@@ -44,6 +44,9 @@ import {
   rerollCharacterField,
   rerollCharacterItem,
 } from '../generators/character';
+import { generateScvmCharacter } from '../generators/scvmCharacter';
+import { usePrivateGenerator } from './usePrivateGenerator';
+import { parsePrivateScvm } from '../storage/privateGeneratorClient';
 import {
   characterClass,
   characterClasses,
@@ -83,6 +86,15 @@ const abilityLabels = [
   '지각 · Presence',
   '체력 · Toughness',
 ];
+function characterMode(ch?: {
+  classId?: string;
+  generation?: { system: string };
+}) {
+  return ch?.generation?.system?.startsWith('scvmbirther')
+    ? 'scvmbirther'
+    : (ch?.classId ?? 'classless');
+}
+
 export function Characters({
   campaign: c,
   confirm,
@@ -93,6 +105,8 @@ export function Characters({
   notify: (message: string) => void;
 }) {
   const rules = useRules();
+  const scvm = usePrivateGenerator('/__private/scvmbirther', parsePrivateScvm, true);
+  const scvmPack = scvm.status === 'ready' ? scvm.pack : undefined;
   const desk = useReferenceDesk();
   useOracleRegistry();
   const selectedId = c.workspace.selected.characters,
@@ -102,7 +116,10 @@ export function Characters({
     (draft?.id === selectedId ? draft : undefined);
   const saved = !!selected && c.characters.some((ch) => ch.id === selected.id);
   const [editingCharacter, setEditingCharacter] = useState(false);
-  const [mode, setMode] = useState(() => selected?.classId ?? 'classless');
+  const [mode, setMode] = useState(() => characterMode(selected));
+  const [homebrew, setHomebrew] = useState(
+    () => selected?.generation?.system === 'scvmbirther-homebrew',
+  );
   const classes = characterClasses(),
     ready = classCreationReady();
   const supported =
@@ -125,7 +142,10 @@ export function Characters({
   };
   function create(blank = false) {
     try {
-      const next = generateCharacter(c.id, blank, mode);
+      const next =
+        !blank && mode === 'scvmbirther' && scvmPack
+          ? generateScvmCharacter(c.id, scvmPack, homebrew)
+          : generateCharacter(c.id, blank, mode);
       editCampaign(c.id, (campaign) => {
         campaign.drafts.characters = next;
         campaign.workspace.selected.characters = next.id;
@@ -155,7 +175,10 @@ export function Characters({
   function randomize(useMode = mode) {
     const run = () => {
       try {
-        const fresh = generateCharacter(c.id, false, useMode);
+        const fresh =
+          useMode === 'scvmbirther' && scvmPack
+            ? generateScvmCharacter(c.id, scvmPack, homebrew)
+            : generateCharacter(c.id, false, useMode);
         edit((ch) => {
           if (!fresh.classId) delete ch.classId;
           Object.assign(ch, fresh, {
@@ -371,6 +394,11 @@ export function Characters({
       </section>
     );
   }
+  const usingClass = mode !== 'classless' && mode !== 'scvmbirther';
+  const canGenerate =
+    mode === 'scvmbirther'
+      ? !!scvmPack
+      : ready && (mode === 'classless' || classes.length > 0);
   const generationOptions = (
     <div className="character-generation-options">
       <span>생성 방식</span>
@@ -383,14 +411,34 @@ export function Characters({
           직업 없음 · Classless
         </Button>
         <Button
-          className={`btn ${mode !== 'classless' ? 'primary' : ''}`}
-          aria-pressed={mode !== 'classless'}
+          className={`btn ${usingClass ? 'primary' : ''}`}
+          aria-pressed={usingClass}
           onClick={() => setMode('random')}
         >
           직업 사용 · Class
         </Button>
+        {scvm.status !== 'public' && (
+          <Button
+            className={`btn ${mode === 'scvmbirther' ? 'primary' : ''}`}
+            aria-pressed={mode === 'scvmbirther'}
+            disabled={!scvmPack}
+            onClick={() => setMode('scvmbirther')}
+          >
+            SCVMBIRTHER
+          </Button>
+        )}
       </fieldset>
-      {mode !== 'classless' && (
+      {mode === 'scvmbirther' && scvmPack && (
+        <label>
+          <input
+            type="checkbox"
+            checked={homebrew}
+            onChange={(event) => setHomebrew(event.target.checked)}
+          />
+          추가 직업 · homebrew
+        </label>
+      )}
+      {usingClass && (
         <label>
           직업
           <select
@@ -407,7 +455,7 @@ export function Characters({
           </select>
         </label>
       )}
-      {mode !== 'classless' && !classes.length && (
+      {usingClass && !classes.length && (
         <span>
           자료 및 규칙에서 직업 생성표가 포함된 최신 개인 자료 JSON을
           가져오세요.
@@ -431,7 +479,7 @@ export function Characters({
           {generationOptions}
           <Button
             className="btn primary"
-            disabled={!ready || (mode !== 'classless' && !classes.length)}
+            disabled={!canGenerate}
             onClick={() => create()}
           >
             <Dices size={17} />새 캐릭터 생성
@@ -450,7 +498,8 @@ export function Characters({
           <button
             className="resume-candidate"
             onClick={() => {
-              setMode(draft.classId ?? 'classless');
+              setMode(characterMode(draft));
+              setHomebrew(draft.generation?.system === 'scvmbirther-homebrew');
               select(draft.id);
             }}
           >
@@ -484,7 +533,8 @@ export function Characters({
               }
               metadataTranslation={`HP ${ch.hp} / ${ch.maxHp} · 오멘 ${ch.omens}${ch.status === 'dead' ? ' · 사망' : ''}`}
               onOpen={() => {
-                setMode(ch.classId ?? 'classless');
+                setMode(characterMode(ch));
+                setHomebrew(ch.generation?.system === 'scvmbirther-homebrew');
                 select(ch.id);
               }}
               actions={[
@@ -508,7 +558,7 @@ export function Characters({
         {generationOptions}
         <Button
           className="btn"
-          disabled={!ready || (mode !== 'classless' && !classes.length)}
+          disabled={!canGenerate}
           onClick={() => randomize()}
         >
           <Dices size={17} />
@@ -697,12 +747,21 @@ export function Characters({
       <GenerationDisclosure values={selected.fieldProvenance} />
       <details className="sheet-source">
         <summary>생성 규칙</summary>
-        <p>
+        {selected.generation?.system?.startsWith('scvmbirther') ? (
+          <p>
+            SCVMBIRTHER 스냅샷으로 직업·능력·장비·과거를 한 번에 정했습니다.
+            개별 칸 재굴림은 룰북 표에 연결된 캐릭터에만 있습니다. 전체를 다시
+            굴리면 같은 스냅샷을 사용합니다.{' '}
+            <SourceText text={selected.classSource} />
+          </p>
+        ) : (
+          <p>
           <SourceText text={selected.classSource} /> · 직업의 무기·방어구 지시가
           기본 굴림보다 우선합니다. 원문에서 고르도록 한 항목은 앱이 무작위로
           선택합니다. Pale One의 표기는 최종 능력 보정치에 적용합니다. 전투·능력
           사용 때 굴리는 주사위는 그대로 남깁니다.
-        </p>
+          </p>
+        )}
       </details>
       <details className="object-secondary">
         <summary>메모 · 관리</summary>

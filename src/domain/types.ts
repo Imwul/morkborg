@@ -279,7 +279,7 @@ export interface Workspace {
   selected: Record<LibraryKind, string | null>;
   monsterTarget?: MonsterTarget | null;
   monsterRegion?: RegionId;
-  monsterGenerationMode?: 'epk' | 'tma';
+  monsterGenerationMode?: 'epk' | 'tma' | 'site';
   contentTarget?: MonsterTarget | null;
   contentDraftTargets?: Partial<Record<ContentKind, MonsterTarget | null>>;
   contentRegion?: RegionId;

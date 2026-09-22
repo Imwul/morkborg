@@ -1,0 +1,9 @@
+# Personal packs, host configuration, audits and local generated evidence.
+private/**
+outputs/**
+work/**
+tmp/**
+tests/browser/**
+.env*
+*.pdf
+public/rules/**

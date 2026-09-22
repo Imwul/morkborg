@@ -341,7 +341,7 @@ const campaign = z.object({
     selected: selection,
     monsterTarget: monsterTarget.nullable().optional(),
     monsterRegion: z.enum(REGION_IDS).optional(),
-    monsterGenerationMode: z.enum(['epk', 'tma']).optional(),
+    monsterGenerationMode: z.enum(['epk', 'tma', 'site']).optional(),
     contentTarget: monsterTarget.nullable().optional(),
     contentDraftTargets: z
       .object({

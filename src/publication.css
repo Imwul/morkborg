@@ -2227,3 +2227,24 @@ body,
 .dungeon-preparation-fields > section > p {
   margin-block: 0.5rem;
 }
+.dungeon-room-source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-block: 1rem;
+}
+.dungeon-room-source label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.dungeon-room-source select { max-width: 100%; }
+.dungeon-room-source small,
+.dungeon-room-provenance {
+  font: 450 var(--text-secondary) / 1.5 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+.dungeon-native-component { overflow-wrap: anywhere; white-space: pre-line; }

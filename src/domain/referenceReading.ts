@@ -12,6 +12,13 @@ export interface ReferenceTextBlock {
   translation?: { ko?: string; titleKo?: string };
 }
 export interface ReferenceReading {
+  /** This tab's preparation choice/results, never Campaign, import or saved-reading data. */
+  preparation?: {
+    roomSource: 'CORE' | 'DNGNGEN';
+    rooms?: Partial<
+      Record<1 | 2 | 3 | 4, import('../generators/dngngen').DngngenRoomResult>
+    >;
+  };
   procedureInputs?: Record<string, string | number | boolean>;
   /** Transient workbench input metadata; never canonical source text or Campaign schema. */
   rollMethod?: {
@@ -35,6 +42,13 @@ export interface ReferenceReading {
   oracle?: OracleResult;
   relatedIds?: string[];
   fixedLookups?: { oracleId: string; roll: number }[];
+}
+
+/** Legacy replay snapshots cannot preserve private room provenance; current readings still can. */
+export function eligibleForReferenceReplay(reading: ReferenceReading): boolean {
+  return !Object.values(reading.preparation?.rooms ?? {}).some(
+    (room) => room?.source === 'DNGNGEN',
+  );
 }
 /** Keep one creature together while retaining every original die in OracleResult. */
 export function feretoryResultBlock(
@@ -62,11 +76,25 @@ export function copyReferenceReading(
   withSource = false,
 ) {
   const content = reading.copyContent ?? reading;
+  const privateRooms = reading.preparation?.rooms;
+  const mixedSourceReading =
+    !!privateRooms && Object.keys(privateRooms).length > 0;
+  const blockTitle = (block: { title: string; text: string }) => {
+    if (block.title === content.title) return '';
+    if (
+      !mixedSourceReading ||
+      !/^Special Room [1-4]$/.test(block.title) ||
+      !block.text
+    )
+      return block.title;
+    const room = privateRooms?.[Number(block.title.slice(-1)) as 1 | 2 | 3 | 4];
+    return `${block.title} · ${room ? `DNGNGEN${room.synthetic ? ' (synthetic demo)' : ''}` : 'CORE'}`;
+  };
   const body = [
     content.title,
     ...content.blocks.map((block) =>
       [
-        block.title === content.title ? '' : block.title,
+        blockTitle(block),
         block.text.replace(
           /^SOURCE DATA UNAVAILABLE: [^\n]+ · 연결된 원문 자료를 먼저 가져오세요\.$/gm,
           'SOURCE DATA UNAVAILABLE · 연결된 원문 자료를 먼저 가져오세요.',

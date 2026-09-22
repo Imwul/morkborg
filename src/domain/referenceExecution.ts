@@ -145,6 +145,7 @@ function creatureChildren(
     .map(creatureReferenceId);
 }
 export interface ReferenceExecutionOptions {
+  dngngenPack?: import('./dngngenPack').DngngenPack;
   currentReading?: ReferenceReading;
   rng?: RandomSource;
   registry: OracleRegistry;
@@ -230,6 +231,7 @@ export function executeReference(
       registry,
       options.rng,
       options.currentReading,
+      options.dngngenPack,
     );
   if (
     action.kind === 'procedure' &&

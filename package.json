@@ -7,11 +7,18 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json && vite build && node scripts/check-public-build.mjs",
+    "build": "tsc --noEmit && tsc --noEmit -p tsconfig.server.json && vite build && node scripts/check-public-build.mjs && node scripts/check-private-boundary.mjs",
     "preview": "node scripts/check-public-build.mjs && vite preview --host 127.0.0.1",
     "test": "tsx --test tests/*.test.ts",
     "lint": "oxlint src",
-    "data:publish": "node scripts/publish-private-update.mjs"
+    "data:publish": "node scripts/publish-private-update.mjs",
+    "private": "npm run build && node --import tsx scripts/private-server.ts",
+    "private:validate": "node --import tsx scripts/private-validate.ts",
+    "private:dngngen:import": "node --import tsx scripts/private-dngngen-import.ts",
+    "privacy:private": "node scripts/check-private-boundary.mjs --git",
+    "private:dngngen:acquire": "node --import tsx scripts/private-dngngen-acquire.ts",
+    "private:scvm:acquire": "node --import tsx scripts/private-scvm-acquire.ts",
+    "private:monster:acquire": "node --import tsx scripts/private-monster-acquire.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

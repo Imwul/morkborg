@@ -44,3 +44,6 @@ next-env.d.ts
 
 # Local source extraction and private QA artifacts
 /tmp/
+
+# Personal source packs, private host configuration and caches are never tracked.
+/private/

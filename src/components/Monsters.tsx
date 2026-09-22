@@ -42,7 +42,13 @@ import {
   rerollMonsterLinked,
   rerollMonsterSpecial,
 } from '../generators/monster';
+import {
+  generateMonsterSite,
+  monsterSitePrevious,
+} from '../generators/monsterSite';
 import { regions, regionById } from '../data/regions';
+import { usePrivateGenerator } from './usePrivateGenerator';
+import { parsePrivateMonster } from '../storage/privateGeneratorClient';
 import { id } from '../generators/random';
 import { Field } from './Field';
 import { CompactCard } from './CompactCard';
@@ -66,6 +72,12 @@ export function Monsters({
   const rules = useRules(),
     selectedId = c.workspace.selected.monsters,
     draft = c.drafts.monsters;
+  const monsterSite = usePrivateGenerator(
+    '/__private/monster',
+    parsePrivateMonster,
+    true,
+  );
+  const sitePack = monsterSite.status === 'ready' ? monsterSite.pack : undefined;
   const selected =
     c.monsters.find((m) => m.id === selectedId) ??
     (draft?.id === selectedId ? draft : undefined);
@@ -82,8 +94,12 @@ export function Monsters({
     dungeon?.region ??
     'sarkash';
   const epkAvailable = eatPreyKillCreatures(generationRegion).length > 0;
+  const activeMode =
+    generationMode === 'site' && !sitePack ? 'tma' : generationMode;
   const generatorReady =
-    !!rules.pack && (generationMode === 'tma' || epkAvailable);
+    activeMode === 'site'
+      ? !!sitePack
+      : !!rules.pack && (activeMode === 'tma' || epkAvailable);
   const [showEmpty, setShowEmpty] = useState(false);
   const [quantity, setQuantity] = useState(1),
     [placementNotes, setPlacementNotes] = useState('');
@@ -97,9 +113,15 @@ export function Monsters({
       selected: { ...c.workspace.selected, monsters: monsterId },
     });
   const create = () =>
-    editCampaign(c.id, (next) =>
-      beginMonsterDraft(next, undefined, !rules.pack),
-    );
+    editCampaign(c.id, (next) => {
+      if (!next.drafts.monsters && activeMode === 'site' && sitePack) {
+        next.drafts.monsters = generateMonsterSite(next.id, sitePack);
+        next.workspace.section = 'monsters';
+        next.workspace.selected.monsters = next.drafts.monsters.id;
+        return;
+      }
+      beginMonsterDraft(next, undefined, !rules.pack);
+    });
   const edit = (action: (m: Monster) => void) => {
     if (!selected) return;
     editCampaign(c.id, (next) => {
@@ -143,9 +165,11 @@ export function Monsters({
         edit((m) =>
           Object.assign(
             m,
-            generationMode === 'epk'
-              ? generateEatPreyKillMonster(c.id, generationRegion)
-              : generateMonster(c.id),
+            activeMode === 'site' && sitePack
+              ? generateMonsterSite(c.id, sitePack, monsterSitePrevious(m))
+              : activeMode === 'epk'
+                ? generateEatPreyKillMonster(c.id, generationRegion)
+                : generateMonster(c.id),
             {
               id: m.id,
               createdAt: m.createdAt,
@@ -266,15 +290,20 @@ export function Monsters({
         생성 방식
         <select
           aria-label="몬스터 생성 방식"
-          value={generationMode}
+          value={activeMode}
           onChange={(e) =>
             changeWorkspace(c.id, {
-              monsterGenerationMode: e.target.value as 'epk' | 'tma',
+              monsterGenerationMode: e.target.value as 'epk' | 'tma' | 'site',
             })
           }
         >
           <option value="epk">Eat Prey Kill · 지역 생물</option>
-          <option value="tma">The Monster Approaches · 괴물 생성</option>
+          <option value="tma">The Monster Approaches · 룰북</option>
+          {monsterSite.status !== 'public' && (
+            <option value="site" disabled={!sitePack}>
+              The Monster Approaches · 사이트 원문
+            </option>
+          )}
         </select>
       </label>
       {generationMode === 'epk' && (
@@ -517,7 +546,13 @@ export function Monsters({
         {saved && randomizeAction}
         {generationControls}
         <SourceDisclosure label="생성 규칙과 출처">
-          {selected.generation?.system === 'epk' ? (
+          {selected.generation?.system === 'monster-site' ? (
+            <p>
+              The Monster Approaches 사이트 원문. 3d12로 외형·사기·피해·방어구를
+              정하고, 무기·소굴·능력·전리품은 같은 스냅샷의 표에서 고릅니다.{' '}
+              <SourceText text={selected.sources?.name} />
+            </p>
+          ) : selected.generation?.system === 'epk' ? (
             <>
               <p>
                 FERETORY · Eat Prey Kill ·{' '}

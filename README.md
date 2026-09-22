@@ -71,7 +71,7 @@ MÖRK BORG is copyright Ockult Örtmästare Games and Stockholm Kartell.
 
 [MÖRK BORG Third Party License](https://morkborg.com/license/)
 
-워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 공개된 생성 구조와 출처를 확인하여 참고했습니다. 생성 문구는 사용자가 제공한 룰북의 실제 표에서 가져오며, 위 사이트를 실행 시 호출하지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
+워크플로 참고: [DNGNGEN](https://dngngen.makedatanotlore.dev), [SCVMBIRTHER](https://scvmbirther.makedatanotlore.dev/), [The Monster Approaches](https://monster.makedatanotlore.dev), [DNGNSTOCK by 1d10+5](https://1d105.itch.io/dngnstock). 공개 배포본은 이 사이트를 실행 중에 호출하지 않고, 생성 문구는 사용자가 제공한 룰북의 표를 사용합니다. 프라이빗 서버에서는 `npm run private:dngngen:acquire`, `private:scvm:acquire`, `private:monster:acquire`로 받아 둔 로컬 스냅샷만 캐릭터·몬스터·특별한 방에 사용합니다. 그 스냅샷은 Git과 공개 빌드에 넣지 않습니다. 미리보기 이미지 `public/og.png`는 AI로 제작했습니다.
 
 Mythic Fate의 작업 흐름은 [공식 Mythic GME Digital](https://jasonholtdigital.itch.io/mythic-gme-digital)의 공개 기능 설명을 참고했습니다. 판정 규칙과 표의 근거는 사용자가 제공한 Mythic Game Master Emulator Second Edition PDF입니다. 이 Codex는 공식 Mythic 앱이 아닙니다.
 
