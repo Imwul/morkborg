@@ -651,35 +651,43 @@ const dungeonObjects: Record<string, ReactNode> = {
   ),
   'entrance-marks': (
     <>
-      {/* The scratches run toward the doorway, not across the entire plate. */}
+      {/* Pale chalk and chipped stone stay legible against the dark approach. */}
       <path
-        className="plate-fine"
-        d="M465 587Q466 575 470 565M473 593Q473 576 478 560M483 590Q483 574 486 565M493 584Q495 570 497 558M501 581Q504 568 509 555M465 566l-7-5M479 559l-5-6M497 557l-1-8M509 556l5-5"
+        className="plate-object-paper plate-no-line"
+        d="M459 571q5-9 10-9l4 4q-3 4-9 8ZM473 580q4-10 10-12l4 4q-3 5-11 11ZM487 574q5-10 10-12l4 5q-3 5-11 10ZM498 586q4-9 9-10l4 4q-3 5-10 9Z"
       />
       <path
-        className="plate-ink plate-no-line"
-        d="M460 585q4-3 7 0l-2 7q-5 1-6-3ZM475 596q3-4 7-2l-1 6q-5 2-7-1ZM490 584q4-4 8-2l-2 7q-5 1-7-2Z"
+        className="plate-wall"
+        d="M458 584q5-5 11-1l-2 9-8 2q-5-3-1-10ZM474 593q4-5 10-2l-1 9q-6 3-11-1ZM491 582q5-5 11-1l-3 8q-7 2-10-2Z"
       />
       <path
-        className="plate-hairline"
-        d="M455 578q8-6 17-5M486 552q10-3 18-8M501 594q5-3 11-3M458 604q20 3 33-1"
+        className="plate-fine plate-dark-contrast"
+        d="M457 557q7-5 13-4M479 555q7-5 14-5M498 550l7-4M463 585l-1 5M477 594l2 4M495 584l1 3M456 602q16 3 31 1M498 596q6-1 11-4"
       />
     </>
   ),
   'entrance-odour': (
     <>
-      {/* A marginal waft sits at the opening; it carries no generated text. */}
+      {/* Three solid curling wafts make the entrance smell visible on black. */}
       <path
         className="plate-object-paper plate-soft"
-        d="M262 510Q268 505 276 508T294 508Q301 512 298 518Q287 521 271 519Q263 518 262 510Z"
+        d="M263 522q-2-5 3-9 7-6 15-3 5-4 13-1 8 2 8 8-8 7-22 6-10 2-17-1Z"
+      />
+      <path
+        className="plate-object-paper plate-soft"
+        d="M266 508C259 506 256 500 261 495Q265 491 270 487C276 481 270 474 264 479L261 483Q260 476 267 473C276 470 283 478 279 487Q277 492 270 496C265 499 265 503 269 505ZM281 508C275 504 274 497 279 492Q289 483 290 480C290 475 285 475 283 480L281 483Q279 476 284 472C292 468 300 474 299 482Q298 490 288 498C284 501 284 504 287 506ZM296 507C291 503 292 497 297 493Q305 488 306 484C307 480 304 478 301 482Q300 474 306 473C315 472 318 481 313 488Q310 493 303 498C299 501 299 504 302 506Z"
+      />
+      <path
+        className="plate-rose plate-soft"
+        d="M270 514q8-3 15-1t14 1q-2 6-13 7-11 1-16-7Z"
       />
       <path
         className="plate-fine"
-        d="M268 504C260 495 271 491 267 482Q263 477 267 472M281 506C275 499 282 493 281 487Q278 481 284 475M291 506C301 498 292 493 297 486Q301 481 298 475M269 513q13-3 27 0M264 523q20-4 37 0"
+        d="M266 519q15 6 31-2M264 515q9-5 17-2M266 478q8-2 10 5M286 475q8-2 10 5M306 476q6 0 7 6"
       />
       <path
-        className="plate-hairline"
-        d="M259 489q-6-3-5-9M275 480q-3-7 1-12M300 488q6-2 7-8M254 506l-6 2M306 513l5-1"
+        className="plate-fine plate-dark-contrast"
+        d="M258 480l-5-4M272 475l1-7M291 473l3-6M306 484l5-5M255 505l-8 3M306 510l8-1"
       />
     </>
   ),
@@ -718,6 +726,10 @@ const dungeonObjects: Record<string, ReactNode> = {
       <path
         className="plate-fine"
         d="M277 420C269 408 280 404 276 395Q273 391 276 388M287 418C282 409 290 404 288 397Q285 393 291 387M298 419C304 411 297 406 301 398Q304 392 301 388M278 440l-3 7M301 438l4 8M270 449q17 5 37 0"
+      />
+      <path
+        className="plate-object-paper plate-soft"
+        d="M275 411q-5-6-3-11 3-4 3-10 6 6 4 11-3 5-4 10ZM286 408q-4-6-2-10 4-5 5-11 5 6 2 12-3 5-5 9ZM299 411q-4-6-2-11 4-5 3-10 7 6 5 11-4 6-6 10Z"
       />
       <path
         className="plate-hairline"

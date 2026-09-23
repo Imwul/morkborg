@@ -8,7 +8,7 @@ import {
 } from 'react';
 import {
   SPATIAL_SCENES,
-  inspectSpatialHotspot,
+  inspectSpatialReference,
   type SpatialHotspot,
 } from '../../domain/spatialScenes';
 import { useReferenceDesk } from '../ReferenceContext';
@@ -50,19 +50,20 @@ export function SpatialOracle({
   const hoverPoint = hoverSpot
     ? visuals[hoverSpot.visualTarget].labelPoint
     : null;
-  const missing = scene.hotspots.filter(
-    (spot) => !desk?.byId[spot.referenceId],
-  );
+  const missing = [
+    ...scene.hotspots,
+    ...scene.supportGroups.flatMap((group) => group.references),
+  ].filter((item) => !desk?.byId[item.referenceId]);
   useEffect(() => {
     const element = viewport.current;
     if (element)
       element.scrollLeft = (element.scrollWidth - element.clientWidth) / 2;
   }, [scene.id]);
 
-  function inspect(hotspot: SpatialHotspot) {
-    if (!desk || !desk.byId[hotspot.referenceId]) return;
-    lastTarget.current = hotspot.id;
-    inspectSpatialHotspot(hotspot, desk);
+  function inspectReference(referenceId: string, targetId: string | null) {
+    if (!desk || !desk.byId[referenceId]) return;
+    lastTarget.current = targetId;
+    inspectSpatialReference(referenceId, desk);
     requestAnimationFrame(() => {
       reader.current?.focus({ preventScroll: true });
       const headerBottom =
@@ -74,6 +75,9 @@ export function SpatialOracle({
       )
         reader.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
     });
+  }
+  function inspect(hotspot: SpatialHotspot) {
+    inspectReference(hotspot.referenceId, hotspot.id);
   }
   function focusTarget(id: string) {
     const target = targets.current[id];
@@ -342,6 +346,49 @@ export function SpatialOracle({
               확인하세요. 연결되지 않은 사물은 굴리지 않습니다.
             </output>
           )}
+          <aside
+            className="spatial-support"
+            aria-label="장면을 상상하는 보조 오라클"
+          >
+            <div className="spatial-support-heading">
+              <p className="spatial-eyebrow">BEYOND THE MAP / 지도 밖의 맥락</p>
+              <h3>이곳을 상상할 단서</h3>
+              <p>
+                그려진 사물에 직접 붙지 않는 배경과 분위기입니다. 원하는 참조를
+                열어 살펴보고, 굴림은 참조 안에서 선택하세요.
+              </p>
+            </div>
+            <div className="spatial-support-groups">
+              {scene.supportGroups.map((group) => (
+                <section className="spatial-support-group" key={group.id}>
+                  <h4>{group.title}</h4>
+                  <p>{group.description}</p>
+                  <div className="spatial-support-entries">
+                    {group.references.map((item, index) => {
+                      const entry = desk?.byId[item.referenceId];
+                      return (
+                        <button
+                          key={item.id}
+                          data-support-id={item.id}
+                          data-reference-target={item.referenceId}
+                          aria-controls="spatial-reference-reader"
+                          aria-pressed={desk?.selectedId === item.referenceId}
+                          disabled={!entry}
+                          onClick={() =>
+                            inspectReference(item.referenceId, null)
+                          }
+                        >
+                          <small>{String(index + 1).padStart(2, '0')}</small>
+                          <span>{item.label}</span>
+                          <span aria-hidden="true">↗</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </aside>
         </div>
         <section
           className="spatial-reader"

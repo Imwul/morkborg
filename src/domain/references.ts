@@ -192,6 +192,20 @@ function sourceFor(
 }
 function contextsFor(table: OracleDefinition): ReferenceContext[] {
   const id = table.id.toLowerCase();
+  // The RECLVSE city chapter is stored as LOCATION tables, which otherwise
+  // default to travel. Its printed scope is urban, including buildings and
+  // streets whose IDs do not begin with `city`.
+  if (
+    table.sourceBookId === 'reclvse' &&
+    typeof table.sourcePage === 'number' &&
+    table.sourcePage >= 94 &&
+    table.sourcePage <= 105
+  )
+    return ['city'];
+  if (id === 'reclvse.city_names') return ['city'];
+  if (id === 'reclvse.quickcontents' || id === 'reclvse.roomencounter')
+    return ['room', 'dungeon'];
+  if (id === 'reclvse.dungeontheme') return ['dungeon'];
   if (/^(aitc|aic|city)\.|alone.*crowd/.test(id)) return ['city'];
   if (/morale/.test(id)) return ['monster'];
   const byCategory: Partial<
@@ -1196,6 +1210,22 @@ export function buildReferenceRegistry(
       entry.relatedIds.unshift('rule:mythic.event-focus', 'rule:mythic.lists');
     if (entry.id === 'oracle:mythic2.scene-adjustment-table')
       entry.relatedIds.unshift('rule:mythic.altered-scene');
+    // Mythic Elements explicitly use two rolls on the same chosen table.
+    // Link only the existing two-roll procedure that names that exact table;
+    // unrelated Meaning categories do not become mutual follow-ups.
+    if (
+      entry.id.startsWith('oracle:mythic2.meaning.') &&
+      entry.canonicalIds.length === 1
+    ) {
+      const tableId = entry.canonicalIds[0];
+      const pair = byId[`procedure:${tableId}.pair`];
+      if (
+        pair?.action?.kind === 'procedure' &&
+        pair.canonicalIds.length === 2 &&
+        pair.canonicalIds.every((id) => id === tableId)
+      )
+        entry.relatedIds.unshift(pair.id);
+    }
     if (entry.id === 'rule:sd.travel-day')
       entry.relatedIds.push('rule:sd.microcrawl', 'rule:sd.begin-adventure');
     if (

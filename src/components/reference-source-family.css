@@ -1,0 +1,68 @@
+.reference-source-family {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  margin: 1.25rem 0;
+  padding: 0.75rem 0;
+  font-family: var(--font-ui);
+}
+
+.reference-source-family-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  margin: 0 0 0.65rem;
+}
+
+.reference-source-family-heading > span {
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.reference-source-family-heading small {
+  color: #5c5a54;
+  font-size: 0.8rem;
+}
+
+.reference-source-family-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.85rem;
+  margin: 0.3rem 0;
+}
+
+.reference-source-family-kind {
+  flex: 0 0 3.4rem;
+  color: #5c5a54;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.reference-source-family button {
+  min-height: 2.5rem;
+  padding: 0.18rem 0.08rem;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 750;
+  text-align: left;
+}
+
+.reference-source-family button:hover,
+.reference-source-family button:focus-visible,
+.reference-source-family button[aria-current='page'] {
+  border-bottom-color: var(--ink);
+}
+
+.reference-source-family button:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 2px;
+}
+
+.reference-source-family button[aria-current='page'] {
+  background: linear-gradient(transparent 57%, var(--lilac) 57%);
+}

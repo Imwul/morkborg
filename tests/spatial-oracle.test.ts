@@ -11,6 +11,7 @@ import {
 import {
   SPATIAL_SCENES,
   inspectSpatialHotspot,
+  inspectSpatialReference,
   normalizeSpatialSceneId,
   validateSpatialScenes,
 } from '../src/domain/spatialScenes.ts';
@@ -59,6 +60,10 @@ const rules = parseRulesPack(bundle.library);
 const registry = buildOracleRegistry(rules, parseOraclePack(bundle.oracles));
 const index = buildReferenceRegistry(registry, rules);
 const hotspots = () => SPATIAL_SCENES.flatMap((scene) => scene.hotspots);
+const supportReferences = () =>
+  SPATIAL_SCENES.flatMap((scene) =>
+    scene.supportGroups.flatMap((group) => group.references),
+  );
 const options = {
   registry,
   rules,
@@ -93,6 +98,78 @@ test('Every spatial feature resolves to an existing canonical reference with sou
       assert.ok(hotspot.accessibleLabel.trim(), hotspot.id);
     }
   }
+});
+
+test('Scene context shelves contain only validated, distinct source references', () => {
+  assert.deepEqual(validateSpatialScenes(SPATIAL_SCENES, index.byId), []);
+  assert.equal(supportReferences().length, 32);
+  for (const scene of SPATIAL_SCENES) {
+    const artworkIds = new Set(scene.hotspots.map((item) => item.referenceId));
+    const shelfIds = new Set<string>();
+    for (const group of scene.supportGroups) {
+      assert.ok(group.title.trim(), group.id);
+      for (const item of group.references) {
+        const entry = index.byId[item.referenceId];
+        assert.ok(entry, item.id);
+        assert.ok(entry.sourceRefs.length, item.id);
+        assert.ok(item.label.trim(), item.id);
+        assert.equal(artworkIds.has(item.referenceId), false, item.id);
+        assert.equal(shelfIds.has(item.referenceId), false, item.id);
+        shelfIds.add(item.referenceId);
+      }
+    }
+  }
+  const city = SPATIAL_SCENES.find((scene) => scene.id === 'city')!;
+  assert.ok(
+    city.supportGroups.some((group) =>
+      group.references.some(
+        (item) => item.referenceId === 'oracle:reclvse.city_purpose_then',
+      ),
+    ),
+  );
+  assert.ok(
+    city.supportGroups.some((group) =>
+      group.references.some(
+        (item) => item.referenceId === 'oracle:reclvse.city_purpose_now',
+      ),
+    ),
+  );
+});
+
+test('Context shelf opens the same Reference state as a map target without rolling', (t) => {
+  const rng = t.mock.method(globalThis.crypto, 'getRandomValues', () => {
+    throw new Error('Context shelf must not roll');
+  });
+  for (const item of supportReferences()) {
+    const calls: unknown[] = [];
+    inspectSpatialReference(item.referenceId, {
+      byId: index.byId,
+      activate: (...args) => calls.push(args),
+    });
+    assert.deepEqual(calls, [[item.referenceId, false]], item.id);
+  }
+  assert.equal(rng.mock.callCount(), 0);
+  assert.throws(
+    () =>
+      inspectSpatialReference('oracle:missing-context', {
+        byId: index.byId,
+        activate: () => assert.fail('Broken shelf entry cannot open'),
+      }),
+    /Missing spatial reference/,
+  );
+});
+
+test('Shelf validation rejects missing IDs, duplicate groups and repeated scene references', () => {
+  const scene = structuredClone(SPATIAL_SCENES[0]);
+  scene.supportGroups.push(structuredClone(scene.supportGroups[0]));
+  scene.supportGroups[1].references[0].referenceId = 'oracle:missing-context';
+  scene.supportGroups[1].references[0].label = '';
+  const problems = validateSpatialScenes([scene], index.byId).join('\n');
+  assert.match(problems, /Duplicate support group/);
+  assert.match(problems, /Duplicate support reference/);
+  assert.match(problems, /Missing support reference/);
+  assert.match(problems, /Missing support label/);
+  assert.match(problems, /Repeated scene reference/);
 });
 
 test('Validation rejects missing references, duplicate scenes/hotspots, shadowed artwork and empty labels', () => {

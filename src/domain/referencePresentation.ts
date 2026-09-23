@@ -124,3 +124,55 @@ export function browseReferences(
       (!options.ids || options.ids.includes(e.id)),
   );
 }
+
+/** One place in the index per reference, using only the registry's contexts. */
+const REFERENCE_RESULT_THEMES = [
+  { id: 'dungeon', title: '던전 · 방', contexts: ['dungeon', 'room'] },
+  { id: 'city', title: '도시', contexts: ['city'] },
+  { id: 'travel', title: '여정', contexts: ['travel'] },
+  { id: 'character', title: '캐릭터 · 인물', contexts: ['character', 'npc'] },
+  { id: 'monster', title: '생물', contexts: ['monster'] },
+] as const;
+
+export type ReferenceResultTheme = {
+  id: string;
+  title: string;
+  entries: ReferenceEntry[];
+};
+
+export function groupReferenceResults(
+  entries: ReferenceEntry[],
+  preferredContext?: string,
+): ReferenceResultTheme[] {
+  const groups = new Map<string, ReferenceResultTheme>();
+  const seen = new Set<string>();
+  const preferred = REFERENCE_RESULT_THEMES.find((theme) =>
+    theme.contexts.some((context) => context === preferredContext),
+  );
+  for (const entry of entries) {
+    if (seen.has(entry.id)) continue;
+    seen.add(entry.id);
+    const theme =
+      (preferred &&
+      preferred.contexts.some((context) => entry.contexts.includes(context)))
+        ? preferred
+        : REFERENCE_RESULT_THEMES.find((candidate) =>
+            candidate.contexts.some((context) =>
+              entry.contexts.includes(context),
+            ),
+          );
+    const id = theme?.id ?? 'other';
+    let group = groups.get(id);
+    if (!group) {
+      group = { id, title: theme?.title ?? '그 밖의 참조', entries: [] };
+      groups.set(id, group);
+    }
+    group.entries.push(entry);
+  }
+  return [
+    ...REFERENCE_RESULT_THEMES.map((theme) => groups.get(theme.id)).filter(
+      (group): group is ReferenceResultTheme => !!group,
+    ),
+    ...(groups.has('other') ? [groups.get('other')!] : []),
+  ];
+}

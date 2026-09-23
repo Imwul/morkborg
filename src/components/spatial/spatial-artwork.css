@@ -55,3 +55,6 @@
 .spatial-art .plate-object-paper {
   fill: var(--spatial-object-fill, var(--plate-paper));
 }
+.spatial-art .plate-dark-contrast {
+  stroke: var(--plate-paper);
+}

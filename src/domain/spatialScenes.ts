@@ -8,6 +8,18 @@ export interface SpatialHotspot {
   visualTarget: string;
   accessibleLabel: string;
 }
+/** Context for imagining a place, kept separate from things drawn on the map. */
+export interface SpatialSupportReference {
+  id: string;
+  referenceId: string;
+  label: string;
+}
+export interface SpatialSupportGroup {
+  id: string;
+  title: string;
+  description: string;
+  references: SpatialSupportReference[];
+}
 export interface SpatialScene {
   id: string;
   title: string;
@@ -15,6 +27,7 @@ export interface SpatialScene {
   context: ReferenceContext;
   description: string;
   hotspots: SpatialHotspot[];
+  supportGroups: SpatialSupportGroup[];
 }
 const spot = (
   scene: string,
@@ -27,6 +40,16 @@ const spot = (
   semanticRole: target,
   visualTarget: target,
   accessibleLabel: label,
+});
+const support = (
+  scene: string,
+  target: string,
+  referenceId: string,
+  label: string,
+): SpatialSupportReference => ({
+  id: `${scene}-support-${target}`,
+  referenceId,
+  label,
 });
 
 export const SPATIAL_SCENES: SpatialScene[] = [
@@ -115,6 +138,57 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         '방 안의 냄새 · Room smells',
       ),
     ],
+    supportGroups: [
+      {
+        id: 'dungeon-story',
+        title: '이 던전은 무엇이었나',
+        description: '지도에 보이지 않는 기원과 현재의 사정을 정합니다.',
+        references: [
+          support(
+            'dungeon',
+            'origin',
+            'oracle:reclvse.dungeonOrigin',
+            '기원 · Origin',
+          ),
+          support(
+            'dungeon',
+            'purpose',
+            'oracle:reclvse.dungeonPurposeThen',
+            '이전 / 현재의 목적 · Purpose then / now',
+          ),
+          support(
+            'dungeon',
+            'theme',
+            'oracle:reclvse.dungeonTheme',
+            '주제 · Theme',
+          ),
+          support(
+            'dungeon',
+            'condition',
+            'oracle:reclvse.dungeonCondition',
+            '현재 상태 · Condition',
+          ),
+          support(
+            'dungeon',
+            'inhabitants',
+            'oracle:reclvse.dungeonInhabitants',
+            '현재 거주자 · Inhabitants',
+          ),
+          support(
+            'dungeon',
+            'motive',
+            'oracle:reclvse.dungeonMotive',
+            '안에서 추구하는 것 · Motive',
+          ),
+          support(
+            'dungeon',
+            'mythic-descriptor',
+            'oracle:mythic2.meaning.dungeon-descriptors',
+            '던전 묘사어 · Mythic 2e',
+          ),
+        ],
+      },
+    ],
   },
   {
     id: 'city',
@@ -177,6 +251,106 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         'procedure:city.directions',
         '갈림길 · Directions',
       ),
+    ],
+    supportGroups: [
+      {
+        id: 'city-story',
+        title: '도시의 과거와 지금',
+        description: '거리로 들어가기 전에 도시의 성격을 잡습니다.',
+        references: [
+          support(
+            'city',
+            'origin',
+            'oracle:reclvse.city_origin',
+            '도시의 기원 · City origin',
+          ),
+          support(
+            'city',
+            'purpose-then',
+            'oracle:reclvse.city_purpose_then',
+            '이전의 목적 · Purpose then',
+          ),
+          support(
+            'city',
+            'purpose-now',
+            'oracle:reclvse.city_purpose_now',
+            '지금의 목적 · Purpose now',
+          ),
+          support(
+            'city',
+            'mood',
+            'oracle:reclvse.city_mood',
+            '도시의 분위기 · Mood',
+          ),
+          support(
+            'city',
+            'condition',
+            'oracle:reclvse.city_condition',
+            '도시의 상태 · Condition',
+          ),
+          support(
+            'city',
+            'architecture',
+            'oracle:reclvse.city_architecture',
+            '건축 양식 · Architecture',
+          ),
+          support(
+            'city',
+            'threats',
+            'oracle:reclvse.city_threats',
+            '도시를 위협하는 것 · Threats',
+          ),
+          support(
+            'city',
+            'mythic-descriptor',
+            'oracle:mythic2.meaning.city-descriptors',
+            '도시 묘사어 · Mythic 2e',
+          ),
+        ],
+      },
+      {
+        id: 'city-neighborhood',
+        title: '동네의 속사정',
+        description: '건물 사이에 흐르는 분위기와 갈등을 더합니다.',
+        references: [
+          support(
+            'city',
+            'neighborhood-type',
+            'oracle:reclvse.neighborhood_type',
+            '동네의 종류 · Type',
+          ),
+          support(
+            'city',
+            'neighborhood-mood',
+            'oracle:reclvse.neighborhood_mood',
+            '동네의 분위기 · Mood',
+          ),
+          support(
+            'city',
+            'neighborhood-activity',
+            'oracle:reclvse.neighborhood_activity',
+            '동네의 활동 · Activity',
+          ),
+          support(
+            'city',
+            'neighborhood-outsiders',
+            'oracle:reclvse.neighborhood_attitude_toward_outsiders',
+            '외지인을 보는 태도 · Outsiders',
+          ),
+          support(
+            'city',
+            'neighborhood-problem',
+            'oracle:reclvse.neighborhood_problem',
+            '동네의 문제 · Problem',
+          ),
+          support(
+            'city',
+            'neighborhood-secret',
+            'oracle:reclvse.neighborhood_secret',
+            '동네의 비밀 · Secret',
+          ),
+        ],
+      },
     ],
   },
   {
@@ -250,6 +424,88 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         '이정표 · Travel distances',
       ),
     ],
+    supportGroups: [
+      {
+        id: 'journey-landscape',
+        title: '지평선 너머',
+        description: '여정을 둘러싼 지형과 지명의 맥락을 더합니다.',
+        references: [
+          support(
+            'wilderness',
+            'region-name',
+            'oracle:reclvse.region_names',
+            '지역의 이름 · Region name',
+          ),
+          support(
+            'wilderness',
+            'landmark-presence',
+            'oracle:reclvse.landmark_presence',
+            '랜드마크의 존재 · Landmark presence',
+          ),
+          support(
+            'wilderness',
+            'natural-landmark',
+            'oracle:reclvse.major_natural_landmarks',
+            '큰 자연 지형 · Natural landmark',
+          ),
+          support(
+            'wilderness',
+            'ruinous-landmark',
+            'oracle:reclvse.ruinous_landmarks',
+            '폐허가 된 지형 · Ruinous landmark',
+          ),
+          support(
+            'wilderness',
+            'landmark-purpose',
+            'oracle:reclvse.landmark_purpose',
+            '지형의 용도 · Landmark purpose',
+          ),
+          support(
+            'wilderness',
+            'landmark-condition',
+            'oracle:reclvse.landmark_condition',
+            '지형의 상태 · Landmark condition',
+          ),
+          support(
+            'wilderness',
+            'mythic-descriptor',
+            'oracle:mythic2.meaning.terrain-descriptors',
+            '지형 묘사어 · Mythic 2e',
+          ),
+        ],
+      },
+      {
+        id: 'journey-omens',
+        title: '길 위의 불길한 기운',
+        description: '눈앞에 없는 사건의 조짐을 상상할 때 씁니다.',
+        references: [
+          support(
+            'wilderness',
+            'strange-omens',
+            'oracle:reclvse.strange_omens',
+            '기이한 징조 · Strange omens',
+          ),
+          support(
+            'wilderness',
+            'weather-omens',
+            'oracle:reclvse.weather_omen_signs',
+            '날씨의 징조 · Weather omens',
+          ),
+          support(
+            'wilderness',
+            'natural-oddities',
+            'oracle:reclvse.natural_oddities',
+            '자연의 이상함 · Natural oddities',
+          ),
+          support(
+            'wilderness',
+            'lost-people',
+            'oracle:reclvse.signs_of_lost_people',
+            '실종자의 흔적 · Lost people',
+          ),
+        ],
+      },
+    ],
   },
 ];
 
@@ -259,11 +515,13 @@ export function validateSpatialScenes(
 ): string[] {
   const problems: string[] = [],
     sceneIds = new Set<string>(),
-    hotspotIds = new Set<string>();
+    hotspotIds = new Set<string>(),
+    supportIds = new Set<string>();
   for (const scene of scenes) {
     if (sceneIds.has(scene.id)) problems.push(`Duplicate scene: ${scene.id}`);
     sceneIds.add(scene.id);
     const targets = new Set<string>();
+    const sceneReferenceIds = new Set<string>();
     for (const hotspot of scene.hotspots) {
       if (hotspotIds.has(hotspot.id))
         problems.push(`Duplicate hotspot: ${hotspot.id}`);
@@ -271,6 +529,7 @@ export function validateSpatialScenes(
       if (targets.has(hotspot.visualTarget))
         problems.push(`Shadowed artwork: ${scene.id}/${hotspot.visualTarget}`);
       targets.add(hotspot.visualTarget);
+      sceneReferenceIds.add(hotspot.referenceId);
       if (!byId[hotspot.referenceId])
         problems.push(
           `Missing reference: ${hotspot.id} → ${hotspot.referenceId}`,
@@ -278,22 +537,51 @@ export function validateSpatialScenes(
       if (!hotspot.accessibleLabel.trim())
         problems.push(`Missing accessible label: ${hotspot.id}`);
     }
+    const groupIds = new Set<string>();
+    for (const group of scene.supportGroups) {
+      if (groupIds.has(group.id))
+        problems.push(`Duplicate support group: ${scene.id}/${group.id}`);
+      groupIds.add(group.id);
+      if (!group.title.trim())
+        problems.push(`Missing support group title: ${scene.id}/${group.id}`);
+      for (const item of group.references) {
+        if (supportIds.has(item.id))
+          problems.push(`Duplicate support reference: ${item.id}`);
+        supportIds.add(item.id);
+        if (sceneReferenceIds.has(item.referenceId))
+          problems.push(
+            `Repeated scene reference: ${scene.id}/${item.referenceId}`,
+          );
+        sceneReferenceIds.add(item.referenceId);
+        if (!byId[item.referenceId])
+          problems.push(
+            `Missing support reference: ${item.id} → ${item.referenceId}`,
+          );
+        if (!item.label.trim())
+          problems.push(`Missing support label: ${item.id}`);
+      }
+    }
   }
   return problems;
 }
 
 /** The same inspect operation used by Search; selecting artwork never rolls. */
-export function inspectSpatialHotspot(
-  hotspot: SpatialHotspot,
+export function inspectSpatialReference(
+  referenceId: string,
   desk: {
     byId: Record<string, ReferenceEntry>;
     activate: (id: string, roll?: boolean) => void;
   },
 ) {
-  const entry = desk.byId[hotspot.referenceId];
-  if (!entry)
-    throw new Error(`Missing spatial reference: ${hotspot.referenceId}`);
+  const entry = desk.byId[referenceId];
+  if (!entry) throw new Error(`Missing spatial reference: ${referenceId}`);
   desk.activate(entry.id, false);
+}
+export function inspectSpatialHotspot(
+  hotspot: SpatialHotspot,
+  desk: Parameters<typeof inspectSpatialReference>[1],
+) {
+  inspectSpatialReference(hotspot.referenceId, desk);
 }
 
 export const normalizeSpatialSceneId = (raw: unknown): string =>

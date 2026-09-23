@@ -1,5 +1,10 @@
 import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { ReferenceOracleIntroduction } from './ReferenceOracleIntroduction';
+import { ReferenceSourceFamily } from './ReferenceSourceFamily';
+import {
+  sourceSubtableFamilies,
+  sourceSubtableFamilyFor,
+} from '../domain/sourceSubtableFamilies';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
 import { usePrivateDngngen } from './usePrivateDngngen';
@@ -26,6 +31,7 @@ import { DungeonActionMoves } from './DungeonActionMoves';
 import { ReferenceReadingBlock } from './InlineReferenceTools';
 import {
   browseReferences,
+  groupReferenceResults,
   isDeskClutter,
   REFERENCE_TYPES,
   REFERENCE_CONTEXTS,
@@ -168,6 +174,10 @@ export function ReferenceProvider({
     () => getReferenceRelationships(index, oracles.registry),
     [index, oracles.registry],
   );
+  const subtableFamilies = useMemo(
+    () => sourceSubtableFamilies(oracles.registry, index),
+    [index, oracles.registry],
+  );
   const memory = usePlayMemory();
   const [prefs, setPrefs] = useState(readReferencePreferences);
   const [selectedId, setSelectedId] = useState<string | null>(null),
@@ -236,6 +246,9 @@ export function ReferenceProvider({
     restoreScroll.current = null;
   }, [selectedId]);
   const selected = index.byId[selectedId ?? ''] ?? null;
+  const subtableFamily = selected
+    ? sourceSubtableFamilyFor(subtableFamilies, selected.id)
+    : undefined;
   const procedureParts =
     selected && ['procedure', 'rule'].includes(selected.kind)
       ? [
@@ -913,6 +926,14 @@ export function ReferenceProvider({
               )}
             </div>
           )}
+        {subtableFamily && (
+          <ReferenceSourceFamily
+            family={subtableFamily}
+            references={index}
+            selectedId={selected.id}
+            onOpen={(id) => activate(id, false)}
+          />
+        )}
         {selected.action?.kind === 'region' &&
           index.byId[`rule:regional-monsters:${selected.action.region}`] && (
             <ReferenceRow
@@ -2334,7 +2355,7 @@ export function ReferenceDesk({
   const [context, setContext] = useState(
     initialShelf === 'quick' || initialShelf === 'rules' ? '' : initialShelf,
   );
-  const [limit, setLimit] = useState(24);
+  const [themeLimits, setThemeLimits] = useState<Record<string, number>>({});
   const [diceOpen, setDiceOpen] = useState(false);
   const [browserState, setBrowserState] = useState({
     open: false,
@@ -2364,7 +2385,7 @@ export function ReferenceDesk({
     setKind('all');
     setBook('');
     setContext('');
-    setLimit(24);
+    setThemeLimits({});
   };
   function search(value: string) {
     if (value) setPage('reference');
@@ -2375,14 +2396,12 @@ export function ReferenceDesk({
   }
   const visibleEntries = index.entries.filter((e) => !isDeskClutter(e));
   const books = visibleEntries.filter((e) => e.kind === 'book');
-  const showIndex =
-    !!query ||
-    browserOpen ||
-    kind !== 'all' ||
-    !!book ||
-    !!context ||
-    (desk?.scope ?? 'all') !== 'all';
   const selected = desk?.selectedId ? index.byId[desk.selectedId] : undefined;
+  const showResultSpread = page === 'reference' && (browserOpen || !selected);
+  const resultGroups =
+    desk?.scope === 'pinned' || desk?.scope === 'recent'
+      ? [{ id: 'saved', title: '', entries: found }]
+      : groupReferenceResults(found, context);
   const relatedItems =
     selected && desk?.relationships
       ? relatedReferenceRelationships(index, desk.relationships, selected.id, 8)
@@ -2396,15 +2415,22 @@ export function ReferenceDesk({
     </section>
   );
   const resultIndex = (
-    <section className="desk-index-results" aria-label="검색 결과">
+    <section
+      className="desk-index-results"
+      aria-label={query ? '검색 결과' : '참조 목록'}
+      data-curated={desk?.scope === 'pinned' || desk?.scope === 'recent'}
+    >
       <h2>
-        {query
-          ? '검색 결과'
-          : desk?.scope === 'pinned'
-            ? '고정한 참조'
-            : desk?.scope === 'recent'
-              ? '최근 참조'
-              : '참조 목록'}
+        <span>
+          {query
+            ? '검색 결과'
+            : desk?.scope === 'pinned'
+              ? '고정한 참조'
+              : desk?.scope === 'recent'
+                ? '최근 참조'
+                : '참조 목록'}
+          <small>{found.length}</small>
+        </span>
         {(kind !== 'all' || book || context || desk?.scope !== 'all') && (
           <button
             onClick={() => {
@@ -2417,18 +2443,47 @@ export function ReferenceDesk({
           </button>
         )}
       </h2>
-      {found.slice(0, limit).map((e) => (
-        <ReferenceRow key={e.id} entry={e} />
+      {resultGroups.map((group) => (
+        <section
+          className="desk-result-theme"
+          data-theme-group={group.id}
+          key={group.id}
+          aria-label={group.title || '참조'}
+        >
+          {group.title && (
+            <header>
+              <h3>{group.title}</h3>
+              <span>{group.entries.length}</span>
+            </header>
+          )}
+          <div className="desk-result-theme-entries">
+            {group.entries.slice(0, themeLimits[group.id] ?? 6).map((entry) => (
+              <ReferenceRow key={entry.id} entry={entry} />
+            ))}
+          </div>
+          {group.entries.length > (themeLimits[group.id] ?? 6) && (
+            <button
+              className="desk-more"
+              aria-label={`${group.title || '참조'} 더 보기`}
+              onClick={() =>
+                setThemeLimits((current) => ({
+                  ...current,
+                  [group.id]: (current[group.id] ?? 6) + 12,
+                }))
+              }
+            >
+              더 보기{' '}
+              <small>
+                {group.entries.length - (themeLimits[group.id] ?? 6)}개 남음
+              </small>
+            </button>
+          )}
+        </section>
       ))}
       {!found.length && (
         <p className="desk-no-results">
           일치하는 참조가 없습니다. 짧은 단어나 책 이름으로 찾아보세요.
         </p>
-      )}
-      {found.length > limit && (
-        <button className="desk-more" onClick={() => setLimit(limit + 40)}>
-          더 보기
-        </button>
       )}
     </section>
   );
@@ -2550,7 +2605,7 @@ export function ReferenceDesk({
                     setPage('reference');
                     setKind(id);
                     setBrowserOpen(true);
-                    setLimit(24);
+                    setThemeLimits({});
                     desk?.setScope?.('all');
                     requestAnimationFrame(() => {
                       if (window.matchMedia('(max-width: 800px)').matches)
@@ -2577,7 +2632,10 @@ export function ReferenceDesk({
         <div
           className="desk-layout"
           data-page={page}
-          data-has-pages={page === 'reference' && !!desk?.trayIds?.length}
+          data-index-spread={showResultSpread}
+          data-has-pages={
+            page === 'reference' && !showResultSpread && !!desk?.trayIds?.length
+          }
         >
           {page === 'reference' && (
             <aside
@@ -2592,7 +2650,6 @@ export function ReferenceDesk({
               >
                 참조 찾기 <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
               </button>
-              {query && resultIndex}
               <div className="desk-browse-filters">
                 <label>
                   출처
@@ -2601,7 +2658,8 @@ export function ReferenceDesk({
                     value={book}
                     onChange={(e) => {
                       setBook(e.target.value);
-                      setLimit(24);
+                      setBrowserOpen(true);
+                      setThemeLimits({});
                     }}
                   >
                     <option value="">모든 책</option>
@@ -2619,7 +2677,8 @@ export function ReferenceDesk({
                     value={context}
                     onChange={(e) => {
                       setContext(e.target.value);
-                      setLimit(24);
+                      setBrowserOpen(true);
+                      setThemeLimits({});
                     }}
                   >
                     <option value="">모든 상황</option>
@@ -2673,7 +2732,6 @@ export function ReferenceDesk({
                     ))}
                 </div>
               </section>
-              {!query && showIndex && resultIndex}
             </aside>
           )}
           <div className="desk-current-page">
@@ -2714,23 +2772,25 @@ export function ReferenceDesk({
               />
             ) : (
               <>
-                {desk?.content ?? <p>색인에서 페이지를 펼치세요.</p>}
-                {relatedContent}
+                {showResultSpread ? resultIndex : desk?.content}
+                {!showResultSpread && relatedContent}
               </>
             )}
           </div>
-          {page === 'reference' && !!desk?.trayIds?.length && (
-            <aside className="desk-side-pages" aria-label="펼친 페이지">
-              <section className="desk-open-pages" aria-label="작업대">
-                <h2>
-                  펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
-                </h2>
-                {entries(desk.trayIds).map((e) => (
-                  <OpenReferencePage key={e.id} entry={e} />
-                ))}
-              </section>
-            </aside>
-          )}
+          {page === 'reference' &&
+            !showResultSpread &&
+            !!desk?.trayIds?.length && (
+              <aside className="desk-side-pages" aria-label="펼친 페이지">
+                <section className="desk-open-pages" aria-label="작업대">
+                  <h2>
+                    펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
+                  </h2>
+                  {entries(desk.trayIds).map((e) => (
+                    <OpenReferencePage key={e.id} entry={e} />
+                  ))}
+                </section>
+              </aside>
+            )}
         </div>
       </section>
     </ReferenceContext.Provider>
