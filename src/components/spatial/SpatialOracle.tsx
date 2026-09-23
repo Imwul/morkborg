@@ -65,7 +65,13 @@ export function SpatialOracle({
     inspectSpatialHotspot(hotspot, desk);
     requestAnimationFrame(() => {
       reader.current?.focus({ preventScroll: true });
-      if (window.matchMedia('(max-width: 1100px)').matches)
+      const headerBottom =
+        document.querySelector('.rdesk-header')?.getBoundingClientRect()
+          .bottom ?? 0;
+      if (
+        window.matchMedia('(max-width: 1100px)').matches ||
+        (reader.current?.getBoundingClientRect().top ?? 0) < headerBottom + 20
+      )
         reader.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
     });
   }

@@ -6,11 +6,27 @@ export const cityVisuals: Record<string, SpatialVisualTarget> = {
     hitPath: 'M287 38 L408 35 412 174 283 175 Z',
     labelPoint: [347, 187],
   },
+  'gate-signs': {
+    hitPath: 'M217 59 Q247 54 284 65 L282 151 Q250 155 220 142Z',
+    labelPoint: [239, 158],
+  },
   street: {
     hitPath:
       'M351 620 C351 559 420 524 425 471 C430 425 424 388 405 347 C383 300 338 285 320 244 C298 202 319 168 344 146 M329 269 C240 279 148 306 31 305 M410 367 C465 347 534 293 733 290 M431 461 C491 423 584 429 728 449',
     hitStrokeWidth: 74,
     labelPoint: [340, 216],
+  },
+  cobbles: {
+    hitPath: 'M335 508 Q371 505 418 522 L420 582 Q379 589 339 577Z',
+    labelPoint: [398, 587],
+  },
+  'alley-hazard': {
+    hitPath: 'M428 220 Q474 220 527 236 L524 299 Q475 309 429 288Z',
+    labelPoint: [481, 312],
+  },
+  'chimney-smell': {
+    hitPath: 'M584 18 Q623 15 672 35 L675 102 Q640 119 589 100Z',
+    labelPoint: [641, 118],
   },
   crowd: {
     hitPath: 'M297 317 L398 315 409 409 300 417 Z',

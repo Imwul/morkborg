@@ -1,5 +1,7 @@
 # Spatial Oracle implementation report
 
+This records the initial spatial implementation at `806371812a5488c90872f029cbbb2275f9996e14`. The later entrance/smell additions, changed exit mapping, generator and reader refinements, and current 41-hotspot acceptance are in [followup-report.md](followup-report.md).
+
 Baseline commit: `40201c331945b91f08e200c1227b6d8a67de860a`.
 Final commit: the implementation commit accompanying this report; its full hash is recorded in the completion message.
 

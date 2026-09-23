@@ -15,6 +15,7 @@ import {
   InlineReferenceTools,
   ReferenceReadingBlock,
 } from './InlineReferenceTools';
+import { useReferenceDesk } from './ReferenceContext';
 
 export function DungeonActionMoves({
   threatRating,
@@ -26,6 +27,7 @@ export function DungeonActionMoves({
   registry: OracleRegistry;
 }) {
   const uid = useId();
+  const desk = useReferenceDesk();
   const [action, setAction] = useState<DungeonAction>('search');
   const [modifier, setModifier] = useState('0'),
     [enemies, setEnemies] = useState('1'),
@@ -187,6 +189,20 @@ export function DungeonActionMoves({
       {result && (
         <>
           <ReferenceReadingBlock reading={result.reading} />
+          {result.outcome === 'weak' &&
+            desk?.byId['oracle:depths.weakHitConsequences'] && (
+              <div className="dungeon-weak-hit-suggestion">
+                <span>WEAK HIT · 결과가 불명확할 때 참고</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    desk.activate('oracle:depths.weakHitConsequences', false)
+                  }
+                >
+                  Sölitary Depths · Weak Hit 결과표 열기 ↗
+                </button>
+              </div>
+            )}
           {result.relatedIds.length > 0 && (
             <InlineReferenceTools
               key={`${action}-${result.values.join('-')}`}

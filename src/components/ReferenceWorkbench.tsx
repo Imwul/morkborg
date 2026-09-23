@@ -1,4 +1,5 @@
 import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
+import { ReferenceOracleIntroduction } from './ReferenceOracleIntroduction';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
 import { usePrivateDngngen } from './usePrivateDngngen';
@@ -700,6 +701,17 @@ export function ReferenceProvider({
     ['oracle', 'procedure', 'regional-monster', 'regional-table'].includes(
       selected.action?.kind ?? '',
     );
+  const generatorResultKind =
+    selected?.id === 'procedure:character.core-classless'
+      ? 'character'
+      : selected &&
+          [
+            'procedure:workbench.epk',
+            'procedure:feretory.monster-approaches',
+            'rule:feretory.monster-approaches',
+          ].includes(selected.id)
+        ? 'monster'
+        : undefined;
   async function copyReading(withSource = false) {
     if (!reading) return;
     const text = copyReadingWithInlineChildren(
@@ -780,13 +792,20 @@ export function ReferenceProvider({
           : '빠른 참조'}
       </p>
       <div className="reference-body">
-        {!plainRule &&
+        {selected.kind === 'oracle' ? (
+          <ReferenceOracleIntroduction
+            entry={selected}
+            registry={oracles.registry}
+          />
+        ) : (
+          !plainRule &&
           selected.kind !== 'creature' &&
           !/^\d*d\d+\s*·/.test(referenceEntryDescription(selected)) && (
             <p className="reference-summary">
               {referenceEntryDescription(selected)}
             </p>
-          )}
+          )
+        )}
         {procedureId === 'character.core-classless' &&
           privateScvm.status !== 'public' && (
             <div className="dungeon-room-source">
@@ -1126,6 +1145,7 @@ export function ReferenceProvider({
             key={`${selected.id}:${session.sequence}`}
             className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
             aria-label="참조 결과"
+            data-generator-result={generatorResultKind}
           >
             {reading.title !== selected.title &&
               !reading.npcSnapshot &&
@@ -1151,6 +1171,14 @@ export function ReferenceProvider({
                   <section
                     key={n}
                     data-reading-density={resultTextDensity(block.text)}
+                    data-generator-field={
+                      generatorResultKind
+                        ? block.title
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '')
+                        : undefined
+                    }
                     data-compound-dice={
                       block.dice?.includes(' · ') || undefined
                     }
@@ -1497,6 +1525,7 @@ export function ReferenceProvider({
                 key={table.id}
                 table={table}
                 hideCaption={selected.canonicalIds.length === 1}
+                hideDescription
                 parentResult={reading?.oracle}
                 currentEntryIds={
                   reading?.oracle?.rolls.map((roll) => roll.entryId) ?? []
@@ -2681,6 +2710,7 @@ export function ReferenceDesk({
                 generators={page === 'generators'}
                 onGenerator={onGenerator}
                 onGenerators={() => setPage('generators')}
+                onOpenReference={(id) => openReference(id)}
               />
             ) : (
               <>

@@ -73,3 +73,31 @@
   width: 100%;
   min-height: 8rem;
 }
+.dungeon-weak-hit-suggestion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem 1rem;
+  margin-block: 0.7rem;
+  padding: 0.65rem 0.8rem;
+  border-left: 4px solid #bb786b;
+  background: #ece6b8;
+  color: #242320;
+}
+.dungeon-weak-hit-suggestion > span {
+  font: 750 0.72rem/1.5 var(--font-mono, monospace);
+  letter-spacing: 0.035em;
+}
+.dungeon-weak-hit-suggestion button {
+  min-height: 44px;
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.dungeon-weak-hit-suggestion button:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}

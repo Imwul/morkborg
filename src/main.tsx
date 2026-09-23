@@ -17,6 +17,7 @@ import './publication.css';
 import './reference-app.css';
 import './components/spatial/spatial-artwork.css';
 import './components/spatial/spatial-oracle.css';
+import './components/generator-result.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

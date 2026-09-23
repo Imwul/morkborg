@@ -23,12 +23,14 @@ export function ReferenceTable({
   currentEntryIds,
   onChoose,
   hideCaption = false,
+  hideDescription = false,
   parentResult,
 }: {
   table: OracleDefinition;
   currentEntryIds: (string | null)[];
   onChoose: (table: OracleDefinition, entry: OracleEntry) => void;
   hideCaption?: boolean;
+  hideDescription?: boolean;
   parentResult?: OracleResult;
 }) {
   const exits = table.id === 'sd.room.exits';
@@ -43,7 +45,7 @@ export function ReferenceTable({
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')}`}
     >
-      {table.description && (
+      {table.description && !hideDescription && (
         <div className="table-use-context">
           <ReferenceReadingText text={table.description} />
         </div>

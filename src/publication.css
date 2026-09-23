@@ -648,7 +648,7 @@ body,
   max-width: 22ch;
   margin: 0 0 2px;
   color: inherit;
-  font: 400 clamp(3.5rem, 6vw, 7rem) / 1 var(--font-blackletter);
+  font: 400 clamp(3rem, 4.4vw, 4.75rem) / 1.04 var(--font-blackletter);
   letter-spacing: -0.035em;
   text-transform: none;
   overflow-wrap: break-word;
@@ -662,18 +662,18 @@ body,
 }
 .reference-app .reference-page[data-reference-kind='rule'] h2 {
   max-width: 20ch;
-  font: 900 clamp(3.2rem, 5.5vw, 5.8rem) / 0.95 var(--font-display);
+  font: 900 clamp(2.2rem, 3.6vw, 4.25rem) / 1.04 var(--font-display);
   letter-spacing: -0.035em;
   text-transform: none;
 }
 .reference-app .reference-page[data-reference-kind='procedure'] h2 {
   max-width: 25ch;
-  font: 900 clamp(2.8rem, 4.5vw, 5rem) / 0.98 var(--font-display);
+  font: 900 clamp(2.7rem, 3.5vw, 4.25rem) / 1.04 var(--font-display);
   letter-spacing: -0.02em;
   text-transform: none;
 }
 .reference-app .reference-page[data-reference-kind='creature'] h2 {
-  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-size: clamp(3rem, 4.4vw, 4.75rem);
   max-width: 18ch;
 }
 .reference-app
@@ -692,6 +692,33 @@ body,
   margin: 0 0 20px;
   font: 550 var(--text-body) / 1.55 var(--font-ui);
   color: var(--ink);
+}
+.reference-app .reference-page .reference-oracle-introduction {
+  max-width: 68ch;
+  margin: 0 0 18px;
+}
+.reference-app
+  .reference-page
+  .reference-oracle-introduction-item
+  + .reference-oracle-introduction-item {
+  margin-top: 14px;
+}
+.reference-app .reference-page .reference-oracle-description {
+  margin: 0 0 5px;
+  font: 600 clamp(1.3rem, 1.6vw, 1.9rem) / 1.4 var(--font-ui);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+.reference-app
+  .reference-page
+  .reference-oracle-introduction
+  .generated-translation {
+  display: block;
+  margin: 0;
+  font: 500 var(--text-secondary) / 1.55 var(--font-ui);
+  color: var(--muted-ink);
+  white-space: pre-line;
 }
 .reference-app .reference-page .reference-formula {
   display: flex;
@@ -1380,11 +1407,42 @@ body,
   }
 
   .reference-app .reference-page h2 {
-    font-size: 9rem;
+    font-size: 4.75rem;
   }
   .reference-app .reference-page[data-reference-kind='rule'] h2 {
-    font-size: 9rem;
+    font-size: 4.25rem;
   }
+}
+.reference-app .spatial-reader .reference-page .reference-inspector-top {
+  grid-template-columns: auto minmax(0, 1fr) 44px;
+}
+.reference-app .spatial-reader .reference-page .reference-inspector-top > h2 {
+  grid-area: 1 / 1 / auto / -1;
+  max-width: 100%;
+  font-size: clamp(2.1rem, 2.2vw, 2.8rem);
+  overflow-wrap: break-word;
+}
+.reference-app
+  .spatial-reader
+  .reference-page
+  .reference-inspector-top
+  > .ref-pin {
+  grid-area: 2 / 1;
+}
+.reference-app
+  .spatial-reader
+  .reference-page
+  .reference-inspector-top
+  > .ref-open-page {
+  grid-area: 2 / 2;
+  justify-self: start;
+}
+.reference-app
+  .spatial-reader
+  .reference-page
+  .reference-inspector-top
+  > .reference-convenience-actions {
+  grid-area: 2 / 3;
 }
 @media (max-width: 1599px) and (min-width: 801px) {
   .reference-app .desk-layout[data-has-pages='true'] {
@@ -2252,13 +2310,18 @@ body,
   gap: 0.5rem;
   min-width: 0;
 }
-.dungeon-room-source select { max-width: 100%; }
+.dungeon-room-source select {
+  max-width: 100%;
+}
 .dungeon-room-source small,
 .dungeon-room-provenance {
   font: 450 var(--text-secondary) / 1.5 var(--font-ui);
   overflow-wrap: anywhere;
 }
-.dungeon-native-component { overflow-wrap: anywhere; white-space: pre-line; }
+.dungeon-native-component {
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
 
 /* Home and generator indexes use the whole reading surface. */
 .reference-app .desk-layout[data-page='home'],
@@ -2343,4 +2406,12 @@ body,
   .reference-app .reference-page .reference-roll-results .reference-reading-items > section[data-reading-density='brief'] {
     grid-column: 1 / -1;
   }
+}
+
+/* A long Oracle answer is prose, even when a brief answer uses display type. */
+.reference-app .reference-page[data-reference-kind='oracle'] .reference-body .reference-roll-results .reference-reading-items > section[data-reading-density='long'] .reference-result-text {
+  font: 550 clamp(1.35rem, 1.45vw, 1.7rem) / 1.48 var(--font-ui);
+}
+.reference-app .reference-page[data-reference-kind='oracle'] .reference-body .reference-roll-results .reference-reading-items > section[data-reading-density='extended'] .reference-result-text {
+  font: 500 clamp(1.18rem, 1.25vw, 1.5rem) / 1.55 var(--font-ui);
 }

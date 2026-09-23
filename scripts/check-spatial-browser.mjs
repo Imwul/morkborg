@@ -384,20 +384,21 @@ try {
       // Tab enters a real SVG control. Enter, Space and arrow keys are real key events.
       await feature('dungeon', 'entrance').focus();
       await page.keyboard.press('Tab');
-      assert.equal(
-        await page.evaluate(() =>
-          document.activeElement?.getAttribute('data-hotspot-id'),
-        ),
-        'dungeon-masonry',
+      const tabId = await page.evaluate(() =>
+        document.activeElement?.getAttribute('data-hotspot-id'),
       );
+      assert.ok(tabId?.startsWith('dungeon-') && tabId !== 'dungeon-entrance');
+      const tabTarget = await page
+        .locator(`[data-hotspot-id="${tabId}"]`)
+        .getAttribute('data-reference-target');
       await page.keyboard.press('Enter');
-      await waitReference('oracle:reclvse.architecture');
+      await waitReference(tabTarget);
       await backToMap();
       await page.keyboard.press('ArrowRight');
       const arrowId = await page.evaluate(() =>
         document.activeElement?.getAttribute('data-hotspot-id'),
       );
-      assert.ok(arrowId && arrowId !== 'dungeon-masonry');
+      assert.ok(arrowId && arrowId !== tabId);
       const arrowTarget = await page
         .locator(`[data-hotspot-id="${arrowId}"]`)
         .getAttribute('data-reference-target');
@@ -405,7 +406,17 @@ try {
       await waitReference(arrowTarget);
       await backToMap();
       await feature('dungeon', 'entrance').focus();
-      for (let tab = 0; tab < 10; tab++) await page.keyboard.press('Tab');
+      const keyboardOrder = await page
+        .locator('.spatial-oracle[data-scene="dungeon"] .spatial-hotspot')
+        .evaluateAll((elements) =>
+          elements.map((element) => element.getAttribute('data-hotspot-id')),
+        );
+      const focusSteps =
+        keyboardOrder.indexOf('dungeon-sounds') -
+        keyboardOrder.indexOf('dungeon-entrance');
+      assert.ok(focusSteps > 0);
+      for (let tab = 0; tab < focusSteps; tab++)
+        await page.keyboard.press('Tab');
       await settle();
       assert.equal(
         await page.evaluate(() =>

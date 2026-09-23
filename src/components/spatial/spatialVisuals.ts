@@ -16,6 +16,18 @@ export const sceneVisuals: Record<
 > = {
   wilderness: {
     road: { hitPath: roadLine, hitStrokeWidth: 74, labelPoint: [607, 563] },
+    roadside: {
+      hitPath: 'M605 410 Q642 400 686 421 L694 489 Q661 508 613 493Z',
+      labelPoint: [653, 507],
+    },
+    river: {
+      hitPath: 'M558 169 Q604 161 655 175 L662 230 Q614 242 563 229Z',
+      labelPoint: [603, 246],
+    },
+    'threat-signs': {
+      hitPath: 'M238 233 Q272 225 310 242 L314 311 Q279 326 241 307Z',
+      labelPoint: [280, 329],
+    },
     forage: {
       hitPath: 'M83 254 191 240 228 298 215 373 102 380 65 312Z',
       labelPoint: [136, 384],
@@ -51,6 +63,26 @@ export const sceneVisuals: Record<
     },
   },
   dungeon: {
+    threshold: {
+      hitPath: 'M238 534 311 531 316 615 235 616Z',
+      labelPoint: [269, 525],
+    },
+    'entrance-marks': {
+      hitPath: 'M453 532 519 529 522 604 452 606Z',
+      labelPoint: [487, 522],
+    },
+    'entrance-odour': {
+      hitPath: 'M244 459 312 457 313 529 243 530Z',
+      labelPoint: [273, 451],
+    },
+    floor: {
+      hitPath: 'M458 232 518 231 519 315 458 316Z',
+      labelPoint: [487, 225],
+    },
+    'room-odour': {
+      hitPath: 'M255 385 324 383 326 450 254 452Z',
+      labelPoint: [287, 457],
+    },
     entrance: {
       hitPath: 'M318 534 427 534 448 609 302 609Z',
       labelPoint: [374, 530],

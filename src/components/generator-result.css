@@ -1,0 +1,463 @@
+/* Generator readings use the same data and controls as the Reference Desk.
+   The colour and columns belong only to these two result presentations. */
+.reference-app .reference-page .reference-reading[data-generator-result] {
+  --generator-rose: #f2a7d2;
+  --generator-rose-wash: #fce2f0;
+  --generator-yellow: #ffe900;
+  --generator-yellow-wash: #fff6ad;
+  --generator-sage: #dce5b5;
+  --generator-ink: #171717;
+  --generator-rule: #8d8980;
+  container: generator-reading / inline-size;
+  margin-block: 24px 34px;
+  padding-top: 8px;
+  border-top: 6px solid var(--generator-rose);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster'] {
+  border-top-color: var(--generator-yellow);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  > .reading-identity {
+  font: 800 clamp(2.2rem, 3vw, 4.2rem) / 1.06 var(--font-blackletter);
+  color: var(--generator-ink);
+  padding: 12px 0 16px;
+  margin: 0 0 16px;
+  border-bottom: 2px solid var(--generator-ink);
+  overflow-wrap: anywhere;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  > .reading-identity
+  .generated-translation {
+  margin-top: 8px;
+  font: 500 var(--text-secondary) / 1.5 var(--font-ui);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px 24px;
+  align-items: stretch;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  grid-column: span 4;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 0 10px;
+  border: 0;
+  border-top: 1px solid var(--generator-ink);
+  background: transparent;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  > h3 {
+  order: 0;
+  display: block;
+  margin: 0 0 9px;
+  color: var(--generator-ink);
+  font: 800 clamp(1.1rem, 1.45vw, 1.55rem) / 1.25 var(--font-display);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  > .reference-result-dice {
+  order: 1;
+  margin: 0 0 8px;
+  font-size: var(--text-secondary);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  > :not(h3, .reference-result-dice) {
+  order: 2;
+  max-width: none;
+  margin: 0;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  .reference-result-text {
+  font-size: clamp(1.75rem, 2vw, 2.65rem);
+  line-height: 1.18;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  > p:not(.reference-result-dice) {
+  font: 550 clamp(1.18rem, 1.45vw, 1.65rem) / 1.4 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section
+  .generated-translation {
+  font: 500 var(--text-secondary) / 1.5 var(--font-ui);
+  color: #5e5852;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section:nth-child(3n + 2) {
+  --reference-accent: var(--generator-yellow);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section:nth-child(3n + 3) {
+  --reference-accent: var(--generator-sage);
+}
+
+/* Private SCVMBIRTHER and Monster Approaches retain their named source fields. */
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section[data-generator-field='class'],
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section[data-generator-field='name'] {
+  grid-column: span 6;
+  border-top-width: 3px;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section[data-generator-field='class'] {
+  background: var(--generator-rose-wash);
+  padding-inline: 14px;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section[data-generator-field='name'] {
+  background: var(--generator-yellow-wash);
+  padding-inline: 14px;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section[data-generator-field='abilities'] {
+  grid-column: span 6;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section:is(
+    [data-generator-field='hp'],
+    [data-generator-field='omens'],
+    [data-generator-field='silver']
+  ) {
+  grid-column: span 2;
+  padding-inline: 12px;
+  background: var(--generator-rose-wash);
+  border-top-width: 3px;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='character']
+  .reference-reading-items
+  > section:is(
+    [data-generator-field='omens'],
+    [data-generator-field='silver']
+  ) {
+  background: var(--generator-yellow-wash);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section[data-generator-field='appearance'] {
+  grid-column: 1 / -1;
+  padding: 16px;
+  background: var(--generator-rose-wash);
+  border-top-width: 3px;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section:is(
+    [data-generator-field='hp'],
+    [data-generator-field='morale'],
+    [data-generator-field='armor']
+  ) {
+  grid-column: span 4;
+  padding: 12px 16px;
+  border-top-width: 3px;
+  background: var(--generator-rose-wash);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section[data-generator-field='morale'] {
+  background: var(--generator-yellow-wash);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section[data-generator-field='armor'] {
+  background: var(--generator-sage);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section:is(
+    [data-generator-field='wants'],
+    [data-generator-field='attack'],
+    [data-generator-field='ability'],
+    [data-generator-field='lair'],
+    [data-generator-field='loot']
+  ) {
+  grid-column: span 6;
+}
+
+/* Eat Prey Kill and the book's linked monster roll are single source blocks.
+   Their existing line breaks become three adjacent pieces of one stat block. */
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 22px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > h3 {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  min-width: 0;
+  padding: 8px 0 14px;
+  margin: 0;
+  border-bottom: 2px solid var(--generator-ink);
+  color: var(--generator-ink);
+  font: 800 clamp(2.25rem, 3.2vw, 4.3rem) / 1.08 var(--font-blackletter);
+  overflow-wrap: anywhere;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > .reference-result-dice {
+  grid-column: 1 / -1;
+  grid-row: auto;
+  max-width: none;
+  padding: 0 0 10px;
+  margin: 0;
+  border-bottom: 1px solid var(--generator-rule);
+  overflow-wrap: anywhere;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > p:not(.reference-result-dice),
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > .reading-more {
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 14px 16px;
+  border-top: 2px solid var(--generator-ink);
+  background: var(--generator-rose-wash);
+  overflow-wrap: anywhere;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > p:nth-of-type(2) {
+  background: var(--generator-yellow-wash);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > .reading-more {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  background: var(--generator-sage);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer:not(:has(> p:nth-of-type(2)))
+  > .reading-more {
+  grid-column: 2 / -1;
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  :is(p, .reading-more p) {
+  color: var(--generator-ink);
+  font: 550 clamp(1.15rem, 1.35vw, 1.55rem) / 1.42 var(--font-ui);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > p:first-of-type
+  > span:first-child {
+  font: 800 clamp(1.65rem, 2vw, 2.4rem) / 1.2 var(--font-display);
+}
+
+.reference-app
+  .reference-page
+  .reference-reading[data-generator-result='monster']
+  .reference-reading-items
+  > section.creature-answer
+  > h3
+  .generated-translation {
+  margin-top: 6px;
+  font: 500 var(--text-secondary) / 1.45 var(--font-ui);
+}
+
+@container generator-reading (max-width: 57rem) {
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result]
+    .reference-reading-items
+    > section:not(.creature-answer) {
+    grid-column: span 6;
+  }
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result='monster']
+    .reference-reading-items
+    > section.creature-answer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result='monster']
+    .reference-reading-items
+    > section.creature-answer
+    > .reading-more {
+    grid-column: 1 / -1;
+  }
+}
+
+@container generator-reading (max-width: 37rem) {
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result]
+    .reference-reading-items
+    > section:not(.creature-answer) {
+    grid-column: 1 / -1;
+  }
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result='monster']
+    .reference-reading-items
+    > section.creature-answer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result='monster']
+    .reference-reading-items
+    > section.creature-answer
+    > :is(h3, .reference-result-dice, p, .reading-more),
+  .reference-app
+    .reference-page
+    .reference-reading[data-generator-result='monster']
+    .reference-reading-items
+    > section.creature-answer:not(:has(> p:nth-of-type(2)))
+    > .reading-more {
+    grid-column: 1 / -1;
+  }
+}

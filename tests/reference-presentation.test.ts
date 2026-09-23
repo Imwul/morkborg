@@ -17,6 +17,10 @@ import {
 import { ReferenceDice } from '../src/components/ReferenceDice.tsx';
 import { ReferenceTable } from '../src/components/ReferenceTable.tsx';
 import {
+  ReferenceOracleIntroduction,
+  oracleIntroductionLines,
+} from '../src/components/ReferenceOracleIntroduction.tsx';
+import {
   DESK_REFERENCE_SHORTCUTS,
   DESK_GENERATOR_SHORTCUTS,
 } from '../src/components/DeskLanding.tsx';
@@ -80,6 +84,68 @@ test('compact table presentation retains every source row, accessible title and 
     );
     assert.ok(compact.includes('scope="row"'), dice);
   }
+});
+test('every Oracle presents source guidance once above dice and keeps the canonical rows intact', () => {
+  const oracles = index.entries.filter((entry) => entry.kind === 'oracle');
+  assert.ok(oracles.length > 500);
+  let sourceDescriptions = 0;
+  for (const entry of oracles) {
+    const tables = entry.canonicalIds
+      .map((id) => registry.tables.find((table) => table.id === id))
+      .filter((table) => !!table);
+    const descriptions = [
+      ...new Set(
+        tables.map((table) => table.description?.trim()).filter(Boolean),
+      ),
+    ];
+    const lines = oracleIntroductionLines(entry, registry);
+    const intro = renderToStaticMarkup(
+      createElement(ReferenceOracleIntroduction, { entry, registry }),
+    );
+    if (descriptions.length) {
+      sourceDescriptions += descriptions.length;
+      assert.deepEqual(lines, descriptions, entry.id);
+      for (const description of descriptions) {
+        assert.ok(description, entry.id);
+        assert.ok(
+          intro.indexOf('class="reference-oracle-description"') <
+            intro.indexOf('lang="ko"'),
+          entry.id,
+        );
+      }
+      assert.match(intro, /lang="ko"/, entry.id);
+    } else if (tables.length === 1 && tables[0].rollable !== false) {
+      assert.equal(
+        lines.length,
+        0,
+        `Synthetic dice summary repeated: ${entry.id}`,
+      );
+    }
+    for (const table of tables) {
+      const base = {
+        table,
+        currentEntryIds: [] as string[],
+        onChoose: () => {},
+      };
+      const shown = renderToStaticMarkup(createElement(ReferenceTable, base));
+      const reading = renderToStaticMarkup(
+        createElement(ReferenceTable, { ...base, hideDescription: true }),
+      );
+      assert.equal(
+        (reading.match(/data-entry-id=/g) ?? []).length,
+        (shown.match(/data-entry-id=/g) ?? []).length,
+        table.id,
+      );
+      if (table.description) {
+        assert.match(shown, /class="table-use-context"/, table.id);
+        assert.doesNotMatch(reading, /class="table-use-context"/, table.id);
+      }
+    }
+  }
+  assert.equal(
+    sourceDescriptions,
+    registry.tables.filter((table) => table.description).length,
+  );
 });
 test('browse preserves every registry entry exactly once', () => {
   const all = browseReferences(index, '');

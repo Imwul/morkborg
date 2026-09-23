@@ -46,6 +46,24 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       ),
       spot(
         'dungeon',
+        'threshold',
+        'oracle:reclvse.entranceState',
+        '문턱의 상태 · Entrance state',
+      ),
+      spot(
+        'dungeon',
+        'entrance-marks',
+        'oracle:reclvse.entranceSigns',
+        '입구의 흔적 · Entrance signs',
+      ),
+      spot(
+        'dungeon',
+        'entrance-odour',
+        'oracle:reclvse.entranceSmells',
+        '입구의 냄새 · Entrance smells',
+      ),
+      spot(
+        'dungeon',
         'masonry',
         'oracle:reclvse.architecture',
         '석조 벽 · Architecture',
@@ -53,14 +71,20 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       spot(
         'dungeon',
         'door',
-        'rule:depths.locked-doors',
-        '잠긴 문 · Locked doors',
+        'oracle:reclvse.exitType',
+        '출구의 형태 · Exit type',
       ),
       spot(
         'dungeon',
         'contents',
         'oracle:reclvse.contentsCategory',
         '방 안 · Room contents',
+      ),
+      spot(
+        'dungeon',
+        'floor',
+        'oracle:reclvse.roomShape',
+        '방의 형태 · Room shape',
       ),
       spot(
         'dungeon',
@@ -84,6 +108,12 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         'oracle:reclvse.sounds',
         '귀 기울이기 · Sounds',
       ),
+      spot(
+        'dungeon',
+        'room-odour',
+        'oracle:reclvse.smells',
+        '방 안의 냄새 · Room smells',
+      ),
     ],
   },
   {
@@ -100,7 +130,31 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         'oracle:aitc.city-gate-reaction',
         '관문 경비 · Gate reaction',
       ),
+      spot(
+        'city',
+        'gate-signs',
+        'oracle:reclvse.city_signs_before_entering',
+        '성문 앞 징후 · City signs',
+      ),
       spot('city', 'street', 'procedure:aitc.street', '거리 · Street'),
+      spot(
+        'city',
+        'cobbles',
+        'oracle:reclvse.street_surface',
+        '거리의 바닥 · Street surface',
+      ),
+      spot(
+        'city',
+        'alley-hazard',
+        'oracle:reclvse.hazard',
+        '위험한 골목 · Street hazard',
+      ),
+      spot(
+        'city',
+        'chimney-smell',
+        'oracle:reclvse.neighborhood_smell',
+        '동네의 냄새 · Neighborhood smell',
+      ),
       spot('city', 'crowd', 'oracle:aitc.gatherings', '군중 · Gatherings'),
       spot('city', 'tavern', 'oracle:aitc.taverns', '선술집 · Taverns'),
       spot('city', 'shop', 'oracle:aitc.businesses', '상점 · Businesses'),
@@ -136,6 +190,12 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       spot('wilderness', 'road', 'oracle:feretory.roadType', '길 · Road'),
       spot(
         'wilderness',
+        'roadside',
+        'oracle:feretory.roadEvent',
+        '길가의 사건 · Road event',
+      ),
+      spot(
+        'wilderness',
         'tracks',
         'oracle:reclvse.signs_of_travelers',
         '발자국 · Signs of travelers',
@@ -159,6 +219,18 @@ export const SPATIAL_SCENES: SpatialScene[] = [
         '야영지 · Campsite',
       ),
       spot('wilderness', 'weather', 'oracle:core.weather', '하늘 · Weather'),
+      spot(
+        'wilderness',
+        'river',
+        'oracle:reclvse.water_landmarks',
+        '물가의 지형 · Water landmarks',
+      ),
+      spot(
+        'wilderness',
+        'threat-signs',
+        'oracle:reclvse.threat_signs',
+        '위협의 흔적 · Threat signs',
+      ),
       spot(
         'wilderness',
         'village',

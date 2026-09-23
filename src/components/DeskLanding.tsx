@@ -53,10 +53,12 @@ export function DeskLanding({
   generators,
   onGenerator,
   onGenerators,
+  onOpenReference,
 }: {
   generators: boolean;
   onGenerator?: (section: Section) => void;
   onGenerators: () => void;
+  onOpenReference: (id: string) => void;
 }) {
   const desk = useReferenceDesk();
   void onGenerator;
@@ -98,7 +100,7 @@ export function DeskLanding({
                 <button
                   key={id}
                   data-shortcut={id}
-                  onClick={() => desk?.activate(id)}
+                  onClick={() => onOpenReference(id)}
                 >
                   <strong>{title}</strong>
                   <span>{description}</span>
@@ -116,13 +118,12 @@ export function DeskLanding({
         </h3>
         <div className="desk-generator-records">
           {DESK_RECORD_GENERATORS.map(([ids, title, description]) => {
-            const id = ids.find((candidate) => desk?.byId[candidate]);
+            const id = ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
             return (
               <button
                 key={title}
-                onClick={() => {
-                  if (id) desk?.activate(id);
-                }}
+                data-shortcut={id}
+                onClick={() => onOpenReference(id)}
               >
                 <strong>{title}</strong>
                 <span>{description}</span>
@@ -135,7 +136,7 @@ export function DeskLanding({
           {DESK_GENERATOR_SHORTCUTS.filter(([id]) => desk?.byId[id])
             .slice(0, generators ? undefined : 3)
             .map(([id, title, description]) => (
-              <button key={id} onClick={() => desk?.activate(id)}>
+              <button key={id} onClick={() => onOpenReference(id)}>
                 <strong>{title}</strong>
                 <span>{description}</span>
                 <span aria-hidden="true">↗</span>

@@ -219,6 +219,90 @@ const wildernessObjects: Record<string, ReactNode> = {
       <Tree x={626} y={549} scale={0.78} lean={5} variant={1} />
     </>
   ),
+  roadside: (
+    <>
+      <path
+        className="plate-fine plate-faint"
+        d="M610 471Q645 484 685 466M615 483q22 9 49 0M675 477q7 0 12-3"
+      />
+      <path
+        className="plate-wall"
+        d="M635 478Q632 466 637 459L633 441Q637 428 645 421Q656 425 662 437L659 456Q665 466 662 477Q652 483 635 478Z"
+      />
+      <path
+        className="plate-soft"
+        d="M643 423Q639 438 644 446L641 465M656 436Q654 448 658 459M637 474Q648 479 661 473M640 458q9 3 17 0"
+      />
+      <path
+        className="plate-rose"
+        d="M615 433Q619 425 627 427L636 435Q634 443 628 446Q622 444 615 433ZM663 450Q672 445 677 451L676 467Q669 468 662 463Z"
+      />
+      <path
+        className="plate-ink"
+        d="M646 443q5-6 10-1l-2 8q-5 2-8-1ZM627 437q-3 4-4 9l8-1Z"
+      />
+      <path
+        className="plate-fine"
+        d="M615 433q4 2 6 6M622 429q5 2 9 5M668 451q5 2 7 6M668 458l8 2M622 454l-5 9M628 455l1 10M672 478l6 9M677 482l7 5M615 477l-6 7M619 480l-1 8"
+      />
+      <path
+        className="plate-hairline"
+        d="M640 430q2 6 0 10M649 428q4 3 5 7M641 451l-1 5M652 466q3 3 6 2M636 483q15 3 28-1M627 468q-8 1-11 5"
+      />
+    </>
+  ),
+  river: (
+    <>
+      <path
+        className="plate-fine"
+        d="M564 196Q578 190 589 194M567 206q15-6 27-1M596 184q15-8 29-3M609 206q14-5 27-2M620 216q15-5 27-3M632 186q9-3 21-1M586 222q11-3 20-1M606 231q18-4 28-2"
+      />
+      <path
+        className="plate-paper plate-soft"
+        d="M586 194q6-6 14-4l7 6q-8 5-18 3ZM625 191q8-6 16-2l6 7q-7 5-18 3ZM611 217q7-5 14-2l5 6q-6 4-16 2Z"
+      />
+      <path
+        className="plate-hairline"
+        d="M591 194q4-2 9-1M631 194q5-2 10-1M617 220q5-2 8 0M573 216q-1-9-5-14M573 216q4-10 6-16M576 219q2-8 6-11M650 218q-1-10-5-14M650 218q4-8 8-11M644 222q-2-7-5-10"
+      />
+      <path
+        className="plate-moss plate-soft"
+        d="M565 200q3-4 6 0t1 9q-4 1-6-2ZM652 204q4-3 6 1t-1 8q-5 1-7-3Z"
+      />
+      <path
+        className="plate-fine plate-faint"
+        d="M574 180q13-6 25-3M636 177q9-2 17 0M581 232q10 2 19-1M632 235q10-1 18-5"
+      />
+    </>
+  ),
+  'threat-signs': (
+    <>
+      <path
+        className="plate-moss"
+        d="M255 305Q259 293 259 278L254 258Q258 246 264 239Q272 247 276 244Q282 235 289 238Q292 253 284 264L289 280Q291 295 296 306Q282 311 274 306Q261 313 255 305Z"
+      />
+      <path
+        className="plate-soft"
+        d="M263 243q2 15 6 22M285 246q-6 8-7 20M267 271q-2 18-7 29M282 277q1 17 6 25M253 306q19 8 44 0"
+      />
+      <path
+        className="plate-ink plate-no-line"
+        d="M262 265l19-10-12 14Z M264 278l19-9-11 14Z M268 291l18-10-10 14Z"
+      />
+      <path
+        className="plate-paper plate-fine"
+        d="M263 266q9-2 18-10M266 280q9-3 16-10M269 291q9-3 17-10"
+      />
+      <path
+        className="plate-fine"
+        d="M246 296q5 3 9 2M247 303l7 1M300 300l6-6M299 306l8-2M260 235q-1-8-7-11M288 236q5-4 7-11M254 257q-8 0-10-6M291 260q7-2 10-8"
+      />
+      <path
+        className="plate-hairline"
+        d="M257 306q2-9 7-10M282 303q5-6 5-11M275 247q1 8 1 13M262 269l3 2M268 282l3 1M274 294l4-2"
+      />
+    </>
+  ),
   forage: (
     <>
       <path
@@ -548,6 +632,99 @@ function DungeonBackground() {
 }
 
 const dungeonObjects: Record<string, ReactNode> = {
+  threshold: (
+    <>
+      {/* Fallen entrance stones: broken edges and chips belong to the arch. */}
+      <path
+        className="plate-wall"
+        d="M252 548Q264 543 278 547L287 558Q281 571 266 576L248 568Q244 557 252 548ZM284 559Q297 553 307 558L310 578Q298 585 283 579L277 569ZM248 581Q260 574 274 579L286 592Q279 604 262 603L246 595ZM286 586Q297 579 309 587L307 604Q291 610 278 602Z"
+      />
+      <path
+        className="plate-soft"
+        d="M251 560Q265 556 279 560M258 550q5 8 4 15M281 568q11-3 23 0M292 558q-2 11 4 18M250 590q13-4 28 2M266 581q1 10-3 18M284 595q11-2 19 2M301 587l-6 14"
+      />
+      <path
+        className="plate-hairline"
+        d="M241 550l-5-4M240 569l-7 2M240 588l-5 5M254 611l-2 5M274 610l4 6M299 612l6 4M312 554l6-4M315 577l5 1M316 603l5-1"
+      />
+    </>
+  ),
+  'entrance-marks': (
+    <>
+      {/* The scratches run toward the doorway, not across the entire plate. */}
+      <path
+        className="plate-fine"
+        d="M465 587Q466 575 470 565M473 593Q473 576 478 560M483 590Q483 574 486 565M493 584Q495 570 497 558M501 581Q504 568 509 555M465 566l-7-5M479 559l-5-6M497 557l-1-8M509 556l5-5"
+      />
+      <path
+        className="plate-ink plate-no-line"
+        d="M460 585q4-3 7 0l-2 7q-5 1-6-3ZM475 596q3-4 7-2l-1 6q-5 2-7-1ZM490 584q4-4 8-2l-2 7q-5 1-7-2Z"
+      />
+      <path
+        className="plate-hairline"
+        d="M455 578q8-6 17-5M486 552q10-3 18-8M501 594q5-3 11-3M458 604q20 3 33-1"
+      />
+    </>
+  ),
+  'entrance-odour': (
+    <>
+      {/* A marginal waft sits at the opening; it carries no generated text. */}
+      <path
+        className="plate-object-paper plate-soft"
+        d="M262 510Q268 505 276 508T294 508Q301 512 298 518Q287 521 271 519Q263 518 262 510Z"
+      />
+      <path
+        className="plate-fine"
+        d="M268 504C260 495 271 491 267 482Q263 477 267 472M281 506C275 499 282 493 281 487Q278 481 284 475M291 506C301 498 292 493 297 486Q301 481 298 475M269 513q13-3 27 0M264 523q20-4 37 0"
+      />
+      <path
+        className="plate-hairline"
+        d="M259 489q-6-3-5-9M275 480q-3-7 1-12M300 488q6-2 7-8M254 506l-6 2M306 513l5-1"
+      />
+    </>
+  ),
+  floor: (
+    <>
+      {/* One lifted flagstone exposes the room's irregular geometry. */}
+      <path
+        className="plate-paper plate-soft"
+        d="M465 246Q481 239 501 244L512 260Q506 280 513 298L495 309Q478 303 466 307Q462 287 467 272Z"
+      />
+      <path
+        className="plate-fine"
+        d="M468 250Q485 245 500 249M473 269Q489 264 509 266M469 288Q486 285 509 289M479 301Q488 292 489 281L501 266M471 254q-5 12-3 20M503 248q5 8 6 15M494 308q12-3 18-9"
+      />
+      <path
+        className="plate-hairline"
+        d="M461 244l-6-3M459 264l-6 1M460 305l-6 4M492 237l3-6M517 249l5-3M516 293l5 2M486 314l-2 5"
+      />
+    </>
+  ),
+  'room-odour': (
+    <>
+      {/* Small smoking bowl is a visual anchor for the room-smell Oracle. */}
+      <path
+        className="plate-wall"
+        d="M269 425Q285 418 305 423Q309 432 302 440Q287 447 274 440Z"
+      />
+      <path
+        className="plate-ink"
+        d="M269 424Q287 417 306 422Q301 429 288 430Q275 430 269 424Z"
+      />
+      <path
+        className="plate-paper plate-soft"
+        d="M280 420Q286 416 292 420Q297 416 301 421Q296 426 282 426Z"
+      />
+      <path
+        className="plate-fine"
+        d="M277 420C269 408 280 404 276 395Q273 391 276 388M287 418C282 409 290 404 288 397Q285 393 291 387M298 419C304 411 297 406 301 398Q304 392 301 388M278 440l-3 7M301 438l4 8M270 449q17 5 37 0"
+      />
+      <path
+        className="plate-hairline"
+        d="M270 397q-5-3-5-8M291 393q2-7 6-9M310 402l6-4M260 423l-5-1"
+      />
+    </>
+  ),
   entrance: (
     <>
       <path
@@ -596,24 +773,27 @@ const dungeonObjects: Record<string, ReactNode> = {
     <>
       <path
         className="plate-ink"
-        d="M338 461Q373 458 407 462Q411 482 408 504Q373 510 338 505Z"
+        d="M337 458Q374 455 409 460L410 507Q373 512 337 506Z"
       />
       <path
-        className="plate-rose"
-        d="M343 458Q373 455 403 459Q406 478 402 498Q373 502 342 499Q344 478 343 458Z"
+        className="plate-wall plate-soft"
+        d="M335 457Q343 453 351 458L352 506Q343 510 336 505ZM400 459Q407 455 414 461L413 504Q405 510 398 505Z"
       />
       <path
-        className="plate-soft"
-        d="M354 459Q351 479 353 498M366 459Q368 479 364 499M379 460Q381 479 379 498M393 460Q391 478 393 498M343 469Q375 471 404 470M343 486Q374 483 403 485"
+        className="plate-rose plate-soft"
+        d="M350 460Q357 456 364 459L383 487Q380 496 372 500L352 470Z"
       />
       <path
         className="plate-paper plate-soft"
-        d="M338 466q5-1 11 0l1 8q-6 1-12 0ZM338 483q6-2 11 0l-1 8q-5-2-10 0Z"
+        d="M339 469q5-2 11 0l1 8q-6 1-12 0ZM339 488q5-1 11 0v8q-6 0-11 1Z"
       />
-      <path className="plate-ink" d="M388 477q4-3 6 1t-2 5q-4 0-4-3Z" />
+      <path
+        className="plate-fine"
+        d="M351 463Q360 475 376 490M357 459Q368 473 379 484M349 476q4 10 2 20M389 465q8 4 11 9M390 500q5-1 9-5M352 507q22 3 46 0M354 513q18-2 35-1"
+      />
       <path
         className="plate-hairline"
-        d="M357 474q2 6 1 10M373 473q-2 5 1 8M384 465v4M399 487q1 6-1 8M346 488v6M351 506q21 1 47-1M354 512q17-2 35-1"
+        d="M354 465l4 4M363 482l4 4M371 495l3 2M405 466q-3 4-2 9M403 488l-1 9M343 514l-5 4M410 511l5 5"
       />
     </>
   ),
