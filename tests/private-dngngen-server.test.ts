@@ -219,7 +219,7 @@ test('built-artifact privacy check rejects private paths, runtime marker and ren
 
 test('repo ignores personal pack/configuration/cache/evidence and excludes it from Vercel', () => {
   const checked = checkPrivateGit(resolve('.'));
-  assert.equal(checked.ignoredPaths, 6);
+  assert.equal(checked.ignoredPaths, 7);
   assert(checked.trackedFiles > 0);
   const tracked = execFileSync('git', ['ls-files', 'private'], { encoding: 'utf8' });
   assert.equal(tracked.trim(), '');

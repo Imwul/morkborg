@@ -4,6 +4,7 @@ import type { ScvmPack } from '../domain/scvmPack';
 import { rollScvm, SCVM_URL } from '../domain/scvmPack';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 import { id, now, random, type RandomSource } from './random';
+import { translateGeneratedText } from './translation';
 
 const provenance = (text: string, homebrew: boolean): GeneratedValueProvenance => ({
   classification: 'APP_DERIVED',
@@ -40,7 +41,18 @@ export function scvmReferenceReading(
   homebrew = false,
 ): ReferenceReading {
   const rolled = rollScvm(pack, random, { homebrew });
-  const line = (title: string, text: string) => ({ title, text });
+  const ko = rolled.translation;
+  const line = (title: string, text: string, titleKo: string, translated?: string) => {
+    const helper = translateGeneratedText(text) || translated;
+    return {
+      title,
+      text,
+      translation: {
+        titleKo,
+        ...(helper && /[가-힣]/u.test(helper) ? { ko: helper } : {}),
+      },
+    };
+  };
   const abilities = (['Strength', 'Agility', 'Presence', 'Toughness'] as const)
     .map((label, index) => {
       const key = (['strength', 'agility', 'presence', 'toughness'] as const)[
@@ -51,27 +63,36 @@ export function scvmReferenceReading(
     })
     .join('\n');
   const blocks = [
-    line('Class', rolled.className),
-    line('Name', rolled.name),
-    line('Abilities', abilities),
-    line('HP', String(rolled.hp)),
-    line('Omens', String(rolled.omens)),
-    line('Silver', `${rolled.silver} silver`),
-    ...(rolled.armor ? [line('Armor', rolled.armor)] : []),
+    line('Class', rolled.className, '직업', ko?.className),
+    line('Name', rolled.name, '이름', ko?.name),
+    line('Abilities', abilities, '능력치', abilities
+      .replace('Strength', '근력').replace('Agility', '민첩')
+      .replace('Presence', '지각').replace('Toughness', '체력')),
+    line('HP', String(rolled.hp), '생명력'),
+    line('Omens', String(rolled.omens), '오멘'),
+    line('Silver', `${rolled.silver} silver`, '은화', `${rolled.silver} 은화`),
+    ...(rolled.armor ? [line('Armor', rolled.armor, '방어구', ko?.armor)] : []),
     ...rolled.weapons.map((text, index) =>
-      line(rolled.weapons.length > 1 ? `Weapon ${index + 1}` : 'Weapon', text),
+      line(rolled.weapons.length > 1 ? `Weapon ${index + 1}` : 'Weapon', text,
+        rolled.weapons.length > 1 ? `무기 ${index + 1}` : '무기', ko?.weapons[index]),
     ),
     ...rolled.equipment.map((text, index) =>
       line(
         rolled.equipment.length > 1 ? `Equipment ${index + 1}` : 'Equipment',
         text,
+        rolled.equipment.length > 1 ? `장비 ${index + 1}` : '장비',
+        ko?.equipment[index],
       ),
     ),
-    ...(rolled.origin ? [line('Origin', rolled.origin)] : []),
+    ...(rolled.origin ? [line('Origin', rolled.origin, '출신', ko?.origin)] : []),
     ...rolled.powers
-      .filter((power) => power.title || power.description)
-      .map((power) => line(power.title || 'Power', power.description || power.title)),
-    ...(rolled.description ? [line('Description', rolled.description)] : []),
+      .map((power, index) => ({ power, index }))
+      .filter(({ power }) => power.title || power.description)
+      .map(({ power, index }) => line(power.title || 'Power', power.description || power.title,
+        translateGeneratedText(power.title) ||
+          (/[가-힣]/u.test(ko?.powers[index]?.title ?? '') ? ko!.powers[index].title : '권능'),
+        ko?.powers[index]?.description || ko?.powers[index]?.title)),
+    ...(rolled.description ? [line('Description', rolled.description, '묘사', ko?.description)] : []),
   ].filter((block) => block.text.trim());
   const title = `${rolled.className} — ${rolled.name}`;
   return {

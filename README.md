@@ -43,6 +43,8 @@ npm run preview
 - 도시 Move, 던전 Move, 방·거리·NPC 생성, 일반 주사위와 Mythic 결과는 임시 참조입니다. 출처, 관련 링크, COPY, 고정과 최근 참조를 사용할 수 있습니다.
 - 캐릭터·몬스터·던전 생성기는 홈의 생성기 항목에서 열 수 있습니다. 프라이빗 서버에 유효한 스냅샷이 있으면 SCVMBIRTHER, The Monster Approaches, DNGNGEN 원문을 선택할 수 있습니다.
 
+SCVMBIRTHER 원문의 한글 도움말을 로컬에서 갱신하려면 Mac의 영→한 번역 언어 팩과 [`trn` 명령줄 도구](https://github.com/hotchpotch/trn)를 준비한 뒤 `npm run private:scvm:translate`를 실행합니다. 생성되는 `private/scvmbirther/ko.json`은 Git에서 제외되며 현재 원문 스냅샷과 일치할 때만 프라이빗 서버가 사용합니다. 원문을 다시 받았다면 번역도 다시 생성해야 합니다.
+
 [구조 감사·변경·검증 보고서](docs/freeform-reference-audit.md)를 참고하세요.
 
 ## 저장

@@ -62,6 +62,8 @@ export interface ScvmPack {
   };
   snapshot: { id: string; version: string; auditedAt: string };
   messages: Record<string, string>;
+  /** Optional local Korean companion; excluded from the official snapshot checksum. */
+  translations?: Record<string, string>;
   tables: { vanilla: ScvmTables; homebrew: ScvmTables };
   integrity: {
     payloadSha256: string;
@@ -89,6 +91,7 @@ export interface ScvmRoll {
   origin: string;
   powers: { title: string; description: string }[];
   description: string;
+  translation?: Omit<ScvmRoll, 'translation'>;
 }
 
 function fail(code: string): never {
@@ -201,8 +204,9 @@ const classesIn = (tables: ScvmTables) =>
   tables.classes.flat().filter((value) => value && typeof value === 'object');
 
 export function scvmPackPayload(pack: ScvmPack): string {
+  const { translations: _translations, ...sourcePack } = pack;
   const { payloadSha256: _digest, ...integrity } = pack.integrity;
-  return stableJson({ ...pack, integrity });
+  return stableJson({ ...sourcePack, integrity });
 }
 export function parseScvmPack(
   input: unknown,
@@ -222,8 +226,11 @@ export function parseScvmPack(
   const source = record(raw.source);
   const snapshot = record(raw.snapshot);
   const messages = record(raw.messages);
+  const translations = raw.translations === undefined ? undefined : record(raw.translations);
   if (
     Object.values(messages).some((value) => typeof value !== 'string') ||
+    (translations && Object.entries(translations).some(([key, value]) =>
+      !Object.hasOwn(messages, key) || typeof value !== 'string')) ||
     typeof source.project !== 'string' ||
     typeof source.author !== 'string' ||
     source.url !== SCVM_URL ||
@@ -250,6 +257,7 @@ export function parseScvmPack(
       auditedAt: snapshot.auditedAt,
     },
     messages: messages as Record<string, string>,
+    ...(translations ? { translations: translations as Record<string, string> } : {}),
     tables: {
       vanilla: tablesOf(tables.vanilla),
       homebrew: tablesOf(tables.homebrew),
@@ -385,7 +393,7 @@ function equipmentLine(
   };
 }
 
-export function rollScvm(
+function rollScvmBase(
   pack: ScvmPack,
   rng: RandomSource,
   options: { homebrew?: boolean; className?: string } = {},
@@ -580,3 +588,34 @@ export function rollScvm(
   };
 }
 
+/** Replay the same draws against local translated messages, leaving the source roll unchanged. */
+export function rollScvm(
+  pack: ScvmPack,
+  rng: RandomSource,
+  options: { homebrew?: boolean; className?: string } = {},
+): ScvmRoll {
+  if (!pack.translations) return rollScvmBase(pack, rng, options);
+  const draws: number[] = [];
+  const rolled = rollScvmBase(pack, () => {
+    const value = rng();
+    draws.push(value);
+    return value;
+  }, options);
+  let cursor = 0;
+  const translatedPack: ScvmPack = {
+    ...pack,
+    messages: { ...pack.messages, ...pack.translations },
+    translations: undefined,
+  };
+  try {
+    const translation = rollScvmBase(translatedPack, () => {
+      if (cursor >= draws.length) fail('translation-draws');
+      return draws[cursor++];
+    }, options);
+    if (cursor !== draws.length) return rolled;
+    return { ...rolled, translation };
+  } catch {
+    // An invalid local helper must not prevent the verified source from rolling.
+    return rolled;
+  }
+}

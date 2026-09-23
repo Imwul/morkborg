@@ -4,6 +4,7 @@ import { networkInterfaces } from 'node:os';
 import { extname, join, relative, resolve, sep } from 'node:path';
 import { readPrivateDngngenPack } from './privateDngngenPack.js';
 import { readPrivateGeneratorPack } from './privateGeneratorPack.js';
+import { readPrivateScvmTranslation } from './privateScvmTranslation.js';
 import { parseScvmPack, scvmPackPayload } from '../src/domain/scvmPack.js';
 import { parseMonsterSitePack, monsterSitePackPayload } from '../src/domain/monsterSitePack.js';
 import { handlePublishedRequest } from './publishedRulebook.js';
@@ -51,6 +52,7 @@ export interface PrivateServerOptions {
   root: string;
   packPath: string;
   scvmPath?: string;
+  scvmTranslationPath?: string;
   monsterPath?: string;
   allowSynthetic?: boolean;
   host?: string;
@@ -118,9 +120,14 @@ export function createPrivateDngngenServer(options: PrivateServerOptions) {
           return;
         }
         if (path === PRIVATE_SCVM_ENDPOINT) {
-          json(response, 200, options.scvmPath
+          const result = options.scvmPath
             ? await readPrivateGeneratorPack(options.scvmPath, parseScvmPack, scvmPackPayload, options.allowSynthetic)
-            : { status: 'unavailable', reason: 'missing' });
+            : { status: 'unavailable' as const, reason: 'missing' as const };
+          if (result.status === 'ready' && options.scvmTranslationPath) {
+            const translations = await readPrivateScvmTranslation(options.scvmTranslationPath, result.pack);
+            if (translations) result.pack.translations = translations;
+          }
+          json(response, 200, result);
           return;
         }
         json(response, 200, options.monsterPath

@@ -18,6 +18,7 @@
     "privacy:private": "node scripts/check-private-boundary.mjs --git",
     "private:dngngen:acquire": "node --import tsx scripts/private-dngngen-acquire.ts",
     "private:scvm:acquire": "node --import tsx scripts/private-scvm-acquire.ts",
+    "private:scvm:translate": "node --import tsx scripts/private-scvm-translate.ts",
     "private:monster:acquire": "node --import tsx scripts/private-monster-acquire.ts"
   },
   "dependencies": {

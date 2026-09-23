@@ -133,7 +133,7 @@ import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { ReferenceTable } from './ReferenceTable';
-import { ReferenceReadingText } from './ReferenceReadingText';
+import { ReferenceReadingText, resultTextDensity } from './ReferenceReadingText';
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
@@ -1145,6 +1145,7 @@ export function ReferenceProvider({
                 return (
                   <section
                     key={n}
+                    data-reading-density={resultTextDensity(block.text)}
                     data-compound-dice={
                       block.dice?.includes(' · ') || undefined
                     }

@@ -20,6 +20,7 @@ import {
 import { generateScvmCharacter, scvmReferenceReading } from '../src/generators/scvmCharacter.ts';
 import { generateMonsterSite } from '../src/generators/monsterSite.ts';
 import { readPrivateGeneratorPack } from '../server/privateGeneratorPack.ts';
+import { readPrivateScvmTranslation } from '../server/privateScvmTranslation.ts';
 import type { RandomSource } from '../src/generators/random.ts';
 
 const face = (sides: number, value: number) => (value - 0.5) / sides;
@@ -45,10 +46,10 @@ test('official messages keep apostrophes, plurals, selects and readable lists', 
   );
   assert.equal(
     formatOfficialMessage(
-      '{first, select, other {Rubbery} hardened {Hardened} } skin',
+      '{first, select, other {Soft} hardened {Tough} } hide',
       { first: 'hardened' },
     ),
-    'Hardened skin',
+    'Tough hide',
   );
   assert.equal(
     formatOfficialMessage('<ol><li><strong>Red</strong> poison</li><li>Second</li></ol>').trim(),
@@ -71,6 +72,48 @@ test('SCVMBIRTHER scroll handling follows the published string comparison', () =
   assert.equal(reading.procedureInputs?.generator, 'scvmbirther');
   assert.equal(reading.blocks[0]?.text, 'Scroll Class');
   assert.ok(reading.blocks.some((block) => block.title === 'Weapon' && block.text.startsWith('Small')));
+});
+
+test('SCVMBIRTHER Korean companion replays the original roll and labels its cards', async () => {
+  const pack = scvmPack();
+  const root = await mkdtemp(join(tmpdir(), 'scvm-ko-'));
+  try {
+    const path = join(root, 'ko.json');
+    await writeFile(path, JSON.stringify({
+      format: 'reference-desk.scvmbirther-ko',
+      version: 1,
+      sourceSha256: pack.integrity.payloadSha256,
+      messages: {
+        'character.classes.scroll-class': '두루마리 계급',
+        'character.classes.scroll-class.origin.1.description': '문에서 나왔다.',
+        'tables.weapons.small': '작은 칼 d6',
+      },
+    }));
+    pack.translations = await readPrivateScvmTranslation(path, pack);
+    assert.ok(pack.translations);
+    let draws = 0;
+    const rolled = rollScvm(pack, () => { draws += 1; return 0; }, { className: 'scroll-class' });
+    let plainDraws = 0;
+    const plain = rollScvm({ ...pack, translations: undefined }, () => { plainDraws += 1; return 0; }, { className: 'scroll-class' });
+    assert.equal(draws, plainDraws);
+    const { translation: _translation, ...original } = rolled;
+    assert.deepEqual(original, plain);
+    assert.equal(rolled.translation?.className, '두루마리 계급');
+    assert.ok(rolled.translation?.weapons.some((item) => item.startsWith('작은 칼')));
+    const reading = scvmReferenceReading(pack);
+    assert.equal(reading.blocks[0]?.translation?.titleKo, '직업');
+    assert.equal(reading.blocks[0]?.translation?.ko, '두루마리 계급');
+    assert.ok(reading.blocks.some((block) => block.title === 'Origin' && block.translation?.ko?.includes('문에서 나왔다.')));
+    const brokenHelper = { ...pack, translations: { 'character.classes.scroll-class': '{broken' } };
+    assert.deepEqual(rollScvm(brokenHelper, () => 0, { className: 'scroll-class' }), plain);
+    await writeFile(path, JSON.stringify({
+      format: 'reference-desk.scvmbirther-ko', version: 1,
+      sourceSha256: '0'.repeat(64), messages: { 'character.classes.scroll-class': '잘못된 번역' },
+    }));
+    assert.equal(await readPrivateScvmTranslation(path, pack), undefined);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test('monster site armor follows its published C-before-B parity', () => {
