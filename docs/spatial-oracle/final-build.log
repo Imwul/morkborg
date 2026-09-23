@@ -1,0 +1,32 @@
+
+> mork-borg-reference-desk@0.1.0 build
+> tsc --noEmit && tsc --noEmit -p tsconfig.server.json && vite build && node scripts/check-public-build.mjs && node scripts/check-private-boundary.mjs
+
+vite v8.2.2 building client environment for production...
+(node:95024) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+transforming...
+✓ 2219 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                         2.06 kB │ gzip:   0.73 kB
+dist/assets/index-BX7aJjm-.css                        309.97 kB │ gzip:  53.80 kB
+dist/assets/scenarioExclusions-B5gEf74k.js              0.99 kB │ gzip:   0.47 kB
+dist/assets/fateChartStore-DRyQmhtz.js                  2.70 kB │ gzip:   1.31 kB
+dist/assets/oracleStore-WNj38Yvp.js                     3.67 kB │ gzip:   1.60 kB
+dist/assets/publishedDataMerge-DedKeoqB.js              4.79 kB │ gzip:   1.84 kB
+dist/assets/rulesStore-D2W_cLlo.js                      5.23 kB │ gzip:   2.54 kB
+dist/assets/oracles-BiAmx1FW.js                         9.90 kB │ gzip:   4.47 kB
+dist/assets/oracleValidation-CEk9I3-7.js               11.79 kB │ gzip:   5.04 kB
+dist/assets/referenceGeneratorProcedures-BNyOnD8N.js   82.73 kB │ gzip:  15.91 kB
+dist/assets/publishedData-CWMPUfoo.js                 105.34 kB │ gzip:  31.01 kB
+dist/assets/index-IezIsdHj.js                         710.34 kB │ gzip: 237.32 kB
+
+✓ built in 345ms
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+Public build privacy checks passed (49 static files).
+Private pack boundary passed (49 built files).

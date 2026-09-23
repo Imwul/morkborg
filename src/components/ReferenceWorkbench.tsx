@@ -133,12 +133,17 @@ import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { ReferenceTable } from './ReferenceTable';
-import { ReferenceReadingText, resultTextDensity } from './ReferenceReadingText';
+import {
+  ReferenceReadingText,
+  resultTextDensity,
+} from './ReferenceReadingText';
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
 import { DeskLanding } from './DeskLanding';
+import { SpatialOracle } from './spatial/SpatialOracle';
+import { normalizeSpatialSceneId } from '../domain/spatialScenes';
 
 const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
@@ -2215,7 +2220,7 @@ export function ContextReferences({
     </details>
   );
 }
-export type ReferenceDeskPage = 'home' | 'reference' | 'generators';
+export type ReferenceDeskPage = 'home' | 'reference' | 'generators' | 'spatial';
 
 export function ReferenceDesk({
   homeIndex,
@@ -2254,6 +2259,10 @@ export function ReferenceDesk({
   }, []);
   const [localPage, setLocalPage] = useState<ReferenceDeskPage>(initialPage);
   const page = controlledPage ?? localPage;
+  const [spatialSceneId, setSpatialSceneId] = useState('dungeon');
+  useNavigationChannel('spatial-scene', spatialSceneId, setSpatialSceneId, {
+    normalize: normalizeSpatialSceneId,
+  });
   const setPage = (nextPage: ReferenceDeskPage) => {
     if (nextPage === 'home') {
       desk?.dismiss?.();
@@ -2265,7 +2274,7 @@ export function ReferenceDesk({
   };
   const openReference = (entryId: string, roll = false, region?: RegionId) => {
     revealPageRef.current = true;
-    setPage('reference');
+    if (page !== 'spatial') setPage('reference');
     setBrowserOpen(false);
     desk?.activate(entryId, roll, region);
   };
@@ -2281,9 +2290,10 @@ export function ReferenceDesk({
       (previous.page !== page && !query)
     ) {
       revealPageRef.current = false;
-      surfaceRef.current
-        ?.querySelector('.desk-current-page')
-        ?.scrollIntoView({ block: 'start' });
+      if (page !== 'spatial')
+        surfaceRef.current
+          ?.querySelector('.desk-current-page')
+          ?.scrollIntoView({ block: 'start' });
     }
   });
   useEffect(() => {
@@ -2348,6 +2358,14 @@ export function ReferenceDesk({
     selected && desk?.relationships
       ? relatedReferenceRelationships(index, desk.relationships, selected.id, 8)
       : [];
+  const relatedContent = !!relatedItems.length && (
+    <section className="desk-related" aria-label="관련 참조">
+      <h2>관련 참조</h2>
+      {relatedItems.map(({ entry, kind }) => (
+        <ReferenceRow key={entry.id} entry={entry} relationshipKind={kind} />
+      ))}
+    </section>
+  );
   const resultIndex = (
     <section className="desk-index-results" aria-label="검색 결과">
       <h2>
@@ -2471,12 +2489,15 @@ export function ReferenceDesk({
                   ['home', '홈'],
                   ['reference', '참조'],
                   ['generators', '생성기'],
+                  ['spatial', '공간 탐색'],
                 ] as const
               ).map(([value, label]) => (
                 <button
                   key={value}
                   aria-current={page === value ? 'page' : undefined}
                   onClick={() => {
+                    if (value === 'spatial' && page !== 'spatial')
+                      desk?.dismiss?.();
                     setPage(value);
                     if (value !== 'reference') {
                       search('');
@@ -2627,7 +2648,35 @@ export function ReferenceDesk({
             </aside>
           )}
           <div className="desk-current-page">
-            {page !== 'reference' ? (
+            {page === 'spatial' ? (
+              <SpatialOracle
+                sceneId={spatialSceneId}
+                onSceneChange={setSpatialSceneId}
+                onBrowse={(scope) => {
+                  setPage('reference');
+                  desk?.setQuery?.('');
+                  desk?.setScope?.(scope);
+                  resetFilters();
+                  setBrowserOpen(true);
+                }}
+                related={relatedContent}
+                workbench={
+                  !!desk?.trayIds?.length && (
+                    <section
+                      className="desk-open-pages"
+                      aria-label="작업대 펼친 페이지"
+                    >
+                      <h2>
+                        펼쳐둔 페이지 <small>{desk.trayIds.length}</small>
+                      </h2>
+                      {entries(desk.trayIds).map((entry) => (
+                        <OpenReferencePage key={entry.id} entry={entry} />
+                      ))}
+                    </section>
+                  )
+                }
+              />
+            ) : page !== 'reference' ? (
               <DeskLanding
                 generators={page === 'generators'}
                 onGenerator={onGenerator}
@@ -2636,18 +2685,7 @@ export function ReferenceDesk({
             ) : (
               <>
                 {desk?.content ?? <p>색인에서 페이지를 펼치세요.</p>}
-                {!!relatedItems.length && (
-                  <section className="desk-related" aria-label="관련 참조">
-                    <h2>관련 참조</h2>
-                    {relatedItems.map(({ entry, kind }) => (
-                      <ReferenceRow
-                        key={entry.id}
-                        entry={entry}
-                        relationshipKind={kind}
-                      />
-                    ))}
-                  </section>
-                )}
+                {relatedContent}
               </>
             )}
           </div>

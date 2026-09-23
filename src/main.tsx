@@ -15,6 +15,8 @@ import './typography.css';
 import './components/reference-surface.css';
 import './publication.css';
 import './reference-app.css';
+import './components/spatial/spatial-artwork.css';
+import './components/spatial/spatial-oracle.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

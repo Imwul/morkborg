@@ -39,7 +39,9 @@ export default function App() {
   });
   useNavigationChannel('reference-page', page, setPage, {
     normalize: (value) =>
-      value === 'reference' || value === 'generators' ? value : 'home',
+      value === 'reference' || value === 'generators' || value === 'spatial'
+        ? value
+        : 'home',
   });
   useNavigationChannel('reference-about', aboutOpen, setAboutOpen, {
     normalize: (value) => value === true,
@@ -61,9 +63,11 @@ export default function App() {
     document.title =
       surface === 'sources'
         ? '자료 및 출처 — MÖRK BORG Reference Desk'
-        : page === 'generators'
-          ? '생성기 — MÖRK BORG Reference Desk'
-          : 'MÖRK BORG — Reference Desk';
+        : page === 'spatial'
+          ? '공간 탐색 — MÖRK BORG Reference Desk'
+          : page === 'generators'
+            ? '생성기 — MÖRK BORG Reference Desk'
+            : 'MÖRK BORG — Reference Desk';
   }, [surface, page]);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });

@@ -1,0 +1,21 @@
+✔ Every spatial feature resolves to an existing canonical reference with source attribution (1.160875ms)
+✔ Validation rejects missing references, duplicate scenes/hotspots, shadowed artwork and empty labels (0.366667ms)
+✔ Redrawing artwork and changing registry labels do not change a feature’s semantic destination (1.679125ms)
+✔ Inspecting any feature calls the existing inspect operation with zero dice consumption (23.54175ms)
+✔ Spatial inspection and Search resolve the same Reference location and table state (346.230375ms)
+✔ Reference-only spatial targets do not advertise or execute a generic Roll (0.321584ms)
+✔ Explicit rolls from spatial targets select canonical table entries through the existing engine (17.145708ms)
+✔ Scene destinations retain normal Recent and Pins identities through existing storage (0.324834ms)
+✔ Scene destinations use existing Workbench identities and retain results without rerolling (0.469ms)
+✔ Inspecting a scene preserves Related, USES, USED BY and row FOLLOW-UP / SUBTABLE / LOOKUP edges (30.790292ms)
+✔ Scene navigation normalizes stale state while preserving all supported scene IDs (0.121ms)
+✔ Spatial navigation preserves baseline canonical data hashes and registry cardinality (5.293334ms)
+✔ Both distributed data and the archival fixture resolve every scene without adding canonical tables (71.93475ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 773.24175

@@ -1,0 +1,402 @@
+.reference-app .desk-layout[data-page='spatial'] {
+  display: block;
+  padding-top: 24px;
+}
+.rdesk:has(.desk-layout[data-page='spatial']) {
+  max-width: 1880px;
+  margin-inline: auto;
+}
+.spatial-oracle {
+  --spatial-ink: #292b28;
+  --spatial-paper: #f3f2e9;
+  --spatial-moss: #b9c5ad;
+  --spatial-rose: #d8a398;
+  --spatial-water: #adc4c3;
+}
+/* Three original plates borrow colour relationships, never compositions, from
+   the user's first three references. Reading surfaces retain desk typography. */
+.spatial-oracle[data-scene='dungeon'] {
+  --spatial-ground: #292727;
+  --spatial-paper: #ece6b8;
+  --spatial-ink: #222320;
+  --spatial-moss: #bdc69b;
+  --spatial-rose: #e3d477;
+  --spatial-wall: #bb786b;
+  --spatial-water: #658880;
+}
+.spatial-oracle[data-scene='city'] {
+  --spatial-ground: #30262e;
+  --spatial-paper: #e6cfbf;
+  --spatial-ink: #26222c;
+  --spatial-moss: #89ada6;
+  --spatial-rose: #e2a3aa;
+  --spatial-wall: #a58cb2;
+  --spatial-water: #6c9599;
+}
+.spatial-oracle[data-scene='wilderness'] {
+  --spatial-ground: #8d9b99;
+  --spatial-paper: #e9d2b7;
+  --spatial-ink: #262b29;
+  --spatial-moss: #b5b658;
+  --spatial-rose: #dfb4a2;
+  --spatial-wall: #d1c34f;
+  --spatial-water: #627d85;
+}
+.spatial-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.spatial-eyebrow {
+  margin: 0 0 8px;
+  font: 650 0.73rem/1.5 var(--font-mono);
+  letter-spacing: 0.05em;
+}
+.spatial-heading h2 {
+  margin: 0;
+  font: 750 clamp(1.5rem, 2.5vw, 2.2rem)/1.25 var(--font-ui);
+  letter-spacing: -0.04em;
+}
+.spatial-scenes {
+  display: flex;
+  gap: 8px;
+}
+.spatial-scenes button {
+  min-height: 58px;
+  padding: 7px 18px;
+  border-bottom: 2px solid #d6d5cc;
+  text-align: left;
+  font: 750 1.1rem/1.3 var(--font-editorial);
+}
+.spatial-scenes button span {
+  display: block;
+  font: 450 0.75rem/1.7 var(--font-ui);
+}
+.spatial-scenes button[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--scene-tab, #eceb74);
+}
+.spatial-scenes button[data-scene-tab='dungeon'] {
+  --scene-tab: #dce0b5;
+  border-bottom-color: #bb786b;
+}
+.spatial-scenes button[data-scene-tab='city'] {
+  --scene-tab: #d8c7de;
+  border-bottom-color: #a58cb2;
+}
+.spatial-scenes button[data-scene-tab='wilderness'] {
+  --scene-tab: #e7df8b;
+  border-bottom-color: #8a9c9e;
+}
+.spatial-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(380px, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+.spatial-plate-column {
+  min-width: 0;
+}
+.spatial-plate-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  border-top: 3px solid var(--ink);
+  padding-top: 10px;
+}
+.spatial-plate-caption h3 {
+  margin: 0;
+  font: italic 800 2rem/1.1 var(--font-editorial);
+}
+.spatial-plate-caption > span {
+  font-size: 0.8rem;
+}
+.spatial-plate-caption small {
+  margin-left: auto;
+  font: 650 0.7rem/1.4 var(--font-mono);
+}
+.spatial-description {
+  font-size: 0.86rem;
+  margin: 12px 0;
+}
+.spatial-map-tools {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 0 6px;
+}
+.spatial-map-tools > div {
+  display: flex;
+}
+.spatial-oracle button {
+  min-height: 44px;
+}
+.spatial-map-tools button {
+  padding: 5px 8px;
+  font-size: 0.8rem;
+}
+.spatial-map-tools button[aria-pressed='true'] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.spatial-map-tools > div > button:first-child,
+.spatial-map-tools > div > button:last-child {
+  min-width: 44px;
+}
+.spatial-map-viewport {
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #74776a #e9eade;
+  border: 1px solid #c2c5b8;
+  background: var(--spatial-ground);
+}
+.spatial-map {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  color: var(--spatial-ink);
+  isolation: isolate;
+}
+.spatial-map-viewport[data-zoom='true'] .spatial-map {
+  min-width: max(1000px, 135%);
+}
+.spatial-hotspot {
+  cursor: pointer;
+  outline: none;
+}
+.spatial-object {
+  transition: filter 120ms;
+}
+.spatial-hit {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 2;
+  pointer-events: all;
+  vector-effect: non-scaling-stroke;
+}
+.spatial-hotspot:hover .spatial-hit {
+  fill: #e8e75824;
+  stroke: #474b35;
+  stroke-dasharray: 3 4;
+}
+.spatial-hotspot:focus-visible .spatial-hit {
+  fill: #e8e75835;
+  stroke: #252b17;
+  stroke-width: 3;
+  stroke-dasharray: none;
+}
+.spatial-oracle[data-scene='dungeon']
+  .spatial-hotspot:focus-visible
+  .spatial-hit,
+.spatial-oracle[data-scene='city'] .spatial-hotspot:focus-visible .spatial-hit {
+  stroke: #f6e7a4;
+  paint-order: stroke;
+  filter: drop-shadow(1px 1px 0 #242320) drop-shadow(-1px -1px 0 #242320);
+}
+.spatial-hotspot[aria-pressed='true'] .spatial-hit {
+  fill: #dfca4930;
+  stroke: #765026;
+  stroke-width: 2;
+}
+.spatial-map[data-reveal='true'] .spatial-hit {
+  stroke: #596244;
+  stroke-dasharray: 4 5;
+  fill: #f3ef5d18;
+}
+.spatial-hotspot[aria-disabled='true'] {
+  cursor: help;
+}
+.spatial-mark {
+  visibility: hidden;
+}
+.spatial-mark circle {
+  fill: #e8e758;
+  stroke: #292b28;
+  stroke-width: 2;
+}
+.spatial-mark path {
+  fill: none;
+  stroke: #292b28;
+  stroke-width: 2;
+}
+.spatial-hotspot[aria-pressed='true'] .spatial-mark {
+  visibility: visible;
+}
+.spatial-route-outline {
+  visibility: hidden;
+  fill: none;
+  stroke: #2a311c;
+  stroke-width: 3;
+  stroke-dasharray: 4 6;
+}
+.spatial-map-label rect {
+  fill: #f9f8ee;
+  stroke: #292b28;
+  stroke-width: 1;
+}
+.spatial-map-label text {
+  fill: #292b28;
+  font: 650 14px/1 var(--font-ui);
+}
+.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true'])
+  .spatial-route-outline,
+.spatial-map[data-reveal='true'] .spatial-route-outline {
+  visibility: visible;
+}
+.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true']) {
+  --spatial-object-fill: #e5df75;
+}
+.spatial-hover-label {
+  min-height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px 12px;
+  border-bottom: 1px solid var(--desk-rule);
+  padding: 7px 0;
+  font-size: 0.8rem;
+}
+.spatial-hover-label span {
+  color: #565950;
+  font-size: 0.73rem;
+}
+.spatial-map-help,
+.spatial-data-notice {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: #565950;
+  margin: 10px 0;
+}
+.spatial-pan-hint {
+  display: none;
+}
+.spatial-reader {
+  min-width: 0;
+  border-top: 3px solid var(--ink);
+  scroll-margin-top: calc(var(--desk-header-height, 125px) + 20px);
+  outline: none;
+}
+.spatial-reader:focus-visible {
+  outline: 2px solid #765026;
+  outline-offset: 6px;
+}
+.spatial-reader-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  border-bottom: 1px solid var(--desk-rule);
+  padding: 3px 0;
+  margin-bottom: 18px;
+}
+.spatial-reader-tools button {
+  font-size: 0.8rem;
+}
+.spatial-reader-tools button:first-child {
+  margin-right: auto;
+}
+.spatial-reader-empty {
+  padding: clamp(28px, 4vw, 64px) 4px;
+}
+.spatial-reader-empty h3 {
+  margin: 18px 0;
+  font: 720 clamp(1.8rem, 2.4vw, 2.65rem)/1.35 var(--font-ui);
+  letter-spacing: -0.04em;
+}
+.spatial-reader-empty p {
+  font-size: 0.95rem;
+}
+.spatial-reader-empty .spatial-empty-note {
+  font-size: 0.82rem;
+  color: #62635c;
+  margin-top: 24px;
+}
+.spatial-reader-empty button {
+  margin-top: 22px;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-size: 0.82rem;
+}
+.spatial-reader .reference-page h2 {
+  font-size: clamp(1.7rem, 2.2vw, 2.4rem);
+}
+.spatial-reader .desk-open-pages {
+  margin-top: 30px;
+}
+.spatial-oracle :is(button, a):focus-visible {
+  outline: 2px solid #4b5e29;
+  outline-offset: 3px;
+}
+@media (max-width: 1100px) {
+  .spatial-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+  .spatial-heading {
+    align-items: start;
+  }
+  .spatial-scenes button {
+    padding-inline: 12px;
+  }
+  .spatial-reader-empty {
+    padding: 24px 0;
+  }
+  .spatial-map {
+    max-height: none;
+  }
+}
+@media (max-width: 700px) {
+  .spatial-heading {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .spatial-scenes {
+    margin-top: 18px;
+    gap: 4px;
+  }
+  .spatial-scenes button {
+    flex: 1;
+    padding-inline: 8px;
+    font-size: 1rem;
+  }
+  .spatial-description {
+    font-size: 0.8rem;
+  }
+  .spatial-plate-caption > span {
+    font-size: 0.75rem;
+  }
+  .spatial-pan-hint {
+    display: inline;
+  }
+  .spatial-map-help > span {
+    display: block;
+  }
+  .spatial-reader-tools {
+    gap: 4px 12px;
+  }
+  .spatial-hover-label span {
+    display: none;
+  }
+  .spatial-reader .reference-page h2 {
+    font-size: 1.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spatial-object {
+    transition: none;
+  }
+}
+@media (max-width: 540px) {
+  .reference-app .desk-primary-nav button {
+    padding-inline: 8px;
+    font-size: 0.94rem;
+    white-space: nowrap;
+  }
+  .reference-app .desk-primary-nav button::before {
+    display: none;
+  }
+}

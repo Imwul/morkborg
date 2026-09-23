@@ -1,0 +1,20 @@
+{
+  "baselineCommit": "40201c331945b91f08e200c1227b6d8a67de860a",
+  "checkedFiles": 85,
+  "allUnchanged": true,
+  "changed": [],
+  "runtime": {
+    "references": 987,
+    "tables": 545,
+    "rows": 12305,
+    "procedures": 60,
+    "books": 9
+  },
+  "archival": {
+    "references": 993,
+    "tables": 546,
+    "rows": 12310,
+    "procedures": 60,
+    "books": 9
+  }
+}

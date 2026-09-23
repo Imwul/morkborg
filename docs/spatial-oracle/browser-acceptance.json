@@ -1,0 +1,1184 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "reports": [
+    {
+      "width": 360,
+      "scenes": [
+        {
+          "scene": "dungeon",
+          "geometry": [
+            {
+              "id": "dungeon-entrance",
+              "width": 122.94465637207031,
+              "height": 63.156494140625
+            },
+            {
+              "id": "dungeon-masonry",
+              "width": 73.26155090332031,
+              "height": 85.892822265625
+            },
+            {
+              "id": "dungeon-door",
+              "width": 104.41876220703125,
+              "height": 67.366943359375
+            },
+            {
+              "id": "dungeon-contents",
+              "width": 100.20831298828125,
+              "height": 93.47161865234375
+            },
+            {
+              "id": "dungeon-furnishing",
+              "width": 86.73492431640625,
+              "height": 85.892822265625
+            },
+            {
+              "id": "dungeon-chest",
+              "width": 106.94497680664062,
+              "height": 88.41912841796875
+            },
+            {
+              "id": "dungeon-trap",
+              "width": 97.68206787109375,
+              "height": 71.577392578125
+            },
+            {
+              "id": "dungeon-passage",
+              "width": 111.99752807617188,
+              "height": 114.5238037109375
+            },
+            {
+              "id": "dungeon-light",
+              "width": 83.3665771484375,
+              "height": 84.20867919921875
+            },
+            {
+              "id": "dungeon-corpse",
+              "width": 124.62884521484375,
+              "height": 111.15545654296875
+            },
+            {
+              "id": "dungeon-sounds",
+              "width": 100.20831298828125,
+              "height": 86.73492431640625
+            }
+          ],
+          "visits": [
+            {
+              "target": "masonry",
+              "id": "oracle:reclvse.architecture",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "chest",
+              "id": "oracle:reclvse.roomLoot",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "door",
+              "id": "rule:depths.locked-doors",
+              "formula": "d6",
+              "rollable": false,
+              "related": 2
+            }
+          ],
+          "everyHotspotOpened": 11,
+          "touch": true
+        },
+        {
+          "scene": "wilderness",
+          "geometry": [
+            {
+              "id": "wilderness-road",
+              "width": 489.9908447265625,
+              "height": 535.4634399414062,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-offroad",
+              "width": 216.31265258789062,
+              "height": 102.12567138671875,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-tracks",
+              "width": 101.0504150390625,
+              "height": 84.2086181640625
+            },
+            {
+              "id": "wilderness-forage",
+              "width": 137.2601318359375,
+              "height": 117.89208984375
+            },
+            {
+              "id": "wilderness-camp",
+              "width": 138.94427490234375,
+              "height": 107.787109375
+            },
+            {
+              "id": "wilderness-weather",
+              "width": 173.4698486328125,
+              "height": 95.15582275390625
+            },
+            {
+              "id": "wilderness-village",
+              "width": 178.5223846435547,
+              "height": 125.47088623046875
+            },
+            {
+              "id": "wilderness-corpse",
+              "width": 101.89251708984375,
+              "height": 109.47119140625
+            },
+            {
+              "id": "wilderness-distances",
+              "width": 82.52450561523438,
+              "height": 86.73492431640625
+            }
+          ],
+          "visits": [
+            {
+              "target": "road",
+              "id": "oracle:feretory.roadType",
+              "formula": "d8",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "tracks",
+              "id": "oracle:reclvse.signs_of_travelers",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "weather",
+              "id": "oracle:core.weather",
+              "formula": "d12",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "distances",
+              "id": "rule:feretory.travel-distances",
+              "formula": null,
+              "rollable": false,
+              "related": 4
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": true
+        },
+        {
+          "scene": "city",
+          "geometry": [
+            {
+              "id": "city-street",
+              "width": 665.1448364257812,
+              "height": 473.14910888671875,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "city-gate",
+              "width": 108.62918090820312,
+              "height": 117.89215087890625
+            },
+            {
+              "id": "city-crowd",
+              "width": 94.31369018554688,
+              "height": 85.892822265625
+            },
+            {
+              "id": "city-tavern",
+              "width": 155.78604125976562,
+              "height": 145.68096923828125
+            },
+            {
+              "id": "city-shop",
+              "width": 139.786376953125,
+              "height": 110.3133544921875
+            },
+            {
+              "id": "city-townhouse",
+              "width": 127.99716186523438,
+              "height": 129.68133544921875
+            },
+            {
+              "id": "city-shrine",
+              "width": 117.89213562011719,
+              "height": 135.575927734375
+            },
+            {
+              "id": "city-merchant",
+              "width": 101.89248657226562,
+              "height": 97.68206787109375
+            },
+            {
+              "id": "city-directions",
+              "width": 73.26155090332031,
+              "height": 84.20867919921875
+            }
+          ],
+          "visits": [
+            {
+              "target": "gate",
+              "id": "oracle:aitc.city-gate-reaction",
+              "formula": "d6",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "street",
+              "id": "procedure:aitc.street",
+              "formula": "d20 / d12 / d12",
+              "rollable": true,
+              "related": 4
+            },
+            {
+              "target": "tavern",
+              "id": "oracle:aitc.taverns",
+              "formula": "d4",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "directions",
+              "id": "procedure:city.directions",
+              "formula": null,
+              "rollable": false,
+              "related": 1
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": true
+        }
+      ],
+      "checks": [
+        "browser-back-forward-selection",
+        "tab-enter-space-arrows-return-focus",
+        "recent-pins-workbench-search-share-reference-and-results",
+        "pins-workbench-reload",
+        "scene-back-forward",
+        "discoverability-and-zoom"
+      ],
+      "screenshots": [
+        "outputs/spatial-oracle/dungeon-scene-360.png",
+        "outputs/spatial-oracle/dungeon-reference-360.png",
+        "outputs/spatial-oracle/wilderness-scene-360.png",
+        "outputs/spatial-oracle/wilderness-reference-360.png",
+        "outputs/spatial-oracle/city-scene-360.png",
+        "outputs/spatial-oracle/city-reference-360.png"
+      ],
+      "pageErrors": [],
+      "keyboardFarEdge": {
+        "left": 185.9432373046875,
+        "right": 33.84844970703125
+      },
+      "mapPan": {
+        "canPan": true,
+        "beforePan": 161,
+        "afterRight": 381,
+        "afterLeft": 161
+      },
+      "touchSwipe": {
+        "before": 161,
+        "after": 376
+      },
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "scenes": [
+        {
+          "scene": "dungeon",
+          "geometry": [
+            {
+              "id": "dungeon-entrance",
+              "width": 139.46533203125,
+              "height": 71.64312744140625
+            },
+            {
+              "id": "dungeon-masonry",
+              "width": 83.10606384277344,
+              "height": 97.4346923828125
+            },
+            {
+              "id": "dungeon-door",
+              "width": 118.44998168945312,
+              "height": 76.41937255859375
+            },
+            {
+              "id": "dungeon-contents",
+              "width": 113.67379760742188,
+              "height": 106.0318603515625
+            },
+            {
+              "id": "dungeon-furnishing",
+              "width": 98.38992309570312,
+              "height": 97.43463134765625
+            },
+            {
+              "id": "dungeon-chest",
+              "width": 121.31573486328125,
+              "height": 100.3004150390625
+            },
+            {
+              "id": "dungeon-trap",
+              "width": 110.80807495117188,
+              "height": 81.195556640625
+            },
+            {
+              "id": "dungeon-passage",
+              "width": 127.04718017578125,
+              "height": 129.91290283203125
+            },
+            {
+              "id": "dungeon-light",
+              "width": 94.56895446777344,
+              "height": 95.524169921875
+            },
+            {
+              "id": "dungeon-corpse",
+              "width": 141.37579345703125,
+              "height": 126.0919189453125
+            },
+            {
+              "id": "dungeon-sounds",
+              "width": 113.67376708984375,
+              "height": 98.38995361328125
+            }
+          ],
+          "visits": [
+            {
+              "target": "masonry",
+              "id": "oracle:reclvse.architecture",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "chest",
+              "id": "oracle:reclvse.roomLoot",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "door",
+              "id": "rule:depths.locked-doors",
+              "formula": "d6",
+              "rollable": false,
+              "related": 2
+            }
+          ],
+          "everyHotspotOpened": 11,
+          "touch": false
+        },
+        {
+          "scene": "wilderness",
+          "geometry": [
+            {
+              "id": "wilderness-road",
+              "width": 545.8895263671875,
+              "height": 597.4724731445312,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-offroad",
+              "width": 235.43588256835938,
+              "height": 105.9051513671875,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-tracks",
+              "width": 114.6290283203125,
+              "height": 95.524169921875
+            },
+            {
+              "id": "wilderness-forage",
+              "width": 155.70443725585938,
+              "height": 133.73388671875
+            },
+            {
+              "id": "wilderness-camp",
+              "width": 157.61492919921875,
+              "height": 122.27099609375
+            },
+            {
+              "id": "wilderness-weather",
+              "width": 196.77984619140625,
+              "height": 107.94232177734375
+            },
+            {
+              "id": "wilderness-village",
+              "width": 202.51129150390625,
+              "height": 142.3310546875
+            },
+            {
+              "id": "wilderness-corpse",
+              "width": 115.58428955078125,
+              "height": 124.1815185546875
+            },
+            {
+              "id": "wilderness-distances",
+              "width": 93.61370849609375,
+              "height": 98.38995361328125
+            }
+          ],
+          "visits": [
+            {
+              "target": "road",
+              "id": "oracle:feretory.roadType",
+              "formula": "d8",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "tracks",
+              "id": "oracle:reclvse.signs_of_travelers",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "weather",
+              "id": "oracle:core.weather",
+              "formula": "d12",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "distances",
+              "id": "rule:feretory.travel-distances",
+              "formula": null,
+              "rollable": false,
+              "related": 4
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        },
+        {
+          "scene": "city",
+          "geometry": [
+            {
+              "id": "city-street",
+              "width": 744.579833984375,
+              "height": 526.78466796875,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "city-gate",
+              "width": 123.22622680664062,
+              "height": 133.73388671875
+            },
+            {
+              "id": "city-crowd",
+              "width": 106.98712158203125,
+              "height": 97.43463134765625
+            },
+            {
+              "id": "city-tavern",
+              "width": 176.71975708007812,
+              "height": 165.2568359375
+            },
+            {
+              "id": "city-shop",
+              "width": 158.57012939453125,
+              "height": 125.13665771484375
+            },
+            {
+              "id": "city-townhouse",
+              "width": 145.19677734375,
+              "height": 147.10723876953125
+            },
+            {
+              "id": "city-shrine",
+              "width": 133.73387145996094,
+              "height": 153.7939453125
+            },
+            {
+              "id": "city-merchant",
+              "width": 115.58428955078125,
+              "height": 110.80804443359375
+            },
+            {
+              "id": "city-directions",
+              "width": 83.10604858398438,
+              "height": 95.52423095703125
+            }
+          ],
+          "visits": [
+            {
+              "target": "gate",
+              "id": "oracle:aitc.city-gate-reaction",
+              "formula": "d6",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "street",
+              "id": "procedure:aitc.street",
+              "formula": "d20 / d12 / d12",
+              "rollable": true,
+              "related": 4
+            },
+            {
+              "target": "tavern",
+              "id": "oracle:aitc.taverns",
+              "formula": "d4",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "directions",
+              "id": "procedure:city.directions",
+              "formula": null,
+              "rollable": false,
+              "related": 1
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        }
+      ],
+      "checks": [
+        "browser-back-forward-selection",
+        "tab-enter-space-arrows-return-focus",
+        "recent-pins-workbench-search-share-reference-and-results",
+        "pins-workbench-reload",
+        "scene-back-forward",
+        "discoverability-and-zoom"
+      ],
+      "screenshots": [
+        "outputs/spatial-oracle/dungeon-scene-768.png",
+        "outputs/spatial-oracle/dungeon-reference-768.png",
+        "outputs/spatial-oracle/wilderness-scene-768.png",
+        "outputs/spatial-oracle/wilderness-reference-768.png",
+        "outputs/spatial-oracle/city-scene-768.png",
+        "outputs/spatial-oracle/city-reference-768.png"
+      ],
+      "pageErrors": [],
+      "keyboardFarEdge": {
+        "left": 576.063720703125,
+        "right": 38.26251220703125
+      },
+      "mapPan": {
+        "canPan": true,
+        "beforePan": 0,
+        "afterRight": 220,
+        "afterLeft": 0
+      },
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "scenes": [
+        {
+          "scene": "dungeon",
+          "geometry": [
+            {
+              "id": "dungeon-entrance",
+              "width": 145.8197021484375,
+              "height": 74.907470703125
+            },
+            {
+              "id": "dungeon-masonry",
+              "width": 86.89254760742188,
+              "height": 101.8740234375
+            },
+            {
+              "id": "dungeon-door",
+              "width": 123.84686279296875,
+              "height": 79.9012451171875
+            },
+            {
+              "id": "dungeon-contents",
+              "width": 118.85305786132812,
+              "height": 110.86297607421875
+            },
+            {
+              "id": "dungeon-furnishing",
+              "width": 102.872802734375,
+              "height": 101.87408447265625
+            },
+            {
+              "id": "dungeon-chest",
+              "width": 126.84320068359375,
+              "height": 104.870361328125
+            },
+            {
+              "id": "dungeon-trap",
+              "width": 115.85675048828125,
+              "height": 84.89508056640625
+            },
+            {
+              "id": "dungeon-passage",
+              "width": 132.83575439453125,
+              "height": 135.83203125
+            },
+            {
+              "id": "dungeon-light",
+              "width": 98.87773132324219,
+              "height": 99.87652587890625
+            },
+            {
+              "id": "dungeon-corpse",
+              "width": 147.8172607421875,
+              "height": 131.83697509765625
+            },
+            {
+              "id": "dungeon-sounds",
+              "width": 118.85308837890625,
+              "height": 102.87283325195312
+            }
+          ],
+          "visits": [
+            {
+              "target": "masonry",
+              "id": "oracle:reclvse.architecture",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "chest",
+              "id": "oracle:reclvse.roomLoot",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "door",
+              "id": "rule:depths.locked-doors",
+              "formula": "d6",
+              "rollable": false,
+              "related": 2
+            }
+          ],
+          "everyHotspotOpened": 11,
+          "touch": false
+        },
+        {
+          "scene": "wilderness",
+          "geometry": [
+            {
+              "id": "wilderness-road",
+              "width": 567.3899536132812,
+              "height": 621.3233032226562,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-offroad",
+              "width": 242.7913055419922,
+              "height": 107.3587646484375,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-tracks",
+              "width": 119.851806640625,
+              "height": 99.87652587890625
+            },
+            {
+              "id": "wilderness-forage",
+              "width": 162.7987060546875,
+              "height": 139.8271484375
+            },
+            {
+              "id": "wilderness-camp",
+              "width": 164.7962646484375,
+              "height": 127.84197998046875
+            },
+            {
+              "id": "wilderness-weather",
+              "width": 205.74560546875,
+              "height": 112.8604736328125
+            },
+            {
+              "id": "wilderness-village",
+              "width": 211.73822021484375,
+              "height": 148.81597900390625
+            },
+            {
+              "id": "wilderness-corpse",
+              "width": 120.8505859375,
+              "height": 129.83941650390625
+            },
+            {
+              "id": "wilderness-distances",
+              "width": 97.87899780273438,
+              "height": 102.872802734375
+            }
+          ],
+          "visits": [
+            {
+              "target": "road",
+              "id": "oracle:feretory.roadType",
+              "formula": "d8",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "tracks",
+              "id": "oracle:reclvse.signs_of_travelers",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "weather",
+              "id": "oracle:core.weather",
+              "formula": "d12",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "distances",
+              "id": "rule:feretory.travel-distances",
+              "formula": null,
+              "rollable": false,
+              "related": 4
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        },
+        {
+          "scene": "city",
+          "geometry": [
+            {
+              "id": "city-street",
+              "width": 775.1331176757812,
+              "height": 547.4146728515625,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "city-gate",
+              "width": 128.8406982421875,
+              "height": 139.82708740234375
+            },
+            {
+              "id": "city-crowd",
+              "width": 111.8616943359375,
+              "height": 101.8740234375
+            },
+            {
+              "id": "city-tavern",
+              "width": 184.77154541015625,
+              "height": 172.786376953125
+            },
+            {
+              "id": "city-shop",
+              "width": 165.79501342773438,
+              "height": 130.8382568359375
+            },
+            {
+              "id": "city-townhouse",
+              "width": 151.81231689453125,
+              "height": 153.809814453125
+            },
+            {
+              "id": "city-shrine",
+              "width": 139.82711791992188,
+              "height": 160.80117797851562
+            },
+            {
+              "id": "city-merchant",
+              "width": 120.8505859375,
+              "height": 115.85675048828125
+            },
+            {
+              "id": "city-directions",
+              "width": 86.892578125,
+              "height": 99.87646484375
+            }
+          ],
+          "visits": [
+            {
+              "target": "gate",
+              "id": "oracle:aitc.city-gate-reaction",
+              "formula": "d6",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "street",
+              "id": "procedure:aitc.street",
+              "formula": "d20 / d12 / d12",
+              "rollable": true,
+              "related": 4
+            },
+            {
+              "target": "tavern",
+              "id": "oracle:aitc.taverns",
+              "formula": "d4",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "directions",
+              "id": "procedure:city.directions",
+              "formula": null,
+              "rollable": false,
+              "related": 1
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        }
+      ],
+      "checks": [
+        "browser-back-forward-selection",
+        "tab-enter-space-arrows-return-focus",
+        "recent-pins-workbench-search-share-reference-and-results",
+        "pins-workbench-reload",
+        "scene-back-forward",
+        "discoverability-and-zoom"
+      ],
+      "screenshots": [
+        "outputs/spatial-oracle/dungeon-scene-1440.png",
+        "outputs/spatial-oracle/dungeon-reference-1440.png",
+        "outputs/spatial-oracle/wilderness-scene-1440.png",
+        "outputs/spatial-oracle/wilderness-reference-1440.png",
+        "outputs/spatial-oracle/city-scene-1440.png",
+        "outputs/spatial-oracle/city-reference-1440.png"
+      ],
+      "pageErrors": [],
+      "keyboardFarEdge": {
+        "left": 602.257080078125,
+        "right": 39.95233154296875
+      },
+      "mapPan": {
+        "canPan": true,
+        "beforePan": 0,
+        "afterRight": 220,
+        "afterLeft": 0
+      },
+      "status": "passed"
+    },
+    {
+      "width": 3440,
+      "scenes": [
+        {
+          "scene": "dungeon",
+          "geometry": [
+            {
+              "id": "dungeon-entrance",
+              "width": 191.194580078125,
+              "height": 98.21630859375
+            },
+            {
+              "id": "dungeon-masonry",
+              "width": 113.9310302734375,
+              "height": 133.57421875
+            },
+            {
+              "id": "dungeon-door",
+              "width": 162.3843994140625,
+              "height": 104.76409912109375
+            },
+            {
+              "id": "dungeon-contents",
+              "width": 155.836669921875,
+              "height": 145.3602294921875
+            },
+            {
+              "id": "dungeon-furnishing",
+              "width": 134.8837890625,
+              "height": 133.57421875
+            },
+            {
+              "id": "dungeon-chest",
+              "width": 166.31298828125,
+              "height": 137.50286865234375
+            },
+            {
+              "id": "dungeon-trap",
+              "width": 151.907958984375,
+              "height": 111.31182861328125
+            },
+            {
+              "id": "dungeon-passage",
+              "width": 174.1702880859375,
+              "height": 178.09896850585938
+            },
+            {
+              "id": "dungeon-light",
+              "width": 129.6456298828125,
+              "height": 130.9552001953125
+            },
+            {
+              "id": "dungeon-corpse",
+              "width": 193.8135986328125,
+              "height": 172.8607177734375
+            },
+            {
+              "id": "dungeon-sounds",
+              "width": 155.8365478515625,
+              "height": 134.8837890625
+            }
+          ],
+          "visits": [
+            {
+              "target": "masonry",
+              "id": "oracle:reclvse.architecture",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "chest",
+              "id": "oracle:reclvse.roomLoot",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "door",
+              "id": "rule:depths.locked-doors",
+              "formula": "d6",
+              "rollable": false,
+              "related": 2
+            }
+          ],
+          "everyHotspotOpened": 11,
+          "touch": false
+        },
+        {
+          "scene": "wilderness",
+          "geometry": [
+            {
+              "id": "wilderness-road",
+              "width": 720.9183349609375,
+              "height": 791.6342163085938,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-offroad",
+              "width": 295.31414794921875,
+              "height": 117.73895263671875,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "wilderness-tracks",
+              "width": 157.146240234375,
+              "height": 130.955078125
+            },
+            {
+              "id": "wilderness-forage",
+              "width": 213.4569091796875,
+              "height": 183.337158203125
+            },
+            {
+              "id": "wilderness-camp",
+              "width": 216.075927734375,
+              "height": 167.62255859375
+            },
+            {
+              "id": "wilderness-weather",
+              "width": 269.767578125,
+              "height": 147.97930908203125
+            },
+            {
+              "id": "wilderness-village",
+              "width": 277.62481689453125,
+              "height": 195.12313842773438
+            },
+            {
+              "id": "wilderness-corpse",
+              "width": 158.4556884765625,
+              "height": 170.24169921875
+            },
+            {
+              "id": "wilderness-distances",
+              "width": 128.3360595703125,
+              "height": 134.8837890625
+            }
+          ],
+          "visits": [
+            {
+              "target": "road",
+              "id": "oracle:feretory.roadType",
+              "formula": "d8",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "tracks",
+              "id": "oracle:reclvse.signs_of_travelers",
+              "formula": "d20",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "weather",
+              "id": "oracle:core.weather",
+              "formula": "d12",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "distances",
+              "id": "rule:feretory.travel-distances",
+              "formula": null,
+              "rollable": false,
+              "related": 4
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        },
+        {
+          "scene": "city",
+          "geometry": [
+            {
+              "id": "city-street",
+              "width": 993.30517578125,
+              "height": 694.7273559570312,
+              "strokeHitWidth": 74
+            },
+            {
+              "id": "city-gate",
+              "width": 168.93212890625,
+              "height": 183.33721923828125
+            },
+            {
+              "id": "city-crowd",
+              "width": 146.6697998046875,
+              "height": 133.57427978515625
+            },
+            {
+              "id": "city-tavern",
+              "width": 242.2669677734375,
+              "height": 226.55242919921875
+            },
+            {
+              "id": "city-shop",
+              "width": 217.3856201171875,
+              "height": 171.5511474609375
+            },
+            {
+              "id": "city-townhouse",
+              "width": 199.0517578125,
+              "height": 201.6708984375
+            },
+            {
+              "id": "city-shrine",
+              "width": 183.33709716796875,
+              "height": 210.83782958984375
+            },
+            {
+              "id": "city-merchant",
+              "width": 158.4556884765625,
+              "height": 151.907958984375
+            },
+            {
+              "id": "city-directions",
+              "width": 113.9310302734375,
+              "height": 130.95513916015625
+            }
+          ],
+          "visits": [
+            {
+              "target": "gate",
+              "id": "oracle:aitc.city-gate-reaction",
+              "formula": "d6",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "street",
+              "id": "procedure:aitc.street",
+              "formula": "d20 / d12 / d12",
+              "rollable": true,
+              "related": 4
+            },
+            {
+              "target": "tavern",
+              "id": "oracle:aitc.taverns",
+              "formula": "d4",
+              "rollable": true,
+              "related": 1
+            },
+            {
+              "target": "directions",
+              "id": "procedure:city.directions",
+              "formula": null,
+              "rollable": false,
+              "related": 1
+            }
+          ],
+          "everyHotspotOpened": 9,
+          "touch": false
+        }
+      ],
+      "checks": [
+        "browser-back-forward-selection",
+        "tab-enter-space-arrows-return-focus",
+        "recent-pins-workbench-search-share-reference-and-results",
+        "pins-workbench-reload",
+        "scene-back-forward",
+        "discoverability-and-zoom"
+      ],
+      "screenshots": [
+        "outputs/spatial-oracle/dungeon-scene-3440.png",
+        "outputs/spatial-oracle/dungeon-reference-3440.png",
+        "outputs/spatial-oracle/wilderness-scene-3440.png",
+        "outputs/spatial-oracle/wilderness-reference-3440.png",
+        "outputs/spatial-oracle/city-scene-3440.png",
+        "outputs/spatial-oracle/city-reference-3440.png"
+      ],
+      "pageErrors": [],
+      "keyboardFarEdge": {
+        "left": 789.353271484375,
+        "right": 52.0758056640625
+      },
+      "mapPan": {
+        "canPan": true,
+        "beforePan": 0,
+        "afterRight": 5,
+        "afterLeft": 0
+      },
+      "status": "passed"
+    }
+  ],
+  "screenshotRefresh": {
+    "capturedAt": "2026-09-23T01:32:15.970Z",
+    "widths": [
+      360,
+      768,
+      1440,
+      3440
+    ],
+    "screenshots": [
+      "outputs/spatial-oracle/dungeon-scene-360.png",
+      "outputs/spatial-oracle/dungeon-reference-360.png",
+      "outputs/spatial-oracle/wilderness-scene-360.png",
+      "outputs/spatial-oracle/wilderness-reference-360.png",
+      "outputs/spatial-oracle/city-scene-360.png",
+      "outputs/spatial-oracle/city-reference-360.png",
+      "outputs/spatial-oracle/dungeon-scene-768.png",
+      "outputs/spatial-oracle/dungeon-reference-768.png",
+      "outputs/spatial-oracle/wilderness-scene-768.png",
+      "outputs/spatial-oracle/wilderness-reference-768.png",
+      "outputs/spatial-oracle/city-scene-768.png",
+      "outputs/spatial-oracle/city-reference-768.png",
+      "outputs/spatial-oracle/dungeon-scene-1440.png",
+      "outputs/spatial-oracle/dungeon-reference-1440.png",
+      "outputs/spatial-oracle/wilderness-scene-1440.png",
+      "outputs/spatial-oracle/wilderness-reference-1440.png",
+      "outputs/spatial-oracle/city-scene-1440.png",
+      "outputs/spatial-oracle/city-reference-1440.png",
+      "outputs/spatial-oracle/dungeon-scene-3440.png",
+      "outputs/spatial-oracle/dungeon-reference-3440.png",
+      "outputs/spatial-oracle/wilderness-scene-3440.png",
+      "outputs/spatial-oracle/wilderness-reference-3440.png",
+      "outputs/spatial-oracle/city-scene-3440.png",
+      "outputs/spatial-oracle/city-reference-3440.png"
+    ]
+  }
+}
