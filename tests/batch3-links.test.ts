@@ -92,7 +92,9 @@ for (const item of cases)
       assert.equal(entry.sourceRefs[0].pdfPage, 22);
       assert.equal(entry.sourceRefs[0].printedPage, 22);
       assert.equal(entry.sourceRefs[0].status, 'VERIFIED');
-      assert.ok(entry.relatedIds.includes(`oracle:${item.tableId}`));
+      assert.ok(
+        entry.relatedIds.includes(index.byId[`oracle:${item.tableId}`].id),
+      );
       assert.doesNotMatch(entry.summary, /\d+s\b|silver|은화/);
     },
   );

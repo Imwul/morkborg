@@ -2174,16 +2174,27 @@ body,
   }
 }
 
-/* Existing document grammar for SD's independent preparation fields. */
+/* Keep the source's related dungeon fields together on a fluid sheet. */
+.dungeon-preparation {
+  container: dungeon-preparation / inline-size;
+}
 .dungeon-preparation-fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 1.5rem 2rem;
 }
 .dungeon-preparation-fields > section {
+  grid-column: span 4;
   min-width: 0;
   border-top: 1px solid var(--ink);
   padding-top: 0.75rem;
+}
+.dungeon-preparation-fields > section[data-preparation-field='name'],
+.dungeon-preparation-fields > section[data-preparation-field='reason'] {
+  grid-column: 1 / -1;
+}
+.dungeon-preparation-fields > section[data-preparation-field^='special'] {
+  grid-column: span 3;
 }
 .dungeon-preparation-fields header,
 .dungeon-field-actions {
@@ -2248,3 +2259,79 @@ body,
   overflow-wrap: anywhere;
 }
 .dungeon-native-component { overflow-wrap: anywhere; white-space: pre-line; }
+
+/* Home and generator indexes use the whole reading surface. */
+.reference-app .desk-layout[data-page='home'],
+.reference-app .desk-layout[data-page='generators'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Reading length controls type scale and card width; source order stays intact. */
+.reference-app .reference-page .reference-roll-results {
+  container: rolled-reading / inline-size;
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items > section {
+  grid-column: span 4;
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='brief']) {
+  grid-column: span 3;
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='long']) {
+  grid-column: span 6;
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='extended']) {
+  grid-column: 1 / -1;
+}
+.reference-app .reference-page .reference-roll-results .reference-reading-items > section:only-child {
+  grid-column: 1 / -1;
+}
+.reference-app .reference-page[data-reference-kind] .reference-body .reference-result-text[data-result-density='standard'] {
+  font-size: clamp(1.9rem, 2vw, 2.45rem);
+  line-height: 1.22;
+}
+.reference-app .reference-page[data-reference-kind] .reference-body .reference-result-text[data-result-density='long'] {
+  font-size: clamp(1.5rem, 1.55vw, 1.9rem);
+  line-height: 1.3;
+}
+.reference-app .reference-page[data-reference-kind] .reference-body .reference-result-text[data-result-density='extended'] {
+  font-size: clamp(1.35rem, 1.3vw, 1.65rem);
+  line-height: 1.35;
+}
+@container dungeon-preparation (max-width: 55.99rem) {
+  .dungeon-preparation-fields > section,
+  .dungeon-preparation-fields > section[data-preparation-field^='special'] {
+    grid-column: span 6;
+  }
+  .dungeon-preparation-fields > section[data-preparation-field='name'],
+  .dungeon-preparation-fields > section[data-preparation-field='inhabitants'],
+  .dungeon-preparation-fields > section[data-preparation-field='reason'],
+  .dungeon-preparation-fields > section[data-preparation-field='feature'] {
+    grid-column: 1 / -1;
+  }
+}
+@container dungeon-preparation (max-width: 41.99rem) {
+  .dungeon-preparation-fields > section,
+  .dungeon-preparation-fields > section[data-preparation-field^='special'] {
+    grid-column: 1 / -1;
+  }
+}
+@container rolled-reading (max-width: 69.99rem) {
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section,
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='brief']) {
+    grid-column: span 6;
+  }
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='long']),
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='extended']),
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section:only-child {
+    grid-column: 1 / -1;
+  }
+}
+@container rolled-reading (max-width: 41.99rem) {
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section,
+  .reference-app .reference-page .reference-roll-results .reference-reading-items > section:has([data-result-density='brief']) {
+    grid-column: 1 / -1;
+  }
+}

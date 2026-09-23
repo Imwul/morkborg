@@ -12,7 +12,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import type { Campaign } from '../domain/types';
 import {
   FATE_ODDS,
   FATE_ANSWERS,
@@ -21,13 +20,6 @@ import {
   type MythicState,
 } from '../domain/mythic';
 import {
-  appendOracleNotes,
-  notesDestinations,
-  notesTargetKey,
-  contextNotesTarget,
-  type NotesTarget,
-} from '../domain/oracleNotes';
-import {
   fateCell,
   checkModifier,
   resolveFate,
@@ -35,34 +27,24 @@ import {
   rollFate,
   fateSource,
   fateRollLabel,
-  fateNotesResult,
 } from '../generators/mythic';
 import { rollProcedure } from '../generators/oracleRoller';
 import { loadFateChart, useFateChart } from '../storage/fateChartStore';
 import { useOracleRegistry } from '../storage/oracleStore';
-import { transact } from '../storage/saveStore';
 import { PrivateDataTools } from './PrivateDataTools';
 
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  campaign?: Campaign;
   state: MythicState;
   onStateChange?: (state: MythicState) => void;
-  context?: NotesTarget | null;
-  saveError: string | null;
-  notify: (message: string) => void;
   launcherRef: RefObject<HTMLButtonElement | null>;
 }
 export function MythicPanel({
   open,
   onOpenChange,
-  campaign,
   state: initialState,
   onStateChange,
-  context,
-  saveError,
-  notify,
   launcherRef,
 }: Props) {
   const [state, setState] = useState<MythicState>(() => ({
@@ -85,21 +67,9 @@ export function MythicPanel({
   const [diceB, setDiceB] = useState('');
   const [error, setError] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [targetChoice, setTargetChoice] = useState({ context: '', value: '' });
   const questionRef = useRef<HTMLTextAreaElement>(null);
   const chartState = useFateChart();
   const { registry } = useOracleRegistry();
-  const currentContext = campaign
-    ? (context ?? contextNotesTarget(campaign))
-    : null;
-  const contextKey = currentContext ? notesTargetKey(currentContext) : '';
-  const targetKey =
-    targetChoice.context === contextKey ? targetChoice.value : '';
-  const destinations = campaign ? notesDestinations(campaign) : [];
-  const destination =
-    destinations.find(
-      (d) => notesTargetKey(d.target) === (targetKey || contextKey),
-    ) ?? destinations[0];
   const history = state.history.filter((r) => r.kind === state.tab);
   const reading = history.find((r) => r.id === selectedId) ?? history[0];
   const isCheck = state.tab === 'fate' && state.method === 'check';
@@ -191,15 +161,9 @@ export function MythicPanel({
           <span className="eyebrow">MYTHIC GME · SECOND EDITION</span>
           <DialogTitle>Ask Fate.</DialogTitle>
           <DialogDescription>
-            {campaign ? campaign.title : '캠페인 밖 · 별도 저장'} ·{' '}
-            {saveError ? '저장 확인 필요' : '자동 저장'}
+            최근 판정은 이 탭에서 유지됩니다.
           </DialogDescription>
         </div>
-        {saveError && (
-          <p role="alert" className="fate-error">
-            {saveError}
-          </p>
-        )}
         <section className="fate-chaos" aria-label="Chaos Factor">
           <div>
             <label htmlFor="fate-chaos">CHAOS FACTOR</label>
@@ -547,71 +511,11 @@ export function MythicPanel({
                 않습니다.
               </p>
             </SourceDisclosure>
-            {campaign && destination ? (
-              <div className="fate-notes">
-                <label>
-                  기록할 곳
-                  <select
-                    aria-label="Fate 노트 대상"
-                    value={notesTargetKey(destination.target)}
-                    onChange={(e) =>
-                      setTargetChoice({
-                        context: contextKey,
-                        value: e.target.value,
-                      })
-                    }
-                  >
-                    {destinations.map((d) => (
-                      <option
-                        key={notesTargetKey(d.target)}
-                        value={notesTargetKey(d.target)}
-                      >
-                        {d.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <Button
-                  className="btn"
-                  onClick={() => {
-                    try {
-                      transact((save) => {
-                        const c = save.campaigns.find(
-                          (c) => c.id === campaign.id,
-                        );
-                        if (!c)
-                          throw new Error(
-                            '캠페인이 더 이상 존재하지 않습니다.',
-                          );
-                        appendOracleNotes(
-                          c,
-                          destination.target,
-                          fateNotesResult(reading),
-                        );
-                      });
-                      notify('판정 결과를 노트에 추가했습니다.');
-                    } catch (e) {
-                      setError(
-                        e instanceof Error
-                          ? e.message
-                          : '노트에 추가하지 못했습니다.',
-                      );
-                    }
-                  }}
-                >
-                  노트에 추가
-                </Button>
-              </div>
-            ) : (
-              <p className="fate-hint">
-                캠페인을 열면 해당 기록의 노트에 추가할 수 있습니다.
-              </p>
-            )}
           </section>
         )}
         <section className="fate-history" aria-label="최근 Mythic 판정">
           <h3>
-            최근 판정 <small>최대 20개 · 자동 저장</small>
+            최근 판정 <small>최대 20개 · 현재 탭</small>
           </h3>
           {!history.length && <p>질문을 적거나 바로 주사위를 굴리세요.</p>}
           {history.map((r) => (

@@ -9,6 +9,7 @@ import { setRules, getRules } from '../src/storage/rulesStore.ts';
 import { setOraclePack, getOraclePack } from '../src/storage/oracleStore.ts';
 import {
   browseReferences,
+  isDeskClutter,
   referenceEntryFormula,
   REFERENCE_TYPES,
   REFERENCE_CONTEXTS,
@@ -82,12 +83,13 @@ test('compact table presentation retains every source row, accessible title and 
 });
 test('browse preserves every registry entry exactly once', () => {
   const all = browseReferences(index, '');
-  assert.equal(all.length, index.entries.length);
-  assert.equal(new Set(all.map((e) => e.id)).size, index.entries.length);
+  const visible = index.entries.filter((entry) => !isDeskClutter(entry));
+  assert.equal(all.length, visible.length);
+  assert.equal(new Set(all.map((e) => e.id)).size, visible.length);
   for (const [kind] of REFERENCE_TYPES.filter(([k]) => k !== 'all'))
     assert.equal(
       browseReferences(index, '', { kind }).length,
-      index.entries.filter((e) => e.kind === kind).length,
+      visible.filter((e) => e.kind === kind).length,
     );
 });
 test('gameplay phrases found in the browser audit now resolve directly', () => {
@@ -129,7 +131,10 @@ test('context is a filter, never a required state or subset of availability', ()
     assert.ok(result.every((e) => e.contexts.includes(context)));
   }
   assert.equal(JSON.stringify(index), before);
-  assert.equal(browseReferences(index, '').length, index.entries.length);
+  assert.equal(
+    browseReferences(index, '').length,
+    index.entries.filter((entry) => !isDeskClutter(entry)).length,
+  );
 });
 test('source filter is composable with type and query', () => {
   const result = browseReferences(index, '', {

@@ -18,7 +18,7 @@ const provenance = (text: string, homebrew: boolean): GeneratedValueProvenance =
   ],
   sourceText: text ? [text] : [],
   transformation:
-    'Private SCVMBIRTHER snapshot rendered in the campaign sheet. Not a rulebook page.',
+    'Private SCVMBIRTHER snapshot rendered in the reference desk. Not a rulebook page.',
   procedureId: homebrew ? 'scvmbirther-homebrew' : 'scvmbirther',
   authority: [
     {

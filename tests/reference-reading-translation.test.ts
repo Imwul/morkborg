@@ -92,14 +92,14 @@ test('Result typography survives appended guidance while notes and translations 
   assert.equal(paragraphs.length, 2);
   assert.match(
     paragraphs[0],
-    /class="reference-result-text"><span>A synthetic street prompt\.<\/span><\/span>/,
+    /class="reference-result-text" data-result-density="brief"><span>A synthetic street prompt\.<\/span><\/span>/,
   );
   assert.match(paragraphs[0], /시험용 거리 상황/);
   assert.doesNotMatch(paragraphs[1], /reference-result-text/);
   assert.match(paragraphs[1], /시험용 조건은 따로 해결하세요/);
 });
 
-test('Long and multiline source results retain their typography without a character threshold', () => {
+test('Long and multiline source results receive independent density markers', () => {
   const resultText = `${'A long synthetic result. '.repeat(10)}\n\nAnother source paragraph.`;
   const html = renderToStaticMarkup(
     createElement(ReferenceReadingText, {
@@ -109,8 +109,8 @@ test('Long and multiline source results retain their typography without a charac
   );
   const paragraphs = html.match(/<p>.*?<\/p>/gs) ?? [];
   assert.equal(paragraphs.length, 3);
-  assert.match(paragraphs[0], /reference-result-text/);
-  assert.match(paragraphs[1], /reference-result-text/);
+  assert.match(paragraphs[0], /data-result-density="extended"/);
+  assert.match(paragraphs[1], /data-result-density="brief"/);
   assert.doesNotMatch(paragraphs[2], /reference-result-text/);
 });
 
@@ -125,7 +125,7 @@ test('A mismatched bilingual helper stays intact without giving appended instruc
   assert.equal((html.match(/<p>/g) ?? []).length, 1);
   assert.match(
     html,
-    /class="reference-result-text"><span>Source result\.<\/span><\/span><span>\n\nAdditional instruction\.<\/span>/,
+    /class="reference-result-text" data-result-density="brief"><span>Source result\.<\/span><\/span><span>\n\nAdditional instruction\.<\/span>/,
   );
   assert.equal((html.match(/원래 제공된 하나의 번역 문단/g) ?? []).length, 1);
 });

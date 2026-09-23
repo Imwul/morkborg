@@ -109,14 +109,35 @@ test('private ID detection distinguishes a pre-existing longer public identifier
     assert.throws(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}),/Private pack boundary check failed/);
   }
 }));
-test('Git privacy distinguishes unchanged short public baseline from added private data',async()=>temp(async root=>{
+test('public generator homepages do not mask private pack prose',async()=>temp(async root=>{
+  await mkdir(join(root,'dist'));await writeFile(join(root,'dist/index.html'),'PUBLIC APP');
+  const urls=['https://dngngen.makedatanotlore.dev/','https://scvmbirther.makedatanotlore.dev','https://monster.makedatanotlore.dev/'];
+  const pack={tables:{sources:urls},messages:{secret:'PRIVATE GENERATOR RESULT MUST STAY PRIVATE'}};
+  await writeFile(join(root,'dist/app.js'),`const sources=${JSON.stringify(urls)};`);
+  assert.doesNotThrow(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}));
+  await writeFile(join(root,'dist/app.js'),`const leaked='PRIVATE GENERATOR RESULT MUST STAY PRIVATE';`);
+  assert.throws(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}),/Private pack boundary check failed/);
+}));
+test('private slug names require a complete identifier match in public artifacts',async()=>temp(async root=>{
+  await mkdir(join(root,'dist'));await writeFile(join(root,'dist/index.html'),'PUBLIC APP');
+  const pack={tables:{classes:[{name:'private-example-class'}]}};
+  await writeFile(join(root,'dist/app.js'),'const existing="character.class:private-example-class";');
+  assert.doesNotThrow(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}));
+  await writeFile(join(root,'dist/app.js'),'const leaked="private-example-class";');
+  assert.throws(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}),/Private pack boundary check failed/);
+  await writeFile(join(root,'dist/app.js'),`const encoded='${Buffer.from('private-example-class').toString('base64')}';`);
+  assert.throws(()=>checkPrivateBuild(join(root,'dist'),{packs:[pack]}),/Private pack boundary check failed/);
+}));
+test('Git privacy accepts unchanged public baseline phrases of any length but rejects changed files',async()=>temp(async root=>{
   const {checkPrivateGit}=await import('../scripts/check-private-boundary.mjs');
   await writeFile(join(root,'.gitignore'),'/private/\n/outputs/\n');
   await writeFile(join(root,'.vercelignore'),'private/**\noutputs/**\nwork/**\ntmp/**\n');
-  await writeFile(join(root,'existing.md'),'A public note: "component".');
+  const sharedLong='SYNTHETIC SHARED PHRASE IN A PREEXISTING PUBLIC AUDIT';
+  const publicAudit=`A public note: "component". ${sharedLong}${'x'.repeat(1_100_000)}`;
+  await writeFile(join(root,'existing.md'),publicAudit);
   execFileSync('git',['add','.'],{cwd:root});execFileSync('git',['-c','user.name=Synthetic Test','-c','user.email=test@example.invalid','commit','-qm','synthetic baseline'],{cwd:root});
-  const base=createSyntheticDngngenPack();const pack={...base,profile:'dngngen-1.0.0',pools:{...base.pools,A:[{...base.pools.A[0],id:'component'}]}};
-  assert.equal(checkPrivateGit(root,[pack]).preExistingSharedFragments,1);
-  await writeFile(join(root,'existing.md'),'A public note: "component". Added private data.');
+  const base=createSyntheticDngngenPack();const pack={...base,profile:'dngngen-1.0.0',pools:{...base.pools,A:[{...base.pools.A[0],id:'component'}]},messages:{...base.messages,shared:{text:sharedLong}}};
+  assert.equal(checkPrivateGit(root,[pack]).preExistingSharedFragments,2);
+  await writeFile(join(root,'existing.md'),`${publicAudit} Added private data.`);
   assert.throws(()=>checkPrivateGit(root,[pack]),/Private pack boundary check failed/);
 }));

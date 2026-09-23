@@ -1,0 +1,102 @@
+/* The standalone desk uses the same ink, paper and colour bands on its data page. */
+.reference-info-page {
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  border-top: 8px solid transparent;
+  background:
+    linear-gradient(
+        90deg,
+        var(--coral) 0 20%,
+        var(--sky) 20% 52%,
+        var(--acid) 52% 76%,
+        var(--mint) 76%
+      )
+      top / 100% 8px no-repeat,
+    var(--paper);
+}
+.reference-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 14px clamp(20px, 3vw, 52px);
+  border-bottom: 3px solid var(--ink);
+  font: 650 0.9rem/1.3 var(--font-ui);
+}
+.reference-info-header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.reference-info-header button:hover,
+.reference-info-header button:focus-visible {
+  background: var(--acid);
+}
+.reference-info-header span {
+  font: 700 0.8rem/1.4 var(--font-mono);
+  letter-spacing: 0.03em;
+}
+.reference-info-page .source-page {
+  width: min(100%, 1320px);
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 60px);
+}
+.reference-info-page .source-page > .eyebrow {
+  font: 700 0.8rem/1.4 var(--font-mono);
+  letter-spacing: 0.05em;
+}
+.reference-info-page .source-page .page-heading {
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+.reference-info-page .source-page .page-heading h1 {
+  font: italic 800 clamp(2.8rem, 6vw, 6rem)/1 var(--font-editorial);
+  letter-spacing: -0.04em;
+}
+.reference-info-page .source-page .page-heading .acid {
+  color: var(--coral);
+}
+.reference-info-page .sheet-source,
+.reference-info-page .private-data-tools,
+.reference-info-page .table-source,
+.reference-info-page .solo-check {
+  border-radius: 0;
+  box-shadow: none;
+}
+.reference-about-dialog {
+  max-width: min(720px, calc(100vw - 32px));
+  border-radius: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+.reference-about-dialog .about-body {
+  max-height: min(65dvh, 700px);
+  overflow: auto;
+  font: 450 0.95rem/1.65 var(--font-ui);
+}
+.reference-about-dialog .about-body p {
+  margin: 0 0 14px;
+}
+.reference-about-dialog a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .reference-info-header span {
+    display: none;
+  }
+  .reference-info-page .source-page {
+    padding-inline: 18px;
+  }
+}

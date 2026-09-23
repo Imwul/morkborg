@@ -104,31 +104,17 @@ test('Room components pair existing translations in preview and reading; manual 
 
 const home = () =>
   createElement(HomeIndex, {
-    onDesk: noop,
-    onLibrary: noop,
     onSources: noop,
-    onCity: noop,
     onFate: noop,
-    onCampaigns: noop,
-    onNavigate: noop,
-    onImport: noop,
     onAbout: noop,
   });
 
-test('Optional records and source management are a closed menu, without a launcher grid', () => {
+test('Useful desk utilities are a closed menu without campaign links', () => {
   const html = renderToStaticMarkup(home());
-  for (const label of [
-    '자료 · 기록',
-    '출처 · 자료 관리',
-    'Mythic Fate',
-    '던전 보관함',
-    '캐릭터 보관함',
-    '캠페인 노트',
-    '캠페인 가져오기',
-    '소개 · 출처',
-  ])
+  for (const label of ['더보기', '자료 및 규칙', 'Mythic Fate', '소개 및 출처'])
     assert.ok(html.includes(label), label);
-  assert.match(html, /<details class="desk-records-menu"><summary>자료 · 기록/);
+  assert.match(html, /<details class="desk-records-menu"><summary>더보기/);
+  assert.doesNotMatch(html, /캠페인|던전 보관함|캐릭터 보관함/);
   assert.doesNotMatch(
     html,
     /disabled|<details[^>]*\sopen|home-grid|home-section/,

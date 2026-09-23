@@ -3,7 +3,6 @@ import './components/play-memory.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { getSnapshot, transact } from './storage/saveStore';
 import './style.css';
 import './workspace.css';
 import './art-direction.css';
@@ -15,19 +14,7 @@ import './components/freeform-workbench.css';
 import './typography.css';
 import './components/reference-surface.css';
 import './publication.css';
-const navigation = performance.getEntriesByType('navigation')[0] as
-  | PerformanceNavigationTiming
-  | undefined;
-const initial = getSnapshot();
-if (
-  navigation?.type !== 'reload' &&
-  !window.history.state?.morkborgNavigationV1 &&
-  !initial.blocked &&
-  initial.save.view !== 'campaigns'
-)
-  transact((save) => {
-    save.view = 'campaigns';
-  });
+import './reference-app.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

@@ -23,9 +23,9 @@ const choices = (id: string) =>
   relatedReferenceRelationships(references, relationships, id);
 
 test('Source procedure IDs produce only exact resolved forward and deterministic reverse relationships', () => {
-  assert.equal(relationships.evidence.length, 137);
-  assert.equal(relationships.forward.length, 79);
-  assert.equal(relationships.reverse.length, 79);
+  assert.equal(relationships.evidence.length, 149);
+  assert.equal(relationships.forward.length, 88);
+  assert.equal(relationships.reverse.length, 88);
   assert.ok(relationships.evidence.every((e) => e.status === 'resolved'));
   for (const forward of relationships.forward) {
     assert.equal(forward.kind, 'USES');
@@ -49,8 +49,10 @@ test('Source procedure IDs produce only exact resolved forward and deterministic
 test('SD Core preparation uses carry source proof while RECLVSE app choice stays generic', () => {
   const preparation =
     relationships.bySource['procedure:sd.dungeon-preparation'];
-  assert.equal(preparation.length, 7);
+  assert.equal(preparation.length, 6);
   assert.ok(preparation.every((e) => e.targetId.startsWith('oracle:core.')));
+  const title = preparation.find((e) => e.targetId === 'oracle:core.titleA')!;
+  assert.deepEqual(title.aliasIds, ['oracle:core.titleB']);
   const sampleRooms = choices('oracle:core.rooms').find(
     (e) => e.entry.id === 'procedure:sd.dungeon-preparation',
   )!;

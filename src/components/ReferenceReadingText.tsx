@@ -1,6 +1,16 @@
 import { Translation } from './Translation';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 
+/** Keep brief oracle answers prominent without setting paragraphs in display-size type. */
+export function resultTextDensity(text: string) {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  const words = normalized ? normalized.split(' ').length : 0;
+  if (normalized.length >= 190 || words >= 30) return 'extended';
+  if (normalized.length >= 95 || words >= 15) return 'long';
+  if (normalized.length <= 45 && words <= 7) return 'brief';
+  return 'standard';
+}
+
 /** Translate a rolled entry and its separate instructions independently. */
 export function ReferenceReadingText({
   text,
@@ -30,7 +40,10 @@ export function ReferenceReadingText({
     return (
       <>
         {length > 0 && (
-          <span className="reference-result-text">
+          <span
+            className="reference-result-text"
+            data-result-density={resultTextDensity(original.slice(0, length))}
+          >
             <ReferenceLinkedText
               text={original.slice(0, length)}
               excludeId={excludeId}

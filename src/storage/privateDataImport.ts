@@ -48,7 +48,7 @@ export function parsePrivateData(input: unknown): ParsedPrivateData {
     input.schemaVersion !== 1
   )
     throw new Error(
-      '지원하지 않는 개인 자료 JSON입니다. PDF나 캠페인 백업과 구분해 주세요.',
+      '지원하지 않는 개인 자료 JSON입니다. PDF와 다른 형식의 백업을 확인해 주세요.',
     );
   if ('kind' in input && input.kind === 'morkborg-private-data') {
     const data: ParsedPrivateData = {};

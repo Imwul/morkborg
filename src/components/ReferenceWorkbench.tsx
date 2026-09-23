@@ -33,11 +33,6 @@ import {
 } from '../domain/referencePresentation';
 import { type ReferenceShelf } from '../domain/freeformReference';
 import { usePlayMemory } from './usePlayMemory';
-import {
-  contextLabel,
-  validContext,
-  type PlayContext,
-} from '../domain/playContext';
 import { replayResult, type RollReplay } from '../domain/rollReplay';
 import type { ExecutionParameters } from '../storage/conveniencePreferences';
 import {
@@ -101,13 +96,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import type {
-  AppSave,
-  Campaign,
-  RegionId,
-  Workspace,
-  Section,
-} from '../domain/types';
+import type { RegionId, Section } from '../domain/types';
 import type { OracleResult } from '../domain/oracle';
 import {
   buildReferenceRegistry,
@@ -136,7 +125,6 @@ import {
   oracleFollowUpLinks,
   type ReferenceReading,
 } from '../domain/referenceReading';
-import { searchCampaign } from '../domain/campaignSearch';
 import { regions } from '../data/regions';
 import { SourceDisclosure } from './SourceDisclosure';
 import { BookLabel, SourceText } from './SourceText';
@@ -155,22 +143,12 @@ import { DeskLanding } from './DeskLanding';
 const isOneClick = (entry: ReferenceEntry) => referenceAction(entry).immediate;
 
 export function ReferenceProvider({
-  save,
   inline = false,
-  playContext,
-  onContextReturn,
   children,
-  campaign,
-  onCampaignOpen,
   notify,
 }: {
-  save: AppSave;
   inline?: boolean;
-  playContext: PlayContext | null;
-  onContextReturn: (context: PlayContext) => void;
   children: ReactNode;
-  campaign?: Campaign;
-  onCampaignOpen: (patch: Partial<Workspace>) => void;
   onCity?: () => void;
   notify: (message: string) => void;
 }) {
@@ -184,23 +162,9 @@ export function ReferenceProvider({
     () => getReferenceRelationships(index, oracles.registry),
     [index, oracles.registry],
   );
-  const memory = usePlayMemory(save, playContext, notify);
-  const returnTarget = memory.contexts.find((c) => c.kind !== 'desk');
-  function returnTo(context: PlayContext) {
-    if (!validContext(context, save)) return;
-    setSelectedId(null);
-    setSearchOpen(false);
-    convenience.setPanel(null);
-    memory.setReturnedRoomId(
-      context.kind === 'room' ? context.objectId! : null,
-    );
-    memory.rememberContext(context);
-    onContextReturn(context);
-  }
+  const memory = usePlayMemory();
   const [prefs, setPrefs] = useState(readReferencePreferences);
-  const [selectedId, setSelectedId] = useState<string | null>(
-      inline ? 'oracle:core.reaction' : null,
-    ),
+  const [selectedId, setSelectedId] = useState<string | null>(null),
     [trail, setTrail] = useState<string[]>([]);
   const [tableView, setTableView] = useState(false);
   const lastReferenceId = useRef<string | null>(null);
@@ -265,8 +229,7 @@ export function ReferenceProvider({
     inspectorRef.current?.scrollTo({ top: restoreScroll.current ?? 0 });
     restoreScroll.current = null;
   }, [selectedId]);
-  const selected =
-    index.byId[selectedId ?? (inline ? 'oracle:core.reaction' : '')] ?? null;
+  const selected = index.byId[selectedId ?? ''] ?? null;
   const procedureParts =
     selected && ['procedure', 'rule'].includes(selected.kind)
       ? [
@@ -698,8 +661,6 @@ export function ReferenceProvider({
               (!query ||
                 entry.title.toLowerCase().includes(query.toLowerCase())),
           );
-  const owned =
-    campaign && query ? searchCampaign(campaign, query).slice(0, 8) : [];
   const related = selected
     ? relatedReferenceRelationships(index, relationships, selected.id, 8)
     : [];
@@ -828,7 +789,9 @@ export function ReferenceProvider({
                 캐릭터 원문{' '}
                 <select
                   aria-label="캐릭터 생성 원문"
-                  value={characterSource === 'scvm' && scvmPack ? 'scvm' : 'core'}
+                  value={
+                    characterSource === 'scvm' && scvmPack ? 'scvm' : 'core'
+                  }
                   onChange={(event) =>
                     setCharacterSource(
                       event.target.value === 'scvm' ? 'scvm' : 'core',
@@ -866,9 +829,13 @@ export function ReferenceProvider({
               몬스터 원문{' '}
               <select
                 aria-label="몬스터 생성 원문"
-                value={monsterSource === 'site' && monsterPack ? 'site' : 'book'}
+                value={
+                  monsterSource === 'site' && monsterPack ? 'site' : 'book'
+                }
                 onChange={(event) =>
-                  setMonsterSource(event.target.value === 'site' ? 'site' : 'book')
+                  setMonsterSource(
+                    event.target.value === 'site' ? 'site' : 'book',
+                  )
                 }
               >
                 <option value="book">룰북</option>
@@ -878,7 +845,10 @@ export function ReferenceProvider({
               </select>
             </label>
             {monsterSource === 'site' && monsterPack && plainRule && (
-              <Button className="reference-roll" onClick={() => perform(selected)}>
+              <Button
+                className="reference-roll"
+                onClick={() => perform(selected)}
+              >
                 <Dices size={16} /> ROLL
               </Button>
             )}
@@ -897,28 +867,28 @@ export function ReferenceProvider({
             characterSource === 'scvm' &&
             scvmPack
           ) && (
-          <div className="reference-formula">
-            <span className="sr-only">굴림 공식</span>
-            <code>{referenceEntryFormula(selected, oracles.registry)}</code>
-            {selected.kind === 'oracle' && roller && !reading && (
-              <Button
-                className="reference-roll"
-                disabled={!selected.available}
-                onClick={() => perform(selected)}
-              >
-                <Dices size={16} /> ROLL
-              </Button>
-            )}
-            {selected.kind === 'oracle' && (
-              <PhysicalRollInput
-                key={`manual:${selected.id}`}
-                entry={selected}
-                registry={oracles.registry}
-                tools={convenience}
-              />
-            )}
-          </div>
-        )}
+            <div className="reference-formula">
+              <span className="sr-only">굴림 공식</span>
+              <code>{referenceEntryFormula(selected, oracles.registry)}</code>
+              {selected.kind === 'oracle' && roller && !reading && (
+                <Button
+                  className="reference-roll"
+                  disabled={!selected.available}
+                  onClick={() => perform(selected)}
+                >
+                  <Dices size={16} /> ROLL
+                </Button>
+              )}
+              {selected.kind === 'oracle' && (
+                <PhysicalRollInput
+                  key={`manual:${selected.id}`}
+                  entry={selected}
+                  registry={oracles.registry}
+                  tools={convenience}
+                />
+              )}
+            </div>
+          )}
         {selected.action?.kind === 'region' &&
           index.byId[`rule:regional-monsters:${selected.action.region}`] && (
             <ReferenceRow
@@ -1394,14 +1364,14 @@ export function ReferenceProvider({
             {roller &&
               reading.procedureInputs?.generator !== 'scvmbirther' &&
               reading.procedureInputs?.generator !== 'monster-site' && (
-              <PartialRollControls
-                entry={selected}
-                reading={reading}
-                registry={oracles.registry}
-                tools={convenience}
-                onReroll={(key) => perform(selected, region, key)}
-              />
-            )}
+                <PartialRollControls
+                  entry={selected}
+                  reading={reading}
+                  registry={oracles.registry}
+                  tools={convenience}
+                  onReroll={(key) => perform(selected, region, key)}
+                />
+              )}
             <div className="ref-copy-actions">
               {roller && (
                 <Button
@@ -1782,7 +1752,6 @@ export function ReferenceProvider({
             selectReferenceReading(table, entry, oracles.registry),
             false,
           ),
-        returnedRoomId: memory.returnedRoomId,
         recordRoll: (id, result, params) => {
           const parameters = { ...convenience.parameters(), ...params };
           acceptReading(id, result, true, parameters);
@@ -1796,19 +1765,6 @@ export function ReferenceProvider({
                   ? 'USER_ROLL'
                   : 'APP_ROLL',
               inputs: result.rollMethod?.inputs,
-            });
-        },
-        rememberRoom: (dungeonId, roomId) => {
-          const owner = save.campaigns.find((c) =>
-            c.dungeons.some((d) => d.id === dungeonId),
-          );
-          if (owner)
-            memory.rememberContext({
-              kind: 'room',
-              campaignId: owner.id,
-              dungeonId,
-              objectId: roomId,
-              dungeonTab: owner.workspace.dungeonTab,
             });
         },
         activePack: convenience.activePack,
@@ -1843,18 +1799,6 @@ export function ReferenceProvider({
       {children}
       {!inline && (
         <div className="reference-rail">
-          {returnTarget &&
-            playContext?.kind === 'desk' &&
-            !searchOpen &&
-            !selected &&
-            !convenience.panel && (
-              <button
-                className="play-context-return"
-                onClick={() => returnTo(returnTarget)}
-              >
-                ← {contextLabel(returnTarget, save)}
-              </button>
-            )}
           {!convenience.preferences.playOpened && (
             <small className="play-discovery-hint">
               WORKBENCH · 임시 도구 모음
@@ -1938,14 +1882,6 @@ export function ReferenceProvider({
                 : 'reference-inspector'
           }
         >
-          {returnTarget && (
-            <button
-              className="play-context-return"
-              onClick={() => returnTo(returnTarget)}
-            >
-              ← {contextLabel(returnTarget, save)}
-            </button>
-          )}
           <nav className="reference-inner-tray" aria-label="참조 도구 모음">
             {!convenience.panel && !searchOpen && navigation.canBack && (
               <button aria-label="이전 참조" onClick={navigation.back}>
@@ -2012,9 +1948,7 @@ export function ReferenceProvider({
           {convenience.panel && (
             <ConveniencePanel
               memory={memory}
-              save={save}
               index={index}
-              onReturn={returnTo}
               onReplayReroll={rerollReplay}
               tools={convenience}
               current={selected ?? undefined}
@@ -2074,26 +2008,7 @@ export function ReferenceProvider({
                 {found.map((entry) => (
                   <ReferenceRow key={entry.id} entry={entry} />
                 ))}
-                {owned.length > 0 && (
-                  <p className="eyebrow">보관한 캠페인 자료</p>
-                )}
-                {owned.map((entry, n) => (
-                  <button
-                    className="reference-owned"
-                    key={n}
-                    onClick={() => {
-                      setSearchOpen(false);
-                      setSelectedId(null);
-                      onCampaignOpen(entry.patch);
-                    }}
-                  >
-                    <strong>{entry.title}</strong>
-                    <small>{entry.detail}</small>
-                  </button>
-                ))}
-                {!found.length && !owned.length && (
-                  <p>일치하는 참조가 없습니다.</p>
-                )}
+                {!found.length && <p>일치하는 참조가 없습니다.</p>}
               </div>
             </>
           )}
@@ -2299,16 +2214,21 @@ export function ContextReferences({
     </details>
   );
 }
+export type ReferenceDeskPage = 'home' | 'reference' | 'generators';
+
 export function ReferenceDesk({
   homeIndex,
   initialShelf = 'quick',
   initialPage = 'reference',
+  page: controlledPage,
+  onPageChange,
   onGenerator,
 }: {
-  onLibrary?: () => void;
   homeIndex?: ReactNode;
   initialShelf?: ReferenceShelf;
-  initialPage?: 'home' | 'reference';
+  initialPage?: ReferenceDeskPage;
+  page?: ReferenceDeskPage;
+  onPageChange?: (page: ReferenceDeskPage) => void;
   onGenerator?: (section: Section) => void;
 }) {
   const desk = useReferenceDesk(),
@@ -2331,13 +2251,17 @@ export function ReferenceDesk({
     observer.observe(header);
     return () => observer.disconnect();
   }, []);
-  const [page, setPage] = useState<'home' | 'reference' | 'generators'>(
-    initialPage,
-  );
-  useNavigationChannel('desk-surface', page, setPage, {
-    normalize: (value) =>
-      value === 'home' || value === 'generators' ? value : 'reference',
-  });
+  const [localPage, setLocalPage] = useState<ReferenceDeskPage>(initialPage);
+  const page = controlledPage ?? localPage;
+  const setPage = (nextPage: ReferenceDeskPage) => {
+    if (nextPage === 'home') {
+      desk?.dismiss?.();
+      desk?.setQuery?.('');
+      desk?.setScope?.('all');
+    }
+    if (controlledPage === undefined) setLocalPage(nextPage);
+    onPageChange?.(nextPage);
+  };
   const openReference = (entryId: string, roll = false, region?: RegionId) => {
     revealPageRef.current = true;
     setPage('reference');
@@ -2599,102 +2523,108 @@ export function ReferenceDesk({
           </div>
         )}
         {diceOpen && <ReferenceDice />}
-        <div className="desk-layout" data-has-pages={!!desk?.trayIds?.length}>
-          <aside
-            className="desk-browser"
-            aria-label="참조 탐색"
-            data-expanded={browserOpen}
-          >
-            <button
-              className="desk-browse-toggle"
-              aria-expanded={browserOpen}
-              onClick={() => setBrowserOpen(!browserOpen)}
+        <div
+          className="desk-layout"
+          data-page={page}
+          data-has-pages={page === 'reference' && !!desk?.trayIds?.length}
+        >
+          {page === 'reference' && (
+            <aside
+              className="desk-browser"
+              aria-label="참조 탐색"
+              data-expanded={browserOpen}
             >
-              참조 찾기 <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
-            </button>
-            {query && resultIndex}
-            <div className="desk-browse-filters">
-              <label>
-                출처
-                <select
-                  aria-label="출처로 좁히기"
-                  value={book}
-                  onChange={(e) => {
-                    setBook(e.target.value);
-                    setLimit(24);
-                  }}
-                >
-                  <option value="">모든 책</option>
-                  {books.map((e) => (
-                    <option key={e.id} value={e.id.slice(5)}>
-                      {referenceShortName(e)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                관련 상황
-                <select
-                  aria-label="관련 상황 바로가기"
-                  value={context}
-                  onChange={(e) => {
-                    setContext(e.target.value);
-                    setLimit(24);
-                  }}
-                >
-                  <option value="">모든 상황</option>
-                  {REFERENCE_CONTEXTS.map(([id, label]) => (
-                    <option key={id} value={id}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <section className="desk-nav-history" aria-label="고정한 참조">
-              <h2>
-                <button
-                  onClick={() => {
-                    setPage('reference');
-                    setBrowserOpen(true);
-                    desk?.setScope?.('pinned');
-                    desk?.setQuery?.('');
-                    resetFilters();
-                  }}
-                >
-                  고정 <small>{desk?.pinnedIds.length ?? 0}</small>
-                </button>
-              </h2>
-              <div>
-                {entries(desk?.pinnedIds ?? []).map((e) => (
-                  <QuickReferenceButton key={e.id} entry={e} />
-                ))}
+              <button
+                className="desk-browse-toggle"
+                aria-expanded={browserOpen}
+                onClick={() => setBrowserOpen(!browserOpen)}
+              >
+                참조 찾기 <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
+              </button>
+              {query && resultIndex}
+              <div className="desk-browse-filters">
+                <label>
+                  출처
+                  <select
+                    aria-label="출처로 좁히기"
+                    value={book}
+                    onChange={(e) => {
+                      setBook(e.target.value);
+                      setLimit(24);
+                    }}
+                  >
+                    <option value="">모든 책</option>
+                    {books.map((e) => (
+                      <option key={e.id} value={e.id.slice(5)}>
+                        {referenceShortName(e)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  관련 상황
+                  <select
+                    aria-label="관련 상황 바로가기"
+                    value={context}
+                    onChange={(e) => {
+                      setContext(e.target.value);
+                      setLimit(24);
+                    }}
+                  >
+                    <option value="">모든 상황</option>
+                    {REFERENCE_CONTEXTS.map(([id, label]) => (
+                      <option key={id} value={id}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
-            </section>
-            <section className="desk-nav-history" aria-label="최근 참조">
-              <h2>
-                <button
-                  onClick={() => {
-                    setPage('reference');
-                    setBrowserOpen(true);
-                    desk?.setScope?.('recent');
-                    desk?.setQuery?.('');
-                    resetFilters();
-                  }}
-                >
-                  최근
-                </button>
-              </h2>
-              <div>
-                {entries(desk?.recentIds ?? [])
-                  .slice(0, 6)
-                  .map((e) => (
+              <section className="desk-nav-history" aria-label="고정한 참조">
+                <h2>
+                  <button
+                    onClick={() => {
+                      setPage('reference');
+                      setBrowserOpen(true);
+                      desk?.setScope?.('pinned');
+                      desk?.setQuery?.('');
+                      resetFilters();
+                    }}
+                  >
+                    고정 <small>{desk?.pinnedIds.length ?? 0}</small>
+                  </button>
+                </h2>
+                <div>
+                  {entries(desk?.pinnedIds ?? []).map((e) => (
                     <QuickReferenceButton key={e.id} entry={e} />
                   ))}
-              </div>
-            </section>
-            {!query && showIndex && resultIndex}
-          </aside>
+                </div>
+              </section>
+              <section className="desk-nav-history" aria-label="최근 참조">
+                <h2>
+                  <button
+                    onClick={() => {
+                      setPage('reference');
+                      setBrowserOpen(true);
+                      desk?.setScope?.('recent');
+                      desk?.setQuery?.('');
+                      resetFilters();
+                    }}
+                  >
+                    최근
+                  </button>
+                </h2>
+                <div>
+                  {entries(desk?.recentIds ?? [])
+                    .slice(0, 6)
+                    .map((e) => (
+                      <QuickReferenceButton key={e.id} entry={e} />
+                    ))}
+                </div>
+              </section>
+              {!query && showIndex && resultIndex}
+            </aside>
+          )}
           <div className="desk-current-page">
             {page !== 'reference' ? (
               <DeskLanding
@@ -2720,7 +2650,7 @@ export function ReferenceDesk({
               </>
             )}
           </div>
-          {!!desk?.trayIds?.length && (
+          {page === 'reference' && !!desk?.trayIds?.length && (
             <aside className="desk-side-pages" aria-label="펼친 페이지">
               <section className="desk-open-pages" aria-label="작업대">
                 <h2>

@@ -10,7 +10,10 @@ import {
   selectDungeonRoomSource,
 } from '../domain/dungeonReferencePreparation';
 import type { PrivateDngngenState } from '../storage/privateDngngenClient';
-import { ReferenceReadingText } from './ReferenceReadingText';
+import {
+  ReferenceReadingText,
+  resultTextDensity,
+} from './ReferenceReadingText';
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
@@ -169,7 +172,12 @@ export function DungeonPreparation({
                         key={index}
                         lang="en"
                       >
-                        <span className="reference-result-text">
+                        <span
+                          className="reference-result-text"
+                          data-result-density={resultTextDensity(
+                            component.text,
+                          )}
+                        >
                           {component.text}
                         </span>
                       </p>

@@ -22,7 +22,7 @@ const provenance = (text: string): GeneratedValueProvenance => ({
   ],
   sourceText: text ? [text] : [],
   transformation:
-    'Private Monster Approaches snapshot rendered in the campaign sheet. Not a rulebook page.',
+    'Private Monster Approaches snapshot rendered in the reference desk. Not a rulebook page.',
   procedureId: 'monster-site',
   authority: [
     {

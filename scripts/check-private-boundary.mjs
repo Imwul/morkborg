@@ -6,11 +6,19 @@ import { execFileSync } from 'node:child_process';
 const fail = (reason) => { throw new Error(`Private pack boundary check failed: ${reason}`); };
 const forbiddenPath = /(?:^|\/)(?:private|outputs|work|tmp)(?:\/|$)/i;
 const privateFile = /(?:^|\/)(?:pack\.json|private-server\.json|dngngen-source-map\.json)$/i;
+const publicSourceUrls = new Set([
+  'https://dngngen.makedatanotlore.dev/',
+  'https://scvmbirther.makedatanotlore.dev/',
+  'https://monster.makedatanotlore.dev/',
+]);
 
 /** Extract comparison needles in memory; never print or copy private source prose. */
 export function privatePackNeedles(pack) {
   const needles = new Set();
   const add = (value, minimum = 12) => {
+    // These source homepages are intentionally linked in the public UI.
+    if (typeof value === 'string' &&
+        (publicSourceUrls.has(value) || publicSourceUrls.has(`${value}/`))) return;
     if (typeof value === 'string' && value.length >= minimum) needles.add(value);
   };
   const walk = (value, field = '', depth = 0) => {
@@ -60,6 +68,18 @@ function filesUnder(root) {
   return files;
 }
 
+function containsStandaloneIdentifier(text, token) {
+  let index = text.indexOf(token);
+  while (index !== -1) {
+    const before = text[index - 1];
+    const after = text[index + token.length];
+    if ((!before || !/[A-Za-z0-9_.:-]/.test(before)) &&
+        (!after || !/[A-Za-z0-9_.:-]/.test(after))) return true;
+    index = text.indexOf(token, index + token.length);
+  }
+  return false;
+}
+
 export function checkPrivateBuild(directory = 'dist', options = {}) {
   const root = resolve(directory);
   if (!existsSync(join(root, 'index.html'))) fail('production index.html is missing.');
@@ -80,8 +100,11 @@ export function checkPrivateBuild(directory = 'dist', options = {}) {
         /<meta\s+name=["']reference-desk-private["']\s+content=["']enabled["']/.test(text))
       fail('a local pack path or active private-host marker is in the public build.');
     for (const token of tokens) {
-      const forms = [token, JSON.stringify(token).slice(1, -1), Buffer.from(token).toString('base64')];
-      if (forms.some((form) => bytes.includes(Buffer.from(form))))
+      const isSlug = /^[a-z0-9]+(?:-[a-z0-9]+)+$/.test(token);
+      const textMatch = isSlug
+        ? containsStandaloneIdentifier(text, token)
+        : [token, JSON.stringify(token).slice(1, -1)].some((form) => text.includes(form));
+      if (textMatch || bytes.includes(Buffer.from(token).toString('base64')))
         fail('private source content, identifier or payload identity is in the public build.');
     }
     if (/\.json$/i.test(path)) {
@@ -110,16 +133,18 @@ export function checkPrivateGit(root = '.', packs = []) {
     const bytes = readFileSync(file);
     const hits = needles.filter((needle) => bytes.includes(Buffer.from(needle)));
     if (hits.length) {
-      // A short common phrase can already exist in an unrelated, unchanged
-      // canonical audit. This is not newly imported content. Never exempt a
-      // modified file, a long message, a new file or a tracked private path.
+      // Canonical source audits can already contain a phrase also found in a
+      // later private snapshot. Only an identical HEAD file is grandfathered;
+      // a new or modified tracked file still fails, regardless of length.
       let unchanged = false;
-      if (hits.every((needle) => needle.length <= 32)) {
-        try {
-          const previous = execFileSync('git', ['show', `HEAD:${name}`], { cwd: repo, stdio: ['ignore', 'pipe', 'ignore'] });
-          unchanged = bytes.equals(previous);
-        } catch { /* New files receive no baseline exemption. */ }
-      }
+      try {
+        const previous = execFileSync('git', ['show', `HEAD:${name}`], {
+          cwd: repo,
+          stdio: ['ignore', 'pipe', 'ignore'],
+          maxBuffer: Math.max(bytes.length * 2, 8 * 1024 * 1024),
+        });
+        unchanged = bytes.equals(previous);
+      } catch { /* New files receive no baseline exemption. */ }
       if (!unchanged) fail('private source content is present in a tracked file.');
       preExistingSharedFragments += hits.length;
     }
@@ -153,5 +178,5 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   // Vercel's uploaded build context need not contain a Git checkout. The explicit
   // local privacy command checks Git in addition to the mandatory artifact scan.
   const git = process.argv.includes('--git') ? checkPrivateGit(repo, packs) : undefined;
-  console.log(`Private pack boundary passed (${build.files} built files${git ? `; ${git.trackedFiles} tracked paths; ${git.ignoredPaths} ignored private paths; ${git.preExistingSharedFragments} unchanged shared short fragments` : ''}).`);
+  console.log(`Private pack boundary passed (${build.files} built files${git ? `; ${git.trackedFiles} tracked paths; ${git.ignoredPaths} ignored private paths; ${git.preExistingSharedFragments} unchanged shared fragments` : ''}).`);
 }

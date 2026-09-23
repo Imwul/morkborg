@@ -5,9 +5,20 @@ import {
   importPrivateData,
   exportPrivateData,
 } from '../storage/privateDataImport';
-import { downloadJson } from '../storage/saveStore';
-
 import { PrivateUpdateStatus } from './PrivateUpdateStatus';
+
+function downloadJson(value: unknown, filename: string) {
+  const url = URL.createObjectURL(
+    new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }),
+  );
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
 
 export function PrivateDataTools({ backup = false }: { backup?: boolean }) {
   const input = useRef<HTMLInputElement>(null);

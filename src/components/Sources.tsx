@@ -2,21 +2,13 @@ import { Translation } from './Translation';
 import { SourceText } from './SourceText';
 import { shortBookTitle, BOOK_ABBREVIATIONS } from '../domain/sourceDisplay';
 import { useState } from 'react';
-import { BookOpen, Dices, Save } from 'lucide-react';
+import { BookOpen, Dices } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRules, sourceCitation } from '../storage/rulesStore';
 import { PrivateDataTools } from './PrivateDataTools';
-import { editCampaign } from '../storage/saveStore';
 import { rollDie } from '../generators/random';
-import type { Campaign } from '../domain/types';
-export function Sources({
-  campaign,
-  notify,
-}: {
-  campaign?: Campaign;
-  notify: (message: string) => void;
-}) {
+export function Sources() {
   const { pack, error, loading } = useRules();
   const [book, setBook] = useState('core');
   const [table, setTable] = useState('');
@@ -34,7 +26,7 @@ export function Sources({
       <div className="page-heading">
         <div>
           <h1>
-            원문을 펼치다<span className="acid">.</span>
+            SOURCEBOOK
           </h1>
           <p>
             실제 책의 표와 규칙을 사용합니다. 각 생성 결과에 출처가 함께
@@ -47,8 +39,7 @@ export function Sources({
         <summary>자료 저장 안내</summary>
         <p>
           제공한 룰북의 표와 번역을 서버에서 자동으로 불러와 이 브라우저에
-          저장합니다. 캠페인과 플레이 기록은 브라우저에 자동 저장하며, JSON으로
-          별도 백업할 수 있습니다.
+          저장합니다. 기존 기록은 브라우저 저장 공간에 보존됩니다.
         </p>
       </details>
       {loading && <p>자료를 불러오는 중…</p>}
@@ -150,8 +141,7 @@ export function Sources({
             <h2>솔로 판정 — RECLVSE</h2>
           </div>
           <p className="help-line">
-            PDF 11–12쪽의 2d20 판정과 85쪽의 d100 질문 판정. 결과를 캠페인
-            노트에 기록할 수 있습니다.
+            PDF 11–12쪽의 2d20 판정과 85쪽의 d100 질문 판정입니다.
           </p>
           <div className="solo-grid">
             <section className="solo-check" aria-label="2d20 판정 설정">
@@ -250,20 +240,6 @@ export function Sources({
           {result && (
             <div className="solo-result">
               <p>{result}</p>
-              <Button
-                className="btn"
-                disabled={!campaign}
-                onClick={() => {
-                  if (campaign) {
-                    editCampaign(campaign.id, (c) => {
-                      c.notes += (c.notes ? '\n\n' : '') + result;
-                    });
-                    notify('캠페인 노트에 기록했습니다.');
-                  }
-                }}
-              >
-                <Save size={15} /> 노트에 기록
-              </Button>
             </div>
           )}
           <div className="section-title">

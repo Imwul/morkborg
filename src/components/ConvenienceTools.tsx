@@ -7,9 +7,7 @@ import type { ReferenceReading } from '../domain/referenceReading';
 import { copyReferenceReading } from '../domain/referenceReading';
 import { RollReplayView } from './RollReplayView';
 import type { PlayMemoryTools } from './usePlayMemory';
-import { contextLabel, type PlayContext } from '../domain/playContext';
 import type { RollReplay } from '../domain/rollReplay';
-import type { AppSave } from '../domain/types';
 import type { ReferenceRegistry } from '../domain/references';
 import {
   holdComponents,
@@ -230,9 +228,7 @@ export function PlayTrayStrip({ tools }: { tools: ReferenceConvenience }) {
 }
 export function ConveniencePanel({
   memory,
-  save: appSave,
   index,
-  onReturn,
   onReplayReroll,
   tools,
   current,
@@ -240,9 +236,7 @@ export function ConveniencePanel({
   onPhysical,
 }: {
   memory: PlayMemoryTools;
-  save: AppSave;
   index: ReferenceRegistry;
-  onReturn: (context: PlayContext) => void;
   onReplayReroll: (entry: RollReplay) => void;
   tools: ReferenceConvenience;
   current?: ReferenceEntry;
@@ -361,9 +355,7 @@ export function ConveniencePanel({
       <DialogTitle
         className={tab === 'replay' && memory.replayId ? 'sr-only' : undefined}
       >
-        {tab === 'context'
-          ? 'CONTEXT · 돌아갈 곳'
-          : tab === 'replay'
+        {tab === 'replay'
             ? 'RECENT ROLLS · 최근 결과'
             : tab === 'play'
               ? '작업대'
@@ -376,7 +368,7 @@ export function ConveniencePanel({
                     : 'SCRATCH'}
       </DialogTitle>
       <DialogDescription className="sr-only">
-        임시 도구와 개인 조합. 캠페인 기록과 분리됩니다.
+        임시 도구와 개인 조합을 관리합니다.
       </DialogDescription>
       {tab !== 'play' && (
         <button className="convenience-back" onClick={() => switchTab('play')}>
@@ -384,25 +376,6 @@ export function ConveniencePanel({
         </button>
       )}
       {tools.error && <p role="alert">{tools.error}</p>}
-      {tab === 'context' && (
-        <div className="play-memory-list">
-          {!memory.contexts.length && <p>아직 없음</p>}
-          {memory.contexts.map((context, n) => (
-            <button key={n} onClick={() => onReturn(context)}>
-              <strong>{contextLabel(context, appSave)}</strong>
-              {context.kind === 'room' && (
-                <small>
-                  {
-                    appSave.campaigns
-                      .find((c) => c.id === context.campaignId)
-                      ?.dungeons.find((d) => d.id === context.dungeonId)?.title
-                  }
-                </small>
-              )}
-            </button>
-          ))}
-        </div>
-      )}
       {tab === 'replay' && (
         <>
           {memory.replayId &&
@@ -539,12 +512,6 @@ export function ConveniencePanel({
           </button>
           <button
             className="convenience-route"
-            onClick={() => switchTab('context')}
-          >
-            Context <small>돌아갈 곳 · {memory.contexts.length}</small> ›
-          </button>
-          <button
-            className="convenience-route"
             aria-label="Physical Roll · 실물 주사위 입력"
             onClick={() =>
               physicalCurrent
@@ -591,11 +558,6 @@ export function ConveniencePanel({
             </button>
             <details name="play-organization">
               <summary>임시 도구 정리</summary>
-              <button
-                onClick={() => memory.update((p) => ({ ...p, contexts: [] }))}
-              >
-                Context 비우기
-              </button>
               <button
                 onClick={() => {
                   memory.update((p) => ({ ...p, replays: [] }));
@@ -659,9 +621,8 @@ export function ConveniencePanel({
                 않습니다.
               </p>
               <p>
-                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·Context·최근
-                결과는 현재 탭에서 새로고침까지 유지됩니다. 캠페인 JSON에는
-                들어가지 않습니다.
+                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·최근
+                결과는 현재 탭에서 새로고침까지 유지됩니다.
               </p>
               <p>
                 모음과 사용자 조합은 APP_POLICY입니다. 실물 입력은 USER_ROLL로

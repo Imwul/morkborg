@@ -36,8 +36,6 @@ export interface DeskContext {
       import('../storage/conveniencePreferences').ExecutionParameters
     >,
   ) => void;
-  rememberRoom?: (dungeonId: string, roomId: string) => void;
-  returnedRoomId?: string | null;
   activePack?: import('../storage/conveniencePreferences').ReferencePack;
   focusedIds?: string[];
   openTools?: (
@@ -47,7 +45,6 @@ export interface DeskContext {
       | 'packs'
       | 'scratch'
       | 'physical'
-      | 'context'
       | 'replay',
   ) => void;
   clearPack?: () => void;

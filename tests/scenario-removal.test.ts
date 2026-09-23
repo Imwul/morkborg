@@ -36,12 +36,12 @@ const fixture = JSON.parse(
   readFileSync('outputs/morkborg-private-data.json', 'utf8'),
 );
 
-test('all 28 scenario tables and their combined roll disappear from every active registry route', () => {
+test('all 31 scenario tables and their combined roll disappear from every active registry route', () => {
   const registry = buildOracleRegistry(fixture.library, fixture.oracles);
   const index = buildReferenceRegistry(registry, fixture.library);
   assert.equal(SCENARIO_TABLE_IDS.length, 31);
   assert.equal(registry.tables.length, 546);
-  assert.equal(index.entries.length, 1001);
+  assert.equal(index.entries.length, 993);
   const preparation = index.entries.filter(
     (entry) => entry.id === 'procedure:sd.dungeon-preparation',
   );
@@ -53,7 +53,7 @@ test('all 28 scenario tables and their combined roll disappear from every active
   });
   assert.equal(
     index.entries.filter((entry) => entry.id !== preparation[0].id).length,
-    1000,
+    992,
   );
   for (const id of SCENARIO_TABLE_IDS) {
     assert.ok(!registry.tables.some((t) => t.id === id), id);

@@ -347,11 +347,11 @@ test('All explicit Korean creature names retain full creature identities and do 
   );
 });
 
-test('Primary Korean titles and the four explicit procedure names retain direct access', () => {
+test('Primary Korean titles and the five explicit procedure names retain direct access', () => {
   const primary = references.entries.filter((entry) =>
     hangul(referenceShortName(entry)),
   );
-  assert.equal(primary.length, 36);
+  assert.equal(primary.length, 37);
   for (const entry of primary)
     assert.equal(
       searchReferences(references, referenceShortName(entry))[0]?.id,
@@ -365,7 +365,7 @@ test('Primary Korean titles and the four explicit procedure names retain direct 
       .filter((entry) => entry.kind === 'procedure')
       .map((entry) => ({ entry, text: referenceShortName(entry) })),
   ];
-  assert.equal(procedures.length, 4);
+  assert.equal(procedures.length, 5);
   for (const row of procedures)
     assert.equal(searchReferences(references, row.text)[0]?.id, row.entry.id);
 });
@@ -397,7 +397,7 @@ test('Paired ID aliases resolve to one canonical search entry without merging di
   const aliasPairs = Object.entries(references.byId).filter(
     ([id, entry]) => id !== entry.id,
   );
-  assert.equal(aliasPairs.length, 10);
+  assert.equal(aliasPairs.length, 20);
   for (const [alias, canonical] of aliasPairs) {
     assert.equal(references.byId[alias], references.byId[canonical.id]);
     const results = searchReferences(references, canonical.title, {
@@ -628,6 +628,6 @@ test('Reading search titles and querying real data consume zero dice RNG and lea
   }
   assert.equal(rng.mock.callCount(), 0);
   assert.equal(JSON.stringify({ oracles, rules, references }), before);
-  assert.equal(references.entries.length, 1001);
+  assert.equal(references.entries.length, 993);
   assert.equal(oracles.tables.length, 546);
 });

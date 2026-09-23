@@ -163,7 +163,7 @@ test('identity helpers remain suppressed and no absent helper is materialized', 
   assert.equal(
     refs.entries.filter((e) => display(e.id).classification === 'absent')
       .length,
-    632,
+    624,
   );
   for (const e of refs.entries.filter(
     (e) => display(e.id).classification === 'unchanged',
