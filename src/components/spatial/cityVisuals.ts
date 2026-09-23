@@ -1,59 +1,73 @@
 import type { SpatialVisualTarget } from './spatialVisuals';
 
-/** Fixed geometry only; semantic Reference identities live in the scene model. */
+/** Geometry calibrated to the owned city plate; no registry knowledge. */
 export const cityVisuals: Record<string, SpatialVisualTarget> = {
   gate: {
-    hitPath: 'M287 38 L408 35 412 174 283 175 Z',
-    labelPoint: [347, 187],
+    hitPath: 'M305 47 389 46 393 110 306 110Z',
+    featurePoint: [352, 80],
+    labelPoint: [360, 120],
   },
   'gate-signs': {
-    hitPath: 'M217 59 Q247 54 284 65 L282 151 Q250 155 220 142Z',
-    labelPoint: [239, 158],
+    hitPath: 'M222 43 279 43 279 100 223 100Z',
+    featurePoint: [248, 74],
+    labelPoint: [247, 115],
   },
   street: {
     hitPath:
-      'M351 620 C351 559 420 524 425 471 C430 425 424 388 405 347 C383 300 338 285 320 244 C298 202 319 168 344 146 M329 269 C240 279 148 306 31 305 M410 367 C465 347 534 293 733 290 M431 461 C491 423 584 429 728 449',
-    hitStrokeWidth: 74,
-    labelPoint: [340, 216],
+      'M354 109 L355 257 Q357 287 351 307 Q317 351 345 401 L350 491 Q346 538 364 620 M352 118 L218 118 216 209 83 210 M353 336 Q296 330 238 342 M400 380 Q499 388 601 421 M351 498 Q259 548 189 592 M352 510 Q430 544 581 575',
+    hitStrokeWidth: 54,
+    featurePoint: [356, 244],
+    labelPoint: [361, 264],
+    layer: 0,
   },
   cobbles: {
-    hitPath: 'M335 508 Q371 505 418 522 L420 582 Q379 589 339 577Z',
-    labelPoint: [398, 587],
+    hitPath: 'M320 442 376 442 377 498 321 498Z',
+    featurePoint: [349, 470],
+    labelPoint: [391, 482],
   },
   'alley-hazard': {
-    hitPath: 'M428 220 Q474 220 527 236 L524 299 Q475 309 429 288Z',
-    labelPoint: [481, 312],
+    hitPath: 'M481 136 530 134 538 218 517 257 479 253Z',
+    featurePoint: [511, 204],
+    labelPoint: [539, 261],
   },
   'chimney-smell': {
-    hitPath: 'M584 18 Q623 15 672 35 L675 102 Q640 119 589 100Z',
-    labelPoint: [641, 118],
+    hitPath: 'M704 98 759 90 759 174 705 174Z',
+    featurePoint: [724, 141],
+    labelPoint: [715, 190],
   },
   crowd: {
-    hitPath: 'M297 317 L398 315 409 409 300 417 Z',
-    labelPoint: [354, 428],
+    hitPath: 'M312 314 407 313 420 369 389 395 321 391 308 351Z',
+    featurePoint: [369, 352],
+    labelPoint: [396, 405],
   },
   tavern: {
-    hitPath: 'M65 346 L232 333 250 494 78 506 Z',
-    labelPoint: [153, 521],
+    hitPath: 'M27 281 213 280 240 313 231 407 85 420 26 388Z',
+    featurePoint: [168, 375],
+    labelPoint: [186, 434],
   },
   shop: {
-    hitPath: 'M463 457 L613 447 629 564 469 578 Z',
-    labelPoint: [546, 592],
+    hitPath: 'M524 440 635 442 647 563 521 549Z',
+    featurePoint: [582, 510],
+    labelPoint: [596, 580],
   },
   townhouse: {
-    hitPath: 'M548 104 L687 112 700 250 556 258 Z',
-    labelPoint: [625, 275],
+    hitPath: 'M581 145 665 145 670 231 651 278 606 279 581 237Z',
+    featurePoint: [635, 198],
+    labelPoint: [637, 292],
   },
   shrine: {
-    hitPath: 'M81 93 L211 103 221 244 89 254 Z',
-    labelPoint: [157, 274],
+    hitPath: 'M81 99 173 96 177 196 87 201Z',
+    featurePoint: [128, 147],
+    labelPoint: [135, 216],
   },
   merchant: {
-    hitPath: 'M472 297 L592 302 589 413 471 408 Z',
-    labelPoint: [534, 431],
+    hitPath: 'M469 306 574 307 590 397 477 395 462 363Z',
+    featurePoint: [530, 358],
+    labelPoint: [550, 412],
   },
   directions: {
-    hitPath: 'M244 449 L323 442 331 537 244 542 Z',
-    labelPoint: [286, 556],
+    hitPath: 'M279 477 332 476 338 534 279 536Z',
+    featurePoint: [309, 502],
+    labelPoint: [278, 549],
   },
 };

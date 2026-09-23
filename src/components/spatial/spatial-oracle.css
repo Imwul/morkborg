@@ -167,9 +167,6 @@
   cursor: pointer;
   outline: none;
 }
-.spatial-object {
-  transition: filter 120ms;
-}
 .spatial-hit {
   fill: transparent;
   stroke: transparent;
@@ -478,11 +475,6 @@
     font-size: 1.7rem;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .spatial-object {
-    transition: none;
-  }
-}
 @media (max-width: 540px) {
   .reference-app .desk-primary-nav button {
     padding-inline: 8px;
@@ -492,4 +484,16 @@
   .reference-app .desk-primary-nav button::before {
     display: none;
   }
+}
+
+/* Pale print marks remain legible over all three plates. The image itself never changes. */
+.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true']) .spatial-hit,
+.spatial-map[data-reveal='true'] .spatial-hit {
+  stroke: #fff0b0;
+  filter: drop-shadow(1px 1px 0 #202221) drop-shadow(-1px -1px 0 #202221);
+}
+.spatial-route-outline {
+  stroke: #fff0b0;
+  filter: drop-shadow(1px 1px 0 #202221);
+  pointer-events: none;
 }

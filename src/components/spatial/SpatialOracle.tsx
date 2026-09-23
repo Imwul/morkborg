@@ -13,6 +13,7 @@ import {
 } from '../../domain/spatialScenes';
 import { useReferenceDesk } from '../ReferenceContext';
 import { spatialIllustrations } from './spatialIllustrations';
+import { SPATIAL_VIEWBOX } from './spatialVisuals';
 
 export function SpatialOracle({
   sceneId,
@@ -133,9 +134,6 @@ export function SpatialOracle({
       if (targetId) focusTarget(targetId);
     });
   }
-  function artwork(target?: string) {
-    return illustration.render(target);
-  }
   return (
     <section
       className="spatial-oracle"
@@ -204,7 +202,7 @@ export function SpatialOracle({
           <div className="spatial-map-viewport" ref={viewport} data-zoom={zoom}>
             <svg
               className="spatial-map"
-              viewBox="0 0 760 620"
+              viewBox={SPATIAL_VIEWBOX}
               data-reveal={reveal}
               role="group"
               aria-label={`${scene.title} — 사물을 선택해 참조 열기`}
@@ -215,14 +213,20 @@ export function SpatialOracle({
                 그려진 사물을 선택하면 참조가 열립니다. Tab과 방향키로 이동하고
                 Enter 또는 Space로 엽니다. 굴림은 참조에서 별도로 실행합니다.
               </desc>
-              <g aria-hidden="true" pointerEvents="none">
-                {artwork()}
-              </g>
+              <image
+                className="spatial-illustration"
+                href={illustration.imageSrc}
+                width="760"
+                height="620"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                pointerEvents="none"
+              />
               {[...scene.hotspots]
                 .sort(
                   (a, b) =>
-                    Number(!!visuals[b.visualTarget].hitStrokeWidth) -
-                    Number(!!visuals[a.visualTarget].hitStrokeWidth),
+                    (visuals[a.visualTarget].layer ?? 1) -
+                    (visuals[b.visualTarget].layer ?? 1),
                 )
                 .map((hotspot) => {
                   const visual = visuals[hotspot.visualTarget];
@@ -242,6 +246,8 @@ export function SpatialOracle({
                       aria-controls="spatial-reference-reader"
                       data-hotspot-id={hotspot.id}
                       data-reference-target={hotspot.referenceId}
+                      data-feature-x={visual.featurePoint[0]}
+                      data-feature-y={visual.featurePoint[1]}
                       onPointerEnter={() => setHovered(hotspot.id)}
                       onPointerLeave={() => setHovered(null)}
                       onFocus={(event) => {
@@ -253,13 +259,6 @@ export function SpatialOracle({
                       onClick={() => inspect(hotspot)}
                       onKeyDown={(event) => key(event, hotspot)}
                     >
-                      <g
-                        className="spatial-object"
-                        aria-hidden="true"
-                        pointerEvents="none"
-                      >
-                        {artwork(hotspot.visualTarget)}
-                      </g>
                       <path
                         className="spatial-hit"
                         d={visual.hitPath}

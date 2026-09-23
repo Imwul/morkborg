@@ -96,56 +96,39 @@ try {
       await settle();
       await hit.scrollIntoViewIfNeeded();
       await settle();
-      const route = await hit.evaluate(
-        (path) => getComputedStyle(path).pointerEvents === 'stroke',
+      // Click the actual depicted feature, not a convenient empty part of its hit box.
+      await hot.evaluate((element) => {
+        const svg = element.ownerSVGElement;
+        const viewport = element.closest('.spatial-map-viewport');
+        const point = new DOMPoint(
+          +element.dataset.featureX,
+          +element.dataset.featureY,
+        ).matrixTransform(svg.getScreenCTM());
+        const box = viewport.getBoundingClientRect();
+        if (point.x < box.left + 24 || point.x > box.right - 24)
+          viewport.scrollLeft += point.x - (box.left + box.right) / 2;
+        window.scrollBy(0, point.y - innerHeight / 2);
+      });
+      await settle();
+      const point = await hot.evaluate((element) => {
+        const p = new DOMPoint(
+          +element.dataset.featureX,
+          +element.dataset.featureY,
+        ).matrixTransform(element.ownerSVGElement.getScreenCTM());
+        return {
+          x: p.x,
+          y: p.y,
+          hit: document.elementFromPoint(p.x, p.y)?.closest('[data-hotspot-id]')
+            ?.dataset.hotspotId,
+        };
+      });
+      assert.equal(
+        point.hit,
+        scene + '-' + target,
+        'Depicted feature is not shadowed: ' + scene + '/' + target,
       );
-      if (route) {
-        const point = await hit.evaluate((path) => {
-          const viewport = path
-            .closest('.spatial-map-viewport')
-            .getBoundingClientRect();
-          const candidates = Array.from({ length: 49 }, (_, i) => {
-            const point = path.getPointAtLength(
-              (path.getTotalLength() * (i + 1)) / 50,
-            );
-            return new DOMPoint(point.x, point.y).matrixTransform(
-              path.getScreenCTM(),
-            );
-          });
-          const found = candidates.find(
-            (point) =>
-              point.x > viewport.left + 4 &&
-              point.x < viewport.right - 4 &&
-              point.y > Math.max(0, viewport.top) + 4 &&
-              point.y < Math.min(innerHeight, viewport.bottom) - 4 &&
-              [
-                [0, 0],
-                [-4, 0],
-                [4, 0],
-                [0, -4],
-                [0, 4],
-              ].every(
-                ([dx, dy]) =>
-                  document
-                    .elementFromPoint(
-                      Math.round(point.x) + dx,
-                      Math.round(point.y) + dy,
-                    )
-                    ?.closest('[data-hotspot-id]') === path.parentElement,
-              ),
-          );
-          return found
-            ? { x: Math.round(found.x), y: Math.round(found.y) }
-            : null;
-        });
-        assert.ok(
-          point,
-          `${scene}/${target}: route has a visible hit position`,
-        );
-        if (touch) await page.touchscreen.tap(point.x, point.y);
-        else await page.mouse.click(point.x, point.y);
-      } else if (touch) await hit.tap();
-      else await hit.click();
+      if (touch) await page.touchscreen.tap(point.x, point.y);
+      else await page.mouse.click(point.x, point.y);
       try {
         await waitReference(id);
       } catch (error) {

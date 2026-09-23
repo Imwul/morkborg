@@ -1,26 +1,20 @@
-import type { ReactNode } from 'react';
-import { SpatialArtwork, sceneVisuals } from './SpatialArtwork';
-import { CityArtwork, cityVisuals } from './CityArtwork';
-import type { SpatialVisualTarget } from './spatialVisuals';
+const dungeon = new URL('../../assets/spatial/dungeon.png', import.meta.url)
+  .href;
+const city = new URL('../../assets/spatial/city.png', import.meta.url).href;
+const journey = new URL('../../assets/spatial/journey.png', import.meta.url)
+  .href;
+import { sceneVisuals, type SpatialVisualTarget } from './spatialVisuals';
+import { cityVisuals } from './cityVisuals';
 
-/** New visual grammars register here; the shared interaction surface stays unchanged. */
+/** Owned, bundled plates; identity and roll behavior remain in the scene/registry. */
 export const spatialIllustrations: Record<
   string,
   {
+    imageSrc: string;
     targets: Record<string, SpatialVisualTarget>;
-    render: (target?: string) => ReactNode;
   }
 > = {
-  dungeon: {
-    targets: sceneVisuals.dungeon,
-    render: (target) => <SpatialArtwork sceneId="dungeon" target={target} />,
-  },
-  wilderness: {
-    targets: sceneVisuals.wilderness,
-    render: (target) => <SpatialArtwork sceneId="wilderness" target={target} />,
-  },
-  city: {
-    targets: cityVisuals,
-    render: (target) => <CityArtwork target={target} />,
-  },
+  dungeon: { imageSrc: dungeon, targets: sceneVisuals.dungeon },
+  wilderness: { imageSrc: journey, targets: sceneVisuals.wilderness },
+  city: { imageSrc: city, targets: cityVisuals },
 };

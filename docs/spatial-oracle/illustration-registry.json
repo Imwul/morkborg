@@ -1,0 +1,10 @@
+{
+  "baselineCommit": "a7c52cf4ff56c24cb6b1a6292abd14bd97040c38",
+  "canonicalTables": 546,
+  "references": 993,
+  "rows": 12310,
+  "procedures": 60,
+  "sceneValidation": [],
+  "hotspots": 41,
+  "supportLinks": 34
+}

@@ -1,0 +1,30 @@
+✔ all spatial drawings cover every semantic scene and target with no orphan artwork (1.089709ms)
+✔ scene geometry keeps markers visible and gives open trails broad continuous hit regions (0.242209ms)
+✔ the dungeon exit sits beyond the northern passage, not before the entrance (0.156042ms)
+✔ animals and journal clues retain their source meaning, with human loot kept in the context shelf (0.081459ms)
+✔ paint order keeps the room and terrain behind physical objects (0.090916ms)
+✔ every scene bundles a local PNG plate matching its coordinate aspect ratio (4.01675ms)
+✔ Every spatial feature resolves to an existing canonical reference with source attribution (1.321125ms)
+✔ Scene context shelves contain only validated, distinct source references (0.182125ms)
+✔ Context shelf opens the same Reference state as a map target without rolling (0.412708ms)
+✔ Shelf validation rejects missing IDs, duplicate groups and repeated scene references (0.192708ms)
+✔ Validation rejects missing references, duplicate scenes/hotspots, shadowed artwork and empty labels (0.184042ms)
+✔ Redrawing artwork and changing registry labels do not change a feature’s semantic destination (1.7995ms)
+✔ Inspecting any feature calls the existing inspect operation with zero dice consumption (25.362875ms)
+✔ Spatial inspection and Search resolve the same Reference location and table state (545.61075ms)
+✔ Reference-only spatial targets do not advertise or execute a generic Roll (0.41325ms)
+✔ Explicit rolls from spatial targets select canonical table entries through the existing engine (20.035083ms)
+✔ Scene destinations retain normal Recent and Pins identities through existing storage (0.303375ms)
+✔ Scene destinations use existing Workbench identities and retain results without rerolling (0.438625ms)
+✔ Inspecting a scene preserves Related, USES, USED BY and row FOLLOW-UP / SUBTABLE / LOOKUP edges (33.527458ms)
+✔ Scene navigation normalizes stale state while preserving all supported scene IDs (0.244958ms)
+✔ Spatial navigation preserves baseline canonical data hashes and registry cardinality (5.753541ms)
+✔ Both distributed data and the archival fixture resolve every scene without adding canonical tables (77.942292ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 999.667125

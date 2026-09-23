@@ -102,7 +102,7 @@ test('Every spatial feature resolves to an existing canonical reference with sou
 
 test('Scene context shelves contain only validated, distinct source references', () => {
   assert.deepEqual(validateSpatialScenes(SPATIAL_SCENES, index.byId), []);
-  assert.equal(supportReferences().length, 32);
+  assert.equal(supportReferences().length, 34);
   for (const scene of SPATIAL_SCENES) {
     const artworkIds = new Set(scene.hotspots.map((item) => item.referenceId));
     const shelfIds = new Set<string>();

@@ -112,8 +112,8 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       spot(
         'dungeon',
         'furnishing',
-        'oracle:reclvse.dressing',
-        '집기 · Dungeon dressing',
+        'oracle:reclvse.roomDiscovery',
+        '탁자 위의 단서 · Discovery',
       ),
       spot('dungeon', 'chest', 'oracle:reclvse.roomLoot', '전리품 · Room loot'),
       spot('dungeon', 'trap', 'oracle:core.traps', '함정 · Traps'),
@@ -121,9 +121,9 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       spot('dungeon', 'light', 'oracle:reclvse.light', '등불 · Light'),
       spot(
         'dungeon',
-        'corpse',
-        'oracle:core.corpsePlundering',
-        '시체 수색 · Corpse plundering',
+        'remains',
+        'oracle:reclvse.dressing',
+        '동물의 유해 · Room dressing',
       ),
       spot(
         'dungeon',
@@ -185,6 +185,12 @@ export const SPATIAL_SCENES: SpatialScene[] = [
             'mythic-descriptor',
             'oracle:mythic2.meaning.dungeon-descriptors',
             '던전 묘사어 · Mythic 2e',
+          ),
+          support(
+            'dungeon',
+            'human-remains',
+            'oracle:core.corpsePlundering',
+            '사람의 시체를 발견했다면 · Corpse plundering',
           ),
         ],
       },
@@ -413,9 +419,9 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       ),
       spot(
         'wilderness',
-        'corpse',
-        'oracle:core.corpsePlundering',
-        '시체 수색 · Corpse plundering',
+        'remains',
+        'oracle:reclvse.remains_ruins',
+        '동물의 유해 · Remains & ruins',
       ),
       spot(
         'wilderness',
@@ -477,7 +483,7 @@ export const SPATIAL_SCENES: SpatialScene[] = [
       {
         id: 'journey-omens',
         title: '길 위의 불길한 기운',
-        description: '눈앞에 없는 사건의 조짐을 상상할 때 씁니다.',
+        description: '사건의 조짐과 길에서 발견한 단서를 살펴봅니다.',
         references: [
           support(
             'wilderness',
@@ -502,6 +508,12 @@ export const SPATIAL_SCENES: SpatialScene[] = [
             'lost-people',
             'oracle:reclvse.signs_of_lost_people',
             '실종자의 흔적 · Lost people',
+          ),
+          support(
+            'wilderness',
+            'human-remains',
+            'oracle:core.corpsePlundering',
+            '사람의 시체를 발견했다면 · Corpse plundering',
           ),
         ],
       },

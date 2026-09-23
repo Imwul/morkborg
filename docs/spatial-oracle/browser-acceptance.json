@@ -8,84 +8,84 @@
           "scene": "dungeon",
           "geometry": [
             {
+              "id": "dungeon-floor",
+              "width": 490.094482421875,
+              "height": 299.78289794921875
+            },
+            {
               "id": "dungeon-entrance",
-              "width": 122.94465637207031,
-              "height": 63.156494140625
+              "width": 98.52413940429688,
+              "height": 45.47265625
             },
             {
               "id": "dungeon-threshold",
-              "width": 68.20901489257812,
-              "height": 71.5772705078125
+              "width": 111.15545654296875,
+              "height": 74.10357666015625
             },
             {
               "id": "dungeon-entrance-marks",
-              "width": 58.946075439453125,
-              "height": 64.8406982421875
+              "width": 117.050048828125,
+              "height": 53.8935546875
             },
             {
               "id": "dungeon-entrance-odour",
-              "width": 58.946075439453125,
-              "height": 61.4722900390625
+              "width": 150.7335205078125,
+              "height": 46.3148193359375
             },
             {
               "id": "dungeon-masonry",
-              "width": 73.26155090332031,
-              "height": 85.892822265625
+              "width": 65.6827621459961,
+              "height": 83.3665771484375
             },
             {
               "id": "dungeon-door",
-              "width": 104.41876220703125,
-              "height": 67.366943359375
+              "width": 58.946075439453125,
+              "height": 45.47265625
             },
             {
               "id": "dungeon-contents",
-              "width": 100.20831298828125,
-              "height": 93.47161865234375
-            },
-            {
-              "id": "dungeon-floor",
-              "width": 51.367279052734375,
-              "height": 71.57733154296875
+              "width": 84.20864868164062,
+              "height": 69.0511474609375
             },
             {
               "id": "dungeon-furnishing",
-              "width": 86.73492431640625,
-              "height": 85.892822265625
+              "width": 85.89285278320312,
+              "height": 80.84033203125
             },
             {
               "id": "dungeon-chest",
-              "width": 106.94497680664062,
-              "height": 88.41912841796875
+              "width": 53.8935546875,
+              "height": 48.841064453125
             },
             {
               "id": "dungeon-trap",
-              "width": 97.68206787109375,
-              "height": 71.577392578125
+              "width": 50.525177001953125,
+              "height": 45.47271728515625
             },
             {
               "id": "dungeon-passage",
-              "width": 111.99752807617188,
-              "height": 114.5238037109375
+              "width": 47.15684509277344,
+              "height": 49.68310546875
             },
             {
               "id": "dungeon-light",
-              "width": 83.3665771484375,
-              "height": 84.20867919921875
+              "width": 49.68311309814453,
+              "height": 53.8935546875
             },
             {
-              "id": "dungeon-corpse",
-              "width": 124.62884521484375,
-              "height": 111.15545654296875
+              "id": "dungeon-remains",
+              "width": 85.89285278320312,
+              "height": 71.577392578125
             },
             {
               "id": "dungeon-sounds",
-              "width": 100.20831298828125,
-              "height": 86.73492431640625
+              "width": 47.998931884765625,
+              "height": 47.1568603515625
             },
             {
               "id": "dungeon-room-odour",
-              "width": 60.63023376464844,
-              "height": 58.10400390625
+              "width": 181.0486297607422,
+              "height": 69.0511474609375
             }
           ],
           "visits": [
@@ -118,66 +118,66 @@
           "scene": "wilderness",
           "geometry": [
             {
+              "id": "wilderness-river",
+              "width": 186.10116577148438,
+              "height": 522.09375
+            },
+            {
               "id": "wilderness-road",
-              "width": 489.9908447265625,
-              "height": 535.4634399414062,
-              "strokeHitWidth": 74
+              "width": 543.2523498535156,
+              "height": 416.93939208984375,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-offroad",
-              "width": 216.31265258789062,
-              "height": 102.12567138671875,
-              "strokeHitWidth": 74
+              "width": 152.35819244384766,
+              "height": 269.57421875,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-roadside",
-              "width": 74.94570922851562,
-              "height": 78.18218994140625
+              "width": 65.68280029296875,
+              "height": 74.1036376953125
             },
             {
               "id": "wilderness-tracks",
-              "width": 101.0504150390625,
-              "height": 84.2086181640625
+              "width": 73.26155090332031,
+              "height": 49.68310546875
             },
             {
               "id": "wilderness-forage",
-              "width": 137.2601318359375,
-              "height": 117.89208984375
+              "width": 74.94571685791016,
+              "height": 62.314453125
             },
             {
               "id": "wilderness-camp",
-              "width": 138.94427490234375,
-              "height": 107.787109375
+              "width": 92.62954711914062,
+              "height": 82.52447509765625
             },
             {
               "id": "wilderness-weather",
-              "width": 173.4698486328125,
-              "height": 95.15582275390625
-            },
-            {
-              "id": "wilderness-river",
-              "width": 87.5770263671875,
-              "height": 58.66741943359375
+              "width": 71.577392578125,
+              "height": 47.1568603515625
             },
             {
               "id": "wilderness-threat-signs",
-              "width": 63.99858093261719,
-              "height": 73.41107177734375
+              "width": 51.36729431152344,
+              "height": 52.2093505859375
             },
             {
               "id": "wilderness-village",
-              "width": 178.5223846435547,
-              "height": 125.47088623046875
+              "width": 152.41769409179688,
+              "height": 140.62847900390625
             },
             {
-              "id": "wilderness-corpse",
-              "width": 101.89251708984375,
-              "height": 109.47119140625
+              "id": "wilderness-remains",
+              "width": 54.73565673828125,
+              "height": 51.3673095703125
             },
             {
               "id": "wilderness-distances",
-              "width": 82.52450561523438,
-              "height": 86.73492431640625
+              "width": 47.1568603515625,
+              "height": 47.1568603515625
             }
           ],
           "visits": [
@@ -218,69 +218,69 @@
           "geometry": [
             {
               "id": "city-street",
-              "width": 665.1448364257812,
-              "height": 473.14910888671875,
-              "strokeHitWidth": 74
+              "width": 490.200927734375,
+              "height": 484.3062744140625,
+              "strokeHitWidth": 54
             },
             {
               "id": "city-gate",
-              "width": 108.62918090820312,
-              "height": 117.89215087890625
+              "width": 74.10360717773438,
+              "height": 53.8935546875
             },
             {
               "id": "city-gate-signs",
-              "width": 56.41981506347656,
-              "height": 79.58026123046875
+              "width": 47.99894714355469,
+              "height": 47.99896240234375
             },
             {
               "id": "city-cobbles",
-              "width": 71.57736206054688,
-              "height": 64.864990234375
+              "width": 47.99896240234375,
+              "height": 47.15679931640625
             },
             {
               "id": "city-alley-hazard",
-              "width": 83.3665771484375,
-              "height": 69.2412109375
+              "width": 49.68310546875,
+              "height": 103.57666015625
             },
             {
               "id": "city-chimney-smell",
-              "width": 76.62991333007812,
-              "height": 77.82489013671875
+              "width": 46.3148193359375,
+              "height": 70.73529052734375
             },
             {
               "id": "city-crowd",
-              "width": 94.31369018554688,
-              "height": 85.892822265625
+              "width": 94.313720703125,
+              "height": 69.0511474609375
             },
             {
               "id": "city-tavern",
-              "width": 155.78604125976562,
-              "height": 145.68096923828125
+              "width": 180.20655822753906,
+              "height": 117.89208984375
             },
             {
               "id": "city-shop",
-              "width": 139.786376953125,
-              "height": 110.3133544921875
+              "width": 106.10293579101562,
+              "height": 103.57666015625
             },
             {
               "id": "city-townhouse",
-              "width": 127.99716186523438,
-              "height": 129.68133544921875
+              "width": 74.94570922851562,
+              "height": 112.83966064453125
             },
             {
               "id": "city-shrine",
-              "width": 117.89213562011719,
-              "height": 135.575927734375
+              "width": 80.84031677246094,
+              "height": 88.4190673828125
             },
             {
               "id": "city-merchant",
-              "width": 101.89248657226562,
-              "height": 97.68206787109375
+              "width": 107.78707885742188,
+              "height": 76.6298828125
             },
             {
               "id": "city-directions",
-              "width": 73.26155090332031,
-              "height": 84.20867919921875
+              "width": 49.68310546875,
+              "height": 50.52520751953125
             }
           ],
           "visits": [
@@ -335,8 +335,8 @@
       ],
       "pageErrors": [],
       "keyboardFarEdge": {
-        "left": 185.9432373046875,
-        "right": 33.84844970703125
+        "left": 132.89178466796875,
+        "right": 139.10928344726562
       },
       "mapPan": {
         "canPan": true,
@@ -346,7 +346,7 @@
       },
       "touchSwipe": {
         "before": 161,
-        "after": 388
+        "after": 391
       },
       "status": "passed"
     },
@@ -357,84 +357,84 @@
           "scene": "dungeon",
           "geometry": [
             {
+              "id": "dungeon-floor",
+              "width": 555.9508056640625,
+              "height": 340.066162109375
+            },
+            {
               "id": "dungeon-entrance",
-              "width": 139.46533203125,
-              "height": 71.64312744140625
+              "width": 111.76333618164062,
+              "height": 51.58306884765625
             },
             {
               "id": "dungeon-threshold",
-              "width": 77.37458801269531,
-              "height": 81.19549560546875
+              "width": 126.09193420410156,
+              "height": 84.061279296875
             },
             {
               "id": "dungeon-entrance-marks",
-              "width": 66.866943359375,
-              "height": 73.5535888671875
+              "width": 132.77859497070312,
+              "height": 61.135498046875
             },
             {
               "id": "dungeon-entrance-odour",
-              "width": 66.86692810058594,
-              "height": 69.732666015625
+              "width": 170.98831176757812,
+              "height": 52.538330078125
             },
             {
               "id": "dungeon-masonry",
-              "width": 83.10606384277344,
-              "height": 97.4346923828125
+              "width": 74.50887298583984,
+              "height": 94.5689697265625
             },
             {
               "id": "dungeon-door",
-              "width": 118.44998168945312,
-              "height": 76.41937255859375
+              "width": 66.866943359375,
+              "height": 51.583038330078125
             },
             {
               "id": "dungeon-contents",
-              "width": 113.67379760742188,
-              "height": 106.0318603515625
-            },
-            {
-              "id": "dungeon-floor",
-              "width": 58.269744873046875,
-              "height": 81.195556640625
+              "width": 95.52420043945312,
+              "height": 78.329833984375
             },
             {
               "id": "dungeon-furnishing",
-              "width": 98.38992309570312,
-              "height": 97.43463134765625
+              "width": 97.4346923828125,
+              "height": 91.7032470703125
             },
             {
               "id": "dungeon-chest",
-              "width": 121.31573486328125,
-              "height": 100.3004150390625
+              "width": 61.135498046875,
+              "height": 55.404052734375
             },
             {
               "id": "dungeon-trap",
-              "width": 110.80807495117188,
-              "height": 81.195556640625
+              "width": 57.31451416015625,
+              "height": 51.58306884765625
             },
             {
               "id": "dungeon-passage",
-              "width": 127.04718017578125,
-              "height": 129.91290283203125
+              "width": 53.4935302734375,
+              "height": 56.3592529296875
             },
             {
               "id": "dungeon-light",
-              "width": 94.56895446777344,
-              "height": 95.524169921875
+              "width": 56.35926818847656,
+              "height": 61.135498046875
             },
             {
-              "id": "dungeon-corpse",
-              "width": 141.37579345703125,
-              "height": 126.0919189453125
+              "id": "dungeon-remains",
+              "width": 97.4346923828125,
+              "height": 81.195556640625
             },
             {
               "id": "dungeon-sounds",
-              "width": 113.67376708984375,
-              "height": 98.38995361328125
+              "width": 54.44879150390625,
+              "height": 53.4935302734375
             },
             {
               "id": "dungeon-room-odour",
-              "width": 68.77740478515625,
-              "height": 65.91168212890625
+              "width": 205.3769989013672,
+              "height": 78.329833984375
             }
           ],
           "visits": [
@@ -467,66 +467,66 @@
           "scene": "wilderness",
           "geometry": [
             {
+              "id": "wilderness-river",
+              "width": 211.10848999023438,
+              "height": 592.25
+            },
+            {
               "id": "wilderness-road",
-              "width": 545.8895263671875,
-              "height": 597.4724731445312,
-              "strokeHitWidth": 74
+              "width": 608.9955444335938,
+              "height": 465.709228515625,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-offroad",
-              "width": 235.43588256835938,
-              "height": 105.9051513671875,
-              "strokeHitWidth": 74
+              "width": 165.57505798339844,
+              "height": 298.54193115234375,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-roadside",
-              "width": 85.01654052734375,
-              "height": 88.68798828125
+              "width": 74.50885009765625,
+              "height": 84.06134033203125
             },
             {
               "id": "wilderness-tracks",
-              "width": 114.6290283203125,
-              "height": 95.524169921875
+              "width": 83.10604858398438,
+              "height": 56.3592529296875
             },
             {
               "id": "wilderness-forage",
-              "width": 155.70443725585938,
-              "height": 133.73388671875
+              "width": 85.01652526855469,
+              "height": 70.6878662109375
             },
             {
               "id": "wilderness-camp",
-              "width": 157.61492919921875,
-              "height": 122.27099609375
+              "width": 105.07666015625,
+              "height": 93.61370849609375
             },
             {
               "id": "wilderness-weather",
-              "width": 196.77984619140625,
-              "height": 107.94232177734375
-            },
-            {
-              "id": "wilderness-river",
-              "width": 99.34515380859375,
-              "height": 66.55084228515625
+              "width": 81.195556640625,
+              "height": 53.493560791015625
             },
             {
               "id": "wilderness-threat-signs",
-              "width": 72.598388671875,
-              "height": 83.2757568359375
+              "width": 58.26976013183594,
+              "height": 59.22503662109375
             },
             {
               "id": "wilderness-village",
-              "width": 202.51129150390625,
-              "height": 142.3310546875
+              "width": 172.89878845214844,
+              "height": 159.525390625
             },
             {
-              "id": "wilderness-corpse",
-              "width": 115.58428955078125,
-              "height": 124.1815185546875
+              "id": "wilderness-remains",
+              "width": 62.09075927734375,
+              "height": 58.269775390625
             },
             {
               "id": "wilderness-distances",
-              "width": 93.61370849609375,
-              "height": 98.38995361328125
+              "width": 53.493560791015625,
+              "height": 53.49359130859375
             }
           ],
           "visits": [
@@ -567,69 +567,69 @@
           "geometry": [
             {
               "id": "city-street",
-              "width": 744.579833984375,
-              "height": 526.78466796875,
-              "strokeHitWidth": 74
+              "width": 548.8153076171875,
+              "height": 542.128662109375,
+              "strokeHitWidth": 54
             },
             {
               "id": "city-gate",
-              "width": 123.22622680664062,
-              "height": 133.73388671875
+              "width": 84.06130981445312,
+              "height": 61.135498046875
             },
             {
               "id": "city-gate-signs",
-              "width": 64.001220703125,
-              "height": 90.27386474609375
+              "width": 54.44879150390625,
+              "height": 54.448760986328125
             },
             {
               "id": "city-cobbles",
-              "width": 81.19558715820312,
-              "height": 73.581298828125
+              "width": 54.44879150390625,
+              "height": 53.4935302734375
             },
             {
               "id": "city-alley-hazard",
-              "width": 94.56890869140625,
-              "height": 78.5455322265625
+              "width": 56.359283447265625,
+              "height": 117.4947509765625
             },
             {
               "id": "city-chimney-smell",
-              "width": 86.927001953125,
-              "height": 88.2825927734375
+              "width": 52.53826904296875,
+              "height": 80.24029541015625
             },
             {
               "id": "city-crowd",
-              "width": 106.98712158203125,
-              "height": 97.43463134765625
+              "width": 106.98709106445312,
+              "height": 78.329833984375
             },
             {
               "id": "city-tavern",
-              "width": 176.71975708007812,
-              "height": 165.2568359375
+              "width": 204.42178344726562,
+              "height": 133.73382568359375
             },
             {
               "id": "city-shop",
-              "width": 158.57012939453125,
-              "height": 125.13665771484375
+              "width": 120.36053466796875,
+              "height": 117.4947509765625
             },
             {
               "id": "city-townhouse",
-              "width": 145.19677734375,
-              "height": 147.10723876953125
+              "width": 85.01654052734375,
+              "height": 128.00244140625
             },
             {
               "id": "city-shrine",
-              "width": 133.73387145996094,
-              "height": 153.7939453125
+              "width": 91.70323181152344,
+              "height": 100.3004150390625
             },
             {
               "id": "city-merchant",
-              "width": 115.58428955078125,
-              "height": 110.80804443359375
+              "width": 122.27099609375,
+              "height": 86.927001953125
             },
             {
               "id": "city-directions",
-              "width": 83.10604858398438,
-              "height": 95.52423095703125
+              "width": 56.359283447265625,
+              "height": 57.31451416015625
             }
           ],
           "visits": [
@@ -684,8 +684,8 @@
       ],
       "pageErrors": [],
       "keyboardFarEdge": {
-        "left": 576.063720703125,
-        "right": 38.26251220703125
+        "left": 515.8834838867188,
+        "right": 157.667724609375
       },
       "mapPan": {
         "canPan": true,
@@ -702,84 +702,84 @@
           "scene": "dungeon",
           "geometry": [
             {
+              "id": "dungeon-floor",
+              "width": 581.2813110351562,
+              "height": 355.5604248046875
+            },
+            {
               "id": "dungeon-entrance",
-              "width": 145.8197021484375,
-              "height": 74.907470703125
+              "width": 116.85549926757812,
+              "height": 53.93328857421875
             },
             {
               "id": "dungeon-threshold",
-              "width": 80.89996337890625,
-              "height": 84.89495849609375
+              "width": 131.83700561523438,
+              "height": 87.891357421875
             },
             {
               "id": "dungeon-entrance-marks",
-              "width": 69.91354370117188,
-              "height": 76.90496826171875
+              "width": 138.82833862304688,
+              "height": 63.9208984375
             },
             {
               "id": "dungeon-entrance-odour",
-              "width": 69.91354370117188,
-              "height": 72.90985107421875
+              "width": 178.7789306640625,
+              "height": 54.93212890625
             },
             {
               "id": "dungeon-masonry",
-              "width": 86.89254760742188,
-              "height": 101.8740234375
+              "width": 77.9036865234375,
+              "height": 98.87774658203125
             },
             {
               "id": "dungeon-door",
-              "width": 123.84686279296875,
-              "height": 79.9012451171875
+              "width": 69.91357421875,
+              "height": 53.933319091796875
             },
             {
               "id": "dungeon-contents",
-              "width": 118.85305786132812,
-              "height": 110.86297607421875
-            },
-            {
-              "id": "dungeon-floor",
-              "width": 60.9246826171875,
-              "height": 84.89501953125
+              "width": 99.87652587890625,
+              "height": 81.89874267578125
             },
             {
               "id": "dungeon-furnishing",
-              "width": 102.872802734375,
-              "height": 101.87408447265625
+              "width": 101.8740234375,
+              "height": 95.88140869140625
             },
             {
               "id": "dungeon-chest",
-              "width": 126.84320068359375,
-              "height": 104.870361328125
+              "width": 63.92095947265625,
+              "height": 57.9283447265625
             },
             {
               "id": "dungeon-trap",
-              "width": 115.85675048828125,
-              "height": 84.89508056640625
+              "width": 59.9259033203125,
+              "height": 53.93328857421875
             },
             {
               "id": "dungeon-passage",
-              "width": 132.83575439453125,
-              "height": 135.83203125
+              "width": 55.93084716796875,
+              "height": 58.927154541015625
             },
             {
               "id": "dungeon-light",
-              "width": 98.87773132324219,
-              "height": 99.87652587890625
+              "width": 58.92713928222656,
+              "height": 63.92095947265625
             },
             {
-              "id": "dungeon-corpse",
-              "width": 147.8172607421875,
-              "height": 131.83697509765625
+              "id": "dungeon-remains",
+              "width": 101.87408447265625,
+              "height": 84.89501953125
             },
             {
               "id": "dungeon-sounds",
-              "width": 118.85308837890625,
-              "height": 102.87283325195312
+              "width": 56.92962646484375,
+              "height": 55.93084716796875
             },
             {
               "id": "dungeon-room-odour",
-              "width": 71.91110229492188,
-              "height": 68.914794921875
+              "width": 214.73451232910156,
+              "height": 81.8988037109375
             }
           ],
           "visits": [
@@ -812,66 +812,66 @@
           "scene": "wilderness",
           "geometry": [
             {
+              "id": "wilderness-river",
+              "width": 220.72711181640625,
+              "height": 619.234375
+            },
+            {
               "id": "wilderness-road",
-              "width": 567.3899536132812,
-              "height": 621.3233032226562,
-              "strokeHitWidth": 74
+              "width": 634.2825317382812,
+              "height": 484.46783447265625,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-offroad",
-              "width": 242.7913055419922,
-              "height": 107.3587646484375,
-              "strokeHitWidth": 74
+              "width": 170.65870666503906,
+              "height": 309.68389892578125,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-roadside",
-              "width": 88.89007568359375,
-              "height": 92.72882080078125
+              "width": 77.9036865234375,
+              "height": 87.891357421875
             },
             {
               "id": "wilderness-tracks",
-              "width": 119.851806640625,
-              "height": 99.87652587890625
+              "width": 86.892578125,
+              "height": 58.9271240234375
             },
             {
               "id": "wilderness-forage",
-              "width": 162.7987060546875,
-              "height": 139.8271484375
+              "width": 88.89009094238281,
+              "height": 73.90869140625
             },
             {
               "id": "wilderness-camp",
-              "width": 164.7962646484375,
-              "height": 127.84197998046875
+              "width": 109.86419677734375,
+              "height": 97.87896728515625
             },
             {
               "id": "wilderness-weather",
-              "width": 205.74560546875,
-              "height": 112.8604736328125
-            },
-            {
-              "id": "wilderness-river",
-              "width": 103.87158203125,
-              "height": 69.58306884765625
+              "width": 84.89501953125,
+              "height": 55.93084716796875
             },
             {
               "id": "wilderness-threat-signs",
-              "width": 75.90615844726562,
-              "height": 87.07000732421875
+              "width": 60.92466735839844,
+              "height": 61.9234619140625
             },
             {
               "id": "wilderness-village",
-              "width": 211.73822021484375,
-              "height": 148.81597900390625
+              "width": 180.7764892578125,
+              "height": 166.79379272460938
             },
             {
-              "id": "wilderness-corpse",
-              "width": 120.8505859375,
-              "height": 129.83941650390625
+              "id": "wilderness-remains",
+              "width": 64.91973876953125,
+              "height": 60.9246826171875
             },
             {
               "id": "wilderness-distances",
-              "width": 97.87899780273438,
-              "height": 102.872802734375
+              "width": 55.93084716796875,
+              "height": 55.93084716796875
             }
           ],
           "visits": [
@@ -912,69 +912,69 @@
           "geometry": [
             {
               "id": "city-street",
-              "width": 775.1331176757812,
-              "height": 547.4146728515625,
-              "strokeHitWidth": 74
+              "width": 571.3603515625,
+              "height": 564.3689880371094,
+              "strokeHitWidth": 54
             },
             {
               "id": "city-gate",
-              "width": 128.8406982421875,
-              "height": 139.82708740234375
+              "width": 87.89132690429688,
+              "height": 63.92095947265625
             },
             {
               "id": "city-gate-signs",
-              "width": 66.91728210449219,
-              "height": 94.386962890625
+              "width": 56.929595947265625,
+              "height": 56.92962646484375
             },
             {
               "id": "city-cobbles",
-              "width": 84.89501953125,
-              "height": 76.933837890625
+              "width": 56.929595947265625,
+              "height": 55.9307861328125
             },
             {
               "id": "city-alley-hazard",
-              "width": 98.87774658203125,
-              "height": 82.124267578125
+              "width": 58.9271240234375,
+              "height": 122.84808349609375
             },
             {
               "id": "city-chimney-smell",
-              "width": 90.8875732421875,
-              "height": 92.30496215820312
+              "width": 54.93206787109375,
+              "height": 83.89630126953125
             },
             {
               "id": "city-crowd",
               "width": 111.8616943359375,
-              "height": 101.8740234375
+              "height": 81.898681640625
             },
             {
               "id": "city-tavern",
-              "width": 184.77154541015625,
-              "height": 172.786376953125
+              "width": 213.73573303222656,
+              "height": 139.82708740234375
             },
             {
               "id": "city-shop",
-              "width": 165.79501342773438,
-              "height": 130.8382568359375
+              "width": 125.84442138671875,
+              "height": 122.84808349609375
             },
             {
               "id": "city-townhouse",
-              "width": 151.81231689453125,
-              "height": 153.809814453125
+              "width": 88.89013671875,
+              "height": 133.83453369140625
             },
             {
               "id": "city-shrine",
-              "width": 139.82711791992188,
-              "height": 160.80117797851562
+              "width": 95.88145446777344,
+              "height": 104.87030029296875
             },
             {
               "id": "city-merchant",
-              "width": 120.8505859375,
-              "height": 115.85675048828125
+              "width": 127.8419189453125,
+              "height": 90.88763427734375
             },
             {
               "id": "city-directions",
-              "width": 86.892578125,
-              "height": 99.87646484375
+              "width": 58.927154541015625,
+              "height": 59.9259033203125
             }
           ],
           "visits": [
@@ -1029,8 +1029,8 @@
       ],
       "pageErrors": [],
       "keyboardFarEdge": {
-        "left": 602.257080078125,
-        "right": 39.95233154296875
+        "left": 539.3348999023438,
+        "right": 164.7979736328125
       },
       "mapPan": {
         "canPan": true,
@@ -1047,84 +1047,84 @@
           "scene": "dungeon",
           "geometry": [
             {
+              "id": "dungeon-floor",
+              "width": 762.1588745117188,
+              "height": 466.2003173828125
+            },
+            {
               "id": "dungeon-entrance",
-              "width": 191.194580078125,
-              "height": 98.21630859375
+              "width": 153.2174072265625,
+              "height": 70.7158203125
             },
             {
               "id": "dungeon-threshold",
-              "width": 106.07373046875,
-              "height": 111.311767578125
+              "width": 172.8607177734375,
+              "height": 115.240478515625
             },
             {
               "id": "dungeon-entrance-marks",
-              "width": 91.6685791015625,
-              "height": 100.83544921875
+              "width": 182.027587890625,
+              "height": 83.811279296875
             },
             {
               "id": "dungeon-entrance-odour",
-              "width": 91.6685791015625,
-              "height": 95.5972900390625
+              "width": 234.4097900390625,
+              "height": 72.0252685546875
             },
             {
               "id": "dungeon-masonry",
-              "width": 113.9310302734375,
-              "height": 133.57421875
+              "width": 102.14508056640625,
+              "height": 129.6456298828125
             },
             {
               "id": "dungeon-door",
-              "width": 162.3843994140625,
-              "height": 104.76409912109375
+              "width": 91.6685791015625,
+              "height": 70.71578979492188
             },
             {
               "id": "dungeon-contents",
-              "width": 155.836669921875,
-              "height": 145.3602294921875
-            },
-            {
-              "id": "dungeon-floor",
-              "width": 79.882568359375,
-              "height": 111.3118896484375
+              "width": 130.955078125,
+              "height": 107.3831787109375
             },
             {
               "id": "dungeon-furnishing",
-              "width": 134.8837890625,
-              "height": 133.57421875
+              "width": 133.5743408203125,
+              "height": 125.71697998046875
             },
             {
               "id": "dungeon-chest",
-              "width": 166.31298828125,
-              "height": 137.50286865234375
+              "width": 83.811279296875,
+              "height": 75.9539794921875
             },
             {
               "id": "dungeon-trap",
-              "width": 151.907958984375,
-              "height": 111.31182861328125
+              "width": 78.5731201171875,
+              "height": 70.71575927734375
             },
             {
               "id": "dungeon-passage",
-              "width": 174.1702880859375,
-              "height": 178.09896850585938
+              "width": 73.3348388671875,
+              "height": 77.2635498046875
             },
             {
               "id": "dungeon-light",
-              "width": 129.6456298828125,
-              "height": 130.9552001953125
+              "width": 77.263427734375,
+              "height": 83.811279296875
             },
             {
-              "id": "dungeon-corpse",
-              "width": 193.8135986328125,
-              "height": 172.8607177734375
+              "id": "dungeon-remains",
+              "width": 133.57421875,
+              "height": 111.31182861328125
             },
             {
               "id": "dungeon-sounds",
-              "width": 155.8365478515625,
-              "height": 134.8837890625
+              "width": 74.644287109375,
+              "height": 73.33489990234375
             },
             {
               "id": "dungeon-room-odour",
-              "width": 94.28759765625,
-              "height": 90.3590087890625
+              "width": 281.5535888671875,
+              "height": 107.38323974609375
             }
           ],
           "visits": [
@@ -1157,66 +1157,66 @@
           "scene": "wilderness",
           "geometry": [
             {
+              "id": "wilderness-river",
+              "width": 289.410888671875,
+              "height": 811.921875
+            },
+            {
               "id": "wilderness-road",
-              "width": 720.9183349609375,
-              "height": 791.6342163085938,
-              "strokeHitWidth": 74
+              "width": 814.849365234375,
+              "height": 618.4166259765625,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-offroad",
-              "width": 295.31414794921875,
-              "height": 117.73895263671875,
-              "strokeHitWidth": 74
+              "width": 206.95947265625,
+              "height": 389.2451171875,
+              "strokeHitWidth": 54
             },
             {
               "id": "wilderness-roadside",
-              "width": 116.5501708984375,
-              "height": 121.58319091796875
+              "width": 102.14501953125,
+              "height": 115.240478515625
             },
             {
               "id": "wilderness-tracks",
-              "width": 157.146240234375,
-              "height": 130.955078125
+              "width": 113.930908203125,
+              "height": 77.2635498046875
             },
             {
               "id": "wilderness-forage",
-              "width": 213.4569091796875,
-              "height": 183.337158203125
+              "width": 116.55010986328125,
+              "height": 96.90673828125
             },
             {
               "id": "wilderness-camp",
-              "width": 216.075927734375,
-              "height": 167.62255859375
+              "width": 144.05078125,
+              "height": 128.3360595703125
             },
             {
               "id": "wilderness-weather",
-              "width": 269.767578125,
-              "height": 147.97930908203125
-            },
-            {
-              "id": "wilderness-river",
-              "width": 136.193359375,
-              "height": 91.23529052734375
+              "width": 111.311767578125,
+              "height": 73.33489990234375
             },
             {
               "id": "wilderness-threat-signs",
-              "width": 99.52587890625,
-              "height": 114.16357421875
+              "width": 79.8826904296875,
+              "height": 81.192138671875
             },
             {
               "id": "wilderness-village",
-              "width": 277.62481689453125,
-              "height": 195.12313842773438
+              "width": 237.02880859375,
+              "height": 218.69509887695312
             },
             {
-              "id": "wilderness-corpse",
-              "width": 158.4556884765625,
-              "height": 170.24169921875
+              "id": "wilderness-remains",
+              "width": 85.120849609375,
+              "height": 79.88262939453125
             },
             {
               "id": "wilderness-distances",
-              "width": 128.3360595703125,
-              "height": 134.8837890625
+              "width": 73.3349609375,
+              "height": 73.33489990234375
             }
           ],
           "visits": [
@@ -1257,69 +1257,69 @@
           "geometry": [
             {
               "id": "city-street",
-              "width": 993.30517578125,
-              "height": 694.7273559570312,
-              "strokeHitWidth": 74
+              "width": 732.34765625,
+              "height": 723.1807861328125,
+              "strokeHitWidth": 54
             },
             {
               "id": "city-gate",
-              "width": 168.93212890625,
-              "height": 183.33721923828125
+              "width": 115.240478515625,
+              "height": 83.811279296875
             },
             {
               "id": "city-gate-signs",
-              "width": 87.739990234375,
-              "height": 123.7574462890625
+              "width": 74.64453125,
+              "height": 74.64443969726562
             },
             {
               "id": "city-cobbles",
-              "width": 111.3118896484375,
-              "height": 100.873291015625
+              "width": 74.6444091796875,
+              "height": 73.33489990234375
             },
             {
               "id": "city-alley-hazard",
-              "width": 129.6456298828125,
-              "height": 107.67889404296875
+              "width": 77.263671875,
+              "height": 161.0748291015625
             },
             {
               "id": "city-chimney-smell",
-              "width": 119.169189453125,
-              "height": 121.02755737304688
+              "width": 72.025390625,
+              "height": 110.0023193359375
             },
             {
               "id": "city-crowd",
               "width": 146.6697998046875,
-              "height": 133.57427978515625
+              "height": 107.38323974609375
             },
             {
               "id": "city-tavern",
-              "width": 242.2669677734375,
-              "height": 226.55242919921875
+              "width": 280.2440185546875,
+              "height": 183.337158203125
             },
             {
               "id": "city-shop",
-              "width": 217.3856201171875,
-              "height": 171.5511474609375
+              "width": 165.00341796875,
+              "height": 161.0748291015625
             },
             {
               "id": "city-townhouse",
-              "width": 199.0517578125,
-              "height": 201.6708984375
+              "width": 116.550048828125,
+              "height": 175.47991943359375
             },
             {
               "id": "city-shrine",
-              "width": 183.33709716796875,
-              "height": 210.83782958984375
+              "width": 125.71685791015625,
+              "height": 137.5029296875
             },
             {
               "id": "city-merchant",
-              "width": 158.4556884765625,
-              "height": 151.907958984375
+              "width": 167.62255859375,
+              "height": 119.169189453125
             },
             {
               "id": "city-directions",
-              "width": 113.9310302734375,
-              "height": 130.95513916015625
+              "width": 77.263427734375,
+              "height": 78.5731201171875
             }
           ],
           "visits": [
@@ -1374,8 +1374,8 @@
       ],
       "pageErrors": [],
       "keyboardFarEdge": {
-        "left": 789.353271484375,
-        "right": 52.0758056640625
+        "left": 706.8515625,
+        "right": 215.769775390625
       },
       "mapPan": {
         "canPan": true,
@@ -1385,5 +1385,40 @@
       },
       "status": "passed"
     }
-  ]
+  ],
+  "screenshotRefresh": {
+    "capturedAt": "2026-09-23T05:32:37.722Z",
+    "widths": [
+      360,
+      768,
+      1440,
+      3440
+    ],
+    "screenshots": [
+      "outputs/spatial-oracle/dungeon-scene-360.png",
+      "outputs/spatial-oracle/dungeon-reference-360.png",
+      "outputs/spatial-oracle/wilderness-scene-360.png",
+      "outputs/spatial-oracle/wilderness-reference-360.png",
+      "outputs/spatial-oracle/city-scene-360.png",
+      "outputs/spatial-oracle/city-reference-360.png",
+      "outputs/spatial-oracle/dungeon-scene-768.png",
+      "outputs/spatial-oracle/dungeon-reference-768.png",
+      "outputs/spatial-oracle/wilderness-scene-768.png",
+      "outputs/spatial-oracle/wilderness-reference-768.png",
+      "outputs/spatial-oracle/city-scene-768.png",
+      "outputs/spatial-oracle/city-reference-768.png",
+      "outputs/spatial-oracle/dungeon-scene-1440.png",
+      "outputs/spatial-oracle/dungeon-reference-1440.png",
+      "outputs/spatial-oracle/wilderness-scene-1440.png",
+      "outputs/spatial-oracle/wilderness-reference-1440.png",
+      "outputs/spatial-oracle/city-scene-1440.png",
+      "outputs/spatial-oracle/city-reference-1440.png",
+      "outputs/spatial-oracle/dungeon-scene-3440.png",
+      "outputs/spatial-oracle/dungeon-reference-3440.png",
+      "outputs/spatial-oracle/wilderness-scene-3440.png",
+      "outputs/spatial-oracle/wilderness-reference-3440.png",
+      "outputs/spatial-oracle/city-scene-3440.png",
+      "outputs/spatial-oracle/city-reference-3440.png"
+    ]
+  }
 }
