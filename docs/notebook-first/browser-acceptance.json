@@ -1,0 +1,81 @@
+[
+  {
+    "width": 360,
+    "checks": [
+      "four canonical generators save only after a result exists",
+      "reload/edit/original preservation/delete undo/export/invalid import",
+      "dungeon Strong/Weak/Miss + search follow-up; TR actions absent; back retains result; inspect does not roll",
+      "city Weak/Fail → same Street reader; return retains result",
+      "25×2 list editor, weighted sections, explicit CHOOSE, scene Focus→Characters, keyboard and persistence",
+      "legacy records untouched; no page errors"
+    ],
+    "screenshots": [
+      "outputs/notebook-tools/shelf-360.png",
+      "outputs/notebook-tools/dungeon-360.png",
+      "outputs/notebook-tools/city-360.png",
+      "outputs/notebook-tools/mythic-360.png"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 768,
+    "checks": [
+      "four canonical generators save only after a result exists",
+      "reload/edit/original preservation/delete undo/export/invalid import",
+      "dungeon Strong/Weak/Miss + search follow-up; TR actions absent; back retains result; inspect does not roll",
+      "city Weak/Fail → same Street reader; return retains result",
+      "25×2 list editor, weighted sections, explicit CHOOSE, scene Focus→Characters, keyboard and persistence",
+      "legacy records untouched; no page errors"
+    ],
+    "screenshots": [
+      "outputs/notebook-tools/shelf-768.png",
+      "outputs/notebook-tools/dungeon-768.png",
+      "outputs/notebook-tools/city-768.png",
+      "outputs/notebook-tools/mythic-768.png"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "checks": [
+      "four canonical generators save only after a result exists",
+      "reload/edit/original preservation/delete undo/export/invalid import",
+      "dungeon Strong/Weak/Miss + search follow-up; TR actions absent; back retains result; inspect does not roll",
+      "city Weak/Fail → same Street reader; return retains result",
+      "25×2 list editor, weighted sections, explicit CHOOSE, scene Focus→Characters, keyboard and persistence",
+      "desktop Mythic stays open while the underlying desk remains interactive",
+      "manual list dice and visible result; duplicate limit; valid import merges safely; quota/corruption preserve originals",
+      "legacy records untouched; no page errors"
+    ],
+    "screenshots": [
+      "outputs/notebook-tools/shelf-1440.png",
+      "outputs/notebook-tools/dungeon-1440.png",
+      "outputs/notebook-tools/city-1440.png",
+      "outputs/notebook-tools/mythic-1440.png"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  {
+    "width": 3440,
+    "checks": [
+      "four canonical generators save only after a result exists",
+      "reload/edit/original preservation/delete undo/export/invalid import",
+      "dungeon Strong/Weak/Miss + search follow-up; TR actions absent; back retains result; inspect does not roll",
+      "city Weak/Fail → same Street reader; return retains result",
+      "25×2 list editor, weighted sections, explicit CHOOSE, scene Focus→Characters, keyboard and persistence",
+      "desktop Mythic stays open while the underlying desk remains interactive",
+      "legacy records untouched; no page errors"
+    ],
+    "screenshots": [
+      "outputs/notebook-tools/shelf-3440.png",
+      "outputs/notebook-tools/dungeon-3440.png",
+      "outputs/notebook-tools/city-3440.png",
+      "outputs/notebook-tools/mythic-3440.png"
+    ],
+    "errors": [],
+    "passed": true
+  }
+]

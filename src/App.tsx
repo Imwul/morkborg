@@ -1,3 +1,5 @@
+import { PlayToolReferenceContext } from './components/ReferenceContext';
+import { SavedObjectsPanel } from './components/SavedObjectsPanel';
 import { useEffect, useRef, useState } from 'react';
 import { Check, House, X } from 'lucide-react';
 import {
@@ -26,9 +28,12 @@ type Surface = 'desk' | 'sources';
 export default function App() {
   const [surface, setSurface] = useState<Surface>('desk');
   const [page, setPage] = useState<ReferenceDeskPage>('home');
+  const [shelfOpen, setShelfOpen] = useState(false);
+  const shelfLauncherRef = useRef<HTMLButtonElement>(null);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [fateOpen, setFateOpen] = useState(false);
   const [fateRequested, setFateRequested] = useState(false);
+  const [listRequest, setListRequest] = useState(0);
   const [mythicState, setMythicState] = useState(defaultMythicState);
   const [toast, setToast] = useState('');
   const fateLauncherRef = useRef<HTMLButtonElement>(null);
@@ -42,6 +47,10 @@ export default function App() {
       value === 'reference' || value === 'generators' || value === 'spatial'
         ? value
         : 'home',
+  });
+  useNavigationChannel('object-shelf', shelfOpen, setShelfOpen, {
+    normalize: (value) => value === true,
+    open: (value) => value,
   });
   useNavigationChannel('reference-about', aboutOpen, setAboutOpen, {
     normalize: (value) => value === true,
@@ -94,6 +103,21 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
+  useEffect(() => {
+    const openLists = () => {
+      setFateRequested(true);
+      setFateOpen(true);
+      setListRequest((n) => n + 1);
+    };
+    window.addEventListener('mythic-open-lists', openLists);
+    const openShelf = () => setShelfOpen(true);
+    window.addEventListener('open-object-shelf', openShelf);
+    return () => {
+      window.removeEventListener('mythic-open-lists', openLists);
+      window.removeEventListener('open-object-shelf', openShelf);
+    };
+  }, []);
+
   function openHome() {
     setSurface('desk');
     setPage('home');
@@ -138,7 +162,7 @@ export default function App() {
           <DialogContent className="codex-dialog reference-about-dialog">
             <DialogTitle>MÖRK BORG Reference Desk</DialogTitle>
             <DialogDescription>
-              책과 종이 기록장 곁에 펼쳐두는 규칙·오라클·생성기입니다.
+              노트 곁에 펼쳐두는 규칙·오라클·생성기입니다.
             </DialogDescription>
             <div className="about-body">
               <p>
@@ -177,21 +201,45 @@ export default function App() {
           </DialogContent>
         </Dialog>
 
-        <button
-          ref={fateLauncherRef}
-          className="sr-only"
-          onClick={openFate}
-          aria-label="Mythic Fate 열기"
-        />
-        {fateRequested && (
-          <MythicPanel
-            open={fateOpen}
-            onOpenChange={setFateOpen}
-            state={mythicState}
-            onStateChange={setMythicState}
-            launcherRef={fateLauncherRef}
+        <div className="play-tools-dock" aria-label="플레이 도구">
+          <button
+            ref={shelfLauncherRef}
+            onClick={() => setShelfOpen(true)}
+            aria-expanded={shelfOpen}
+          >
+            보관함
+          </button>
+          <button
+            ref={fateLauncherRef}
+            onClick={openFate}
+            aria-expanded={fateOpen}
+            aria-label="Mythic Fate와 목록 열기"
+          >
+            Mythic <span>CF {mythicState.chaosFactor}</span>
+          </button>
+        </div>
+        <PlayToolReferenceContext
+          onNavigate={() => {
+            setSurface('desk');
+            if (page !== 'spatial') setPage('reference');
+          }}
+        >
+          <SavedObjectsPanel
+            open={shelfOpen}
+            onOpenChange={setShelfOpen}
+            launcherRef={shelfLauncherRef}
           />
-        )}
+          {fateRequested && (
+            <MythicPanel
+              open={fateOpen}
+              onOpenChange={setFateOpen}
+              listRequest={listRequest}
+              state={mythicState}
+              onStateChange={setMythicState}
+              launcherRef={fateLauncherRef}
+            />
+          )}
+        </PlayToolReferenceContext>
         {toast && (
           <output className="toast">
             <Check size={17} /> {toast}

@@ -1,3 +1,13 @@
+import { mythicFocusList } from '../domain/mythicLists';
+import { playGuideFor } from '../domain/playGuidance';
+import { ProceduralGuide } from './ProceduralGuide';
+import { objectShelfStore } from '../storage/notebookTools';
+import {
+  objectKindForReference,
+  objectFromReading,
+  appendSavedObject,
+  OBJECT_KINDS,
+} from '../domain/savedObjects';
 import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { ReferenceOracleIntroduction } from './ReferenceOracleIntroduction';
 import { ReferenceSourceFamily } from './ReferenceSourceFamily';
@@ -179,6 +189,8 @@ export function ReferenceProvider({
     [index, oracles.registry],
   );
   const memory = usePlayMemory();
+  const [toolState] = useState(() => new Map<string, unknown>());
+  const objectShelf = objectShelfStore.use();
   const [prefs, setPrefs] = useState(readReferencePreferences);
   const [selectedId, setSelectedId] = useState<string | null>(null),
     [trail, setTrail] = useState<string[]>([]);
@@ -741,6 +753,14 @@ export function ReferenceProvider({
       setCopyFallback(text);
     }
   }
+  const focusRoll = reading?.oracle?.rolls.find(
+    (roll) => roll.oracleId === 'mythic2.random-event-focus-table',
+  );
+  const focusList = focusRoll ? mythicFocusList(focusRoll.roll) : null;
+  const hasQuickGuide = selected ? !!playGuideFor(selected.id) : false;
+  const PartsContainer = hasQuickGuide ? 'details' : 'section';
+  const ReadingContainer = plainRule && hasQuickGuide ? 'details' : 'article';
+  const saveKind = selected ? objectKindForReference(selected.id) : null;
   const referenceContent = selected ? (
     <section
       className="reference-page"
@@ -797,6 +817,32 @@ export function ReferenceProvider({
             : '작업대에 펼치기'}
         </button>
       </div>
+      {saveKind && reading?.blocks.some((block) => block.text.trim()) && (
+        <div className="reference-save-object">
+          <button
+            onClick={() => {
+              try {
+                const item = objectFromReading(
+                  selected.id,
+                  reading,
+                  inlineChildren,
+                );
+                objectShelf.update((shelf) => appendSavedObject(shelf, item));
+                notify(
+                  `${OBJECT_KINDS[saveKind]} 결과를 보관했습니다. 오른쪽 아래 보관함에서 다시 여세요.`,
+                );
+              } catch (e) {
+                setFailure(
+                  e instanceof Error ? e.message : '보관하지 못했습니다.',
+                );
+              }
+            }}
+          >
+            {OBJECT_KINDS[saveKind]} 보관
+          </button>
+          <small>현재 결과만 이 기기에 저장</small>
+        </div>
+      )}
       <p className="sr-only">
         {selected.kind.toUpperCase()} ·{' '}
         {regions.find((r) => r.id === region)?.name} ·{' '}
@@ -805,6 +851,39 @@ export function ReferenceProvider({
           : '빠른 참조'}
       </p>
       <div className="reference-body">
+        <ProceduralGuide referenceId={selected.id} />
+        {selected.id === 'rule:sd.dungeonCrawling' && (
+          <DungeonReferenceRoller />
+        )}
+        {[
+          'rule:sd.camping-move',
+          'rule:sd.search-move',
+          'rule:sd.flee-combat',
+        ].includes(selected.id) && (
+          <DungeonActionMoves
+            key={selected.id}
+            threatRating={12}
+            registry={oracles.registry}
+            allowedActions={
+              selected.id === 'rule:sd.camping-move'
+                ? ['breath', 'camp']
+                : selected.id === 'rule:sd.search-move'
+                  ? ['search']
+                  : ['flee']
+            }
+          />
+        )}
+
+        {selected.id === 'rule:mythic.lists' && (
+          <button
+            className="open-mythic-lists"
+            onClick={() => {
+              window.dispatchEvent(new Event('mythic-open-lists'));
+            }}
+          >
+            Mythic 인물 · 스레드 목록 열기 ↗
+          </button>
+        )}
         {selected.kind === 'oracle' ? (
           <ReferenceOracleIntroduction
             entry={selected}
@@ -812,6 +891,7 @@ export function ReferenceProvider({
           />
         ) : (
           !plainRule &&
+          !hasQuickGuide &&
           selected.kind !== 'creature' &&
           !/^\d*d\d+\s*·/.test(referenceEntryDescription(selected)) && (
             <p className="reference-summary">
@@ -898,7 +978,8 @@ export function ReferenceProvider({
             </small>
           </div>
         )}
-        {referenceEntryFormula(selected, oracles.registry) &&
+        {(!hasQuickGuide || selected.kind === 'oracle') &&
+          referenceEntryFormula(selected, oracles.registry) &&
           !(
             procedureId === 'character.core-classless' &&
             characterSource === 'scvm' &&
@@ -1162,12 +1243,15 @@ export function ReferenceProvider({
           </p>
         )}
         {reading && !!reading.blocks.some((b) => b.text) && (
-          <article
+          <ReadingContainer
             key={`${selected.id}:${session.sequence}`}
             className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
             aria-label="참조 결과"
             data-generator-result={generatorResultKind}
           >
+            {plainRule && hasQuickGuide && (
+              <summary>전체 규칙 펼치기 · 원문과 번역</summary>
+            )}
             {reading.title !== selected.title &&
               !reading.npcSnapshot &&
               !reading.blocks.some(
@@ -1454,7 +1538,7 @@ export function ReferenceProvider({
                 </button>
               </details>
             </div>
-          </article>
+          </ReadingContainer>
         )}
         {procedureId === 'depths.rare-monster' && (
           <details className="rare-card-details">
@@ -1565,11 +1649,15 @@ export function ReferenceProvider({
       )}
       {procedureParts.length > 0 &&
         procedureId !== 'sd.dungeon-preparation' && (
-          <section
+          <PartsContainer
             className="reference-procedure-parts"
             aria-label="절차의 독립 구성 표"
           >
-            <h3>함께 쓰는 표</h3>
+            {hasQuickGuide ? (
+              <summary>절차에 쓰는 표 펼치기</summary>
+            ) : (
+              <h3>함께 쓰는 표</h3>
+            )}
             {procedureParts.map(({ table, entry }) => (
               <div key={table.id}>
                 <span>
@@ -1579,7 +1667,7 @@ export function ReferenceProvider({
                 <button onClick={() => activate(entry.id, true)}>굴리기</button>
               </div>
             ))}
-          </section>
+          </PartsContainer>
         )}
       {selected.id === 'rule:core.reaction-morale' && (
         <ReferenceDice
@@ -1588,10 +1676,6 @@ export function ReferenceProvider({
           initialSides={6}
           compact
         />
-      )}
-      {selected.id === 'rule:sd.dungeonCrawling' && <DungeonReferenceRoller />}
-      {selected.id === 'rule:sd.camping-move' && (
-        <DungeonActionMoves threatRating={12} registry={oracles.registry} />
       )}
       {copied && <output className="copy-feedback">{copied}</output>}
       {copyFallback != null && (
@@ -1603,6 +1687,22 @@ export function ReferenceProvider({
             onFocus={(e) => e.target.select()}
           />
         </label>
+      )}
+      {focusList && (
+        <div className="crawl-follow-through">
+          <p>
+            이 사건이 가리킬 {focusList === 'characters' ? '인물' : '스레드'}을
+            목록에서 정하세요.
+          </p>
+          <button
+            onClick={() => window.dispatchEvent(new Event('mythic-open-lists'))}
+          >
+            {focusList === 'characters'
+              ? 'Characters · 인물'
+              : 'Threads · 스레드'}{' '}
+            목록 열기 ↗
+          </button>
+        </div>
       )}
       {selected.kind !== 'oracle' && (
         <PhysicalRollInput
@@ -1775,6 +1875,7 @@ export function ReferenceProvider({
   return (
     <ReferenceContext.Provider
       value={{
+        toolState,
         selectedId: selected?.id,
         content: referenceContent,
         dismiss: () => {

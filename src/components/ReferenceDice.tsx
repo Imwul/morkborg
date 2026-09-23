@@ -1,3 +1,6 @@
+import { usePlayToolState } from './usePlayToolState';
+import { crawlFollowThrough } from '../domain/playGuidance';
+import { useReferenceDesk } from './ReferenceContext';
 import { DieIcon } from './DieIcon';
 import { resolveCrawlDice } from '../domain/dungeonCrawl';
 import { useState } from 'react';
@@ -150,9 +153,12 @@ export function RoadSituationRoller() {
 
 /** The reader supplies the source-rule inputs; a roll never discovers or creates a room. */
 export function DungeonReferenceRoller() {
-  const [bonus, setBonus] = useState(0),
-    [dr, setDr] = useState(12);
-  const [result, setResult] = useState<ReturnType<typeof resolveCrawlDice>>();
+  const desk = useReferenceDesk();
+  const [bonus, setBonus] = usePlayToolState('crawl:bonus', 0),
+    [dr, setDr] = usePlayToolState('crawl:dr', 12);
+  const [result, setResult] = usePlayToolState<
+    ReturnType<typeof resolveCrawlDice> | undefined
+  >('crawl:result', undefined);
   return (
     <section className="reference-recipe" aria-label="던전 탐색 판정">
       <h3>던전 탐색 · 2d20</h3>
@@ -208,6 +214,30 @@ export function DungeonReferenceRoller() {
               : 'Miss · 위험'}
           {result.exhausted ? ' (특별한 방 4개 이후 Strong은 Weak)' : ''}
         </output>
+      )}
+      {result && (
+        <div className="crawl-follow-through" aria-label="던전 판정 후속 처리">
+          <p>{crawlFollowThrough(result.outcome).note}</p>
+          {crawlFollowThrough(result.outcome).links.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => desk?.activate(link.id, false)}
+            >
+              {link.label} ↗
+            </button>
+          ))}
+          {result.outcome === 'strong' && (
+            <button
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent('open-object-shelf', { detail: 'dungeon' }),
+                )
+              }
+            >
+              준비한 던전 보관함 열기 ↗
+            </button>
+          )}
+        </div>
       )}
       <SourceDisclosure
         refs={[

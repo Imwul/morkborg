@@ -1,3 +1,5 @@
+import { usePlayToolState } from './usePlayToolState';
+import { useReferenceDesk } from './ReferenceContext';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,18 +54,24 @@ export function CityRoller({
   allowedMoves?: readonly CityRollerMove[];
   initialMove?: CityRollerMove;
 }) {
-  const [mode, setMode] = useState<CityMode>('city');
+  const desk = useReferenceDesk();
+  const stateKey = 'city:' + (desk?.selectedId ?? initialMove) + ':';
+  const [mode, setMode] = usePlayToolState<CityMode>(stateKey + 'mode', 'city');
   const [move, setMove] = useState<CityRollerMove>(initialMove);
-  const [dr, setDr] = useState(
+  const [dr, setDr] = usePlayToolState(
+      stateKey + 'dr',
       initialMove in CITY_MOVE_DEFAULTS
         ? CITY_MOVE_DEFAULTS[initialMove as CityMove].dr
         : 10,
     ),
-    [modifier, setModifier] = useState(0),
-    [allMet, setAllMet] = useState(false);
+    [modifier, setModifier] = usePlayToolState(stateKey + 'modifier', 0),
+    [allMet, setAllMet] = usePlayToolState(stateKey + 'allMet', false);
   const [place, setPlace] =
     useState<Parameters<typeof prayerPlaceBonus>[0]>('statue');
-  const [last, setLast] = useState<CityMoveResult | null>(null),
+  const [last, setLast] = usePlayToolState<CityMoveResult | null>(
+      stateKey + 'last',
+      null,
+    ),
     [error, setError] = useState('');
   function publish(reading: ReferenceReading) {
     onReading({
@@ -128,6 +136,11 @@ export function CityRoller({
       sourceRefs: result.sourceRefs,
       relatedIds: [
         ...(followLinks.relatedIds ?? []),
+        ...(['new-street', 'resolve-then-new-street'].includes(
+          result.metadata.streetAction,
+        )
+          ? ['procedure:aitc.street']
+          : []),
         ...(follow ? [`oracle:${follow.tableId}`] : []),
       ],
       fixedLookups: followLinks.fixedLookups,
@@ -215,11 +228,40 @@ export function CityRoller({
   }
   return (
     <div className="city-roller">
-      {move in CITY_MOVE_GUIDANCE && (
-        <p className="city-move-guidance">
-          {CITY_MOVE_GUIDANCE[move as CityMove]}
-        </p>
-      )}
+      {move in CITY_MOVE_GUIDANCE &&
+        ![
+          'procedure:city.crawl',
+          'procedure:city.directions',
+          'procedure:city.pray',
+          'procedure:city.stash',
+        ].includes(desk?.selectedId ?? '') && (
+          <p className="city-move-guidance">
+            {CITY_MOVE_GUIDANCE[move as CityMove]}
+          </p>
+        )}
+      {last &&
+        ['new-street', 'resolve-then-new-street'].includes(
+          last.metadata.streetAction,
+        ) && (
+          <div
+            className="crawl-follow-through"
+            aria-label="도시 판정 후속 처리"
+          >
+            <p>
+              {last.metadata.requiresResolution
+                ? '이동을 막은 상황을 먼저 해결하세요. 해결했다면 다음 거리를 펼칩니다.'
+                : '새 거리의 모습과 내용을 정하세요.'}
+            </p>
+            <button
+              onClick={() => desk?.activate('procedure:aitc.street', false)}
+            >
+              {last.metadata.requiresResolution
+                ? '상황 해결 후 거리 열기'
+                : '새 거리 열기'}{' '}
+              ↗
+            </button>
+          </div>
+        )}
       <div className="ref-controls">
         {allowedMoves.length > 1 && (
           <label>

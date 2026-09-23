@@ -11,6 +11,7 @@ import {
   inspectSpatialReference,
   type SpatialHotspot,
 } from '../../domain/spatialScenes';
+import { ScenePlayActions } from '../ProceduralGuide';
 import { useReferenceDesk } from '../ReferenceContext';
 import { spatialIllustrations } from './spatialIllustrations';
 import { SPATIAL_VIEWBOX } from './spatialVisuals';
@@ -404,6 +405,11 @@ export function SpatialOracle({
             <button onClick={() => onBrowse('pinned')}>고정</button>
             <button onClick={() => desk?.openTools?.('play')}>작업대</button>
           </nav>
+          <ScenePlayActions
+            scene={scene.id}
+            role={selected?.semanticRole}
+            onOpen={(id) => inspectReference(id, lastTarget.current)}
+          />
           {desk?.content ? (
             <>
               {desk.content}

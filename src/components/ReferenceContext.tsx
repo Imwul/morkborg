@@ -5,6 +5,8 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  /** Current reader tool inputs/results; document-local, not saved play records. */
+  toolState?: Map<string, unknown>;
   inlineChildren?: import('../domain/inlineReadingContinuity').InlineChildResults;
   onInlineChild?: (
     parent: import('../domain/oracle').OracleRoll,
@@ -39,13 +41,7 @@ export interface DeskContext {
   activePack?: import('../storage/conveniencePreferences').ReferencePack;
   focusedIds?: string[];
   openTools?: (
-    tab?:
-      | 'play'
-      | 'recipes'
-      | 'packs'
-      | 'scratch'
-      | 'physical'
-      | 'replay',
+    tab?: 'play' | 'recipes' | 'packs' | 'scratch' | 'physical' | 'replay',
   ) => void;
   clearPack?: () => void;
   addTray?: (id: string) => void;
@@ -64,3 +60,31 @@ export interface DeskContext {
 }
 export const ReferenceContext = createContext<DeskContext | null>(null);
 export const useReferenceDesk = () => useContext(ReferenceContext);
+
+/** Floating tools route back into the same desk reader when opened from Home/Sources. */
+export function PlayToolReferenceContext({
+  children,
+  onNavigate,
+}: {
+  children: ReactNode;
+  onNavigate: () => void;
+}) {
+  const desk = useReferenceDesk();
+  return (
+    <ReferenceContext.Provider
+      value={
+        desk
+          ? {
+              ...desk,
+              activate: (id, roll, region) => {
+                onNavigate();
+                desk.activate(id, roll, region);
+              },
+            }
+          : null
+      }
+    >
+      {children}
+    </ReferenceContext.Provider>
+  );
+}

@@ -1,3 +1,4 @@
+import { usePlayToolState } from './usePlayToolState';
 import { useId, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,23 +22,32 @@ export function DungeonActionMoves({
   threatRating,
   region = 'sarkash',
   registry,
+  allowedActions = DUNGEON_ACTIONS.map((a) => a.id),
 }: {
   threatRating: 9 | 12 | 15;
   region?: RegionId;
   registry: OracleRegistry;
+  allowedActions?: readonly DungeonAction[];
 }) {
   const uid = useId();
   const desk = useReferenceDesk();
-  const [action, setAction] = useState<DungeonAction>('search');
-  const [modifier, setModifier] = useState('0'),
-    [enemies, setEnemies] = useState('1'),
+  const stateKey = 'dungeon-action:' + allowedActions.join(',') + ':';
+  const [action, setAction] = usePlayToolState<DungeonAction>(
+    stateKey + 'action',
+    allowedActions[0] ?? 'search',
+  );
+  const [modifier, setModifier] = usePlayToolState(stateKey + 'modifier', '0'),
+    [enemies, setEnemies] = usePlayToolState(stateKey + 'enemies', '1'),
     [customDR, setCustomDR] = useState('12');
   const [loud, setLoud] = useState(false),
     [lockpick, setLockpick] = useState(false),
     [enemyState, setEnemyState] = useState<
       'normal' | 'preoccupied' | 'alerted'
     >('normal');
-  const [result, setResult] = useState<DungeonActionResult>(),
+  const [result, setResult] = usePlayToolState<DungeonActionResult | undefined>(
+      stateKey + 'result',
+      undefined,
+    ),
     [error, setError] = useState('');
   const entry = DUNGEON_ACTIONS.find((a) => a.id === action)!;
   const input: DungeonActionInput = {
@@ -62,7 +72,11 @@ export function DungeonActionMoves({
   }
   return (
     <details className="inline-tools dungeon-action-moves" open>
-      <summary>도망 · 탐색 · 휴식 · 위험 판정</summary>
+      <summary>
+        {allowedActions.length <= 2
+          ? '행동 판정'
+          : '도망 · 탐색 · 휴식 · 위험 판정'}
+      </summary>
       <div className="procedure-controls">
         <label htmlFor={`${uid}-action`}>
           행동
@@ -75,11 +89,13 @@ export function DungeonActionMoves({
               setError('');
             }}
           >
-            {DUNGEON_ACTIONS.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.title}
-              </option>
-            ))}
+            {DUNGEON_ACTIONS.filter((a) => allowedActions.includes(a.id)).map(
+              (a) => (
+                <option key={a.id} value={a.id}>
+                  {a.title}
+                </option>
+              ),
+            )}
           </select>
         </label>
         {action !== 'noise' && (
@@ -180,7 +196,7 @@ export function DungeonActionMoves({
           결과를 피합니다.
         </p>
       )}
-      {rest && (
+      {rest && result?.outcome === 'fail' && (
         <Button onClick={() => roll(true)}>
           방해 후 휴식 · Strong / Weak 50:50
         </Button>

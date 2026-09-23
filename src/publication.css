@@ -2385,6 +2385,9 @@ body,
   }
 }
 @container dungeon-preparation (max-width: 41.99rem) {
+  .dungeon-preparation-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .dungeon-preparation-fields > section,
   .dungeon-preparation-fields > section[data-preparation-field^='special'] {
     grid-column: 1 / -1;

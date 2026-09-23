@@ -1,3 +1,10 @@
+import { MythicListTables, type ListSelection } from './MythicListTables';
+import { mythicListsStore } from '../storage/notebookTools';
+import {
+  mythicFocusList,
+  rollMythicList,
+  type MythicListKind,
+} from '../domain/mythicLists';
 import { SourceDisclosure } from './SourceDisclosure';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { Translation } from './Translation';
@@ -35,6 +42,7 @@ import { PrivateDataTools } from './PrivateDataTools';
 
 interface Props {
   open: boolean;
+  listRequest?: number;
   onOpenChange: (open: boolean) => void;
   state: MythicState;
   onStateChange?: (state: MythicState) => void;
@@ -42,6 +50,7 @@ interface Props {
 }
 export function MythicPanel({
   open,
+  listRequest = 0,
   onOpenChange,
   state: initialState,
   onStateChange,
@@ -51,8 +60,21 @@ export function MythicPanel({
     ...initialState,
     history: [],
   }));
+  const lists = mythicListsStore.use();
+  const [listView, setListView] = useState({
+    request: listRequest,
+    open: listRequest > 0,
+  });
+  const listsOpen = listView.request !== listRequest || listView.open;
+  const setListsOpen = (open: boolean) =>
+    setListView({ request: listRequest, open });
+  const [listResult, setListResult] = useState<ListSelection | null>(null);
+  function drawList(kind: MythicListKind) {
+    setListResult({ kind, draw: rollMythicList(lists.value[kind]) });
+    setListsOpen(true);
+  }
   const [wide, setWide] = useState(
-    () => window.matchMedia('(min-width: 1600px)').matches,
+    () => window.matchMedia('(min-width: 1100px)').matches,
   );
   const [chaosDraft, setChaosDraft] = useState<{
     basis: number;
@@ -78,7 +100,7 @@ export function MythicPanel({
       ? fateCell(chartState.chart, state.odds, state.chaosFactor)
       : null;
   useEffect(() => {
-    const media = window.matchMedia('(min-width: 1600px)');
+    const media = window.matchMedia('(min-width: 1100px)');
     const change = () => setWide(media.matches);
     media.addEventListener('change', change);
     return () => media.removeEventListener('change', change);
@@ -152,6 +174,13 @@ export function MythicPanel({
     >
       <DialogContent
         id="mythic-panel"
+        onClick={(event) => {
+          if (
+            !wide &&
+            (event.target as HTMLElement).closest('[data-relationship-target]')
+          )
+            onOpenChange(false);
+        }}
         className="fate-panel translate-x-0 translate-y-0"
         showOverlay={!wide}
         initialFocus={questionRef}
@@ -222,322 +251,365 @@ export function MythicPanel({
         </section>
         <fieldset className="fate-tabs" aria-label="Mythic 판정 종류">
           <Button
-            className={'btn ' + (state.tab === 'fate' ? 'primary' : '')}
-            aria-pressed={state.tab === 'fate'}
+            className={
+              'btn ' + (!listsOpen && state.tab === 'fate' ? 'primary' : '')
+            }
+            aria-pressed={!listsOpen && state.tab === 'fate'}
             onClick={() => {
               change((s) => {
                 s.tab = 'fate';
               });
+              setListsOpen(false);
               setSelectedId(null);
             }}
           >
             Yes / No
           </Button>
           <Button
-            className={'btn ' + (state.tab === 'scene' ? 'primary' : '')}
-            aria-pressed={state.tab === 'scene'}
+            className={
+              'btn ' + (!listsOpen && state.tab === 'scene' ? 'primary' : '')
+            }
+            aria-pressed={!listsOpen && state.tab === 'scene'}
             onClick={() => {
               change((s) => {
                 s.tab = 'scene';
               });
+              setListsOpen(false);
               setSelectedId(null);
             }}
           >
             장면 판정
           </Button>
+          <Button
+            className={'btn ' + (listsOpen ? 'primary' : '')}
+            aria-pressed={listsOpen}
+            onClick={() => setListsOpen(true)}
+          >
+            인물 · 스레드
+          </Button>
         </fieldset>
-        <form
-          className="fate-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (inputValid) performRoll();
-          }}
-        >
-          <label htmlFor="fate-question">
-            {state.tab === 'fate' ? '질문' : '예상하는 다음 장면'}{' '}
-            <span>선택 입력</span>
-          </label>
-          <Textarea
-            id="fate-question"
-            ref={questionRef}
-            value={state.tab === 'fate' ? state.question : state.scene}
-            placeholder={
-              state.tab === 'fate'
-                ? '문 너머에 누군가 있는가?'
-                : '다음 장면은 어떻게 시작할까요?'
-            }
-            onChange={(e) =>
-              change((s) => {
-                if (s.tab === 'fate') s.question = e.target.value;
-                else s.scene = e.target.value;
-              })
-            }
-            onKeyDown={(e) => {
-              if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                e.preventDefault();
-                if (!rollBlocked && inputValid) performRoll();
-              }
-            }}
+        {listsOpen ? (
+          <MythicListTables
+            result={listResult}
+            onRoll={drawList}
+            onResult={setListResult}
           />
-          {state.tab === 'fate' && (
-            <>
-              <div className="fate-options">
-                <label>
-                  YES일 가능성 · ODDS
-                  <select
-                    aria-label="Fate Odds"
-                    value={state.odds}
-                    onChange={(e) =>
-                      change((s) => {
-                        s.odds = e.target.value as MythicState['odds'];
-                      })
-                    }
-                  >
-                    {FATE_ODDS.map((o) => (
-                      <option key={o.id} value={o.id}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label>
-                  판정 방식
-                  <select
-                    aria-label="Fate 판정 방식"
-                    value={state.method}
-                    onChange={(e) =>
-                      change((s) => {
-                        s.method = e.target.value as MythicState['method'];
-                      })
-                    }
-                  >
-                    <option value="chart">Fate Chart · d100</option>
-                    <option value="check">Fate Check · 2d10</option>
-                  </select>
-                </label>
-              </div>
-              {state.method === 'chart' && cell && (
-                <div className="fate-thresholds" aria-label="Fate Chart 범위">
-                  <span>
-                    <strong>{cell.yes}%</strong> YES 확률 · CF{' '}
-                    {state.chaosFactor}
-                  </span>
-                  <span>
-                    Exceptional Yes{' '}
-                    {cell.exceptionalYes === null
-                      ? '없음'
-                      : '1–' + cell.exceptionalYes}
-                    <br />
-                    Exceptional No{' '}
-                    {cell.exceptionalNo === null
-                      ? '없음'
-                      : cell.exceptionalNo + '–100'}
-                  </span>
+        ) : (
+          <>
+            <form
+              className="fate-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (inputValid) performRoll();
+              }}
+            >
+              <label htmlFor="fate-question">
+                {state.tab === 'fate' ? '질문' : '예상하는 다음 장면'}{' '}
+                <span>선택 입력</span>
+              </label>
+              <Textarea
+                id="fate-question"
+                ref={questionRef}
+                value={state.tab === 'fate' ? state.question : state.scene}
+                placeholder={
+                  state.tab === 'fate'
+                    ? '문 너머에 누군가 있는가?'
+                    : '다음 장면은 어떻게 시작할까요?'
+                }
+                onChange={(e) =>
+                  change((s) => {
+                    if (s.tab === 'fate') s.question = e.target.value;
+                    else s.scene = e.target.value;
+                  })
+                }
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!rollBlocked && inputValid) performRoll();
+                  }
+                }}
+              />
+              {state.tab === 'fate' && (
+                <>
+                  <div className="fate-options">
+                    <label>
+                      YES일 가능성 · ODDS
+                      <select
+                        aria-label="Fate Odds"
+                        value={state.odds}
+                        onChange={(e) =>
+                          change((s) => {
+                            s.odds = e.target.value as MythicState['odds'];
+                          })
+                        }
+                      >
+                        {FATE_ODDS.map((o) => (
+                          <option key={o.id} value={o.id}>
+                            {o.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      판정 방식
+                      <select
+                        aria-label="Fate 판정 방식"
+                        value={state.method}
+                        onChange={(e) =>
+                          change((s) => {
+                            s.method = e.target.value as MythicState['method'];
+                          })
+                        }
+                      >
+                        <option value="chart">Fate Chart · d100</option>
+                        <option value="check">Fate Check · 2d10</option>
+                      </select>
+                    </label>
+                  </div>
+                  {state.method === 'chart' && cell && (
+                    <div
+                      className="fate-thresholds"
+                      aria-label="Fate Chart 범위"
+                    >
+                      <span>
+                        <strong>{cell.yes}%</strong> YES 확률 · CF{' '}
+                        {state.chaosFactor}
+                      </span>
+                      <span>
+                        Exceptional Yes{' '}
+                        {cell.exceptionalYes === null
+                          ? '없음'
+                          : '1–' + cell.exceptionalYes}
+                        <br />
+                        Exceptional No{' '}
+                        {cell.exceptionalNo === null
+                          ? '없음'
+                          : cell.exceptionalNo + '–100'}
+                      </span>
+                    </div>
+                  )}
+                  {isCheck && (
+                    <p className="fate-hint">
+                      2d10 보정{' '}
+                      {checkModifier(state.odds, state.chaosFactor) >= 0
+                        ? '+'
+                        : ''}
+                      {checkModifier(state.odds, state.chaosFactor)} · 합계 11
+                      이상 Yes
+                      <br />
+                      예외는 보정 후 2–4 / 18–20 안에서만 적용합니다.
+                    </p>
+                  )}
+                </>
+              )}
+              {state.tab === 'scene' && (
+                <p className="fate-hint">
+                  d10이 Chaos보다 높으면 Expected. 이하이면 홀수는 Altered,
+                  짝수는 Interrupt입니다.
+                </p>
+              )}
+              <label className="fate-manual">
+                <input
+                  type="checkbox"
+                  checked={manual}
+                  onChange={(e) => setManual(e.target.checked)}
+                />{' '}
+                직접 굴린 주사위 입력
+              </label>
+              {manual && (
+                <div className="fate-manual-dice">
+                  <label htmlFor="fate-die-1">
+                    {isCheck
+                      ? '첫 번째 d10'
+                      : state.tab === 'scene'
+                        ? 'd10'
+                        : 'd100'}
+                    <Input
+                      id="fate-die-1"
+                      aria-label="첫 번째 주사위"
+                      type="number"
+                      min={1}
+                      max={state.tab === 'fate' && !isCheck ? 100 : 10}
+                      step={1}
+                      required
+                      value={diceA}
+                      onChange={(e) => setDiceA(e.target.value)}
+                    />
+                  </label>
+                  {isCheck && (
+                    <label htmlFor="fate-die-2">
+                      두 번째 d10
+                      <Input
+                        id="fate-die-2"
+                        aria-label="두 번째 주사위"
+                        type="number"
+                        min={1}
+                        max={10}
+                        step={1}
+                        required
+                        value={diceB}
+                        onChange={(e) => setDiceB(e.target.value)}
+                      />
+                    </label>
+                  )}
+                  <small>
+                    {state.tab === 'fate' && !isCheck
+                      ? '00은 100으로 입력하세요.'
+                      : 'd10의 0 표시는 10으로 입력하세요.'}
+                  </small>
                 </div>
               )}
-              {isCheck && (
-                <p className="fate-hint">
-                  2d10 보정{' '}
-                  {checkModifier(state.odds, state.chaosFactor) >= 0 ? '+' : ''}
-                  {checkModifier(state.odds, state.chaosFactor)} · 합계 11 이상
-                  Yes
-                  <br />
-                  예외는 보정 후 2–4 / 18–20 안에서만 적용합니다.
-                </p>
+              {rollBlocked && (
+                <div className="fate-error" aria-live="polite">
+                  <p>
+                    {chartState.loading
+                      ? '원문 Fate Chart를 불러오는 중…'
+                      : chartState.error}
+                  </p>
+                  {!chartState.loading && <PrivateDataTools />}
+                  <Button
+                    type="button"
+                    className="btn small"
+                    onClick={() => void loadFateChart()}
+                  >
+                    자료 다시 불러오기
+                  </Button>
+                </div>
               )}
-            </>
-          )}
-          {state.tab === 'scene' && (
-            <p className="fate-hint">
-              d10이 Chaos보다 높으면 Expected. 이하이면 홀수는 Altered, 짝수는
-              Interrupt입니다.
-            </p>
-          )}
-          <label className="fate-manual">
-            <input
-              type="checkbox"
-              checked={manual}
-              onChange={(e) => setManual(e.target.checked)}
-            />{' '}
-            직접 굴린 주사위 입력
-          </label>
-          {manual && (
-            <div className="fate-manual-dice">
-              <label htmlFor="fate-die-1">
-                {isCheck
-                  ? '첫 번째 d10'
-                  : state.tab === 'scene'
-                    ? 'd10'
-                    : 'd100'}
-                <Input
-                  id="fate-die-1"
-                  aria-label="첫 번째 주사위"
-                  type="number"
-                  min={1}
-                  max={state.tab === 'fate' && !isCheck ? 100 : 10}
-                  step={1}
-                  required
-                  value={diceA}
-                  onChange={(e) => setDiceA(e.target.value)}
-                />
-              </label>
-              {isCheck && (
-                <label htmlFor="fate-die-2">
-                  두 번째 d10
-                  <Input
-                    id="fate-die-2"
-                    aria-label="두 번째 주사위"
-                    type="number"
-                    min={1}
-                    max={10}
-                    step={1}
-                    required
-                    value={diceB}
-                    onChange={(e) => setDiceB(e.target.value)}
-                  />
-                </label>
-              )}
-              <small>
-                {state.tab === 'fate' && !isCheck
-                  ? '00은 100으로 입력하세요.'
-                  : 'd10의 0 표시는 10으로 입력하세요.'}
-              </small>
-            </div>
-          )}
-          {rollBlocked && (
-            <div className="fate-error" aria-live="polite">
-              <p>
-                {chartState.loading
-                  ? '원문 Fate Chart를 불러오는 중…'
-                  : chartState.error}
-              </p>
-              {!chartState.loading && <PrivateDataTools />}
               <Button
-                type="button"
-                className="btn small"
-                onClick={() => void loadFateChart()}
+                type="submit"
+                className="btn primary fate-roll"
+                disabled={rollBlocked || !inputValid}
               >
-                자료 다시 불러오기
+                <Dices size={18} />
+                {manual
+                  ? '입력한 값으로 판정'
+                  : state.tab === 'fate'
+                    ? 'ROLL FATE'
+                    : 'ROLL SCENE'}
               </Button>
-            </div>
-          )}
-          <Button
-            type="submit"
-            className="btn primary fate-roll"
-            disabled={rollBlocked || !inputValid}
-          >
-            <Dices size={18} />
-            {manual
-              ? '입력한 값으로 판정'
-              : state.tab === 'fate'
-                ? 'ROLL FATE'
-                : 'ROLL SCENE'}
-          </Button>
-        </form>
-        {error && (
-          <p className="fate-error" role="alert">
-            {error}
-          </p>
-        )}
-        {reading && (
-          <section
-            className="fate-result"
-            aria-label="Mythic 판정 결과"
-            aria-live="polite"
-          >
-            <p className="fate-result-question">
-              {reading.question ||
-                (reading.kind === 'fate' ? 'Fate Question' : 'Scene Check')}
-            </p>
-            <h3 className={'answer-' + reading.answer}>
-              {FATE_ANSWERS[reading.answer]}
-            </h3>
-            <p className="fate-roll-detail">
-              {fateRollLabel(reading)} · CF {reading.chaosFactor}
-              {reading.kind === 'fate'
-                ? ' · ' + FATE_ODDS.find((o) => o.id === reading.odds)!.label
-                : ''}{' '}
-              · {reading.input === 'manual' ? '직접 입력' : '자동 굴림'}
-            </p>
-            {reading.randomEvent && (
-              <div className="fate-event">
-                <strong>Random Event</strong>
-                <p>
-                  {reading.kind === 'scene'
-                    ? 'Interrupt Scene의 사건을 정하세요.'
-                    : 'Yes/No 결과와 함께 무작위 사건이 발생합니다.'}
-                </p>
-                <Button
-                  className="btn small"
-                  onClick={() => eventClues(reading)}
-                >
-                  {reading.event ? '사건 단서 다시 굴리기' : '사건 단서 굴리기'}
-                </Button>
-                {reading.event?.rolls.map((r, i) => (
-                  <div key={i}>
-                    <small>
-                      {r.title} · {r.roll}
-                    </small>
-                    <p>{r.text}</p>
-                    <ReferenceNextSteps
-                      metadata={r.metadata}
-                      tableId={r.oracleId}
-                    />
-                    <Translation
-                      text={r.text}
-                      translation={
-                        typeof r.metadata?.ko === 'string'
-                          ? r.metadata.ko
-                          : undefined
-                      }
-                    />
-                    <SourceDisclosure source={r.source} />
-                  </div>
-                ))}
-              </div>
-            )}
-            <ReferenceNextSteps
-              ids={
-                reading.answer === 'altered'
-                  ? ['rule:mythic.altered-scene']
-                  : []
-              }
-            />
-            <SourceDisclosure label="원문 출처 / 판정 규칙">
-              <p>{fateSource(reading)}</p>
-              <p>
-                Chaos: PDF 22,115쪽. Random Event: PDF 187쪽. Fate Chart의 100은
-                doubles 사건이 아닙니다. 판정 자체로 Chaos를 자동 변경하지
-                않습니다.
+            </form>
+            {error && (
+              <p className="fate-error" role="alert">
+                {error}
               </p>
-            </SourceDisclosure>
-          </section>
+            )}
+            {reading && (
+              <section
+                className="fate-result"
+                aria-label="Mythic 판정 결과"
+                aria-live="polite"
+              >
+                <p className="fate-result-question">
+                  {reading.question ||
+                    (reading.kind === 'fate' ? 'Fate Question' : 'Scene Check')}
+                </p>
+                <h3 className={'answer-' + reading.answer}>
+                  {FATE_ANSWERS[reading.answer]}
+                </h3>
+                <p className="fate-roll-detail">
+                  {fateRollLabel(reading)} · CF {reading.chaosFactor}
+                  {reading.kind === 'fate'
+                    ? ' · ' +
+                      FATE_ODDS.find((o) => o.id === reading.odds)!.label
+                    : ''}{' '}
+                  · {reading.input === 'manual' ? '직접 입력' : '자동 굴림'}
+                </p>
+                {reading.randomEvent && (
+                  <div className="fate-event">
+                    <strong>Random Event</strong>
+                    <p>
+                      {reading.kind === 'scene'
+                        ? 'Interrupt Scene의 사건을 정하세요.'
+                        : 'Yes/No 결과와 함께 무작위 사건이 발생합니다.'}
+                    </p>
+                    <Button
+                      className="btn small"
+                      onClick={() => eventClues(reading)}
+                    >
+                      {reading.event
+                        ? '사건 단서 다시 굴리기'
+                        : '사건 단서 굴리기'}
+                    </Button>
+                    {reading.event?.rolls.map((r, i) => (
+                      <div key={i}>
+                        <small>
+                          {r.title} · {r.roll}
+                        </small>
+                        <p>{r.text}</p>
+                        {r.oracleId === 'mythic2.random-event-focus-table' &&
+                          mythicFocusList(r.roll) && (
+                            <Button
+                              className="btn small"
+                              onClick={() => drawList(mythicFocusList(r.roll)!)}
+                            >
+                              {mythicFocusList(r.roll) === 'characters'
+                                ? '인물'
+                                : '스레드'}{' '}
+                              목록에서 대상 뽑기
+                            </Button>
+                          )}
+                        <ReferenceNextSteps
+                          metadata={r.metadata}
+                          tableId={r.oracleId}
+                        />
+                        <Translation
+                          text={r.text}
+                          translation={
+                            typeof r.metadata?.ko === 'string'
+                              ? r.metadata.ko
+                              : undefined
+                          }
+                        />
+                        <SourceDisclosure source={r.source} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <ReferenceNextSteps
+                  ids={
+                    reading.answer === 'altered'
+                      ? ['rule:mythic.altered-scene']
+                      : []
+                  }
+                />
+                <SourceDisclosure label="원문 출처 / 판정 규칙">
+                  <p>{fateSource(reading)}</p>
+                  <p>
+                    Chaos: PDF 22,115쪽. Random Event: PDF 187쪽. Fate Chart의
+                    100은 doubles 사건이 아닙니다. 판정 자체로 Chaos를 자동
+                    변경하지 않습니다.
+                  </p>
+                </SourceDisclosure>
+              </section>
+            )}
+            <section className="fate-history" aria-label="최근 Mythic 판정">
+              <h3>
+                최근 판정 <small>최대 20개 · 현재 탭</small>
+              </h3>
+              {!history.length && <p>질문을 적거나 바로 주사위를 굴리세요.</p>}
+              {history.map((r) => (
+                <button
+                  key={r.id}
+                  className={reading?.id === r.id ? 'selected' : ''}
+                  onClick={() => setSelectedId(r.id)}
+                >
+                  <span>
+                    {r.question ||
+                      (r.kind === 'fate' ? 'Fate Question' : 'Scene Check')}
+                  </span>
+                  <strong>
+                    {FATE_ANSWERS[r.answer]}
+                    {r.randomEvent ? ' · Event' : ''}
+                  </strong>
+                  <small>
+                    CF {r.chaosFactor} · {fateRollLabel(r)}
+                  </small>
+                </button>
+              ))}
+            </section>
+          </>
         )}
-        <section className="fate-history" aria-label="최근 Mythic 판정">
-          <h3>
-            최근 판정 <small>최대 20개 · 현재 탭</small>
-          </h3>
-          {!history.length && <p>질문을 적거나 바로 주사위를 굴리세요.</p>}
-          {history.map((r) => (
-            <button
-              key={r.id}
-              className={reading?.id === r.id ? 'selected' : ''}
-              onClick={() => setSelectedId(r.id)}
-            >
-              <span>
-                {r.question ||
-                  (r.kind === 'fate' ? 'Fate Question' : 'Scene Check')}
-              </span>
-              <strong>
-                {FATE_ANSWERS[r.answer]}
-                {r.randomEvent ? ' · Event' : ''}
-              </strong>
-              <small>
-                CF {r.chaosFactor} · {fateRollLabel(r)}
-              </small>
-            </button>
-          ))}
-        </section>
       </DialogContent>
     </Dialog>
   );

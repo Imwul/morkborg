@@ -1,0 +1,4 @@
+360: passed 11 feature visits and 6 integration groups
+768: passed 11 feature visits and 6 integration groups
+1440: passed 11 feature visits and 6 integration groups
+3440: passed 11 feature visits and 6 integration groups
