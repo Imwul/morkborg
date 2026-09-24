@@ -139,6 +139,13 @@ test('Search and old B/C pins all reach one complete monster roller without camp
   assert.equal(result.blocks.length, 1);
   assert.equal(result.blocks[0].kind, 'creature');
   assert.deepEqual(
+    result.blocks[0].creatureFields?.map(({ id, text }) => [id, text]),
+    [
+      ['stats', 'HP 8 · Morale 10 · Armor −d6 · Damage d4'],
+      ['appearance-stats', 'A appearance 3; B appearance 7; C appearance 10'],
+    ],
+  );
+  assert.deepEqual(
     result.sourceRefs.slice(0, 3).map((ref) => ref.tableId),
     FERETORY_TABLE_IDS,
   );

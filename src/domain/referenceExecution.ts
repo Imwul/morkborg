@@ -73,34 +73,65 @@ export function refsForOracle(
   });
 }
 function monsterBlocks(m: Monster): ReferenceReading['blocks'] {
+  const creatureFields = [
+    {
+      id: 'stats',
+      title: '능력치',
+      text: [
+        m.hp !== '' ? `HP ${m.hp}` : '',
+        m.morale ? `Morale ${m.morale}` : '',
+        m.armor ? `Armor ${m.armor}` : '',
+      ]
+        .filter(Boolean)
+        .join(' · '),
+    },
+    {
+      id: 'unavailable',
+      title: '자료 상태',
+      text:
+        m.fieldProvenance?.hp?.status === 'UNAVAILABLE'
+          ? 'SOURCE UNAVAILABLE · No independent creature stat block supplied.'
+          : '',
+    },
+    {
+      id: 'attacks',
+      title: '공격',
+      text: m.attacks
+        .map(
+          (a) =>
+            `${a.name} ${a.damage}${a.description ? ' · ' + a.description : ''}`,
+        )
+        .filter(Boolean)
+        .join('\n'),
+    },
+    {
+      id: 'special',
+      title: '특징 · 특수능력',
+      text: m.special
+        .map((s) => s.text)
+        .filter(Boolean)
+        .join('\n'),
+    },
+    {
+      id: 'weakness',
+      title: '약점',
+      text: m.weakness.map((s) => `Weakness: ${s.text}`).join('\n'),
+    },
+    {
+      id: 'loot',
+      title: '전리품',
+      text: m.loot.map((s) => `Loot: ${s.text}`).join('\n'),
+    },
+    { id: 'behavior', title: '행동', text: m.behavior },
+    { id: 'wants', title: '욕망', text: m.wants },
+    { id: 'description', title: '설명', text: m.description },
+  ].filter((field) => !!field.text);
   return [
     {
       title: m.name,
       kind: 'creature',
-      text: [
-        [
-          m.hp !== '' ? `HP ${m.hp}` : '',
-          m.morale ? `Morale ${m.morale}` : '',
-          m.armor ? `Armor ${m.armor}` : '',
-        ]
-          .filter(Boolean)
-          .join(' · '),
-        m.fieldProvenance?.hp?.status === 'UNAVAILABLE'
-          ? 'SOURCE UNAVAILABLE · No independent creature stat block supplied.'
-          : '',
-        ...m.attacks.map(
-          (a) =>
-            `${a.name} ${a.damage}${a.description ? ' · ' + a.description : ''}`,
-        ),
-        ...m.special.map((s) => s.text),
-        ...m.weakness.map((s) => `Weakness: ${s.text}`),
-        ...m.loot.map((s) => `Loot: ${s.text}`),
-        m.behavior,
-        m.wants,
-        m.description,
-      ]
-        .filter(Boolean)
-        .join('\n'),
+      text: creatureFields.map((field) => field.text).join('\n'),
+      creatureFields,
     },
   ];
 }
@@ -126,6 +157,10 @@ function creatureBlocks(
     ];
   return monsterBlocks(monster).map((block) => ({
     ...block,
+    creatureFields:
+      Array.isArray(preset.variants) && preset.variants.length
+        ? block.creatureFields?.filter((field) => field.id !== 'unavailable')
+        : block.creatureFields,
     text:
       Array.isArray(preset.variants) && preset.variants.length
         ? block.text.replace(/SOURCE UNAVAILABLE[^\n]*\n?/g, '')

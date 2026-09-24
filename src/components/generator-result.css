@@ -126,8 +126,7 @@
   font: 450 var(--text-secondary) / 1.5 var(--font-ui);
 }
 
-/* The book and EPK supply one creature block; keep source lines together while
-   giving stats, attacks and description the same ruled sheet treatment. */
+/* Each creature remains one source block with explicit, labelled field groups. */
 .reference-app
   .reference-page
   .reference-reading[data-generator-result]
@@ -166,7 +165,7 @@
   .reference-reading[data-generator-result]
   .reference-reading-items
   > section.creature-answer
-  > :is(p:not(.reference-result-dice), .reading-more) {
+  > .creature-reading-field {
   grid-column: auto;
   grid-row: auto;
   margin: 0;
@@ -177,22 +176,60 @@
 }
 
 .reference-app
-  .reference-page
-  .reference-reading[data-generator-result]
-  .creature-answer
-  .reading-more {
-  display: grid;
-  align-content: start;
-  gap: 0.5rem;
+  :is(.reference-reading, .inline-reading)
+  .creature-reading-field {
+  min-width: 0;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.75rem;
+  background: none;
 }
-
 .reference-app
-  .reference-page
-  .reference-reading[data-generator-result]
-  .creature-answer
-  .reading-more
+  :is(.reference-reading, .inline-reading)
+  .creature-reading-field
+  h4 {
+  margin: 0 0 0.5rem;
+  font: 700 var(--text-body) / 1.5 var(--font-ui);
+  color: var(--ink);
+}
+.reference-app
+  :is(.reference-reading, .inline-reading)
+  .creature-reading-field
   p {
-  margin: 0;
+  margin: 0 0 0.5rem;
+}
+.reference-app
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section.creature-answer
+  > .creature-reading-unstructured {
+  grid-column: 1 / -1;
+}
+.reference-app
+  .inline-reading-part.creature-answer:has(> .creature-reading-field) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1.5rem 2rem;
+}
+.reference-app
+  .inline-reading-part.creature-answer
+  > :is(strong, small, .creature-reading-unstructured) {
+  grid-column: 1 / -1;
+}
+.reference-app .inline-reading-part > .creature-reading-identity {
+  color: var(--ink);
+  font: 400 var(--text-section) / 1.4 var(--font-blackletter);
+}
+.reference-app .inline-reading-part.creature-answer .generated-translation {
+  margin: 0.25rem 0 0;
+  color: var(--muted-ink);
+  font: 450 var(--text-secondary) / 1.5 var(--font-ui);
+}
+.reference-app
+  .desk-open-page
+  .inline-reading
+  .creature-reading-field
+  .reference-result-text {
+  font: 400 var(--text-body) / 1.5 var(--font-blackletter);
 }
 
 @container generator-reading (max-width: 55.99rem) {
@@ -217,14 +254,6 @@
     > section.creature-answer {
     grid-column: 1 / -1;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .reference-app
-    .reference-page
-    .reference-reading[data-generator-result]
-    .reference-reading-items
-    > section.creature-answer
-    > .reading-more {
-    grid-column: 1 / -1;
   }
 }
 
@@ -254,7 +283,7 @@
     .reference-reading[data-generator-result]
     .reference-reading-items
     > section.creature-answer
-    > :is(p, .reading-more) {
+    > .creature-reading-field {
     grid-column: 1 / -1;
   }
 }

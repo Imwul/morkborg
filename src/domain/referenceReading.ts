@@ -11,6 +11,12 @@ export interface ReferenceTextBlock {
   /** App-authored language helper; canonical English remains the generator input. */
   translation?: { ko?: string; titleKo?: string };
 }
+/** Reading-only groups from the existing creature fields; text/copy stay intact. */
+export interface CreatureReadingField {
+  id: string;
+  title: string;
+  text: string;
+}
 export interface ReferenceReading {
   /** This tab's preparation choice/results, never Campaign, import or saved-reading data. */
   preparation?: {
@@ -34,6 +40,7 @@ export interface ReferenceReading {
   blocks: (ReferenceTextBlock & {
     dice?: string;
     kind?: 'creature';
+    creatureFields?: CreatureReadingField[];
     definitionReferenceId?: string;
   })[];
   copyContent?: { title: string; blocks: { title: string; text: string }[] };
@@ -62,6 +69,14 @@ export function feretoryResultBlock(
   return {
     title: 'The Monster Approaches',
     kind: 'creature',
+    creatureFields: [
+      { id: 'stats', title: '능력치', text: hp.text },
+      {
+        id: 'appearance-stats',
+        title: '외형',
+        text: appearance.map((roll) => roll!.text).join('; '),
+      },
+    ],
     text: [hp.text, appearance.map((roll) => roll!.text).join('; ')].join(
       '\n\n',
     ),

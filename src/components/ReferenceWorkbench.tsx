@@ -149,6 +149,7 @@ import { compactSourceText } from '../domain/sourceDisplay';
 import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { ResultReferenceLinks } from './ResultReferenceLinks';
+import { CreatureReadingFields } from './CreatureReadingFields';
 import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
 import {
@@ -1350,37 +1351,16 @@ export function ReferenceProvider({
                       >
                         {index.byId[block.definitionReferenceId].title} ›
                       </button>
-                    ) : block.kind === 'creature' &&
-                      block.text.split('\n').length > 2 ? (
-                      <>
-                        <ReferenceReadingText
-                          text={block.text.split('\n').slice(0, 2).join('\n')}
-                          translation={block.translation?.ko
-                            ?.split('\n')
-                            .slice(0, 2)
-                            .join('\n')}
-                          excludeId={selected.id}
-                          splitLines
-                        />
-                        <div className="reading-more">
-                          <ReferenceReadingText
-                            text={block.text.split('\n').slice(2).join('\n')}
-                            translation={block.translation?.ko
-                              ?.split('\n')
-                              .slice(2)
-                              .join('\n')}
-                            excludeId={selected.id}
-                            splitLines
-                          />
-                        </div>
-                      </>
+                    ) : block.kind === 'creature' ? (
+                      <CreatureReadingFields
+                        block={block}
+                        excludeId={selected.id}
+                      />
                     ) : (
                       <ReferenceReadingText
                         text={block.text}
                         resultText={
-                          !plainRule &&
-                          !reading.rareMonster &&
-                          block.kind !== 'creature'
+                          !plainRule && !reading.rareMonster
                             ? (source?.text ?? block.text)
                             : undefined
                         }

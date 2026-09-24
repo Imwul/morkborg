@@ -19,6 +19,7 @@ import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
 import { ReadingResultReferences } from './ResultReferenceLinks';
+import { CreatureReadingFields } from './CreatureReadingFields';
 
 export function ReferenceReadingBlock({
   reading,
@@ -33,6 +34,9 @@ export function ReferenceReadingBlock({
 }) {
   const [copyState, setCopyState] = useState('');
   const [fallback, setFallback] = useState('');
+  const creatureIdentityInBody = reading.blocks.some(
+    (block) => block.kind === 'creature' && block.title === reading.title,
+  );
   const { registry } = useOracleRegistry();
   const desk = useReferenceDesk();
   const sourceRows = [
@@ -77,10 +81,12 @@ export function ReferenceReadingBlock({
   return (
     <article className="inline-reading" aria-label={reading.title}>
       <header>
-        <h4>
-          {reading.title}
-          <Translation text={reading.title} />
-        </h4>
+        {!creatureIdentityInBody && (
+          <h4>
+            {reading.title}
+            <Translation text={reading.title} />
+          </h4>
+        )}
         <div className="inline-actions">
           {onReroll && (
             <Button size="sm" variant="outline" onClick={onReroll}>
@@ -120,15 +126,22 @@ export function ReferenceReadingBlock({
                 : 'inline-reading-part'
             }
           >
-            {block.title && block.title !== reading.title && (
-              <strong>
-                <ReferenceLinkedText text={block.title} />
-                <Translation
-                  text={block.title}
-                  translation={block.translation?.titleKo}
-                />
-              </strong>
-            )}
+            {block.title &&
+              (block.title !== reading.title || block.kind === 'creature') && (
+                <strong
+                  className={
+                    block.kind === 'creature'
+                      ? 'creature-reading-identity'
+                      : undefined
+                  }
+                >
+                  <ReferenceLinkedText text={block.title} />
+                  <Translation
+                    text={block.title}
+                    translation={block.translation?.titleKo}
+                  />
+                </strong>
+              )}
             {block.dice && <small>{block.dice}</small>}
             {roomSlot && block.text && hasPrivateRooms && (
               <small className="dungeon-room-provenance">
@@ -149,18 +162,18 @@ export function ReferenceReadingBlock({
                   </span>
                 </p>
               ))
+            ) : block.kind === 'creature' ? (
+              <CreatureReadingFields block={block} excludeId={referenceId} />
             ) : (
               <ReferenceReadingText
                 text={block.text}
                 resultText={
-                  block.dice &&
-                  !reading.rareMonster &&
-                  block.kind !== 'creature'
+                  block.dice && !reading.rareMonster
                     ? (source?.text ?? block.text)
                     : undefined
                 }
                 translation={block.translation?.ko}
-                splitLines={!!reading.rareMonster || block.kind === 'creature'}
+                splitLines={!!reading.rareMonster}
                 source={source}
               />
             )}
