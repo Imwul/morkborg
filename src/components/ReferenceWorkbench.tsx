@@ -739,16 +739,14 @@ export function ReferenceProvider({
     ['oracle', 'procedure', 'regional-monster', 'regional-table'].includes(
       selected.action?.kind ?? '',
     );
-  const generatorResultKind =
-    selected?.id === 'procedure:character.core-classless'
-      ? 'character'
-      : selected &&
-          [
-            'procedure:workbench.epk',
-            'procedure:feretory.monster-approaches',
-            'rule:feretory.monster-approaches',
-          ].includes(selected.id)
-        ? 'monster'
+  const generatorResultKind = selected?.id.startsWith('procedure:character.')
+    ? 'character'
+    : monsterReference ||
+        selected?.kind === 'creature' ||
+        selected?.id === 'oracle:feretory.A'
+      ? 'monster'
+      : selected?.kind === 'procedure' && (reading?.blocks.length ?? 0) > 1
+        ? 'fields'
         : undefined;
   async function copyReading(withSource = false) {
     if (!reading) return;
