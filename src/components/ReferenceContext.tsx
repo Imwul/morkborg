@@ -5,6 +5,8 @@ import type {
 } from '../domain/references';
 import type { RegionId } from '../domain/types';
 export interface DeskContext {
+  /** Derived destinations already visible under the current result. */
+  resultReferenceIds?: readonly string[];
   /** Current reader tool inputs/results; document-local, not saved play records. */
   toolState?: Map<string, unknown>;
   inlineChildren?: import('../domain/inlineReadingContinuity').InlineChildResults;

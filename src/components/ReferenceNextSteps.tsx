@@ -1,7 +1,11 @@
 import { useReferenceDesk } from './ReferenceContext';
 import { resolveRowRelationships } from '../domain/rowRelationships';
-import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
-import { RelationshipLabel } from './RelationshipLabel';
+import { useOracleRegistry } from '../storage/oracleStore';
+import {
+  rowResultRelationships,
+  type ResultRelationship,
+} from '../domain/resultRelationships';
+import { renderResultReferenceLinks } from './ResultReferenceLinks';
 /** Only explicit source outcome relations; no narrative inference or keyword routing. */
 export function ReferenceNextSteps({
   ids = [],
@@ -9,14 +13,17 @@ export function ReferenceNextSteps({
   tableId,
   lookups,
   contextLabel,
+  entryId,
 }: {
   ids?: string[];
   metadata?: Record<string, unknown>;
   tableId?: string;
   lookups?: { oracleId: string; roll: number }[];
   contextLabel?: string;
+  entryId?: string | null;
 }) {
   const desk = useReferenceDesk();
+  const { registry } = useOracleRegistry();
   const links = resolveRowRelationships(
     desk?.byId ?? {},
     {
@@ -36,32 +43,21 @@ export function ReferenceNextSteps({
     tableId,
     tableId ? undefined : (desk?.selectedId ?? undefined),
   );
-  if (!links.length) return null;
-  return (
-    <div className="ref-related reference-next-steps" aria-label="연결된 참조">
-      {contextLabel && <small>{contextLabel}</small>}
-      {links.map(({ entry, targetId, kind, lookupRoll }) => (
-        <button
-          key={`${lookupRoll == null ? entry.id : targetId}:${lookupRoll ?? 'open'}`}
-          data-relationship-target={entry.id}
-          data-relationship-kind={kind}
-          onClick={() =>
-            lookupRoll == null
-              ? desk?.activate(entry.id)
-              : desk?.openLookup?.({
-                  oracleId: targetId.replace(/^oracle:/, ''),
-                  roll: lookupRoll,
-                })
-          }
-        >
-          <RelationshipLabel kind={kind} />
-          <span>
-            {entry.title}
-            {lookupRoll == null ? '' : ` #${lookupRoll}`} ›
-            <ReferenceTitleTranslation entry={entry} />
-          </span>
-        </button>
-      ))}
-    </div>
-  );
+  const presented: ResultRelationship[] =
+    tableId && entryId
+      ? rowResultRelationships(desk?.byId ?? {}, registry, {
+          oracleId: tableId,
+          entryId,
+          metadata,
+        })
+      : links.map((edge) => ({
+          ...edge,
+          purpose:
+            edge.lookupRoll != null ||
+            edge.entry.kind === 'rule' ||
+            edge.entry.kind === 'book'
+              ? 'CONTEXT'
+              : 'AVAILABLE',
+        }));
+  return renderResultReferenceLinks(presented, desk, contextLabel);
 }

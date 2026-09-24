@@ -18,15 +18,18 @@ import { copyReadingWithInlineChildren } from '../domain/inlineReadingContinuity
 import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
+import { ReadingResultReferences } from './ResultReferenceLinks';
 
 export function ReferenceReadingBlock({
   reading,
   onReroll,
   onDismiss,
+  referenceId,
 }: {
   reading: ReferenceReading;
   onReroll?: () => void;
   onDismiss?: () => void;
+  referenceId?: string;
 }) {
   const [copyState, setCopyState] = useState('');
   const [fallback, setFallback] = useState('');
@@ -173,8 +176,9 @@ export function ReferenceReadingBlock({
           onFocus={(event) => event.target.select()}
         />
       )}
+      <ReadingResultReferences reading={reading} referenceId={referenceId} />
       <SourceDisclosure refs={reading.sourceRefs} evidence={reading.evidence} />
-      {!!reading.fixedLookups?.length && (
+      {!desk?.openLookup && !!reading.fixedLookups?.length && (
         <div className="inline-tool-buttons">
           <small>원문이 지정한 결과</small>
           {reading.fixedLookups.map((lookup) => (

@@ -544,6 +544,127 @@
 td > .reference-next-steps {
   contain: inline-size;
 }
+/* A small reading aid under the answer; no cards, completion state or progression. */
+.result-references {
+  display: grid;
+  gap: 12px;
+  margin-block: 18px 8px;
+  min-width: 0;
+}
+.reference-app .desk-open-page > .inline-reading:has(.result-references) {
+  display: flex;
+}
+.result-references .result-reference-group {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 8px 16px;
+  border: 0;
+  border-top: 1px solid var(--desk-rule, #d8d5cc);
+  padding: 10px 0 0;
+  margin: 0;
+  min-width: 0;
+}
+.result-reference-label {
+  font: 500 12px/1.5 var(--font-ui);
+  color: var(--muted-ink);
+}
+.result-reference-label b {
+  display: block;
+  font: 700 11px/1.5 var(--font-mono);
+  letter-spacing: 0.035em;
+}
+[data-purpose='REQUIRED'] > .result-reference-label {
+  color: var(--desk-result, #85382b);
+  border-left: 3px solid currentColor;
+  padding-left: 8px;
+}
+.result-references ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.result-references li {
+  margin: 0;
+  padding: 0;
+}
+.result-references .result-reference-group button {
+  display: grid;
+  gap: 3px;
+  min-height: 44px;
+  min-width: 0;
+  width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  font: 550 16px/1.4 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+.result-references button:hover > span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.result-references button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.result-references button small,
+.result-reference-origin {
+  color: var(--muted-ink);
+  font: 400 12px/1.5 var(--font-ui);
+}
+.result-references :is(.translation, .generated-translation) {
+  font: 400 13px/1.4 var(--font-ui);
+}
+@media (max-width: 600px) {
+  .result-references .result-reference-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .result-reference-label b {
+    display: inline;
+    margin-right: 6px;
+  }
+  /* Keep the answer and its first action together on a narrow reading page. */
+  .reference-app
+    .reference-page
+    .reference-roll-results:has(> .result-references)
+    .reference-reading-items
+    > section:only-child:has(.roll-value) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reference-app
+    .reference-page
+    .reference-roll-results:has(> .result-references)
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    > * {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .reference-app
+    .reference-page
+    .reference-roll-results:has(> .result-references)
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    .reference-result-dice
+    code {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .reference-app
+    .reference-page
+    .reference-roll-results:has(> .result-references)
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    .roll-value {
+    font-size: 2.75rem;
+    margin: 0;
+  }
+}
 .ref-related button {
   min-height: var(--control-height);
   padding: 8px 0;

@@ -236,6 +236,7 @@ export function ReferenceTable({
                     <ReferenceNextSteps
                       metadata={entry.metadata}
                       tableId={table.id}
+                      entryId={entry.id}
                     />
                     {canSelectTableEntry(table, entry) && (
                       <button

@@ -148,7 +148,8 @@ import { BookLabel, SourceText } from './SourceText';
 import { compactSourceText } from '../domain/sourceDisplay';
 import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
-import { ReferenceNextSteps } from './ReferenceNextSteps';
+import { ResultReferenceLinks } from './ResultReferenceLinks';
+import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
 import {
   ReferenceReadingText,
@@ -692,8 +693,20 @@ export function ReferenceProvider({
               (!query ||
                 entry.title.toLowerCase().includes(query.toLowerCase())),
           );
+  const resultLinks = readingResultRelationships(
+    index.byId,
+    oracles.registry,
+    reading,
+    selected?.id,
+  );
+  const resultLinkIds = new Set(resultLinks.map((link) => link.entry.id));
   const related = selected
-    ? relatedReferenceRelationships(index, relationships, selected.id, 8)
+    ? relatedReferenceRelationships(
+        index,
+        relationships,
+        selected.id,
+        8,
+      ).filter((link) => !resultLinkIds.has(link.entry.id))
     : [];
   const grouped =
     selected?.kind === 'region'
@@ -1430,18 +1443,7 @@ export function ReferenceProvider({
                 </button>
               </details>
             )}
-            {procedureId === 'depths.encounter-level' ? (
-              <ReferenceNextSteps ids={reading.relatedIds} />
-            ) : (
-              <ReadingRelatedReferences
-                reading={reading}
-                omitIds={[
-                  ...related.map(({ entry }) => entry.id),
-                  ...(selected.definition?.nextReferenceIds ?? []),
-                ]}
-              />
-            )}
-            <ReferenceNextSteps ids={selected.definition?.nextReferenceIds} />
+            <ResultReferenceLinks links={resultLinks} />
             {procedureId !== 'sd.dungeon-preparation' &&
               reading.oracle?.rolls.map((roll, n) => {
                 const table = oracles.registry.tables.find(
@@ -1452,15 +1454,6 @@ export function ReferenceProvider({
                 );
                 return (
                   <div key={n}>
-                    <ReferenceNextSteps
-                      metadata={roll.metadata}
-                      tableId={roll.oracleId}
-                      contextLabel={
-                        reading.oracle!.rolls.length > 1
-                          ? `${roll.title} · #${roll.roll}`
-                          : undefined
-                      }
-                    />
                     {table &&
                       entry &&
                       (selected.kind === 'oracle' ? (
@@ -1834,9 +1827,6 @@ export function ReferenceProvider({
           )}
         </div>
       )}
-      {!reading?.oracle && !!reading?.fixedLookups?.length && (
-        <ReferenceNextSteps lookups={reading.fixedLookups} />
-      )}
       {!inline && !!related.length && (
         <section
           className="ref-related ref-related-disclosure"
@@ -1889,6 +1879,7 @@ export function ReferenceProvider({
         setScope,
         trayIds: convenience.temporary.tray,
         readings,
+        resultReferenceIds: [...resultLinkIds],
         inlineChildren,
         onInlineChild: (parent, child) => {
           if (retainInlineChild(inlineChildren, parent, child))
@@ -2505,7 +2496,12 @@ export function ReferenceDesk({
       : groupReferenceResults(found, context);
   const relatedItems =
     selected && desk?.relationships
-      ? relatedReferenceRelationships(index, desk.relationships, selected.id, 8)
+      ? relatedReferenceRelationships(
+          index,
+          desk.relationships,
+          selected.id,
+          8,
+        ).filter((link) => !desk.resultReferenceIds?.includes(link.entry.id))
       : [];
   const relatedContent = !!relatedItems.length && (
     <section className="desk-related" aria-label="관련 참조">
@@ -2931,7 +2927,9 @@ function OpenReferencePage({ entry }: { entry: ReferenceEntry }) {
       {entry.id === 'rule:core.reaction-morale' && (
         <ReferenceDice initialCount={2} initialSides={6} compact />
       )}
-      {reading && <ReferenceReadingBlock reading={reading} />}
+      {reading && (
+        <ReferenceReadingBlock reading={reading} referenceId={entry.id} />
+      )}
       <div className="desk-open-page-body">
         {entry.action?.kind === 'rule' && !reading && (
           <ReferenceReadingText

@@ -1,0 +1,98 @@
+[
+  {
+    "width": 360,
+    "checks": [
+      "unrolled reference has no result follow-ups",
+      "weather instruction opens in 1 click without roll; Back restores origin result",
+      "Workbench exposes same row link, preserves parent and opens in 1 click",
+      "Pins and Recent are compatible; original reading survives child roll and Back",
+      "Dungeon common encounter opens its exact procedure in 1 click",
+      "reroll replaces row-specific actions; empty room has none",
+      "Danger NPC result distinguishes required Reaction −2 and optional NPC detail",
+      "Keyboard activation; combat Morale / crit-fumble / Broken and injury use source conditions without tracking HP",
+      "Reaction result survives multi-reference navigation; neutral reroll removes combat suggestion",
+      "Creature → Reaction is optional and opens without rerolling the cached outcome",
+      "Stash result uses its explicit paired NPC reference once",
+      "Fixed LOOKUP opens exact #54 with no random selection and returns to origin",
+      "No browser errors, horizontal overflow or campaign writes"
+    ],
+    "screenshots": [
+      "outputs/actionable-results/travel-result-360.png",
+      "outputs/actionable-results/danger-result-360.png",
+      "outputs/actionable-results/combat-conditions-360.png"
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "checks": [
+      "unrolled reference has no result follow-ups",
+      "weather instruction opens in 1 click without roll; Back restores origin result",
+      "Workbench exposes same row link, preserves parent and opens in 1 click",
+      "Pins and Recent are compatible; original reading survives child roll and Back",
+      "Dungeon common encounter opens its exact procedure in 1 click",
+      "reroll replaces row-specific actions; empty room has none",
+      "Danger NPC result distinguishes required Reaction −2 and optional NPC detail",
+      "Keyboard activation; combat Morale / crit-fumble / Broken and injury use source conditions without tracking HP",
+      "Reaction result survives multi-reference navigation; neutral reroll removes combat suggestion",
+      "Creature → Reaction is optional and opens without rerolling the cached outcome",
+      "Stash result uses its explicit paired NPC reference once",
+      "Fixed LOOKUP opens exact #54 with no random selection and returns to origin",
+      "No browser errors, horizontal overflow or campaign writes"
+    ],
+    "screenshots": [
+      "outputs/actionable-results/travel-result-768.png",
+      "outputs/actionable-results/danger-result-768.png",
+      "outputs/actionable-results/combat-conditions-768.png"
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "checks": [
+      "unrolled reference has no result follow-ups",
+      "weather instruction opens in 1 click without roll; Back restores origin result",
+      "Workbench exposes same row link, preserves parent and opens in 1 click",
+      "Pins and Recent are compatible; original reading survives child roll and Back",
+      "Dungeon common encounter opens its exact procedure in 1 click",
+      "reroll replaces row-specific actions; empty room has none",
+      "Danger NPC result distinguishes required Reaction −2 and optional NPC detail",
+      "Keyboard activation; combat Morale / crit-fumble / Broken and injury use source conditions without tracking HP",
+      "Reaction result survives multi-reference navigation; neutral reroll removes combat suggestion",
+      "Creature → Reaction is optional and opens without rerolling the cached outcome",
+      "Stash result uses its explicit paired NPC reference once",
+      "Fixed LOOKUP opens exact #54 with no random selection and returns to origin",
+      "No browser errors, horizontal overflow or campaign writes"
+    ],
+    "screenshots": [
+      "outputs/actionable-results/travel-result-1440.png",
+      "outputs/actionable-results/danger-result-1440.png",
+      "outputs/actionable-results/combat-conditions-1440.png"
+    ],
+    "errors": []
+  },
+  {
+    "width": 3440,
+    "checks": [
+      "unrolled reference has no result follow-ups",
+      "weather instruction opens in 1 click without roll; Back restores origin result",
+      "Workbench exposes same row link, preserves parent and opens in 1 click",
+      "Pins and Recent are compatible; original reading survives child roll and Back",
+      "Dungeon common encounter opens its exact procedure in 1 click",
+      "reroll replaces row-specific actions; empty room has none",
+      "Danger NPC result distinguishes required Reaction −2 and optional NPC detail",
+      "Keyboard activation; combat Morale / crit-fumble / Broken and injury use source conditions without tracking HP",
+      "Reaction result survives multi-reference navigation; neutral reroll removes combat suggestion",
+      "Creature → Reaction is optional and opens without rerolling the cached outcome",
+      "Stash result uses its explicit paired NPC reference once",
+      "Fixed LOOKUP opens exact #54 with no random selection and returns to origin",
+      "No browser errors, horizontal overflow or campaign writes"
+    ],
+    "screenshots": [
+      "outputs/actionable-results/travel-result-3440.png",
+      "outputs/actionable-results/danger-result-3440.png",
+      "outputs/actionable-results/combat-conditions-3440.png"
+    ],
+    "errors": []
+  }
+]
