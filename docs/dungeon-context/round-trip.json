@@ -1,0 +1,52 @@
+{
+  "before": {
+    "before": {
+      "details": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "scroll": 838,
+      "resultHash": "f0aa4b3ac4848e9f5cf91e25570337495ecc11eee7820202c4acae3282ac9270"
+    },
+    "after": {
+      "details": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "scroll": 838,
+      "focus": "<body>\n    <div id=\"root\"><div class=\"app reference-app\"><main class=\"content\" aria-label=\"MÖRK BORG Reference Desk\"><section class=\"reference-desk rdesk\" aria-label=\"Reference Des",
+      "resultHash": "f0aa4b3ac4848e9f5cf91e25570337495ecc11eee7820202c4acae3282ac9270"
+    }
+  },
+  "after": {
+    "before": {
+      "details": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "scroll": 977,
+      "resultHash": "f0aa4b3ac4848e9f5cf91e25570337495ecc11eee7820202c4acae3282ac9270"
+    },
+    "after": {
+      "details": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "scroll": 977,
+      "focus": "<button type=\"button\" data-relationship-target=\"oracle:core.reaction\" data-result-purpose=\"AVAILABLE\"><span>Reaction ›<span class=\"generated-translation\" lang=\"ko\">반응</span></span>",
+      "resultHash": "f0aa4b3ac4848e9f5cf91e25570337495ecc11eee7820202c4acae3282ac9270"
+    }
+  }
+}

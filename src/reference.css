@@ -545,6 +545,42 @@ td > .reference-next-steps {
   contain: inline-size;
 }
 /* A small reading aid under the answer; no cards, completion state or progression. */
+.dungeon-relevant {
+  margin: 1rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--desk-rule, #d8d5cc);
+  font-size: 0.875rem;
+}
+.dungeon-relevant > span {
+  color: var(--muted-ink, #666);
+  font-size: 0.75rem;
+}
+.dungeon-relevant ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.dungeon-relevant button {
+  min-height: 44px;
+  padding: 0.5rem 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.dungeon-relevant button small {
+  margin-left: 0.75rem;
+  color: var(--muted-ink, #666);
+  font-size: 0.75rem;
+}
+.dungeon-relevant button:hover {
+  text-decoration: underline;
+}
+.dungeon-relevant button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
 .result-references {
   display: grid;
   gap: 12px;

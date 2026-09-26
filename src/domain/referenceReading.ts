@@ -18,6 +18,8 @@ export interface CreatureReadingField {
   text: string;
 }
 export interface ReferenceReading {
+  /** Exact identity retained by the existing canonical creature resolver; never inferred from prose. */
+  creatureReferenceId?: string;
   /** This tab's preparation choice/results, never Campaign, import or saved-reading data. */
   preparation?: {
     roomSource: 'CORE' | 'DNGNGEN';

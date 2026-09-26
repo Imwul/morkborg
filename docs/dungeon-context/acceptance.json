@@ -1,0 +1,742 @@
+[
+  {
+    "width": 360,
+    "mode": "after",
+    "searches": [
+      "조우 후보",
+      "Room Contents",
+      "Searching Strong",
+      "Room Contents",
+      "조우 후보"
+    ],
+    "clicks": 37,
+    "backs": 6,
+    "checks": [
+      "Dungeon → source → Back retains result, settings details, scroll, focused link; no RNG/combat; 44px touch target",
+      "Another encounter replaces the source link",
+      "Existing corpse/treasure links reused; no invented links for trap, door, remains or empty room"
+    ],
+    "errors": [],
+    "trace": [
+      {
+        "action": "Dungeon"
+      },
+      {
+        "action": "crawl"
+      },
+      {
+        "action": "weak crawl"
+      },
+      {
+        "action": "room 1 description"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "room contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: rule:sd.stockCommon"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.reaction"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Searching Strong"
+      },
+      {
+        "action": "search result: oracle:sd.search.strong"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.corpsePlundering"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.treasures"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "return Dungeon map"
+      },
+      {
+        "action": "trap"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "exit"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "roll"
+      }
+    ],
+    "snapshots": [
+      {
+        "label": "room 1",
+        "id": "procedure:sd.room-description"
+      },
+      {
+        "label": "common encounter",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "common rule",
+        "id": "rule:sd.stockCommon"
+      },
+      {
+        "label": "Nodh encounter 1",
+        "id": "procedure:workbench.stock-room"
+      },
+      {
+        "label": "creature source",
+        "id": "creature:core:61:nodh"
+      },
+      {
+        "label": "room 2 ambiguous remains",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "corpse plunder",
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "label": "treasure",
+        "id": "oracle:core.treasures"
+      },
+      {
+        "label": "trap",
+        "id": "oracle:core.traps"
+      },
+      {
+        "label": "door",
+        "id": "oracle:reclvse.exitType"
+      },
+      {
+        "label": "room 3 empty",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "Nodh encounter 2",
+        "id": "procedure:workbench.stock-room"
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "mode": "after",
+    "searches": [
+      "조우 후보",
+      "Room Contents",
+      "Searching Strong",
+      "Room Contents",
+      "조우 후보"
+    ],
+    "clicks": 37,
+    "backs": 6,
+    "checks": [
+      "Dungeon → source → Back retains result, settings details, scroll, focused link; no RNG/combat; 44px touch target",
+      "Another encounter replaces the source link",
+      "Existing corpse/treasure links reused; no invented links for trap, door, remains or empty room"
+    ],
+    "errors": [],
+    "trace": [
+      {
+        "action": "Dungeon"
+      },
+      {
+        "action": "crawl"
+      },
+      {
+        "action": "weak crawl"
+      },
+      {
+        "action": "room 1 description"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "room contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: rule:sd.stockCommon"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.reaction"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Searching Strong"
+      },
+      {
+        "action": "search result: oracle:sd.search.strong"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.corpsePlundering"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.treasures"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "return Dungeon map"
+      },
+      {
+        "action": "trap"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "exit"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "roll"
+      }
+    ],
+    "snapshots": [
+      {
+        "label": "room 1",
+        "id": "procedure:sd.room-description"
+      },
+      {
+        "label": "common encounter",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "common rule",
+        "id": "rule:sd.stockCommon"
+      },
+      {
+        "label": "Nodh encounter 1",
+        "id": "procedure:workbench.stock-room"
+      },
+      {
+        "label": "creature source",
+        "id": "creature:core:61:nodh"
+      },
+      {
+        "label": "room 2 ambiguous remains",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "corpse plunder",
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "label": "treasure",
+        "id": "oracle:core.treasures"
+      },
+      {
+        "label": "trap",
+        "id": "oracle:core.traps"
+      },
+      {
+        "label": "door",
+        "id": "oracle:reclvse.exitType"
+      },
+      {
+        "label": "room 3 empty",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "Nodh encounter 2",
+        "id": "procedure:workbench.stock-room"
+      }
+    ]
+  },
+  {
+    "width": 1440,
+    "mode": "after",
+    "searches": [
+      "조우 후보",
+      "Room Contents",
+      "Searching Strong",
+      "Room Contents",
+      "조우 후보"
+    ],
+    "clicks": 37,
+    "backs": 6,
+    "checks": [
+      "Dungeon → source → Back retains result, settings details, scroll, focused link; no RNG/combat; 44px touch target",
+      "Another encounter replaces the source link",
+      "Existing corpse/treasure links reused; no invented links for trap, door, remains or empty room"
+    ],
+    "errors": [],
+    "trace": [
+      {
+        "action": "Dungeon"
+      },
+      {
+        "action": "crawl"
+      },
+      {
+        "action": "weak crawl"
+      },
+      {
+        "action": "room 1 description"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "room contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: rule:sd.stockCommon"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.reaction"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Searching Strong"
+      },
+      {
+        "action": "search result: oracle:sd.search.strong"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.corpsePlundering"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.treasures"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "return Dungeon map"
+      },
+      {
+        "action": "trap"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "exit"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "roll"
+      }
+    ],
+    "snapshots": [
+      {
+        "label": "room 1",
+        "id": "procedure:sd.room-description"
+      },
+      {
+        "label": "common encounter",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "common rule",
+        "id": "rule:sd.stockCommon"
+      },
+      {
+        "label": "Nodh encounter 1",
+        "id": "procedure:workbench.stock-room"
+      },
+      {
+        "label": "creature source",
+        "id": "creature:core:61:nodh"
+      },
+      {
+        "label": "room 2 ambiguous remains",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "corpse plunder",
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "label": "treasure",
+        "id": "oracle:core.treasures"
+      },
+      {
+        "label": "trap",
+        "id": "oracle:core.traps"
+      },
+      {
+        "label": "door",
+        "id": "oracle:reclvse.exitType"
+      },
+      {
+        "label": "room 3 empty",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "Nodh encounter 2",
+        "id": "procedure:workbench.stock-room"
+      }
+    ]
+  },
+  {
+    "width": 3440,
+    "mode": "after",
+    "searches": [
+      "조우 후보",
+      "Room Contents",
+      "Searching Strong",
+      "Room Contents",
+      "조우 후보"
+    ],
+    "clicks": 37,
+    "backs": 6,
+    "checks": [
+      "Dungeon → source → Back retains result, settings details, scroll, focused link; no RNG/combat; 44px touch target",
+      "Another encounter replaces the source link",
+      "Existing corpse/treasure links reused; no invented links for trap, door, remains or empty room"
+    ],
+    "errors": [],
+    "trace": [
+      {
+        "action": "Dungeon"
+      },
+      {
+        "action": "crawl"
+      },
+      {
+        "action": "weak crawl"
+      },
+      {
+        "action": "room 1 description"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "room contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: rule:sd.stockCommon"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.reaction"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Searching Strong"
+      },
+      {
+        "action": "search result: oracle:sd.search.strong"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.corpsePlundering"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "existing result link: oracle:core.treasures"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "return Dungeon map"
+      },
+      {
+        "action": "trap"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "exit"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: Room Contents"
+      },
+      {
+        "action": "search result: oracle:sd.room.contents"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "focus search: 조우 후보"
+      },
+      {
+        "action": "search result: procedure:workbench.stock-room"
+      },
+      {
+        "action": "roll"
+      },
+      {
+        "action": "context source: creature:core:61:nodh"
+      },
+      {
+        "action": "roll"
+      }
+    ],
+    "snapshots": [
+      {
+        "label": "room 1",
+        "id": "procedure:sd.room-description"
+      },
+      {
+        "label": "common encounter",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "common rule",
+        "id": "rule:sd.stockCommon"
+      },
+      {
+        "label": "Nodh encounter 1",
+        "id": "procedure:workbench.stock-room"
+      },
+      {
+        "label": "creature source",
+        "id": "creature:core:61:nodh"
+      },
+      {
+        "label": "room 2 ambiguous remains",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "corpse plunder",
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "label": "treasure",
+        "id": "oracle:core.treasures"
+      },
+      {
+        "label": "trap",
+        "id": "oracle:core.traps"
+      },
+      {
+        "label": "door",
+        "id": "oracle:reclvse.exitType"
+      },
+      {
+        "label": "room 3 empty",
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "label": "Nodh encounter 2",
+        "id": "procedure:workbench.stock-room"
+      }
+    ]
+  }
+]

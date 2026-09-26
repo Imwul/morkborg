@@ -22,6 +22,12 @@ import {
 } from '../domain/sourceSubtableFamilies';
 import { inlineSourceSubtable } from '../domain/inlineSourceSubtable';
 import { DungeonPreparation } from './DungeonPreparation';
+import { DungeonContextReferences } from './DungeonContextReferences';
+import {
+  captureReferenceView,
+  restoreReferenceView,
+  type ReferenceView,
+} from '../navigation/referenceView';
 import { usePrivateDngngen } from './usePrivateDngngen';
 import { usePrivateGenerator } from './usePrivateGenerator';
 import {
@@ -207,6 +213,10 @@ export function ReferenceProvider({
     Record<string, { table: boolean; scrollTop: number }>
   >({});
   const restoreScroll = useRef<number | null>(null);
+  const referenceViews = useRef(
+    new Map<string, { reading?: ReferenceReading; view: ReferenceView }>(),
+  );
+  const restoreView = useRef<ReferenceView | null>(null);
   const [session, setSession] = useState(emptyReferenceSession);
   const privateDngngen = usePrivateDngngen(
     selectedId === 'procedure:sd.dungeon-preparation' ||
@@ -257,12 +267,32 @@ export function ReferenceProvider({
   const inspectorRef = useRef<HTMLDivElement>(null);
   const pendingPhysicalRow = useRef<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  function rememberReferenceView() {
+    if (!selectedId || !inspectorRef.current) return;
+    referenceViews.current.delete(selectedId);
+    referenceViews.current.set(selectedId, {
+      reading: readings[selectedId],
+      view: captureReferenceView(inspectorRef.current),
+    });
+    if (referenceViews.current.size > 20)
+      referenceViews.current.delete(
+        referenceViews.current.keys().next().value!,
+      );
+  }
   useEffect(() => {
     if (searchOpen) searchInputRef.current?.focus();
   }, [searchOpen, scope]);
   useEffect(() => {
     inspectorRef.current?.scrollTo({ top: restoreScroll.current ?? 0 });
     restoreScroll.current = null;
+    const view = restoreView.current;
+    restoreView.current = null;
+    if (!view) return;
+    const frame = requestAnimationFrame(() => {
+      if (inspectorRef.current)
+        restoreReferenceView(inspectorRef.current, view);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [selectedId]);
   const selected = index.byId[selectedId ?? ''] ?? null;
   const subtableFamily = selected
@@ -495,6 +525,15 @@ export function ReferenceProvider({
       region,
     },
     (location) => {
+      rememberReferenceView();
+      const previousView = referenceViews.current.get(
+        location.selectedId ?? '',
+      );
+      restoreView.current =
+        location.selectedId !== selectedId &&
+        previousView?.reading === readings[location.selectedId ?? '']
+          ? (previousView?.view ?? null)
+          : null;
       if (selectedId)
         previousViews.current[selectedId] = {
           table: tableView,
@@ -584,6 +623,7 @@ export function ReferenceProvider({
   ) {
     const entry = index.byId[entryId];
     if (!entry) return;
+    if (entry.id !== selectedId) rememberReferenceView();
     convenience.setPanel(null);
     entryId = entry.id;
     if (contextRegion) setRegion(contextRegion);
@@ -1477,6 +1517,11 @@ export function ReferenceProvider({
                 </button>
               </details>
             )}
+            <DungeonContextReferences
+              reading={reading}
+              referenceId={selected.id}
+              visibleIds={[...resultLinkIds]}
+            />
             <ResultReferenceLinks links={resultLinks} />
             <ResultFollowThrough reading={reading} />
             {selected.kind !== 'rule' && (

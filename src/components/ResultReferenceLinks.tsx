@@ -1,6 +1,7 @@
 import type { DeskContext } from './ReferenceContext';
 import { useReferenceDesk } from './ReferenceContext';
 import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
+import { DungeonContextReferences } from './DungeonContextReferences';
 import { useOracleRegistry } from '../storage/oracleStore';
 import type { ReferenceReading } from '../domain/referenceReading';
 import {
@@ -98,13 +99,20 @@ export function ReadingResultReferences({
 }) {
   const desk = useReferenceDesk();
   const { registry } = useOracleRegistry();
-  return renderResultReferenceLinks(
-    readingResultRelationships(
-      desk?.byId ?? {},
-      registry,
-      reading,
-      referenceId,
-    ),
-    desk,
+  const links = readingResultRelationships(
+    desk?.byId ?? {},
+    registry,
+    reading,
+    referenceId,
+  );
+  return (
+    <>
+      <DungeonContextReferences
+        reading={reading}
+        referenceId={referenceId}
+        visibleIds={links.map((link) => link.entry.id)}
+      />
+      {renderResultReferenceLinks(links, desk)}
+    </>
   );
 }

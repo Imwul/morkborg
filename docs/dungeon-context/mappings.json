@@ -1,0 +1,512 @@
+[
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:core:58:bent",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:core:58:seth",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:feretory:feretory.epk.flayed-vultures",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:feretory:feretory.epk.antideer",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.mongrel",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.tveland.monsters",
+    "entryId": "depths.region.tveland.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:feretory:feretory.epk.feral-horses",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:feretory:feretory.epk.skelelk",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:core:61:nodh",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:feretory:feretory.epk.mulch-squirrels",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:feretory:feretory.epk.carrion-owls",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.mongrel",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.sarkash.monsters",
+    "entryId": "depths.region.sarkash.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:core:core.outcast.prowler",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:heretic:23:rotted-skeleton",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:core:61:nodh",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:core:core.outcast.pale-one",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:feretory:feretory.epk.giant-skull-moth",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:heretic:25:fogbound-skeleton",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.graven_tosk.monsters",
+    "entryId": "depths.region.graven_tosk.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:core:60:belze",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:core:58:seth",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.mongrel",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:heretic:25:fogbound-skeleton",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.dusk-gnoum",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:feretory:feretory.epk.blubber-gulls",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.kergus.monsters",
+    "entryId": "depths.region.kergus.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:core:core.outcast.earthbound",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:core:58:bent",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:core:58:bent",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:core:62:aland",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.guards-sharpened-teeth",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.mongrel",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.wastland.monsters",
+    "entryId": "depths.region.wastland.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:core:58:seth",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:feretory:feretory.epk.grubstopper",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": "creature:feretory:feretory.epk.gravelings",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:core:core.outcast.prowler",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:feretory:feretory.epk.phantom-rats",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:heretic:25:fogbound-skeleton",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.valley_unfortunate_undead.monsters",
+    "entryId": "depths.region.valley_unfortunate_undead.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:heretic:23:rotted-skeleton",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:feretory:feretory.epk.rusty-bass",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": "creature:feretory:feretory.epk.sursturgeon",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": "creature:core:core.outcast.earthbound",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.lake_onda.monsters",
+    "entryId": "depths.region.lake_onda.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:1-1",
+    "roll": 1,
+    "sourceReferenceId": "creature:core:62:aland",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:2-2",
+    "roll": 2,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:3-3",
+    "roll": 3,
+    "sourceReferenceId": "creature:core:60:belze",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:4-4",
+    "roll": 4,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:5-5",
+    "roll": 5,
+    "sourceReferenceId": null,
+    "evidence": null,
+    "related": []
+  },
+  {
+    "tableId": "depths.region.bergen_chrypt.monsters",
+    "entryId": "depths.region.bergen_chrypt.monsters:6-6",
+    "roll": 6,
+    "sourceReferenceId": "creature:core:core.outcast.earthbound",
+    "evidence": "existing canonical regional resolver → retained creatureReferenceId",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ]
+  }
+]

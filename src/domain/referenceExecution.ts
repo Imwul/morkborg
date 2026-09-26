@@ -303,6 +303,7 @@ export function executeReference(
     output = {
       title: entry.title,
       blocks: creatureBlocks(preset, monster),
+      creatureReferenceId: entry.id,
       sourceRefs: entry.sourceRefs,
       childReferenceIds: entry.childReferenceIds,
       valuationReferenceId: entry.valuationReferenceId,
@@ -346,6 +347,9 @@ export function executeReference(
     output = {
       title: entry.title,
       blocks,
+      ...(r.preset
+        ? { creatureReferenceId: creatureReferenceId(r.preset) }
+        : {}),
       childReferenceIds: r.preset ? creatureChildren(r.preset, rules) : [],
       // The complete printed route remains inspectable, separate from its mechanical display.
       oracle: { id: id(), title: r.reading.title, rolls: [r.reading] },

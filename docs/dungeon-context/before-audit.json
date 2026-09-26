@@ -1,0 +1,194 @@
+{
+  "searches": [
+    "조우 후보",
+    "Nodh",
+    "Room Contents",
+    "Searching Strong",
+    "Room Contents",
+    "조우 후보",
+    "Nodh"
+  ],
+  "clicks": 39,
+  "backs": 6,
+  "trace": [
+    {
+      "action": "Dungeon"
+    },
+    {
+      "action": "crawl"
+    },
+    {
+      "action": "weak crawl"
+    },
+    {
+      "action": "room 1 description"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "room contents"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "existing result link: rule:sd.stockCommon"
+    },
+    {
+      "action": "focus search: 조우 후보"
+    },
+    {
+      "action": "search result: procedure:workbench.stock-room"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "existing result link: oracle:core.reaction"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "focus search: Nodh"
+    },
+    {
+      "action": "search result: creature:core:61:nodh"
+    },
+    {
+      "action": "focus search: Room Contents"
+    },
+    {
+      "action": "search result: oracle:sd.room.contents"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "focus search: Searching Strong"
+    },
+    {
+      "action": "search result: oracle:sd.search.strong"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "existing result link: oracle:core.corpsePlundering"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "existing result link: oracle:core.treasures"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "return Dungeon map"
+    },
+    {
+      "action": "trap"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "exit"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "focus search: Room Contents"
+    },
+    {
+      "action": "search result: oracle:sd.room.contents"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "focus search: 조우 후보"
+    },
+    {
+      "action": "search result: procedure:workbench.stock-room"
+    },
+    {
+      "action": "roll"
+    },
+    {
+      "action": "focus search: Nodh"
+    },
+    {
+      "action": "search result: creature:core:61:nodh"
+    }
+  ],
+  "snapshots": [
+    {
+      "label": "room 1",
+      "id": "procedure:sd.room-description"
+    },
+    {
+      "label": "common encounter",
+      "id": "oracle:sd.room.contents"
+    },
+    {
+      "label": "common rule",
+      "id": "rule:sd.stockCommon"
+    },
+    {
+      "label": "Nodh encounter 1",
+      "id": "procedure:workbench.stock-room"
+    },
+    {
+      "label": "creature source",
+      "id": "creature:core:61:nodh"
+    },
+    {
+      "label": "room 2 ambiguous remains",
+      "id": "oracle:sd.room.contents"
+    },
+    {
+      "label": "corpse plunder",
+      "id": "oracle:core.corpsePlundering"
+    },
+    {
+      "label": "treasure",
+      "id": "oracle:core.treasures"
+    },
+    {
+      "label": "trap",
+      "id": "oracle:core.traps"
+    },
+    {
+      "label": "door",
+      "id": "oracle:reclvse.exitType"
+    },
+    {
+      "label": "room 3 empty",
+      "id": "oracle:sd.room.contents"
+    },
+    {
+      "label": "Nodh encounter 2",
+      "id": "procedure:workbench.stock-room"
+    }
+  ],
+  "width": 1440,
+  "baselineCommit": "0f5d6c5fc68df9cbdd3211c3de2248b0349af206",
+  "randomness": "Fixed canonical dice fractions supplied to browser crypto for repeatable comparison; production RNG unchanged.",
+  "repeatedSearches": 3,
+  "spatialPageDepartures": 2,
+  "contextFalsePositives": 0,
+  "missesWithoutNewEvidence": [
+    "sd.room.contents:2-2",
+    "sd.room.contents:3-3",
+    "sd.room.contents:10-10",
+    "reclvse.dressing:2-2"
+  ]
+}

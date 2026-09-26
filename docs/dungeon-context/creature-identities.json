@@ -1,0 +1,1237 @@
+[
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:58:seth"
+    },
+    "sourceReferenceId": "creature:core:58:seth",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:58:bent"
+    },
+    "sourceReferenceId": "creature:core:58:bent",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:59:zukuma"
+    },
+    "sourceReferenceId": "creature:core:59:zukuma",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:59:wrat"
+    },
+    "sourceReferenceId": "creature:core:59:wrat",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:60:belze"
+    },
+    "sourceReferenceId": "creature:core:60:belze",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:60:lich"
+    },
+    "sourceReferenceId": "creature:core:60:lich",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:60:arbint"
+    },
+    "sourceReferenceId": "creature:core:60:arbint",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:61:nodh"
+    },
+    "sourceReferenceId": "creature:core:61:nodh",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:61:lady-porcelain"
+    },
+    "sourceReferenceId": "creature:core:61:lady-porcelain",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:62:thinx"
+    },
+    "sourceReferenceId": "creature:core:62:thinx",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:62:aland"
+    },
+    "sourceReferenceId": "creature:core:62:aland",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:62:eulotha"
+    },
+    "sourceReferenceId": "creature:core:62:eulotha",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:60:the-bone-bowyer"
+    },
+    "sourceReferenceId": "creature:heretic:60:the-bone-bowyer",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:62:borg-bitor"
+    },
+    "sourceReferenceId": "creature:heretic:62:borg-bitor",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:64:rotten-nurse"
+    },
+    "sourceReferenceId": "creature:heretic:64:rotten-nurse",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:23:half-billed-raven"
+    },
+    "sourceReferenceId": "creature:heretic:23:half-billed-raven",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:23:rotted-skeleton"
+    },
+    "sourceReferenceId": "creature:heretic:23:rotted-skeleton",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:23:widow-wraith"
+    },
+    "sourceReferenceId": "creature:heretic:23:widow-wraith",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:23:unbred-mutt"
+    },
+    "sourceReferenceId": "creature:heretic:23:unbred-mutt",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:23:hungry-zombie"
+    },
+    "sourceReferenceId": "creature:heretic:23:hungry-zombie",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:25:fogbound-skeleton"
+    },
+    "sourceReferenceId": "creature:heretic:25:fogbound-skeleton",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:27:twice-grown-corpse-fly"
+    },
+    "sourceReferenceId": "creature:heretic:27:twice-grown-corpse-fly",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:33:the-ubertaker"
+    },
+    "sourceReferenceId": "creature:heretic:33:the-ubertaker",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:34:ratbadger"
+    },
+    "sourceReferenceId": "creature:heretic:34:ratbadger",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:34:fleshy-automaton"
+    },
+    "sourceReferenceId": "creature:heretic:34:fleshy-automaton",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:35:silas"
+    },
+    "sourceReferenceId": "creature:heretic:35:silas",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:66:toothless-hag"
+    },
+    "sourceReferenceId": "creature:heretic:66:toothless-hag",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:66:old-dormant-sludger"
+    },
+    "sourceReferenceId": "creature:heretic:66:old-dormant-sludger",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:67:weak-kobolth"
+    },
+    "sourceReferenceId": "creature:heretic:67:weak-kobolth",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.antideer"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.antideer",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.flayed-vultures"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.flayed-vultures",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.ratbit"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.ratbit",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.feral-horses"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.feral-horses",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.steppe-wolfe"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.steppe-wolfe",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.tusked-bison"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.tusked-bison",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.skelelk"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.skelelk",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.dredgehog"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.dredgehog",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.carrion-owls"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.carrion-owls",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.throat-cutting-warbler"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.throat-cutting-warbler",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.mulch-squirrels"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.mulch-squirrels",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.howler-bears"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.howler-bears",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.giant-skull-moth"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.giant-skull-moth",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.twice-grown-corpse-flies"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.twice-grown-corpse-flies",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.unbred-mutts"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.unbred-mutts",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.grim-toothed-squirrel"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.grim-toothed-squirrel",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.meatroach"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.meatroach",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.half-billed-raven"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.half-billed-raven",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.uncommon-rats"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.uncommon-rats",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.cellar-crabs"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.cellar-crabs",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.nameless-tameless-strays"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.nameless-tameless-strays",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.straw-lion"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.straw-lion",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.lentil-lice"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.lentil-lice",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.lentil-lice.participants.1"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.lentil-lice.participants.1",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.murder-gulls"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.murder-gulls",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.flail-horned-muskox"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.flail-horned-muskox",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.tar-pelted-goats"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.tar-pelted-goats",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.molar-bear"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.molar-bear",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.megasloths"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.megasloths",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.blubber-gulls"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.blubber-gulls",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.false-seal"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.false-seal",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.liar-bird"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.liar-bird",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.three-thirds-pheasant"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.three-thirds-pheasant",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.feather-fox"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.feather-fox",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.bautaboar"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.bautaboar",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.schleswig-bogfeeder"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.schleswig-bogfeeder",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.gold-crested-filth-crow"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.gold-crested-filth-crow",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.cursed-trout"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.cursed-trout",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.rusty-bass"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.rusty-bass",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.groan"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.groan",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.carcasswan"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.carcasswan",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.carcasswan.lone"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.carcasswan.lone",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.carcasswan.pair"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.carcasswan.pair",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.unresting-duck"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.unresting-duck",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.sursturgeon"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.sursturgeon",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.phantom-rats"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.phantom-rats",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.grubstopper"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.grubstopper",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.tomb-ape"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.tomb-ape",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.gravelings"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.gravelings",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.marrow-sparrow"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.marrow-sparrow",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.bonemare"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.bonemare",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.tunnel-sneak"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.tunnel-sneak",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.nephalix-monkeys"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.nephalix-monkeys",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.weakwilld-whisperbird"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.weakwilld-whisperbird",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.vierwinged-falchon"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.vierwinged-falchon",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.uberwolf"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.uberwolf",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.uberwolf.companions.1"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.uberwolf.companions.1",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.ragpie"
+    },
+    "sourceReferenceId": "creature:feretory:feretory.epk.ragpie",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:core.outcast.prowler"
+    },
+    "sourceReferenceId": "creature:core:core.outcast.prowler",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:core.outcast.pale-one"
+    },
+    "sourceReferenceId": "creature:core:core.outcast.pale-one",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:core.outcast.earthbound"
+    },
+    "sourceReferenceId": "creature:core:core.outcast.earthbound",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core-full:core-full.rotblack.mongrel"
+    },
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.mongrel",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core-full:core-full.rotblack.dusk-gnoum"
+    },
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.dusk-gnoum",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core-full:core-full.rotblack.guards-sharpened-teeth"
+    },
+    "sourceReferenceId": "creature:core-full:core-full.rotblack.guards-sharpened-teeth",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:core:65:wild-wickhead"
+    },
+    "sourceReferenceId": "creature:core:65:wild-wickhead",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  },
+  {
+    "trigger": {
+      "kind": "creature",
+      "creatureId": "creature:heretic:heretic.outcast.mikhael"
+    },
+    "sourceReferenceId": "creature:heretic:heretic.outcast.mikhael",
+    "evidence": "existing exact action.creatureId → same canonical Reference",
+    "related": [
+      "oracle:core.reaction",
+      "rule:core.reaction-morale"
+    ],
+    "selfHidden": true
+  }
+]
