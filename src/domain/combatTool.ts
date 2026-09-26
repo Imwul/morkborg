@@ -5,28 +5,47 @@ export interface Combatant {
   id: string;
   name: string;
   side: CombatSide;
-  hp: number;
-  maxHp: number;
-  strength: number;
-  agility: number;
-  presence: number;
+  hp: number | null;
+  maxHp: number | null;
+  strength: number | null;
+  agility: number | null;
+  presence: number | null;
   morale: number | null;
-  omens: number;
+  omens: number | null;
   weaponName: string;
   weapon: string;
   armor: string;
   armorTier: number | null;
-  defencePenalty: number;
+  defencePenalty: number | null;
   shield: boolean;
   active: boolean;
   notes: string;
+  /** Optional provenance of an independent imported snapshot, never a live binding. */
+  sourceReferenceId?: string;
+  sourceStats?: { hp: string; armor: string; damage: string };
+  weapons?: { name: string; damage: string; sourceDamage: string }[];
 }
+export type CombatEvent =
+  | {
+      kind: 'attack';
+      attackerId: string;
+      targetId: string;
+      natural: number;
+      defence: boolean;
+      neutralized: boolean;
+    }
+  | {
+      kind: 'morale';
+      fighterId: string;
+      outcome: 'held' | 'flee' | 'surrender';
+    };
 export interface CombatFrame {
   fighters: Combatant[];
   round: number;
   phase: 'setup' | 'first' | 'second';
   first: CombatSide;
   last: string;
+  event?: CombatEvent;
 }
 export interface CombatMoment {
   id: string;
@@ -145,9 +164,9 @@ export function validateCombatant(f: Combatant) {
     f.presence,
     f.defencePenalty,
   ])
-    integer(value);
-  integer(f.maxHp, 1);
-  integer(f.omens, 0);
+    if (value !== null) integer(value);
+  if (f.maxHp !== null) integer(f.maxHp, 1);
+  if (f.omens !== null) integer(f.omens, 0);
   if (f.morale !== null) integer(f.morale, 0);
   if (f.armorTier !== null) integer(f.armorTier, 0, 3);
   if (
@@ -159,8 +178,43 @@ export function validateCombatant(f: Combatant) {
     throw new Error('이름 또는 메모가 너무 깁니다.');
   if (typeof f.shield !== 'boolean' || typeof f.active !== 'boolean')
     throw new Error('참가자 상태를 확인하세요.');
-  combatFormula(f.weapon);
-  combatFormula(f.armor);
+  if (typeof f.weapon !== 'string' || typeof f.armor !== 'string')
+    throw new Error('장비 값을 확인하세요.');
+  if (f.weapon) combatFormula(f.weapon);
+  if (f.armor) combatFormula(f.armor);
+  if (
+    f.sourceReferenceId !== undefined &&
+    (typeof f.sourceReferenceId !== 'string' ||
+      !f.sourceReferenceId.startsWith('creature:') ||
+      f.sourceReferenceId.length > 300)
+  )
+    throw new Error('생물 출처를 확인하세요.');
+  if (
+    f.sourceStats !== undefined &&
+    (!f.sourceStats ||
+      !['hp', 'armor', 'damage'].every(
+        (k) =>
+          typeof f.sourceStats![k as keyof typeof f.sourceStats] === 'string' &&
+          f.sourceStats![k as keyof typeof f.sourceStats].length <= 500,
+      ))
+  )
+    throw new Error('원문 능력치 형식을 확인하세요.');
+  if (f.weapons !== undefined) {
+    if (!Array.isArray(f.weapons) || f.weapons.length > 20)
+      throw new Error('공격 선택지를 확인하세요.');
+    for (const w of f.weapons) {
+      if (
+        !w ||
+        typeof w.name !== 'string' ||
+        w.name.length > 100 ||
+        typeof w.sourceDamage !== 'string' ||
+        w.sourceDamage.length > 500 ||
+        typeof w.damage !== 'string'
+      )
+        throw new Error('공격 선택지 형식을 확인하세요.');
+      if (w.damage) combatFormula(w.damage);
+    }
+  }
 }
 export function changeCombat(
   session: CombatSession,
@@ -215,6 +269,7 @@ export function startCombatRound(
       f.phase = 'first';
       f.first = first;
       f.last = `${sideName(first)} 선공${die ? ` · d6 = ${die}` : ''}`;
+      delete f.event;
     },
     `${round}R · 선공 시작 (${sideName(first)})`,
   );
@@ -230,6 +285,7 @@ export function secondCombatSide(session: CombatSession): CombatSession {
     (f) => {
       f.phase = 'second';
       f.last = `${sideName(second)} 후공`;
+      delete f.event;
     },
     `${frame.round}R · 후공 시작 (${sideName(second)})`,
   );
@@ -363,11 +419,30 @@ export function prepareAttack(
   }
   for (const [fighterId, cost] of Object.entries(omenCosts)) {
     integer(cost, 0);
-    if (payer(frame, fighterId).omens < cost)
+    if ((payer(frame, fighterId).omens ?? 0) < cost)
       throw new Error('남은 Omen이 부족합니다.');
   }
   if (request.breakShield && !target.shield)
     throw new Error('대상에게 방패가 없습니다.');
+  const modifier = defence
+    ? pc.agility
+    : request.style === 'ranged'
+      ? pc.presence
+      : pc.strength;
+  if (modifier === null)
+    throw new Error(
+      `${pc.name}: ${defence ? 'Agility' : request.style === 'ranged' ? 'Presence' : 'Strength'}를 입력하세요.`,
+    );
+  if (defence && target.defencePenalty === null)
+    throw new Error(`${target.name}: 방어 DR 보정을 입력하세요.`);
+  if (target.hp === null)
+    throw new Error(`${target.name}: 현재 HP를 입력하세요.`);
+  if (!attacker.weapon)
+    throw new Error(`${attacker.name}: 무기 피해를 입력하세요.`);
+  if (!request.ignoreArmor && !target.armor)
+    throw new Error(
+      `${target.name}: 방어구 감소를 입력하세요. 방어구가 없으면 0입니다.`,
+    );
   const test = readDie(
     'test',
     defence ? '방어' : '공격',
@@ -379,15 +454,10 @@ export function prepareAttack(
   const natural = test.total;
   const critical = natural === 20 && request.omen !== 'neutralize';
   const fumble = natural === 1 && request.omen !== 'neutralize';
-  const modifier = defence
-    ? pc.agility
-    : request.style === 'ranged'
-      ? pc.presence
-      : pc.strength;
   const total = natural + modifier + request.bonus;
   const dr =
     request.dr +
-    (defence ? target.defencePenalty : 0) -
+    (defence ? target.defencePenalty! : 0) -
     (request.omen === 'difficulty' ? 4 : 0);
   const success = critical || (!fumble && total >= dr);
   const hit = defence ? !success : success;
@@ -551,7 +621,7 @@ export function rerollAttackDie(
     ...preview.extraCosts,
     [ownerId]: (preview.extraCosts[ownerId] || 0) + 1,
   };
-  if ((preview.omenCosts[ownerId] || 0) + 1 > owner.omens)
+  if ((preview.omenCosts[ownerId] || 0) + 1 > (owner.omens ?? 0))
     throw new Error('남은 Omen이 부족합니다.');
   if (preview.request.mode === 'manual' && !manual?.trim())
     throw new Error('새 실물 주사위 값을 입력하세요.');
@@ -601,10 +671,20 @@ export function applyAttack(
     `${attacker.name} → ${target.name} · 피해 ${preview.damage}`,
     (f) => {
       const defender = f.fighters.find((f) => f.id === target.id)!;
+      if (defender.hp === null) throw new Error('대상의 현재 HP를 입력하세요.');
       defender.hp -= preview.damage;
+      f.event = {
+        kind: 'attack',
+        attackerId: attacker.id,
+        targetId: target.id,
+        natural: preview.dice.find((d) => d.key === 'test')!.values[0],
+        defence: attacker.side === 'enemy',
+        neutralized: preview.request.omen === 'neutralize',
+      };
       if (preview.hit && preview.request.breakShield) defender.shield = false;
       for (const [fighterId, cost] of Object.entries(preview.omenCosts))
-        f.fighters.find((p) => p.id === fighterId)!.omens -= cost;
+        f.fighters.find((p) => p.id === fighterId)!.omens =
+          (f.fighters.find((p) => p.id === fighterId)!.omens ?? 0) - cost;
       f.last = [
         `${attacker.name} → ${target.name} · HP ${target.hp} → ${defender.hp}`,
         ...preview.dice.map(
@@ -652,6 +732,11 @@ export function resolveCombatMorale(
   const text = `${fighter.name} · 사기 [${dice.values.join(', ')}] = ${dice.total} / Morale ${fighter.morale} · ${failed ? `${outcome!.total <= 3 ? '도주' : '항복'} (d6 = ${outcome!.total})` : '유지'}`;
   return changeCombat(session, text, (f) => {
     f.last = text;
+    f.event = {
+      kind: 'morale',
+      fighterId,
+      outcome: !failed ? 'held' : outcome!.total <= 3 ? 'flee' : 'surrender',
+    };
     if (failed) {
       const target = f.fighters.find((p) => p.id === fighterId)!;
       target.active = false;
@@ -690,6 +775,25 @@ export function parseCombatSession(raw: string): CombatSession {
     )
       throw new Error('전투 단계 형식을 확인하세요.');
     f.fighters.forEach(validateCombatant);
+    if (f.event !== undefined) {
+      const e = f.event;
+      if (!e || !['attack', 'morale'].includes(e.kind))
+        throw new Error('판정 문맥 형식을 확인하세요.');
+      if (e.kind === 'attack') {
+        integer(e.natural, 1, 20);
+        if (
+          typeof e.attackerId !== 'string' ||
+          typeof e.targetId !== 'string' ||
+          typeof e.defence !== 'boolean' ||
+          typeof e.neutralized !== 'boolean'
+        )
+          throw new Error('공격 문맥 형식을 확인하세요.');
+      } else if (
+        typeof e.fighterId !== 'string' ||
+        !['held', 'flee', 'surrender'].includes(e.outcome)
+      )
+        throw new Error('사기 문맥 형식을 확인하세요.');
+    }
     if (new Set(f.fighters.map((p) => p.id)).size !== f.fighters.length)
       throw new Error('참가자 ID가 중복되었습니다.');
   }

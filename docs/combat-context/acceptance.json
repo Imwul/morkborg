@@ -1,0 +1,258 @@
+[
+  {
+    "width": 360,
+    "passed": true,
+    "checks": [
+      "Creature snapshot + duplicate + import Undo/Redo; 3 repeated attacks retain settings and focus",
+      "Enemy repeated AGI defence; per-attacker DR/style/target restoration",
+      "Critical ref through Back and launcher retains phase, preview, session, disclosure, focus and scroll",
+      "Fumble remains advisory, gear invalidates preview, voluntary Morale + Undo/Redo never picks another target",
+      "HP zero opens canonical Broken; corpse suggestion requires the imported creature edge",
+      "Multiple source attacks require an explicit selection; no inferred combined damage"
+    ],
+    "repetitions": [
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      }
+    ],
+    "bounds": {
+      "top": 8,
+      "bottom": 992,
+      "viewport": 1000,
+      "overflow": false,
+      "pageOverflow": false
+    },
+    "targets": [
+      {
+        "w": 308,
+        "h": 53.578125
+      },
+      {
+        "w": 308,
+        "h": 53.578125
+      },
+      {
+        "w": 308,
+        "h": 53.578125
+      }
+    ],
+    "selectors": [
+      {
+        "w": 148,
+        "h": 44
+      },
+      {
+        "w": 148,
+        "h": 44
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "passed": true,
+    "checks": [
+      "Creature snapshot + duplicate + import Undo/Redo; 3 repeated attacks retain settings and focus",
+      "Enemy repeated AGI defence; per-attacker DR/style/target restoration",
+      "Critical ref through Back and launcher retains phase, preview, session, disclosure, focus and scroll",
+      "Fumble remains advisory, gear invalidates preview, voluntary Morale + Undo/Redo never picks another target",
+      "HP zero opens canonical Broken; corpse suggestion requires the imported creature edge",
+      "Multiple source attacks require an explicit selection; no inferred combined damage"
+    ],
+    "repetitions": [
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      }
+    ],
+    "bounds": {
+      "top": 40,
+      "bottom": 960,
+      "viewport": 1000,
+      "overflow": false,
+      "pageOverflow": false
+    },
+    "targets": [
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      }
+    ],
+    "selectors": [
+      {
+        "w": 158,
+        "h": 44
+      },
+      {
+        "w": 158,
+        "h": 44
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "passed": true,
+    "checks": [
+      "Creature snapshot + duplicate + import Undo/Redo; 3 repeated attacks retain settings and focus",
+      "Enemy repeated AGI defence; per-attacker DR/style/target restoration",
+      "Critical ref through Back and launcher retains phase, preview, session, disclosure, focus and scroll",
+      "Fumble remains advisory, gear invalidates preview, voluntary Morale + Undo/Redo never picks another target",
+      "HP zero opens canonical Broken; corpse suggestion requires the imported creature edge",
+      "Multiple source attacks require an explicit selection; no inferred combined damage"
+    ],
+    "repetitions": [
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      }
+    ],
+    "bounds": {
+      "top": 40,
+      "bottom": 960,
+      "viewport": 1000,
+      "overflow": false,
+      "pageOverflow": false
+    },
+    "targets": [
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      }
+    ],
+    "selectors": [
+      {
+        "w": 244,
+        "h": 44
+      },
+      {
+        "w": 244,
+        "h": 44
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 3440,
+    "passed": true,
+    "checks": [
+      "Creature snapshot + duplicate + import Undo/Redo; 3 repeated attacks retain settings and focus",
+      "Enemy repeated AGI defence; per-attacker DR/style/target restoration",
+      "Critical ref through Back and launcher retains phase, preview, session, disclosure, focus and scroll",
+      "Fumble remains advisory, gear invalidates preview, voluntary Morale + Undo/Redo never picks another target",
+      "HP zero opens canonical Broken; corpse suggestion requires the imported creature edge",
+      "Multiple source attacks require an explicit selection; no inferred combined damage"
+    ],
+    "repetitions": [
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      },
+      {
+        "commandClicks": 2,
+        "newDiceInputs": 3,
+        "settingsReentered": 0,
+        "focus": "판정 d20"
+      }
+    ],
+    "bounds": {
+      "top": 40,
+      "bottom": 960,
+      "viewport": 1000,
+      "overflow": false,
+      "pageOverflow": false
+    },
+    "targets": [
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      },
+      {
+        "w": 280,
+        "h": 53.578125
+      }
+    ],
+    "selectors": [
+      {
+        "w": 244,
+        "h": 48
+      },
+      {
+        "w": 244,
+        "h": 48
+      }
+    ],
+    "errors": []
+  }
+]

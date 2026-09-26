@@ -1,0 +1,154 @@
+{
+  "baseline": "366a315",
+  "repetition": [
+    {
+      "kind": "manual",
+      "clicks": 2,
+      "inputFields": 3,
+      "attacker": "39b60a88-81bd-42d3-b0a4-d790179b1eec",
+      "target": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c",
+      "style": "ranged",
+      "dr": "10",
+      "layout": {
+        "scroll": 1400,
+        "focus": "이번 판정",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "after": {
+        "scroll": 1400,
+        "focus": "MÖRK BORG / VIOLENCE전투 도구Roll. Bleed. Repeat.직접 입력하고 판정하세요. 모든 값과 메모는 수정할 수 있습니다",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "manualCleared": true
+    },
+    {
+      "kind": "manual",
+      "clicks": 2,
+      "inputFields": 3,
+      "attacker": "39b60a88-81bd-42d3-b0a4-d790179b1eec",
+      "target": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c",
+      "style": "ranged",
+      "dr": "10",
+      "layout": {
+        "scroll": 1400,
+        "focus": "이번 판정",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "after": {
+        "scroll": 1400,
+        "focus": "MÖRK BORG / VIOLENCE전투 도구Roll. Bleed. Repeat.직접 입력하고 판정하세요. 모든 값과 메모는 수정할 수 있습니다",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "manualCleared": true
+    },
+    {
+      "kind": "manual",
+      "clicks": 2,
+      "inputFields": 3,
+      "attacker": "39b60a88-81bd-42d3-b0a4-d790179b1eec",
+      "target": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c",
+      "style": "ranged",
+      "dr": "10",
+      "layout": {
+        "scroll": 1400,
+        "focus": "이번 판정",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "after": {
+        "scroll": 1400,
+        "focus": "MÖRK BORG / VIOLENCE전투 도구Roll. Bleed. Repeat.직접 입력하고 판정하세요. 모든 값과 메모는 수정할 수 있습니다",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "manualCleared": true
+    }
+  ],
+  "exceptions": {
+    "defence20": "04\n이번 판정\n미적용 · 값 확인 후 적용하세요\nCRITICAL\n치명타 · 자연 20\n\n방어 치명타: PC가 추가 공격을 얻습니다.\n\n알림만 표시합니다. 피해·장비·추가 행동은 자동 변경하지 않습니다.\n\n방어 성공\n판정 21 / DR 10\n\n방어 d20\n20\n[20] · 실물\n\n적용할 피해\n0\n\n피해 직접 수정 · 판정 값 수정\n결과를 본 뒤 Omen 효과 선택\nOmen으로 주사위 재굴림\n결과 적용 · HP 반영\n취소\n계산 내역",
+    "defence1": "04\n이번 판정\n미적용 · 값 확인 후 적용하세요\nFUMBLE\n실수 · 자연 1\n\n피해 두 배 · 대상 방어구 1단계 손상.\n\n알림만 표시합니다. 피해·장비·추가 행동은 자동 변경하지 않습니다.\n\n명중\n판정 2 / DR 10\n\n방어 d20\n1\n[1] · 실물\n무기 피해 d6\n4\n[4] · 실물\n방어구 감소 d2\n1\n[1] · 실물\n\n적용할 피해\n3\n\n피해 직접 수정 · 판정 값 수정\n결과를 본 뒤 Omen 효과 선택\nOmen으로 주사위 재굴림\n결과 적용 · HP 반영\n취소\n계산 내역",
+    "attack20": "04\n이번 판정\n미적용 · 값 확인 후 적용하세요\nCRITICAL\n치명타 · 자연 20\n\n피해 두 배 · 대상 방어구 1단계 손상.\n\n알림만 표시합니다. 피해·장비·추가 행동은 자동 변경하지 않습니다.\n\n명중\n판정 20 / DR 10\n\n공격 d20\n20\n[20] · 실물\n무기 피해 d6\n4\n[4] · 실물\n방어구 감소 d2\n1\n[1] · 실물\n\n적용할 피해\n3\n\n피해 직접 수정 · 판정 값 수정\n결과를 본 뒤 Omen 효과 선택\nOmen으로 주사위 재굴림\n결과 적용 · HP 반영\n취소\n계산 내역",
+    "attack1": "04\n이번 판정\n미적용 · 값 확인 후 적용하세요\nFUMBLE\n실수 · 자연 1\n\n공격 실수: 무기가 부서지거나 손에서 벗어납니다.\n\n알림만 표시합니다. 피해·장비·추가 행동은 자동 변경하지 않습니다.\n\n빗나감\n판정 1 / DR 10\n\n공격 d20\n1\n[1] · 실물\n\n적용할 피해\n0\n\n피해 직접 수정 · 판정 값 수정\n결과를 본 뒤 Omen 효과 선택\nOmen으로 주사위 재굴림\n결과 적용 · HP 반영\n취소\n계산 내역",
+    "pc0": "HP 0 · Broken\nBroken 표 열기 ↗",
+    "enemy0": "HP 0 이하 · 전투 참여 여부를 확인하세요.",
+    "hpZeroStillActive": true,
+    "surrender": {
+      "active": false,
+      "notes": "사기 실패: 항복",
+      "newTarget": "43ba8ce9-d1f4-4341-87c4-279b34112df3",
+      "oldTarget": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c"
+    },
+    "flee": {
+      "active": false,
+      "notes": "사기 실패: 도주"
+    },
+    "shieldPreview": "04\n이번 판정\n미적용 · 값 확인 후 적용하세요\n\n명중\n판정 14 / DR 10\n\n공격 d20\n14\n[14] · 실물\n무기 피해 d6\n4\n[4] · 실물\n방어구 감소 d2\n1\n[1] · 실물\n\n적용할 피해\n0\n\n피해 직접 수정 · 판정 값 수정\n결과를 본 뒤 Omen 효과 선택\nOmen으로 주사위 재굴림\n결과 적용 · HP 반영\n취소\n계산 내역",
+    "shieldApplied": {
+      "hp": "20",
+      "shield": false
+    }
+  },
+  "enemyRepeats": [
+    {
+      "kind": "manual",
+      "clicks": 2,
+      "inputFields": 3,
+      "attacker": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c",
+      "target": "39b60a88-81bd-42d3-b0a4-d790179b1eec",
+      "style": "melee",
+      "dr": "10",
+      "layout": {
+        "scroll": 1400,
+        "focus": "입력값으로 판정 →",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "after": {
+        "scroll": 1400,
+        "focus": "MÖRK BORG / VIOLENCE전투 도구Roll. Bleed. Repeat.직접 입력하고 판정하세요. 모든 값과 메모는 수정할 수 있습니다",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "manualCleared": true
+    },
+    {
+      "kind": "manual",
+      "clicks": 2,
+      "inputFields": 3,
+      "attacker": "61c08270-beb6-4c62-92e9-b3c6a7c34e1c",
+      "target": "39b60a88-81bd-42d3-b0a4-d790179b1eec",
+      "style": "melee",
+      "dr": "10",
+      "layout": {
+        "scroll": 1400,
+        "focus": "입력값으로 판정 →",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "after": {
+        "scroll": 1400,
+        "focus": "MÖRK BORG / VIOLENCE전투 도구Roll. Bleed. Repeat.직접 입력하고 판정하세요. 모든 값과 메모는 수정할 수 있습니다",
+        "resultY": 41.765625,
+        "rollY": 630.859375
+      },
+      "manualCleared": true
+    }
+  ],
+  "reference": {
+    "sessionUnchanged": true,
+    "reference": "rule:core.crit-fumble",
+    "dialogs": 0,
+    "backOpens": true,
+    "previewRetained": true,
+    "returnLayout": {
+      "scroll": 0,
+      "focus": "전투 도구Roll. Bleed. Repeat.",
+      "resultY": 1397.9329833984375,
+      "rollY": 1959.6085205078125
+    }
+  }
+}

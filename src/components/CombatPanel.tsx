@@ -1,4 +1,4 @@
-import { useRef, useState, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -30,6 +30,14 @@ import {
   type CombatSession,
   type CombatSide,
 } from '../domain/combatTool';
+import { addCreatureToCombat } from '../domain/combatCreature';
+import { combatRelevantReferences } from '../domain/combatContext';
+import {
+  combatSelection,
+  attackSettingsFor,
+  type CombatAttackSettings,
+} from '../domain/combatSelection';
+import { getRules } from '../storage/rulesStore';
 import { CombatantEditor } from './CombatantEditor';
 import { useCombatSession } from './useCombatSession';
 import { useReferenceDesk } from './ReferenceContext';
@@ -55,10 +63,12 @@ export function CombatPanel({
   open,
   onOpenChange,
   launcherRef,
+  onReferenceVisit,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   launcherRef: RefObject<HTMLButtonElement | null>;
+  onReferenceVisit?: () => void;
 }) {
   const store = useCombatSession();
   const frame = combatFrame(store.session);
@@ -66,6 +76,14 @@ export function CombatPanel({
   const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const resultRef = useRef<HTMLElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const returnPosition = useRef<{
+    scroll: number;
+    selector: string;
+    details?: number[];
+  } | null>(null);
+  const attackProfiles = useRef<Record<string, CombatAttackSettings>>({});
+  const [applied, setApplied] = useState('');
   const [error, setError] = useState('');
   const [wide, setWide] = useState(false);
   const [resetConfirm, setResetConfirm] = useState(false);
@@ -94,12 +112,11 @@ export function CombatPanel({
   const [moraleOutcome, setMoraleOutcome] = useState('');
   const [restoreIndex, setRestoreIndex] = useState('');
   const active = frame.fighters.filter((f) => f.active);
-  const attacker =
-    active.find((f) => f.id === attackerId) ??
-    active.find((f) => f.side === actingSide(frame)) ??
-    active[0];
-  const targets = active.filter((f) => f.side !== attacker?.side);
-  const target = targets.find((f) => f.id === targetId) ?? targets[0];
+  const { attacker, target, targets } = combatSelection(
+    frame,
+    attackerId,
+    targetId,
+  );
   const pcs = frame.fighters.filter((f) => f.side === 'pc');
   const payer =
     pcs.find((f) => f.id === payerId) ??
@@ -112,8 +129,93 @@ export function CombatPanel({
     frame.fighters.find((f) => f.id === moraleId && f.morale !== null) ??
     frame.fighters.find((f) => f.side === 'enemy' && f.morale !== null);
   const stale = !!pending && pending.basis !== JSON.stringify(frame);
+  const relevant = desk
+    ? combatRelevantReferences(frame, pending, desk.byId, desk.relationships)
+    : [];
+  useEffect(() => {
+    const receive = (event: Event) => {
+      const referenceId = (event as CustomEvent<unknown>).detail;
+      if (typeof referenceId !== 'string' || !desk?.byId[referenceId]) return;
+      try {
+        store.set(
+          addCreatureToCombat(
+            store.current.current,
+            desk.byId[referenceId],
+            getRules(),
+          ),
+        );
+        setPending(null);
+        setDraftCosts({});
+        setError('');
+        setApplied(
+          `${desk.byId[referenceId].title} · 적으로 추가했습니다. 공격자와 대상은 직접 선택하세요.`,
+        );
+        returnPosition.current = {
+          scroll: 0,
+          selector: '.combat-action select[aria-label="공격자"]',
+        };
+        onOpenChange(true);
+      } catch (e) {
+        setError(
+          e instanceof Error ? e.message : '생물을 추가하지 못했습니다.',
+        );
+        onOpenChange(true);
+      }
+    };
+    window.addEventListener('add-creature-to-combat', receive);
+    return () => window.removeEventListener('add-creature-to-combat', receive);
+  });
+  useEffect(() => {
+    if (!open || !returnPosition.current) return;
+    const position = returnPosition.current;
+    const timer = requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = popupRef.current;
+        if (!el) return;
+        const disclosures = el.querySelectorAll('details');
+        position.details?.forEach((index) => {
+          if (disclosures[index]) disclosures[index].open = true;
+        });
+        const target =
+          el.querySelector<HTMLElement>(position.selector) ?? titleRef.current;
+        target?.focus({ preventScroll: true });
+        el.scrollTop = position.scroll;
+        if (position.selector.includes('공격자'))
+          target?.scrollIntoView({ block: 'center' });
+        returnPosition.current = null;
+      }),
+    );
+    return () => cancelAnimationFrame(timer);
+  }, [open]);
+  function chooseAttacker(nextId: string) {
+    if (attackerId)
+      attackProfiles.current[attackerId] = { targetId, style, dr, bonus };
+    const settings = attackSettingsFor(attackProfiles.current, nextId);
+    setAttackerId(nextId);
+    setTargetId(settings.targetId);
+    setStyle(settings.style);
+    setDr(settings.dr);
+    setBonus(settings.bonus);
+    setManualDice({});
+    setOmen('none');
+    setBreakShield(false);
+    setIgnoreArmor(false);
+    cancelPending();
+  }
+  function returnToAttack() {
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = contentRef.current?.querySelector<HTMLElement>(
+          mode === 'manual' ? '[aria-label="판정 d20"]' : '.combat-roll',
+        );
+        el?.focus({ preventScroll: true });
+        el?.scrollIntoView({ block: 'nearest' });
+      }),
+    );
+  }
   function cancelPending() {
     setPending(null);
+    setApplied('');
     setDraftCosts({});
     setError('');
   }
@@ -148,7 +250,19 @@ export function CombatPanel({
       );
       return;
     }
+    const focused = document.activeElement as HTMLElement | null;
+    const key = focused?.dataset.combatReturn;
+    returnPosition.current = {
+      scroll: popupRef.current?.scrollTop ?? 0,
+      selector: key
+        ? `[data-combat-return="${CSS.escape(key)}"]`
+        : '.combat-result',
+      details: Array.from(
+        popupRef.current?.querySelectorAll('details') ?? [],
+      ).flatMap((d, index) => (d.open ? [index] : [])),
+    };
     desk.activate(referenceId);
+    onReferenceVisit?.();
     onOpenChange(false);
   }
   function add(side: CombatSide) {
@@ -192,7 +306,7 @@ export function CombatPanel({
         ),
       );
       requestAnimationFrame(() => {
-        resultRef.current?.scrollIntoView({ block: 'nearest' });
+        resultRef.current?.scrollIntoView({ block: 'start' });
         resultRef.current?.focus({ preventScroll: true });
       });
     });
@@ -217,6 +331,7 @@ export function CombatPanel({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+        ref={popupRef}
         className={`combat-panel${wide ? ' combat-panel-wide' : ''}`}
         initialFocus={titleRef}
         finalFocus={launcherRef}
@@ -490,12 +605,16 @@ export function CombatPanel({
                           ),
                         )
                       }
-                      onBroken={() => openRule('oracle:core.broken')}
+                      onBroken={() => openRule('rule:core.broken')}
+                      onSource={() =>
+                        f.sourceReferenceId && openRule(f.sourceReferenceId)
+                      }
                     />
                   ))}
               </section>
             ))}
           </div>
+          {applied && <output className="combat-applied">{applied}</output>}
           <div className="combat-action-layout">
             <section className="combat-action" aria-label="공격과 방어">
               <h3>
@@ -512,13 +631,10 @@ export function CombatPanel({
                     aria-label="공격자"
                     value={attacker?.id ?? ''}
                     onChange={(e) => {
-                      setAttackerId(e.target.value);
-                      cancelPending();
+                      chooseAttacker(e.target.value);
                     }}
                   >
-                    <option value="" disabled>
-                      선택
-                    </option>
+                    <option value="">선택</option>
                     {active.map((f) => (
                       <option key={f.id} value={f.id}>
                         {f.name} · {sideName(f.side)}
@@ -533,12 +649,11 @@ export function CombatPanel({
                     value={target?.id ?? ''}
                     onChange={(e) => {
                       setTargetId(e.target.value);
+                      setManualDice({});
                       cancelPending();
                     }}
                   >
-                    <option value="" disabled>
-                      선택
-                    </option>
+                    <option value="">선택</option>
                     {targets.map((f) => (
                       <option key={f.id} value={f.id}>
                         {f.name}
@@ -547,6 +662,21 @@ export function CombatPanel({
                   </select>
                 </label>
               </div>
+              {(!attacker || !target) && (
+                <p className="combat-hint">
+                  공격자와 참여 중인 대상을 선택하세요. 참여 해제·제거 시 다른
+                  대상을 자동 선택하지 않습니다.
+                </p>
+              )}
+              {(attacker || target) && (
+                <p className="combat-selected-gear">
+                  {attacker?.name || '공격자 미선택'} ·{' '}
+                  {attacker?.weaponName || '무기'}{' '}
+                  {attacker?.weapon || '피해 미입력'} →{' '}
+                  {target?.name || '대상 미선택'} · 방어구{' '}
+                  {target?.armor || '미입력'}
+                </p>
+              )}
               <div className="combat-test-settings">
                 <label className="combat-field">
                   <span>판정</span>
@@ -622,7 +752,7 @@ export function CombatPanel({
                       </option>
                       {pcs.map((p) => (
                         <option key={p.id} value={p.id}>
-                          {p.name} · {p.omens}개
+                          {p.name} · {p.omens ?? '—'}개
                         </option>
                       ))}
                     </select>
@@ -868,7 +998,7 @@ export function CombatPanel({
                       >
                         {pcs.map((p) => (
                           <option key={p.id} value={p.id}>
-                            {p.name} · {p.omens}개
+                            {p.name} · {p.omens ?? '—'}개
                           </option>
                         ))}
                       </select>
@@ -940,7 +1070,7 @@ export function CombatPanel({
                         {pcs.map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.name} · 남은{' '}
-                            {p.omens - (pending.omenCosts[p.id] || 0)}
+                            {(p.omens ?? 0) - (pending.omenCosts[p.id] || 0)}
                           </option>
                         ))}
                       </select>
@@ -1015,6 +1145,10 @@ export function CombatPanel({
                           setBreakShield(false);
                           setIgnoreArmor(false);
                           setManualDice({});
+                          setApplied(
+                            `${attacker?.name} → ${target?.name} · 피해 ${pending.damage} 적용`,
+                          );
+                          returnToAttack();
                         })
                       }
                     >
@@ -1041,6 +1175,24 @@ export function CombatPanel({
               )}
             </section>
           </div>
+          {relevant.length > 0 && (
+            <aside className="combat-relevant" aria-label="지금 관련된 참조">
+              <span>지금 관련된 참조</span>
+              <div>
+                {relevant.map((r) => (
+                  <button
+                    type="button"
+                    key={r.id}
+                    data-combat-return={r.id}
+                    onClick={() => openRule(r.id)}
+                  >
+                    <strong>{r.label} ↗</strong>
+                    <small>{r.reason}</small>
+                  </button>
+                ))}
+              </div>
+            </aside>
+          )}
           {error && (
             <p className="combat-error" role="alert" data-combat-error>
               {error}
@@ -1183,7 +1335,12 @@ export function CombatPanel({
               </ul>
               <nav aria-label="전투 규칙 참조">
                 {ruleLinks.map(([ref, label]) => (
-                  <button type="button" key={ref} onClick={() => openRule(ref)}>
+                  <button
+                    type="button"
+                    key={ref}
+                    data-combat-return={ref}
+                    onClick={() => openRule(ref)}
+                  >
                     {label} ↗
                   </button>
                 ))}
@@ -1203,6 +1360,13 @@ export function CombatPanel({
                     cancelPending();
                     setResetConfirm(false);
                     setRestoreIndex('');
+                    setAttackerId('');
+                    setTargetId('');
+                    setStyle('melee');
+                    setDr('12');
+                    setBonus('0');
+                    attackProfiles.current = {};
+                    setApplied('');
                   }}
                 >
                   비우고 새 전투

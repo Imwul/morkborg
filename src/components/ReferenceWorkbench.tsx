@@ -870,6 +870,22 @@ export function ReferenceProvider({
           : '빠른 참조'}
       </p>
       <div className="reference-body">
+        {selected.kind === 'creature' &&
+          selected.available &&
+          selected.action?.kind === 'creature' && (
+            <button
+              className="open-combat-tool"
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent('add-creature-to-combat', {
+                    detail: selected.id,
+                  }),
+                )
+              }
+            >
+              전투에 적으로 추가 ↗
+            </button>
+          )}
         {(selected.kind === 'creature' ||
           monsterReference ||
           selected.id === 'oracle:feretory.A' ||

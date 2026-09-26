@@ -1,0 +1,62 @@
+[
+  {
+    "width": 360,
+    "passed": true,
+    "overflow": false,
+    "panelWidth": 340,
+    "viewportOverflow": false,
+    "smallControls": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "width": 768,
+    "passed": true,
+    "overflow": false,
+    "panelWidth": 732,
+    "viewportOverflow": false,
+    "smallControls": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "width": 1440,
+    "passed": true,
+    "overflow": false,
+    "panelWidth": 1076,
+    "viewportOverflow": false,
+    "smallControls": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "width": 3440,
+    "passed": true,
+    "overflow": false,
+    "panelWidth": 1076,
+    "viewportOverflow": false,
+    "smallControls": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  }
+]

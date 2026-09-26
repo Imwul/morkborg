@@ -32,6 +32,7 @@ export default function App() {
   const [page, setPage] = useState<ReferenceDeskPage>('home');
   const [shelfOpen, setShelfOpen] = useState(false);
   const [combatOpen, setCombatOpen] = useState(false);
+  const [combatReturn, setCombatReturn] = useState(false);
   const [guidanceOpen, setGuidanceOpen] = useState(false);
   const guidanceLauncherRef = useRef<HTMLButtonElement>(null);
   const combatLauncherRef = useRef<HTMLButtonElement>(null);
@@ -230,6 +231,13 @@ export default function App() {
             ref={combatLauncherRef}
             className="combat-launcher"
             onClick={() => setCombatOpen(true)}
+            title={
+              combatReturn
+                ? '참조를 읽기 전 전투 위치로 돌아가기'
+                : '전투 도구 열기'
+            }
+            data-returning={(combatReturn && !combatOpen) || undefined}
+            aria-label="전투"
             aria-expanded={combatOpen}
           >
             전투
@@ -264,7 +272,11 @@ export default function App() {
           />
           <CombatPanel
             open={combatOpen}
-            onOpenChange={setCombatOpen}
+            onOpenChange={(open) => {
+              setCombatOpen(open);
+              if (open) setCombatReturn(false);
+            }}
+            onReferenceVisit={() => setCombatReturn(true)}
             launcherRef={combatLauncherRef}
           />
           <SavedObjectsPanel

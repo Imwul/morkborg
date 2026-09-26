@@ -1,0 +1,24 @@
+{
+  "archive": {
+    "tables": 546,
+    "procedures": 60,
+    "references": 993,
+    "creatures": 89,
+    "creatureReferences": 95,
+    "rows": 12310,
+    "libraryHash": "fd5c1a6fb24aa95329c2121ab7bda9f45bb86fa353697ab0b297152ac4c3b131",
+    "oracleHash": "dfcafb2241b1bd8913a08e3ab69e7ba25d75ef52121907b3c92eb419051254bd",
+    "registryHash": "dcea5c3c78721c2db2d194f885f16a97df62d0d7c3f5a60a0d369794e2c982d1"
+  },
+  "distributed": {
+    "tables": 545,
+    "procedures": 60,
+    "references": 987,
+    "creatures": 89,
+    "creatureReferences": 95,
+    "rows": 12305,
+    "libraryHash": "fd5c1a6fb24aa95329c2121ab7bda9f45bb86fa353697ab0b297152ac4c3b131",
+    "oracleHash": "c6d489ecfb341f0b9583bf041ca2d2091771bf3c949f078dcff4d0041c7713f6",
+    "registryHash": "6d74fc00467fe1a1b036557cc6fd9458dab1675ee84a64f7a4541dbda51331bd"
+  }
+}

@@ -641,3 +641,84 @@
     transition: none !important;
   }
 }
+
+/* Keep the popup's anchor stable in the production Tailwind animation as well. */
+[data-slot='dialog-content'].combat-panel {
+  --tw-translate-y: 0;
+  --tw-translate-x: -50%;
+  animation: none;
+  transition: none;
+}
+.combat-source {
+  margin: 12px 0;
+  font-size: 12px;
+}
+.combat-source > button {
+  border: 0;
+  text-decoration: underline;
+  padding-inline: 0;
+  font-size: 13px;
+}
+.combat-source small {
+  display: block;
+  color: #656357;
+}
+.combat-source p {
+  overflow-wrap: anywhere;
+}
+.combat-source details {
+  border-top: 1px solid #ccc9be;
+  margin-top: 6px;
+}
+.combat-selected-gear {
+  font-size: 12px;
+  border-block: 1px solid #ccc9be;
+  padding-block: 9px;
+  overflow-wrap: anywhere;
+}
+.combat-applied {
+  font: 600 13px/1.5 var(--font-ui);
+  border-left: 3px solid #f49bcf;
+  padding-left: 10px;
+}
+.combat-relevant {
+  border-top: 1px solid #ccc9be;
+  margin-block: 20px;
+  padding-top: 8px;
+}
+.combat-relevant > span {
+  font: 700 12px/1.5 var(--font-ui);
+  color: #656357;
+}
+.combat-relevant > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+.combat-relevant button {
+  flex: 0 1 280px;
+  text-align: left;
+  border: 0;
+  padding: 8px 0;
+  font: 13px/1.4 var(--font-ui);
+}
+.combat-relevant strong {
+  display: block;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.combat-relevant small {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #656357;
+}
+.combat-launcher[data-returning]::after {
+  content: ' ↩';
+}
+@media (max-width: 600px) {
+  .combat-relevant button {
+    flex-basis: 100%;
+  }
+}

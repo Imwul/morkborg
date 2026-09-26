@@ -44,6 +44,9 @@ try {
       await page.evaluate(() => document.fonts.ready);
       await panel.locator('.combat-rosters').scrollIntoViewIfNeeded();
       await panel.screenshot({ path: `${output}/roster-${width}.png` });
+      const pcId = await pc.getAttribute('data-combatant-id'), enemyId = await enemy.getAttribute('data-combatant-id');
+      const pair = async (a, t) => { await panel.getByRole('combobox', { name: '공격자', exact: true }).selectOption(a); await panel.getByRole('combobox', { name: '대상', exact: true }).selectOption(t); };
+      await pair(pcId, enemyId);
       async function manual(test, damage = '', armor = '') {
         await panel.getByRole('textbox', { name: '판정 d20', exact: true }).fill(test);
         await panel.getByRole('textbox', { name: '무기 피해 실물 값', exact: true }).fill(damage);
@@ -70,6 +73,7 @@ try {
       await textEdit(enemy, '상태 메모', '주문으로 둔화'); await textEdit(enemy, '무기 피해', '2d4+1');
       await panel.getByRole('button', { name: '후공으로 →', exact: true }).click();
       assert.match(await panel.locator('.combat-round').innerText(), /후공.*적/s);
+      await pair(enemyId, pcId);
       await manual('1', '2,3', '2');
       assert.match(await panel.locator('.combat-critical').innerText(), /FUMBLE/);
       assert.equal(await panel.locator('.combat-damage strong').innerText(), '4');
@@ -87,6 +91,7 @@ try {
       assert.equal(await enemy.getByRole('textbox', { name: '무기 피해', exact: true }).inputValue(), 'd8');
       assert.equal(await enemy.getByRole('textbox', { name: '상태 메모', exact: true }).inputValue(), '');
       await panel.getByText('Omen · 방패 · 예외 처리', { exact: true }).click();
+      await pair(pcId, enemyId);
       await panel.getByRole('combobox', { name: 'Omen 효과', exact: true }).selectOption('maximum');
       await manual('15', '', '1');
       assert.equal(await panel.locator('.combat-damage strong').innerText(), '5');
@@ -109,6 +114,7 @@ try {
       assert.equal(await enemy.getByRole('spinbutton', { name: 'HP', exact: true }).inputValue(), '8');
       assert.equal(await pc.getByRole('textbox', { name: '상태 메모', exact: true }).inputValue(), '실드 마법 · 보정은 직접 입력');
       await panel.getByRole('button', { name: '실물 값 입력', exact: true }).click();
+      await pair(pcId, enemyId);
       await manual('21', '5', '1');
       assert.match(await panel.locator('.combat-error').innerText(), /정수/);
       assert.equal(await enemy.getByRole('spinbutton', { name: 'HP', exact: true }).inputValue(), '8');

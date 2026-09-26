@@ -36,7 +36,7 @@ function Field({
             ? null
             : integer(Number(text), min ?? -9999, max ?? 9999);
       }
-      if (formula) next = combatFormula(text).notation;
+      if (formula) next = text.trim() ? combatFormula(text).notation : '';
       if (!number && !formula && !text.trim())
         throw new Error('값을 입력하세요.');
       if (next !== value) onCommit(next);
@@ -82,12 +82,14 @@ export function CombatantEditor({
   onRemove,
   onDuplicate,
   onBroken,
+  onSource,
 }: {
   fighter: Combatant;
   onChange: (patch: Partial<Combatant>) => void;
   onRemove: () => void;
   onDuplicate: () => void;
   onBroken: () => void;
+  onSource?: () => void;
 }) {
   const [noteDraft, setNoteDraft] = useState({ basis: f.notes, text: f.notes });
   const note = noteDraft.basis === f.notes ? noteDraft.text : f.notes;
@@ -108,7 +110,7 @@ export function CombatantEditor({
       label={label}
       value={f[key]}
       number
-      nullable={key === 'morale'}
+      nullable
       min={min}
       onCommit={(v) => onChange({ [key]: v })}
     />
@@ -167,16 +169,69 @@ export function CombatantEditor({
           label="무기 피해"
           value={f.weapon}
           formula
+          nullable
           onCommit={(v) => onChange({ weapon: String(v) })}
         />
         <Field
           label="방어구 감소"
           value={f.armor}
           formula
+          nullable
           onCommit={(v) => onChange({ armor: String(v), armorTier: null })}
         />
         {num('방어 DR 보정', 'defencePenalty')}
       </div>
+      {f.sourceReferenceId && (
+        <div className="combat-source">
+          <button
+            type="button"
+            data-combat-return={`source-${f.id}`}
+            onClick={onSource}
+          >
+            생물 원문 ↗
+          </button>
+          <small>원문에서 복사한 독립 참가자 · 빈 칸은 직접 확인하세요.</small>
+          {f.sourceStats && (
+            <details>
+              <summary>
+                원문 능력치{f.weapons?.length ? ' · 공격 선택' : ''}
+              </summary>
+              <p>
+                HP {f.sourceStats.hp || '—'} · 방어구{' '}
+                {f.sourceStats.armor || '—'} · 피해{' '}
+                {f.sourceStats.damage || '—'}
+              </p>
+              {!!f.weapons?.length && (
+                <label className="combat-field">
+                  <span>원문 공격 선택</span>
+                  <select
+                    aria-label="원문 공격 선택"
+                    value={f.weapons.findIndex(
+                      (w) => w.name === f.weaponName && w.damage === f.weapon,
+                    )}
+                    onChange={(e) => {
+                      const w = f.weapons![Number(e.target.value)];
+                      if (w) onChange({ weaponName: w.name, weapon: w.damage });
+                    }}
+                  >
+                    <option value={-1}>공격 선택 / 직접 수정한 값</option>
+                    {f.weapons.map((w, i) => (
+                      <option key={i} value={i}>
+                        {w.name || `공격 ${i + 1}`} ·{' '}
+                        {w.sourceDamage || '피해 미기재'}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              <small>
+                복합 피해·조건부 방어구·특수 능력은 원문을 확인하고 직접
+                반영하세요.
+              </small>
+            </details>
+          )}
+        </div>
+      )}
       <details className="combatant-options">
         <summary>장비·추가 설정</summary>
         <label className="combat-field">
@@ -261,7 +316,7 @@ export function CombatantEditor({
           }}
         />
       </label>
-      {f.hp <= 0 && (
+      {f.hp !== null && f.hp <= 0 && (
         <output className="combat-condition">
           {f.side === 'pc' ? (
             f.hp < 0 ? (
