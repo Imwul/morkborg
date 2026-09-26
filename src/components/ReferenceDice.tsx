@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SourceDisclosure } from './SourceDisclosure';
 import { rollDie } from '../generators/random';
-import { rollRoadNavigation, JOURNEY_SOURCE } from '../domain/journeyProcedure';
+import { JOURNEY_SOURCE } from '../domain/journeyProcedure';
+import { GuidedRollControl } from './GuidedRollControl';
 
 /** A die result is a reading, never damage, elapsed time or a campaign event. */
 export function ReferenceDice({
@@ -113,38 +114,53 @@ export function ReferenceDice({
 
 /** The fictional situation is chosen by the reader; no road/weather result is required. */
 export function RoadSituationRoller() {
-  const [modifier, setModifier] = useState(0),
-    [result, setResult] = useState<ReturnType<typeof rollRoadNavigation>>();
+  const desk = useReferenceDesk();
+  const [resolved, setResolved] = usePlayToolState<string | undefined>(
+    'road:situation-outcome',
+    undefined,
+  );
   return (
     <section
-      className="road-situation-test"
+      className="road-situation-test play-guidance"
       aria-label="동물 흔적 · 망가진 길 판정"
     >
-      <p>동물 흔적을 따라가거나 망가진 길을 지날 때 참고합니다.</p>
-      <code>1d20 + Presence / Omens ≥ DR10</code>
-      <div className="reference-card-actions">
-        <label>
-          Presence / Omens
-          <Input
-            aria-label="길 판정 보정"
-            type="number"
-            value={modifier}
-            onChange={(e) =>
-              setModifier(Math.trunc(Number(e.target.value) || 0))
+      <p>동물 흔적 또는 망가진 길에서만 · 1d20 + Presence / Omens ≥ DR10</p>
+      <GuidedRollControl
+        label="길 유지"
+        stateKey="road-navigation"
+        spec={{
+          kind: 'test',
+          dice: 'd20',
+          ability: 'Presence / 남은 Omens',
+          dr: 10,
+        }}
+        onResult={(result) =>
+          setResolved(result.outcome === 'success' ? 'success' : 'fail')
+        }
+      />
+      {resolved && (
+        <div className="guidance-links">
+          <p>
+            {resolved === 'success'
+              ? '길을 유지합니다. 오늘의 사건을 아직 정하지 않았다면 이어서 확인하세요.'
+              : '길 밖의 사건을 해결하고 도로로 돌아옵니다. 이 날도 이동일로 셉니다.'}
+          </p>
+          <button
+            onClick={() =>
+              desk?.activate(
+                resolved === 'success'
+                  ? 'oracle:feretory.roadEvent'
+                  : 'oracle:feretory.leaveRoad',
+                false,
+              )
             }
-          />
-        </label>
-        <Button onClick={() => setResult(rollRoadNavigation(modifier))}>
-          흔적 · 망가진 길 판정
-        </Button>
-      </div>
-      {result && (
-        <output aria-live="polite">
-          d20 = {result.roll} · 보정 {result.modifier} ·{' '}
-          {result.success
-            ? '성공 · 길을 유지합니다.'
-            : '실패 · Leaving the Road 표를 참고하세요.'}
-        </output>
+          >
+            {resolved === 'success'
+              ? '길의 사건 d20 열기'
+              : '길 밖의 사건 d12 열기'}{' '}
+            ↗
+          </button>
+        </div>
       )}
       <SourceDisclosure refs={[JOURNEY_SOURCE]} />
     </section>

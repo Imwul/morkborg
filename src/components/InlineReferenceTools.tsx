@@ -20,6 +20,8 @@ import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
 import { ReadingResultReferences } from './ResultReferenceLinks';
 import { CreatureReadingFields } from './CreatureReadingFields';
+import { ResultFollowThrough } from './ResultFollowThrough';
+import { JourneyGuidance } from './JourneyGuidance';
 
 export function ReferenceReadingBlock({
   reading,
@@ -190,6 +192,8 @@ export function ReferenceReadingBlock({
         />
       )}
       <ReadingResultReferences reading={reading} referenceId={referenceId} />
+      <ResultFollowThrough reading={reading} />
+      <JourneyGuidance referenceId={referenceId ?? ''} reading={reading} />
       <SourceDisclosure refs={reading.sourceRefs} evidence={reading.evidence} />
       {!desk?.openLookup && !!reading.fixedLookups?.length && (
         <div className="inline-tool-buttons">

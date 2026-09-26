@@ -230,12 +230,16 @@ test('Context only orders suggestions; it never removes actions or creates progr
     scenePlayActions('city', 'shrine')[0].referenceId,
     'procedure:city.pray',
   );
-  for (const scene of ['dungeon', 'city'])
+  for (const scene of ['dungeon', 'city', 'wilderness'])
     assert.deepEqual(
       new Set(scenePlayActions(scene, 'anything').map((a) => a.referenceId)),
       new Set(SCENE_PLAY_ACTIONS[scene].map((a) => a.referenceId)),
     );
-  assert.deepEqual(scenePlayActions('wilderness'), []);
+  assert.equal(
+    scenePlayActions('wilderness', 'camp')[0].referenceId,
+    'rule:sd.camping-move',
+  );
+  assert.deepEqual(scenePlayActions('unknown-scene'), []);
 });
 test('Dungeon follow-through keeps Strong/special, Weak/ordinary and Miss/danger distinct', () => {
   assert.deepEqual(crawlFollowThrough('strong').links, []);

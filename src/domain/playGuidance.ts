@@ -10,6 +10,67 @@ export interface PlayGuide {
 }
 export const PLAY_GUIDES: readonly PlayGuide[] = [
   {
+    id: 'travel-day',
+    appliesTo: ['rule:sd.travel-day'],
+    when: '길을 따라 하루 이동할 때',
+    steps: [
+      '새벽에 Calendar와 날씨를 확인합니다. 이미 정한 날씨를 다시 굴리지 않습니다.',
+      '이동하는 날은 길 d8 → 길의 사건 d20. 사건을 해결하고 야영합니다.',
+    ],
+    outcomes: [
+      [
+        '동물 길 · 망가진 길',
+        '길을 잃는지 1d20 + Presence 또는 Omens, DR10. 실패할 때만 길 밖 표.',
+      ],
+      [
+        '하루 마무리',
+        '야영 뒤 이동일을 하나 지웁니다. 채집한 날이나 원문에서 전진하지 못한 날은 제외.',
+      ],
+      ['도착', '모든 이동일을 지운 다음 날 중에 목적지에 도착합니다.'],
+    ],
+    source: 'Sölitary Defilement · PDF 17 / 인쇄 15; FERETORY · PDF 7 / 인쇄 5',
+    sourceId: 'rule:sd.travel-day',
+  },
+  {
+    id: 'leaving-road',
+    appliesTo: ['rule:sd.leaving-road'],
+    when: '길을 벗어나거나 길을 잃었을 때',
+    steps: [
+      '동물 길·망가진 길에서 길을 유지하려면 아래 DR10 판정을 합니다.',
+      '이미 길을 벗어났거나 일부러 나섰다면 회피 판정 없이 Leaving the Road d12를 엽니다.',
+    ],
+    outcomes: [
+      ['성공', '길을 유지합니다. 새 이동 성공 판정은 추가하지 않습니다.'],
+      [
+        '실패',
+        '길 밖 d12의 사건을 해결하고 도로로 돌아옵니다. SD에서는 이 날도 이동일입니다.',
+      ],
+      ['의도적 이탈', 'FERETORY는 길을 벗어나 반나절 뒤의 만남을 제시합니다.'],
+    ],
+    source: 'Sölitary Defilement · PDF 17 / 인쇄 15; FERETORY · PDF 9 / 인쇄 7',
+    sourceId: 'rule:sd.leaving-road',
+  },
+  {
+    id: 'resupply-travel',
+    appliesTo: ['rule:sd.resupply'],
+    when: '이동 대신 하루 채집할 때',
+    steps: [
+      '여행 중에는 Foraging d6를 한 번 굴립니다. 별도의 성공 판정을 먼저 하지 않습니다.',
+      '결과의 수량·추가 판정·마을 표를 처리한 뒤 야영합니다.',
+    ],
+    outcomes: [
+      [
+        '채집 결과 2–3',
+        '식량·물의 분량을 정합니다. 2라면 Presence DR12로 부패를 알아채는지 확인.',
+      ],
+      ['4 / 5–6', '4는 짐승을 죽인 뒤 식량. 5–6은 마을 d6.'],
+      ['이동일', '하루를 채집에 썼으므로 남은 이동일을 줄이지 않습니다.'],
+    ],
+    source:
+      'Sölitary Defilement · PDF 8, 17 / 인쇄 6, 15; FERETORY · PDF 8 / 인쇄 6',
+    sourceId: 'rule:sd.resupply',
+  },
+  {
     id: 'dungeon-crawl',
     appliesTo: ['rule:sd.dungeonCrawling'],
     when: '다음 방으로 나아갈 때',
@@ -167,6 +228,32 @@ export interface PlayAction {
   near?: readonly string[];
 }
 export const SCENE_PLAY_ACTIONS: Record<string, readonly PlayAction[]> = {
+  wilderness: [
+    {
+      referenceId: 'rule:sd.travel-day',
+      label: '이동하기',
+      hint: '길 d8 · 사건 d20 · 다음 처리',
+      near: ['road', 'roadside', 'tracks', 'distances'],
+    },
+    {
+      referenceId: 'rule:sd.leaving-road',
+      label: '길 벗어나기',
+      hint: '길 이탈 판정 / 이미 벗어났다면 d12',
+      near: ['offroad', 'remains', 'threat-signs'],
+    },
+    {
+      referenceId: 'rule:sd.resupply',
+      label: '채집하기',
+      hint: '하루 채집 d6 · 이동일 유지',
+      near: ['forage', 'river', 'village'],
+    },
+    {
+      referenceId: 'rule:sd.camping-move',
+      label: '야영하기',
+      hint: '2d20 + Presence · DR12',
+      near: ['camp'],
+    },
+  ],
   dungeon: [
     {
       referenceId: 'rule:sd.dungeonCrawling',

@@ -1,0 +1,86 @@
+[
+  {
+    "width": 360,
+    "checks": [
+      "Fact guidance opens the existing Mythic Fate tool",
+      "Keyboard question intent → canonical reader without rolling",
+      "SD general move compares independent d20s, manually entered",
+      "Conditional rules, no roll on blocked recovery, Escape focus and browser Back",
+      "Journey road → conditional navigation failure → off-road, retained on Back",
+      "Forage quantity + detection app/manual, invalid input, camp continuation, Pins/Workbench and retained dice",
+      "Inn inherits Tavern inline via fixed row 3, no extra roll or overwritten parent",
+      "Inn uses DR8; Search and Recent preserve canonical forage result"
+    ],
+    "errors": [],
+    "screenshots": [
+      "outputs/play-guidance/question-360.png",
+      "outputs/play-guidance/conditions-360.png",
+      "outputs/play-guidance/foraging-360.png",
+      "outputs/play-guidance/inn-360.png"
+    ],
+    "passed": true
+  },
+  {
+    "width": 768,
+    "checks": [
+      "Fact guidance opens the existing Mythic Fate tool",
+      "Keyboard question intent → canonical reader without rolling",
+      "SD general move compares independent d20s, manually entered",
+      "Conditional rules, no roll on blocked recovery, Escape focus and browser Back",
+      "Journey road → conditional navigation failure → off-road, retained on Back",
+      "Forage quantity + detection app/manual, invalid input, camp continuation, Pins/Workbench and retained dice",
+      "Inn inherits Tavern inline via fixed row 3, no extra roll or overwritten parent",
+      "Inn uses DR8; Search and Recent preserve canonical forage result"
+    ],
+    "errors": [],
+    "screenshots": [
+      "outputs/play-guidance/question-768.png",
+      "outputs/play-guidance/conditions-768.png",
+      "outputs/play-guidance/foraging-768.png",
+      "outputs/play-guidance/inn-768.png"
+    ],
+    "passed": true
+  },
+  {
+    "width": 1440,
+    "checks": [
+      "Fact guidance opens the existing Mythic Fate tool",
+      "Keyboard question intent → canonical reader without rolling",
+      "SD general move compares independent d20s, manually entered",
+      "Conditional rules, no roll on blocked recovery, Escape focus and browser Back",
+      "Journey road → conditional navigation failure → off-road, retained on Back",
+      "Forage quantity + detection app/manual, invalid input, camp continuation, Pins/Workbench and retained dice",
+      "Inn inherits Tavern inline via fixed row 3, no extra roll or overwritten parent",
+      "Inn uses DR8; Search and Recent preserve canonical forage result"
+    ],
+    "errors": [],
+    "screenshots": [
+      "outputs/play-guidance/question-1440.png",
+      "outputs/play-guidance/conditions-1440.png",
+      "outputs/play-guidance/foraging-1440.png",
+      "outputs/play-guidance/inn-1440.png"
+    ],
+    "passed": true
+  },
+  {
+    "width": 3440,
+    "checks": [
+      "Fact guidance opens the existing Mythic Fate tool",
+      "Keyboard question intent → canonical reader without rolling",
+      "SD general move compares independent d20s, manually entered",
+      "Conditional rules, no roll on blocked recovery, Escape focus and browser Back",
+      "Journey road → conditional navigation failure → off-road, retained on Back",
+      "Forage quantity + detection app/manual, invalid input, camp continuation, Pins/Workbench and retained dice",
+      "Inn inherits Tavern inline via fixed row 3, no extra roll or overwritten parent",
+      "Inn uses DR8; Search and Recent preserve canonical forage result"
+    ],
+    "errors": [],
+    "screenshots": [
+      "outputs/play-guidance/question-3440.png",
+      "outputs/play-guidance/conditions-3440.png",
+      "outputs/play-guidance/foraging-3440.png",
+      "outputs/play-guidance/inn-3440.png"
+    ],
+    "passed": true
+  }
+]

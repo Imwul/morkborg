@@ -1,6 +1,11 @@
 import { mythicFocusList } from '../domain/mythicLists';
 import { playGuideFor } from '../domain/playGuidance';
 import { ProceduralGuide } from './ProceduralGuide';
+import { ConditionalRules } from './ConditionalRules';
+import { RULE_TOPIC_REFERENCES } from '../domain/conditionalRules';
+import { GeneralActionCheck } from './GeneralActionCheck';
+import { JourneyGuidance } from './JourneyGuidance';
+import { ResultFollowThrough } from './ResultFollowThrough';
 import { objectShelfStore } from '../storage/notebookTools';
 import {
   objectKindForReference,
@@ -769,7 +774,9 @@ export function ReferenceProvider({
     (roll) => roll.oracleId === 'mythic2.random-event-focus-table',
   );
   const focusList = focusRoll ? mythicFocusList(focusRoll.roll) : null;
-  const hasQuickGuide = selected ? !!playGuideFor(selected.id) : false;
+  const hasQuickGuide = selected
+    ? !!playGuideFor(selected.id) || !!RULE_TOPIC_REFERENCES[selected.id]
+    : false;
   const PartsContainer = hasQuickGuide ? 'details' : 'section';
   const ReadingContainer = plainRule && hasQuickGuide ? 'details' : 'article';
   const saveKind = selected ? objectKindForReference(selected.id) : null;
@@ -882,6 +889,21 @@ export function ReferenceProvider({
           </button>
         )}
         <ProceduralGuide referenceId={selected.id} />
+        {RULE_TOPIC_REFERENCES[selected.id] && (
+          <ConditionalRules
+            key={selected.id}
+            initialTopic={RULE_TOPIC_REFERENCES[selected.id]}
+          />
+        )}
+        {['rule:core.tests', 'rule:sd.general-move'].includes(selected.id) && (
+          <GeneralActionCheck
+            key={selected.id}
+            sd={selected.id === 'rule:sd.general-move'}
+          />
+        )}
+        {selected.kind === 'rule' && (
+          <JourneyGuidance referenceId={selected.id} />
+        )}
         {selected.id === 'rule:sd.dungeonCrawling' && (
           <DungeonReferenceRoller />
         )}
@@ -1440,6 +1462,10 @@ export function ReferenceProvider({
               </details>
             )}
             <ResultReferenceLinks links={resultLinks} />
+            <ResultFollowThrough reading={reading} />
+            {selected.kind !== 'rule' && (
+              <JourneyGuidance referenceId={selected.id} reading={reading} />
+            )}
             {procedureId !== 'sd.dungeon-preparation' &&
               reading.oracle?.rolls.map((roll, n) => {
                 const table = oracles.registry.tables.find(

@@ -1,6 +1,7 @@
 import { PlayToolReferenceContext } from './components/ReferenceContext';
 import { SavedObjectsPanel } from './components/SavedObjectsPanel';
 import { CombatPanel } from './components/CombatPanel';
+import { PlayGuidancePanel } from './components/PlayGuidancePanel';
 import { useEffect, useRef, useState } from 'react';
 import { Check, House, X } from 'lucide-react';
 import {
@@ -31,6 +32,8 @@ export default function App() {
   const [page, setPage] = useState<ReferenceDeskPage>('home');
   const [shelfOpen, setShelfOpen] = useState(false);
   const [combatOpen, setCombatOpen] = useState(false);
+  const [guidanceOpen, setGuidanceOpen] = useState(false);
+  const guidanceLauncherRef = useRef<HTMLButtonElement>(null);
   const combatLauncherRef = useRef<HTMLButtonElement>(null);
   const shelfLauncherRef = useRef<HTMLButtonElement>(null);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -56,6 +59,10 @@ export default function App() {
     open: (value) => value,
   });
   useNavigationChannel('combat-tool', combatOpen, setCombatOpen, {
+    normalize: (value) => value === true,
+    open: (value) => value,
+  });
+  useNavigationChannel('play-guidance', guidanceOpen, setGuidanceOpen, {
     normalize: (value) => value === true,
     open: (value) => value,
   });
@@ -213,6 +220,13 @@ export default function App() {
 
         <div className="play-tools-dock" aria-label="플레이 도구">
           <button
+            ref={guidanceLauncherRef}
+            onClick={() => setGuidanceOpen(true)}
+            aria-expanded={guidanceOpen}
+          >
+            판정 안내
+          </button>
+          <button
             ref={combatLauncherRef}
             className="combat-launcher"
             onClick={() => setCombatOpen(true)}
@@ -242,6 +256,12 @@ export default function App() {
             if (page !== 'spatial') setPage('reference');
           }}
         >
+          <PlayGuidancePanel
+            open={guidanceOpen}
+            onOpenChange={setGuidanceOpen}
+            launcherRef={guidanceLauncherRef}
+            onFate={openFate}
+          />
           <CombatPanel
             open={combatOpen}
             onOpenChange={setCombatOpen}
