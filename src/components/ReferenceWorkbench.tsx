@@ -863,6 +863,24 @@ export function ReferenceProvider({
           : '빠른 참조'}
       </p>
       <div className="reference-body">
+        {(selected.kind === 'creature' ||
+          monsterReference ||
+          selected.id === 'oracle:feretory.A' ||
+          [
+            'rule:core.violence',
+            'rule:core.crit-fumble',
+            'rule:core.armor-shield',
+            'rule:core.reaction-morale',
+            'rule:core.broken',
+            'rule:core.omens',
+          ].includes(selected.id)) && (
+          <button
+            className="open-combat-tool"
+            onClick={() => window.dispatchEvent(new Event('open-combat-tool'))}
+          >
+            전투 도구 열기 ↗
+          </button>
+        )}
         <ProceduralGuide referenceId={selected.id} />
         {selected.id === 'rule:sd.dungeonCrawling' && (
           <DungeonReferenceRoller />

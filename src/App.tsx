@@ -1,5 +1,6 @@
 import { PlayToolReferenceContext } from './components/ReferenceContext';
 import { SavedObjectsPanel } from './components/SavedObjectsPanel';
+import { CombatPanel } from './components/CombatPanel';
 import { useEffect, useRef, useState } from 'react';
 import { Check, House, X } from 'lucide-react';
 import {
@@ -29,6 +30,8 @@ export default function App() {
   const [surface, setSurface] = useState<Surface>('desk');
   const [page, setPage] = useState<ReferenceDeskPage>('home');
   const [shelfOpen, setShelfOpen] = useState(false);
+  const [combatOpen, setCombatOpen] = useState(false);
+  const combatLauncherRef = useRef<HTMLButtonElement>(null);
   const shelfLauncherRef = useRef<HTMLButtonElement>(null);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [fateOpen, setFateOpen] = useState(false);
@@ -49,6 +52,10 @@ export default function App() {
         : 'home',
   });
   useNavigationChannel('object-shelf', shelfOpen, setShelfOpen, {
+    normalize: (value) => value === true,
+    open: (value) => value,
+  });
+  useNavigationChannel('combat-tool', combatOpen, setCombatOpen, {
     normalize: (value) => value === true,
     open: (value) => value,
   });
@@ -112,9 +119,12 @@ export default function App() {
     window.addEventListener('mythic-open-lists', openLists);
     const openShelf = () => setShelfOpen(true);
     window.addEventListener('open-object-shelf', openShelf);
+    const openCombat = () => setCombatOpen(true);
+    window.addEventListener('open-combat-tool', openCombat);
     return () => {
       window.removeEventListener('mythic-open-lists', openLists);
       window.removeEventListener('open-object-shelf', openShelf);
+      window.removeEventListener('open-combat-tool', openCombat);
     };
   }, []);
 
@@ -203,6 +213,14 @@ export default function App() {
 
         <div className="play-tools-dock" aria-label="플레이 도구">
           <button
+            ref={combatLauncherRef}
+            className="combat-launcher"
+            onClick={() => setCombatOpen(true)}
+            aria-expanded={combatOpen}
+          >
+            전투
+          </button>
+          <button
             ref={shelfLauncherRef}
             onClick={() => setShelfOpen(true)}
             aria-expanded={shelfOpen}
@@ -224,6 +242,11 @@ export default function App() {
             if (page !== 'spatial') setPage('reference');
           }}
         >
+          <CombatPanel
+            open={combatOpen}
+            onOpenChange={setCombatOpen}
+            launcherRef={combatLauncherRef}
+          />
           <SavedObjectsPanel
             open={shelfOpen}
             onOpenChange={setShelfOpen}

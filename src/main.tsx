@@ -19,6 +19,7 @@ import './reference-app.css';
 import './components/spatial/spatial-oracle.css';
 import './components/generator-result.css';
 import './components/notebook-tools.css';
+import './components/combat-tool.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
