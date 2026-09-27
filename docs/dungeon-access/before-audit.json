@@ -1,0 +1,418 @@
+[
+  {
+    "width": 360,
+    "mode": "before",
+    "metrics": {
+      "searches": 1,
+      "repeatedSearches": 0,
+      "clicks": 35,
+      "backs": 5,
+      "referenceSelections": 17,
+      "workspaceExits": 1,
+      "referenceDeskOpens": 1,
+      "repeatedProcedureLookups": 2
+    },
+    "searches": [
+      {
+        "q": "조우 후보",
+        "reason": "C",
+        "intent": "Prepare one regional Common candidate using existing Encounter Candidate tool",
+        "origin": "rule:sd.stockCommon"
+      }
+    ],
+    "boundaries": [
+      {
+        "label": "start",
+        "clicks": 1,
+        "backs": 0,
+        "searches": 0,
+        "selections": 0,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "A empty / ready to leave",
+        "clicks": 10,
+        "backs": 1,
+        "searches": 0,
+        "selections": 4,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "B encounter / ready to leave",
+        "clicks": 21,
+        "backs": 3,
+        "searches": 1,
+        "selections": 10,
+        "exits": 1,
+        "deskOpens": 1
+      },
+      {
+        "label": "C object-rich / ready to leave",
+        "clicks": 35,
+        "backs": 5,
+        "searches": 1,
+        "selections": 17,
+        "exits": 1,
+        "deskOpens": 1
+      }
+    ],
+    "trace": [
+      "enter Dungeon",
+      "player chooses next room",
+      "explicit weak crawl",
+      "procedure:sd.room-description",
+      "explicit Roll 0.2",
+      "Back rule:sd.dungeonCrawling",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.99",
+      "player chooses exit",
+      "explicit Roll 0.3",
+      "return map",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.45",
+      "result link rule:sd.stockCommon",
+      "focus Search",
+      "Search result",
+      "explicit Roll 0.2",
+      "result link oracle:core.reaction",
+      "explicit Roll 0.5",
+      "Back procedure:workbench.stock-room",
+      "canonical source",
+      "Back procedure:workbench.stock-room",
+      "return Dungeon from Reference Desk",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.1",
+      "player explicitly chooses Searching",
+      "explicit Searching roll",
+      "result link oracle:core.corpsePlundering",
+      "explicit Roll 0.2",
+      "Back rule:sd.search-move",
+      "Related oracle:sd.search.strong",
+      "explicit Roll 0.9",
+      "result link oracle:core.treasures",
+      "explicit Roll 0.2",
+      "Back oracle:sd.search.strong",
+      "player manually chooses trap",
+      "explicit Roll 0.4",
+      "return map"
+    ],
+    "checks": [],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "mode": "before",
+    "metrics": {
+      "searches": 1,
+      "repeatedSearches": 0,
+      "clicks": 35,
+      "backs": 5,
+      "referenceSelections": 17,
+      "workspaceExits": 1,
+      "referenceDeskOpens": 1,
+      "repeatedProcedureLookups": 2
+    },
+    "searches": [
+      {
+        "q": "조우 후보",
+        "reason": "C",
+        "intent": "Prepare one regional Common candidate using existing Encounter Candidate tool",
+        "origin": "rule:sd.stockCommon"
+      }
+    ],
+    "boundaries": [
+      {
+        "label": "start",
+        "clicks": 1,
+        "backs": 0,
+        "searches": 0,
+        "selections": 0,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "A empty / ready to leave",
+        "clicks": 10,
+        "backs": 1,
+        "searches": 0,
+        "selections": 4,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "B encounter / ready to leave",
+        "clicks": 21,
+        "backs": 3,
+        "searches": 1,
+        "selections": 10,
+        "exits": 1,
+        "deskOpens": 1
+      },
+      {
+        "label": "C object-rich / ready to leave",
+        "clicks": 35,
+        "backs": 5,
+        "searches": 1,
+        "selections": 17,
+        "exits": 1,
+        "deskOpens": 1
+      }
+    ],
+    "trace": [
+      "enter Dungeon",
+      "player chooses next room",
+      "explicit weak crawl",
+      "procedure:sd.room-description",
+      "explicit Roll 0.2",
+      "Back rule:sd.dungeonCrawling",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.99",
+      "player chooses exit",
+      "explicit Roll 0.3",
+      "return map",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.45",
+      "result link rule:sd.stockCommon",
+      "focus Search",
+      "Search result",
+      "explicit Roll 0.2",
+      "result link oracle:core.reaction",
+      "explicit Roll 0.5",
+      "Back procedure:workbench.stock-room",
+      "canonical source",
+      "Back procedure:workbench.stock-room",
+      "return Dungeon from Reference Desk",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.1",
+      "player explicitly chooses Searching",
+      "explicit Searching roll",
+      "result link oracle:core.corpsePlundering",
+      "explicit Roll 0.2",
+      "Back rule:sd.search-move",
+      "Related oracle:sd.search.strong",
+      "explicit Roll 0.9",
+      "result link oracle:core.treasures",
+      "explicit Roll 0.2",
+      "Back oracle:sd.search.strong",
+      "player manually chooses trap",
+      "explicit Roll 0.4",
+      "return map"
+    ],
+    "checks": [],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "mode": "before",
+    "metrics": {
+      "searches": 1,
+      "repeatedSearches": 0,
+      "clicks": 35,
+      "backs": 5,
+      "referenceSelections": 17,
+      "workspaceExits": 1,
+      "referenceDeskOpens": 1,
+      "repeatedProcedureLookups": 2
+    },
+    "searches": [
+      {
+        "q": "조우 후보",
+        "reason": "C",
+        "intent": "Prepare one regional Common candidate using existing Encounter Candidate tool",
+        "origin": "rule:sd.stockCommon"
+      }
+    ],
+    "boundaries": [
+      {
+        "label": "start",
+        "clicks": 1,
+        "backs": 0,
+        "searches": 0,
+        "selections": 0,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "A empty / ready to leave",
+        "clicks": 10,
+        "backs": 1,
+        "searches": 0,
+        "selections": 4,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "B encounter / ready to leave",
+        "clicks": 21,
+        "backs": 3,
+        "searches": 1,
+        "selections": 10,
+        "exits": 1,
+        "deskOpens": 1
+      },
+      {
+        "label": "C object-rich / ready to leave",
+        "clicks": 35,
+        "backs": 5,
+        "searches": 1,
+        "selections": 17,
+        "exits": 1,
+        "deskOpens": 1
+      }
+    ],
+    "trace": [
+      "enter Dungeon",
+      "player chooses next room",
+      "explicit weak crawl",
+      "procedure:sd.room-description",
+      "explicit Roll 0.2",
+      "Back rule:sd.dungeonCrawling",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.99",
+      "player chooses exit",
+      "explicit Roll 0.3",
+      "return map",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.45",
+      "result link rule:sd.stockCommon",
+      "focus Search",
+      "Search result",
+      "explicit Roll 0.2",
+      "result link oracle:core.reaction",
+      "explicit Roll 0.5",
+      "Back procedure:workbench.stock-room",
+      "canonical source",
+      "Back procedure:workbench.stock-room",
+      "return Dungeon from Reference Desk",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.1",
+      "player explicitly chooses Searching",
+      "explicit Searching roll",
+      "result link oracle:core.corpsePlundering",
+      "explicit Roll 0.2",
+      "Back rule:sd.search-move",
+      "Related oracle:sd.search.strong",
+      "explicit Roll 0.9",
+      "result link oracle:core.treasures",
+      "explicit Roll 0.2",
+      "Back oracle:sd.search.strong",
+      "player manually chooses trap",
+      "explicit Roll 0.4",
+      "return map"
+    ],
+    "checks": [],
+    "errors": []
+  },
+  {
+    "width": 3440,
+    "mode": "before",
+    "metrics": {
+      "searches": 1,
+      "repeatedSearches": 0,
+      "clicks": 35,
+      "backs": 5,
+      "referenceSelections": 17,
+      "workspaceExits": 1,
+      "referenceDeskOpens": 1,
+      "repeatedProcedureLookups": 2
+    },
+    "searches": [
+      {
+        "q": "조우 후보",
+        "reason": "C",
+        "intent": "Prepare one regional Common candidate using existing Encounter Candidate tool",
+        "origin": "rule:sd.stockCommon"
+      }
+    ],
+    "boundaries": [
+      {
+        "label": "start",
+        "clicks": 1,
+        "backs": 0,
+        "searches": 0,
+        "selections": 0,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "A empty / ready to leave",
+        "clicks": 10,
+        "backs": 1,
+        "searches": 0,
+        "selections": 4,
+        "exits": 0,
+        "deskOpens": 0
+      },
+      {
+        "label": "B encounter / ready to leave",
+        "clicks": 21,
+        "backs": 3,
+        "searches": 1,
+        "selections": 10,
+        "exits": 1,
+        "deskOpens": 1
+      },
+      {
+        "label": "C object-rich / ready to leave",
+        "clicks": 35,
+        "backs": 5,
+        "searches": 1,
+        "selections": 17,
+        "exits": 1,
+        "deskOpens": 1
+      }
+    ],
+    "trace": [
+      "enter Dungeon",
+      "player chooses next room",
+      "explicit weak crawl",
+      "procedure:sd.room-description",
+      "explicit Roll 0.2",
+      "Back rule:sd.dungeonCrawling",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.99",
+      "player chooses exit",
+      "explicit Roll 0.3",
+      "return map",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.45",
+      "result link rule:sd.stockCommon",
+      "focus Search",
+      "Search result",
+      "explicit Roll 0.2",
+      "result link oracle:core.reaction",
+      "explicit Roll 0.5",
+      "Back procedure:workbench.stock-room",
+      "canonical source",
+      "Back procedure:workbench.stock-room",
+      "return Dungeon from Reference Desk",
+      "player chooses next room",
+      "Related oracle:sd.room.contents",
+      "explicit Roll 0.1",
+      "player explicitly chooses Searching",
+      "explicit Searching roll",
+      "result link oracle:core.corpsePlundering",
+      "explicit Roll 0.2",
+      "Back rule:sd.search-move",
+      "Related oracle:sd.search.strong",
+      "explicit Roll 0.9",
+      "result link oracle:core.treasures",
+      "explicit Roll 0.2",
+      "Back oracle:sd.search.strong",
+      "player manually chooses trap",
+      "explicit Roll 0.4",
+      "return map"
+    ],
+    "checks": [],
+    "errors": []
+  }
+]

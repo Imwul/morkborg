@@ -537,11 +537,20 @@
 }
 .reference-page .reference-convenience-actions[open] {
   position: relative;
+  flex-basis: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 .reference-page .reference-convenience-actions button {
   display: block;
   font: var(--text-ui)/var(--leading-control) var(--font-ui);
   padding: 8px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.reference-page .reference-convenience-actions:not([open]) > button,
+.reference-page .result-more-actions:not([open]) > button {
+  display: none;
 }
 .reference-page .reference-summary {
   margin: 0 0 10px;

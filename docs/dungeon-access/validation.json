@@ -1,0 +1,31 @@
+{
+  "baselineCommit": "fe2498253ee6c494d2c4e43ac449a5647fe509a2",
+  "baseline": {
+    "tests": 1180,
+    "pass": 1180,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 227793.22775
+  },
+  "final": {
+    "tests": 1192,
+    "pass": 1192,
+    "fail": 0,
+    "skip": 0,
+    "durationMs": 216711.854625
+  },
+  "build": "pass (existing >500 kB chunk warning)",
+  "lint": "pass",
+  "privacyBoundary": "pass",
+  "browserViewports": [
+    360,
+    768,
+    1440,
+    3440
+  ],
+  "combatViewports": [
+    360,
+    1440
+  ],
+  "integrity": "counts and parsed source/registry/relationship hashes equal; source files unchanged"
+}

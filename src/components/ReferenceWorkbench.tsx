@@ -267,12 +267,21 @@ export function ReferenceProvider({
   const inspectorRef = useRef<HTMLDivElement>(null);
   const pendingPhysicalRow = useRef<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  function referenceViewRoot() {
+    // Spatial actions and Related are siblings of the reference page. Their
+    // triggers belong to the same transient reading view for Back navigation.
+    return (
+      inspectorRef.current?.closest<HTMLElement>('.spatial-reader') ??
+      inspectorRef.current
+    );
+  }
   function rememberReferenceView() {
-    if (!selectedId || !inspectorRef.current) return;
+    const root = referenceViewRoot();
+    if (!selectedId || !root) return;
     referenceViews.current.delete(selectedId);
     referenceViews.current.set(selectedId, {
       reading: readings[selectedId],
-      view: captureReferenceView(inspectorRef.current),
+      view: captureReferenceView(root),
     });
     if (referenceViews.current.size > 20)
       referenceViews.current.delete(
@@ -289,8 +298,8 @@ export function ReferenceProvider({
     restoreView.current = null;
     if (!view) return;
     const frame = requestAnimationFrame(() => {
-      if (inspectorRef.current)
-        restoreReferenceView(inspectorRef.current, view);
+      const root = referenceViewRoot();
+      if (root) restoreReferenceView(root, view);
     });
     return () => cancelAnimationFrame(frame);
   }, [selectedId]);
@@ -822,6 +831,7 @@ export function ReferenceProvider({
   const saveKind = selected ? objectKindForReference(selected.id) : null;
   const referenceContent = selected ? (
     <section
+      key={selected.id}
       className="reference-page"
       aria-label="현재 참조"
       data-reference-id={selected.id}

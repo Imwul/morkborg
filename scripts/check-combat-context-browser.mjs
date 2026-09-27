@@ -64,6 +64,14 @@ try {
       await choice('대상').selectOption(t);
     };
     const manual = async (test, damage = '4', armor = '1') => {
+      // Apply restores input focus on the next frame. Let that finish before
+      // entering another physical roll, so automation cannot race selection.
+      await page.evaluate(
+        () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(resolve)),
+          ),
+      );
       await textbox(panel, '판정 d20').fill(test);
       await textbox(panel, '무기 피해 실물 값').fill(damage);
       await textbox(panel, '방어구 실물 값').fill(armor);

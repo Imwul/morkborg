@@ -1,0 +1,9 @@
+{
+  "registryScan": 993,
+  "shownFor": [
+    "rule:sd.stockCommon",
+    "rule:sd.stockRare"
+  ],
+  "notAddedFor": 991,
+  "fixturesCoveredBy": "tests/dungeon-procedure-access.test.ts"
+}

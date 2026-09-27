@@ -219,6 +219,29 @@ export function relatedReferenceRelationships(
       sourceRefs: edge.sourceRefs,
     });
   }
+  // The candidate tool already declares Common/Rare preparation rules in
+  // relatedIds. Allow navigation back from those rules to that same tool.
+  // This is reciprocal access, not a new USES edge or a result recommendation.
+  const candidate = references.byId['procedure:workbench.stock-room'];
+  const source = references.byId[sourceId];
+  if (
+    source.available &&
+    source.action?.kind === 'rule' &&
+    candidate?.available &&
+    candidate.action?.kind === 'procedure' &&
+    candidate.action.procedureId === 'workbench.stock-room' &&
+    candidate.relatedIds.includes(sourceId) &&
+    !seen.has(candidate.id)
+  ) {
+    seen.add(candidate.id);
+    results.push({
+      entry: candidate,
+      origins: [
+        `${candidate.id}.relatedIds[${candidate.relatedIds.indexOf(sourceId)}] (reverse navigation)`,
+      ],
+      sourceRefs: [],
+    });
+  }
   for (const entry of relatedReferences(references, sourceId, 8)) {
     if (seen.has(entry.id)) continue;
     seen.add(entry.id);

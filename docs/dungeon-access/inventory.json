@@ -1,0 +1,3262 @@
+[
+  {
+    "id": "oracle:reclvse.dungeonEntrance",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonEntrance"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonEntrance"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonEntrance",
+        "tableTitle": "Dungeon Entrance",
+        "pdfPage": 87,
+        "printedPage": 87,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-entrance"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.entranceState",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.entranceState"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.entranceState"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.entranceState",
+        "tableTitle": "Entrance State",
+        "pdfPage": 88,
+        "printedPage": 88,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-threshold"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.entranceSigns",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.entranceSigns"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.entranceSigns"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.entranceSigns",
+        "tableTitle": "Entrance Signs",
+        "pdfPage": 89,
+        "printedPage": 89,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-entrance-marks"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.entranceSmells",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.entranceSmells"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.entranceSmells"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.entranceSmells",
+        "tableTitle": "Entrance Smells",
+        "pdfPage": 89,
+        "printedPage": 89,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-entrance-odour"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.architecture",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.architecture"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.architecture"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.architecture",
+        "tableTitle": "Architecture & Structure",
+        "pdfPage": 91,
+        "printedPage": 91,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-masonry"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.exitType",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.exitType"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.exitType"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.exitType",
+        "tableTitle": "Exit Type",
+        "pdfPage": 93,
+        "printedPage": 93,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-door"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.contentsCategory",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.contentsCategory"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.contentsCategory"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.contentsCategory",
+        "tableTitle": "Room Contents",
+        "pdfPage": 92,
+        "printedPage": 92,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-contents"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.roomShape",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.roomShape"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.roomShape"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.roomShape",
+        "tableTitle": "Room Shape",
+        "pdfPage": 91,
+        "printedPage": 91,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-floor"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.roomDiscovery",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.roomDiscovery"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.roomDiscovery"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.roomDiscovery",
+        "tableTitle": "10A. Discovery",
+        "pdfPage": 93,
+        "printedPage": 93,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-furnishing"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.roomLoot",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.roomLoot"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.roomLoot"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.roomLoot",
+        "tableTitle": "10D. Loot",
+        "pdfPage": 93,
+        "printedPage": 93,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-chest"
+    ]
+  },
+  {
+    "id": "oracle:core.traps",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.traps"
+      ]
+    },
+    "canonicalIds": [
+      "core.traps"
+    ],
+    "relatedIds": [
+      "book:core"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:core",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.traps",
+        "tableTitle": "Traps and Devilry",
+        "pdfPage": 4,
+        "printedPage": 4,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-trap"
+    ]
+  },
+  {
+    "id": "rule:reclvse.passage",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "rule:reclvse.passage"
+    },
+    "canonicalIds": [
+      "reclvse.playReferences"
+    ],
+    "relatedIds": [
+      "rule:reclvse.resolution",
+      "rule:reclvse.search-room",
+      "rule:reclvse.face-trap",
+      "rule:reclvse.room-encounter"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:reclvse.resolution",
+        "origins": []
+      },
+      {
+        "id": "rule:reclvse.search-room",
+        "origins": []
+      },
+      {
+        "id": "rule:reclvse.face-trap",
+        "origins": []
+      },
+      {
+        "id": "rule:reclvse.room-encounter",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "tableId": "reclvse.playReferences",
+        "tableTitle": "RECLVSE — Rules and Moves",
+        "pdfPage": 68,
+        "printedPage": 68,
+        "status": "VERIFIED",
+        "entryId": "reclvse.playReferences:rule-reclvse.passage",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg"
+      }
+    ],
+    "entries": [
+      "map:dungeon-passage"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.light",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.light"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.light"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.light",
+        "tableTitle": "Light & Visibility",
+        "pdfPage": 91,
+        "printedPage": 91,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-light"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dressing",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dressing"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dressing"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dressing",
+        "tableTitle": "Room Dressing",
+        "pdfPage": 92,
+        "printedPage": 92,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-remains"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.sounds",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.sounds"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.sounds"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.sounds",
+        "tableTitle": "Room Sounds",
+        "pdfPage": 92,
+        "printedPage": 92,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-sounds"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.smells",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.smells"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.smells"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.smells",
+        "tableTitle": "Room Smells",
+        "pdfPage": 92,
+        "printedPage": 92,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "map:dungeon-room-odour"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonOrigin",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonOrigin"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonOrigin"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonOrigin",
+        "tableTitle": "Dungeon Origin",
+        "pdfPage": 86,
+        "printedPage": 86,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-origin"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonPurposeThen",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonPurposeThen",
+        "reclvse.dungeonPurposeNow"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonPurposeThen",
+      "reclvse.dungeonPurposeNow"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonPurposeThen",
+        "tableTitle": "Dungeon Purpose (Then)",
+        "pdfPage": 86,
+        "printedPage": 86,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonPurposeNow",
+        "tableTitle": "Dungeon Purpose (Now)",
+        "pdfPage": 86,
+        "printedPage": 86,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-purpose"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonTheme",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonTheme"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonTheme"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonTheme",
+        "tableTitle": "Dungeon Theme",
+        "pdfPage": 86,
+        "printedPage": 86,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-theme"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonCondition",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonCondition"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonCondition"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonCondition",
+        "tableTitle": "Dungeon Condition",
+        "pdfPage": 87,
+        "printedPage": 87,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-condition"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonInhabitants",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonInhabitants"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonInhabitants"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonInhabitants",
+        "tableTitle": "Current Inhabitants",
+        "pdfPage": 87,
+        "printedPage": 87,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-inhabitants"
+    ]
+  },
+  {
+    "id": "oracle:reclvse.dungeonMotive",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.dungeonMotive"
+      ]
+    },
+    "canonicalIds": [
+      "reclvse.dungeonMotive"
+    ],
+    "relatedIds": [
+      "book:reclvse"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:reclvse",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonMotive",
+        "tableTitle": "Primary Motive Within",
+        "pdfPage": 87,
+        "printedPage": 87,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-motive"
+    ]
+  },
+  {
+    "id": "oracle:mythic2.meaning.dungeon-descriptors",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "mythic2.meaning.dungeon-descriptors"
+      ]
+    },
+    "canonicalIds": [
+      "mythic2.meaning.dungeon-descriptors"
+    ],
+    "relatedIds": [
+      "procedure:mythic2.meaning.dungeon-descriptors.pair",
+      "book:mythic2"
+    ],
+    "readerRelated": [
+      {
+        "id": "procedure:mythic2.meaning.dungeon-descriptors.pair",
+        "kind": "USED BY",
+        "origins": [
+          "procedures.mythic2.meaning.dungeon-descriptors.pair.oracleIds[0]",
+          "procedures.mythic2.meaning.dungeon-descriptors.pair.oracleIds[1]"
+        ]
+      },
+      {
+        "id": "book:mythic2",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "mythic2",
+        "bookTitle": "Mythic Game Master Emulator Second Edition",
+        "tableId": "mythic2.meaning.dungeon-descriptors",
+        "tableTitle": "Dungeon Descriptors",
+        "pdfPage": 96,
+        "printedPage": 95,
+        "note": "Original English result text; each number is equally likely. Actions/Descriptions use one roll on each numbered table. Elements ordinarily use two rolls on the same chosen table; interpret, do not concatenate into invented prose. Category/tags/purpose are catalog metadata, not rulebook result text.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-mythic-descriptor"
+    ]
+  },
+  {
+    "id": "oracle:core.corpsePlundering",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.corpsePlundering"
+      ]
+    },
+    "canonicalIds": [
+      "core.corpsePlundering"
+    ],
+    "relatedIds": [
+      "book:core"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.usefulItems",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "book:core",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.corpsePlundering",
+        "tableTitle": "Corpse Plundering",
+        "pdfPage": [
+          4,
+          5
+        ],
+        "printedPage": 4,
+        "note": "Roll two distinguishable d6: tens and units (36 equiprobable outcomes). 11–16 and 61–66 each cover six outcomes. On 61–66 use the rolled d66 result as silver. Embedded dice in other results remain contextual.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "support:dungeon-support-human-remains",
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.dungeonCrawling",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.dungeonCrawling"
+    },
+    "canonicalIds": [
+      "sd.room.adjective",
+      "sd.room.type",
+      "sd.room.exits",
+      "sd.room.contents"
+    ],
+    "relatedIds": [
+      "book:sd",
+      "oracle:sd.room.adjective",
+      "oracle:sd.room.exits",
+      "oracle:sd.room.contents",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.room.adjective",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.room.exits",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.room.contents",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Dungeon Crawling · 던전 탐색",
+        "pdfPage": [
+          9,
+          19
+        ]
+      }
+    ],
+    "entries": [
+      "action:다음 방으로",
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.search-move",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.search-move"
+    },
+    "canonicalIds": [
+      "sd.search.strong",
+      "sd.search.weak",
+      "sd.usefulItems"
+    ],
+    "relatedIds": [
+      "book:sd",
+      "oracle:sd.search.strong",
+      "oracle:sd.search.weak",
+      "oracle:sd.usefulItems",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.search.strong",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.search.weak",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.usefulItems",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "SD Searching · 물건 찾기",
+        "pdfPage": [
+          8
+        ],
+        "printedPage": 6
+      }
+    ],
+    "entries": [
+      "action:물건 찾기",
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.camping-move",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.camping-move"
+    },
+    "canonicalIds": [],
+    "relatedIds": [
+      "book:sd",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "SD Camping · 숨 돌리기와 야영",
+        "pdfPage": [
+          8
+        ],
+        "printedPage": 6,
+        "note": "짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요."
+      }
+    ],
+    "entries": [
+      "action:숨 돌리기 · 야영"
+    ]
+  },
+  {
+    "id": "rule:sd.flee-combat",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.flee-combat"
+    },
+    "canonicalIds": [],
+    "relatedIds": [
+      "book:sd",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "SD Flee · 전투 이탈",
+        "pdfPage": [
+          8
+        ],
+        "printedPage": 6
+      }
+    ],
+    "entries": [
+      "action:전투에서 도망"
+    ]
+  },
+  {
+    "id": "procedure:sd.room-description",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "sd.room-description"
+    },
+    "canonicalIds": [
+      "sd.room.adjective",
+      "sd.room.type"
+    ],
+    "relatedIds": [
+      "oracle:sd.room.adjective"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.room.adjective",
+        "kind": "USES",
+        "origins": [
+          "procedures.sd.room-description.oracleIds[0]",
+          "procedures.sd.room-description.oracleIds[1]"
+        ]
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.room.adjective",
+        "tableTitle": "Dungeon Room Descriptors — Room Adjective",
+        "pdfPage": 15,
+        "printedPage": 13,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.room.type",
+        "tableTitle": "Dungeon Room Descriptors — Room Type",
+        "pdfPage": 15,
+        "printedPage": 13,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:sd.room.contents",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.room.contents"
+      ]
+    },
+    "canonicalIds": [
+      "sd.room.contents"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.room.contents",
+        "tableTitle": "Dungeon Room Descriptors — Room Contents",
+        "pdfPage": 15,
+        "printedPage": 13,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:sd.room.exits",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.room.exits"
+      ]
+    },
+    "canonicalIds": [
+      "sd.room.exits"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.room.exits",
+        "tableTitle": "Dungeon Room Descriptors — Room Exits",
+        "pdfPage": 15,
+        "printedPage": 13,
+        "note": "Conditional matrix: d4 lookup depends on 0–4 Special Rooms Uncovered. Require that context; do not collapse to an unconditional four-outcome oracle.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:depths.danger",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "depths.danger"
+      ]
+    },
+    "canonicalIds": [
+      "depths.danger"
+    ],
+    "relatedIds": [
+      "book:depths"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.danger",
+        "tableTitle": "Reveal a Danger",
+        "pdfPage": 11,
+        "printedPage": 8,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:depths.weakHitConsequences",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "depths.weakHitConsequences"
+      ]
+    },
+    "canonicalIds": [
+      "depths.weakHitConsequences"
+    ],
+    "relatedIds": [
+      "book:depths"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.weakHitConsequences",
+        "tableTitle": "Weak Hit Consequences",
+        "pdfPage": 11,
+        "printedPage": 8,
+        "note": "For an unclear Weak Hit while in a dungeon. Embedded row 3 contains a separate d6 resolution, retained verbatim.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:depths.traps",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "depths.traps"
+    },
+    "canonicalIds": [
+      "depths.traps.regular",
+      "depths.traps.special"
+    ],
+    "relatedIds": [
+      "book:depths",
+      "oracle:depths.traps.regular",
+      "oracle:depths.traps.special"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:depths.traps.regular",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.traps.special",
+        "origins": []
+      },
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Depths Traps · 함정 발견과 회피",
+        "pdfPage": [
+          12,
+          13
+        ],
+        "printedPage": "9–10",
+        "note": "짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요."
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:depths.traps.regular",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "depths.traps.regular"
+      ]
+    },
+    "canonicalIds": [
+      "depths.traps.regular"
+    ],
+    "relatedIds": [
+      "book:depths"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.traps.regular",
+        "tableTitle": "Regular Traps",
+        "pdfPage": 13,
+        "printedPage": 10,
+        "note": "Includes TR ability move, Weak Hit and Failure consequences. Resolve the selected trap with the source Threat Rating procedure; this table only selects the trap.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:depths.traps.special",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "depths.traps.special"
+      ]
+    },
+    "canonicalIds": [
+      "depths.traps.special"
+    ],
+    "relatedIds": [
+      "book:depths"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.traps.special",
+        "tableTitle": "Special Traps",
+        "pdfPage": 13,
+        "printedPage": 10,
+        "note": "Includes TR ability move, Weak Hit and Failure consequences. Regular Trap result 8 refers here.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:sd.search.strong",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.search.strong"
+      ]
+    },
+    "canonicalIds": [
+      "sd.search.strong"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.search.strong",
+        "tableTitle": "Searching for an Object — Strong Hit",
+        "pdfPage": 8,
+        "printedPage": 6,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:sd.search.weak",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.search.weak"
+      ]
+    },
+    "canonicalIds": [
+      "sd.search.weak"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.search.weak",
+        "tableTitle": "Searching for an Object — Weak Hit",
+        "pdfPage": 8,
+        "printedPage": 6,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:core.treasures",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.treasures"
+      ]
+    },
+    "canonicalIds": [
+      "core.treasures"
+    ],
+    "relatedIds": [
+      "book:core"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:core",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.treasures",
+        "tableTitle": "Occult Treasures",
+        "pdfPage": 3,
+        "printedPage": 3,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "oracle:core.reaction",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.reaction"
+      ]
+    },
+    "canonicalIds": [
+      "core.reaction"
+    ],
+    "relatedIds": [
+      "book:core"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "procedure:workbench.npc",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "book:core",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.reaction",
+        "tableTitle": "Reaction",
+        "pdfPage": 32,
+        "printedPage": 32,
+        "note": "Sum two d6; probabilities of printed rows are 3/36, 12/36, 11/36, 7/36, 3/36. Never choose a row uniformly. Trigger when a encountered creature’s reaction is uncertain.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:depths.enemy-detection",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "depths.enemy-detection"
+    },
+    "canonicalIds": [
+      "core.reaction",
+      "depths.chaosPortents.action",
+      "depths.chaosPortents.subject"
+    ],
+    "relatedIds": [
+      "book:depths",
+      "oracle:core.reaction",
+      "oracle:depths.chaosPortents.action",
+      "oracle:depths.chaosPortents.subject"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.chaosPortents.action",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.chaosPortents.subject",
+        "origins": []
+      },
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Depths Encountering Enemies · 적에게 들켰는가",
+        "pdfPage": [
+          10
+        ],
+        "printedPage": 7,
+        "note": "짧은 판정 참조입니다. 예외와 후속 조건은 이 절의 원문을 확인하세요."
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.stockCommon",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.stockCommon"
+    },
+    "canonicalIds": [
+      "sd.stockCreatures"
+    ],
+    "relatedIds": [
+      "book:sd",
+      "oracle:sd.stockCreatures",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.stockCreatures",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Common Encounters · 일반 조우 준비",
+        "pdfPage": [
+          19
+        ]
+      },
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Regional Common Encounters alternative",
+        "pdfPage": 24,
+        "printedPage": 21
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.stockRare",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.stockRare"
+    },
+    "canonicalIds": [
+      "sd.stockCreatures",
+      "depths.rare.look",
+      "depths.rare.feature"
+    ],
+    "relatedIds": [
+      "book:sd",
+      "oracle:sd.stockCreatures",
+      "oracle:depths.rare.look",
+      "oracle:depths.rare.feature",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.stockCreatures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.rare.look",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.rare.feature",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Rare Encounters · 희귀 조우 준비",
+        "pdfPage": [
+          19
+        ]
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "procedure:workbench.stock-room",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "workbench.stock-room"
+    },
+    "canonicalIds": [
+      "sd.stockCreatures",
+      "reclvse.roomEncounter"
+    ],
+    "relatedIds": [
+      "procedure:workbench.npc",
+      "oracle:core.reaction",
+      "rule:sd.stockCommon",
+      "rule:sd.stockRare",
+      "oracle:sd.stockCreatures",
+      "oracle:reclvse.roomEncounter",
+      "oracle:sd.usefulItems",
+      "oracle:core.treasures"
+    ],
+    "readerRelated": [
+      {
+        "id": "procedure:workbench.npc",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.stockCommon",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.stockRare",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.stockCreatures",
+        "origins": []
+      },
+      {
+        "id": "oracle:reclvse.roomEncounter",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.usefulItems",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.stockCreatures",
+        "tableTitle": "Stock Creatures",
+        "pdfPage": 11,
+        "printedPage": 9,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.roomEncounter",
+        "tableTitle": "10C. Encounter",
+        "pdfPage": 93,
+        "printedPage": 93,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Common Encounters · 일반 조우 준비",
+        "pdfPage": [
+          19
+        ]
+      },
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Regional Common Encounters alternative",
+        "pdfPage": 24,
+        "printedPage": 21
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Rare Encounters · 희귀 조우 준비",
+        "pdfPage": [
+          19
+        ]
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:depths.locked-doors",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "depths.locked-doors"
+    },
+    "canonicalIds": [
+      "depths.danger"
+    ],
+    "relatedIds": [
+      "book:depths",
+      "oracle:depths.danger"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:depths.danger",
+        "origins": []
+      },
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Depths Locked Doors · 잠긴 문과 장애물",
+        "pdfPage": [
+          10
+        ],
+        "printedPage": 7
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:depths.time-noise",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "depths.time-noise"
+    },
+    "canonicalIds": [
+      "depths.danger"
+    ],
+    "relatedIds": [
+      "book:depths",
+      "oracle:depths.danger"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:depths.danger",
+        "origins": []
+      },
+      {
+        "id": "book:depths",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableTitle": "Depths Time / Noise · 시간 지체와 소음",
+        "pdfPage": [
+          11
+        ],
+        "printedPage": 8
+      }
+    ],
+    "entries": [
+      "legacy dungeon shelf (not rendered in Spatial)"
+    ]
+  },
+  {
+    "id": "rule:sd.resupply",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.resupply"
+    },
+    "canonicalIds": [
+      "feretory.forage"
+    ],
+    "relatedIds": [
+      "book:sd",
+      "oracle:feretory.forage",
+      "rule:sd.omens",
+      "rule:sd.powers"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:feretory.forage",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.omens",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.powers",
+        "origins": []
+      },
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "SD Resupply · 재보급",
+        "pdfPage": [
+          8
+        ],
+        "printedPage": 6
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.building.size",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.building.size"
+      ]
+    },
+    "canonicalIds": [
+      "sd.building.size"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.building.size",
+        "tableTitle": "Buildings & Structures — Size",
+        "pdfPage": 12,
+        "printedPage": 10,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.building.form",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.building.form"
+      ]
+    },
+    "canonicalIds": [
+      "sd.building.form"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.building.form",
+        "tableTitle": "Buildings & Structures — Form",
+        "pdfPage": 12,
+        "printedPage": 10,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.building.material",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.building.material"
+      ]
+    },
+    "canonicalIds": [
+      "sd.building.material"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.building.material",
+        "tableTitle": "Buildings & Structures — Material",
+        "pdfPage": 12,
+        "printedPage": 10,
+        "note": "Source header says “Material (x d2)”; the footnote is “* Roll on the Materials table overleaf.” Keep material quantity contextual, not an extra uniform selection table.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "procedure:sd.material",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "sd.material"
+    },
+    "canonicalIds": [
+      "sd.material.quality",
+      "sd.material.composition"
+    ],
+    "relatedIds": [
+      "oracle:sd.material.quality"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.material.quality",
+        "kind": "USES",
+        "origins": [
+          "procedures.sd.material.oracleIds[0]",
+          "procedures.sd.material.oracleIds[1]"
+        ]
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.material.quality",
+        "tableTitle": "Materials — Quality",
+        "pdfPage": 13,
+        "printedPage": 11,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.material.composition",
+        "tableTitle": "Materials — Compostion",
+        "pdfPage": 13,
+        "printedPage": 11,
+        "note": "Printed heading is misspelled COMPOSTION; the source spelling is retained in this display title.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "procedure:sd.sound",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "sd.sound"
+    },
+    "canonicalIds": [
+      "sd.sound.quality",
+      "sd.sound.type"
+    ],
+    "relatedIds": [
+      "oracle:sd.sound.quality"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:sd.sound.quality",
+        "kind": "USES",
+        "origins": [
+          "procedures.sd.sound.oracleIds[0]",
+          "procedures.sd.sound.oracleIds[1]"
+        ]
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.sound.quality",
+        "tableTitle": "Sounds — Quality",
+        "pdfPage": 13,
+        "printedPage": 11,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.sound.type",
+        "tableTitle": "Sounds — Type",
+        "pdfPage": 13,
+        "printedPage": 11,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.odoursTastes",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.odoursTastes"
+      ]
+    },
+    "canonicalIds": [
+      "sd.odoursTastes"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.odoursTastes",
+        "tableTitle": "Odours & Tastes",
+        "pdfPage": 13,
+        "printedPage": 11,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.usefulItems",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.usefulItems"
+      ]
+    },
+    "canonicalIds": [
+      "sd.usefulItems"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.usefulItems",
+        "tableTitle": "Useful Items",
+        "pdfPage": 11,
+        "printedPage": 9,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:core.reaction-morale",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "core.reaction-morale"
+    },
+    "canonicalIds": [
+      "core.reaction",
+      "core.failedMorale"
+    ],
+    "relatedIds": [
+      "book:core",
+      "oracle:core.reaction",
+      "oracle:core.failedMorale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.flee",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "rule:core.violence",
+        "origins": []
+      },
+      {
+        "id": "book:core",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableTitle": "Reaction / Morale",
+        "pdfPage": [
+          32
+        ],
+        "printedPage": 32,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core-full",
+        "bookTitle": "MÖRK BORG Full Edition Second Printing",
+        "tableTitle": "Reaction / Morale",
+        "pdfPage": 35,
+        "printedPage": 31,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "procedure:workbench.npc",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "workbench.npc"
+    },
+    "canonicalIds": [
+      "core.names",
+      "sd.npc.disposition",
+      "sd.npc.profession",
+      "reclvse.npcPersonality",
+      "reclvse.npcAppearance",
+      "reclvse.npcMotivation",
+      "core.reaction"
+    ],
+    "relatedIds": [
+      "rule:sd.npc",
+      "oracle:core.names",
+      "oracle:sd.npc.disposition",
+      "oracle:reclvse.npcPersonality",
+      "oracle:reclvse.npcAppearance",
+      "oracle:reclvse.npcMotivation",
+      "oracle:core.reaction"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:reclvse.npcMotivation",
+        "origins": []
+      },
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "rule:sd.npc",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.names",
+        "origins": []
+      },
+      {
+        "id": "oracle:sd.npc.disposition",
+        "origins": []
+      },
+      {
+        "id": "oracle:reclvse.npcPersonality",
+        "origins": []
+      },
+      {
+        "id": "oracle:reclvse.npcAppearance",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.names",
+        "tableTitle": "Names",
+        "pdfPage": 2,
+        "printedPage": 2,
+        "note": "Roll d6 and d8 separately. The two coordinates select one printed name.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.disposition",
+        "tableTitle": "NPCs — Disposition",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.profession",
+        "tableTitle": "NPCs — Profession",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.disposition",
+        "tableTitle": "NPCs — Disposition",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.profession",
+        "tableTitle": "NPCs — Profession",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.npcPersonality",
+        "tableTitle": "NPC Personality Traits",
+        "pdfPage": 126,
+        "printedPage": 126,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.npcAppearance",
+        "tableTitle": "NPC Appearance",
+        "pdfPage": 125,
+        "printedPage": 125,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.npcMotivation",
+        "tableTitle": "NPC Motivation",
+        "pdfPage": 124,
+        "printedPage": 124,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.reaction",
+        "tableTitle": "Reaction",
+        "pdfPage": 32,
+        "printedPage": 32,
+        "note": "Sum two d6; probabilities of printed rows are 3/36, 12/36, 11/36, 7/36, 3/36. Never choose a row uniformly. Trigger when a encountered creature’s reaction is uncertain.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "NPC Description · 인물의 단서",
+        "pdfPage": [
+          14
+        ]
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.npc.disposition",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.npc.disposition",
+        "sd.npc.profession"
+      ]
+    },
+    "canonicalIds": [
+      "sd.npc.disposition",
+      "sd.npc.profession"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.disposition",
+        "tableTitle": "NPCs — Disposition",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.profession",
+        "tableTitle": "NPCs — Profession",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "oracle:sd.npc.profession",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "sd.npc.disposition",
+        "sd.npc.profession"
+      ]
+    },
+    "canonicalIds": [
+      "sd.npc.disposition",
+      "sd.npc.profession"
+    ],
+    "relatedIds": [
+      "book:sd"
+    ],
+    "readerRelated": [
+      {
+        "id": "book:sd",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.disposition",
+        "tableTitle": "NPCs — Disposition",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableId": "sd.npc.profession",
+        "tableTitle": "NPCs — Profession",
+        "pdfPage": 14,
+        "printedPage": 12,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "procedure:sd.dungeon-preparation",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "sd.dungeon-preparation"
+    },
+    "canonicalIds": [
+      "core.titleA",
+      "core.titleB",
+      "core.status",
+      "core.danger",
+      "core.inhabitants",
+      "core.feature",
+      "core.rooms",
+      "reclvse.dungeonEntrance"
+    ],
+    "relatedIds": [
+      "rule:sd.dungeonCrawling",
+      "oracle:core.titleA",
+      "oracle:core.status",
+      "oracle:core.danger",
+      "oracle:core.inhabitants",
+      "oracle:core.feature",
+      "oracle:core.rooms",
+      "oracle:reclvse.dungeonEntrance",
+      "oracle:sd.room.exits"
+    ],
+    "readerRelated": [
+      {
+        "id": "oracle:core.titleA",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.name.tableIds"
+        ]
+      },
+      {
+        "id": "oracle:core.status",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.status.tableIds"
+        ]
+      },
+      {
+        "id": "oracle:core.danger",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.danger.tableIds"
+        ]
+      },
+      {
+        "id": "oracle:core.inhabitants",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.inhabitants.tableIds"
+        ]
+      },
+      {
+        "id": "oracle:core.feature",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.feature.tableIds"
+        ]
+      },
+      {
+        "id": "oracle:core.rooms",
+        "kind": "USES",
+        "origins": [
+          "DUNGEON_PREPARATION_FIELDS.special1.tableIds",
+          "DUNGEON_PREPARATION_FIELDS.special2.tableIds",
+          "DUNGEON_PREPARATION_FIELDS.special3.tableIds",
+          "DUNGEON_PREPARATION_FIELDS.special4.tableIds"
+        ]
+      },
+      {
+        "id": "rule:sd.dungeonCrawling",
+        "origins": []
+      },
+      {
+        "id": "oracle:reclvse.dungeonEntrance",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Dungeon Crawling",
+        "pdfPage": 9,
+        "printedPage": 7,
+        "role": "routing",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "sd",
+        "bookTitle": "Sölitary Defilement",
+        "tableTitle": "Dungeon Preparation",
+        "pdfPage": 19,
+        "printedPage": 17,
+        "role": "routing",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.titleA",
+        "tableTitle": "What Is It Called? — First Column",
+        "pdfPage": 71,
+        "printedPage": 71,
+        "note": "Source says roll d12 twice, reading one of two columns. This is the first independent column. Do not sum dice.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.titleB",
+        "tableTitle": "What Is It Called? — Second Column",
+        "pdfPage": 71,
+        "printedPage": 71,
+        "note": "Source says roll d12 twice, reading one of two columns. This is the second independent column. Do not sum dice.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.titleA",
+        "tableTitle": "What Is It Called? — First Column",
+        "pdfPage": 71,
+        "printedPage": 71,
+        "note": "Source says roll d12 twice, reading one of two columns. This is the first independent column. Do not sum dice.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.titleB",
+        "tableTitle": "What Is It Called? — Second Column",
+        "pdfPage": 71,
+        "printedPage": 71,
+        "note": "Source says roll d12 twice, reading one of two columns. This is the second independent column. Do not sum dice.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.status",
+        "tableTitle": "Status",
+        "pdfPage": 71,
+        "printedPage": 71,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.danger",
+        "tableTitle": "Imminent Danger",
+        "pdfPage": 72,
+        "printedPage": 72,
+        "note": "후속 표·선택·조건은 결과 아래 원문 정보를 확인하세요. 자동으로 문장을 완성하거나 조건을 적용하지 않습니다.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.inhabitants",
+        "tableTitle": "Who or What Dwells Here Now?",
+        "pdfPage": 72,
+        "printedPage": 72,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.feature",
+        "tableTitle": "Distinctive Feature",
+        "pdfPage": 73,
+        "printedPage": 73,
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "core",
+        "bookTitle": "MÖRK BORG BARE BONES EDITION",
+        "tableId": "core.rooms",
+        "tableTitle": "Sample Rooms",
+        "pdfPage": [
+          73,
+          74
+        ],
+        "printedPage": "73–74",
+        "note": "d4 selects a block of six, d6 selects within that block. Keep existing 24 canonical entries and inline followups.",
+        "status": "VERIFIED"
+      },
+      {
+        "bookId": "reclvse",
+        "bookTitle": "RECLVSE — A Solo Engine for Mörk Borg",
+        "tableId": "reclvse.dungeonEntrance",
+        "tableTitle": "Dungeon Entrance",
+        "pdfPage": 87,
+        "printedPage": 87,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:galgenbeck",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "galgenbeck"
+    },
+    "canonicalIds": [
+      "depths.region.tveland.monsters"
+    ],
+    "relatedIds": [
+      "region:galgenbeck",
+      "oracle:depths.region.tveland.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.tveland.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:galgenbeck",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.tveland.monsters",
+        "tableTitle": "Tveland — Monsters",
+        "pdfPage": 26,
+        "printedPage": 23,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:sarkash",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "sarkash"
+    },
+    "canonicalIds": [
+      "depths.region.sarkash.monsters"
+    ],
+    "relatedIds": [
+      "region:sarkash",
+      "oracle:depths.region.sarkash.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.sarkash.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:sarkash",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.sarkash.monsters",
+        "tableTitle": "Sarkash — Monsters",
+        "pdfPage": 27,
+        "printedPage": 24,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:graven-tosk",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "graven-tosk"
+    },
+    "canonicalIds": [
+      "depths.region.graven_tosk.monsters"
+    ],
+    "relatedIds": [
+      "region:graven-tosk",
+      "oracle:depths.region.graven_tosk.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.graven_tosk.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:graven-tosk",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.graven_tosk.monsters",
+        "tableTitle": "Graven-Tosk — Monsters",
+        "pdfPage": 28,
+        "printedPage": 25,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:kergus",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "kergus"
+    },
+    "canonicalIds": [
+      "depths.region.kergus.monsters"
+    ],
+    "relatedIds": [
+      "region:kergus",
+      "oracle:depths.region.kergus.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.kergus.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:kergus",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.kergus.monsters",
+        "tableTitle": "Kergüs — Monsters",
+        "pdfPage": 33,
+        "printedPage": 30,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:wastland",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "wastland"
+    },
+    "canonicalIds": [
+      "depths.region.wastland.monsters"
+    ],
+    "relatedIds": [
+      "region:wastland",
+      "oracle:depths.region.wastland.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.wastland.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:wastland",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.wastland.monsters",
+        "tableTitle": "Wästland — Monsters",
+        "pdfPage": 32,
+        "printedPage": 29,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:valley-undead",
+    "available": true,
+    "action": {
+      "kind": "regional-monster",
+      "region": "valley-undead"
+    },
+    "canonicalIds": [
+      "depths.region.valley_unfortunate_undead.monsters"
+    ],
+    "relatedIds": [
+      "region:valley-undead",
+      "oracle:depths.region.valley_unfortunate_undead.monsters",
+      "rule:feretory.eat-prey-kill",
+      "rule:core.reaction-morale"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.valley_unfortunate_undead.monsters",
+        "origins": []
+      },
+      {
+        "id": "rule:feretory.eat-prey-kill",
+        "origins": []
+      },
+      {
+        "id": "region:valley-undead",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.valley_unfortunate_undead.monsters",
+        "tableTitle": "Valley of the Unfortunate Undead — Monsters",
+        "pdfPage": 30,
+        "printedPage": 27,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:lake_onda",
+    "available": true,
+    "action": {
+      "kind": "regional-table",
+      "tableId": "depths.region.lake_onda.monsters"
+    },
+    "canonicalIds": [
+      "depths.region.lake_onda.monsters"
+    ],
+    "relatedIds": [
+      "oracle:depths.region.lake_onda.monsters",
+      "procedure:depths.encounter-level"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.lake_onda.monsters",
+        "origins": []
+      },
+      {
+        "id": "procedure:depths.encounter-level",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.lake_onda.monsters",
+        "tableTitle": "Lake Onda — Monsters",
+        "pdfPage": 29,
+        "printedPage": 26,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  },
+  {
+    "id": "rule:regional-monsters:bergen_chrypt",
+    "available": true,
+    "action": {
+      "kind": "regional-table",
+      "tableId": "depths.region.bergen_chrypt.monsters"
+    },
+    "canonicalIds": [
+      "depths.region.bergen_chrypt.monsters"
+    ],
+    "relatedIds": [
+      "oracle:depths.region.bergen_chrypt.monsters",
+      "procedure:depths.encounter-level"
+    ],
+    "readerRelated": [
+      {
+        "id": "rule:core.reaction-morale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.failedMorale",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.reaction",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.corpsePlundering",
+        "origins": []
+      },
+      {
+        "id": "oracle:core.treasures",
+        "origins": []
+      },
+      {
+        "id": "oracle:depths.region.bergen_chrypt.monsters",
+        "origins": []
+      },
+      {
+        "id": "procedure:depths.encounter-level",
+        "origins": []
+      }
+    ],
+    "sourceRefs": [
+      {
+        "bookId": "depths",
+        "bookTitle": "Sölitary Depths",
+        "tableId": "depths.region.bergen_chrypt.monsters",
+        "tableTitle": "Bergen Chrypt — Monsters",
+        "pdfPage": 31,
+        "printedPage": 28,
+        "status": "VERIFIED"
+      }
+    ],
+    "entries": []
+  }
+]
