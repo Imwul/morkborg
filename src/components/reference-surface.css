@@ -779,10 +779,14 @@
   margin-left: 8px;
 }
 .reference-page .reference-procedure-parts button {
+  min-height: var(--control-height);
   font: var(--text-ui)/var(--leading-control) var(--font-ui);
   text-decoration: underline;
   text-underline-offset: 3px;
   white-space: nowrap;
+}
+.reference-page .reference-card-actions button {
+  min-height: var(--control-height);
 }
 .reference-page > .source-disclosure {
   margin-top: 18px;

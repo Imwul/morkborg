@@ -773,18 +773,24 @@ body,
   font-weight: 700;
 }
 .reference-app .reference-page .reference-procedure-parts {
+  max-width: 72ch;
   border-top: 2px solid var(--ink);
   border-bottom: 0;
   margin-top: 32px;
 }
 .reference-app .reference-procedure-parts > div {
   margin: 0;
-  padding: 10px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border);
   align-items: baseline;
 }
 .reference-app .reference-procedure-parts span {
   flex: 1 1 45%;
+}
+@media (min-width: 801px) {
+  .reference-app .reference-procedure-parts span {
+    flex: 0 1 auto;
+  }
 }
 .reference-app .reference-procedure-parts h3 {
   font: 650 0.9rem / 1.4 var(--font-ui);

@@ -1,0 +1,232 @@
+[
+  {
+    "id": "oracle:core.weather",
+    "reason": "짧은 독립 표·관계 적음",
+    "intent": "명시적으로 날씨 ROLL",
+    "type": "roll"
+  },
+  {
+    "id": "oracle:core.reaction",
+    "reason": "짧은 전투 표·재굴림",
+    "intent": "이미 나온 반응 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.4
+  },
+  {
+    "id": "oracle:feretory.campsite",
+    "reason": "여정 결과의 SUBTABLE",
+    "intent": "야영 꿈 하위 표 열기",
+    "type": "result-link",
+    "target": "oracle:feretory.campsite.campDream",
+    "prepareRoll": 0.79
+  },
+  {
+    "id": "oracle:aitc.taverns",
+    "reason": "도시 결과의 FOLLOW-UP",
+    "intent": "주인의 Merchant Dispositions 열기",
+    "type": "result-link",
+    "target": "oracle:aitc.merchant-disposition",
+    "prepareRoll": 0.01
+  },
+  {
+    "id": "oracle:aitc.civic-buildings",
+    "reason": "고정 LOOKUP",
+    "intent": "2번 건물 결과의 NPC 54 조회 열기",
+    "type": "result-link",
+    "target": "oracle:aitc.npc-encounters",
+    "prepareRoll": 0.2
+  },
+  {
+    "id": "oracle:reclvse.quickContents",
+    "reason": "10A–D 연결의 SUBTABLE",
+    "intent": "Discovery 하위 표 열기",
+    "type": "result-link",
+    "target": "oracle:reclvse.roomDiscovery",
+    "prepareRoll": 0.01
+  },
+  {
+    "id": "oracle:mythic2.meaning.action-1",
+    "reason": "Mythic 긴 짝 표",
+    "intent": "Action 의미 굴리기",
+    "type": "roll"
+  },
+  {
+    "id": "oracle:mythic2.random-event-focus-table",
+    "reason": "Mythic 사건 표",
+    "intent": "사건 초점 명시적 ROLL",
+    "type": "roll"
+  },
+  {
+    "id": "oracle:heretic.curses",
+    "reason": "Heretic 긴 결과 표",
+    "intent": "저주 명시적 ROLL",
+    "type": "roll"
+  },
+  {
+    "id": "oracle:core.weaponCatalog",
+    "reason": "참조 전용·읽기",
+    "intent": "무기 표 첫 항목 읽기",
+    "type": "read-table"
+  },
+  {
+    "id": "oracle:aitc.merchant-disposition",
+    "reason": "참조 전용·긴 표의 자연스러운 읽기 비용",
+    "intent": "상인 태도 표 마지막 항목 읽기",
+    "type": "read-table-last"
+  },
+  {
+    "id": "oracle:feretory.travelDistances",
+    "reason": "참조 전용 여정 거리",
+    "intent": "여행 거리 첫 항목 읽기",
+    "type": "read-table"
+  },
+  {
+    "id": "rule:core.rest",
+    "reason": "조건 요약과 접힌 원문",
+    "intent": "전체 휴식 규칙 원문 읽기",
+    "type": "read-full-rule"
+  },
+  {
+    "id": "rule:core.reaction-morale",
+    "reason": "전투 규칙의 RELATED",
+    "intent": "Failed Morale 표 열기",
+    "type": "related",
+    "target": "oracle:core.failedMorale"
+  },
+  {
+    "id": "rule:mythic.npc-behavior",
+    "reason": "Mythic 규칙과 기존 절차 관계",
+    "intent": "Action 의미 절차 열기",
+    "type": "related",
+    "target": "procedure:mythic2.action-pair"
+  },
+  {
+    "id": "rule:feretory.roads",
+    "reason": "여정 규칙·긴 본문",
+    "intent": "관련 Campsite 열기",
+    "type": "related",
+    "target": "oracle:feretory.campsite"
+  },
+  {
+    "id": "rule:sd.stockCommon",
+    "reason": "최근 보정된 역방향 접근",
+    "intent": "Encounter Prep 열기",
+    "type": "related",
+    "target": "procedure:workbench.stock-room"
+  },
+  {
+    "id": "rule:sd.dungeonCrawling",
+    "reason": "던전 기존 행동",
+    "intent": "명시적으로 던전 탐색 판정",
+    "type": "button",
+    "name": "던전 탐색 굴리기",
+    "rolls": true
+  },
+  {
+    "id": "procedure:aitc.street",
+    "reason": "도시 절차 USES",
+    "intent": "독립 구성 표 Street Adjective 열기",
+    "type": "part",
+    "partIndex": 0,
+    "target": "oracle:aitc.street-adjective"
+  },
+  {
+    "id": "procedure:character.core-classless",
+    "reason": "캐릭터 복합 절차",
+    "intent": "명시적으로 캐릭터 생성",
+    "type": "roll"
+  },
+  {
+    "id": "procedure:workbench.npc",
+    "reason": "긴 조합 결과의 재굴림",
+    "intent": "현재 NPC 전체 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.2
+  },
+  {
+    "id": "oracle:feretory.A",
+    "reason": "몬스터 생성 결과와 재굴림",
+    "intent": "현재 몬스터 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.2
+  },
+  {
+    "id": "procedure:mythic2.action-pair",
+    "reason": "Mythic 절차의 USES",
+    "intent": "독립 구성 표 Action 1 열기",
+    "type": "part",
+    "partIndex": 0,
+    "target": "oracle:mythic2.meaning.action-1"
+  },
+  {
+    "id": "creature:core:61:nodh",
+    "reason": "정확한 생물 전투 추가",
+    "intent": "Nodh를 전투에 적으로 추가",
+    "type": "combat"
+  },
+  {
+    "id": "creature:core:58:seth",
+    "reason": "생물 RELATED와 왕복",
+    "intent": "관련 Corpse Plundering 열기",
+    "type": "related",
+    "target": "oracle:core.corpsePlundering"
+  },
+  {
+    "id": "creature:feretory:feretory.epk.antideer",
+    "reason": "다른 책 생물·참조 읽기",
+    "intent": "Antideer 특성 읽기",
+    "type": "read-result"
+  },
+  {
+    "id": "region:sarkash",
+    "reason": "지역의 기존 몬스터 참조",
+    "intent": "Sarkash 지역 몬스터 열기",
+    "type": "row",
+    "target": "rule:regional-monsters:sarkash"
+  },
+  {
+    "id": "region:kergus",
+    "reason": "지역 기존 Quick Tool",
+    "intent": "지역을 유지하며 NPC 도구 열기",
+    "type": "region-tool",
+    "target": "procedure:workbench.npc",
+    "toolIndex": 3
+  },
+  {
+    "id": "book:core",
+    "reason": "책 탐색 허브",
+    "intent": "기존 Names 참조 열기",
+    "type": "related",
+    "target": "oracle:core.names"
+  },
+  {
+    "id": "book:mythic2",
+    "reason": "다른 책의 탐색 허브",
+    "intent": "기존 Action 참조 열기",
+    "type": "related",
+    "target": "oracle:mythic2.meaning.action-1"
+  },
+  {
+    "id": "oracle:core.gearA",
+    "reason": "긴 짝 표의 USED BY",
+    "intent": "이 표를 쓰는 캐릭터 생성 절차 열기",
+    "type": "related",
+    "target": "procedure:character.core-classless"
+  },
+  {
+    "id": "procedure:workbench.stock-room",
+    "reason": "결과의 정확한 생물 SOURCE",
+    "intent": "생성된 Nodh 원문 열기",
+    "type": "creature-source",
+    "target": "creature:core:61:nodh",
+    "prepareRoll": 0.2
+  },
+  {
+    "id": "oracle:core.treasures",
+    "reason": "오라클 결과 SOURCE disclosure와 책 왕복",
+    "intent": "보물 결과 출처의 원서 참조 열기",
+    "type": "source-book",
+    "target": "book:core",
+    "prepareRoll": 0.2
+  }
+]

@@ -1,0 +1,1312 @@
+[
+  {
+    "id": "oracle:core.weather",
+    "reason": "짧은 독립 표·관계 적음",
+    "intent": "명시적으로 날씨 ROLL",
+    "type": "roll",
+    "title": "Weather",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.weather"
+      ]
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.weather"
+    ],
+    "rollable": [
+      null
+    ],
+    "related": [
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "oracle:core.reaction",
+    "reason": "짧은 전투 표·재굴림",
+    "intent": "이미 나온 반응 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.4,
+    "title": "Reaction",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.reaction"
+      ]
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.reaction"
+    ],
+    "rollable": [
+      null
+    ],
+    "related": [
+      {
+        "id": "rule:core.reaction-morale"
+      },
+      {
+        "id": "procedure:workbench.npc"
+      },
+      {
+        "id": "oracle:core.failedMorale"
+      },
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "oracle:feretory.campsite",
+    "reason": "여정 결과의 SUBTABLE",
+    "intent": "야영 꿈 하위 표 열기",
+    "type": "result-link",
+    "target": "oracle:feretory.campsite.campDream",
+    "prepareRoll": 0.79,
+    "title": "Nightly Campsite Events",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "feretory.campsite"
+      ]
+    },
+    "books": [
+      "feretory"
+    ],
+    "canonical": [
+      "feretory.campsite"
+    ],
+    "rollable": [
+      true
+    ],
+    "related": [
+      {
+        "id": "book:feretory"
+      }
+    ]
+  },
+  {
+    "id": "oracle:aitc.taverns",
+    "reason": "도시 결과의 FOLLOW-UP",
+    "intent": "주인의 Merchant Dispositions 열기",
+    "type": "result-link",
+    "target": "oracle:aitc.merchant-disposition",
+    "prepareRoll": 0.01,
+    "title": "Taverns",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "aitc.taverns"
+      ]
+    },
+    "books": [
+      "aitc"
+    ],
+    "canonical": [
+      "aitc.taverns"
+    ],
+    "rollable": [
+      null
+    ],
+    "related": [
+      {
+        "id": "book:aitc"
+      }
+    ]
+  },
+  {
+    "id": "oracle:aitc.civic-buildings",
+    "reason": "고정 LOOKUP",
+    "intent": "2번 건물 결과의 NPC 54 조회 열기",
+    "type": "result-link",
+    "target": "oracle:aitc.npc-encounters",
+    "prepareRoll": 0.2,
+    "title": "Civic Buildings",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "aitc.civic-buildings"
+      ]
+    },
+    "books": [
+      "aitc"
+    ],
+    "canonical": [
+      "aitc.civic-buildings"
+    ],
+    "rollable": [
+      null
+    ],
+    "related": [
+      {
+        "id": "book:aitc"
+      }
+    ]
+  },
+  {
+    "id": "oracle:reclvse.quickContents",
+    "reason": "10A–D 연결의 SUBTABLE",
+    "intent": "Discovery 하위 표 열기",
+    "type": "result-link",
+    "target": "oracle:reclvse.roomDiscovery",
+    "prepareRoll": 0.01,
+    "title": "Contents",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "reclvse.quickContents"
+      ]
+    },
+    "books": [
+      "reclvse"
+    ],
+    "canonical": [
+      "reclvse.quickContents"
+    ],
+    "rollable": [
+      true
+    ],
+    "related": [
+      {
+        "id": "book:reclvse"
+      }
+    ]
+  },
+  {
+    "id": "oracle:mythic2.meaning.action-1",
+    "reason": "Mythic 긴 짝 표",
+    "intent": "Action 의미 굴리기",
+    "type": "roll",
+    "title": "Action",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "mythic2.meaning.action-1",
+        "mythic2.meaning.action-2"
+      ]
+    },
+    "books": [
+      "mythic2"
+    ],
+    "canonical": [
+      "mythic2.meaning.action-1",
+      "mythic2.meaning.action-2"
+    ],
+    "rollable": [
+      null,
+      null
+    ],
+    "related": [
+      {
+        "id": "procedure:mythic2.action-pair",
+        "kind": "USED BY"
+      },
+      {
+        "id": "procedure:mythic2.the-4w",
+        "kind": "USED BY"
+      },
+      {
+        "id": "book:mythic2"
+      }
+    ]
+  },
+  {
+    "id": "oracle:mythic2.random-event-focus-table",
+    "reason": "Mythic 사건 표",
+    "intent": "사건 초점 명시적 ROLL",
+    "type": "roll",
+    "title": "Random Event Focus Table",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "mythic2.random-event-focus-table"
+      ]
+    },
+    "books": [
+      "mythic2"
+    ],
+    "canonical": [
+      "mythic2.random-event-focus-table"
+    ],
+    "rollable": [
+      null
+    ],
+    "related": [
+      {
+        "id": "rule:mythic.event-focus"
+      },
+      {
+        "id": "rule:mythic.lists"
+      },
+      {
+        "id": "book:mythic2"
+      }
+    ]
+  },
+  {
+    "id": "oracle:heretic.curses",
+    "reason": "Heretic 긴 결과 표",
+    "intent": "저주 명시적 ROLL",
+    "type": "roll",
+    "title": "You Are Cursed — What Now?",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "heretic.curses"
+      ]
+    },
+    "books": [
+      "heretic"
+    ],
+    "canonical": [
+      "heretic.curses"
+    ],
+    "rollable": [
+      true
+    ],
+    "related": [
+      {
+        "id": "book:heretic"
+      }
+    ]
+  },
+  {
+    "id": "oracle:core.weaponCatalog",
+    "reason": "참조 전용·읽기",
+    "intent": "무기 표 첫 항목 읽기",
+    "type": "read-table",
+    "title": "Weapons — Damage and Purchase",
+    "kind": "oracle",
+    "available": true,
+    "action": null,
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.weaponCatalog"
+    ],
+    "rollable": [
+      false
+    ],
+    "related": [
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "oracle:aitc.merchant-disposition",
+    "reason": "참조 전용·긴 표의 자연스러운 읽기 비용",
+    "intent": "상인 태도 표 마지막 항목 읽기",
+    "type": "read-table-last",
+    "title": "Merchant Dispositions",
+    "kind": "oracle",
+    "available": true,
+    "action": null,
+    "books": [
+      "aitc"
+    ],
+    "canonical": [
+      "aitc.merchant-disposition"
+    ],
+    "rollable": [
+      false
+    ],
+    "related": [
+      {
+        "id": "book:aitc"
+      }
+    ]
+  },
+  {
+    "id": "oracle:feretory.travelDistances",
+    "reason": "참조 전용 여정 거리",
+    "intent": "여행 거리 첫 항목 읽기",
+    "type": "read-table",
+    "title": "Traveling the Dying Lands",
+    "kind": "oracle",
+    "available": true,
+    "action": null,
+    "books": [
+      "feretory"
+    ],
+    "canonical": [
+      "feretory.travelDistances"
+    ],
+    "rollable": [
+      false
+    ],
+    "related": [
+      {
+        "id": "book:feretory"
+      }
+    ]
+  },
+  {
+    "id": "rule:core.rest",
+    "reason": "조건 요약과 접힌 원문",
+    "intent": "전체 휴식 규칙 원문 읽기",
+    "type": "read-full-rule",
+    "title": "Core Rest / Food / Infection",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "core.rest"
+    },
+    "books": [
+      "core",
+      "core-full"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "rule:core.broken"
+      },
+      {
+        "id": "rule:core.carrying"
+      },
+      {
+        "id": "rule:core.services"
+      },
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "rule:core.reaction-morale",
+    "reason": "전투 규칙의 RELATED",
+    "intent": "Failed Morale 표 열기",
+    "type": "related",
+    "target": "oracle:core.failedMorale",
+    "title": "Core Reaction / Morale",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "core.reaction-morale"
+    },
+    "books": [
+      "core",
+      "core-full"
+    ],
+    "canonical": [
+      "core.reaction",
+      "core.failedMorale"
+    ],
+    "rollable": [
+      null,
+      null
+    ],
+    "related": [
+      {
+        "id": "rule:core.flee"
+      },
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "oracle:core.failedMorale"
+      },
+      {
+        "id": "rule:core.violence"
+      },
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "rule:mythic.npc-behavior",
+    "reason": "Mythic 규칙과 기존 절차 관계",
+    "intent": "Action 의미 절차 열기",
+    "type": "related",
+    "target": "procedure:mythic2.action-pair",
+    "title": "Mythic NPC Behavior",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "rule:mythic.npc-behavior"
+    },
+    "books": [
+      "mythic2"
+    ],
+    "canonical": [
+      "mythic2.playReferences"
+    ],
+    "rollable": [
+      false
+    ],
+    "related": [
+      {
+        "id": "procedure:mythic2.action-pair"
+      },
+      {
+        "id": "procedure:mythic2.meaning.character-actions-general.pair"
+      },
+      {
+        "id": "procedure:mythic2.meaning.character-actions-combat.pair"
+      }
+    ]
+  },
+  {
+    "id": "rule:feretory.roads",
+    "reason": "여정 규칙·긴 본문",
+    "intent": "관련 Campsite 열기",
+    "type": "related",
+    "target": "oracle:feretory.campsite",
+    "title": "Roads to Damnation · 길과 여행",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "feretory.roads"
+    },
+    "books": [
+      "feretory"
+    ],
+    "canonical": [
+      "feretory.roadType",
+      "feretory.roadEvent",
+      "feretory.forage",
+      "feretory.campsite",
+      "feretory.leaveRoad"
+    ],
+    "rollable": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "related": [
+      {
+        "id": "oracle:feretory.roadType"
+      },
+      {
+        "id": "oracle:feretory.roadEvent"
+      },
+      {
+        "id": "oracle:feretory.forage"
+      },
+      {
+        "id": "oracle:feretory.campsite"
+      },
+      {
+        "id": "oracle:feretory.leaveRoad"
+      },
+      {
+        "id": "rule:feretory.travel-distances"
+      },
+      {
+        "id": "book:feretory"
+      }
+    ]
+  },
+  {
+    "id": "rule:sd.stockCommon",
+    "reason": "최근 보정된 역방향 접근",
+    "intent": "Encounter Prep 열기",
+    "type": "related",
+    "target": "procedure:workbench.stock-room",
+    "title": "Common Encounters · 일반 조우 준비",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.stockCommon"
+    },
+    "books": [
+      "sd",
+      "depths"
+    ],
+    "canonical": [
+      "sd.stockCreatures"
+    ],
+    "rollable": [
+      true
+    ],
+    "related": [
+      {
+        "id": "procedure:workbench.stock-room"
+      },
+      {
+        "id": "oracle:sd.stockCreatures"
+      },
+      {
+        "id": "rule:sd.omens"
+      },
+      {
+        "id": "rule:sd.powers"
+      },
+      {
+        "id": "book:sd"
+      }
+    ]
+  },
+  {
+    "id": "rule:sd.dungeonCrawling",
+    "reason": "던전 기존 행동",
+    "intent": "명시적으로 던전 탐색 판정",
+    "type": "button",
+    "name": "던전 탐색 굴리기",
+    "rolls": true,
+    "title": "Dungeon Crawling · 던전 탐색",
+    "kind": "rule",
+    "available": true,
+    "action": {
+      "kind": "rule",
+      "ruleId": "sd.dungeonCrawling"
+    },
+    "books": [
+      "sd"
+    ],
+    "canonical": [
+      "sd.room.adjective",
+      "sd.room.type",
+      "sd.room.exits",
+      "sd.room.contents"
+    ],
+    "rollable": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "related": [
+      {
+        "id": "oracle:sd.room.adjective"
+      },
+      {
+        "id": "oracle:sd.room.exits"
+      },
+      {
+        "id": "oracle:sd.room.contents"
+      },
+      {
+        "id": "rule:sd.omens"
+      },
+      {
+        "id": "rule:sd.powers"
+      },
+      {
+        "id": "book:sd"
+      }
+    ]
+  },
+  {
+    "id": "procedure:aitc.street",
+    "reason": "도시 절차 USES",
+    "intent": "독립 구성 표 Street Adjective 열기",
+    "type": "part",
+    "partIndex": 0,
+    "target": "oracle:aitc.street-adjective",
+    "title": "Street — Adjective, Type and Contents",
+    "kind": "procedure",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "aitc.street"
+    },
+    "books": [
+      "aitc"
+    ],
+    "canonical": [
+      "aitc.street-adjective",
+      "aitc.street-type",
+      "aitc.street-contents"
+    ],
+    "rollable": [
+      null,
+      null,
+      null
+    ],
+    "related": [
+      {
+        "id": "oracle:aitc.street-adjective",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:aitc.street-type",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:aitc.street-contents",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:aitc.street-exits",
+        "kind": "USES"
+      }
+    ]
+  },
+  {
+    "id": "procedure:character.core-classless",
+    "reason": "캐릭터 복합 절차",
+    "intent": "명시적으로 캐릭터 생성",
+    "type": "roll",
+    "title": "Core · Character creation",
+    "kind": "procedure",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "character.core-classless"
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.containers",
+      "core.gearA",
+      "core.gearB",
+      "core.weapons",
+      "core.armor",
+      "core.names",
+      "core.traits",
+      "core.bodies",
+      "core.badHabits",
+      "core.troublingTales"
+    ],
+    "rollable": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      null,
+      null
+    ],
+    "related": [
+      {
+        "id": "oracle:core.containers",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.gearA",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.weapons",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.armor",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.names",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.traits",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.bodies",
+        "kind": "USES"
+      },
+      {
+        "id": "oracle:core.badHabits",
+        "kind": "USES"
+      }
+    ]
+  },
+  {
+    "id": "procedure:workbench.npc",
+    "reason": "긴 조합 결과의 재굴림",
+    "intent": "현재 NPC 전체 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.2,
+    "title": "NPC · 단서 조합",
+    "kind": "procedure",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "workbench.npc"
+    },
+    "books": [
+      "core",
+      "sd",
+      "reclvse"
+    ],
+    "canonical": [
+      "core.names",
+      "sd.npc.disposition",
+      "sd.npc.profession",
+      "reclvse.npcPersonality",
+      "reclvse.npcAppearance",
+      "reclvse.npcMotivation",
+      "core.reaction"
+    ],
+    "rollable": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      null
+    ],
+    "related": [
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "oracle:reclvse.npcMotivation"
+      },
+      {
+        "id": "rule:core.reaction-morale"
+      },
+      {
+        "id": "rule:sd.npc"
+      },
+      {
+        "id": "oracle:core.names"
+      },
+      {
+        "id": "oracle:sd.npc.disposition"
+      },
+      {
+        "id": "oracle:reclvse.npcPersonality"
+      },
+      {
+        "id": "oracle:reclvse.npcAppearance"
+      }
+    ]
+  },
+  {
+    "id": "oracle:feretory.A",
+    "reason": "몬스터 생성 결과와 재굴림",
+    "intent": "현재 몬스터 REROLL",
+    "type": "reroll",
+    "prepareRoll": 0.2,
+    "title": "The Monster Approaches · 몬스터 생성",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "feretory.A",
+        "feretory.B",
+        "feretory.C"
+      ]
+    },
+    "books": [
+      "feretory"
+    ],
+    "canonical": [
+      "feretory.A",
+      "feretory.B",
+      "feretory.C"
+    ],
+    "rollable": [
+      true,
+      true,
+      true
+    ],
+    "related": [
+      {
+        "id": "oracle:feretory.desire"
+      },
+      {
+        "id": "oracle:feretory.trait"
+      },
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "oracle:core.failedMorale"
+      },
+      {
+        "id": "rule:feretory.monster-approaches"
+      },
+      {
+        "id": "book:feretory"
+      }
+    ]
+  },
+  {
+    "id": "procedure:mythic2.action-pair",
+    "reason": "Mythic 절차의 USES",
+    "intent": "독립 구성 표 Action 1 열기",
+    "type": "part",
+    "partIndex": 0,
+    "target": "oracle:mythic2.meaning.action-1",
+    "title": "Meaning Tables: Actions",
+    "kind": "procedure",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "mythic2.action-pair"
+    },
+    "books": [
+      "mythic2"
+    ],
+    "canonical": [
+      "mythic2.meaning.action-1",
+      "mythic2.meaning.action-2"
+    ],
+    "rollable": [
+      null,
+      null
+    ],
+    "related": [
+      {
+        "id": "oracle:mythic2.meaning.action-1",
+        "kind": "USES"
+      }
+    ]
+  },
+  {
+    "id": "creature:core:61:nodh",
+    "reason": "정확한 생물 전투 추가",
+    "intent": "Nodh를 전투에 적으로 추가",
+    "type": "combat",
+    "title": "Nodh · Zombie",
+    "kind": "creature",
+    "available": true,
+    "action": {
+      "kind": "creature",
+      "creatureId": "creature:core:61:nodh"
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "rule:core.reaction-morale"
+      },
+      {
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "id": "oracle:core.treasures"
+      },
+      {
+        "id": "book:core"
+      },
+      {
+        "id": "region:sarkash"
+      },
+      {
+        "id": "region:graven-tosk"
+      }
+    ]
+  },
+  {
+    "id": "creature:core:58:seth",
+    "reason": "생물 RELATED와 왕복",
+    "intent": "관련 Corpse Plundering 열기",
+    "type": "related",
+    "target": "oracle:core.corpsePlundering",
+    "title": "Seth · Goblin",
+    "kind": "creature",
+    "available": true,
+    "action": {
+      "kind": "creature",
+      "creatureId": "creature:core:58:seth"
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "rule:core.reaction-morale"
+      },
+      {
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "id": "oracle:core.treasures"
+      },
+      {
+        "id": "book:core"
+      },
+      {
+        "id": "region:galgenbeck"
+      },
+      {
+        "id": "region:wastland"
+      },
+      {
+        "id": "region:kergus"
+      }
+    ]
+  },
+  {
+    "id": "creature:feretory:feretory.epk.antideer",
+    "reason": "다른 책 생물·참조 읽기",
+    "intent": "Antideer 특성 읽기",
+    "type": "read-result",
+    "title": "Antideer",
+    "kind": "creature",
+    "available": true,
+    "action": {
+      "kind": "creature",
+      "creatureId": "creature:feretory:feretory.epk.antideer"
+    },
+    "books": [
+      "feretory"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "rule:core.reaction-morale"
+      },
+      {
+        "id": "oracle:core.corpsePlundering"
+      },
+      {
+        "id": "oracle:core.treasures"
+      },
+      {
+        "id": "book:feretory"
+      },
+      {
+        "id": "region:galgenbeck"
+      }
+    ]
+  },
+  {
+    "id": "region:sarkash",
+    "reason": "지역의 기존 몬스터 참조",
+    "intent": "Sarkash 지역 몬스터 열기",
+    "type": "row",
+    "target": "rule:regional-monsters:sarkash",
+    "title": "Sarkash",
+    "kind": "region",
+    "available": true,
+    "action": {
+      "kind": "region",
+      "region": "sarkash"
+    },
+    "books": [
+      "depths"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "procedure:depths.encounter-level"
+      },
+      {
+        "id": "rule:regional-monsters:sarkash"
+      },
+      {
+        "id": "oracle:depths.region.sarkash.trait"
+      },
+      {
+        "id": "oracle:depths.region.sarkash.feature"
+      },
+      {
+        "id": "oracle:depths.region.sarkash.discovery"
+      },
+      {
+        "id": "oracle:depths.region.sarkash.monsters"
+      },
+      {
+        "id": "oracle:depths.region.sarkash.npc_professions"
+      },
+      {
+        "id": "creature:core:61:nodh"
+      }
+    ]
+  },
+  {
+    "id": "region:kergus",
+    "reason": "지역 기존 Quick Tool",
+    "intent": "지역을 유지하며 NPC 도구 열기",
+    "type": "region-tool",
+    "target": "procedure:workbench.npc",
+    "toolIndex": 3,
+    "title": "Kergüs",
+    "kind": "region",
+    "available": true,
+    "action": {
+      "kind": "region",
+      "region": "kergus"
+    },
+    "books": [
+      "depths"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "procedure:depths.encounter-level"
+      },
+      {
+        "id": "rule:regional-monsters:kergus"
+      },
+      {
+        "id": "oracle:depths.region.kergus.trait"
+      },
+      {
+        "id": "oracle:depths.region.kergus.feature"
+      },
+      {
+        "id": "oracle:depths.region.kergus.discovery"
+      },
+      {
+        "id": "oracle:depths.region.kergus.monsters"
+      },
+      {
+        "id": "oracle:depths.region.kergus.npc_professions"
+      },
+      {
+        "id": "creature:core:58:seth"
+      }
+    ]
+  },
+  {
+    "id": "book:core",
+    "reason": "책 탐색 허브",
+    "intent": "기존 Names 참조 열기",
+    "type": "related",
+    "target": "oracle:core.names",
+    "title": "MÖRK BORG BARE BONES EDITION",
+    "kind": "book",
+    "available": true,
+    "action": null,
+    "books": [
+      "core"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "oracle:core.names"
+      },
+      {
+        "id": "oracle:core.titleA"
+      },
+      {
+        "id": "oracle:core.status"
+      },
+      {
+        "id": "oracle:core.danger"
+      },
+      {
+        "id": "oracle:core.inhabitants"
+      },
+      {
+        "id": "oracle:core.feature"
+      },
+      {
+        "id": "oracle:core.rooms"
+      },
+      {
+        "id": "oracle:core.traits"
+      }
+    ]
+  },
+  {
+    "id": "book:mythic2",
+    "reason": "다른 책의 탐색 허브",
+    "intent": "기존 Action 참조 열기",
+    "type": "related",
+    "target": "oracle:mythic2.meaning.action-1",
+    "title": "Mythic Game Master Emulator Second Edition",
+    "kind": "book",
+    "available": true,
+    "action": null,
+    "books": [
+      "mythic2"
+    ],
+    "canonical": [],
+    "rollable": [],
+    "related": [
+      {
+        "id": "oracle:mythic2.meaning.action-1"
+      },
+      {
+        "id": "oracle:mythic2.meaning.descriptor-1"
+      },
+      {
+        "id": "oracle:mythic2.meaning.adventure-tone"
+      },
+      {
+        "id": "oracle:mythic2.meaning.alien-species-descriptors"
+      },
+      {
+        "id": "oracle:mythic2.meaning.animal-actions"
+      },
+      {
+        "id": "oracle:mythic2.meaning.army-descriptors"
+      },
+      {
+        "id": "oracle:mythic2.meaning.cavern-descriptors"
+      },
+      {
+        "id": "oracle:mythic2.meaning.characters"
+      }
+    ]
+  },
+  {
+    "id": "oracle:core.gearA",
+    "reason": "긴 짝 표의 USED BY",
+    "intent": "이 표를 쓰는 캐릭터 생성 절차 열기",
+    "type": "related",
+    "target": "procedure:character.core-classless",
+    "title": "Starting Equipment d12",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.gearA",
+        "core.gearB"
+      ]
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.gearA",
+      "core.gearB"
+    ],
+    "rollable": [
+      true,
+      true
+    ],
+    "related": [
+      {
+        "id": "procedure:character.core-classless",
+        "kind": "USED BY"
+      },
+      {
+        "id": "book:core"
+      }
+    ]
+  },
+  {
+    "id": "procedure:workbench.stock-room",
+    "reason": "결과의 정확한 생물 SOURCE",
+    "intent": "생성된 Nodh 원문 열기",
+    "type": "creature-source",
+    "target": "creature:core:61:nodh",
+    "prepareRoll": 0.2,
+    "title": "Encounter Candidate · 조우 후보 준비",
+    "kind": "procedure",
+    "available": true,
+    "action": {
+      "kind": "procedure",
+      "procedureId": "workbench.stock-room"
+    },
+    "books": [
+      "sd",
+      "reclvse",
+      "depths"
+    ],
+    "canonical": [
+      "sd.stockCreatures",
+      "reclvse.roomEncounter"
+    ],
+    "rollable": [
+      true,
+      true
+    ],
+    "related": [
+      {
+        "id": "procedure:workbench.npc"
+      },
+      {
+        "id": "oracle:core.reaction"
+      },
+      {
+        "id": "rule:sd.stockCommon"
+      },
+      {
+        "id": "rule:sd.stockRare"
+      },
+      {
+        "id": "oracle:sd.stockCreatures"
+      },
+      {
+        "id": "oracle:reclvse.roomEncounter"
+      },
+      {
+        "id": "oracle:sd.usefulItems"
+      },
+      {
+        "id": "oracle:core.treasures"
+      }
+    ]
+  },
+  {
+    "id": "oracle:core.treasures",
+    "reason": "오라클 결과 SOURCE disclosure와 책 왕복",
+    "intent": "보물 결과 출처의 원서 참조 열기",
+    "type": "source-book",
+    "target": "book:core",
+    "prepareRoll": 0.2,
+    "title": "Occult Treasures",
+    "kind": "oracle",
+    "available": true,
+    "action": {
+      "kind": "oracle",
+      "oracleIds": [
+        "core.treasures"
+      ]
+    },
+    "books": [
+      "core"
+    ],
+    "canonical": [
+      "core.treasures"
+    ],
+    "rollable": [
+      true
+    ],
+    "related": [
+      {
+        "id": "book:core"
+      }
+    ]
+  }
+]

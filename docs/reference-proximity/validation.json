@@ -1,0 +1,51 @@
+{
+  "baselineCommit": "df60d4399af231aa978d9e7769ae5625ebc5152b",
+  "baselineTests": {
+    "pass": 1192,
+    "fail": 0,
+    "skip": 0
+  },
+  "finalTests": {
+    "pass": 1192,
+    "fail": 0,
+    "skip": 0
+  },
+  "baselineBuild": "pass; existing chunk >500 kB warning",
+  "finalBuild": "pass; existing chunk >500 kB warning",
+  "baselineLint": "pass",
+  "finalLint": "pass",
+  "browser": {
+    "before": 132,
+    "after": 132,
+    "sizes": [
+      [
+        360,
+        1000
+      ],
+      [
+        768,
+        1000
+      ],
+      [
+        1440,
+        1000
+      ],
+      [
+        3440,
+        1000
+      ]
+    ],
+    "dungeonAccess": 4,
+    "dungeonContext": 4,
+    "combat": 4
+  },
+  "applicationFiles": {
+    "src/components/ReferenceWorkbench.tsx": "0fcf95cbc66b50de06dc85f96e20bec538eda39ae766a2049b0051dd66519b11",
+    "src/components/reference-surface.css": "09a76e7eceff6339f096a83b9870847bcf54e4fddefcda97c26e7e40c920353b",
+    "src/publication.css": "d3e722103b42a04fb9385455e85617d8857fa6f0cdf3c2d92e70bc3786d4c626"
+  },
+  "testDurationMs": {
+    "baseline": 202666.296833,
+    "final": 278664.121291
+  }
+}

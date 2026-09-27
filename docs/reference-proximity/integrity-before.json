@@ -1,0 +1,29 @@
+{
+  "commit": "df60d4399af231aa978d9e7769ae5625ebc5152b",
+  "counts": {
+    "references": 993,
+    "tables": 546,
+    "procedures": 60,
+    "creatures": 89,
+    "creatureReferences": 95,
+    "sourceRows": 12310,
+    "canonicalUses": 88,
+    "canonicalUsedBy": 88,
+    "relationshipEvidence": 149,
+    "relatedPairs": 3139
+  },
+  "hashes": {
+    "rawLibrary": "fd5c1a6fb24aa95329c2121ab7bda9f45bb86fa353697ab0b297152ac4c3b131",
+    "rawOracles": "dfcafb2241b1bd8913a08e3ab69e7ba25d75ef52121907b3c92eb419051254bd",
+    "parsedLibrary": "b9168cd1fc9266f21c83ed41a672c0f9f90585705fe50f4160738e43abbe2668",
+    "parsedOracles": "2181e47b9ad2cd9a15e7d12c30ef142dd5dfc53b925f51c741a5d1fe004d560a",
+    "registry": "dcea5c3c78721c2db2d194f885f16a97df62d0d7c3f5a60a0d369794e2c982d1",
+    "references": "78c8e0deeabedc14e165e13f0940e75ed75238a80d3e70b6ba6ac9b81248818f",
+    "canonicalRelationships": "2849767c63176be3f67f2792c47529824899d51dd64c6343846f6f7c284a409c",
+    "relatedIds": "ecdceb8891f84b83734cd0955cb7d7eb2405a27ee7d0921d54b0692f9863b759",
+    "diceDefinitions": "0540bd252d0e8d03da1c32939e42f318222761cb105bc6d490cb4d334c6a366e",
+    "sourceMetadata": "c50260a65d353e11aaa03af6d5c3ac1eb36b76eb8dca7f2da527c68485b923d5"
+  },
+  "corpusHash": "0992c0e3781b47e06a688895637df00ab504c4dce45aa4d66f9ed3adb9c184c6",
+  "corpusSize": 33
+}

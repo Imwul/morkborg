@@ -268,10 +268,12 @@ export function ReferenceProvider({
   const pendingPhysicalRow = useRef<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   function referenceViewRoot() {
-    // Spatial actions and Related are siblings of the reference page. Their
-    // triggers belong to the same transient reading view for Back navigation.
+    // Related is a sibling of the reference page in both readers. Include its
+    // trigger in the same transient view so Back can restore keyboard focus.
     return (
-      inspectorRef.current?.closest<HTMLElement>('.spatial-reader') ??
+      inspectorRef.current?.closest<HTMLElement>(
+        '.spatial-reader, .desk-current-page',
+      ) ??
       inspectorRef.current
     );
   }
