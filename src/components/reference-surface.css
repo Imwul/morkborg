@@ -1418,3 +1418,51 @@
     grid-template-columns: 320px minmax(0, 1.45fr) minmax(440px, 1fr);
   }
 }
+
+/* Suggestions follow the open reference; saved pins stay independent. */
+.reference-app .rdesk .desk-companions > div {
+  display: grid;
+  gap: 2px;
+}
+.reference-app .rdesk .desk-companions .quick-reference-action {
+  text-align: left;
+}
+.reference-app .rdesk .desk-companions .relationship-label {
+  margin-left: 8px;
+}
+
+.reference-app .rdesk .desk-companion-theme {
+  margin: 12px 0 4px;
+  font: 650 1rem/1.4 var(--font-ui);
+}
+.reference-app .rdesk .desk-companion-basis {
+  margin: 0 0 12px;
+  color: var(--muted-ink);
+  font: 450 0.75rem/1.6 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+.reference-app .rdesk .desk-companions .quick-reference-action {
+  font-size: 1rem;
+  line-height: 1.4;
+  min-height: 44px;
+}
+
+@media (max-width: 800px) {
+  .reference-app .rdesk .desk-companions {
+    display: block;
+  }
+  .reference-app .rdesk .desk-companions > div {
+    display: flex;
+  }
+  .reference-app .rdesk .desk-companion-theme {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .reference-app .rdesk .desk-companion-basis {
+    display: inline;
+  }
+  .reference-app .rdesk .desk-companions .quick-reference-action {
+    max-width: none;
+    padding-block: 10px;
+  }
+}

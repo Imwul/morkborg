@@ -22,6 +22,7 @@ import {
 } from '../src/components/ReferenceOracleIntroduction.tsx';
 import {
   DESK_REFERENCE_SHORTCUTS,
+  DESK_ROOM_SHORTCUTS,
   DESK_GENERATOR_SHORTCUTS,
 } from '../src/components/DeskLanding.tsx';
 const fixture = JSON.parse(
@@ -38,6 +39,7 @@ const index = buildReferenceRegistry(registry, getRules()!);
 test('home and generator shortcuts resolve to existing canonical references', () => {
   for (const [id] of [
     ...DESK_REFERENCE_SHORTCUTS,
+    ...DESK_ROOM_SHORTCUTS,
     ...DESK_GENERATOR_SHORTCUTS,
   ]) {
     assert.ok(index.byId[id], `Missing shortcut target: ${id}`);

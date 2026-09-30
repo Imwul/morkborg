@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/prefer-tag-over-role -- Interactive SVG groups need explicit roles; HTML buttons cannot be children of SVG. */
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
@@ -35,8 +36,9 @@ export function SpatialOracle({
   const illustration = spatialIllustrations[scene.id];
   if (!illustration) throw new Error(`Missing scene artwork: ${scene.id}`);
   const visuals = illustration.targets;
-  const [reveal, setReveal] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
+  const activeId = hovered ?? focused;
   const [zoom, setZoom] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const reader = useRef<HTMLElement>(null);
@@ -46,12 +48,13 @@ export function SpatialOracle({
     (spot) => spot.referenceId === desk?.selectedId,
   );
   const pointed =
-    scene.hotspots.find((spot) => spot.id === hovered) ?? selected;
-  const hoverSpot = scene.hotspots.find((spot) => spot.id === hovered);
+    scene.hotspots.find((spot) => spot.id === activeId) ?? selected;
+  const hoverSpot = scene.hotspots.find((spot) => spot.id === activeId);
   const hoverLabel = hoverSpot?.accessibleLabel.split(' · ')[0] ?? '';
   const hoverPoint = hoverSpot
-    ? visuals[hoverSpot.visualTarget].labelPoint
+    ? visuals[hoverSpot.visualTarget].featurePoint
     : null;
+  const hoverEntry = hoverSpot && desk?.byId[hoverSpot.referenceId];
   const missing = [
     ...scene.hotspots,
     ...scene.supportGroups.flatMap((group) => group.references),
@@ -107,11 +110,11 @@ export function SpatialOracle({
     }[event.key];
     if (!direction) return;
     event.preventDefault();
-    const [x, y] = visuals[hotspot.visualTarget].labelPoint;
+    const [x, y] = visuals[hotspot.visualTarget].featurePoint;
     const next = scene.hotspots
       .filter((s) => s.id !== hotspot.id)
       .map((s) => {
-        const [xx, yy] = visuals[s.visualTarget].labelPoint;
+        const [xx, yy] = visuals[s.visualTarget].featurePoint;
         const dx = xx - x,
           dy = yy - y;
         return {
@@ -157,6 +160,7 @@ export function SpatialOracle({
                   desk?.dismiss?.();
                   onSceneChange(item.id);
                   setHovered(null);
+                  setFocused(null);
                   lastTarget.current = null;
                   if (viewport.current) viewport.current.scrollLeft = 0;
                 }
@@ -179,9 +183,7 @@ export function SpatialOracle({
           </div>
           <p className="spatial-description">{scene.description}</p>
           <div className="spatial-map-tools">
-            <button aria-pressed={reveal} onClick={() => setReveal(!reveal)}>
-              살펴볼 곳 {reveal ? '숨기기' : '표시'}
-            </button>
+            <span>작은 점이나 사물을 가리켜 살펴보세요.</span>
             <div>
               <button
                 aria-label="지도 왼쪽으로"
@@ -204,7 +206,6 @@ export function SpatialOracle({
             <svg
               className="spatial-map"
               viewBox={SPATIAL_VIEWBOX}
-              data-reveal={reveal}
               role="group"
               aria-label={`${scene.title} — 사물을 선택해 참조 열기`}
               aria-describedby="spatial-map-help"
@@ -252,11 +253,11 @@ export function SpatialOracle({
                       onPointerEnter={() => setHovered(hotspot.id)}
                       onPointerLeave={() => setHovered(null)}
                       onFocus={(event) => {
-                        setHovered(hotspot.id);
+                        setFocused(hotspot.id);
                         if (event.currentTarget.matches(':focus-visible'))
                           focusTarget(hotspot.id);
                       }}
-                      onBlur={() => setHovered(null)}
+                      onBlur={() => setFocused(null)}
                       onClick={() => inspect(hotspot)}
                       onKeyDown={(event) => key(event, hotspot)}
                     >
@@ -275,43 +276,38 @@ export function SpatialOracle({
                             : undefined
                         }
                       />
-                      {visual.hitStrokeWidth && (
-                        <path
-                          className="spatial-route-outline"
-                          d={visual.hitPath}
-                          aria-hidden="true"
-                          pointerEvents="none"
-                        />
-                      )}
-                      <g
-                        className="spatial-mark"
-                        aria-hidden="true"
-                        pointerEvents="none"
-                        transform={`translate(${visual.labelPoint.join(' ')})`}
-                      >
-                        <circle r="8" />
-                        <path d="m-3 0 2 3 5-6" />
-                      </g>
                     </g>
                   );
                 })}
+              {/* Dots sit above every hit region, so broad floors and routes never
+                  obscure another object's marker. The original groups own keyboard focus. */}
+              {scene.hotspots.map((hotspot) => {
+                const visual = visuals[hotspot.visualTarget];
+                return (
+                  <g
+                    key={hotspot.id}
+                    className="spatial-marker"
+                    data-marker-id={hotspot.id}
+                    data-active={activeId === hotspot.id}
+                    data-selected={selected?.id === hotspot.id}
+                    aria-hidden="true"
+                    transform={`translate(${visual.featurePoint.join(' ')})`}
+                    onPointerEnter={() => setHovered(hotspot.id)}
+                    onPointerLeave={() => setHovered(null)}
+                    onClick={() => inspect(hotspot)}
+                  >
+                    <circle className="spatial-dot-hit" r="27" />
+                    <circle className="spatial-dot-ring" r="11" />
+                    <circle className="spatial-dot" r="4.5" />
+                  </g>
+                );
+              })}
               {hoverPoint && (
-                <g
-                  className="spatial-map-label"
-                  aria-hidden="true"
-                  pointerEvents="none"
-                  transform={`translate(${Math.min(690, Math.max(70, hoverPoint[0]))} ${Math.min(594, hoverPoint[1] + 22)})`}
-                >
-                  <rect
-                    x={-Math.max(44, hoverLabel.length * 8 + 12)}
-                    y="-16"
-                    width={Math.max(88, hoverLabel.length * 16 + 24)}
-                    height="29"
-                  />
-                  <text textAnchor="middle" y="4">
-                    {hoverLabel}
-                  </text>
-                </g>
+                <SpatialPlaque
+                  point={hoverPoint}
+                  name={hoverLabel}
+                  destination={hoverEntry?.title ?? '자료를 불러와야 합니다'}
+                />
               )}
             </svg>
           </div>
@@ -442,5 +438,51 @@ export function SpatialOracle({
         </section>
       </div>
     </section>
+  );
+}
+
+/** Measure the wrapping label in SVG units so even long titles stay inside the plate. */
+function SpatialPlaque({
+  point,
+  name,
+  destination,
+}: {
+  point: readonly [number, number];
+  name: string;
+  destination: string;
+}) {
+  const label = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(100);
+  useLayoutEffect(() => {
+    if (!label.current) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setHeight(
+        Math.ceil(
+          entry.borderBoxSize[0]?.blockSize ?? label.current!.offsetHeight,
+        ),
+      );
+    });
+    observer.observe(label.current);
+    return () => observer.disconnect();
+  }, []);
+  const width = 250;
+  const x =
+    point[0] + 18 + width <= 752 ? point[0] + 18 : point[0] - width - 18;
+  const y = Math.max(8, Math.min(point[1] - 20, 612 - height));
+  return (
+    <foreignObject
+      className="spatial-map-label"
+      x={Math.max(8, x)}
+      y={y}
+      width={width}
+      height={height}
+      pointerEvents="none"
+      aria-hidden="true"
+    >
+      <div ref={label} className="spatial-plaque">
+        <strong>{name}</strong>
+        <span>참조 열기 · {destination}</span>
+      </div>
+    </foreignObject>
   );
 }

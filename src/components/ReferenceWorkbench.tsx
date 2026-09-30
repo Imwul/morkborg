@@ -172,6 +172,7 @@ import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
 import { DeskLanding } from './DeskLanding';
+import { referenceCompanions } from '../domain/referenceCompanions';
 import { SpatialOracle } from './spatial/SpatialOracle';
 import { normalizeSpatialSceneId } from '../domain/spatialScenes';
 
@@ -273,8 +274,7 @@ export function ReferenceProvider({
     return (
       inspectorRef.current?.closest<HTMLElement>(
         '.spatial-reader, .desk-current-page',
-      ) ??
-      inspectorRef.current
+      ) ?? inspectorRef.current
     );
   }
   function rememberReferenceView() {
@@ -2384,7 +2384,13 @@ export function ReferenceRow({
     </div>
   );
 }
-export function QuickReferenceButton({ entry }: { entry: ReferenceEntry }) {
+export function QuickReferenceButton({
+  entry,
+  relationshipKind,
+}: {
+  entry: ReferenceEntry;
+  relationshipKind?: 'USES' | 'USED BY';
+}) {
   const desk = useReferenceDesk();
   return (
     <button
@@ -2393,6 +2399,7 @@ export function QuickReferenceButton({ entry }: { entry: ReferenceEntry }) {
       onClick={() => desk?.activate(entry.id)}
     >
       {referenceShortName(entry)}
+      <RelationshipLabel kind={relationshipKind} />
     </button>
   );
 }
@@ -2589,6 +2596,16 @@ export function ReferenceDesk({
     desk?.scope === 'pinned' || desk?.scope === 'recent'
       ? [{ id: 'saved', title: '', entries: found }]
       : groupReferenceResults(found, context);
+  const companions =
+    selected && desk?.relationships
+      ? referenceCompanions(
+          index,
+          desk.relationships,
+          selected.id,
+          desk.resultReferenceIds,
+        )
+      : { theme: '', items: [] };
+  const companionIds = new Set(companions.items.map(({ entry }) => entry.id));
   const relatedItems =
     selected && desk?.relationships
       ? relatedReferenceRelationships(
@@ -2596,7 +2613,11 @@ export function ReferenceDesk({
           desk.relationships,
           selected.id,
           8,
-        ).filter((link) => !desk.resultReferenceIds?.includes(link.entry.id))
+        ).filter(
+          (link) =>
+            !desk.resultReferenceIds?.includes(link.entry.id) &&
+            (page !== 'reference' || !companionIds.has(link.entry.id)),
+        )
       : [];
   const relatedContent = !!relatedItems.length && (
     <section className="desk-related" aria-label="관련 참조">
@@ -2902,28 +2923,32 @@ export function ReferenceDesk({
                   ))}
                 </div>
               </section>
-              <section className="desk-nav-history" aria-label="최근 참조">
-                <h2>
-                  <button
-                    onClick={() => {
-                      setPage('reference');
-                      setBrowserOpen(true);
-                      desk?.setScope?.('recent');
-                      desk?.setQuery?.('');
-                      resetFilters();
-                    }}
-                  >
-                    최근
-                  </button>
-                </h2>
-                <div>
-                  {entries(desk?.recentIds ?? [])
-                    .slice(0, 6)
-                    .map((e) => (
-                      <QuickReferenceButton key={e.id} entry={e} />
+              {selected && (
+                <section
+                  className="desk-nav-history desk-companions"
+                  aria-label="함께 쓰는 참조"
+                >
+                  <h2>함께 쓰는 참조</h2>
+                  <p className="desk-companion-theme">{companions.theme}</p>
+                  <p className="desk-companion-basis">
+                    {referenceShortName(selected)} 기준 · 자동 연결
+                  </p>
+                  <div>
+                    {companions.items.map(({ entry, kind }) => (
+                      <QuickReferenceButton
+                        key={entry.id}
+                        entry={entry}
+                        relationshipKind={kind}
+                      />
                     ))}
-                </div>
-              </section>
+                  </div>
+                  {!companions.items.length && (
+                    <p className="desk-companion-basis">
+                      이 참조에 연결된 항목은 없습니다.
+                    </p>
+                  )}
+                </section>
+              )}
             </aside>
           )}
           <div className="desk-current-page">
@@ -2961,6 +2986,13 @@ export function ReferenceDesk({
                 onGenerator={onGenerator}
                 onGenerators={() => setPage('generators')}
                 onOpenReference={(id) => openReference(id)}
+                onSpatial={(id) => {
+                  desk?.dismiss?.();
+                  setSpatialSceneId(id);
+                  setPage('spatial');
+                  search('');
+                  setBrowserOpen(false);
+                }}
               />
             ) : (
               <>

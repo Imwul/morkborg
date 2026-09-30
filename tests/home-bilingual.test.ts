@@ -129,8 +129,9 @@ test('Desk opens without an unsolicited full index, keeping search, header secti
     html.indexOf('aria-label="참조 검색"') <
       html.indexOf('aria-label="참조 종류"'),
   );
-  for (const label of ['고정한 참조', '최근 참조', '관련 상황 바로가기'])
+  for (const label of ['고정한 참조', '관련 상황 바로가기'])
     assert.ok(html.includes(`aria-label="${label}"`));
+  assert.doesNotMatch(html, /aria-label="최근 참조"/);
   assert.ok(html.indexOf('aria-label="참조 종류"') < html.indexOf('</header>'));
   assert.doesNotMatch(html, /aria-label="검색 결과"|색인 ·|desk-folio/);
   assert.doesNotMatch(

@@ -1,0 +1,169 @@
+.reference-app .desk-home {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 36px;
+  color: var(--ink);
+}
+.desk-home > section {
+  min-width: 0;
+}
+.desk-home h2 {
+  margin: 0;
+  font: 400 clamp(1.7rem, 2.4vw, 2.5rem)/1.2 var(--font-korean-display);
+}
+.desk-home-references > h2,
+.desk-home-generators > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  margin-bottom: 16px;
+  border-top: 3px solid var(--ink);
+  padding-top: 12px;
+}
+.desk-home-references h2 > span {
+  background: var(--acid);
+  padding: 4px 12px 7px;
+}
+.desk-home button {
+  min-width: 0;
+  min-height: 44px;
+  text-align: left;
+  border-radius: 0;
+  box-shadow: none;
+}
+.desk-home-grid,
+.desk-home-generator-grid {
+  display: grid;
+  gap: 12px;
+}
+.desk-home-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.desk-home-generator-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.desk-home-grid > button,
+.desk-home-room,
+.desk-home-generator-grid > button {
+  margin: 0;
+  padding: 20px;
+  border: 1px solid #c9c7bf;
+  background: var(--paper);
+}
+.desk-home-grid > button {
+  min-height: 156px;
+}
+.desk-home button strong {
+  display: block;
+  overflow-wrap: break-word;
+}
+.desk-home-grid > button strong {
+  font: 700 clamp(1.75rem, 2.8vw, 3.1rem)/1.05 var(--font-editorial);
+  letter-spacing: -0.04em;
+}
+.desk-home button span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted-ink);
+  font: 500 0.85rem/1.5 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.desk-home-room h3 {
+  margin: 0 0 12px;
+  font: 600 1.35rem/1.15 var(--font-editorial);
+}
+.desk-home-room > div {
+  display: grid;
+}
+.desk-home-room button {
+  padding: 8px 0;
+  border-top: 1px solid #d6d4cc;
+  font: 650 0.9rem/1.4 var(--font-ui);
+}
+.desk-home-generator-grid > button {
+  min-height: 100px;
+  padding: 14px 18px;
+}
+.desk-home-generator-grid strong {
+  font: 400 1.65rem/1.2 var(--font-korean-display);
+}
+.desk-home-generator-grid button span {
+  font-size: 0.75rem;
+  margin-top: 6px;
+}
+.desk-home-all {
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.desk-home-spatial {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  gap: 24px;
+  border-top: 2px solid var(--ink);
+  padding-top: 20px;
+}
+.desk-home-spatial nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.desk-home-spatial button {
+  padding: 14px 20px;
+  border: 1px solid #c9c7bf;
+}
+.desk-home-spatial strong {
+  font: 700 1.7rem/1.1 var(--font-editorial);
+}
+.desk-home button:hover {
+  background: var(--acid);
+}
+.desk-home button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  background: var(--acid);
+}
+@media (min-width: 1600px) {
+  .desk-home-grid > button {
+    min-height: 190px;
+  }
+}
+@media (max-width: 1100px) {
+  .reference-app .desk-home {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .desk-home-generator-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .desk-home-grid,
+  .desk-home-generator-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .desk-home-grid > button,
+  .desk-home-room {
+    padding: 16px;
+    min-height: 140px;
+  }
+  .desk-home-spatial {
+    display: block;
+  }
+  .desk-home-spatial h2 {
+    margin-bottom: 16px;
+  }
+  .desk-home-spatial nav {
+    gap: 6px;
+  }
+  .desk-home-spatial button {
+    padding: 12px 8px;
+  }
+  .desk-home-spatial strong {
+    font-size: 1.25rem;
+  }
+}

@@ -174,77 +174,62 @@
   pointer-events: all;
   vector-effect: non-scaling-stroke;
 }
-.spatial-hotspot:hover .spatial-hit {
-  fill: #e8e75824;
-  stroke: #474b35;
-  stroke-dasharray: 3 4;
-}
-.spatial-hotspot:focus-visible .spatial-hit {
-  fill: #e8e75835;
-  stroke: #252b17;
-  stroke-width: 3;
-  stroke-dasharray: none;
-}
-.spatial-oracle[data-scene='dungeon']
-  .spatial-hotspot:focus-visible
-  .spatial-hit,
-.spatial-oracle[data-scene='city'] .spatial-hotspot:focus-visible .spatial-hit {
-  stroke: #f6e7a4;
-  paint-order: stroke;
-  filter: drop-shadow(1px 1px 0 #242320) drop-shadow(-1px -1px 0 #242320);
-}
-.spatial-hotspot[aria-pressed='true'] .spatial-hit {
-  fill: #dfca4930;
-  stroke: #765026;
-  stroke-width: 2;
-}
-.spatial-map[data-reveal='true'] .spatial-hit {
-  stroke: #596244;
-  stroke-dasharray: 4 5;
-  fill: #f3ef5d18;
-}
 .spatial-hotspot[aria-disabled='true'] {
   cursor: help;
 }
-.spatial-mark {
-  visibility: hidden;
+.spatial-marker {
+  cursor: pointer;
 }
-.spatial-mark circle {
-  fill: #e8e758;
-  stroke: #292b28;
-  stroke-width: 2;
+.spatial-dot-hit {
+  fill: transparent;
+  pointer-events: all;
 }
-.spatial-mark path {
+.spatial-dot {
+  fill: #f7ecab;
+  stroke: #202221;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.spatial-dot-ring {
   fill: none;
-  stroke: #292b28;
+  stroke: #f7ecab;
   stroke-width: 2;
+  opacity: 0;
+  pointer-events: none;
 }
-.spatial-hotspot[aria-pressed='true'] .spatial-mark {
-  visibility: visible;
+.spatial-marker[data-active='true'] .spatial-dot,
+.spatial-marker[data-selected='true'] .spatial-dot {
+  fill: var(--acid);
 }
-.spatial-route-outline {
-  visibility: hidden;
-  fill: none;
-  stroke: #2a311c;
-  stroke-width: 3;
-  stroke-dasharray: 4 6;
+.spatial-marker[data-active='true'] .spatial-dot-ring,
+.spatial-marker[data-selected='true'] .spatial-dot-ring {
+  opacity: 1;
+  filter: drop-shadow(0 1px 1px #202221);
 }
-.spatial-map-label rect {
-  fill: #f9f8ee;
-  stroke: #292b28;
-  stroke-width: 1;
+.spatial-map-label {
+  overflow: visible;
 }
-.spatial-map-label text {
-  fill: #292b28;
-  font: 650 14px/1 var(--font-ui);
+.spatial-plaque {
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #292b28;
+  background: #f7ecab;
+  color: #202221;
+  overflow-wrap: anywhere;
 }
-.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true'])
-  .spatial-route-outline,
-.spatial-map[data-reveal='true'] .spatial-route-outline {
-  visibility: visible;
+.spatial-plaque strong {
+  display: block;
+  font: 750 15px/1.4 var(--font-ui);
 }
-.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true']) {
-  --spatial-object-fill: #e5df75;
+.spatial-plaque span {
+  display: block;
+  margin-top: 4px;
+  font: 500 12px/1.5 var(--font-ui);
+}
+.spatial-map-tools > span {
+  align-self: center;
+  font-size: 0.75rem;
+  color: #565950;
 }
 .spatial-hover-label {
   min-height: 48px;
@@ -484,16 +469,4 @@
   .reference-app .desk-primary-nav button::before {
     display: none;
   }
-}
-
-/* Pale print marks remain legible over all three plates. The image itself never changes. */
-.spatial-hotspot:is(:hover, :focus-visible, [aria-pressed='true']) .spatial-hit,
-.spatial-map[data-reveal='true'] .spatial-hit {
-  stroke: #fff0b0;
-  filter: drop-shadow(1px 1px 0 #202221) drop-shadow(-1px -1px 0 #202221);
-}
-.spatial-route-outline {
-  stroke: #fff0b0;
-  filter: drop-shadow(1px 1px 0 #202221);
-  pointer-events: none;
 }
