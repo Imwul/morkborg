@@ -13,6 +13,8 @@ import {
 import type { RegionId } from '../domain/types';
 import { SourceDisclosure } from './SourceDisclosure';
 import { useReferenceDesk } from './ReferenceContext';
+import { equipmentScrollTable } from '../domain/generatedEquipment';
+import { EquipmentScroll, ContainerAlternatives } from './GeneratedEquipment';
 import { fixedReferenceReading } from '../domain/referenceFixedLookup';
 import { copyReadingWithInlineChildren } from '../domain/inlineReadingContinuity';
 import { ReferenceReadingText } from './ReferenceReadingText';
@@ -86,7 +88,7 @@ export function ReferenceReadingBlock({
         {!creatureIdentityInBody && (
           <h4>
             {reading.title}
-            <Translation text={reading.title} />
+            <Translation text={reading.title} translation={reading.titleKo} />
           </h4>
         )}
         <div className="inline-actions">
@@ -166,6 +168,10 @@ export function ReferenceReadingBlock({
               ))
             ) : block.kind === 'creature' ? (
               <CreatureReadingFields block={block} excludeId={referenceId} />
+            ) : source &&
+              'oracleId' in source &&
+              equipmentScrollTable(source) ? (
+              <EquipmentScroll key={source.entryId} parent={source} />
             ) : (
               <ReferenceReadingText
                 text={block.text}
@@ -178,6 +184,9 @@ export function ReferenceReadingBlock({
                 splitLines={!!reading.rareMonster}
                 source={source}
               />
+            )}
+            {source && 'oracleId' in source && (
+              <ContainerAlternatives parent={source} />
             )}
           </section>
         );

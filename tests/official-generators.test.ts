@@ -18,9 +18,11 @@ import {
   type MonsterSitePack,
 } from '../src/domain/monsterSitePack.ts';
 import { generateScvmCharacter, scvmReferenceReading } from '../src/generators/scvmCharacter.ts';
-import { generateMonsterSite } from '../src/generators/monsterSite.ts';
+import { generateMonsterSite, monsterSiteReferenceReading } from '../src/generators/monsterSite.ts';
 import { readPrivateGeneratorPack } from '../server/privateGeneratorPack.ts';
 import { readPrivateScvmTranslation } from '../server/privateScvmTranslation.ts';
+import { readPrivateMonsterTranslation } from '../server/privateMonsterTranslation.ts';
+import { createPrivateDngngenServer } from '../server/privateDngngenServer.ts';
 import type { RandomSource } from '../src/generators/random.ts';
 
 const face = (sides: number, value: number) => (value - 0.5) / sides;
@@ -130,6 +132,130 @@ test('monster site armor follows its published C-before-B parity', () => {
   const monster = generateMonsterSite('11111111-1111-4111-8111-111111111111', pack, undefined, () => 0);
   assert.equal(monster.generation?.system, 'monster-site');
   assert.equal(monster.sources?.['site.tableA'], 'a1');
+});
+
+test('Monster Korean companion preserves selected variants, stats and source checksum', async () => {
+  const pack = monsterPack();
+  pack.messages['theMonsterApproaches.a1'] =
+    'A {first, select, other {red} blue {blue}} creature';
+  pack.tables.A[1][0].variants = { first: ['blue'] };
+  seal(pack, monsterSitePackPayload);
+  const root = await mkdtemp(join(tmpdir(), 'monster-ko-'));
+  try {
+    const path = join(root, 'ko.json');
+    const companion = {
+      format: 'reference-desk.monster-site-ko',
+      version: 1,
+      sourceSha256: pack.integrity.payloadSha256,
+      messages: {
+        'theMonsterApproaches.a1':
+          '{first, select, other {빨간} blue {파란}} 생물',
+        'theMonsterApproaches.introduction':
+          '{tableA}. 특징: {tableB}. 상태: {tableC}. 욕망: {want}',
+        'theMonsterApproaches.want': '머무는 것',
+        'description.lair': '작은 소굴',
+        'description.ability': '특별한 능력',
+        'description.loot': '숨긴 보물',
+        'weapon.claws': '발톱',
+      },
+    };
+    await writeFile(path, JSON.stringify(companion));
+    pack.translations = await readPrivateMonsterTranslation(path, pack);
+    assert.ok(pack.translations);
+    assert.equal(
+      createHash('sha256').update(monsterSitePackPayload(pack)).digest('hex'),
+      pack.integrity.payloadSha256,
+    );
+    assert.deepEqual(
+      parseMonsterSitePack(pack, { allowSynthetic: true }).translations,
+      pack.translations,
+    );
+    let draws = 0;
+    const rolled = rollMonsterSite(pack, () => {
+      draws += 1;
+      return 0;
+    });
+    let plainDraws = 0;
+    const plain = rollMonsterSite({ ...pack, translations: undefined }, () => {
+      plainDraws += 1;
+      return 0;
+    });
+    const { translation, ...original } = rolled;
+    assert.equal(draws, plainDraws);
+    assert.deepEqual(original, plain);
+    assert.equal(translation?.name, '파란 생물');
+    assert.match(translation!.introduction, /^파란 생물/);
+    assert.equal(translation?.attack, '발톱');
+    for (const field of [
+      'hp',
+      'morale',
+      'damage',
+      'rolls',
+      'previous',
+    ] as const)
+      assert.deepEqual(translation?.[field], rolled[field]);
+    const reading = monsterSiteReferenceReading(pack);
+    assert.equal(
+      reading.blocks.find((block) => block.title === 'Wants')?.translation?.ko,
+      '머무는 것',
+    );
+    assert.equal(
+      reading.blocks.find((block) => block.title === 'Lair')?.translation?.ko,
+      '작은 소굴',
+    );
+    assert.equal(
+      reading.blocks.find((block) => block.title === 'Wants')?.translation
+        ?.titleKo,
+      '욕망',
+    );
+    assert.deepEqual(
+      rollMonsterSite(
+        { ...pack, translations: { 'theMonsterApproaches.a1': '{broken' } },
+        () => 0,
+      ),
+      plain,
+    );
+    const packPath = join(root, 'pack.json');
+    await writeFile(
+      packPath,
+      JSON.stringify({ ...pack, translations: undefined }),
+    );
+    const server = createPrivateDngngenServer({
+      root,
+      packPath,
+      monsterPath: packPath,
+      monsterTranslationPath: path,
+      allowSynthetic: true,
+    });
+    await new Promise<void>((done) => server.listen(0, '127.0.0.1', done));
+    try {
+      const address = server.address();
+      assert.ok(address && typeof address === 'object');
+      const response = await fetch(
+        `http://127.0.0.1:${address.port}/__private/monster`,
+      );
+      assert.equal(response.headers.get('cache-control'), 'private, no-store');
+      const body = await response.json();
+      assert.equal(body.status, 'ready');
+      assert.deepEqual(body.pack.translations, companion.messages);
+    } finally {
+      await new Promise<void>((done, reject) =>
+        server.close((error) => (error ? reject(error) : done())),
+      );
+    }
+    await writeFile(
+      path,
+      JSON.stringify({ ...companion, sourceSha256: '0'.repeat(64) }),
+    );
+    assert.equal(await readPrivateMonsterTranslation(path, pack), undefined);
+    await writeFile(
+      path,
+      JSON.stringify({ ...companion, messages: { unknown: '잘못된 키' } }),
+    );
+    assert.equal(await readPrivateMonsterTranslation(path, pack), undefined);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test('private generator loader rejects a broken checksum and serves a sealed pack', async () => {

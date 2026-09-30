@@ -171,37 +171,17 @@ export function DeskLanding({
       </section>
     );
   return (
-    <section
-      className="desk-landing"
-      data-generators={generators}
-      aria-label={generators ? '생성기 모음' : '홈'}
-    >
-      <header>
-        <p className="desk-landing-folio">
-          <span>MÖRK BORG</span>
-          <span>
-            {generators ? 'GENERATORS' : 'RULES / ORACLES / GENERATORS'}
-          </span>
-          <span aria-hidden="true">↙</span>
-        </p>
-        <h2>
-          {generators ? (
-            <>
-              <span>Generators</span> <em>생성기</em>
-            </>
-          ) : (
-            <>
-              <span>Reference</span> <em>Desk</em>
-            </>
-          )}
-        </h2>
-      </header>
-      <section aria-label="생성 도구">
-        <h3>
-          <span>{generators ? '생성 도구' : '생성기'}</span>
-          {!generators && <button onClick={onGenerators}>전체 보기 ↗</button>}
-        </h3>
-        <div className="desk-generator-records">
+    <section className="desk-home desk-generators" aria-label="생성기 모음">
+      <section
+        className="desk-home-generators"
+        aria-labelledby="generators-title"
+      >
+        <header>
+          <h2 id="generators-title">
+            <span>생성기</span>
+          </h2>
+        </header>
+        <div className="desk-home-generator-grid desk-generators-primary">
           {DESK_RECORD_GENERATORS.map(([ids, title, description]) => {
             const id = ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
             return (
@@ -212,21 +192,23 @@ export function DeskLanding({
               >
                 <strong>{title}</strong>
                 <span>{description}</span>
-                <span aria-hidden="true">↗</span>
               </button>
             );
           })}
         </div>
-        <div className="desk-shortcut-list">
-          {DESK_GENERATOR_SHORTCUTS.filter(([id]) => desk?.byId[id])
-            .slice(0, generators ? undefined : 3)
-            .map(([id, title, description]) => (
-              <button key={id} onClick={() => onOpenReference(id)}>
+        <div className="desk-home-generator-grid desk-generators-secondary">
+          {DESK_GENERATOR_SHORTCUTS.filter(([id]) => desk?.byId[id]).map(
+            ([id, title, description]) => (
+              <button
+                key={id}
+                data-shortcut={id}
+                onClick={() => onOpenReference(id)}
+              >
                 <strong>{title}</strong>
                 <span>{description}</span>
-                <span aria-hidden="true">↗</span>
               </button>
-            ))}
+            ),
+          )}
         </div>
       </section>
     </section>

@@ -1,0 +1,288 @@
+/* Shared generator controls. Roll traces keep their original numeric typography. */
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-inspector-top
+  h2 {
+  font: 700 clamp(2rem, 3.2vw, 3.5rem)/1.15 var(--font-editorial);
+  letter-spacing: -0.04em;
+}
+.reference-app .reference-page[data-generator-page] [hidden] {
+  display: none !important;
+}
+.reference-app .reference-page[data-generator-page] .reference-formula {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin: 20px 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.reference-app .reference-page[data-generator-page] .reference-formula code {
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.generator-formula-label {
+  font: 650 12px/1.5 var(--font-ui);
+  color: var(--muted-ink);
+}
+.reference-app .reference-page[data-generator-page] .reference-options,
+.reference-app .reference-page[data-generator-page] .dungeon-room-source {
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-options
+  > summary,
+.reference-app
+  .reference-page[data-generator-page]
+  .partial-roll-controls
+  > summary {
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  font: 650 14px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-options
+  > summary::before,
+.reference-app
+  .reference-page[data-generator-page]
+  .partial-roll-controls
+  > summary::before {
+  content: '▸';
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-options[open]
+  > summary::before,
+.reference-app
+  .reference-page[data-generator-page]
+  .partial-roll-controls[open]
+  > summary::before {
+  content: '▾';
+}
+.reference-app
+  .reference-page[data-generator-page]
+  :is(.ref-controls, .dungeon-room-source) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px 24px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  :is(.ref-controls, .dungeon-room-source)
+  label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  font: 650 13px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  :is(.ref-controls, .dungeon-room-source)
+  select {
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font: 500 16px/1.5 var(--font-ui);
+}
+.reference-app .reference-page[data-generator-page] .ref-controls .ref-check {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+.reference-app .reference-page[data-generator-page] .dungeon-room-source small {
+  flex-basis: 100%;
+  font: 450 12px/1.6 var(--font-ui);
+  color: var(--muted-ink);
+}
+.reference-app .reference-page[data-generator-page] .generator-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 24px 0;
+  padding: 16px 0;
+  border-block: 1px solid var(--ink);
+  background: var(--paper);
+}
+.reference-app .reference-page[data-generator-page] .reference-save-object {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-save-object
+  button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: 650 14px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-save-object
+  small {
+  font-size: 11px;
+  color: var(--muted-ink);
+}
+.reference-app .reference-page[data-generator-page] .reference-procedure-parts {
+  max-width: none;
+  margin: 28px 0;
+  border-top: 1px solid var(--ink);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-procedure-parts
+  > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-procedure-parts
+  > div
+  > span {
+  font: 550 14px/1.6 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-procedure-parts
+  code {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted-ink);
+  font-size: 12px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section
+  .reference-result-text,
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-preparation
+  .reference-result-text {
+  font: 500 18px/1.65 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  .reference-result-text[data-result-density='brief'] {
+  font: 700 clamp(1.5rem, 2vw, 2rem)/1.25 var(--font-editorial);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-preparation
+  .reference-result-text[data-result-density='brief'] {
+  font: 700 1.75rem/1.3 var(--font-editorial);
+}
+.reference-app .reference-page[data-generator-page] .dungeon-preparation-method,
+.reference-app .reference-page[data-generator-page] .dungeon-field-note {
+  margin: 12px 0;
+  font: 450 13px/1.65 var(--font-ui);
+  color: var(--muted-ink);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation-fields
+  > section
+  > header
+  h3 {
+  margin: 0;
+  font: 700 16px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation-fields
+  > section
+  > header
+  code {
+  font-size: 12px;
+}
+.reference-app .reference-page[data-generator-page] .dungeon-field-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation
+  textarea {
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  font: 450 16px/1.6 var(--font-ui);
+}
+.equipment-scroll {
+  min-width: 0;
+}
+.equipment-scroll > button {
+  margin-top: 12px;
+}
+.equipment-scroll-trace {
+  margin-block: 12px;
+}
+.equipment-alternatives {
+  margin-top: 16px !important;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.equipment-alternatives h4 {
+  margin: 0 0 8px;
+  font: 650 13px/1.5 var(--font-ui);
+}
+.equipment-alternatives ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.reference-app .reference-page .equipment-alternatives li p {
+  margin: 4px 0;
+  font: 450 14px/1.6 var(--font-ui);
+}
+.reference-app .reference-page .equipment-alternatives .generated-translation {
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .reference-app
+    .reference-page[data-generator-page]
+    .reference-procedure-parts
+    > div {
+    grid-template-columns: 1fr 1fr;
+  }
+  .reference-app
+    .reference-page[data-generator-page]
+    .reference-procedure-parts
+    > div
+    > span {
+    grid-column: 1 / -1;
+  }
+}

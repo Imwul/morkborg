@@ -10,6 +10,7 @@ import {
   copyReferenceReading,
   type ReferenceReading,
 } from './referenceReading';
+import { readingWithEquipmentScrolls } from './generatedEquipment';
 
 export const OBJECT_KINDS = {
   character: '캐릭터',
@@ -82,7 +83,9 @@ export function objectFromReading(
 ): SavedObject {
   const kind = objectKindForReference(referenceId);
   if (!kind) throw new Error('캐릭터·NPC·던전·도시만 보관합니다.');
-  const snapshot = bilingualSnapshot(reading);
+  const snapshot = bilingualSnapshot(
+    children ? readingWithEquipmentScrolls(reading, children) : reading,
+  );
   const text = children
     ? copyReadingWithInlineChildren(snapshot, children)
     : copyReferenceReading(snapshot);

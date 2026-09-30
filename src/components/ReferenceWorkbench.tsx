@@ -172,7 +172,13 @@ import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { Translation } from './Translation';
 import { selectReferenceReading } from '../domain/referenceTable';
 import { PrivateDataTools } from './PrivateDataTools';
-import { DeskLanding } from './DeskLanding';
+import {
+  DeskLanding,
+  DESK_RECORD_GENERATORS,
+  DESK_GENERATOR_SHORTCUTS,
+} from './DeskLanding';
+import { EquipmentScroll, ContainerAlternatives } from './GeneratedEquipment';
+import { equipmentScrollTable } from '../domain/generatedEquipment';
 import { referenceCompanions } from '../domain/referenceCompanions';
 import { SpatialOracle } from './spatial/SpatialOracle';
 import { normalizeSpatialSceneId } from '../domain/spatialScenes';
@@ -751,12 +757,18 @@ export function ReferenceProvider({
               (!query ||
                 entry.title.toLowerCase().includes(query.toLowerCase())),
           );
+  const inlineEquipmentTargets = new Set(
+    (reading?.oracle?.rolls ?? [])
+      .map(equipmentScrollTable)
+      .filter(Boolean)
+      .map((id) => `oracle:${id}`),
+  );
   const resultLinks = readingResultRelationships(
     index.byId,
     oracles.registry,
     reading,
     selected?.id,
-  );
+  ).filter((link) => !inlineEquipmentTargets.has(link.entry.id));
   const resultLinkIds = new Set(resultLinks.map((link) => link.entry.id));
   const related = selected
     ? relatedReferenceRelationships(
@@ -829,9 +841,95 @@ export function ReferenceProvider({
   const hasQuickGuide = selected
     ? !!playGuideFor(selected.id) || !!RULE_TOPIC_REFERENCES[selected.id]
     : false;
-  const PartsContainer = hasQuickGuide ? 'details' : 'section';
+  const generatorPage =
+    !!selected &&
+    (selected.id.startsWith('procedure:character.') ||
+      DESK_RECORD_GENERATORS.some(([ids]) =>
+        (ids as readonly string[]).includes(selected.id),
+      ) ||
+      DESK_GENERATOR_SHORTCUTS.some(([id]) => id === selected.id));
+  const PartsContainer = hasQuickGuide || generatorPage ? 'details' : 'section';
   const ReadingContainer = plainRule && hasQuickGuide ? 'details' : 'article';
   const saveKind = selected ? objectKindForReference(selected.id) : null;
+  const saveObjectAction = selected &&
+    saveKind &&
+    reading?.blocks.some((block) => block.text.trim()) && (
+      <div className="reference-save-object">
+        <button
+          onClick={() => {
+            try {
+              const item = objectFromReading(
+                selected.id,
+                reading,
+                inlineChildren,
+              );
+              objectShelf.update((shelf) => appendSavedObject(shelf, item));
+              notify(
+                `${OBJECT_KINDS[saveKind]} 결과를 보관했습니다. 오른쪽 아래 보관함에서 다시 여세요.`,
+              );
+            } catch (e) {
+              setFailure(
+                e instanceof Error ? e.message : '보관하지 못했습니다.',
+              );
+            }
+          }}
+        >
+          {OBJECT_KINDS[saveKind]} 보관
+        </button>
+        <small>현재 결과만 이 기기에 저장</small>
+      </div>
+    );
+  const resultActions = selected &&
+    reading?.blocks.some((block) => block.text) && (
+      <div
+        className={
+          generatorPage
+            ? 'ref-copy-actions generator-result-actions'
+            : 'ref-copy-actions'
+        }
+        aria-label="결과 동작"
+      >
+        {roller && (
+          <Button
+            variant="ghost"
+            onClick={() => perform(selected)}
+            className="result-reroll play-roll-action"
+          >
+            <Dices size={16} />{' '}
+            {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
+          </Button>
+        )}
+        <Button variant="ghost" onClick={() => copyReading()}>
+          <Copy size={14} /> COPY
+        </Button>
+        {generatorPage && saveObjectAction}
+        <details className="result-more-actions">
+          <summary aria-label="결과 추가 동작">⋯</summary>
+          <button onClick={() => copyReading(true)}>COPY WITH SOURCE</button>
+          <button onClick={() => convenience.sendReading(reading)}>
+            SEND TO SCRATCH · 스크랩에 추가
+          </button>
+          <button onClick={() => convenience.sendReading(reading, true)}>
+            출처와 스크랩에 추가
+          </button>
+        </details>
+      </div>
+    );
+  const startAction = selected &&
+    roller &&
+    (!reading ||
+      (procedureId === 'sd.dungeon-preparation' &&
+        !reading.blocks.some((block) => block.text))) &&
+    selected.kind !== 'oracle' && (
+      <Button
+        className="reference-roll"
+        disabled={!selected.available}
+        onClick={() => perform(selected)}
+      >
+        <Dices size={20} />
+        {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
+      </Button>
+    );
   const referenceContent = selected ? (
     <section
       key={selected.id}
@@ -839,6 +937,7 @@ export function ReferenceProvider({
       aria-label="현재 참조"
       data-reference-id={selected.id}
       data-reference-kind={selected.kind}
+      data-generator-page={generatorPage || undefined}
       data-has-reading={reading ? 'true' : undefined}
       data-formula={
         referenceEntryFormula(selected, oracles.registry) || undefined
@@ -889,32 +988,7 @@ export function ReferenceProvider({
             : '작업대에 펼치기'}
         </button>
       </div>
-      {saveKind && reading?.blocks.some((block) => block.text.trim()) && (
-        <div className="reference-save-object">
-          <button
-            onClick={() => {
-              try {
-                const item = objectFromReading(
-                  selected.id,
-                  reading,
-                  inlineChildren,
-                );
-                objectShelf.update((shelf) => appendSavedObject(shelf, item));
-                notify(
-                  `${OBJECT_KINDS[saveKind]} 결과를 보관했습니다. 오른쪽 아래 보관함에서 다시 여세요.`,
-                );
-              } catch (e) {
-                setFailure(
-                  e instanceof Error ? e.message : '보관하지 못했습니다.',
-                );
-              }
-            }}
-          >
-            {OBJECT_KINDS[saveKind]} 보관
-          </button>
-          <small>현재 결과만 이 기기에 저장</small>
-        </div>
-      )}
+      {!generatorPage && saveObjectAction}
       <p className="sr-only">
         {selected.kind.toUpperCase()} ·{' '}
         {regions.find((r) => r.id === region)?.name} ·{' '}
@@ -1116,7 +1190,13 @@ export function ReferenceProvider({
             scvmPack
           ) && (
             <div className="reference-formula">
-              <span className="sr-only">굴림 공식</span>
+              <span
+                className={
+                  generatorPage ? 'generator-formula-label' : 'sr-only'
+                }
+              >
+                굴림 공식
+              </span>
               <code>{referenceEntryFormula(selected, oracles.registry)}</code>
               {selected.kind === 'oracle' && roller && !reading && (
                 <Button
@@ -1342,22 +1422,13 @@ export function ReferenceProvider({
             onReading={(value) => acceptReading(selected.id, value)}
           />
         )}
-        {roller &&
-          (!reading ||
-            (procedureId === 'sd.dungeon-preparation' &&
-              !reading.blocks.some((block) => block.text))) &&
-          selected.kind !== 'oracle' && (
-            <Button
-              className="reference-roll"
-              disabled={!selected.available}
-              onClick={() => perform(selected)}
-            >
-              <Dices size={20} />
-              {procedureId === 'depths.rare-monster' ? 'DRAW' : 'ROLL'}
-            </Button>
-          )}
+        {procedureId !== 'sd.dungeon-preparation' && startAction}
+        {generatorPage &&
+          procedureId !== 'sd.dungeon-preparation' &&
+          resultActions}
         {procedureId === 'sd.dungeon-preparation' && (
           <DungeonPreparation
+            actions={resultActions || startAction}
             reading={reading}
             privateDngngen={privateDngngen}
             registry={oracles.registry}
@@ -1390,7 +1461,10 @@ export function ReferenceProvider({
                 ) && (
                   <h3 className="reading-identity">
                     {reading.title}
-                    <Translation text={reading.title} />
+                    <Translation
+                      text={reading.title}
+                      translation={reading.titleKo}
+                    />
                   </h3>
                 )}
               <div className="reference-reading-items">
@@ -1478,6 +1552,8 @@ export function ReferenceProvider({
                           block={block}
                           excludeId={selected.id}
                         />
+                      ) : source && equipmentScrollTable(source) ? (
+                        <EquipmentScroll key={source.entryId} parent={source} />
                       ) : (
                         <ReferenceReadingText
                           text={block.text}
@@ -1491,6 +1567,7 @@ export function ReferenceProvider({
                           splitLines={!!reading.rareMonster}
                         />
                       )}
+                      {source && <ContainerAlternatives parent={source} />}
                     </section>
                   );
                 })}
@@ -1605,35 +1682,7 @@ export function ReferenceProvider({
                     onReroll={(key) => perform(selected, region, key)}
                   />
                 )}
-              <div className="ref-copy-actions">
-                {roller && (
-                  <Button
-                    variant="ghost"
-                    onClick={() => perform(selected)}
-                    className="result-reroll play-roll-action"
-                  >
-                    <Dices size={16} />{' '}
-                    {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
-                  </Button>
-                )}
-                <Button variant="ghost" onClick={() => copyReading()}>
-                  <Copy size={14} /> COPY
-                </Button>
-                <details className="result-more-actions">
-                  <summary aria-label="결과 추가 동작">⋯</summary>
-                  <button onClick={() => copyReading(true)}>
-                    COPY WITH SOURCE
-                  </button>
-                  <button onClick={() => convenience.sendReading(reading)}>
-                    SEND TO SCRATCH · 스크랩에 추가
-                  </button>
-                  <button
-                    onClick={() => convenience.sendReading(reading, true)}
-                  >
-                    출처와 스크랩에 추가
-                  </button>
-                </details>
-              </div>
+              {!generatorPage && resultActions}
             </ReadingContainer>
             <div className="reference-follow-up">
               <DungeonContextReferences
@@ -1762,8 +1811,12 @@ export function ReferenceProvider({
             className="reference-procedure-parts"
             aria-label="절차의 독립 구성 표"
           >
-            {hasQuickGuide ? (
-              <summary>절차에 쓰는 표 펼치기</summary>
+            {hasQuickGuide || generatorPage ? (
+              <summary>
+                {generatorPage
+                  ? '구성 표 · 개별 굴림'
+                  : '절차에 쓰는 표 펼치기'}
+              </summary>
             ) : (
               <h3>함께 쓰는 표</h3>
             )}
@@ -1772,8 +1825,18 @@ export function ReferenceProvider({
                 <span>
                   {table.title} <code>{table.originalDice ?? table.dice}</code>
                 </span>
-                <button onClick={() => activate(entry.id)}>표 보기</button>
-                <button onClick={() => activate(entry.id, true)}>굴리기</button>
+                <button
+                  className="play-open-action"
+                  onClick={() => activate(entry.id)}
+                >
+                  표 보기
+                </button>
+                <button
+                  className="play-roll-action"
+                  onClick={() => activate(entry.id, true)}
+                >
+                  굴리기
+                </button>
               </div>
             ))}
           </PartsContainer>

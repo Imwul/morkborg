@@ -39,6 +39,7 @@ export interface ReferenceReading {
   valuationReferenceId?: string;
   authority?: GenerationAuthority[];
   title: string;
+  titleKo?: string;
   blocks: (ReferenceTextBlock & {
     dice?: string;
     kind?: 'creature';

@@ -204,7 +204,7 @@ test('all reference title surfaces share the policy; body translation stays inde
     source,
     /translation=\{(?:entry|selected)\.titleTranslationKo\}/,
   );
-  assert.match(source, /<Translation text=\{reading.title\}/);
+  assert.match(source, /<Translation\s+text=\{reading.title\}/);
   assert.doesNotMatch(
     readFileSync('src/domain/referenceDisplayTitles.ts', 'utf8'),
     /trustedReferenceSearchTitle/,

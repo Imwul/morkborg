@@ -28,6 +28,7 @@ const packPath = resolve(root, process.env.PRIVATE_DNGNGEN_PACK ?? 'private/dngn
 const scvmPath = resolve(root, process.env.PRIVATE_SCVM_PACK ?? 'private/scvmbirther/pack.json');
 const scvmTranslationPath = resolve(root, 'private/scvmbirther/ko.json');
 const monsterPath = resolve(root, process.env.PRIVATE_MONSTER_PACK ?? 'private/monster-site/pack.json');
+const monsterTranslationPath = resolve(root, 'private/monster-site/ko.json');
 const allowSynthetic = process.env.PRIVATE_DNGNGEN_ALLOW_SYNTHETIC === '1';
 let key = process.env.MORKBORG_DATA_KEY;
 if (!key) {
@@ -39,7 +40,7 @@ if (!key) {
 const status = await readPrivateDngngenPack(packPath, allowSynthetic);
 const scvmStatus = await readPrivateGeneratorPack(scvmPath, parseScvmPack, scvmPackPayload, allowSynthetic);
 const monsterStatus = await readPrivateGeneratorPack(monsterPath, parseMonsterSitePack, monsterSitePackPayload, allowSynthetic);
-const server = createPrivateDngngenServer({ root, packPath, scvmPath, scvmTranslationPath, monsterPath, allowSynthetic, host, origin, rulebookKey: key });
+const server = createPrivateDngngenServer({ root, packPath, scvmPath, scvmTranslationPath, monsterPath, monsterTranslationPath, allowSynthetic, host, origin, rulebookKey: key });
 server.on('error', () => {
   console.error('Private server could not listen. Check the port and configured local interface.');
   process.exitCode = 1;

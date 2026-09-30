@@ -1,5 +1,9 @@
 import type { OracleRoll } from './oracle';
 import {
+  isEquipmentScrollChild,
+  readingWithEquipmentScrolls,
+} from './generatedEquipment';
+import {
   copyReferenceReading,
   oracleReadingText,
   type ReferenceReading,
@@ -16,7 +20,8 @@ export function retainInlineChild(
 ): boolean {
   if (
     !parent.entryId ||
-    child.oracleId !== parent.oracleId ||
+    (child.oracleId !== parent.oracleId &&
+      !isEquipmentScrollChild(parent, child)) ||
     child.metadata?.parentEntryId !== parent.entryId
   )
     return false;
@@ -30,10 +35,11 @@ export function copyReadingWithInlineChildren(
   results: InlineChildResults,
   withSource = false,
 ): string {
+  reading = readingWithEquipmentScrolls(reading, results);
   const parents = reading.oracle?.rolls ?? [];
   const children = parents.flatMap((parent) => {
     const child = results.get(parent);
-    return child
+    return child && !isEquipmentScrollChild(parent, child)
       ? [
           {
             title: '',

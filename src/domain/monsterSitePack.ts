@@ -29,6 +29,8 @@ export interface MonsterSitePack {
   };
   snapshot: { id: string; version: string; auditedAt: string };
   messages: Record<string, string>;
+  /** Local language companion; never part of the verified English payload. */
+  translations?: Record<string, string>;
   tables: {
     A: MonsterSiteEntry[][];
     B: MonsterSiteEntry[][];
@@ -58,6 +60,7 @@ export interface MonsterSitePrevious {
   armor?: string;
 }
 export interface MonsterSiteRoll {
+  translation?: Omit<MonsterSiteRoll, 'translation'>;
   name: string;
   introduction: string;
   want: string;
@@ -101,7 +104,10 @@ function part(value: unknown): MonsterSitePart {
     ...(variants
       ? {
           variants: Object.fromEntries(
-            Object.entries(variants).map(([key, list]) => [key, scalarList(list)]),
+            Object.entries(variants).map(([key, list]) => [
+              key,
+              scalarList(list),
+            ]),
           ),
         }
       : {}),
@@ -116,11 +122,16 @@ function entry(value: unknown): MonsterSiteEntry {
     ...(variants
       ? {
           variants: Object.fromEntries(
-            Object.entries(variants).map(([key, list]) => [key, scalarList(list)]),
+            Object.entries(variants).map(([key, list]) => [
+              key,
+              scalarList(list),
+            ]),
           ),
         }
       : {}),
-    ...(typeof source.modifier === 'number' ? { modifier: source.modifier } : {}),
+    ...(typeof source.modifier === 'number'
+      ? { modifier: source.modifier }
+      : {}),
     ...(source.noPrefix === true ? { noPrefix: true } : {}),
     ...(source.armor ? { armor: part(source.armor) } : {}),
     ...(source.weapon ? { weapon: part(source.weapon) } : {}),
@@ -136,18 +147,25 @@ const faces = (value: unknown) => {
     if (!Array.isArray(row)) fail('face-table');
     return row.map(entry);
   });
-  if (rows.length !== 13 || rows[0].length !== 0 || rows.slice(1).some((row) => !row.length))
+  if (
+    rows.length !== 13 ||
+    rows[0].length !== 0 ||
+    rows.slice(1).some((row) => !row.length)
+  )
     fail('face-table');
   return rows;
 };
 const named = <T extends string>(value: unknown, keys: readonly T[]) => {
   const source = record(value);
-  return Object.fromEntries(keys.map((key) => [key, list(source[key])])) as Record<T, MonsterSiteEntry[]>;
+  return Object.fromEntries(
+    keys.map((key) => [key, list(source[key])]),
+  ) as Record<T, MonsterSiteEntry[]>;
 };
 
 export function monsterSitePackPayload(pack: MonsterSitePack): string {
+  const { translations: _translations, ...sourcePack } = pack;
   const { payloadSha256: _digest, ...integrity } = pack.integrity;
-  return stableJson({ ...pack, integrity });
+  return stableJson({ ...sourcePack, integrity });
 }
 export function parseMonsterSitePack(
   input: unknown,
@@ -164,10 +182,17 @@ export function parseMonsterSitePack(
   const source = record(raw.source);
   const snapshot = record(raw.snapshot);
   const messages = record(raw.messages);
+  const translations =
+    raw.translations === undefined ? undefined : record(raw.translations);
   const tables = record(raw.tables);
   const integrity = record(raw.integrity);
   if (
     Object.values(messages).some((value) => typeof value !== 'string') ||
+    (translations &&
+      Object.entries(translations).some(
+        ([key, value]) =>
+          !Object.hasOwn(messages, key) || typeof value !== 'string',
+      )) ||
     typeof source.project !== 'string' ||
     typeof source.author !== 'string' ||
     source.url !== MONSTER_SITE_URL ||
@@ -197,6 +222,9 @@ export function parseMonsterSitePack(
       auditedAt: snapshot.auditedAt,
     },
     messages: messages as Record<string, string>,
+    ...(translations
+      ? { translations: translations as Record<string, string> }
+      : {}),
     tables: {
       A: faces(tables.A),
       B: faces(tables.B),
@@ -217,8 +245,7 @@ export function parseMonsterSitePack(
   };
 }
 
-const die = (sides: number, rng: RandomSource) =>
-  1 + Math.floor(rng() * sides);
+const die = (sides: number, rng: RandomSource) => 1 + Math.floor(rng() * sides);
 const except = (
   rows: readonly MonsterSiteEntry[],
   previous: string | undefined,
@@ -271,7 +298,7 @@ interface Carried {
   prefix?: string;
   modifier?: number;
 }
-export function rollMonsterSite(
+function rollMonsterSiteBase(
   pack: MonsterSitePack,
   rng: RandomSource,
   previous: MonsterSitePrevious = {},
@@ -281,13 +308,21 @@ export function rollMonsterSite(
   const damage = damageDie(Math.min(...faces));
   // Published code checks C before B. An even winning C result is d4, not d6.
   const armorDie =
-    faces[2] === morale ? (morale % 2 === 0 ? 'd4' : 'd6') : faces[1] === morale ? 'd2' : undefined;
+    faces[2] === morale
+      ? morale % 2 === 0
+        ? 'd4'
+        : 'd6'
+      : faces[1] === morale
+        ? 'd2'
+        : undefined;
   const hp = die(Number(damage.slice(1)), rng) * 2;
   let weapon: Carried | undefined;
   let armor: Carried | undefined;
   const taken = (['tableA', 'tableB', 'tableC'] as const).map((key, index) => {
     const result = except(
-      pack.tables[key === 'tableA' ? 'A' : key === 'tableB' ? 'B' : 'C'][faces[index]],
+      pack.tables[key === 'tableA' ? 'A' : key === 'tableB' ? 'B' : 'C'][
+        faces[index]
+      ],
       previous[key],
       rng,
     );
@@ -296,7 +331,10 @@ export function rollMonsterSite(
       weapon = {
         id: result.weapon.id,
         variants: result.weapon.variantPath
-          ? { [result.weapon.variantPath]: values[result.weapon.variantPath] ?? '' }
+          ? {
+              [result.weapon.variantPath]:
+                values[result.weapon.variantPath] ?? '',
+            }
           : variantsOf(result.weapon, rng),
       };
     }
@@ -304,7 +342,10 @@ export function rollMonsterSite(
       ? {
           id: result.armor?.id,
           variants: result.armor?.variantPath
-            ? { [result.armor.variantPath]: values[result.armor.variantPath] ?? '' }
+            ? {
+                [result.armor.variantPath]:
+                  values[result.armor.variantPath] ?? '',
+              }
             : variantsOf(result.armor, rng),
         }
       : { id: 'noArmor', variants: {} };
@@ -363,7 +404,9 @@ export function rollMonsterSite(
   const phraseC = phrase(taken[2].id, taken[2].values);
   const wantText = phrase(want.id, wantValues);
   if (!weapon?.id || !armor?.id) fail('incomplete-monster');
-  const prefix = weapon.prefix ? `${text(pack, `weapon.prefix.${weapon.prefix}`)} ` : '';
+  const prefix = weapon.prefix
+    ? `${text(pack, `weapon.prefix.${weapon.prefix}`)} `
+    : '';
   return {
     name: phraseA,
     introduction: text(pack, 'theMonsterApproaches.introduction', {
@@ -374,12 +417,19 @@ export function rollMonsterSite(
     }),
     want: wantText,
     lair: text(pack, `description.${lair.id}`, lairValues),
-    ability: ability.id === 'none' ? '' : text(pack, `description.${ability.id}`, ability.variants),
-    loot: loot.id === 'none' ? '' : text(pack, `description.${loot.id}`, loot.variants),
+    ability:
+      ability.id === 'none'
+        ? ''
+        : text(pack, `description.${ability.id}`, ability.variants),
+    loot:
+      loot.id === 'none'
+        ? ''
+        : text(pack, `description.${loot.id}`, loot.variants),
     hp,
     morale,
     armor: `${text(pack, `armor.${armor.id}`, armor.variants)}${armorDie ? ` -${text(pack, `monster.${armorDie}`)}` : ''}`,
-    attack: `${prefix}${text(pack, `weapon.${weapon.id}`, weapon.variants)}`.trim(),
+    attack:
+      `${prefix}${text(pack, `weapon.${weapon.id}`, weapon.variants)}`.trim(),
     damage: `${text(pack, `monster.${damage}`)}${weapon.modifier ? `+${weapon.modifier}` : ''}`,
     previous: {
       tableA: taken[0].id,
@@ -393,4 +443,42 @@ export function rollMonsterSite(
     },
     rolls: { A: faces[0], B: faces[1], C: faces[2], hp, morale },
   };
+}
+
+/** Render the same selected variants in Korean without consuming another random draw. */
+export function rollMonsterSite(
+  pack: MonsterSitePack,
+  rng: RandomSource,
+  previous: MonsterSitePrevious = {},
+): MonsterSiteRoll {
+  if (!pack.translations) return rollMonsterSiteBase(pack, rng, previous);
+  const draws: number[] = [];
+  const rolled = rollMonsterSiteBase(
+    pack,
+    () => {
+      const value = rng();
+      draws.push(value);
+      return value;
+    },
+    previous,
+  );
+  let cursor = 0;
+  try {
+    const translation = rollMonsterSiteBase(
+      {
+        ...pack,
+        messages: { ...pack.messages, ...pack.translations },
+        translations: undefined,
+      },
+      () => {
+        if (cursor >= draws.length) fail('translation-draws');
+        return draws[cursor++];
+      },
+      previous,
+    );
+    return cursor === draws.length ? { ...rolled, translation } : rolled;
+  } catch {
+    // A malformed helper cannot break the source result.
+    return rolled;
+  }
 }

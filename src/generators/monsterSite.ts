@@ -8,6 +8,7 @@ import {
   type MonsterSitePrevious,
 } from '../domain/monsterSitePack';
 import { id, now, random, type RandomSource } from './random';
+import { translateGeneratedText } from './translation';
 
 const provenance = (text: string): GeneratedValueProvenance => ({
   classification: 'APP_DERIVED',
@@ -28,14 +29,16 @@ const provenance = (text: string): GeneratedValueProvenance => ({
     {
       kind: 'APP_POLICY',
       id: 'private-monster-site',
-      description: 'Explicit private-host snapshot of monster.makedatanotlore.dev.',
+      description:
+        'Explicit private-host snapshot of monster.makedatanotlore.dev.',
     },
   ],
 });
 
 export function monsterSitePrevious(monster: Monster): MonsterSitePrevious {
   const source = monster.sources ?? {};
-  const read = (key: keyof MonsterSitePrevious) => source[`site.${key}`] || undefined;
+  const read = (key: keyof MonsterSitePrevious) =>
+    source[`site.${key}`] || undefined;
   return {
     tableA: read('tableA'),
     tableB: read('tableB'),
@@ -52,19 +55,44 @@ export function monsterSiteReferenceReading(
   pack: MonsterSitePack,
 ): ReferenceReading {
   const rolled = rollMonsterSite(pack, random);
+  const ko = rolled.translation;
+  const line = (
+    title: string,
+    text: string,
+    titleKo: string,
+    translated?: string,
+  ) => ({
+    title,
+    text,
+    translation: {
+      titleKo,
+      ko:
+        translated && /[가-힣]/u.test(translated)
+          ? translated
+          : translateGeneratedText(text) || undefined,
+    },
+  });
   const blocks = [
-    { title: 'Appearance', text: rolled.introduction },
-    { title: 'Wants', text: rolled.want },
-    { title: 'HP', text: String(rolled.hp) },
-    { title: 'Morale', text: String(rolled.morale) },
-    { title: 'Armor', text: rolled.armor },
-    { title: 'Attack', text: `${rolled.attack}\n${rolled.damage}` },
-    ...(rolled.ability ? [{ title: 'Ability', text: rolled.ability }] : []),
-    ...(rolled.lair ? [{ title: 'Lair', text: rolled.lair }] : []),
-    ...(rolled.loot ? [{ title: 'Loot', text: rolled.loot }] : []),
+    line('Appearance', rolled.introduction, '외모', ko?.introduction),
+    line('Wants', rolled.want, '욕망', ko?.want),
+    line('HP', String(rolled.hp), '생명력'),
+    line('Morale', String(rolled.morale), '사기'),
+    line('Armor', rolled.armor, '방어구', ko?.armor),
+    line(
+      'Attack',
+      `${rolled.attack}\n${rolled.damage}`,
+      '공격',
+      ko ? `${ko.attack}\n${ko.damage}` : undefined,
+    ),
+    ...(rolled.ability
+      ? [line('Ability', rolled.ability, '특수 능력', ko?.ability)]
+      : []),
+    ...(rolled.lair ? [line('Lair', rolled.lair, '소굴', ko?.lair)] : []),
+    ...(rolled.loot ? [line('Loot', rolled.loot, '전리품', ko?.loot)] : []),
   ].filter((block) => block.text.trim());
   return {
     title: rolled.name,
+    titleKo: ko?.name,
     blocks,
     sourceRefs: [
       {
@@ -111,19 +139,36 @@ export function generateMonsterSite(
       },
     ],
     special: rolled.ability
-      ? [{ id: id(), text: rolled.ability, source: pack.source.attribution, provenance: provenance(rolled.ability) }]
+      ? [
+          {
+            id: id(),
+            text: rolled.ability,
+            source: pack.source.attribution,
+            provenance: provenance(rolled.ability),
+          },
+        ]
       : [],
     weakness: [],
     weirdTrait: '',
     loot: rolled.loot
-      ? [{ id: id(), text: rolled.loot, source: pack.source.attribution, provenance: provenance(rolled.loot) }]
+      ? [
+          {
+            id: id(),
+            text: rolled.loot,
+            source: pack.source.attribution,
+            provenance: provenance(rolled.loot),
+          },
+        ]
       : [],
     description: rolled.lair,
     sources: {
       name: pack.source.attribution,
       appearance: pack.source.attribution,
       ...Object.fromEntries(
-        Object.entries(rolled.previous).map(([key, value]) => [`site.${key}`, value]),
+        Object.entries(rolled.previous).map(([key, value]) => [
+          `site.${key}`,
+          value,
+        ]),
       ),
     },
     fieldProvenance: {

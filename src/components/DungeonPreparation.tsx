@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { OracleRegistry } from '../domain/oracle';
 import type { ReferenceReading } from '../domain/referenceReading';
 import {
@@ -25,12 +25,14 @@ export function DungeonPreparation({
   onChange,
   onOpen,
   privateDngngen,
+  actions,
 }: {
   reading?: ReferenceReading;
   registry: OracleRegistry;
   onChange: (reading: ReferenceReading, rolled: boolean) => void;
   onOpen: (id: string) => void;
   privateDngngen?: PrivateDngngenState;
+  actions?: ReactNode;
 }) {
   const [error, setError] = useState('');
   const current = reading ?? emptyDungeonPreparationReading();
@@ -98,6 +100,7 @@ export function DungeonPreparation({
         </output>
       )}
       {error && <p role="alert">{error}</p>}
+      {actions}
       <div className="dungeon-preparation-fields">
         {DUNGEON_PREPARATION_FIELDS.map((field) => {
           const block = current.blocks.find(
@@ -198,6 +201,7 @@ export function DungeonPreparation({
               {field.kind !== 'manual' && (
                 <div className="dungeon-field-actions">
                   <button
+                    className="play-roll-action"
                     disabled={
                       field.kind === 'room' && roomSource === 'DNGNGEN' && !pack
                     }
@@ -233,7 +237,11 @@ export function DungeonPreparation({
                       roomSource === 'CORE' ||
                       !!block?.text) &&
                     field.referenceIds.map((id, n) => (
-                      <button key={id} onClick={() => onOpen(id)}>
+                      <button
+                        className="play-open-action"
+                        key={id}
+                        onClick={() => onOpen(id)}
+                      >
                         표 보기
                         {field.referenceIds.length > 1 ? ` ${n + 1}` : ''} ↗
                       </button>

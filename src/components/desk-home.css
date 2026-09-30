@@ -21,7 +21,8 @@
   border-top: 3px solid var(--ink);
   padding-top: 12px;
 }
-.desk-home-references h2 > span {
+.desk-home-references h2 > span,
+.desk-generators h2 > span {
   background: var(--acid);
   padding: 4px 12px 7px;
 }
@@ -127,6 +128,49 @@
   outline-offset: 3px;
   background: var(--acid);
 }
+.reference-app .desk-generators {
+  display: block;
+}
+.desk-generators .desk-home-generator-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.desk-generators .desk-home-generator-grid strong {
+  font: 700 1.85rem/1.1 var(--font-editorial);
+  letter-spacing: -0.04em;
+}
+.desk-generators .desk-generators-primary {
+  gap: 24px;
+}
+.desk-generators-primary > button {
+  min-height: 148px;
+  padding: 24px;
+  border: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+.desk-generators .desk-generators-primary > button strong {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+}
+.desk-generators-primary > button span {
+  margin-top: 12px;
+  color: #d7d3c7;
+}
+.desk-generators-primary > button:hover,
+.desk-generators-primary > button:focus-visible,
+.desk-generators-primary > button:hover span,
+.desk-generators-primary > button:focus-visible span {
+  color: var(--ink);
+}
+.desk-generators .desk-generators-secondary {
+  margin-top: 20px;
+  column-gap: 24px;
+  row-gap: 0;
+}
+.desk-generators-secondary > button {
+  padding: 20px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+}
 @media (min-width: 1600px) {
   .desk-home-grid > button {
     min-height: 190px;
@@ -143,8 +187,16 @@
 }
 @media (max-width: 650px) {
   .desk-home-grid,
-  .desk-home-generator-grid {
+  .desk-home-generator-grid,
+  .desk-generators .desk-home-generator-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .desk-generators .desk-generators-primary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .desk-generators-primary > button {
+    min-height: 120px;
+    padding: 20px;
   }
   .desk-home-grid > button,
   .desk-home-room {
@@ -165,5 +217,10 @@
   }
   .desk-home-spatial strong {
     font-size: 1.25rem;
+  }
+}
+@media (max-width: 440px) {
+  .desk-generators .desk-home-generator-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

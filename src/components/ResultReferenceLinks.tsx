@@ -4,6 +4,7 @@ import { ReferenceTitleTranslation } from './ReferenceTitleTranslation';
 import { DungeonContextReferences } from './DungeonContextReferences';
 import { useOracleRegistry } from '../storage/oracleStore';
 import type { ReferenceReading } from '../domain/referenceReading';
+import { equipmentScrollTable } from '../domain/generatedEquipment';
 import {
   readingResultRelationships,
   resultRelationshipKey,
@@ -98,12 +99,18 @@ export function ReadingResultReferences({
 }) {
   const desk = useReferenceDesk();
   const { registry } = useOracleRegistry();
+  const inlineEquipmentTargets = new Set(
+    (reading.oracle?.rolls ?? [])
+      .map(equipmentScrollTable)
+      .filter(Boolean)
+      .map((id) => `oracle:${id}`),
+  );
   const links = readingResultRelationships(
     desk?.byId ?? {},
     registry,
     reading,
     referenceId,
-  );
+  ).filter((link) => !inlineEquipmentTargets.has(link.entry.id));
   return (
     <>
       <DungeonContextReferences

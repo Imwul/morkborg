@@ -5,6 +5,7 @@ import { extname, join, relative, resolve, sep } from 'node:path';
 import { readPrivateDngngenPack } from './privateDngngenPack.js';
 import { readPrivateGeneratorPack } from './privateGeneratorPack.js';
 import { readPrivateScvmTranslation } from './privateScvmTranslation.js';
+import { readPrivateMonsterTranslation } from './privateMonsterTranslation.js';
 import { parseScvmPack, scvmPackPayload } from '../src/domain/scvmPack.js';
 import { parseMonsterSitePack, monsterSitePackPayload } from '../src/domain/monsterSitePack.js';
 import { handlePublishedRequest } from './publishedRulebook.js';
@@ -54,6 +55,7 @@ export interface PrivateServerOptions {
   scvmPath?: string;
   scvmTranslationPath?: string;
   monsterPath?: string;
+  monsterTranslationPath?: string;
   allowSynthetic?: boolean;
   host?: string;
   origin?: string;
@@ -130,9 +132,14 @@ export function createPrivateDngngenServer(options: PrivateServerOptions) {
           json(response, 200, result);
           return;
         }
-        json(response, 200, options.monsterPath
+        const result = options.monsterPath
           ? await readPrivateGeneratorPack(options.monsterPath, parseMonsterSitePack, monsterSitePackPayload, options.allowSynthetic)
-          : { status: 'unavailable', reason: 'missing' });
+          : { status: 'unavailable' as const, reason: 'missing' as const };
+        if (result.status === 'ready' && options.monsterTranslationPath) {
+          const translations = await readPrivateMonsterTranslation(options.monsterTranslationPath, result.pack);
+          if (translations) result.pack.translations = translations;
+        }
+        json(response, 200, result);
         return;
       }
       if (path === '/api/rulebook-data') {
