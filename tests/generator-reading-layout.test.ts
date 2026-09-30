@@ -46,6 +46,59 @@ const siteReading = (): ReferenceReading => ({
     },
   ],
 });
+test('character names lead both source variants without losing fields, dice or copy text', () => {
+  for (const scvm of [true, false]) {
+    const reading: ReferenceReading = {
+      title: 'Character',
+      sourceRefs: [],
+      procedureInputs: scvm ? { generator: 'scvmbirther' } : undefined,
+      blocks: [
+        { title: 'Equipment', text: 'Scroll and its complete explanation.' },
+        ...(scvm
+          ? [
+              { title: 'Class', text: 'Fixture class' },
+              { title: 'Abilities', text: 'Strength +1' },
+              { title: 'HP', text: '3' },
+              { title: 'Omens', text: '2' },
+            ]
+          : []),
+        {
+          title: scvm ? 'Name' : 'Names',
+          text: 'Fixture name',
+          dice: 'd66 = 23',
+          translation: { ko: '이름 번역' },
+        },
+        { title: 'Background', text: 'Full background.' },
+      ],
+    };
+    const before = JSON.stringify(reading);
+    const layout = generatorReadingLayout(
+      reading,
+      'procedure:character.core-classless',
+    );
+    assert.equal(layout.identity?.text, 'Fixture name');
+    assert.equal(layout.identity?.dice, 'd66 = 23');
+    assert.equal(layout.identity?.translation?.ko, '이름 번역');
+    assert.deepEqual(
+      layout.fields.map((b) => b.title),
+      ['Equipment', 'Background'],
+    );
+    assert.deepEqual(
+      layout.stats.map((b) => b.title),
+      scvm ? ['HP', 'Omens', 'Abilities'] : [],
+    );
+    assert.equal(JSON.stringify(reading), before);
+    assert.ok(
+      copyReferenceReading(reading).includes(
+        'Scroll and its complete explanation.',
+      ),
+    );
+    assert.equal(
+      generatorReadingLayout(reading).identity?.text,
+      scvm ? 'Fixture name' : undefined,
+    );
+  }
+});
 
 test('Monster presentation lifts the complete introduction, preserving rolls, copy and every detail', () => {
   const reading = siteReading();

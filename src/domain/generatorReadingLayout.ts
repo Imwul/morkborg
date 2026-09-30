@@ -17,7 +17,21 @@ const STAT_LABELS: Record<string, string> = {
 };
 
 /** A view of an existing result. Never changes its rolls, saved data or copy text. */
-export function generatorReadingLayout(reading: ReferenceReading) {
+export function generatorReadingLayout(
+  reading: ReferenceReading,
+  referenceId?: string,
+) {
+  const character =
+    referenceId?.startsWith('procedure:character.') ||
+    reading.procedureInputs?.generator === 'scvmbirther';
+  const identity = character
+    ? reading.blocks.find(
+        (block) => /^(Name|Names)$/.test(block.title) && block.text.trim(),
+      )
+    : undefined;
+  const characterClass = identity
+    ? reading.blocks.find((block) => block.title === 'Class')
+    : undefined;
   const site = reading.procedureInputs?.generator === 'monster-site';
   const introduction = site
     ? reading.blocks.find(
@@ -30,7 +44,12 @@ export function generatorReadingLayout(reading: ReferenceReading) {
     ['HP', 'Morale', 'Abilities'].includes(block.title),
   );
   for (const block of reading.blocks) {
-    if (block === introduction) continue;
+    if (
+      block === introduction ||
+      block === identity ||
+      block === characterClass
+    )
+      continue;
     // Only suppress a desire actually included in the complete introduction.
     if (
       introduction &&
@@ -56,7 +75,23 @@ export function generatorReadingLayout(reading: ReferenceReading) {
       });
     } else fields.push(block);
   }
-  return { introduction, stats, fields };
+  // Character identity precedes the compact vital values; do not invent absent stats.
+  if (identity)
+    stats.sort((a, b) => {
+      const order = [
+        'HP',
+        'Omens',
+        'Abilities',
+        'Strength',
+        'Agility',
+        'Presence',
+        'Toughness',
+        'Armor',
+        'Silver',
+      ];
+      return order.indexOf(a.title) - order.indexOf(b.title);
+    });
+  return { identity, characterClass, introduction, stats, fields };
 }
 
 /** Split only the stat-line format produced by our creature renderer. */

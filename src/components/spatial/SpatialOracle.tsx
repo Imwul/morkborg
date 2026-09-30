@@ -401,11 +401,17 @@ export function SpatialOracle({
             <button onClick={() => onBrowse('pinned')}>고정</button>
             <button onClick={() => desk?.openTools?.('play')}>작업대</button>
           </nav>
-          <ScenePlayActions
-            scene={scene.id}
-            role={selected?.semanticRole}
-            onOpen={(id) => inspectReference(id, lastTarget.current)}
-          />
+          <details
+            className="spatial-action-disclosure"
+            key={desk?.selectedId ?? scene.id}
+          >
+            <summary>이 장소에서 할 수 있는 행동</summary>
+            <ScenePlayActions
+              scene={scene.id}
+              role={selected?.semanticRole}
+              onOpen={(id) => inspectReference(id, lastTarget.current)}
+            />
+          </details>
           {desk?.content ? (
             <>
               {desk.content}

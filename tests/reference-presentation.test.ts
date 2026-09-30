@@ -9,6 +9,7 @@ import { setRules, getRules } from '../src/storage/rulesStore.ts';
 import { setOraclePack, getOraclePack } from '../src/storage/oracleStore.ts';
 import {
   browseReferences,
+  partitionReferenceSearch,
   isDeskClutter,
   referenceEntryFormula,
   REFERENCE_TYPES,
@@ -36,6 +37,30 @@ setRules(fixture.library);
 setOraclePack(fixture.oracles);
 const registry = buildOracleRegistry(getRules()!, getOraclePack());
 const index = buildReferenceRegistry(registry, getRules()!);
+test('search grouping distinguishes exact names from body-only matches and retains ranking and coverage', () => {
+  for (const query of ['반응', 'Reaction', '날씨', 'react', 'core weather']) {
+    const found = browseReferences(index, query);
+    const { exact, named, related } = partitionReferenceSearch(
+      index,
+      found,
+      query,
+    );
+    assert.deepEqual(
+      new Set([...exact, ...named, ...related].map((e) => e.id)),
+      new Set(found.map((e) => e.id)),
+    );
+    for (const group of [exact, named, related])
+      assert.deepEqual(
+        group,
+        found.filter((e) => group.includes(e)),
+      );
+    if (query === '반응' || query === 'Reaction') {
+      assert.equal(exact[0]?.id, 'oracle:core.reaction');
+      assert.ok(!related.some((e) => e.id === 'oracle:core.reaction'));
+      if (query === '반응') assert.ok(related.length > 0);
+    }
+  }
+});
 test('home and generator shortcuts resolve to existing canonical references', () => {
   for (const [id] of [
     ...DESK_REFERENCE_SHORTCUTS,

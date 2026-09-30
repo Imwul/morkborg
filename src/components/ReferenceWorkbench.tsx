@@ -54,6 +54,7 @@ import { ReferenceReadingBlock } from './InlineReferenceTools';
 import {
   browseReferences,
   groupReferenceResults,
+  partitionReferenceSearch,
   isDeskClutter,
   REFERENCE_TYPES,
   REFERENCE_CONTEXTS,
@@ -375,13 +376,18 @@ export function ReferenceProvider({
     pendingPhysicalRow.current = null;
     const frame = requestAnimationFrame(() => {
       inspectorRef.current
-        ?.querySelector(
-          '.reference-static-table .reference-table-section > table > tbody > tr.current-table-result',
-        )
+        ?.querySelector('.reference-reading')
         ?.scrollIntoView({ block: 'center', behavior: 'instant' });
     });
     return () => cancelAnimationFrame(frame);
   }, [session.sequence, selectedId]);
+  useEffect(() => {
+    if (!tableView) return;
+    const table = inspectorRef.current?.querySelector<HTMLDetailsElement>(
+      'details.reference-static-table',
+    );
+    if (table) table.open = true;
+  }, [selectedId, tableView]);
   function savePrefs(next: typeof prefs) {
     setPrefs(next);
     try {
@@ -669,9 +675,7 @@ export function ReferenceProvider({
     setSelectedId(entryId);
     if (inline && window.matchMedia('(max-width: 800px)').matches)
       window.scrollTo({ top: 0 });
-    setTableView(
-      !roll && (entry.kind === 'oracle' || entry.defaultView === 'table'),
-    );
+    setTableView(false);
     setSearchOpen(false);
     setFailure('');
     setCopyFallback(null);
@@ -856,9 +860,10 @@ export function ReferenceProvider({
       ) ||
       DESK_GENERATOR_SHORTCUTS.some(([id]) => id === selected.id));
   const generatorLayout =
-    generatorPage && reading ? generatorReadingLayout(reading) : undefined;
+    generatorPage && reading
+      ? generatorReadingLayout(reading, selected?.id)
+      : undefined;
   const PartsContainer = hasQuickGuide || generatorPage ? 'details' : 'section';
-  const TableContainer = generatorPage ? 'details' : 'div';
   const siteMonsterSelected =
     monsterReference && monsterSource === 'site' && !!monsterPack;
   const displayedSource =
@@ -1469,9 +1474,7 @@ export function ReferenceProvider({
           />
         )}
         {procedureId !== 'sd.dungeon-preparation' && startAction}
-        {generatorPage &&
-          procedureId !== 'sd.dungeon-preparation' &&
-          resultActions}
+        {procedureId !== 'sd.dungeon-preparation' && resultActions}
         {procedureId === 'sd.dungeon-preparation' && (
           <DungeonPreparation
             actions={resultActions || startAction}
@@ -1503,6 +1506,7 @@ export function ReferenceProvider({
                 <summary>전체 규칙 펼치기 · 원문과 번역</summary>
               )}
               {reading.title !== selected.title &&
+                !generatorLayout?.identity &&
                 !generatorLayout?.introduction &&
                 !reading.npcSnapshot &&
                 !reading.blocks.some(
@@ -1521,6 +1525,38 @@ export function ReferenceProvider({
                   block={generatorLayout.introduction}
                   excludeId={selected.id}
                 />
+              )}
+              {generatorLayout?.identity && (
+                <header className="generator-character-identity">
+                  <span>
+                    Name <small>이름</small>
+                  </span>
+                  <h3>{generatorLayout.identity.text}</h3>
+                  <Translation
+                    text={generatorLayout.identity.text}
+                    translation={generatorLayout.identity.translation?.ko}
+                  />
+                  {generatorLayout.characterClass && (
+                    <p>
+                      <strong>Class</strong>{' '}
+                      {generatorLayout.characterClass.text}
+                      <Translation
+                        text={generatorLayout.characterClass.text}
+                        translation={
+                          generatorLayout.characterClass.translation?.ko
+                        }
+                      />
+                    </p>
+                  )}
+                  {generatorLayout.identity.dice && (
+                    <details>
+                      <summary>이름 굴림 내역</summary>
+                      <ReferenceRollTrace
+                        text={generatorLayout.identity.dice}
+                      />
+                    </details>
+                  )}
+                </header>
               )}
               {generatorLayout && (
                 <GeneratorStatStrip blocks={generatorLayout.stats} />
@@ -1721,6 +1757,11 @@ export function ReferenceProvider({
                                     '.table-followup',
                                   );
                                 if (details) {
+                                  const fullTable =
+                                    row?.closest<HTMLDetailsElement>(
+                                      'details.reference-static-table',
+                                    );
+                                  if (fullTable) fullTable.open = true;
                                   details.open = true;
                                   details.scrollIntoView({
                                     block: 'center',
@@ -1756,7 +1797,6 @@ export function ReferenceProvider({
                     onReroll={(key) => perform(selected, region, key)}
                   />
                 )}
-              {!generatorPage && resultActions}
             </ReadingContainer>
             <div className="reference-follow-up">
               <DungeonContextReferences
@@ -1852,8 +1892,12 @@ export function ReferenceProvider({
         )}
       </div>
       {selected.kind === 'oracle' && (
-        <TableContainer className="reference-static-table">
-          {generatorPage && <summary>원문 표 · 직접 결과 선택</summary>}
+        <details
+          className="reference-static-table"
+          open={tableView}
+          onToggle={(event) => setTableView(event.currentTarget.open)}
+        >
+          <summary>전체 원문 표</summary>
           {[...new Set(selected.canonicalIds)]
             .flatMap((key) =>
               oracles.registry.tables.filter((table) => table.id === key),
@@ -1878,7 +1922,7 @@ export function ReferenceProvider({
                 }}
               />
             ))}
-        </TableContainer>
+        </details>
       )}
       {generatorPage && monsterReference && (
         <button
@@ -2759,8 +2803,23 @@ export function ReferenceDesk({
   const books = visibleEntries.filter((e) => e.kind === 'book');
   const selected = desk?.selectedId ? index.byId[desk.selectedId] : undefined;
   const showResultSpread = page === 'reference' && (browserOpen || !selected);
-  const resultGroups =
-    desk?.scope === 'pinned' || desk?.scope === 'recent'
+  const searchMatches = query.trim()
+    ? partitionReferenceSearch(index, found, query)
+    : null;
+  const resultGroups = searchMatches
+    ? [
+        {
+          id: 'exact',
+          title: '제목 · 별칭 일치',
+          entries: searchMatches.exact,
+        },
+        {
+          id: 'named',
+          title: '제목 · 별칭에 포함',
+          entries: searchMatches.named,
+        },
+      ].filter((group) => group.entries.length)
+    : desk?.scope === 'pinned' || desk?.scope === 'recent'
       ? [{ id: 'saved', title: '', entries: found }]
       : groupReferenceResults(found, context);
   const companions =
@@ -2860,6 +2919,39 @@ export function ReferenceDesk({
           )}
         </section>
       ))}
+      {!!searchMatches?.related.length && (
+        <details
+          key={query}
+          className="desk-search-related"
+          open={
+            (!searchMatches.exact.length && !searchMatches.named.length) ||
+            undefined
+          }
+        >
+          <summary>
+            관련 내용에서 찾음 <small>{searchMatches.related.length}</small>
+          </summary>
+          <p>제목·별칭 일치가 아닌 본문·출처·주제 관련 항목입니다.</p>
+          {searchMatches.related
+            .slice(0, themeLimits.related ?? 6)
+            .map((entry) => (
+              <ReferenceRow key={entry.id} entry={entry} />
+            ))}
+          {searchMatches.related.length > (themeLimits.related ?? 6) && (
+            <button
+              className="desk-more"
+              onClick={() =>
+                setThemeLimits((current) => ({
+                  ...current,
+                  related: (current.related ?? 6) + 12,
+                }))
+              }
+            >
+              관련 내용 더 보기
+            </button>
+          )}
+        </details>
+      )}
       {!found.length && (
         <p className="desk-no-results">
           일치하는 참조가 없습니다. 짧은 단어나 책 이름으로 찾아보세요.

@@ -25,22 +25,31 @@ import { useNavigationChannel } from './navigation/useNavigationHistory';
 import { startPublishedDataUpdates } from './storage/publishedData';
 
 type Surface = 'desk' | 'sources';
+type PlayTool = 'guidance' | 'combat' | 'shelf' | 'fate' | null;
 
 /** The standalone reference desk leaves older local records untouched. */
 export default function App() {
   const [surface, setSurface] = useState<Surface>('desk');
   const [page, setPage] = useState<ReferenceDeskPage>('home');
-  const [shelfOpen, setShelfOpen] = useState(false);
-  const [combatOpen, setCombatOpen] = useState(false);
+  const [playTool, setPlayTool] = useState<PlayTool>(null);
+  const shelfOpen = playTool === 'shelf';
+  const combatOpen = playTool === 'combat';
+  const guidanceOpen = playTool === 'guidance';
+  const fateOpen = playTool === 'fate';
+  const toolSetter = (tool: Exclude<PlayTool, null>) => (open: boolean) =>
+    setPlayTool((current) => (open ? tool : current === tool ? null : current));
+  const setShelfOpen = toolSetter('shelf');
+  const setCombatOpen = toolSetter('combat');
+  const setGuidanceOpen = toolSetter('guidance');
+  const setFateOpen = toolSetter('fate');
   const [combatReturn, setCombatReturn] = useState(false);
-  const [guidanceOpen, setGuidanceOpen] = useState(false);
   const guidanceLauncherRef = useRef<HTMLButtonElement>(null);
   const combatLauncherRef = useRef<HTMLButtonElement>(null);
   const shelfLauncherRef = useRef<HTMLButtonElement>(null);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const [fateOpen, setFateOpen] = useState(false);
   const [fateRequested, setFateRequested] = useState(false);
   const [listRequest, setListRequest] = useState(0);
+  const [fateRequest, setFateRequest] = useState(0);
   const [mythicState, setMythicState] = useState(defaultMythicState);
   const [toast, setToast] = useState('');
   const fateLauncherRef = useRef<HTMLButtonElement>(null);
@@ -55,32 +64,27 @@ export default function App() {
         ? value
         : 'home',
   });
-  useNavigationChannel('object-shelf', shelfOpen, setShelfOpen, {
-    normalize: (value) => value === true,
-    open: (value) => value,
-  });
-  useNavigationChannel('combat-tool', combatOpen, setCombatOpen, {
-    normalize: (value) => value === true,
-    open: (value) => value,
-  });
-  useNavigationChannel('play-guidance', guidanceOpen, setGuidanceOpen, {
-    normalize: (value) => value === true,
-    open: (value) => value,
-  });
   useNavigationChannel('reference-about', aboutOpen, setAboutOpen, {
     normalize: (value) => value === true,
     open: (value) => value,
   });
+  // A tool-to-tool handoff shares a return point, so closing Fate cannot revive the guide.
   useNavigationChannel(
-    'fate',
-    fateOpen,
-    (open) => {
-      if (open) setFateRequested(true);
-      setFateOpen(open);
+    'play-tool',
+    playTool,
+    (next) => {
+      if (next === 'fate') setFateRequested(true);
+      setPlayTool(next);
     },
     {
-      normalize: (value) => value === true,
-      open: (value) => value,
+      normalize: (value) =>
+        value === 'guidance' ||
+        value === 'combat' ||
+        value === 'shelf' ||
+        value === 'fate'
+          ? value
+          : null,
+      open: (value) => value !== null,
     },
   );
   useEffect(() => {
@@ -111,7 +115,7 @@ export default function App() {
       ) {
         event.preventDefault();
         setFateRequested(true);
-        setFateOpen((open) => !open);
+        setPlayTool((current) => (current === 'fate' ? null : 'fate'));
       }
     };
     window.addEventListener('keydown', onKeyDown);
@@ -121,13 +125,13 @@ export default function App() {
   useEffect(() => {
     const openLists = () => {
       setFateRequested(true);
-      setFateOpen(true);
+      setPlayTool('fate');
       setListRequest((n) => n + 1);
     };
     window.addEventListener('mythic-open-lists', openLists);
-    const openShelf = () => setShelfOpen(true);
+    const openShelf = () => setPlayTool('shelf');
     window.addEventListener('open-object-shelf', openShelf);
-    const openCombat = () => setCombatOpen(true);
+    const openCombat = () => setPlayTool('combat');
     window.addEventListener('open-combat-tool', openCombat);
     return () => {
       window.removeEventListener('mythic-open-lists', openLists);
@@ -143,6 +147,10 @@ export default function App() {
   function openFate() {
     setFateRequested(true);
     setFateOpen(true);
+  }
+  function openFateQuestion() {
+    setFateRequest((n) => n + 1);
+    openFate();
   }
 
   return (
@@ -268,7 +276,7 @@ export default function App() {
             open={guidanceOpen}
             onOpenChange={setGuidanceOpen}
             launcherRef={guidanceLauncherRef}
-            onFate={openFate}
+            onFate={openFateQuestion}
           />
           <CombatPanel
             open={combatOpen}
@@ -289,6 +297,7 @@ export default function App() {
               open={fateOpen}
               onOpenChange={setFateOpen}
               listRequest={listRequest}
+              fateRequest={fateRequest}
               state={mythicState}
               onStateChange={setMythicState}
               launcherRef={fateLauncherRef}

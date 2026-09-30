@@ -81,6 +81,20 @@ export function newCombatSession(): CombatSession {
 }
 export const combatFrame = (session: CombatSession) =>
   session.moments[session.cursor].frame;
+/** Seed only an untouched setup. Never repopulate an intentionally edited roster. */
+export function withInitialCombatant(session: CombatSession): CombatSession {
+  const frame = combatFrame(session);
+  if (
+    session.moments.length !== 1 ||
+    session.cursor !== 0 ||
+    frame.phase !== 'setup' ||
+    frame.fighters.length
+  )
+    return session;
+  const next = structuredClone(session);
+  combatFrame(next).fighters.push(newCombatant('pc', 1));
+  return next;
+}
 export const sideName = (side: CombatSide) => (side === 'pc' ? '아군' : '적');
 export const actingSide = (frame: CombatFrame) =>
   frame.phase === 'second'
@@ -659,6 +673,20 @@ export function applyAttack(
   session: CombatSession,
   preview: AttackPreview,
 ): CombatSession {
+  return commitAttack(session, preview, true);
+}
+/** Explicitly record the roll and selected resource costs, leaving HP to the player. */
+export function recordAttack(
+  session: CombatSession,
+  preview: AttackPreview,
+): CombatSession {
+  return commitAttack(session, preview, false);
+}
+function commitAttack(
+  session: CombatSession,
+  preview: AttackPreview,
+  updateHp: boolean,
+): CombatSession {
   const frame = combatFrame(session);
   if (JSON.stringify(frame) !== preview.basis)
     throw new Error('전투 값이 바뀌었습니다. 다시 판정하세요.');
@@ -671,8 +699,11 @@ export function applyAttack(
     `${attacker.name} → ${target.name} · 피해 ${preview.damage}`,
     (f) => {
       const defender = f.fighters.find((f) => f.id === target.id)!;
-      if (defender.hp === null) throw new Error('대상의 현재 HP를 입력하세요.');
-      defender.hp -= preview.damage;
+      if (updateHp) {
+        if (defender.hp === null)
+          throw new Error('대상의 현재 HP를 입력하세요.');
+        defender.hp -= preview.damage;
+      }
       f.event = {
         kind: 'attack',
         attackerId: attacker.id,
@@ -686,7 +717,9 @@ export function applyAttack(
         f.fighters.find((p) => p.id === fighterId)!.omens =
           (f.fighters.find((p) => p.id === fighterId)!.omens ?? 0) - cost;
       f.last = [
-        `${attacker.name} → ${target.name} · HP ${target.hp} → ${defender.hp}`,
+        updateHp
+          ? `${attacker.name} → ${target.name} · HP ${target.hp} → ${defender.hp}`
+          : `${attacker.name} → ${target.name} · 최종 피해 ${preview.damage} · HP 직접 수정`,
         ...preview.dice.map(
           (d) =>
             `${d.label} ${d.formula}: ${d.values.length ? `[${d.values.join(', ')}] = ` : ''}${d.total} (${d.origin === 'manual' ? '실물' : d.origin === 'app' ? '앱' : d.origin === 'maximum' ? '최대' : '고정'})`,

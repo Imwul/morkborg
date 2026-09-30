@@ -6,6 +6,45 @@ import {
   type ReferenceContext,
 } from './references';
 import { referenceFormula } from './freeformReference';
+import { trustedReferenceSearchTitle } from './referenceSearchTitles';
+import { REFERENCE_SEARCH_ALIASES } from './referenceSearchAliases';
+
+/** Keep search relevance order; themes are for browsing, not ranked results. */
+export function partitionReferenceSearch(
+  index: ReferenceRegistry,
+  entries: ReferenceEntry[],
+  query: string,
+) {
+  const normalize = (text: string) =>
+    text
+      .normalize('NFC')
+      .toLocaleLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .trim();
+  const needle = normalize(query);
+  const exact: ReferenceEntry[] = [],
+    named: ReferenceEntry[] = [],
+    related: ReferenceEntry[] = [];
+  for (const entry of entries) {
+    const names = [
+      entry.title,
+      trustedReferenceSearchTitle(index, entry)?.text ??
+        entry.titleTranslationKo ??
+        '',
+      ...(entry.searchAliases?.en ?? []),
+      ...(entry.searchAliases?.ko ?? []),
+      ...(REFERENCE_SEARCH_ALIASES[entry.id]?.ko ?? []),
+      ...(REFERENCE_SEARCH_ALIASES[entry.id]?.en ?? []),
+    ]
+      .map(normalize)
+      .filter(Boolean);
+    if (needle && names.includes(needle)) exact.push(entry);
+    else if (needle && names.some((name) => name.includes(needle)))
+      named.push(entry);
+    else related.push(entry);
+  }
+  return { exact, named, related };
+}
 
 /** These are the existing registry kinds, not modes or source procedures. */
 export const REFERENCE_TYPES = [
@@ -153,8 +192,8 @@ export function groupReferenceResults(
     if (seen.has(entry.id)) continue;
     seen.add(entry.id);
     const theme =
-      (preferred &&
-      preferred.contexts.some((context) => entry.contexts.includes(context)))
+      preferred &&
+      preferred.contexts.some((context) => entry.contexts.includes(context))
         ? preferred
         : REFERENCE_RESULT_THEMES.find((candidate) =>
             candidate.contexts.some((context) =>

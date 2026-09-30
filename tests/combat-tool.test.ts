@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {
   actingSide,
   applyAttack,
+  recordAttack,
+  withInitialCombatant,
   changeAttackOmen,
   changeCombat,
   combatFormula,
@@ -23,6 +25,47 @@ import {
 const noRng = () => {
   throw new Error('Manual operation must not roll');
 };
+test('the first editable PC is seeded only for an untouched empty encounter', () => {
+  const empty = newCombatSession();
+  const seeded = withInitialCombatant(empty);
+  assert.equal(combatFrame(empty).fighters.length, 0);
+  assert.equal(combatFrame(seeded).fighters.length, 1);
+  assert.equal(combatFrame(seeded).fighters[0].side, 'pc');
+  assert.equal(withInitialCombatant(seeded), seeded);
+  const restored = parseCombatSession(JSON.stringify(seeded));
+  assert.equal(withInitialCombatant(restored), restored);
+  const removed = changeCombat(seeded, 'Remove PC', (frame) => {
+    frame.fighters = [];
+  });
+  assert.equal(withInitialCombatant(removed), removed);
+  assert.equal(combatFrame(removed).fighters.length, 0);
+});
+test('recording calculated damage retains HP while explicit resource costs and undo still work', () => {
+  const { session, frame, request } = fixture();
+  const before = JSON.stringify(session);
+  const pending = prepareAttack(
+    frame,
+    { ...request, omen: 'difficulty' },
+    noRng,
+  );
+  assert.equal(pending.damage, 4); // 5 weapon − 1 armor
+  const recorded = recordAttack(session, pending);
+  assert.deepEqual(
+    combatFrame(recorded).fighters.map((f) => f.hp),
+    [12, 10],
+  );
+  assert.equal(combatFrame(recorded).fighters[0].omens, 4);
+  assert.match(combatFrame(recorded).last, /최종 피해 4 · HP 직접 수정/);
+  assert.equal(JSON.stringify(session), before);
+  assert.deepEqual(combatFrame(seekCombat(recorded, session.cursor)), frame);
+  const blocked = prepareAttack(
+    frame,
+    { ...request, dice: { test: '14', damage: '1', armor: '2' } },
+    noRng,
+  );
+  assert.equal(blocked.damage, 0);
+  assert.equal(combatFrame(recordAttack(session, blocked)).fighters[1].hp, 10);
+});
 function fixture() {
   const pc = {
     ...newCombatant('pc', 1),

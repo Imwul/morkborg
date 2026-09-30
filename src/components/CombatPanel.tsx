@@ -8,7 +8,7 @@ import {
 import { id, rollDie } from '../generators/random';
 import {
   actingSide,
-  applyAttack,
+  recordAttack,
   changeCombat,
   changeAttackOmen,
   combatFrame,
@@ -16,6 +16,7 @@ import {
   initiativeSide,
   newCombatant,
   newCombatSession,
+  withInitialCombatant,
   prepareAttack,
   rerollAttackDie,
   resolveCombatMorale,
@@ -798,7 +799,7 @@ export function CombatPanel({
                   이번 공격은 방어구 감소 무시
                 </label>
                 <small>
-                  Omen과 방패는 결과를 적용할 때만 소비합니다. 굴린 뒤에도
+                  Omen과 방패는 판정을 기록할 때만 소비합니다. 굴린 뒤에도
                   아래에서 주사위별 Omen 재굴림을 선택할 수 있습니다.
                 </small>
               </details>
@@ -869,7 +870,7 @@ export function CombatPanel({
               {pending ? (
                 <>
                   <span className="combat-pending-label">
-                    미적용 · 값 확인 후 적용하세요
+                    계산 결과 · HP는 직접 수정
                   </span>
                   {(pending.critical || pending.fumble) && (
                     <div
@@ -939,12 +940,63 @@ export function CombatPanel({
                       </div>
                     ))}
                   </div>
-                  <p className="combat-damage">
-                    적용할 피해 <strong>{pending.damage}</strong>
-                  </p>
+                  <div className="combat-damage">
+                    {pending.hit && (
+                      <p className="combat-damage-equation">
+                        공격 피해{' '}
+                        <b>
+                          {pending.dice.find((die) => die.key === 'damage')
+                            ?.total ?? 0}
+                        </b>
+                        {' − 방어구 '}
+                        <b>
+                          {pending.dice.find((die) => die.key === 'armor')
+                            ?.total ?? 0}
+                        </b>
+                        {target?.shield && (
+                          <>
+                            {' '}
+                            − 방패 <b>1</b>
+                          </>
+                        )}
+                        {pending.request.omen === 'reduce' && (
+                          <>
+                            {' '}
+                            − Omen{' '}
+                            <b>
+                              {pending.dice.find(
+                                (die) => die.key === 'reduction',
+                              )?.total ?? 0}
+                            </b>
+                          </>
+                        )}
+                        {pending.request.breakShield
+                          ? ' → 방패 파괴로 피해 무시'
+                          : ''}
+                        {pending.request.damageOverride !== null
+                          ? ' → 직접 지정'
+                          : ''}
+                      </p>
+                    )}
+                    <span>
+                      ={' '}
+                      {pending.armorLoss &&
+                      pending.request.damageOverride === null
+                        ? '기본 피해'
+                        : '최종 피해'}{' '}
+                      <strong>{pending.damage}</strong>
+                    </span>
+                    {pending.armorLoss &&
+                      pending.request.damageOverride === null && (
+                        <small>
+                          치명타·실수의 피해 두 배는 아래에서 직접 지정하세요.
+                        </small>
+                      )}
+                    <small>0 미만은 0 · HP는 자동으로 차감하지 않습니다.</small>
+                  </div>
                   {!!Object.keys(pending.omenCosts).length && (
                     <p className="combat-notice">
-                      적용 시{' '}
+                      기록 시{' '}
                       {Object.entries(pending.omenCosts)
                         .map(
                           ([key, cost]) =>
@@ -966,19 +1018,19 @@ export function CombatPanel({
                       disabled={stale}
                       onClick={() =>
                         run(() => {
-                          mutate((s) => applyAttack(s, pending));
+                          mutate((s) => recordAttack(s, pending));
                           setOmen('none');
                           setBreakShield(false);
                           setIgnoreArmor(false);
                           setManualDice({});
                           setApplied(
-                            `${attacker?.name} → ${target?.name} · 피해 ${pending.damage} 적용`,
+                            `${attacker?.name} → ${target?.name} · 피해 ${pending.damage} 기록. HP는 직접 수정하세요.`,
                           );
                           returnToAttack();
                         })
                       }
                     >
-                      결과 적용 · HP 반영
+                      판정 기록 · HP 유지
                     </button>
                     <button type="button" onClick={cancelPending}>
                       취소
@@ -1094,7 +1146,7 @@ export function CombatPanel({
                     </button>
                     <small>
                       기존 눈은 유지합니다. 선택한 효과 1개와 재굴림 비용을 결과
-                      적용 시 소비합니다. 효과 변경 시 직접 지정한 최종 피해는
+                      기록 시 소비합니다. 효과 변경 시 직접 지정한 최종 피해는
                       다시 계산됩니다. 명중 여부가 달라져 실물 피해 값이 더
                       필요하면 ‘굴린 값 전체를 실물 입력으로 수정’에서
                       입력하세요.
@@ -1169,8 +1221,8 @@ export function CombatPanel({
                 </>
               ) : (
                 <p className="combat-empty">
-                  공격자와 대상을 정해 판정하세요. 결과를 적용하기 전까지 HP는
-                  바뀌지 않습니다.
+                  공격자와 대상을 정해 판정하세요. 방어구를 뺀 피해를 확인한 뒤
+                  HP를 직접 수정합니다.
                 </p>
               )}
             </section>
@@ -1356,7 +1408,7 @@ export function CombatPanel({
                 <button
                   type="button"
                   onClick={() => {
-                    store.set(newCombatSession(), true);
+                    store.set(withInitialCombatant(newCombatSession()), true);
                     cancelPending();
                     setResetConfirm(false);
                     setRestoreIndex('');

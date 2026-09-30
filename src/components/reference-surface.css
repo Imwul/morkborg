@@ -1466,3 +1466,43 @@
     padding-block: 10px;
   }
 }
+
+/* Result-first reading: source rows remain available on request. */
+.reference-page .reference-static-table > summary {
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  font: 650 13px/1.5 var(--font-ui);
+  cursor: pointer;
+}
+.reference-page .reference-body > .ref-copy-actions {
+  margin: 16px 0;
+  padding-block: 10px;
+  border-block: 1px solid var(--border);
+}
+.desk-search-related {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+.desk-search-related > summary {
+  padding: 16px 0;
+  font: 650 16px/1.5 var(--font-ui);
+  cursor: pointer;
+}
+.desk-search-related > p {
+  font: 450 13px/1.6 var(--font-ui);
+  color: var(--muted-ink);
+  margin: 0 0 16px;
+}
+.desk-search-related small {
+  margin-left: 8px;
+}
+.spatial-action-disclosure {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.spatial-action-disclosure > summary {
+  padding: 12px 0;
+  font: 650 13px/1.5 var(--font-ui);
+  cursor: pointer;
+}

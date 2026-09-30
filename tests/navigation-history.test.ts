@@ -154,6 +154,23 @@ test('Closing a related-table chain returns to the underlying view; Back does no
   h.driver.back();
   assert.equal(h.rendered.app, 'home');
 });
+test('guide to Fate handoff closes directly to the original reference and scroll position', () => {
+  const h = harness();
+  h.register('reference', 'dungeon-entrance');
+  h.register('play-tool', null, (value) => value !== null);
+  h.driver.scroll(420);
+  h.driver.persistScroll();
+  for (const tool of ['guidance', 'fate']) {
+    h.driver.observe('play-tool', state(tool));
+    h.driver.flush();
+  }
+  h.driver.observe('play-tool', state(null));
+  h.driver.flush();
+  assert.equal(h.current().index, 0);
+  assert.equal(h.rendered['play-tool'], null);
+  assert.equal(h.rendered.reference, 'dungeon-entrance');
+  assert.equal(h.scroll(), 420);
+});
 test('Opening a destination from an inspector does not mistake the new page for a dismiss', () => {
   const h = harness();
   h.register('app', 'home');

@@ -43,6 +43,7 @@ import { PrivateDataTools } from './PrivateDataTools';
 interface Props {
   open: boolean;
   listRequest?: number;
+  fateRequest?: number;
   onOpenChange: (open: boolean) => void;
   state: MythicState;
   onStateChange?: (state: MythicState) => void;
@@ -51,6 +52,7 @@ interface Props {
 export function MythicPanel({
   open,
   listRequest = 0,
+  fateRequest = 0,
   onOpenChange,
   state: initialState,
   onStateChange,
@@ -73,9 +75,6 @@ export function MythicPanel({
     setListResult({ kind, draw: rollMythicList(lists.value[kind]) });
     setListsOpen(true);
   }
-  const [wide, setWide] = useState(
-    () => window.matchMedia('(min-width: 1100px)').matches,
-  );
   const [chaosDraft, setChaosDraft] = useState<{
     basis: number;
     text: string;
@@ -89,6 +88,15 @@ export function MythicPanel({
   const [diceB, setDiceB] = useState('');
   const [error, setError] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [lastFateRequest, setLastFateRequest] = useState(0);
+  // A named Fate action must open Yes/No even after the user last viewed lists.
+  // Keep history, odds, CF and the current reference intact.
+  if (lastFateRequest !== fateRequest) {
+    setLastFateRequest(fateRequest);
+    setState((current) => ({ ...current, tab: 'fate' }));
+    setListView({ request: listRequest, open: false });
+    setSelectedId(null);
+  }
   const oddsRef = useRef<HTMLSelectElement>(null);
   const tabRef = useRef<HTMLButtonElement>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -101,12 +109,6 @@ export function MythicPanel({
     state.method === 'chart' && chartState.chart
       ? fateCell(chartState.chart, state.odds, state.chaosFactor)
       : null;
-  useEffect(() => {
-    const media = window.matchMedia('(min-width: 1100px)');
-    const change = () => setWide(media.matches);
-    media.addEventListener('change', change);
-    return () => media.removeEventListener('change', change);
-  }, []);
   useEffect(() => {
     if (open) void loadFateChart();
   }, [open]);
@@ -172,23 +174,16 @@ export function MythicPanel({
     state.tab === 'fate' && state.method === 'chart' && !chartState.chart;
   const inputValid = /^[1-9]$/.test(chaosText);
   return (
-    <Dialog
-      open={open}
-      onOpenChange={onOpenChange}
-      modal={!wide}
-      disablePointerDismissal={wide}
-    >
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         id="mythic-panel"
         onClick={(event) => {
           if (
-            !wide &&
             (event.target as HTMLElement).closest('[data-relationship-target]')
           )
             onOpenChange(false);
         }}
-        className="fate-panel translate-x-0 translate-y-0"
-        showOverlay={!wide}
+        className="fate-panel fate-centered"
         initialFocus={listsOpen || state.tab === 'scene' ? tabRef : oddsRef}
         finalFocus={launcherRef}
       >

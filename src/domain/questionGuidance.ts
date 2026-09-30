@@ -1,3 +1,27 @@
+import type { ReferenceEntry } from './references';
+import { CONDITIONAL_RULES } from './conditionalRules';
+
+export function guidanceSuggestions(entry?: ReferenceEntry) {
+  const topics = entry
+    ? CONDITIONAL_RULES.filter((topic) =>
+        topic.conditions.some((condition) =>
+          condition.references.includes(entry.id),
+        ),
+      )
+    : [];
+  const contexts = entry?.contexts ?? [];
+  const references = contexts.some(
+    (context) => context === 'dungeon' || context === 'room',
+  )
+    ? ['rule:sd.dungeonCrawling', 'rule:sd.search-move', 'rule:sd.camping-move']
+    : contexts.includes('city')
+      ? ['procedure:city.crawl', 'procedure:aitc.street']
+      : contexts.includes('travel')
+        ? ['rule:sd.travel-day', 'rule:sd.leaving-road', 'rule:sd.camping-move']
+        : [];
+  return { topics, references: references.filter((id) => id !== entry?.id) };
+}
+
 export const QUESTION_INTENTS = [
   {
     id: 'action',

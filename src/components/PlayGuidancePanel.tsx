@@ -5,7 +5,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { QUESTION_INTENTS, QUESTION_TARGETS } from '../domain/questionGuidance';
+import {
+  QUESTION_INTENTS,
+  QUESTION_TARGETS,
+  guidanceSuggestions,
+} from '../domain/questionGuidance';
 import { ConditionalRules } from './ConditionalRules';
 import { useReferenceDesk } from './ReferenceContext';
 export function PlayGuidancePanel({
@@ -23,6 +27,11 @@ export function PlayGuidancePanel({
   const [tab, setTab] = useState<'question' | 'rules'>('question');
   const [intentId, setIntent] = useState<string>('action');
   const [system, setSystem] = useState<'core' | 'sd'>('core');
+  const [topic, setTopic] = useState('powers');
+  const currentReference = desk?.selectedId
+    ? desk.byId[desk.selectedId]
+    : undefined;
+  const suggestions = guidanceSuggestions(currentReference);
   const intent = QUESTION_INTENTS.find((i) => i.id === intentId)!;
   const openRef = (id: string) => {
     desk?.activate(id, false);
@@ -43,6 +52,34 @@ export function PlayGuidancePanel({
         <DialogDescription>
           질문을 먼저 정하고, 필요한 판정 하나를 고릅니다.
         </DialogDescription>
+        {currentReference &&
+          (!!suggestions.topics.length || !!suggestions.references.length) && (
+            <section
+              className="guidance-context"
+              aria-label="현재 참조와 연결된 안내"
+            >
+              <small>지금 보고 있는 참조</small>
+              <h3>{currentReference.title}</h3>
+              <div className="guidance-links">
+                {suggestions.topics.map((suggestion) => (
+                  <button
+                    key={suggestion.id}
+                    onClick={() => {
+                      setTopic(suggestion.id);
+                      setTab('rules');
+                    }}
+                  >
+                    {suggestion.label} 조건 확인
+                  </button>
+                ))}
+                {suggestions.references
+                  .filter((id) => desk?.byId[id]?.available)
+                  .map((id) => (
+                    <span key={id}>{link(id, desk!.byId[id].title)}</span>
+                  ))}
+              </div>
+            </section>
+          )}
         <nav className="guidance-tabs" aria-label="플레이 안내 종류">
           <button
             aria-pressed={tab === 'question'}
@@ -58,7 +95,7 @@ export function PlayGuidancePanel({
           </button>
         </nav>
         {tab === 'rules' ? (
-          <ConditionalRules onOpen={openRef} />
+          <ConditionalRules key={topic} initialTopic={topic} onOpen={openRef} />
         ) : (
           <>
             <div className="question-choices" aria-label="질문의 종류">

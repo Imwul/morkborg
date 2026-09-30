@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import {
   newCombatSession,
   parseCombatSession,
+  withInitialCombatant,
   type CombatSession,
 } from '../domain/combatTool';
 
@@ -10,13 +11,15 @@ function load() {
   try {
     const raw = sessionStorage.getItem(COMBAT_SESSION_KEY);
     return {
-      session: raw ? parseCombatSession(raw) : newCombatSession(),
+      session: withInitialCombatant(
+        raw ? parseCombatSession(raw) : newCombatSession(),
+      ),
       error: '',
       damaged: false,
     };
   } catch {
     return {
-      session: newCombatSession(),
+      session: withInitialCombatant(newCombatSession()),
       error:
         '이 탭의 전투 자료를 읽지 못했습니다. 기존 자료는 보존했습니다. 새 전투로 시작할 수 있습니다.',
       damaged: true,
