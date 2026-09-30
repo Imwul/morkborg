@@ -6,6 +6,7 @@ import { RULE_TOPIC_REFERENCES } from '../domain/conditionalRules';
 import { GeneralActionCheck } from './GeneralActionCheck';
 import { JourneyGuidance } from './JourneyGuidance';
 import { ResultFollowThrough } from './ResultFollowThrough';
+import { ReferenceThemeNavigation } from './ReferenceThemeNavigation';
 import { objectShelfStore } from '../storage/notebookTools';
 import {
   objectKindForReference,
@@ -956,7 +957,19 @@ export function ReferenceProvider({
             전투 도구 열기 ↗
           </button>
         )}
-        <ProceduralGuide referenceId={selected.id} />
+        {selected.id !== 'rule:sd.travel-day' && (
+          <ProceduralGuide referenceId={selected.id}>
+            {selected.id === 'rule:sd.camping-move' && (
+              <DungeonActionMoves
+                key={selected.id}
+                threatRating={12}
+                registry={oracles.registry}
+                allowedActions={['breath', 'camp']}
+                embedded
+              />
+            )}
+          </ProceduralGuide>
+        )}
         {RULE_TOPIC_REFERENCES[selected.id] && (
           <ConditionalRules
             key={selected.id}
@@ -972,24 +985,21 @@ export function ReferenceProvider({
         {selected.kind === 'rule' && (
           <JourneyGuidance referenceId={selected.id} />
         )}
+        {selected.id === 'rule:sd.travel-day' && (
+          <ProceduralGuide referenceId={selected.id} outcomesOnly />
+        )}
         {selected.id === 'rule:sd.dungeonCrawling' && (
           <DungeonReferenceRoller />
         )}
-        {[
-          'rule:sd.camping-move',
-          'rule:sd.search-move',
-          'rule:sd.flee-combat',
-        ].includes(selected.id) && (
+        {['rule:sd.search-move', 'rule:sd.flee-combat'].includes(
+          selected.id,
+        ) && (
           <DungeonActionMoves
             key={selected.id}
             threatRating={12}
             registry={oracles.registry}
             allowedActions={
-              selected.id === 'rule:sd.camping-move'
-                ? ['breath', 'camp']
-                : selected.id === 'rule:sd.search-move'
-                  ? ['search']
-                  : ['flee']
+              selected.id === 'rule:sd.search-move' ? ['search'] : ['flee']
             }
           />
         )}
@@ -1363,270 +1373,281 @@ export function ReferenceProvider({
           </p>
         )}
         {reading && !!reading.blocks.some((b) => b.text) && (
-          <ReadingContainer
-            key={`${selected.id}:${session.sequence}`}
-            className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
-            aria-label="참조 결과"
-            data-generator-result={generatorResultKind}
-          >
-            {plainRule && hasQuickGuide && (
-              <summary>전체 규칙 펼치기 · 원문과 번역</summary>
-            )}
-            {reading.title !== selected.title &&
-              !reading.npcSnapshot &&
-              !reading.blocks.some(
-                (block) => block.title === reading.title,
-              ) && (
-                <h3 className="reading-identity">
-                  {reading.title}
-                  <Translation text={reading.title} />
-                </h3>
+          <>
+            <ReadingContainer
+              key={`${selected.id}:${session.sequence}`}
+              className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
+              aria-label="참조 결과"
+              data-generator-result={generatorResultKind}
+            >
+              {plainRule && hasQuickGuide && (
+                <summary>전체 규칙 펼치기 · 원문과 번역</summary>
               )}
-            <div className="reference-reading-items">
-              {(procedureId === 'sd.dungeon-preparation'
-                ? []
-                : reading.blocks
-              ).map((block, n) => {
-                const source = reading.oracle?.rolls.find(
-                  (row) =>
-                    block.text === row.text ||
-                    block.text.startsWith(`${row.text}\n\n`),
-                );
-                return (
-                  <section
-                    key={n}
-                    data-reading-density={resultTextDensity(block.text)}
-                    data-generator-field={
-                      generatorResultKind
-                        ? block.title
-                            .toLowerCase()
-                            .replace(/[^a-z0-9]+/g, '-')
-                            .replace(/^-|-$/g, '')
-                        : undefined
-                    }
-                    data-compound-dice={
-                      block.dice?.includes(' · ') || undefined
-                    }
-                    className={
-                      block.kind === 'creature' ? 'creature-answer' : undefined
+              {reading.title !== selected.title &&
+                !reading.npcSnapshot &&
+                !reading.blocks.some(
+                  (block) => block.title === reading.title,
+                ) && (
+                  <h3 className="reading-identity">
+                    {reading.title}
+                    <Translation text={reading.title} />
+                  </h3>
+                )}
+              <div className="reference-reading-items">
+                {(procedureId === 'sd.dungeon-preparation'
+                  ? []
+                  : reading.blocks
+                ).map((block, n) => {
+                  const source = reading.oracle?.rolls.find(
+                    (row) =>
+                      block.text === row.text ||
+                      block.text.startsWith(`${row.text}\n\n`),
+                  );
+                  return (
+                    <section
+                      key={n}
+                      data-reading-density={resultTextDensity(block.text)}
+                      data-generator-field={
+                        generatorResultKind
+                          ? block.title
+                              .toLowerCase()
+                              .replace(/[^a-z0-9]+/g, '-')
+                              .replace(/^-|-$/g, '')
+                          : undefined
+                      }
+                      data-compound-dice={
+                        block.dice?.includes(' · ') || undefined
+                      }
+                      className={
+                        block.kind === 'creature'
+                          ? 'creature-answer'
+                          : undefined
+                      }
+                    >
+                      {block.dice && (
+                        <p className="reference-result-dice">
+                          <ReferenceRollTrace text={block.dice} />
+                        </p>
+                      )}
+                      {block.title &&
+                        !(
+                          selected.kind === 'creature' &&
+                          selected.title.startsWith(block.title)
+                        ) &&
+                        !(
+                          reading.blocks.length === 1 &&
+                          [
+                            selected.title,
+                            referenceShortName(selected),
+                          ].includes(block.title)
+                        ) && (
+                          <h3>
+                            <ReferenceLinkedText
+                              text={block.title}
+                              excludeId={selected.id}
+                            />
+                            <Translation
+                              text={block.title}
+                              translation={
+                                block.translation?.titleKo ??
+                                (reading.rareMonster
+                                  ? (
+                                      {
+                                        INTENTION: '의도',
+                                        SPECIAL: '특수 능력',
+                                      } as Record<string, string>
+                                    )[block.title]
+                                  : procedureId === 'depths.encounter-level' &&
+                                      block.title === 'NEXT'
+                                    ? '다음 절차'
+                                    : undefined)
+                              }
+                            />
+                          </h3>
+                        )}
+                      {block.definitionReferenceId &&
+                      index.byId[block.definitionReferenceId] ? (
+                        <button
+                          className="reference-inline-link"
+                          onClick={() => activate(block.definitionReferenceId!)}
+                        >
+                          {index.byId[block.definitionReferenceId].title} ›
+                        </button>
+                      ) : block.kind === 'creature' ? (
+                        <CreatureReadingFields
+                          block={block}
+                          excludeId={selected.id}
+                        />
+                      ) : (
+                        <ReferenceReadingText
+                          text={block.text}
+                          resultText={
+                            !plainRule && !reading.rareMonster
+                              ? (source?.text ?? block.text)
+                              : undefined
+                          }
+                          translation={block.translation?.ko}
+                          excludeId={selected.id}
+                          splitLines={!!reading.rareMonster}
+                        />
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
+              {reading.valuationReferenceId &&
+                index.byId[reading.valuationReferenceId] && (
+                  <button
+                    className="ref-text-action"
+                    onClick={() =>
+                      activate(reading.valuationReferenceId!, true)
                     }
                   >
-                    {block.dice && (
-                      <p className="reference-result-dice">
-                        <ReferenceRollTrace text={block.dice} />
-                      </p>
-                    )}
-                    {block.title &&
-                      !(
-                        selected.kind === 'creature' &&
-                        selected.title.startsWith(block.title)
-                      ) &&
-                      !(
-                        reading.blocks.length === 1 &&
-                        [selected.title, referenceShortName(selected)].includes(
-                          block.title,
-                        )
-                      ) && (
-                        <h3>
-                          <ReferenceLinkedText
-                            text={block.title}
-                            excludeId={selected.id}
-                          />
-                          <Translation
-                            text={block.title}
-                            translation={
-                              block.translation?.titleKo ??
-                              (reading.rareMonster
-                                ? (
-                                    {
-                                      INTENTION: '의도',
-                                      SPECIAL: '특수 능력',
-                                    } as Record<string, string>
-                                  )[block.title]
-                                : procedureId === 'depths.encounter-level' &&
-                                    block.title === 'NEXT'
-                                  ? '다음 절차'
-                                  : undefined)
-                            }
-                          />
-                        </h3>
-                      )}
-                    {block.definitionReferenceId &&
-                    index.byId[block.definitionReferenceId] ? (
-                      <button
-                        className="reference-inline-link"
-                        onClick={() => activate(block.definitionReferenceId!)}
-                      >
-                        {index.byId[block.definitionReferenceId].title} ›
-                      </button>
-                    ) : block.kind === 'creature' ? (
-                      <CreatureReadingFields
-                        block={block}
-                        excludeId={selected.id}
-                      />
-                    ) : (
-                      <ReferenceReadingText
-                        text={block.text}
-                        resultText={
-                          !plainRule && !reading.rareMonster
-                            ? (source?.text ?? block.text)
-                            : undefined
-                        }
-                        translation={block.translation?.ko}
-                        excludeId={selected.id}
-                        splitLines={!!reading.rareMonster}
-                      />
-                    )}
-                  </section>
-                );
-              })}
-            </div>
-            {reading.valuationReferenceId &&
-              index.byId[reading.valuationReferenceId] && (
-                <button
-                  className="ref-text-action"
-                  onClick={() => activate(reading.valuationReferenceId!, true)}
-                >
-                  매각가 ›
-                </button>
-              )}
-            {!!reading.childReferenceIds?.length && (
-              <details className="reading-participants">
-                <summary>변종 · 참가자</summary>
-                <div className="reference-rule-group">
-                  {reading.childReferenceIds
-                    .map((key) => index.byId[key])
-                    .filter(Boolean)
-                    .map((entry) => (
-                      <button
-                        key={entry.id}
-                        onClick={() => activate(entry.id, true)}
-                      >
-                        {entry.title} ›
-                        <ReferenceTitleTranslation entry={entry} />
-                      </button>
-                    ))}
-                </div>
-              </details>
-            )}
-            {reading.rareMonster && (
-              <details className="rare-look-choice">
-                <summary>Look이 던전과 맞지 않을 때</summary>
-                <button
-                  onClick={() => {
-                    try {
-                      acceptReading(
-                        selected.id,
-                        nextRareLook(reading, oracles.registry),
-                        false,
-                      );
-                    } catch (e) {
-                      setFailure((e as Error).message);
-                    }
-                  }}
-                >
-                  원문의 다음 Look 선택
-                </button>
-              </details>
-            )}
-            <DungeonContextReferences
-              reading={reading}
-              referenceId={selected.id}
-              visibleIds={[...resultLinkIds]}
-            />
-            <ResultReferenceLinks links={resultLinks} />
-            <ResultFollowThrough reading={reading} />
-            {selected.kind !== 'rule' && (
-              <JourneyGuidance referenceId={selected.id} reading={reading} />
-            )}
-            {procedureId !== 'sd.dungeon-preparation' &&
-              reading.oracle?.rolls.map((roll, n) => {
-                const table = oracles.registry.tables.find(
-                  (table) => table.id === roll.oracleId,
-                );
-                const entry = table?.entries.find(
-                  (entry) => entry.id === roll.entryId,
-                );
-                return (
-                  <div key={n}>
-                    {table &&
-                      entry &&
-                      (selected.kind === 'oracle' ? (
-                        inlineSourceSubtable(table, entry) && (
-                          <button
-                            className="reference-inline-link"
-                            onClick={() => {
-                              const row = inspectorRef.current?.querySelector(
-                                `.reference-static-table [data-table-id="${CSS.escape(table.id)}"] > table > tbody > [data-entry-id="${CSS.escape(entry.id)}"]`,
-                              );
-                              const details =
-                                row?.querySelector<HTMLDetailsElement>(
-                                  '.table-followup',
-                                );
-                              if (details) {
-                                details.open = true;
-                                details.scrollIntoView({
-                                  block: 'center',
-                                  behavior: 'instant',
-                                });
-                              }
-                            }}
-                          >
-                            조건부 추가 표 보기 ·{' '}
-                            {inlineSourceSubtable(table, entry)!.dice} ↗
-                          </button>
-                        )
-                      ) : (
-                        <InlineSourceSubtable
-                          key={`${reading.oracle!.id}:${entry.id}`}
-                          table={table}
-                          entry={entry}
-                          parentRoll={roll}
-                          parentContext={roll}
-                        />
+                    매각가 ›
+                  </button>
+                )}
+              {!!reading.childReferenceIds?.length && (
+                <details className="reading-participants">
+                  <summary>변종 · 참가자</summary>
+                  <div className="reference-rule-group">
+                    {reading.childReferenceIds
+                      .map((key) => index.byId[key])
+                      .filter(Boolean)
+                      .map((entry) => (
+                        <button
+                          key={entry.id}
+                          onClick={() => activate(entry.id, true)}
+                        >
+                          {entry.title} ›
+                          <ReferenceTitleTranslation entry={entry} />
+                        </button>
                       ))}
                   </div>
-                );
-              })}
-            {roller &&
-              reading.procedureInputs?.generator !== 'scvmbirther' &&
-              reading.procedureInputs?.generator !== 'monster-site' && (
-                <PartialRollControls
-                  entry={selected}
-                  reading={reading}
-                  registry={oracles.registry}
-                  tools={convenience}
-                  onReroll={(key) => perform(selected, region, key)}
-                />
+                </details>
               )}
-            <div className="ref-copy-actions">
-              {roller && (
-                <Button
-                  variant="ghost"
-                  onClick={() => perform(selected)}
-                  className="result-reroll"
-                >
-                  <Dices size={16} />{' '}
-                  {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
+              {reading.rareMonster && (
+                <details className="rare-look-choice">
+                  <summary>Look이 던전과 맞지 않을 때</summary>
+                  <button
+                    onClick={() => {
+                      try {
+                        acceptReading(
+                          selected.id,
+                          nextRareLook(reading, oracles.registry),
+                          false,
+                        );
+                      } catch (e) {
+                        setFailure((e as Error).message);
+                      }
+                    }}
+                  >
+                    원문의 다음 Look 선택
+                  </button>
+                </details>
+              )}
+              {procedureId !== 'sd.dungeon-preparation' &&
+                reading.oracle?.rolls.map((roll, n) => {
+                  const table = oracles.registry.tables.find(
+                    (table) => table.id === roll.oracleId,
+                  );
+                  const entry = table?.entries.find(
+                    (entry) => entry.id === roll.entryId,
+                  );
+                  return (
+                    <div key={n}>
+                      {table &&
+                        entry &&
+                        (selected.kind === 'oracle' ? (
+                          inlineSourceSubtable(table, entry) && (
+                            <button
+                              className="reference-inline-link"
+                              onClick={() => {
+                                const row = inspectorRef.current?.querySelector(
+                                  `.reference-static-table [data-table-id="${CSS.escape(table.id)}"] > table > tbody > [data-entry-id="${CSS.escape(entry.id)}"]`,
+                                );
+                                const details =
+                                  row?.querySelector<HTMLDetailsElement>(
+                                    '.table-followup',
+                                  );
+                                if (details) {
+                                  details.open = true;
+                                  details.scrollIntoView({
+                                    block: 'center',
+                                    behavior: 'instant',
+                                  });
+                                }
+                              }}
+                            >
+                              조건부 추가 표 보기 ·{' '}
+                              {inlineSourceSubtable(table, entry)!.dice} ↗
+                            </button>
+                          )
+                        ) : (
+                          <InlineSourceSubtable
+                            key={`${reading.oracle!.id}:${entry.id}`}
+                            table={table}
+                            entry={entry}
+                            parentRoll={roll}
+                            parentContext={roll}
+                          />
+                        ))}
+                    </div>
+                  );
+                })}
+              {roller &&
+                reading.procedureInputs?.generator !== 'scvmbirther' &&
+                reading.procedureInputs?.generator !== 'monster-site' && (
+                  <PartialRollControls
+                    entry={selected}
+                    reading={reading}
+                    registry={oracles.registry}
+                    tools={convenience}
+                    onReroll={(key) => perform(selected, region, key)}
+                  />
+                )}
+              <div className="ref-copy-actions">
+                {roller && (
+                  <Button
+                    variant="ghost"
+                    onClick={() => perform(selected)}
+                    className="result-reroll play-roll-action"
+                  >
+                    <Dices size={16} />{' '}
+                    {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
+                  </Button>
+                )}
+                <Button variant="ghost" onClick={() => copyReading()}>
+                  <Copy size={14} /> COPY
                 </Button>
+                <details className="result-more-actions">
+                  <summary aria-label="결과 추가 동작">⋯</summary>
+                  <button onClick={() => copyReading(true)}>
+                    COPY WITH SOURCE
+                  </button>
+                  <button onClick={() => convenience.sendReading(reading)}>
+                    SEND TO SCRATCH · 스크랩에 추가
+                  </button>
+                  <button
+                    onClick={() => convenience.sendReading(reading, true)}
+                  >
+                    출처와 스크랩에 추가
+                  </button>
+                </details>
+              </div>
+            </ReadingContainer>
+            <div className="reference-follow-up">
+              <DungeonContextReferences
+                reading={reading}
+                referenceId={selected.id}
+                visibleIds={[...resultLinkIds]}
+              />
+              <ResultReferenceLinks links={resultLinks} />
+              <ResultFollowThrough reading={reading} />
+              {selected.kind !== 'rule' && (
+                <JourneyGuidance referenceId={selected.id} reading={reading} />
               )}
-              <Button variant="ghost" onClick={() => copyReading()}>
-                <Copy size={14} /> COPY
-              </Button>
-              <details className="result-more-actions">
-                <summary aria-label="결과 추가 동작">⋯</summary>
-                <button onClick={() => copyReading(true)}>
-                  COPY WITH SOURCE
-                </button>
-                <button onClick={() => convenience.sendReading(reading)}>
-                  SEND TO SCRATCH · 스크랩에 추가
-                </button>
-                <button onClick={() => convenience.sendReading(reading, true)}>
-                  출처와 스크랩에 추가
-                </button>
-              </details>
             </div>
-          </ReadingContainer>
+          </>
         )}
         {procedureId === 'depths.rare-monster' && (
           <details className="rare-card-details">
@@ -2923,32 +2944,10 @@ export function ReferenceDesk({
                   ))}
                 </div>
               </section>
-              {selected && (
-                <section
-                  className="desk-nav-history desk-companions"
-                  aria-label="함께 쓰는 참조"
-                >
-                  <h2>함께 쓰는 참조</h2>
-                  <p className="desk-companion-theme">{companions.theme}</p>
-                  <p className="desk-companion-basis">
-                    {referenceShortName(selected)} 기준 · 자동 연결
-                  </p>
-                  <div>
-                    {companions.items.map(({ entry, kind }) => (
-                      <QuickReferenceButton
-                        key={entry.id}
-                        entry={entry}
-                        relationshipKind={kind}
-                      />
-                    ))}
-                  </div>
-                  {!companions.items.length && (
-                    <p className="desk-companion-basis">
-                      이 참조에 연결된 항목은 없습니다.
-                    </p>
-                  )}
-                </section>
-              )}
+              <ReferenceThemeNavigation
+                registry={index}
+                companions={companions.items}
+              />
             </aside>
           )}
           <div className="desk-current-page">

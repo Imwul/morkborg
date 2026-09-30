@@ -182,6 +182,7 @@ export function PartialRollControls({
               )}
             </button>
             <button
+              className="play-roll-action"
               aria-label={`${c.label} 다시 굴리기`}
               disabled={tools.held[entry.id]?.includes(c.id)}
               onClick={() => onReroll(c.id)}
@@ -190,7 +191,9 @@ export function PartialRollControls({
             </button>
           </div>
         ))}
-        <button onClick={() => onReroll()}>고정하지 않은 결과만 재굴림</button>
+        <button className="play-roll-action" onClick={() => onReroll()}>
+          고정하지 않은 결과만 재굴림
+        </button>
       </>
     </details>
   );
@@ -356,16 +359,16 @@ export function ConveniencePanel({
         className={tab === 'replay' && memory.replayId ? 'sr-only' : undefined}
       >
         {tab === 'replay'
-            ? 'RECENT ROLLS · 최근 결과'
-            : tab === 'play'
-              ? '작업대'
-              : tab === 'recipes'
-                ? 'RECIPES'
-                : tab === 'packs'
-                  ? 'PACKS'
-                  : tab === 'physical'
-                    ? 'ENTER ROLL'
-                    : 'SCRATCH'}
+          ? 'RECENT ROLLS · 최근 결과'
+          : tab === 'play'
+            ? '작업대'
+            : tab === 'recipes'
+              ? 'RECIPES'
+              : tab === 'packs'
+                ? 'PACKS'
+                : tab === 'physical'
+                  ? 'ENTER ROLL'
+                  : 'SCRATCH'}
       </DialogTitle>
       <DialogDescription className="sr-only">
         임시 도구와 개인 조합을 관리합니다.
@@ -621,8 +624,8 @@ export function ConveniencePanel({
                 않습니다.
               </p>
               <p>
-                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·최근
-                결과는 현재 탭에서 새로고침까지 유지됩니다.
+                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·최근 결과는
+                현재 탭에서 새로고침까지 유지됩니다.
               </p>
               <p>
                 모음과 사용자 조합은 APP_POLICY입니다. 실물 입력은 USER_ROLL로

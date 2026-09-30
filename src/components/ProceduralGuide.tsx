@@ -1,21 +1,41 @@
+import type { ReactNode } from 'react';
 import { playGuideFor, scenePlayActions } from '../domain/playGuidance';
 import { useReferenceDesk } from './ReferenceContext';
 
-export function ProceduralGuide({ referenceId }: { referenceId: string }) {
+export function ProceduralGuide({
+  referenceId,
+  children,
+  outcomesOnly = false,
+}: {
+  referenceId: string;
+  children?: ReactNode;
+  outcomesOnly?: boolean;
+}) {
   const guide = playGuideFor(referenceId),
     desk = useReferenceDesk();
   if (!guide) return null;
   return (
-    <section className="procedure-quick-guide" aria-label="짧은 규칙 안내">
+    <section
+      className="procedure-quick-guide"
+      aria-label="짧은 규칙 안내"
+      data-interactive={!!children}
+      data-outcomes-only={outcomesOnly}
+    >
       <header>
-        <span>QUICK RULE · 절차 요약</span>
-        <h3>{guide.when}</h3>
+        {!outcomesOnly && (
+          <span>{children ? 'CAMPING MOVE' : 'QUICK RULE · 절차 요약'}</span>
+        )}
+        <h3>{outcomesOnly ? '여행 중 확인할 것' : guide.when}</h3>
       </header>
-      <ol>
-        {guide.steps.map((step) => (
-          <li key={step}>{step}</li>
-        ))}
-      </ol>
+      {!outcomesOnly && (
+        <ol>
+          {guide.steps.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      )}
+      {children}
+      {!!children && <h4 className="procedure-outcome-heading">결과 읽기</h4>}
       <dl>
         {guide.outcomes.map(([grade, text]) => (
           <div key={grade}>
@@ -27,7 +47,10 @@ export function ProceduralGuide({ referenceId }: { referenceId: string }) {
       <footer>
         <small>{guide.source}</small>
         {guide.sourceId !== referenceId && (
-          <button onClick={() => desk?.activate(guide.sourceId, false)}>
+          <button
+            className="play-open-action"
+            onClick={() => desk?.activate(guide.sourceId, false)}
+          >
             전체 행동 절차 열기 ↗
           </button>
         )}

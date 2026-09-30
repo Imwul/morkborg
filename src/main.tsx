@@ -23,6 +23,7 @@ import './components/combat-tool.css';
 import './components/play-guidance.css';
 import './components/desk-home.css';
 import './components/mythic-quick.css';
+import './components/play-panel.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

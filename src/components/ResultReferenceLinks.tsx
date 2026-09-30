@@ -40,9 +40,7 @@ export function renderResultReferenceLinks(
             key={purpose}
             aria-label={LABELS[purpose]}
           >
-            <span className="result-reference-label">
-              <b>{purpose}</b> {LABELS[purpose]}
-            </span>
+            <span className="result-reference-label">{LABELS[purpose]}</span>
             <ul>
               {group.map((link) => (
                 <li key={resultRelationshipKey(link)}>
@@ -62,10 +60,11 @@ export function renderResultReferenceLinks(
                   >
                     <span>
                       {link.entry.title}
-                      {link.lookupRoll == null
-                        ? ''
-                        : ` #${link.lookupRoll}`} ›
+                      {link.lookupRoll == null ? '' : ` #${link.lookupRoll}`}
                       <ReferenceTitleTranslation entry={link.entry} />
+                    </span>
+                    <span className="result-reference-arrow" aria-hidden="true">
+                      →
                     </span>
                     {link.note && <small>{link.note}</small>}
                     {link.rowLabel && (

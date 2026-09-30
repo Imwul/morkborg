@@ -371,7 +371,9 @@ export function CityRoller({
           모든 목표에 이미 도달함
         </label>
       )}
-      <Button onClick={run}>주사위 굴리기 · {moveLabels[move]}</Button>
+      <Button className="play-roll-action" onClick={run}>
+        주사위 굴리기 · {moveLabels[move]}
+      </Button>
       {last?.metadata.directionsOptions &&
         !last.metadata.selectedDirections && (
           <div className="ref-related">

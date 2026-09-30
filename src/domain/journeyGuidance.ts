@@ -8,6 +8,7 @@ export interface GuidanceLink {
 export interface JourneyGuide {
   note: string;
   links: GuidanceLink[];
+  stages?: { title: string; note: string; referenceIds: string[] }[];
 }
 const camp: GuidanceLink = {
   id: 'rule:sd.camping-move',
@@ -36,6 +37,28 @@ export function journeyGuidance(
         { id: 'oracle:feretory.roadType', label: '이동 · 길의 상태 d8' },
         event,
         camp,
+      ],
+      stages: [
+        {
+          title: '출발 전',
+          note: '여행에 걸리는 날을 정합니다.',
+          referenceIds: ['rule:feretory.travel-distances'],
+        },
+        {
+          title: '새벽',
+          note: 'Calendar와 날씨를 확인합니다. 이미 정한 날씨는 다시 굴리지 않습니다.',
+          referenceIds: ['rule:sd.daily-misery', 'oracle:core.weather'],
+        },
+        {
+          title: '이동',
+          note: '길의 상태를 정하고, 길에서 생긴 사건을 해결합니다.',
+          referenceIds: ['oracle:feretory.roadType', event.id],
+        },
+        {
+          title: '야영',
+          note: '사건과 조우를 마무리한 뒤 야영합니다.',
+          referenceIds: [camp.id],
+        },
       ],
     };
   if (referenceId === 'rule:sd.resupply')

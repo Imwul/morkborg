@@ -942,6 +942,48 @@ export function CombatPanel({
                   <p className="combat-damage">
                     적용할 피해 <strong>{pending.damage}</strong>
                   </p>
+                  {!!Object.keys(pending.omenCosts).length && (
+                    <p className="combat-notice">
+                      적용 시{' '}
+                      {Object.entries(pending.omenCosts)
+                        .map(
+                          ([key, cost]) =>
+                            `${frame.fighters.find((f) => f.id === key)?.name}: Omen ${cost}개`,
+                        )
+                        .join(' / ')}{' '}
+                      소비
+                    </p>
+                  )}
+                  {stale && (
+                    <p role="alert" className="combat-error">
+                      참가자 값이 바뀌었습니다. 현재 값으로 다시 판정하세요.
+                    </p>
+                  )}
+                  <div className="combat-button-row">
+                    <button
+                      type="button"
+                      className="combat-primary"
+                      disabled={stale}
+                      onClick={() =>
+                        run(() => {
+                          mutate((s) => applyAttack(s, pending));
+                          setOmen('none');
+                          setBreakShield(false);
+                          setIgnoreArmor(false);
+                          setManualDice({});
+                          setApplied(
+                            `${attacker?.name} → ${target?.name} · 피해 ${pending.damage} 적용`,
+                          );
+                          returnToAttack();
+                        })
+                      }
+                    >
+                      결과 적용 · HP 반영
+                    </button>
+                    <button type="button" onClick={cancelPending}>
+                      취소
+                    </button>
+                  </div>
                   <details>
                     <summary>피해 직접 수정 · 판정 값 수정</summary>
                     <label className="combat-field">
@@ -1116,48 +1158,6 @@ export function CombatPanel({
                         ))}
                     </div>
                   </details>
-                  {!!Object.keys(pending.omenCosts).length && (
-                    <p className="combat-notice">
-                      적용 시{' '}
-                      {Object.entries(pending.omenCosts)
-                        .map(
-                          ([key, cost]) =>
-                            `${frame.fighters.find((f) => f.id === key)?.name}: Omen ${cost}개`,
-                        )
-                        .join(' / ')}{' '}
-                      소비
-                    </p>
-                  )}
-                  {stale && (
-                    <p role="alert" className="combat-error">
-                      참가자 값이 바뀌었습니다. 현재 값으로 다시 판정하세요.
-                    </p>
-                  )}
-                  <div className="combat-button-row">
-                    <button
-                      type="button"
-                      className="combat-primary"
-                      disabled={stale}
-                      onClick={() =>
-                        run(() => {
-                          mutate((s) => applyAttack(s, pending));
-                          setOmen('none');
-                          setBreakShield(false);
-                          setIgnoreArmor(false);
-                          setManualDice({});
-                          setApplied(
-                            `${attacker?.name} → ${target?.name} · 피해 ${pending.damage} 적용`,
-                          );
-                          returnToAttack();
-                        })
-                      }
-                    >
-                      결과 적용 · HP 반영
-                    </button>
-                    <button type="button" onClick={cancelPending}>
-                      취소
-                    </button>
-                  </div>
                   <details>
                     <summary>계산 내역</summary>
                     <ul>

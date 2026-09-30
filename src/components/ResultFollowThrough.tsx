@@ -22,8 +22,14 @@ export function ResultFollowThrough({
       aria-label="결과 후속 처리"
     >
       <header>
-        <h3>이 결과 다음에는</h3>
-        <small>해당 조건만 펼치세요. 수치·상태는 직접 적용합니다.</small>
+        <h3>
+          {rows.every((row) =>
+            row.tasks.every((task) => task.roll?.kind === 'quantity'),
+          )
+            ? '추가 굴림'
+            : '결과에 따른 처리'}
+        </h3>
+        <small>해당하는 조건만 처리하세요. 수치·상태는 직접 적용합니다.</small>
       </header>
       {rows.map((row, index) => (
         <div key={`${row.entryId}:${index}`} data-follow-row={row.entryId}>
@@ -32,23 +38,49 @@ export function ResultFollowThrough({
               {row.title} · #{row.min}
             </p>
           )}
-          {row.tasks.map((task) => (
-            <details key={task.id} data-follow-task={task.id}>
-              <summary>
-                <strong>{task.title}</strong>
-                <span>{task.condition}</span>
-              </summary>
-              <p>{task.effect}</p>
-              {task.lookup && <FixedTaskExcerpt lookup={task.lookup} />}
-              {task.roll && (
-                <GuidedRollControl
-                  spec={task.roll}
-                  label={task.title}
-                  stateKey={`${reading.oracle?.id ?? JSON.stringify(reading.blocks)}:${row.entryId}:${index}:${task.id}`}
-                />
-              )}
-            </details>
-          ))}
+          {row.tasks.map((task) => {
+            const compact =
+              task.roll?.kind === 'quantity' && !task.roll.modifierLabel;
+            const content = (
+              <>
+                <p className="follow-task-effect">{task.effect}</p>
+                {task.lookup && <FixedTaskExcerpt lookup={task.lookup} />}
+                {task.roll && (
+                  <GuidedRollControl
+                    spec={task.roll}
+                    label={task.title}
+                    compact={compact}
+                    stateKey={`${reading.oracle?.id ?? JSON.stringify(reading.blocks)}:${row.entryId}:${index}:${task.id}`}
+                  />
+                )}
+              </>
+            );
+            return compact ? (
+              <article
+                className="result-follow-task"
+                key={task.id}
+                data-follow-task={task.id}
+              >
+                <header>
+                  <h4>{task.title}</h4>
+                  <p>{task.condition}</p>
+                </header>
+                {content}
+              </article>
+            ) : (
+              <details
+                className="result-follow-disclosure"
+                key={task.id}
+                data-follow-task={task.id}
+              >
+                <summary>
+                  <strong>{task.title}</strong>
+                  <span>{task.condition}</span>
+                </summary>
+                {content}
+              </details>
+            );
+          })}
         </div>
       ))}
     </section>

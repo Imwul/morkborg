@@ -23,11 +23,13 @@ export function DungeonActionMoves({
   region = 'sarkash',
   registry,
   allowedActions = DUNGEON_ACTIONS.map((a) => a.id),
+  embedded = false,
 }: {
   threatRating: 9 | 12 | 15;
   region?: RegionId;
   registry: OracleRegistry;
   allowedActions?: readonly DungeonAction[];
+  embedded?: boolean;
 }) {
   const uid = useId();
   const desk = useReferenceDesk();
@@ -61,6 +63,7 @@ export function DungeonActionMoves({
     enemyState,
   };
   const rest = action === 'breath' || action === 'camp';
+  const Container = embedded ? 'section' : 'details';
   function roll(retry = false) {
     try {
       setError('');
@@ -71,15 +74,21 @@ export function DungeonActionMoves({
     }
   }
   return (
-    <details className="inline-tools dungeon-action-moves" open>
-      <summary>
-        {allowedActions.length <= 2
-          ? '행동 판정'
-          : '도망 · 탐색 · 휴식 · 위험 판정'}
-      </summary>
+    <Container
+      className={`dungeon-action-moves ${embedded ? 'embedded-action-move' : 'inline-tools'}`}
+      open={embedded ? undefined : true}
+      aria-label={embedded ? '휴식 판정' : undefined}
+    >
+      {!embedded && (
+        <summary>
+          {allowedActions.length <= 2
+            ? '행동 판정'
+            : '도망 · 탐색 · 휴식 · 위험 판정'}
+        </summary>
+      )}
       <div className="procedure-controls">
         <label htmlFor={`${uid}-action`}>
-          행동
+          {embedded ? '휴식 종류' : '행동'}
           <select
             id={`${uid}-action`}
             value={action}
@@ -93,6 +102,7 @@ export function DungeonActionMoves({
               (a) => (
                 <option key={a.id} value={a.id}>
                   {a.title}
+                  {embedded ? (a.id === 'breath' ? ' · DR9' : ' · DR12') : ''}
                 </option>
               ),
             )}
@@ -172,10 +182,12 @@ export function DungeonActionMoves({
             많은 시간 / 큰 소음 · 2-in-6
           </label>
         )}
-        <Button onClick={() => roll()}>
-          {action === 'noise'
-            ? `위험 d6 · ${loud ? 2 : 1}-in-6`
-            : `${entry.title} 2d20 · DR${dungeonActionDR(input)}`}
+        <Button className="play-roll-action" onClick={() => roll()}>
+          {embedded
+            ? '판정하기 · 2d20'
+            : action === 'noise'
+              ? `위험 d6 · ${loud ? 2 : 1}-in-6`
+              : `${entry.title} 2d20 · DR${dungeonActionDR(input)}`}
         </Button>
       </div>
       {action === 'search' && (
@@ -197,7 +209,7 @@ export function DungeonActionMoves({
         </p>
       )}
       {rest && result?.outcome === 'fail' && (
-        <Button onClick={() => roll(true)}>
+        <Button className="play-roll-action" onClick={() => roll(true)}>
           방해 후 휴식 · Strong / Weak 50:50
         </Button>
       )}
@@ -219,22 +231,15 @@ export function DungeonActionMoves({
                 </button>
               </div>
             )}
-          {result.relatedIds.length > 0 && (
-            <InlineReferenceTools
-              key={`${action}-${result.values.join('-')}`}
-              title="관련 판정"
-              ids={result.relatedIds}
-              region={region}
-              initiallyOpen
-            />
-          )}
         </>
       )}
-      <InlineReferenceTools
-        title="행동 규칙 · 출처"
-        ids={[`rule:${entry.ruleId}`]}
-        region={region}
-      />
-    </details>
+      {!embedded && (
+        <InlineReferenceTools
+          title="행동 규칙 · 출처"
+          ids={[`rule:${entry.ruleId}`]}
+          region={region}
+        />
+      )}
+    </Container>
   );
 }

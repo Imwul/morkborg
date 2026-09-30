@@ -26,6 +26,7 @@ export function ReferenceDice({
     return (
       <div className="reference-inline-dice">
         <Button
+          className="play-roll-action"
           onClick={() => {
             const dice = Array.from({ length: count }, () => rollDie(sides));
             setResult(
@@ -82,6 +83,7 @@ export function ReferenceDice({
           />
         </label>
         <Button
+          className="play-roll-action"
           onClick={() => {
             const dice = Array.from({ length: count }, () => rollDie(sides));
             setResult(
@@ -213,6 +215,7 @@ export function DungeonReferenceRoller() {
           </select>
         </label>
         <Button
+          className="play-roll-action"
           onClick={() =>
             setResult(resolveCrawlDice([rollDie(20), rollDie(20)], bonus, dr))
           }

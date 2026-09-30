@@ -1,0 +1,818 @@
+/* Reading, acting and disclosure have distinct shapes. Rolled-number typography
+   remains owned by publication.css and each existing result component. */
+/* Result links are shared by the reader, generated sheets and portal tools. */
+.result-references .result-reference-group {
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px 20px;
+  padding-top: 16px;
+}
+.result-reference-label {
+  padding-top: 10px;
+  font: 700 13px/1.6 var(--font-ui);
+  color: var(--ink);
+}
+.result-references ul {
+  display: grid;
+  gap: 8px;
+}
+.result-references .result-reference-group button {
+  grid-template-columns: minmax(0, 1fr) 16px;
+  gap: 4px 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--ink);
+  font: 650 14px/1.55 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.result-references button > small {
+  grid-column: 1;
+}
+.result-references button:hover {
+  background: color-mix(in srgb, var(--ink) 7%, var(--paper));
+}
+.result-references button:hover > span {
+  text-decoration: none;
+}
+.result-reference-arrow {
+  grid-column: 2;
+  grid-row: 1;
+}
+.inline-reading-follow-up {
+  width: 100%;
+  min-width: 0;
+  margin-top: 24px;
+  padding: 0 16px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.inline-reading-follow-up:empty {
+  display: none;
+}
+.reference-app
+  .reference-page
+  .reference-roll-results
+  .reference-reading-items
+  > section:not(.creature-answer)
+  > h3 {
+  margin-bottom: 12px;
+  color: var(--muted-ink);
+  font: 650 clamp(0.8rem, 0.8vw, 1rem)/1.55 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-reference-kind='procedure']
+  .reference-body
+  > .reference-summary {
+  max-width: 75ch;
+  font: 450 16px/1.65 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.reference-app
+  .reference-page[data-reference-kind]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section:not(.creature-answer)
+  .reference-result-text[data-result-density='brief'] {
+  font-size: clamp(1.55rem, 1.8vw, 2.15rem);
+}
+.reference-app
+  .reference-page[data-reference-kind='oracle']
+  .reference-roll-results {
+  padding: 24px var(--play-gutter);
+  background: var(--acid);
+}
+.reference-app
+  .reference-page[data-reference-kind='oracle']
+  .reference-body:has(> .reference-roll-results)
+  > .reference-formula {
+  margin-bottom: 0;
+  padding: 20px var(--play-gutter) 0;
+  background: var(--acid);
+}
+.reference-app
+  .reference-page[data-reference-kind='oracle']
+  .reference-body
+  .reference-roll-results {
+  margin-top: 0;
+}
+@container current-reference (min-width: 116rem) {
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    > .reference-body {
+    padding: 0;
+    background: transparent;
+  }
+}
+.reference-app .crawl-follow-through {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 20px;
+  padding-block: 16px;
+  border-block: 1px solid var(--play-rule);
+}
+.reference-app .crawl-follow-through p {
+  flex-basis: 100%;
+  margin: 0 0 8px;
+  line-height: 1.65;
+}
+.reference-app .crawl-follow-through button,
+.reference-app .ref-related > button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 650 14px/1.5 var(--font-ui);
+  text-decoration: none;
+}
+.fate-event {
+  padding: 20px;
+  border: 0;
+  border-top: 1px solid var(--ink);
+  background: var(--paper);
+}
+.fate-event > strong {
+  display: block;
+  margin-bottom: 8px;
+}
+.fate-event > div {
+  padding-block: 16px 0;
+  margin-top: 20px;
+}
+.fate-event > div p {
+  line-height: 1.65;
+}
+.combat-result > details {
+  margin-top: 0;
+  padding-block: 4px;
+}
+.combat-result > details > summary {
+  min-height: 44px;
+  padding-block: 10px;
+  font: 650 14px/1.6 var(--font-ui);
+  cursor: pointer;
+}
+.combat-result > details > small {
+  display: block;
+  margin-block: 12px;
+  line-height: 1.65;
+}
+.combat-result > .combat-button-row {
+  padding-bottom: 20px;
+}
+.reference-app :is(.partial-roll-controls, .table-followup) > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-height: 44px;
+  padding-block: 12px;
+  font: 650 14px/1.55 var(--font-ui);
+  list-style: none;
+  cursor: pointer;
+}
+.reference-app
+  :is(.partial-roll-controls, .table-followup)
+  > summary::-webkit-details-marker {
+  display: none;
+}
+.reference-app :is(.partial-roll-controls, .table-followup) > summary::before {
+  content: '▸';
+}
+.reference-app
+  :is(.partial-roll-controls, .table-followup)[open]
+  > summary::before {
+  content: '▾';
+}
+.reference-app .held-component {
+  gap: 12px;
+  padding-block: 12px;
+}
+.reference-app .held-component > button {
+  min-height: 44px;
+  min-width: 44px;
+  border: 1px solid var(--ink);
+}
+@media (max-width: 600px) {
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-roll-results
+    .reference-reading-items
+    > section:only-child:has(.roll-value) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-roll-results
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    > * {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .reference-app
+    .reference-page[data-reference-kind='oracle']
+    .reference-roll-results
+    .reference-reading-items
+    > section:only-child:has(.roll-value)
+    .reference-result-dice
+    code {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .result-references .result-reference-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .result-reference-label {
+    padding-top: 0;
+  }
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) {
+  --play-rule: color-mix(in srgb, var(--ink) 25%, var(--paper));
+  --play-gutter: clamp(16px, 2vw, 28px);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-guidance, .procedure-quick-guide) {
+  color: var(--ink);
+  background: var(--paper);
+  border: 0;
+  border-top: 1px solid var(--play-rule);
+  margin: 24px 0;
+  padding: 24px 0 0;
+  font: 15px/1.65 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-guidance, .procedure-quick-guide)
+  h3,
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-outcome-heading {
+  margin: 0 0 16px !important;
+  color: var(--ink);
+  font: 400 23px/1.35 var(--font-korean-display) !important;
+  letter-spacing: -0.025em;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-guidance, .procedure-quick-guide)
+  p {
+  max-width: 66ch;
+  margin: 8px 0 16px;
+  font: 15px/1.65 var(--font-ui) !important;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-guidance, .procedure-quick-guide)
+  small {
+  color: var(--muted-ink);
+  font: 12px/1.6 var(--font-ui);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-guidance, .procedure-quick-guide)
+  header
+  > small {
+  display: block;
+  margin: -8px 0 16px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .guidance-source {
+  display: block;
+  margin-top: 16px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.guidance-links, .inline-tool-buttons, .inline-actions) {
+  gap: 8px;
+  margin: 16px 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .play-open-action,
+    .guidance-links button,
+    .inline-tool-buttons button,
+    .inline-actions button
+  ),
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .ref-copy-actions
+  > button,
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .inline-reading
+  > header
+  > div
+  > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--ink);
+  font: 650 14px/1.5 var(--font-ui);
+  text-decoration: none;
+  white-space: normal;
+  text-align: left;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .play-open-action
+  > span:last-child {
+  flex-shrink: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .play-open-action,
+    .guidance-links button,
+    .inline-tool-buttons button,
+    .inline-actions button
+  ):hover:not(:disabled),
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .ref-copy-actions
+  > button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ink) 7%, var(--paper));
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(.play-roll-action, .guided-roll-controls > .play-roll-action) {
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--ink);
+  color: var(--paper);
+  font: 700 14px/1.5 var(--font-ui);
+  text-decoration: none;
+  white-space: normal;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .play-roll-action:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--ink) 82%, var(--paper));
+  color: var(--paper);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .reference-follow-up {
+  padding-inline: var(--play-gutter);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .reference-follow-up:empty {
+  display: none;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .reference-follow-up
+  > :first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .result-follow-task {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.5fr);
+  gap: 8px 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--play-rule);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .result-follow-task h4 {
+  margin: 0;
+  font: 750 16px/1.5 var(--font-ui);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-task
+  > header
+  p {
+  margin: 4px 0 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-task
+  > .follow-task-effect {
+  grid-column: 1;
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: 13px !important;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-task
+  > .guided-roll {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .guided-roll[data-compact='true']
+  .play-roll-action {
+  width: 100%;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-disclosure {
+  padding: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .result-follow-disclosure,
+    .guided-manual-input,
+    .reference-rule-reading,
+    .reference-procedure-parts
+  )
+  > summary,
+:is(.reference-app, .fate-panel, .play-guidance-panel) .inline-tools > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  margin: 0;
+  padding: 12px 0;
+  color: var(--ink);
+  font: 650 14px/1.55 var(--font-ui);
+  list-style: none;
+  cursor: pointer;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .result-follow-disclosure,
+    .guided-manual-input,
+    .reference-rule-reading,
+    .reference-procedure-parts
+  )
+  > summary::-webkit-details-marker,
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .inline-tools
+  > summary::-webkit-details-marker {
+  display: none;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .result-follow-disclosure,
+    .guided-manual-input,
+    .reference-rule-reading,
+    .reference-procedure-parts,
+    .inline-tools
+  )
+  > summary::before {
+  content: '▸';
+  flex: 0 0 10px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  :is(
+    .result-follow-disclosure,
+    .guided-manual-input,
+    .reference-rule-reading,
+    .reference-procedure-parts,
+    .inline-tools
+  )[open]
+  > summary::before {
+  content: '▾';
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-disclosure
+  summary {
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .result-follow-disclosure
+  summary
+  span {
+  margin: 0;
+  font: 14px/1.55 var(--font-ui);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .guided-manual-input {
+  margin-top: 8px;
+  border: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .guided-manual-input
+  > summary {
+  font-size: 12px;
+  padding-block: 8px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .guided-manual-input
+  .guided-roll-controls {
+  padding-top: 8px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .guided-roll output {
+  border-left-color: var(--ink);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .journey-stage-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .journey-stage-list
+  > li {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) 220px;
+  align-items: start;
+  gap: 24px;
+  margin: 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--play-rule);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .journey-stage-list h4 {
+  margin: 6px 0 0;
+  font: 400 21px/1.45 var(--font-korean-display);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .journey-stage-list p {
+  margin: 6px 0 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .journey-stage-actions {
+  display: grid;
+  gap: 8px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .journey-stage-actions
+  button {
+  width: 100%;
+  justify-content: space-between;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .procedure-quick-guide {
+  max-width: none;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  header
+  > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  ol {
+  padding-left: 22px;
+  margin-bottom: 20px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  li
+  + li {
+  margin-top: 8px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  dl {
+  margin: 0;
+  border: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  dl
+  > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 20px;
+  padding: 12px 0;
+  border: 0;
+  border-top: 1px solid var(--play-rule);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide[data-interactive='true']
+  dl
+  > div {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  footer {
+  padding-top: 16px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .embedded-action-move {
+  margin: 20px 0 24px;
+  padding: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .embedded-action-move
+  .procedure-controls {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 112px max-content;
+  align-items: end;
+  gap: 12px;
+  margin: 0;
+  max-width: 780px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .dungeon-action-moves
+  .procedure-controls
+  label {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  font: 650 13px/1.5 var(--font-ui);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .dungeon-action-moves
+  .procedure-controls
+  :is(input, select) {
+  min-width: 0;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-outcome-heading {
+  padding-top: 24px;
+  border-top: 1px solid var(--play-rule);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  .inline-reading {
+  margin: 20px 0 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .procedure-quick-guide
+  .inline-reading
+  p {
+  max-width: none;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation {
+  display: grid;
+  gap: 24px;
+  padding-block: 24px;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  section {
+  min-width: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  h2 {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  font: 400 21px/1.4 var(--font-korean-display);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  li {
+  margin: 0;
+  padding: 0;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  li
+  > button {
+  display: block;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 8px;
+  margin: 0;
+  text-align: left;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--ink);
+  font: 500 14px/1.55 var(--font-ui);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  li
+  > button[aria-current='page'] {
+  background: var(--acid);
+  font-weight: 750;
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  li
+  > button:hover:not([aria-current]) {
+  background: color-mix(in srgb, var(--ink) 7%, var(--paper));
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel) .rdesk .desk-theme-more {
+  min-height: 36px;
+  padding: 6px 8px;
+  margin-top: 4px;
+  font: 550 12px/1.5 var(--font-ui);
+  color: var(--muted-ink);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-more
+  span {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .rdesk
+  .desk-theme-navigation
+  button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+@media (max-width: 800px) {
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .rdesk
+    .desk-theme-navigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .desk-browser[data-expanded='false']
+    .desk-theme-navigation {
+    display: none;
+  }
+}
+@media (pointer: coarse) {
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .rdesk
+    .desk-theme-navigation
+    :is(li > button, .desk-theme-more) {
+    min-height: 44px;
+  }
+}
+:is(.reference-app, .fate-panel, .play-guidance-panel)
+  .reference-page[data-reference-kind='rule']
+  :is(.reference-rule-reading, .reference-procedure-parts) {
+  max-width: none;
+  margin: 24px 0 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid var(--play-rule);
+}
+@media (max-width: 1100px) {
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .journey-stage-list
+    > li {
+    grid-template-columns: 70px minmax(0, 1fr) 190px;
+    gap: 16px;
+  }
+}
+@media (max-width: 600px) {
+  :is(.reference-app, .fate-panel, .play-guidance-panel) .result-follow-task {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .result-follow-task
+    > .guided-roll {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .result-follow-task
+    > .guided-roll
+    .play-roll-action {
+    width: auto;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .journey-stage-list
+    > li {
+    grid-template-columns: 60px minmax(0, 1fr);
+    gap: 12px 16px;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .journey-stage-actions {
+    grid-column: 2;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .embedded-action-move
+    .procedure-controls {
+    grid-template-columns: minmax(0, 1fr) 88px;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .embedded-action-move
+    .procedure-controls
+    > button {
+    grid-column: 1 / -1;
+  }
+  :is(.reference-app, .fate-panel, .play-guidance-panel)
+    .procedure-quick-guide
+    dl
+    > div {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 12px;
+  }
+}

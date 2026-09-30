@@ -91,7 +91,7 @@ export function ReferenceReadingBlock({
         )}
         <div className="inline-actions">
           {onReroll && (
-            <Button size="sm" variant="outline" onClick={onReroll}>
+            <Button size="sm" className="play-roll-action" onClick={onReroll}>
               재굴림
             </Button>
           )}
@@ -191,9 +191,11 @@ export function ReferenceReadingBlock({
           onFocus={(event) => event.target.select()}
         />
       )}
-      <ReadingResultReferences reading={reading} referenceId={referenceId} />
-      <ResultFollowThrough reading={reading} />
-      <JourneyGuidance referenceId={referenceId ?? ''} reading={reading} />
+      <div className="inline-reading-follow-up">
+        <ReadingResultReferences reading={reading} referenceId={referenceId} />
+        <ResultFollowThrough reading={reading} />
+        <JourneyGuidance referenceId={referenceId ?? ''} reading={reading} />
+      </div>
       <SourceDisclosure refs={reading.sourceRefs} evidence={reading.evidence} />
       {!desk?.openLookup && !!reading.fixedLookups?.length && (
         <div className="inline-tool-buttons">

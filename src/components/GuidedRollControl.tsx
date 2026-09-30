@@ -11,6 +11,7 @@ interface Props {
   spec: GuidedRoll;
   stateKey: string;
   label: string;
+  compact?: boolean;
   onResult?: (result: GuidedRollResult) => void;
 }
 export function GuidedRollControl(props: Props) {
@@ -21,7 +22,13 @@ export function GuidedRollControl(props: Props) {
     />
   );
 }
-function GuidedRollFields({ spec, stateKey, label, onResult }: Props) {
+function GuidedRollFields({
+  spec,
+  stateKey,
+  label,
+  onResult,
+  compact = false,
+}: Props) {
   const key = `guidance:${stateKey}:${JSON.stringify(spec)}`;
   const [modifier, setModifier] = usePlayToolState(key + ':modifier', '0');
   const [manual, setManual] = usePlayToolState(key + ':manual', '');
@@ -50,7 +57,7 @@ function GuidedRollFields({ spec, stateKey, label, onResult }: Props) {
     }
   }
   return (
-    <div className="guided-roll" aria-label={label}>
+    <div className="guided-roll" aria-label={label} data-compact={compact}>
       <div className="guided-roll-controls">
         {modifierLabel && (
           <label>
@@ -64,27 +71,63 @@ function GuidedRollFields({ spec, stateKey, label, onResult }: Props) {
             />
           </label>
         )}
-        <button type="button" onClick={() => run(false)}>
+        <button
+          type="button"
+          className="play-roll-action"
+          onClick={() => run(false)}
+        >
           {spec.dice}
           {spec.kind === 'quantity' && spec.offset
             ? `${spec.offset > 0 ? '+' : '−'}${Math.abs(spec.offset)}`
             : ''}{' '}
           굴리기
         </button>
-        <label>
-          직접 굴린 값
-          <input
-            aria-label={`${label} 직접 굴린 값`}
-            placeholder={spec.dice === '2d20' ? '예: 7, 16' : '주사위 눈'}
-            value={manual}
-            onChange={(e) => setManual(e.target.value)}
-            inputMode={/^d\d+$/.test(spec.dice) ? 'numeric' : 'text'}
-          />
-        </label>
-        <button type="button" onClick={() => run(true)}>
-          입력값 판정
-        </button>
+        {!compact && (
+          <label>
+            직접 굴린 값
+            <input
+              aria-label={`${label} 직접 굴린 값`}
+              placeholder={spec.dice === '2d20' ? '예: 7, 16' : '주사위 눈'}
+              value={manual}
+              onChange={(e) => setManual(e.target.value)}
+              inputMode={/^d\d+$/.test(spec.dice) ? 'numeric' : 'text'}
+            />
+          </label>
+        )}
+        {!compact && (
+          <button
+            type="button"
+            className="play-open-action"
+            onClick={() => run(true)}
+          >
+            입력값 판정
+          </button>
+        )}
       </div>
+      {compact && (
+        <details className="guided-manual-input">
+          <summary>실물 주사위 값 입력</summary>
+          <div className="guided-roll-controls">
+            <label>
+              직접 굴린 값
+              <input
+                aria-label={`${label} 직접 굴린 값`}
+                value={manual}
+                onChange={(e) => setManual(e.target.value)}
+                placeholder="주사위 눈"
+                inputMode={/^d\d+$/.test(spec.dice) ? 'numeric' : 'text'}
+              />
+            </label>
+            <button
+              type="button"
+              className="play-open-action"
+              onClick={() => run(true)}
+            >
+              입력값 판정
+            </button>
+          </div>
+        </details>
+      )}
       {error && <p role="alert">{error}</p>}
       {result && (
         <output aria-live="polite">

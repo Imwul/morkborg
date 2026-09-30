@@ -538,7 +538,7 @@ export function MythicPanel({
                         : 'Yes/No 결과와 함께 무작위 사건이 발생합니다.'}
                     </p>
                     <Button
-                      className="btn small"
+                      className="btn small play-roll-action"
                       onClick={() => eventClues(reading)}
                     >
                       {reading.event
@@ -551,10 +551,18 @@ export function MythicPanel({
                           {r.title} · {r.roll}
                         </small>
                         <p>{r.text}</p>
+                        <Translation
+                          text={r.text}
+                          translation={
+                            typeof r.metadata?.ko === 'string'
+                              ? r.metadata.ko
+                              : undefined
+                          }
+                        />
                         {r.oracleId === 'mythic2.random-event-focus-table' &&
                           mythicFocusList(r.roll) && (
                             <Button
-                              className="btn small"
+                              className="btn small play-roll-action"
                               onClick={() => drawList(mythicFocusList(r.roll)!)}
                             >
                               {mythicFocusList(r.roll) === 'characters'
@@ -566,14 +574,6 @@ export function MythicPanel({
                         <ReferenceNextSteps
                           metadata={r.metadata}
                           tableId={r.oracleId}
-                        />
-                        <Translation
-                          text={r.text}
-                          translation={
-                            typeof r.metadata?.ko === 'string'
-                              ? r.metadata.ko
-                              : undefined
-                          }
                         />
                         <SourceDisclosure source={r.source} />
                       </div>
