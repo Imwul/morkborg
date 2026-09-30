@@ -96,8 +96,8 @@
 .desk-home:not(.desk-generators) > .desk-home-generators {
   align-self: start;
   padding: 24px 28px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--acid);
+  color: var(--ink);
 }
 .desk-home:not(.desk-generators) .desk-home-generators > header {
   border: 0;
@@ -111,7 +111,7 @@
 .desk-home-generator-grid > button {
   padding: 15px 24px 15px 0;
   border: 0;
-  border-top: 1px solid #ffffff35;
+  border-top: 1px solid #11111140;
   background: transparent;
 }
 .desk-home-generator-grid > button::after {
@@ -122,7 +122,7 @@
   font: 400 1.5rem/1.2 var(--font-korean-display);
 }
 .desk-home-generator-grid button span {
-  color: #c8c5ba;
+  color: var(--ink);
   margin-top: 4px;
   font-size: 12px;
 }
@@ -166,6 +166,9 @@
 }
 .desk-home button:hover span {
   color: var(--ink);
+}
+.desk-home-generator-grid > button:hover {
+  background: #ffffff40;
 }
 .desk-home button:focus-visible {
   outline: 2px solid currentColor;

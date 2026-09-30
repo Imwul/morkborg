@@ -21,35 +21,39 @@ export function ReferenceSourceFamily({
       </p>
       <div className="reference-source-family-links">
         <span className="reference-source-family-kind">선택 표</span>
-        {family.parentIds.map((id) => {
-          const entry = references.byId[id];
-          return (
-            <button
-              type="button"
-              key={id}
-              aria-current={selectedId === id ? 'page' : undefined}
-              onClick={() => onOpen(id)}
-            >
-              {entry.title}
-            </button>
-          );
-        })}
+        <div className="reference-source-family-items">
+          {family.parentIds.map((id) => {
+            const entry = references.byId[id];
+            return (
+              <button
+                type="button"
+                key={id}
+                aria-current={selectedId === id ? 'page' : undefined}
+                onClick={() => onOpen(id)}
+              >
+                {entry.title}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div className="reference-source-family-links">
         <span className="reference-source-family-kind">하위 표</span>
-        {family.childIds.map((id) => {
-          const entry = references.byId[id];
-          return (
-            <button
-              type="button"
-              key={id}
-              aria-current={selectedId === id ? 'page' : undefined}
-              onClick={() => onOpen(id)}
-            >
-              {entry.title}
-            </button>
-          );
-        })}
+        <div className="reference-source-family-items">
+          {family.childIds.map((id) => {
+            const entry = references.byId[id];
+            return (
+              <button
+                type="button"
+                key={id}
+                aria-current={selectedId === id ? 'page' : undefined}
+                onClick={() => onOpen(id)}
+              >
+                {entry.title}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
