@@ -55,6 +55,30 @@ export const DESK_GENERATOR_SHORTCUTS = [
   ['procedure:reclvse.action-theme', 'Action + Theme', '행동과 주제 조합'],
 ] as const;
 
+const GENERATOR_GROUPS = [
+  {
+    id: 'people',
+    title: 'People & creatures',
+    subtitle: '인물과 생물',
+    primary: [0, 1],
+    secondary: [0],
+  },
+  {
+    id: 'places',
+    title: 'Places',
+    subtitle: '장소',
+    primary: [2],
+    secondary: [1, 2, 3],
+  },
+  {
+    id: 'sparks',
+    title: 'Sparks',
+    subtitle: '이름과 이야기의 단서',
+    primary: [],
+    secondary: [4, 5],
+  },
+] as const;
+
 export function DeskLanding({
   generators,
   onGenerator,
@@ -132,6 +156,7 @@ export function DeskLanding({
                 id && (
                   <button
                     key={id}
+                    className="desk-home-primary-link"
                     data-shortcut={id}
                     onClick={() => onOpenReference(id)}
                   >
@@ -181,35 +206,53 @@ export function DeskLanding({
           <h2 id="generators-title">
             <span>생성기</span>
           </h2>
+          <p>인물과 장소를 준비하고, 이야기의 빈 곳을 채우세요.</p>
         </header>
-        <div className="desk-home-generator-grid desk-generators-primary">
-          {DESK_RECORD_GENERATORS.map(([ids, title, description]) => {
-            const id = ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
-            return (
-              <button
-                key={title}
-                data-shortcut={id}
-                onClick={() => onOpenReference(id)}
-              >
-                <strong>{title}</strong>
-                <span>{description}</span>
-              </button>
-            );
-          })}
-        </div>
-        <div className="desk-home-generator-grid desk-generators-secondary">
-          {DESK_GENERATOR_SHORTCUTS.filter(([id]) => desk?.byId[id]).map(
-            ([id, title, description]) => (
-              <button
-                key={id}
-                data-shortcut={id}
-                onClick={() => onOpenReference(id)}
-              >
-                <strong>{title}</strong>
-                <span>{description}</span>
-              </button>
-            ),
-          )}
+        <div className="desk-generator-groups">
+          {GENERATOR_GROUPS.map((group) => (
+            <section
+              className="desk-generator-group"
+              key={group.id}
+              aria-labelledby={`generator-group-${group.id}`}
+            >
+              <header>
+                <h3 id={`generator-group-${group.id}`}>{group.title}</h3>
+                <p>{group.subtitle}</p>
+              </header>
+              {group.primary.map((position) => {
+                const [ids, title, description] =
+                  DESK_RECORD_GENERATORS[position];
+                const id =
+                  ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
+                return (
+                  <button
+                    className="desk-generator-link desk-generator-major"
+                    key={id}
+                    data-shortcut={id}
+                    onClick={() => onOpenReference(id)}
+                  >
+                    <strong>{title}</strong>
+                    <span>{description}</span>
+                  </button>
+                );
+              })}
+              {group.secondary.map((position) => {
+                const [id, title, description] =
+                  DESK_GENERATOR_SHORTCUTS[position];
+                return desk?.byId[id] ? (
+                  <button
+                    className="desk-generator-link"
+                    key={id}
+                    data-shortcut={id}
+                    onClick={() => onOpenReference(id)}
+                  >
+                    <strong>{title}</strong>
+                    <span>{description}</span>
+                  </button>
+                ) : null;
+              })}
+            </section>
+          ))}
         </div>
       </section>
     </section>

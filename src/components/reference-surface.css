@@ -1506,3 +1506,13 @@
   font: 650 13px/1.5 var(--font-ui);
   cursor: pointer;
 }
+
+.reference-app .desk-result-theme > header > div {
+  flex: 1;
+  min-width: 0;
+}
+.reference-app .desk-result-theme > header p {
+  margin: 8px 0 0;
+  font: 400 13px/1.6 var(--font-ui);
+  color: var(--muted-ink);
+}

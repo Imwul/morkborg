@@ -1,3 +1,4 @@
+import { DockedToolContent } from './DockedToolContent';
 import { MythicListTables, type ListSelection } from './MythicListTables';
 import { mythicListsStore } from '../storage/notebookTools';
 import {
@@ -10,12 +11,7 @@ import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { Translation } from './Translation';
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { Dices, Minus, Plus } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -174,8 +170,14 @@ export function MythicPanel({
     state.tab === 'fate' && state.method === 'chart' && !chartState.chart;
   const inputValid = /^[1-9]$/.test(chaosText);
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
+    <Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+      modal={false}
+      disablePointerDismissal
+    >
+      <DockedToolContent
+        label="Mythic"
         id="mythic-panel"
         onClick={(event) => {
           if (
@@ -183,7 +185,7 @@ export function MythicPanel({
           )
             onOpenChange(false);
         }}
-        className="fate-panel fate-centered"
+        className="fate-panel"
         initialFocus={listsOpen || state.tab === 'scene' ? tabRef : oddsRef}
         finalFocus={launcherRef}
       >
@@ -619,7 +621,7 @@ export function MythicPanel({
             </details>
           </>
         )}
-      </DialogContent>
+      </DockedToolContent>
     </Dialog>
   );
 }

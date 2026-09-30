@@ -25,6 +25,7 @@ import './components/desk-home.css';
 import './components/mythic-quick.css';
 import './components/play-panel.css';
 import './components/generator-interface.css';
+import './components/docked-tools.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

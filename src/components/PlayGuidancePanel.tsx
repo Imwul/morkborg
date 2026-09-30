@@ -1,10 +1,6 @@
+import { DockedToolContent } from './DockedToolContent';
 import { useState, type RefObject } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+import { Dialog, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import {
   QUESTION_INTENTS,
   QUESTION_TARGETS,
@@ -43,8 +39,14 @@ export function PlayGuidancePanel({
     </button>
   );
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
+    <Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+      modal={false}
+      disablePointerDismissal
+    >
+      <DockedToolContent
+        label="판정 안내"
         className="play-guidance-panel play-guidance"
         finalFocus={launcherRef}
       >
@@ -190,7 +192,7 @@ export function PlayGuidancePanel({
             </p>
           </>
         )}
-      </DialogContent>
+      </DockedToolContent>
     </Dialog>
   );
 }

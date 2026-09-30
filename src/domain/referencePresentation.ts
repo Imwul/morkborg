@@ -110,6 +110,15 @@ export function referenceEntryDescription(entry: ReferenceEntry) {
     'oracle:core.corpsePlundering': '시체에서 발견하는 물건',
     'oracle:feretory.roadType': '길의 상태와 종류',
     'rule:core.reaction-morale': '적이 도망치거나 항복하는지 확인',
+    'oracle:core.names': '새로 만난 인물에게 이름이 필요할 때',
+    'oracle:core.miseries': 'Calendar에서 재앙이 발생했을 때',
+    'oracle:sd.room.contents': '새 방 안에 무엇이 있는지 정할 때',
+    'oracle:sd.room.exits': '방에서 이어지는 출구를 정할 때',
+    'oracle:sd.usefulItems': '쓸 만한 물건을 발견했을 때',
+    'procedure:reclvse.action-theme': '사건이나 행동의 단서가 필요할 때',
+    'procedure:aitc.street': '새로운 거리를 탐색할 때',
+    'procedure:aitc.settlement': '정착지의 규모와 인상을 정할 때',
+    'procedure:workbench.npc': '이름부터 반응까지 한 인물이 필요할 때',
   };
   return (
     descriptions[entry.id] ??
@@ -164,28 +173,116 @@ export function browseReferences(
   );
 }
 
-/** One place in the index per reference, using only the registry's contexts. */
-const REFERENCE_RESULT_THEMES = [
-  { id: 'dungeon', title: '던전 · 방', contexts: ['dungeon', 'room'] },
-  { id: 'city', title: '도시', contexts: ['city'] },
-  { id: 'travel', title: '여정', contexts: ['travel'] },
-  { id: 'character', title: '캐릭터 · 인물', contexts: ['character', 'npc'] },
-  { id: 'monster', title: '생물', contexts: ['monster'] },
-] as const;
+/** One place per reference, with stable play priorities before the full index. */
+const REFERENCE_RESULT_THEMES: readonly {
+  id: string;
+  title: string;
+  description: string;
+  contexts: readonly ReferenceContext[];
+  first: readonly string[];
+}[] = [
+  {
+    id: 'dungeon',
+    title: '던전 · 방',
+    description: '방을 열고, 출구와 발견물을 정할 때',
+    contexts: ['dungeon', 'room'],
+    first: [
+      'oracle:sd.room.contents',
+      'oracle:sd.room.exits',
+      'procedure:sd.room-description',
+      'oracle:sd.usefulItems',
+      'oracle:core.corpsePlundering',
+      'rule:sd.dungeonCrawling',
+    ],
+  },
+  {
+    id: 'travel',
+    title: '여정',
+    description: '날씨, 길의 상태, 오늘의 사건',
+    contexts: ['travel'],
+    first: [
+      'oracle:core.weather',
+      'oracle:feretory.roadType',
+      'oracle:feretory.roadEvent',
+      'rule:sd.travel-day',
+      'rule:sd.camping-move',
+    ],
+  },
+  {
+    id: 'character',
+    title: '인물 · 조우',
+    description: '누구를 만났고, 어떻게 반응하는지',
+    contexts: ['character', 'npc'],
+    first: [
+      'oracle:core.reaction',
+      'oracle:core.names',
+      'procedure:workbench.npc',
+      'rule:core.reaction-morale',
+      'procedure:character.core-classless',
+    ],
+  },
+  {
+    id: 'city',
+    title: '도시',
+    description: '거리와 정착지, 그 안에서 일어나는 일',
+    contexts: ['city'],
+    first: [
+      'procedure:aitc.street',
+      'procedure:aitc.settlement',
+      'procedure:city.crawl',
+    ],
+  },
+  {
+    id: 'monster',
+    title: '생물',
+    description: '다가오는 위협의 모습과 목적',
+    contexts: ['monster'],
+    first: [
+      'oracle:feretory.A',
+      'procedure:workbench.epk',
+      'procedure:feretory.monster-approaches',
+    ],
+  },
+  {
+    id: 'omens',
+    title: '징조 · 이야기',
+    description: '재앙, 질문, 다음 사건의 단서',
+    contexts: [],
+    first: [
+      'procedure:reclvse.action-theme',
+      'oracle:core.miseries',
+      'rule:mythic2.fate-question',
+      'oracle:sd.yesNo',
+      'rule:mythic.lists',
+    ],
+  },
+];
+
+function featuredPosition(entry: ReferenceEntry, ids: readonly string[]) {
+  return ids.indexOf(entry.id);
+}
 
 export type ReferenceResultTheme = {
   id: string;
   title: string;
+  description?: string;
   entries: ReferenceEntry[];
 };
 
 export function groupReferenceResults(
   entries: ReferenceEntry[],
   preferredContext?: string,
+  registry?: Pick<ReferenceRegistry, 'byId'>,
 ): ReferenceResultTheme[] {
+  const themes = REFERENCE_RESULT_THEMES.map((theme) => ({
+    ...theme,
+    // Resolve aliases to their actual row. A procedure using a featured table
+    // must not accidentally inherit that table's place in the index.
+    first: [...new Set(theme.first.map((id) => registry?.byId[id]?.id ?? id))],
+  }));
   const groups = new Map<string, ReferenceResultTheme>();
   const seen = new Set<string>();
-  const preferred = REFERENCE_RESULT_THEMES.find((theme) =>
+  const preferred = themes.find((theme) =>
     theme.contexts.some((context) => context === preferredContext),
   );
   for (const entry of entries) {
@@ -195,23 +292,48 @@ export function groupReferenceResults(
       preferred &&
       preferred.contexts.some((context) => entry.contexts.includes(context))
         ? preferred
-        : REFERENCE_RESULT_THEMES.find((candidate) =>
+        : (themes.find(
+            (candidate) => featuredPosition(entry, candidate.first) >= 0,
+          ) ??
+          themes.find((candidate) =>
             candidate.contexts.some((context) =>
               entry.contexts.includes(context),
             ),
-          );
+          ));
     const id = theme?.id ?? 'other';
     let group = groups.get(id);
     if (!group) {
-      group = { id, title: theme?.title ?? '그 밖의 참조', entries: [] };
+      group = {
+        id,
+        title: theme?.title ?? '그 밖의 참조',
+        description: theme?.description,
+        entries: [],
+      };
       groups.set(id, group);
     }
     group.entries.push(entry);
   }
+  // Editorial priorities apply only to browsing. Search, Pins and Recent keep
+  // their own ranking, and every remaining reference remains discoverable.
+  for (const group of groups.values()) {
+    const first = themes.find((theme) => theme.id === group.id)?.first ?? [];
+    const rank = (entry: ReferenceEntry) => {
+      const featured = featuredPosition(entry, first);
+      if (entry.available === false) return 1000;
+      if (featured >= 0) return featured;
+      if (entry.action && entry.kind === 'oracle') return 100;
+      if (entry.action) return 200;
+      return 300;
+    };
+    group.entries.sort(
+      (a, b) =>
+        rank(a) - rank(b) || (a.title ?? a.id).localeCompare(b.title ?? b.id),
+    );
+  }
   return [
-    ...REFERENCE_RESULT_THEMES.map((theme) => groups.get(theme.id)).filter(
-      (group): group is ReferenceResultTheme => !!group,
-    ),
+    ...themes
+      .map((theme) => groups.get(theme.id))
+      .filter((group): group is ReferenceResultTheme => !!group),
     ...(groups.has('other') ? [groups.get('other')!] : []),
   ];
 }

@@ -68,25 +68,8 @@ export default function App() {
     normalize: (value) => value === true,
     open: (value) => value,
   });
-  // A tool-to-tool handoff shares a return point, so closing Fate cannot revive the guide.
-  useNavigationChannel(
-    'play-tool',
-    playTool,
-    (next) => {
-      if (next === 'fate') setFateRequested(true);
-      setPlayTool(next);
-    },
-    {
-      normalize: (value) =>
-        value === 'guidance' ||
-        value === 'combat' ||
-        value === 'shelf' ||
-        value === 'fate'
-          ? value
-          : null,
-      open: (value) => value !== null,
-    },
-  );
+  // Docked utilities are independent of document navigation: closing one must
+  // preserve references opened or scrolled while it was visible.
   useEffect(() => {
     document.title =
       surface === 'sources'
@@ -230,7 +213,7 @@ export default function App() {
         <div className="play-tools-dock" aria-label="플레이 도구">
           <button
             ref={guidanceLauncherRef}
-            onClick={() => setGuidanceOpen(true)}
+            onClick={() => setGuidanceOpen(!guidanceOpen)}
             aria-expanded={guidanceOpen}
           >
             판정 안내
@@ -238,7 +221,7 @@ export default function App() {
           <button
             ref={combatLauncherRef}
             className="combat-launcher"
-            onClick={() => setCombatOpen(true)}
+            onClick={() => setCombatOpen(!combatOpen)}
             title={
               combatReturn
                 ? '참조를 읽기 전 전투 위치로 돌아가기'
@@ -252,14 +235,17 @@ export default function App() {
           </button>
           <button
             ref={shelfLauncherRef}
-            onClick={() => setShelfOpen(true)}
+            onClick={() => setShelfOpen(!shelfOpen)}
             aria-expanded={shelfOpen}
           >
             보관함
           </button>
           <button
             ref={fateLauncherRef}
-            onClick={openFate}
+            onClick={() => {
+              setFateRequested(true);
+              setFateOpen(!fateOpen);
+            }}
             aria-expanded={fateOpen}
             aria-label="Mythic Fate와 목록 열기"
           >

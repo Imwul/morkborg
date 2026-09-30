@@ -9,6 +9,7 @@ import { setRules, getRules } from '../src/storage/rulesStore.ts';
 import { setOraclePack, getOraclePack } from '../src/storage/oracleStore.ts';
 import {
   browseReferences,
+  groupReferenceResults,
   partitionReferenceSearch,
   isDeskClutter,
   referenceEntryFormula,
@@ -184,6 +185,45 @@ test('browse preserves every registry entry exactly once', () => {
       browseReferences(index, '', { kind }).length,
       visible.filter((e) => e.kind === kind).length,
     );
+});
+test('unsearched reference themes expose core play tools without losing filtered results', () => {
+  for (const options of [
+    {},
+    { kind: 'oracle' },
+    { context: 'travel' },
+    { book: 'core' },
+  ]) {
+    const found = browseReferences(index, '', options);
+    const groups = groupReferenceResults(
+      found,
+      'context' in options ? options.context : undefined,
+      index,
+    );
+    const grouped = groups.flatMap((g) => g.entries);
+    assert.equal(grouped.length, found.length);
+    assert.deepEqual(
+      new Set(grouped.map((e) => e.id)),
+      new Set(found.map((e) => e.id)),
+    );
+  }
+  const groups = groupReferenceResults(
+    browseReferences(index, ''),
+    undefined,
+    index,
+  );
+  for (const [theme, ids] of [
+    ['dungeon', ['oracle:sd.room.contents', 'oracle:sd.room.exits']],
+    ['travel', ['oracle:core.weather']],
+    ['character', ['oracle:core.reaction', 'oracle:core.names']],
+    ['omens', ['procedure:reclvse.action-theme', 'oracle:core.miseries']],
+  ] as const) {
+    const first = groups.find((g) => g.id === theme)!.entries.slice(0, 6);
+    for (const id of ids)
+      assert.ok(
+        first.some((entry) => entry.id === index.byId[id]?.id),
+        `${theme}: ${id}`,
+      );
+  }
 });
 test('gameplay phrases found in the browser audit now resolve directly', () => {
   for (const [query, id] of [

@@ -1,10 +1,6 @@
+import { DockedToolContent } from './DockedToolContent';
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+import { Dialog, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { id, rollDie } from '../generators/random';
 import {
   actingSide,
@@ -330,8 +326,14 @@ export function CombatPanel({
     .filter((m) => m.checkpoint);
   const firstAvailable = frame.phase === 'setup' || frame.phase === 'second';
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
+    <Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+      modal={false}
+      disablePointerDismissal
+    >
+      <DockedToolContent
+        label="전투"
         ref={popupRef}
         className={`combat-panel${wide ? ' combat-panel-wide' : ''}`}
         initialFocus={titleRef}
@@ -1438,7 +1440,7 @@ export function CombatPanel({
             )}
           </footer>
         </div>
-      </DialogContent>
+      </DockedToolContent>
     </Dialog>
   );
 }

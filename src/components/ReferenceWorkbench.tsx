@@ -54,6 +54,7 @@ import { ReferenceReadingBlock } from './InlineReferenceTools';
 import {
   browseReferences,
   groupReferenceResults,
+  type ReferenceResultTheme,
   partitionReferenceSearch,
   isDeskClutter,
   REFERENCE_TYPES,
@@ -2806,7 +2807,7 @@ export function ReferenceDesk({
   const searchMatches = query.trim()
     ? partitionReferenceSearch(index, found, query)
     : null;
-  const resultGroups = searchMatches
+  const resultGroups: ReferenceResultTheme[] = searchMatches
     ? [
         {
           id: 'exact',
@@ -2821,7 +2822,7 @@ export function ReferenceDesk({
       ].filter((group) => group.entries.length)
     : desk?.scope === 'pinned' || desk?.scope === 'recent'
       ? [{ id: 'saved', title: '', entries: found }]
-      : groupReferenceResults(found, context);
+      : groupReferenceResults(found, context, index);
   const companions =
     selected && desk?.relationships
       ? referenceCompanions(
@@ -2891,7 +2892,10 @@ export function ReferenceDesk({
         >
           {group.title && (
             <header>
-              <h3>{group.title}</h3>
+              <div>
+                <h3>{group.title}</h3>
+                {group.description && <p>{group.description}</p>}
+              </div>
               <span>{group.entries.length}</span>
             </header>
           )}
@@ -3055,6 +3059,7 @@ export function ReferenceDesk({
                     if (value === 'spatial' && page !== 'spatial')
                       desk?.dismiss?.();
                     setPage(value);
+                    if (value === 'reference') setBrowserOpen(true);
                     if (value !== 'reference') {
                       search('');
                       setBrowserOpen(false);

@@ -1,7 +1,8 @@
+/* The landing pages are a typeset index: generous titles, quiet rules, clear actions. */
 .reference-app .desk-home {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
-  gap: 36px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+  gap: 36px 48px;
   color: var(--ink);
 }
 .desk-home > section {
@@ -9,218 +10,309 @@
 }
 .desk-home h2 {
   margin: 0;
-  font: 400 clamp(1.7rem, 2.4vw, 2.5rem)/1.2 var(--font-korean-display);
+  font: 400 clamp(1.8rem, 2.5vw, 2.5rem)/1.2 var(--font-korean-display);
 }
 .desk-home-references > h2,
 .desk-home-generators > header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 70px;
-  margin-bottom: 16px;
+  gap: 20px;
+  min-height: 68px;
+  margin-bottom: 8px;
   border-top: 3px solid var(--ink);
-  padding-top: 12px;
+  padding-block: 16px;
 }
 .desk-home-references h2 > span,
 .desk-generators h2 > span {
   background: var(--acid);
-  padding: 4px 12px 7px;
+  padding: 3px 10px 6px;
 }
 .desk-home button {
+  position: relative;
   min-width: 0;
   min-height: 44px;
   text-align: left;
   border-radius: 0;
   box-shadow: none;
-}
-.desk-home-grid,
-.desk-home-generator-grid {
-  display: grid;
-  gap: 12px;
-}
-.desk-home-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.desk-home-generator-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.desk-home-grid > button,
-.desk-home-room,
-.desk-home-generator-grid > button {
-  margin: 0;
-  padding: 20px;
-  border: 1px solid #c9c7bf;
-  background: var(--paper);
-}
-.desk-home-grid > button {
-  min-height: 156px;
+  color: inherit;
 }
 .desk-home button strong {
   display: block;
   overflow-wrap: break-word;
 }
-.desk-home-grid > button strong {
-  font: 700 clamp(1.75rem, 2.8vw, 3.1rem)/1.05 var(--font-editorial);
-  letter-spacing: -0.04em;
-}
 .desk-home button span {
   display: block;
-  margin-top: 10px;
+  margin-top: 8px;
   color: var(--muted-ink);
-  font: 500 0.85rem/1.5 var(--font-ui);
+  font: 500 13px/1.6 var(--font-ui);
   word-break: keep-all;
   overflow-wrap: anywhere;
 }
+.desk-home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+}
+.desk-home-grid > button,
+.desk-home-room {
+  margin: 0;
+  padding: 24px 24px 24px 0;
+  min-height: 138px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+.desk-home-grid > button strong {
+  font: 700 clamp(2rem, 3.5vw, 3.5rem)/1.04 var(--font-editorial);
+  letter-spacing: -0.045em;
+}
+.desk-home-grid > button::after,
+.desk-home-generator-grid > button::after,
+.desk-generator-link::after,
+.desk-home-spatial button::after {
+  content: '↗';
+  position: absolute;
+  top: 24px;
+  right: 0;
+  font: 400 18px/1.2 var(--font-ui);
+}
 .desk-home-room h3 {
   margin: 0 0 12px;
-  font: 600 1.35rem/1.15 var(--font-editorial);
+  max-width: 15em;
+  font: 650 1.4rem/1.15 var(--font-editorial);
 }
 .desk-home-room > div {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
 }
 .desk-home-room button {
   padding: 8px 0;
-  border-top: 1px solid #d6d4cc;
-  font: 650 0.9rem/1.4 var(--font-ui);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font: 650 13px/1.4 var(--font-ui);
+}
+.desk-home:not(.desk-generators) > .desk-home-generators {
+  align-self: start;
+  padding: 24px 28px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.desk-home:not(.desk-generators) .desk-home-generators > header {
+  border: 0;
+  min-height: 0;
+  padding: 0 0 20px;
+  margin: 0;
+}
+.desk-home-generator-grid {
+  display: grid;
 }
 .desk-home-generator-grid > button {
-  min-height: 100px;
-  padding: 14px 18px;
+  padding: 15px 24px 15px 0;
+  border: 0;
+  border-top: 1px solid #ffffff35;
+  background: transparent;
+}
+.desk-home-generator-grid > button::after {
+  top: 20px;
+  font-size: 15px;
 }
 .desk-home-generator-grid strong {
-  font: 400 1.65rem/1.2 var(--font-korean-display);
+  font: 400 1.5rem/1.2 var(--font-korean-display);
 }
 .desk-home-generator-grid button span {
-  font-size: 0.75rem;
-  margin-top: 6px;
+  color: #c8c5ba;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.desk-home-generator-grid .desk-home-primary-link strong {
+  font-size: 1.85rem;
 }
 .desk-home-all {
-  font-size: 0.85rem;
+  padding: 6px 0;
+  font: 600 12px/1.4 var(--font-ui);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .desk-home-spatial {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  align-items: center;
-  gap: 24px;
+  grid-template-columns: minmax(150px, 1fr) 3fr;
+  align-items: start;
+  gap: 32px;
   border-top: 2px solid var(--ink);
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .desk-home-spatial nav {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 32px;
 }
 .desk-home-spatial button {
-  padding: 14px 20px;
-  border: 1px solid #c9c7bf;
+  padding: 0 22px 12px 0;
+  border: 0;
+  background: transparent;
+}
+.desk-home-spatial button::after {
+  top: 5px;
 }
 .desk-home-spatial strong {
-  font: 700 1.7rem/1.1 var(--font-editorial);
+  font: 700 1.8rem/1.1 var(--font-editorial);
 }
 .desk-home button:hover {
   background: var(--acid);
+  color: var(--ink);
+}
+.desk-home button:hover span {
+  color: var(--ink);
 }
 .desk-home button:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-  background: var(--acid);
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 .reference-app .desk-generators {
   display: block;
 }
-.desk-generators .desk-home-generator-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.desk-generators .desk-home-generators > header {
+  align-items: baseline;
+  margin-bottom: 32px;
 }
-.desk-generators .desk-home-generator-grid strong {
-  font: 700 1.85rem/1.1 var(--font-editorial);
+.desk-generators .desk-home-generators > header p {
+  margin: 0;
+  font: 400 14px/1.7 var(--font-ui);
+  color: var(--muted-ink);
+}
+.desk-generator-groups {
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr 0.85fr;
+  gap: 48px;
+}
+.desk-generator-group {
+  min-width: 0;
+}
+.desk-generator-group > header {
+  min-height: 110px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--ink);
+}
+.desk-generator-group h3 {
+  margin: 0;
+  font: 700 clamp(1.9rem, 3vw, 3rem)/1.03 var(--font-editorial);
   letter-spacing: -0.04em;
 }
-.desk-generators .desk-generators-primary {
-  gap: 24px;
+.desk-generator-group > header p {
+  margin: 10px 0 0;
+  font: 600 13px/1.5 var(--font-ui);
+  color: var(--muted-ink);
 }
-.desk-generators-primary > button {
-  min-height: 148px;
-  padding: 24px;
+.desk-generator-group > button {
+  display: block;
+  width: 100%;
+  padding: 24px 24px 24px 0;
   border: 0;
-  background: var(--ink);
-  color: var(--paper);
+  border-bottom: 1px solid var(--border);
+  background: transparent;
 }
-.desk-generators .desk-generators-primary > button strong {
-  font-size: clamp(2rem, 3.2vw, 3rem);
+.desk-generator-link strong {
+  font: 400 1.8rem/1.2 var(--font-korean-display);
 }
-.desk-generators-primary > button span {
-  margin-top: 12px;
-  color: #d7d3c7;
+.desk-generator-major strong {
+  font-size: clamp(2rem, 3vw, 2.9rem);
 }
-.desk-generators-primary > button:hover,
-.desk-generators-primary > button:focus-visible,
-.desk-generators-primary > button:hover span,
-.desk-generators-primary > button:focus-visible span {
-  color: var(--ink);
-}
-.desk-generators .desk-generators-secondary {
-  margin-top: 20px;
-  column-gap: 24px;
-  row-gap: 0;
-}
-.desk-generators-secondary > button {
-  padding: 20px 12px;
-  border: 0;
-  border-bottom: 1px solid var(--ink);
+.desk-generator-major {
+  min-height: 140px !important;
 }
 @media (min-width: 1600px) {
-  .desk-home-grid > button {
-    min-height: 190px;
-  }
-}
-@media (max-width: 1100px) {
-  .reference-app .desk-home {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
-  }
-  .desk-home-generator-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-@media (max-width: 650px) {
-  .desk-home-grid,
-  .desk-home-generator-grid,
-  .desk-generators .desk-home-generator-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .desk-generators .desk-generators-primary {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .desk-generators-primary > button {
-    min-height: 120px;
-    padding: 20px;
-  }
   .desk-home-grid > button,
   .desk-home-room {
-    padding: 16px;
-    min-height: 140px;
+    min-height: 158px;
+    padding-block: 30px;
+  }
+}
+@media (max-width: 1000px) {
+  .reference-app .desk-home {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .desk-home-generator-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 32px;
+  }
+  .desk-generator-groups {
+    gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .desk-generator-group:last-child {
+    grid-column: 1 / -1;
+  }
+  .desk-generator-group:last-child > header {
+    min-height: 0;
   }
   .desk-home-spatial {
     display: block;
   }
   .desk-home-spatial h2 {
-    margin-bottom: 16px;
-  }
-  .desk-home-spatial nav {
-    gap: 6px;
-  }
-  .desk-home-spatial button {
-    padding: 12px 8px;
-  }
-  .desk-home-spatial strong {
-    font-size: 1.25rem;
+    margin-bottom: 24px;
   }
 }
-@media (max-width: 440px) {
-  .desk-generators .desk-home-generator-grid {
-    grid-template-columns: minmax(0, 1fr);
+@media (max-width: 600px) {
+  .desk-home-grid {
+    column-gap: 20px;
+  }
+  .desk-home-grid > button,
+  .desk-home-room {
+    min-height: 126px;
+    padding-block: 20px;
+  }
+  .desk-home-grid > button strong {
+    font-size: 2rem;
+  }
+  .desk-home-room h3 {
+    font-size: 1.15rem;
+  }
+  .desk-home:not(.desk-generators) > .desk-home-generators {
+    padding: 22px;
+  }
+  .desk-home-generator-grid {
+    gap: 0 20px;
+  }
+  .desk-home-spatial nav {
+    gap: 18px;
+    grid-template-columns: 1fr;
+  }
+  .desk-home-spatial button {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+  .desk-home-spatial button span {
+    margin-top: 6px;
+  }
+  .desk-generators .desk-home-generators > header {
+    display: block;
+  }
+  .desk-generators .desk-home-generators > header p {
+    margin-top: 20px;
+  }
+  .desk-generator-groups {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .desk-generator-group > header {
+    min-height: 0;
+    padding-bottom: 18px;
+  }
+  .desk-generator-group > button {
+    padding-block: 20px;
+  }
+  .desk-generator-major {
+    min-height: 0 !important;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .desk-home button {
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
   }
 }

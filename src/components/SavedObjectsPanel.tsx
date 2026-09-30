@@ -1,10 +1,6 @@
+import { DockedToolContent } from './DockedToolContent';
 import { useEffect, useRef, useState, type RefObject } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
+import { Dialog, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import {
   OBJECT_KINDS,
   validateObjectShelf,
@@ -63,13 +59,19 @@ export function SavedObjectsPanel({
   };
   return (
     <Dialog
+      modal={false}
+      disablePointerDismissal
       open={open}
       onOpenChange={(v) => {
         onOpenChange(v);
         if (!v) setDraft(null);
       }}
     >
-      <DialogContent className="object-shelf-panel" finalFocus={launcherRef}>
+      <DockedToolContent
+        label="보관함"
+        className="object-shelf-panel"
+        finalFocus={launcherRef}
+      >
         <DialogTitle>보관함</DialogTitle>
         <DialogDescription>
           캐릭터 · NPC · 던전 · 도시. 진행 기록은 노트에 남기세요.
@@ -318,7 +320,7 @@ export function SavedObjectsPanel({
           />
         </footer>
         {(error || store.error) && <p role="alert">{error || store.error}</p>}
-      </DialogContent>
+      </DockedToolContent>
     </Dialog>
   );
 }
