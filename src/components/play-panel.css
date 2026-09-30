@@ -68,7 +68,7 @@
   overflow-wrap: break-word;
 }
 .reference-app
-  .reference-page[data-reference-kind]
+  .reference-page[data-reference-kind]:not([data-generator-page])
   .reference-body
   .reference-reading[data-generator-result]
   .reference-reading-items

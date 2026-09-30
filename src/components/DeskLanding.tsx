@@ -27,6 +27,7 @@ export const DESK_RECORD_GENERATORS = [
   ],
   [
     [
+      'oracle:feretory.A',
       'procedure:workbench.epk',
       'rule:feretory.monster-approaches',
       'procedure:feretory.monster-approaches',

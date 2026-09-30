@@ -188,22 +188,6 @@
   .reference-result-text {
   font: 500 18px/1.65 var(--font-ui);
 }
-.reference-app
-  .reference-page[data-generator-page]
-  .reference-body
-  .reference-reading[data-generator-result]
-  .reference-reading-items
-  > section:not(.creature-answer)
-  .reference-result-text[data-result-density='brief'] {
-  font: 700 clamp(1.5rem, 2vw, 2rem)/1.25 var(--font-editorial);
-}
-.reference-app
-  .reference-page[data-generator-page]
-  .reference-body
-  .dungeon-preparation
-  .reference-result-text[data-result-density='brief'] {
-  font: 700 1.75rem/1.3 var(--font-editorial);
-}
 .reference-app .reference-page[data-generator-page] .dungeon-preparation-method,
 .reference-app .reference-page[data-generator-page] .dungeon-field-note {
   margin: 12px 0;
@@ -284,5 +268,379 @@
     > div
     > span {
     grid-column: 1 / -1;
+  }
+}
+
+/* Generator sheets: English first, one typeface per role, two aligned columns.
+   Scope to generator pages so the reference and ordinary oracle panels keep their skin. */
+.reference-app .reference-page[data-generator-page] {
+  --font-ui: 'SUIT Variable', sans-serif;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-inspector-top
+  h2 {
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+}
+.reference-app .reference-page[data-generator-page] .reference-summary {
+  font: 450 14px/1.65 var(--font-ui);
+  color: var(--muted-ink);
+  max-width: 75ch;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result] {
+  max-width: 80rem;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  > .reading-identity {
+  font: 700 clamp(1.75rem, 2.5vw, 2.25rem)/1.3 var(--font-editorial);
+  letter-spacing: -0.025em;
+  margin: 0 0 24px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items,
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section.creature-answer {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 32px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section {
+  grid-column: auto;
+  padding-top: 12px;
+  border-color: var(--border);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > :is(section.creature-answer, [data-generator-field='ability']) {
+  grid-column: 1 / -1;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section.creature-answer {
+  border: 0;
+  padding: 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section
+  > h3,
+.reference-app .reference-page[data-generator-page] .creature-reading-field h4,
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation-fields
+  > section
+  > header
+  h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 12px;
+  font: 650 13px/1.5 var(--font-ui);
+  letter-spacing: 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section.creature-answer
+  > h3 {
+  font: 700 28px/1.35 var(--font-editorial);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section
+  .reference-result-text,
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-preparation
+  .reference-result-text {
+  font: 450 18px/1.65 var(--font-ui);
+  letter-spacing: 0;
+  white-space: pre-line;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  :is(.translation, .generated-translation),
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation
+  .generated-translation {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted-ink);
+  font: 450 14px/1.65 var(--font-ui);
+  letter-spacing: 0;
+  white-space: pre-line;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  :is(h3, h4)
+  .generated-translation,
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation
+  h3
+  .generated-translation {
+  display: inline;
+  margin: 0;
+  font-size: 12px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading
+  .generator-introduction,
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading
+  .generator-stat-strip {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading
+  .generator-introduction {
+  margin: 0 0 28px;
+  max-width: 68ch;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading
+  .generator-introduction
+  p {
+  margin: 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .generator-introduction
+  .reference-result-text,
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .reference-reading-items
+  > section
+  .generator-introduction
+  .reference-result-text {
+  font: 700 clamp(1.5rem, 2.3vw, 2rem)/1.4 var(--font-editorial);
+  letter-spacing: -0.015em;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading
+  .generator-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  align-items: start;
+  gap: 20px 28px;
+  margin: 0 0 28px;
+  padding: 18px 0;
+  border-block: 2px solid var(--ink);
+}
+.generator-stat-strip > div {
+  min-width: 0;
+}
+.generator-stat-strip dt {
+  margin: 0 0 12px;
+  font: 650 13px/1.5 var(--font-ui);
+}
+.generator-stat-strip dd {
+  margin: 0;
+  min-width: 0;
+}
+.generator-stat-value {
+  display: grid;
+  gap: 8px;
+}
+.generator-stat-line {
+  display: grid;
+  gap: 4px;
+  font: 500 17px/1.6 var(--font-ui);
+  overflow-wrap: anywhere;
+}
+.generator-stat-number {
+  font: 700 26px/1.3 var(--font-mono);
+  letter-spacing: -0.04em;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-generator-result]
+  .generator-stat-strip
+  dt
+  .generated-translation {
+  margin: 2px 0 0;
+  font-size: 12px;
+}
+.reference-app .reference-page[data-generator-page] .generator-stat-trace {
+  margin-top: 10px;
+  font: 450 12px/1.6 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .generator-stat-trace
+  summary {
+  padding: 4px 0;
+  font: inherit;
+}
+.reference-app .reference-page[data-generator-page] .reference-result-dice {
+  margin-block: 4px 12px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-formula {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 12px 0;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-room-source {
+  padding: 0;
+  border: 0;
+  margin: 16px 0;
+  gap: 8px 20px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-room-source
+  label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .dungeon-room-source
+  small {
+  font-size: 12px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-static-table
+  > summary {
+  padding: 12px 0;
+  font: 650 13px/1.5 var(--font-ui);
+}
+.reference-app .reference-page[data-generator-page] .reference-static-table {
+  margin: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-oracle-description {
+  font: 450 14px/1.65 var(--font-ui);
+  color: var(--muted-ink);
+}
+.reference-app .reference-page[data-generator-page] .generator-roll-trace {
+  grid-column: 1 / -1;
+  font: 450 12px/1.65 var(--font-ui);
+  color: var(--muted-ink);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .generator-roll-trace
+  summary {
+  padding: 0;
+  font: inherit;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 32px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .dungeon-preparation-fields
+  > section {
+  min-width: 0;
+  padding-top: 12px;
+  border-color: var(--border);
+}
+.reference-app .reference-page[data-generator-page] .generator-result-actions {
+  border-top: 0;
+  margin: 16px 0 28px;
+  padding: 0 0 16px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .generator-result-actions
+  .result-reroll {
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 8px 14px;
+  min-height: 44px;
+}
+@container generator-reading (max-width: 38rem) {
+  .reference-app
+    .reference-page[data-generator-page]
+    .reference-body
+    .reference-reading[data-generator-result]
+    .reference-reading-items,
+  .reference-app
+    .reference-page[data-generator-page]
+    .reference-body
+    .reference-reading[data-generator-result]
+    .reference-reading-items
+    > section.creature-answer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .reference-app
+    .reference-page[data-generator-page]
+    .dungeon-preparation-fields {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

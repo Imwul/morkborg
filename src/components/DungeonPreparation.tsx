@@ -124,7 +124,12 @@ export function DungeonPreparation({
           return (
             <section key={field.key} data-preparation-field={field.key}>
               <header>
-                <h3>{field.titleKo}</h3>
+                <h3>
+                  {field.title}
+                  <span className="generated-translation" lang="ko">
+                    {field.titleKo}
+                  </span>
+                </h3>
                 {formula && (
                   <code>
                     {nativeResult ||

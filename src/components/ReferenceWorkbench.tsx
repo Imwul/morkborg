@@ -162,6 +162,11 @@ import { CityRoller } from './CityRoller';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { ResultReferenceLinks } from './ResultReferenceLinks';
 import { CreatureReadingFields } from './CreatureReadingFields';
+import { generatorReadingLayout } from '../domain/generatorReadingLayout';
+import {
+  GeneratorIntroduction,
+  GeneratorStatStrip,
+} from './GeneratorReadingLead';
 import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
 import {
@@ -245,6 +250,7 @@ export function ReferenceProvider({
   const scvmPack =
     privateScvm.status === 'ready' ? privateScvm.pack : undefined;
   const monsterReference =
+    selectedId === 'oracle:feretory.A' ||
     selectedId === 'procedure:workbench.epk' ||
     selectedId === 'rule:feretory.monster-approaches' ||
     selectedId === 'procedure:feretory.monster-approaches';
@@ -601,7 +607,8 @@ export function ReferenceProvider({
         !only &&
         monsterSource === 'site' &&
         monsterPack &&
-        (entry.id === 'procedure:workbench.epk' ||
+        (entry.id === 'oracle:feretory.A' ||
+          entry.id === 'procedure:workbench.epk' ||
           entry.id === 'rule:feretory.monster-approaches' ||
           entry.id === 'procedure:feretory.monster-approaches')
       ) {
@@ -848,7 +855,15 @@ export function ReferenceProvider({
         (ids as readonly string[]).includes(selected.id),
       ) ||
       DESK_GENERATOR_SHORTCUTS.some(([id]) => id === selected.id));
+  const generatorLayout =
+    generatorPage && reading ? generatorReadingLayout(reading) : undefined;
   const PartsContainer = hasQuickGuide || generatorPage ? 'details' : 'section';
+  const TableContainer = generatorPage ? 'details' : 'div';
+  const siteMonsterSelected =
+    monsterReference && monsterSource === 'site' && !!monsterPack;
+  const displayedSource =
+    (generatorPage ? reading?.sourceRefs[0] : undefined) ??
+    selected?.sourceRefs[0];
   const ReadingContainer = plainRule && hasQuickGuide ? 'details' : 'article';
   const saveKind = selected ? objectKindForReference(selected.id) : null;
   const saveObjectAction = selected &&
@@ -920,7 +935,7 @@ export function ReferenceProvider({
     (!reading ||
       (procedureId === 'sd.dungeon-preparation' &&
         !reading.blocks.some((block) => block.text))) &&
-    selected.kind !== 'oracle' && (
+    (selected.kind !== 'oracle' || siteMonsterSelected) && (
       <Button
         className="reference-roll"
         disabled={!selected.available}
@@ -957,8 +972,8 @@ export function ReferenceProvider({
           </button>
         </details>
         <h2 id="current-reference-title">
-          {referenceShortName(selected)}
-          <ReferenceTitleTranslation entry={selected} />
+          {monsterReference ? 'Monster' : referenceShortName(selected)}
+          {!monsterReference && <ReferenceTitleTranslation entry={selected} />}
         </h2>
         <button
           className="ref-pin"
@@ -989,13 +1004,15 @@ export function ReferenceProvider({
         </button>
       </div>
       {!generatorPage && saveObjectAction}
-      <p className="sr-only">
-        {selected.kind.toUpperCase()} ·{' '}
-        {regions.find((r) => r.id === region)?.name} ·{' '}
-        {selected.canonicalIds.length
-          ? `${selected.canonicalIds.length}개 연결 표`
-          : '빠른 참조'}
-      </p>
+      {!generatorPage && (
+        <p className="sr-only">
+          {selected.kind.toUpperCase()} ·{' '}
+          {regions.find((r) => r.id === region)?.name} ·{' '}
+          {selected.canonicalIds.length
+            ? `${selected.canonicalIds.length}개 연결 표`
+            : '빠른 참조'}
+        </p>
+      )}
       <div className="reference-body">
         {selected.kind === 'creature' &&
           selected.available &&
@@ -1013,24 +1030,27 @@ export function ReferenceProvider({
               전투에 적으로 추가 ↗
             </button>
           )}
-        {(selected.kind === 'creature' ||
-          monsterReference ||
-          selected.id === 'oracle:feretory.A' ||
-          [
-            'rule:core.violence',
-            'rule:core.crit-fumble',
-            'rule:core.armor-shield',
-            'rule:core.reaction-morale',
-            'rule:core.broken',
-            'rule:core.omens',
-          ].includes(selected.id)) && (
-          <button
-            className="open-combat-tool"
-            onClick={() => window.dispatchEvent(new Event('open-combat-tool'))}
-          >
-            전투 도구 열기 ↗
-          </button>
-        )}
+        {!generatorPage &&
+          (selected.kind === 'creature' ||
+            monsterReference ||
+            selected.id === 'oracle:feretory.A' ||
+            [
+              'rule:core.violence',
+              'rule:core.crit-fumble',
+              'rule:core.armor-shield',
+              'rule:core.reaction-morale',
+              'rule:core.broken',
+              'rule:core.omens',
+            ].includes(selected.id)) && (
+            <button
+              className="open-combat-tool"
+              onClick={() =>
+                window.dispatchEvent(new Event('open-combat-tool'))
+              }
+            >
+              전투 도구 열기 ↗
+            </button>
+          )}
         {selected.id !== 'rule:sd.travel-day' && (
           <ProceduralGuide referenceId={selected.id}>
             {selected.id === 'rule:sd.camping-move' && (
@@ -1088,12 +1108,13 @@ export function ReferenceProvider({
             Mythic 인물 · 스레드 목록 열기 ↗
           </button>
         )}
-        {selected.kind === 'oracle' ? (
+        {selected.kind === 'oracle' && !siteMonsterSelected ? (
           <ReferenceOracleIntroduction
             entry={selected}
             registry={oracles.registry}
           />
         ) : (
+          !siteMonsterSelected &&
           !plainRule &&
           !hasQuickGuide &&
           selected.kind !== 'creature' &&
@@ -1137,32 +1158,54 @@ export function ReferenceProvider({
               )}
               <small>
                 {scvmPack
-                  ? `${scvmPack.source.attribution} 선택은 다음 ROLL부터 적용됩니다.`
+                  ? '원문 선택은 다음 ROLL부터 적용됩니다. 기존 결과는 그대로 유지됩니다.'
                   : privateScvm.status === 'loading'
                     ? 'SCVMBIRTHER 스냅샷을 확인하고 있습니다.'
                     : 'SCVMBIRTHER 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
               </small>
             </div>
           )}
-        {monsterReference && privateMonster.status !== 'public' && (
+        {monsterReference && (
           <div className="dungeon-room-source">
             <label>
               몬스터 원문{' '}
               <select
                 aria-label="몬스터 생성 원문"
                 value={
-                  monsterSource === 'site' && monsterPack ? 'site' : 'book'
+                  monsterSource === 'site' && monsterPack
+                    ? 'site'
+                    : selected.id === 'procedure:workbench.epk'
+                      ? 'epk'
+                      : 'book'
                 }
-                onChange={(event) =>
-                  setMonsterSource(
-                    event.target.value === 'site' ? 'site' : 'book',
-                  )
-                }
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setMonsterSource(value === 'site' ? 'site' : 'book');
+                  if (value !== 'site')
+                    activate(
+                      value === 'epk'
+                        ? 'procedure:workbench.epk'
+                        : 'oracle:feretory.A',
+                    );
+                }}
               >
-                <option value="book">룰북</option>
-                <option value="site" disabled={!monsterPack}>
-                  The Monster Approaches · 사이트
+                <option
+                  value="book"
+                  disabled={!index.byId['oracle:feretory.A']?.available}
+                >
+                  The Monster Approaches · FERETORY
                 </option>
+                <option
+                  value="epk"
+                  disabled={!index.byId['procedure:workbench.epk']?.available}
+                >
+                  Eat Prey Kill · 지역 생물
+                </option>
+                {privateMonster.status !== 'public' && (
+                  <option value="site" disabled={!monsterPack}>
+                    The Monster Approaches · 사이트
+                  </option>
+                )}
               </select>
             </label>
             {monsterSource === 'site' && monsterPack && plainRule && (
@@ -1175,15 +1218,18 @@ export function ReferenceProvider({
             )}
             <small>
               {monsterPack
-                ? `${monsterPack.source.attribution} 선택은 다음 ROLL부터 적용됩니다.`
+                ? '원문 선택은 다음 ROLL부터 적용됩니다. 기존 결과는 그대로 유지됩니다.'
                 : privateMonster.status === 'loading'
                   ? '몬스터 스냅샷을 확인하고 있습니다.'
-                  : '몬스터 사이트 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
+                  : privateMonster.status === 'public'
+                    ? 'The Monster Approaches는 A/B/C로 생성하고, Eat Prey Kill은 지역 생물을 선택합니다.'
+                    : '몬스터 사이트 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
             </small>
           </div>
         )}
         {(!hasQuickGuide || selected.kind === 'oracle') &&
           referenceEntryFormula(selected, oracles.registry) &&
+          !siteMonsterSelected &&
           !(
             procedureId === 'character.core-classless' &&
             characterSource === 'scvm' &&
@@ -1449,12 +1495,15 @@ export function ReferenceProvider({
               key={`${selected.id}:${session.sequence}`}
               className={`reference-reading ${plainRule ? 'reference-rule-reading' : 'reference-generated-reading'} ${roller ? 'reference-roll-results' : ''} ${reading.rareMonster ? 'rare-monster-reading' : ''}`}
               aria-label="참조 결과"
-              data-generator-result={generatorResultKind}
+              data-generator-result={
+                generatorResultKind ?? (generatorPage ? 'fields' : undefined)
+              }
             >
               {plainRule && hasQuickGuide && (
                 <summary>전체 규칙 펼치기 · 원문과 번역</summary>
               )}
               {reading.title !== selected.title &&
+                !generatorLayout?.introduction &&
                 !reading.npcSnapshot &&
                 !reading.blocks.some(
                   (block) => block.title === reading.title,
@@ -1467,10 +1516,19 @@ export function ReferenceProvider({
                     />
                   </h3>
                 )}
+              {generatorLayout?.introduction && (
+                <GeneratorIntroduction
+                  block={generatorLayout.introduction}
+                  excludeId={selected.id}
+                />
+              )}
+              {generatorLayout && (
+                <GeneratorStatStrip blocks={generatorLayout.stats} />
+              )}
               <div className="reference-reading-items">
                 {(procedureId === 'sd.dungeon-preparation'
                   ? []
-                  : reading.blocks
+                  : (generatorLayout?.fields ?? reading.blocks)
                 ).map((block, n) => {
                   const source = reading.oracle?.rolls.find(
                     (row) =>
@@ -1482,7 +1540,7 @@ export function ReferenceProvider({
                       key={n}
                       data-reading-density={resultTextDensity(block.text)}
                       data-generator-field={
-                        generatorResultKind
+                        generatorResultKind || generatorPage
                           ? block.title
                               .toLowerCase()
                               .replace(/[^a-z0-9]+/g, '-')
@@ -1498,12 +1556,27 @@ export function ReferenceProvider({
                           : undefined
                       }
                     >
-                      {block.dice && (
-                        <p className="reference-result-dice">
+                      {block.dice &&
+                      generatorPage &&
+                      block.dice.includes(' · ') ? (
+                        <details className="generator-roll-trace">
+                          <summary>굴림 내역</summary>
                           <ReferenceRollTrace text={block.dice} />
-                        </p>
+                        </details>
+                      ) : (
+                        block.dice && (
+                          <p className="reference-result-dice">
+                            <ReferenceRollTrace text={block.dice} />
+                          </p>
+                        )
                       )}
                       {block.title &&
+                        !(
+                          generatorPage &&
+                          block.creatureFields?.some(
+                            (field) => field.id === 'appearance-stats',
+                          )
+                        ) &&
                         !(
                           selected.kind === 'creature' &&
                           selected.title.startsWith(block.title)
@@ -1551,6 +1624,7 @@ export function ReferenceProvider({
                         <CreatureReadingFields
                           block={block}
                           excludeId={selected.id}
+                          generator={generatorPage}
                         />
                       ) : source && equipmentScrollTable(source) ? (
                         <EquipmentScroll key={source.entryId} parent={source} />
@@ -1778,7 +1852,8 @@ export function ReferenceProvider({
         )}
       </div>
       {selected.kind === 'oracle' && (
-        <div className="reference-static-table">
+        <TableContainer className="reference-static-table">
+          {generatorPage && <summary>원문 표 · 직접 결과 선택</summary>}
           {[...new Set(selected.canonicalIds)]
             .flatMap((key) =>
               oracles.registry.tables.filter((table) => table.id === key),
@@ -1803,7 +1878,15 @@ export function ReferenceProvider({
                 }}
               />
             ))}
-        </div>
+        </TableContainer>
+      )}
+      {generatorPage && monsterReference && (
+        <button
+          className="play-open-action"
+          onClick={() => window.dispatchEvent(new Event('open-combat-tool'))}
+        >
+          전투 도구 열기 ↗
+        </button>
       )}
       {procedureParts.length > 0 &&
         procedureId !== 'sd.dungeon-preparation' && (
@@ -1888,11 +1971,11 @@ export function ReferenceProvider({
         key={`source:${selected.id}`}
         label="SOURCE"
         summaryLabel={
-          selected.sourceRefs[0] && (
+          displayedSource && (
             <>
               <BookLabel
-                bookId={selected.sourceRefs[0].bookId}
-                title={selected.sourceRefs[0].bookTitle ?? ''}
+                bookId={displayedSource.bookId}
+                title={displayedSource.bookTitle ?? ''}
               />{' '}
               · 출처
             </>
