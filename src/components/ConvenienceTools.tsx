@@ -13,6 +13,7 @@ import {
   holdComponents,
   independentTables,
   recipeRunnable,
+  type HoldComponent,
 } from '../domain/heldReferenceResults';
 import {
   referenceAction,
@@ -135,6 +136,52 @@ export function PhysicalRollInput({
     </details>
   );
 }
+export function ResultFieldControls({
+  entryId,
+  component,
+  tools,
+  onReroll,
+}: {
+  entryId: string;
+  component: HoldComponent;
+  tools: ReferenceConvenience;
+  onReroll: (key: string) => void;
+}) {
+  const held = tools.held[entryId]?.includes(component.id) ?? false;
+  return (
+    <span className="result-field-controls">
+      <button
+        type="button"
+        className="play-roll-action"
+        aria-label={`${component.label} 다시 굴리기`}
+        title={
+          held
+            ? '유지를 해제하면 다시 굴릴 수 있습니다.'
+            : `${component.label}만 다시 굴리기`
+        }
+        disabled={held}
+        onClick={() => onReroll(component.id)}
+      >
+        <RotateCcw size={14} aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        aria-label={`${component.label} 유지`}
+        aria-pressed={held}
+        title="유지한 항목은 전체 재굴림에서도 바뀌지 않습니다."
+        onClick={() => tools.toggleHold(entryId, component.id)}
+      >
+        {held ? (
+          <Lock size={13} aria-hidden="true" />
+        ) : (
+          <LockOpen size={13} aria-hidden="true" />
+        )}{' '}
+        유지
+      </button>
+    </span>
+  );
+}
+
 export function PartialRollControls({
   entry,
   reading,
@@ -620,8 +667,8 @@ export function ConveniencePanel({
             <details className="convenience-help" name="play-organization">
               <summary>보관 방식 · 단축키</summary>
               <p>
-                ⌘ / Ctrl K 검색 · R 마지막 굴림. 입력 중에는 R이 작동하지
-                않습니다.
+                ⌘ / Ctrl K 검색 · R 현재 선택한 참조 굴림. 입력 중에는 R이
+                작동하지 않습니다.
               </p>
               <p>
                 Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·최근 결과는

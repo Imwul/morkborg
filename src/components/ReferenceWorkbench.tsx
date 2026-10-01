@@ -80,8 +80,18 @@ import {
   PlayTrayStrip,
   PhysicalRollInput,
   PartialRollControls,
+  ResultFieldControls,
 } from './ConvenienceTools';
-import { suppressRollShortcut } from '../domain/heldReferenceResults';
+import {
+  holdComponents,
+  holdComponentForBlock,
+  suppressRollShortcut,
+} from '../domain/heldReferenceResults';
+import { GeneratorSourceControl } from './GeneratorSourceControl';
+import {
+  generatorResultSource,
+  type GeneratorSource,
+} from '../domain/generatorSourceDisplay';
 import { focusedReferences } from '../domain/conveniencePacks';
 import { id } from '../generators/random';
 import {
@@ -864,6 +874,38 @@ export function ReferenceProvider({
     generatorPage && reading
       ? generatorReadingLayout(reading, selected?.id)
       : undefined;
+  const fieldComponents = selected
+    ? holdComponents(selected, reading, oracles.registry)
+    : [];
+  const fieldControl = (block: ReferenceReading['blocks'][number]) => {
+    const component =
+      reading && holdComponentForBlock(reading, block, fieldComponents);
+    return component && selected && roller ? (
+      <ResultFieldControls
+        entryId={selected.id}
+        component={component}
+        tools={convenience}
+        onReroll={(key) => perform(selected, region, key)}
+      />
+    ) : null;
+  };
+  const hasInlineFieldControls = !!reading?.blocks.some((block) =>
+    holdComponentForBlock(reading, block, fieldComponents),
+  );
+  const characterResultSource = generatorResultSource('character', reading);
+  const nextCharacterSource: GeneratorSource =
+    characterSource === 'scvm' && scvmPack
+      ? scvmHomebrew
+        ? 'scvm-homebrew'
+        : 'scvm'
+      : 'core';
+  const monsterResultSource = generatorResultSource('monster', reading);
+  const nextMonsterSource: GeneratorSource =
+    monsterSource === 'site' && monsterPack
+      ? 'site'
+      : selected?.id === 'procedure:workbench.epk'
+        ? 'epk'
+        : 'book';
   const PartsContainer = hasQuickGuide || generatorPage ? 'details' : 'section';
   const siteMonsterSelected =
     monsterReference && monsterSource === 'site' && !!monsterPack;
@@ -915,15 +957,25 @@ export function ReferenceProvider({
             variant="ghost"
             onClick={() => perform(selected)}
             className="result-reroll play-roll-action"
+            aria-label={
+              procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'
+            }
+            title="R · 현재 선택한 참조 굴림"
           >
             <Dices size={16} />{' '}
             {procedureId === 'depths.rare-monster' ? 'DRAW' : 'REROLL'}
+            {generatorPage && <kbd aria-hidden="true">R</kbd>}
           </Button>
         )}
         <Button variant="ghost" onClick={() => copyReading()}>
           <Copy size={14} /> COPY
         </Button>
         {generatorPage && saveObjectAction}
+        {hasInlineFieldControls && !!convenience.held[selected.id]?.length && (
+          <small className="result-hold-status">
+            {convenience.held[selected.id].length}개 유지
+          </small>
+        )}
         <details className="result-more-actions">
           <summary aria-label="결과 추가 동작">⋯</summary>
           <button onClick={() => copyReading(true)}>COPY WITH SOURCE</button>
@@ -1132,7 +1184,26 @@ export function ReferenceProvider({
         )}
         {procedureId === 'character.core-classless' &&
           privateScvm.status !== 'public' && (
-            <div className="dungeon-room-source">
+            <GeneratorSourceControl
+              current={characterResultSource}
+              next={nextCharacterSource}
+              description={
+                (characterResultSource ?? nextCharacterSource) === 'core'
+                  ? 'MÖRK BORG 룰북의 캐릭터 생성 표를 사용합니다.'
+                  : characterResultSource
+                    ? (reading?.sourceRefs.find((ref) => ref.note)?.note ??
+                      'SCVMBIRTHER 사이트 스냅샷에서 생성한 결과입니다.')
+                    : (scvmPack?.source.attribution ??
+                      'SCVMBIRTHER 사이트 스냅샷을 사용합니다.')
+              }
+              status={
+                scvmPack
+                  ? undefined
+                  : privateScvm.status === 'loading'
+                    ? 'SCVMBIRTHER 스냅샷을 확인하고 있습니다.'
+                    : 'SCVMBIRTHER 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'
+              }
+            >
               <label>
                 캐릭터 원문{' '}
                 <select
@@ -1162,17 +1233,31 @@ export function ReferenceProvider({
                   추가 직업 · homebrew
                 </label>
               )}
-              <small>
-                {scvmPack
-                  ? '원문 선택은 다음 ROLL부터 적용됩니다. 기존 결과는 그대로 유지됩니다.'
-                  : privateScvm.status === 'loading'
-                    ? 'SCVMBIRTHER 스냅샷을 확인하고 있습니다.'
-                    : 'SCVMBIRTHER 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
-              </small>
-            </div>
+            </GeneratorSourceControl>
           )}
         {monsterReference && (
-          <div className="dungeon-room-source">
+          <GeneratorSourceControl
+            current={monsterResultSource}
+            next={nextMonsterSource}
+            description={
+              (monsterResultSource ?? nextMonsterSource) === 'site'
+                ? monsterResultSource
+                  ? (reading?.sourceRefs.find((ref) => ref.note)?.note ??
+                    'The Monster Approaches 사이트 스냅샷에서 생성한 결과입니다.')
+                  : (monsterPack?.source.attribution ??
+                    'The Monster Approaches 사이트 스냅샷을 사용합니다.')
+                : (monsterResultSource ?? nextMonsterSource) === 'epk'
+                  ? 'FERETORY · Eat Prey Kill의 지역 생물 표에서 선택합니다.'
+                  : 'FERETORY · The Monster Approaches의 A/B/C 표로 묘사와 전투 수치를 함께 생성합니다.'
+            }
+            status={
+              monsterPack || privateMonster.status === 'public'
+                ? undefined
+                : privateMonster.status === 'loading'
+                  ? '몬스터 스냅샷을 확인하고 있습니다.'
+                  : '몬스터 사이트 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'
+            }
+          >
             <label>
               몬스터 원문{' '}
               <select
@@ -1222,16 +1307,7 @@ export function ReferenceProvider({
                 <Dices size={16} /> ROLL
               </Button>
             )}
-            <small>
-              {monsterPack
-                ? '원문 선택은 다음 ROLL부터 적용됩니다. 기존 결과는 그대로 유지됩니다.'
-                : privateMonster.status === 'loading'
-                  ? '몬스터 스냅샷을 확인하고 있습니다.'
-                  : privateMonster.status === 'public'
-                    ? 'The Monster Approaches는 A/B/C로 생성하고, Eat Prey Kill은 지역 생물을 선택합니다.'
-                    : '몬스터 사이트 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'}
-            </small>
-          </div>
+          </GeneratorSourceControl>
         )}
         {(!hasQuickGuide || selected.kind === 'oracle') &&
           referenceEntryFormula(selected, oracles.registry) &&
@@ -1532,6 +1608,7 @@ export function ReferenceProvider({
                   <span>
                     Name <small>이름</small>
                   </span>
+                  {fieldControl(generatorLayout.identity)}
                   <h3>{generatorLayout.identity.text}</h3>
                   <Translation
                     text={generatorLayout.identity.text}
@@ -1626,27 +1703,31 @@ export function ReferenceProvider({
                           ].includes(block.title)
                         ) && (
                           <h3>
-                            <ReferenceLinkedText
-                              text={block.title}
-                              excludeId={selected.id}
-                            />
-                            <Translation
-                              text={block.title}
-                              translation={
-                                block.translation?.titleKo ??
-                                (reading.rareMonster
-                                  ? (
-                                      {
-                                        INTENTION: '의도',
-                                        SPECIAL: '특수 능력',
-                                      } as Record<string, string>
-                                    )[block.title]
-                                  : procedureId === 'depths.encounter-level' &&
-                                      block.title === 'NEXT'
-                                    ? '다음 절차'
-                                    : undefined)
-                              }
-                            />
+                            <span className="result-field-label">
+                              <ReferenceLinkedText
+                                text={block.title}
+                                excludeId={selected.id}
+                              />
+                              <Translation
+                                text={block.title}
+                                translation={
+                                  block.translation?.titleKo ??
+                                  (reading.rareMonster
+                                    ? (
+                                        {
+                                          INTENTION: '의도',
+                                          SPECIAL: '특수 능력',
+                                        } as Record<string, string>
+                                      )[block.title]
+                                    : procedureId ===
+                                          'depths.encounter-level' &&
+                                        block.title === 'NEXT'
+                                      ? '다음 절차'
+                                      : undefined)
+                                }
+                              />
+                            </span>
+                            {fieldControl(block)}
                           </h3>
                         )}
                       {block.definitionReferenceId &&
@@ -1788,6 +1869,7 @@ export function ReferenceProvider({
                   );
                 })}
               {roller &&
+                !hasInlineFieldControls &&
                 reading.procedureInputs?.generator !== 'scvmbirther' &&
                 reading.procedureInputs?.generator !== 'monster-site' && (
                   <PartialRollControls
@@ -2291,7 +2373,7 @@ export function ReferenceProvider({
             {convenience.hasLastRoll && (
               <button
                 aria-label="마지막 굴림 다시 실행"
-                title="R · 마지막 굴림"
+                title="마지막 굴림 다시 실행"
                 onClick={() => convenience.rerollLast()}
               >
                 ↻<span>LAST</span>

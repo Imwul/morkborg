@@ -680,3 +680,177 @@
   font: 450 12px/1.6 var(--font-ui);
   color: var(--muted-ink);
 }
+
+/* Keep the result actions within reach without changing the masthead or tool dock. */
+.reference-app .reference-page[data-generator-page] .generator-result-actions {
+  position: sticky;
+  top: var(--desk-header-height, 0px);
+  z-index: 18;
+  gap: 8px 12px;
+  margin: 16px 0 24px;
+  padding: 8px 0;
+  border-block: 1px solid var(--border);
+  background: var(--paper);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .generator-result-actions
+  button {
+  min-height: 36px;
+  font: 650 12px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .generator-result-actions
+  .result-reroll {
+  min-height: 36px;
+  padding: 6px 12px;
+}
+.generator-result-actions kbd {
+  margin-left: 6px;
+  padding: 0 4px;
+  border: 1px solid currentColor;
+  opacity: 0.7;
+  font: 500 10px/1.4 var(--font-mono);
+}
+.reference-app
+  .reference-page
+  .generator-result-actions
+  .reference-save-object
+  small {
+  display: none;
+}
+.reference-app .reference-page .result-hold-status {
+  font: 450 12px/1.5 var(--font-ui);
+  color: var(--muted-ink);
+}
+
+/* Source choice is secondary; pending settings never relabel the existing result. */
+.reference-app .reference-page .generator-source-control {
+  margin: 12px 0 16px;
+  color: var(--muted-ink);
+  font: 450 12px/1.6 var(--font-ui);
+}
+.generator-source-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+}
+.reference-app .reference-page .generator-source-row label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  gap: 4px 8px;
+  font: inherit;
+}
+.reference-app .reference-page .generator-source-row select {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 28px;
+  padding: 3px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+}
+.generator-source-details > summary {
+  padding: 4px 0;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.generator-source-details[open] {
+  flex-basis: 100%;
+}
+.generator-source-details > div {
+  max-width: 70ch;
+  padding: 4px 0 8px;
+  overflow-wrap: anywhere;
+}
+.reference-app .reference-page .generator-source-control > output {
+  display: block;
+  margin: 4px 0 0;
+  color: inherit;
+  font: inherit;
+}
+
+/* Existing independent rerolls live beside the field they affect. */
+.reference-app
+  .reference-page
+  .reference-reading-items
+  > section
+  > h3:has(.result-field-controls) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+.result-field-label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  min-width: 0;
+}
+.result-field-controls {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
+}
+.reference-app
+  .reference-page
+  .reference-reading
+  .result-field-controls
+  button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--muted-ink);
+  background: transparent;
+  font: 500 11px/1.5 var(--font-ui);
+  text-decoration: none;
+}
+.reference-app
+  .reference-page
+  .reference-reading
+  .result-field-controls
+  button:hover:not(:disabled) {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.reference-app
+  .reference-page
+  .reference-reading
+  .result-field-controls
+  button[aria-pressed='true'] {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--lilac);
+}
+.reference-app
+  .reference-page
+  .reference-reading
+  .result-field-controls
+  button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+@media print {
+  .generator-result-actions,
+  .result-field-controls {
+    display: none !important;
+  }
+}

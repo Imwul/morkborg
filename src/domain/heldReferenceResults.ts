@@ -1,11 +1,12 @@
 import type { OracleDefinition, OracleRegistry } from './oracle';
 import type { ReferenceEntry } from './references';
-import type { ReferenceReading } from './referenceReading';
+import { oracleReadingText, type ReferenceReading } from './referenceReading';
 import { readingFromOracleRolls } from './manualReferenceRoll';
 import { rollOracle } from '../generators/oracleRoller';
 import { npcTablesFor, rerollNPC } from '../generators/content';
 import {
   npcReferenceReading,
+  NPC_READING_FIELDS,
   executeReference,
   type ReferenceExecutionOptions,
 } from './referenceExecution';
@@ -119,6 +120,44 @@ export function holdComponents(
     }));
   return [];
 }
+/** Match the actual result block, not its display title (NPC titles can come from a source table). */
+export function holdComponentForBlock(
+  reading: ReferenceReading,
+  block: ReferenceReading['blocks'][number],
+  components: HoldComponent[],
+): HoldComponent | undefined {
+  if (
+    components.length < 2 ||
+    components.some((component) => component.relation !== 'INDEPENDENT')
+  )
+    return;
+  const index = reading.blocks.indexOf(block);
+  if (index < 0) return;
+  if (reading.npcSnapshot) {
+    const npc = reading.npcSnapshot;
+    const fields = NPC_READING_FIELDS.filter(
+      ([key]) => typeof npc[key] === 'string' && !!npc[key],
+    );
+    if (reading.blocks.length !== fields.length) return;
+    const key = fields[index]?.[0];
+    if (!key || npc[key] !== block.text) return;
+    // These fields are deliberately protected by the reroll engine as well.
+    const origin = npc.fieldProvenance?.[key]?.origin;
+    if (origin === 'manual' || origin === 'source-edited') return;
+    return components.find((component) => component.id === key);
+  }
+  const rolls = reading.oracle?.rolls;
+  const roll = rolls?.[index];
+  if (
+    !roll ||
+    reading.blocks.length !== rolls?.length ||
+    block.title !== roll.title ||
+    block.text !== oracleReadingText(roll)
+  )
+    return;
+  return components.find((component) => component.id === String(index));
+}
+
 export function rerollHeldReference(
   entry: ReferenceEntry,
   reading: ReferenceReading,

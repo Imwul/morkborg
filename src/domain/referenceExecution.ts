@@ -193,7 +193,7 @@ export interface ReferenceExecutionOptions {
   encounterRegion?: string;
   rareDeck?: PlayingCard[];
 }
-const NPC_READING_FIELDS = [
+export const NPC_READING_FIELDS = [
   ['name', 'Name', '이름'],
   ['archetype', 'Profession', '직업'],
   ['appearance', 'Appearance', '외모'],

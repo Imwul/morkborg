@@ -18,12 +18,14 @@ import {
 import {
   independentTables,
   holdComponents,
+  holdComponentForBlock,
   rerollHeldReference,
   runRecipeSteps,
   recipeRunnable,
 } from '../src/domain/heldReferenceResults.ts';
 import {
   executeReference,
+  npcReferenceReading,
   referenceProducesRoll,
 } from '../src/domain/referenceExecution.ts';
 import { cardIdentity } from '../src/domain/depthsProcedures.ts';
@@ -357,6 +359,74 @@ test('NPC field reroll leaves other fields/manual edits/source refs intact', () 
   };
   const next = rerollHeldReference(entry, reading, [], options, 'appearance');
   assert.equal(next.npcSnapshot!.name, 'User name');
+});
+test('inline controls resolve actual fields despite duplicate text and source-specific NPC headings', () => {
+  const entry = index.byId['procedure:workbench.npc'];
+  const reading = executeReference(entry, options)!;
+  const npc = structuredClone(reading.npcSnapshot!);
+  npc.appearance = npc.personality = 'Identical display value';
+  const next = npcReferenceReading(npc);
+  const components = holdComponents(entry, next, registry);
+  const appearance = next.blocks.find(
+    (block) => block.translation?.titleKo === '외모',
+  )!;
+  const personality = next.blocks.find(
+    (block) => block.translation?.titleKo === '성격',
+  )!;
+  appearance.title = personality.title = 'Source table heading';
+  assert.equal(
+    holdComponentForBlock(next, appearance, components)?.id,
+    'appearance',
+  );
+  assert.equal(
+    holdComponentForBlock(next, personality, components)?.id,
+    'personality',
+  );
+  assert.equal(
+    holdComponentForBlock(next, { ...appearance }, components),
+    undefined,
+  );
+  npc.fieldProvenance!.appearance = {
+    ...npc.fieldProvenance!.appearance!,
+    origin: 'manual',
+  };
+  const manual = npcReferenceReading(npc);
+  assert.equal(
+    holdComponentForBlock(
+      manual,
+      manual.blocks.find((block) => block.translation?.titleKo === '외모')!,
+      holdComponents(entry, manual, registry),
+    ),
+    undefined,
+  );
+});
+test('inline controls retain oracle ordering across partial rerolls and never expose coupled fields', () => {
+  const first = executeReference(pair, { ...options, rng: () => 0.1 })!;
+  const next = rerollHeldReference(pair, first, ['0'], {
+    ...options,
+    rng: () => 0.8,
+  });
+  for (const reading of [first, next]) {
+    const components = holdComponents(pair, reading, registry);
+    assert.deepEqual(
+      reading.blocks.map(
+        (block) => holdComponentForBlock(reading, block, components)?.id,
+      ),
+      ['0', '1'],
+    );
+  }
+  const monster = index.byId['oracle:feretory.A'];
+  const reading = executeReference(monster, options)!;
+  assert.ok(
+    reading.blocks.every(
+      (block) =>
+        !holdComponentForBlock(
+          reading,
+          block,
+          holdComponents(monster, reading, registry),
+        ),
+    ),
+  );
 });
 test('Recipes run ordered independent canonical results, respect hold/manual text, and isolate failures', () => {
   let calls: string[] = [];
