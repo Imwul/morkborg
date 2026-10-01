@@ -16,6 +16,7 @@ export function DockedToolContent({
     <DialogContent
       {...props}
       className={`docked-tool-panel ${className}`}
+      positioning="custom"
       showOverlay={false}
       showCloseButton={false}
     >
