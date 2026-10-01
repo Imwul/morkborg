@@ -17,6 +17,7 @@ import {
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
+import { ReferenceRollSettings } from './ReferenceRollSettings';
 
 /** SD's preparation sheet: independent source fields, no crawl/session state. */
 export function DungeonPreparation({
@@ -52,7 +53,19 @@ export function DungeonPreparation({
         </a>
       </p>
       {(pack || hasDngngenResults || roomSource === 'DNGNGEN') && (
-        <div className="dungeon-room-source">
+        <ReferenceRollSettings
+          label="특별한 방 굴림 설정"
+          description={
+            pack && (
+              <>
+                {pack.source.attribution}
+                {pack.profile === 'synthetic'
+                  ? ' · 합성 검증 데이터 — DNGNGEN 원문 아님'
+                  : ''}
+              </>
+            )
+          }
+        >
           <label>
             특별한 방 원문{' '}
             <select
@@ -76,15 +89,7 @@ export function DungeonPreparation({
               </option>
             </select>
           </label>
-          {pack && (
-            <small>
-              {pack.source.attribution}
-              {pack.profile === 'synthetic'
-                ? ' · 합성 검증 데이터 — DNGNGEN 원문 아님'
-                : ''}
-            </small>
-          )}
-        </div>
+        </ReferenceRollSettings>
       )}
       {privateDngngen?.status === 'unavailable' &&
         privateDngngen.reason !== 'missing' && (

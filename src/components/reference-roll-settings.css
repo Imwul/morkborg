@@ -1,0 +1,84 @@
+/* Roll parameters are a quiet row above the reading, sized to their content. */
+.reference-app .reference-page .reference-roll-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 20px;
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+  color: var(--muted-ink);
+  font: 500 13px/1.5 var(--font-ui);
+}
+.reference-app .reference-page .reference-roll-settings label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 6px 8px;
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+}
+.reference-app .reference-page .reference-roll-settings select,
+.reference-app .reference-page .reference-roll-settings input[type='number'] {
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 32px;
+  height: 32px;
+  padding: 3px 24px 3px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+.reference-app .reference-page .reference-roll-settings select {
+  appearance: auto;
+  max-width: min(100%, 24rem);
+}
+.reference-app .reference-page .reference-roll-settings input[type='number'] {
+  width: 5rem;
+  padding-inline: 6px;
+  font-family: var(--font-mono);
+}
+.reference-app .reference-page .reference-roll-settings input[type='checkbox'] {
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+.reference-app
+  .reference-page
+  .reference-roll-settings
+  :is(select, input):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.reference-app .reference-page .reference-roll-settings-help > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reference-roll-settings-help[open] {
+  flex-basis: 100%;
+}
+.reference-app .reference-page .reference-roll-settings-help > div {
+  max-width: 70ch;
+  padding: 4px 0 8px;
+  overflow-wrap: anywhere;
+}
+.reference-app .reference-page .reference-roll-settings-help p {
+  margin: 0;
+  font: inherit;
+}

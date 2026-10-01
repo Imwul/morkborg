@@ -88,6 +88,7 @@ import {
   suppressRollShortcut,
 } from '../domain/heldReferenceResults';
 import { GeneratorSourceControl } from './GeneratorSourceControl';
+import { ReferenceRollSettings } from './ReferenceRollSettings';
 import {
   generatorResultSource,
   type GeneratorSource,
@@ -1072,6 +1073,105 @@ export function ReferenceProvider({
         </p>
       )}
       <div className="reference-body">
+        {!siteMonsterSelected &&
+          ['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
+            procedureId,
+          ) && (
+            <ReferenceRollSettings>
+              <label>
+                지역
+                <select
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value as RegionId)}
+                >
+                  {regions.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {procedureId === 'workbench.stock-room' && (
+                <>
+                  <label>
+                    절차
+                    <select
+                      value={stockKind}
+                      onChange={(e) =>
+                        setStockKind(e.target.value as typeof stockKind)
+                      }
+                    >
+                      <option value="common">Common · 지역 / SD d12</option>
+                      <option value="rare">Rare · SD d8 + DR</option>
+                      <option value="room">Room · RECLVSE</option>
+                    </select>
+                  </label>
+                  <label>
+                    Dungeon DR
+                    <Input
+                      type="number"
+                      min={1}
+                      max={30}
+                      value={stockDR}
+                      onChange={(e) =>
+                        setStockDR(
+                          Math.max(1, Math.trunc(Number(e.target.value)) || 1),
+                        )
+                      }
+                    />
+                  </label>
+                </>
+              )}
+            </ReferenceRollSettings>
+          )}
+        {procedureId === 'aitc.street' && (
+          <ReferenceRollSettings>
+            <label>
+              정착지 규모
+              <select
+                value={cityLarge ? 'large' : 'small'}
+                onChange={(e) => setCityLarge(e.target.value === 'large')}
+              >
+                <option value="small">Town 이하 · 내용 1회</option>
+                <option value="large">City / Metropolis · 내용 d2회</option>
+              </select>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={cityExits}
+                onChange={(e) => setCityExits(e.target.checked)}
+              />{' '}
+              출구도 굴리기
+            </label>
+          </ReferenceRollSettings>
+        )}
+        {procedureId === 'depths.encounter-level' && (
+          <ReferenceRollSettings
+            label="Depths 굴림 설정"
+            description={
+              <p>
+                Unmarked region: choose the closest, or randomly choose one of
+                the two closest.
+                <Translation text="Unmarked region: choose the closest, or randomly choose one of the two closest." />
+              </p>
+            }
+          >
+            <label>
+              Depths region · 지역
+              <select
+                value={encounterRegion}
+                onChange={(e) => setEncounterRegion(e.target.value)}
+              >
+                {encounterRegions(oracles.registry).map((r) => (
+                  <option key={r.key} value={r.key}>
+                    {r.name} · EL {r.level}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </ReferenceRollSettings>
+        )}
         {selected.kind === 'creature' &&
           selected.available &&
           selected.action?.kind === 'creature' && (
@@ -1425,114 +1525,6 @@ export function ReferenceProvider({
           </nav>
         )}
         {selected.id === 'rule:sd.leaving-road' && <RoadSituationRoller />}
-        {procedureId === 'depths.encounter-level' && (
-          <div className="ref-controls depths-controls">
-            <label>
-              Depths region · 지역
-              <select
-                value={encounterRegion}
-                onChange={(e) => setEncounterRegion(e.target.value)}
-              >
-                {encounterRegions(oracles.registry).map((r) => (
-                  <option key={r.key} value={r.key}>
-                    {r.name} · EL {r.level}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <p>
-              Unmarked region: choose the closest, or randomly choose one of the
-              two closest.
-              <Translation text="Unmarked region: choose the closest, or randomly choose one of the two closest." />
-            </p>
-          </div>
-        )}
-        <details
-          className="reference-options"
-          open={!reading || undefined}
-          hidden={
-            ![
-              'workbench.npc',
-              'workbench.epk',
-              'workbench.stock-room',
-              'aitc.street',
-            ].includes(procedureId)
-          }
-        >
-          <summary>굴림 설정</summary>
-          {['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
-            procedureId,
-          ) && (
-            <div className="ref-controls">
-              <label>
-                지역
-                <select
-                  value={region}
-                  onChange={(e) => setRegion(e.target.value as RegionId)}
-                >
-                  {regions.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {procedureId === 'workbench.stock-room' && (
-                <>
-                  <label>
-                    절차
-                    <select
-                      value={stockKind}
-                      onChange={(e) =>
-                        setStockKind(e.target.value as typeof stockKind)
-                      }
-                    >
-                      <option value="common">Common · 지역 / SD d12</option>
-                      <option value="rare">Rare · SD d8 + DR</option>
-                      <option value="room">Room · RECLVSE</option>
-                    </select>
-                  </label>
-                  <label>
-                    Dungeon DR
-                    <Input
-                      type="number"
-                      min={1}
-                      max={30}
-                      value={stockDR}
-                      onChange={(e) =>
-                        setStockDR(
-                          Math.max(1, Math.trunc(Number(e.target.value)) || 1),
-                        )
-                      }
-                    />
-                  </label>
-                </>
-              )}
-            </div>
-          )}
-          {procedureId === 'aitc.street' && (
-            <div className="ref-controls">
-              <label>
-                정착지 규모
-                <select
-                  value={cityLarge ? 'large' : 'small'}
-                  onChange={(e) => setCityLarge(e.target.value === 'large')}
-                >
-                  <option value="small">Town 이하 · 내용 1회</option>
-                  <option value="large">City / Metropolis · 내용 d2회</option>
-                </select>
-              </label>
-              <label className="ref-check">
-                <input
-                  type="checkbox"
-                  checked={cityExits}
-                  onChange={(e) => setCityExits(e.target.checked)}
-                />{' '}
-                출구도 굴리기
-              </label>
-            </div>
-          )}
-        </details>
         {city && (
           <CityRoller
             key={selected.id}

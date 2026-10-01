@@ -1,6 +1,7 @@
 import { usePlayToolState } from './usePlayToolState';
 import { useReferenceDesk } from './ReferenceContext';
 import { useState } from 'react';
+import { ReferenceRollSettings } from './ReferenceRollSettings';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { OracleRegistry } from '../domain/oracle';
@@ -262,7 +263,7 @@ export function CityRoller({
             </button>
           </div>
         )}
-      <div className="ref-controls">
+      <ReferenceRollSettings label="도시 굴림 설정">
         {allowedMoves.length > 1 && (
           <label>
             도시 절차
@@ -360,17 +361,17 @@ export function CityRoller({
             </select>
           </label>
         )}
-      </div>
-      {move === 'crawl' && mode === 'city' && (
-        <label className="ref-check">
-          <input
-            type="checkbox"
-            checked={allMet}
-            onChange={(e) => setAllMet(e.target.checked)}
-          />{' '}
-          모든 목표에 이미 도달함
-        </label>
-      )}
+        {move === 'crawl' && mode === 'city' && (
+          <label>
+            <input
+              type="checkbox"
+              checked={allMet}
+              onChange={(e) => setAllMet(e.target.checked)}
+            />{' '}
+            모든 목표에 이미 도달함
+          </label>
+        )}
+      </ReferenceRollSettings>
       <Button className="play-roll-action" onClick={run}>
         주사위 굴리기 · {moveLabels[move]}
       </Button>
