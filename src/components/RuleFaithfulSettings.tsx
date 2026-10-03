@@ -11,20 +11,21 @@ export function RuleFaithfulSettings({
   entry,
   value,
   onChange,
-  coreCharacter,
 }: {
   entry: ReferenceEntry;
   value: RuleFaithfulOptions;
   onChange: (value: RuleFaithfulOptions) => void;
-  coreCharacter: boolean;
 }) {
   const set = (patch: RuleFaithfulOptions) => onChange({ ...value, ...patch });
-  if (coreCharacter && entry.id === 'procedure:character.core-classless') {
+  if (
+    entry.id === 'procedure:character.core-classless' &&
+    (value.characterMode ?? 'classless') === 'classless'
+  ) {
     const pairs = CLASSLESS_ABILITIES.flatMap((a, i) =>
       CLASSLESS_ABILITIES.slice(i + 1).map((b) => [a, b]),
     );
     return (
-      <ReferenceRollSettings description="Classless only: optionally roll 4d6 and discard the lowest die for two chosen abilities. 나머지는 3d6으로 굴립니다. 다음 REROLL부터 적용됩니다.">
+      <ReferenceRollSettings description="Classless only: 두 능력치를 4d6으로 굴려 최저 주사위를 버리는 선택 규칙입니다. 나머지는 3d6으로 굴립니다. Omens는 필요할 때 쓰는 선택 자원이며, 켜면 시작 점수를 d2로 굴립니다. 다음 REROLL부터 적용됩니다.">
         <label>
           Ability rolls · 능력치
           <select
@@ -54,7 +55,7 @@ export function RuleFaithfulSettings({
             checked={value.coreOmens ?? false}
             onChange={(e) => set({ coreOmens: e.target.checked })}
           />{' '}
-          Omens d2 · 선택 규칙
+          Use Omens · 시작 1–2점
         </label>
       </ReferenceRollSettings>
     );

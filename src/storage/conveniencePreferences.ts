@@ -19,6 +19,8 @@ const packSchema = z.object({
   userCreated: z.literal(true),
 });
 export const executionParametersSchema = z.object({
+  characterMode: z.enum(['classless', 'random', 'chosen']).optional(),
+  characterClassId: z.string().min(1).max(150).optional(),
   coreOmens: z.boolean().optional(),
   classlessBoost: z
     .array(z.enum(['strength', 'agility', 'presence', 'toughness']))

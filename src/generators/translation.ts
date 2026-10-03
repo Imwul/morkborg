@@ -3,6 +3,7 @@ import { getOraclePack } from '../storage/oracleStore';
 
 // Translations travel with the user's private rules bundle, never a network service.
 const vocabulary: Record<string, string> = {
+  'Or choose:': '또는 선택:',
   Waterskin: '물통',
   Classless: '직업 없음',
   'No armor': '방어구 없음',

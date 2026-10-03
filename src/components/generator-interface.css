@@ -726,6 +726,77 @@
 }
 
 /* Source choice is secondary; pending settings never relabel the existing result. */
+.reference-app .reference-page .character-generation-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin: 12px 0 16px;
+}
+.character-generation-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.reference-app .reference-page .character-generation-modes button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 650 14px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page
+  .character-generation-modes
+  button[aria-pressed='true'] {
+  background: var(--acid);
+}
+.character-generation-choice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font: 500 12px/1.5 var(--font-ui);
+  max-width: 100%;
+}
+.reference-app .reference-page .character-generation-choice select {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px 32px 8px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 14px/1.5 var(--font-ui);
+}
+.character-generation-help {
+  color: var(--muted-ink);
+  font: 450 12px/1.6 var(--font-ui);
+}
+.character-generation-help > summary {
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.character-generation-help[open],
+.character-generation-pending {
+  flex-basis: 100%;
+}
+.character-generation-help p {
+  max-width: 70ch;
+  margin: 4px 0 0;
+}
+.character-generation-pending {
+  color: var(--muted-ink);
+  font: 450 12px/1.6 var(--font-ui);
+}
 .reference-app .reference-page .generator-source-control {
   margin: 12px 0 16px;
   color: var(--muted-ink);

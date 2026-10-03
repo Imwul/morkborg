@@ -9,6 +9,8 @@ import type { ReferenceReading } from './referenceReading';
 
 /** Metadata only: application choices are never represented as quotations or source routing. */
 export const APP_GENERATION_POLICIES: Record<string, string> = {
+  'app.random-character-class':
+    'Uniform choice among the supported Core, FERETORY and HERETIC class creation procedures; this combined pool is app navigation, not a printed class die. / 지원하는 직업 생성 절차 중 같은 확률로 하나를 선택합니다. 여러 책의 통합 목록은 앱의 선택 방식이며 원문의 직업 주사위가 아닙니다.',
   'app.physical-roll':
     'USER_ROLL: physical dice/cards were entered by the player and resolved against the canonical table. The app did not roll these inputs. / 실물 주사위·카드 입력을 원문 표에서 조회했습니다. 앱이 대신 굴린 값이 아닙니다.',
   'app.reference-recipe':
@@ -163,6 +165,13 @@ export function authoritiesForReading(
   reading: ReferenceReading,
   procedureId?: string,
 ): GenerationAuthority[] {
+  if (
+    procedureId === 'character.core-classless' &&
+    (reading.procedureInputs?.characterMode === 'random' ||
+      reading.procedureInputs?.characterMode === 'chosen') &&
+    typeof reading.procedureInputs.characterClassId === 'string'
+  )
+    procedureId = `character.class:${reading.procedureInputs.characterClassId}`;
   const authorities = [
     ...(reading.oracle?.rolls ?? []).flatMap((roll) => {
       const provenance = roll.metadata?.provenance;

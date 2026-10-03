@@ -1,4 +1,6 @@
 import { RuleFaithfulSettings } from './RuleFaithfulSettings';
+import { CharacterGenerationControl } from './CharacterGenerationControl';
+import { characterClasses } from '../generators/characterClasses';
 import type { RuleFaithfulOptions } from '../generators/ruleFaithfulReferences';
 import { mythicFocusList } from '../domain/mythicLists';
 import { playGuideFor } from '../domain/playGuidance';
@@ -33,11 +35,7 @@ import {
 } from '../navigation/referenceView';
 import { usePrivateDngngen } from './usePrivateDngngen';
 import { usePrivateGenerator } from './usePrivateGenerator';
-import {
-  parsePrivateMonster,
-  parsePrivateScvm,
-} from '../storage/privateGeneratorClient';
-import { scvmReferenceReading } from '../generators/scvmCharacter';
+import { parsePrivateMonster } from '../storage/privateGeneratorClient';
 import { monsterSiteReferenceReading } from '../generators/monsterSite';
 import { eligibleForReferenceReplay } from '../domain/referenceReading';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
@@ -254,17 +252,6 @@ export function ReferenceProvider({
   const dngngenPack =
     privateDngngen.status === 'ready' ? privateDngngen.pack : undefined;
   const [ruleOptions, setRuleOptions] = useState<RuleFaithfulOptions>({});
-  const [characterSource, setCharacterSource] = useState<'core' | 'scvm'>(
-    'core',
-  );
-  const [scvmHomebrew, setScvmHomebrew] = useState(false);
-  const privateScvm = usePrivateGenerator(
-    '/__private/scvmbirther',
-    parsePrivateScvm,
-    selectedId === 'procedure:character.core-classless',
-  );
-  const scvmPack =
-    privateScvm.status === 'ready' ? privateScvm.pack : undefined;
   const monsterReference =
     selectedId === 'oracle:feretory.A' ||
     selectedId === 'procedure:workbench.epk' ||
@@ -448,6 +435,7 @@ export function ReferenceProvider({
     registry: oracles.registry,
     readings,
     options: {
+      ...ruleOptions,
       dngngenPack,
       registry: oracles.registry,
       rules: rules.pack,
@@ -527,6 +515,8 @@ export function ReferenceProvider({
       setEncounterRegion(params.encounterRegion);
       setRareDeck(params.rareDeck);
       setRuleOptions({
+        characterMode: params.characterMode,
+        characterClassId: params.characterClassId,
         coreOmens: params.coreOmens,
         classlessBoost: params.classlessBoost,
         orakleLikelihood: params.orakleLikelihood,
@@ -624,15 +614,6 @@ export function ReferenceProvider({
   ) {
     try {
       setFailure('');
-      if (
-        !only &&
-        entry.id === 'procedure:character.core-classless' &&
-        characterSource === 'scvm' &&
-        scvmPack
-      ) {
-        acceptReading(entry.id, scvmReferenceReading(scvmPack, scvmHomebrew));
-        return;
-      }
       if (
         !only &&
         monsterSource === 'site' &&
@@ -905,13 +886,6 @@ export function ReferenceProvider({
   const hasInlineFieldControls = !!reading?.blocks.some((block) =>
     holdComponentForBlock(reading, block, fieldComponents),
   );
-  const characterResultSource = generatorResultSource('character', reading);
-  const nextCharacterSource: GeneratorSource =
-    characterSource === 'scvm' && scvmPack
-      ? scvmHomebrew
-        ? 'scvm-homebrew'
-        : 'scvm'
-      : 'core';
   const monsterResultSource = generatorResultSource('monster', reading);
   const nextMonsterSource: GeneratorSource =
     monsterSource === 'site' && monsterPack
@@ -1089,11 +1063,18 @@ export function ReferenceProvider({
         </p>
       )}
       <div className="reference-body">
+        {procedureId === 'character.core-classless' && (
+          <CharacterGenerationControl
+            value={ruleOptions}
+            onChange={setRuleOptions}
+            classes={characterClasses()}
+            reading={reading}
+          />
+        )}
         <RuleFaithfulSettings
           entry={selected}
           value={ruleOptions}
           onChange={setRuleOptions}
-          coreCharacter={characterSource === 'core'}
         />
         {!siteMonsterSelected &&
           ['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
@@ -1295,6 +1276,7 @@ export function ReferenceProvider({
           />
         ) : (
           !siteMonsterSelected &&
+          procedureId !== 'character.core-classless' &&
           !plainRule &&
           !hasQuickGuide &&
           selected.kind !== 'creature' &&
@@ -1304,59 +1286,6 @@ export function ReferenceProvider({
             </p>
           )
         )}
-        {procedureId === 'character.core-classless' &&
-          privateScvm.status !== 'public' && (
-            <GeneratorSourceControl
-              current={characterResultSource}
-              next={nextCharacterSource}
-              description={
-                (characterResultSource ?? nextCharacterSource) === 'core'
-                  ? 'MÖRK BORG 룰북의 캐릭터 생성 표를 사용합니다.'
-                  : characterResultSource
-                    ? (reading?.sourceRefs.find((ref) => ref.note)?.note ??
-                      'SCVMBIRTHER 사이트 스냅샷에서 생성한 결과입니다.')
-                    : (scvmPack?.source.attribution ??
-                      'SCVMBIRTHER 사이트 스냅샷을 사용합니다.')
-              }
-              status={
-                scvmPack
-                  ? undefined
-                  : privateScvm.status === 'loading'
-                    ? 'SCVMBIRTHER 스냅샷을 확인하고 있습니다.'
-                    : 'SCVMBIRTHER 스냅샷이 이 서버에 없습니다. 룰북 굴림은 계속됩니다.'
-              }
-            >
-              <label>
-                캐릭터 원문{' '}
-                <select
-                  aria-label="캐릭터 생성 원문"
-                  value={
-                    characterSource === 'scvm' && scvmPack ? 'scvm' : 'core'
-                  }
-                  onChange={(event) =>
-                    setCharacterSource(
-                      event.target.value === 'scvm' ? 'scvm' : 'core',
-                    )
-                  }
-                >
-                  <option value="core">룰북</option>
-                  <option value="scvm" disabled={!scvmPack}>
-                    SCVMBIRTHER
-                  </option>
-                </select>
-              </label>
-              {characterSource === 'scvm' && scvmPack && (
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={scvmHomebrew}
-                    onChange={(event) => setScvmHomebrew(event.target.checked)}
-                  />{' '}
-                  추가 직업 · homebrew
-                </label>
-              )}
-            </GeneratorSourceControl>
-          )}
         {monsterReference && (
           <GeneratorSourceControl
             current={monsterResultSource}
@@ -1433,12 +1362,7 @@ export function ReferenceProvider({
         )}
         {(!hasQuickGuide || selected.kind === 'oracle') &&
           referenceEntryFormula(selected, oracles.registry) &&
-          !siteMonsterSelected &&
-          !(
-            procedureId === 'character.core-classless' &&
-            characterSource === 'scvm' &&
-            scvmPack
-          ) && (
+          !siteMonsterSelected && (
             <div className="reference-formula">
               <span
                 className={
@@ -2030,6 +1954,10 @@ export function ReferenceProvider({
         </button>
       )}
       {procedureParts.length > 0 &&
+        !(
+          procedureId === 'character.core-classless' &&
+          (ruleOptions.characterMode ?? 'classless') !== 'classless'
+        ) &&
         procedureId !== 'sd.dungeon-preparation' && (
           <PartsContainer
             className="reference-procedure-parts"

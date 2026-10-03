@@ -142,6 +142,8 @@ export function useReferenceConvenience({
         overrides.encounterRegion ?? options.encounterRegion ?? 'sarkash',
       rareDeck: overrides.rareDeck ?? options.rareDeck,
       classlessBoost: overrides.classlessBoost,
+      characterMode: overrides.characterMode ?? options.characterMode,
+      characterClassId: overrides.characterClassId ?? options.characterClassId,
       coreOmens: overrides.coreOmens,
       orakleLikelihood: overrides.orakleLikelihood,
       orakleDR: overrides.orakleDR,

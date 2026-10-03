@@ -33,6 +33,8 @@ export type OrakleLikelihood =
   | 'likely'
   | 'very-likely';
 export interface RuleFaithfulOptions {
+  characterMode?: 'classless' | 'random' | 'chosen';
+  characterClassId?: string;
   classlessBoost?: ClasslessAbility[];
   coreOmens?: boolean;
   orakleLikelihood?: OrakleLikelihood;

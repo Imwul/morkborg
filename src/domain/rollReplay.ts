@@ -32,6 +32,9 @@ const block = z.object({
 });
 const readingSchema = z.object({
   title: text,
+  procedureInputs: z
+    .record(z.string(), z.union([text, z.number(), z.boolean()]))
+    .optional(),
   blocks: z.array(block).max(100),
   sourceRefs: z.array(source).max(200),
   copyContent: z
@@ -126,9 +129,22 @@ export function replayParameterLines(
     allMet: '모든 목표 완료',
     place: '기도 장소',
     allObjectivesMet: '모든 목표 완료',
+    characterMode: 'Generation · 생성 방식',
+    characterClass: 'Class · 직업',
   };
-  for (const [key, value] of Object.entries(entry.procedureInputs ?? {}))
-    lines.push([labels[key] ?? key, value]);
+  for (const [key, value] of Object.entries(entry.procedureInputs ?? {})) {
+    if (key === 'characterClassId') continue;
+    lines.push([
+      labels[key] ?? key,
+      key === 'characterMode'
+        ? ({
+            classless: 'Classless',
+            random: 'Random Class',
+            chosen: 'Choose Class',
+          }[String(value)] ?? value)
+        : value,
+    ]);
+  }
   return lines;
 }
 

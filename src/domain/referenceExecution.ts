@@ -2,6 +2,9 @@ import {
   ruleFaithfulResult,
   type RuleFaithfulOptions,
 } from '../generators/ruleFaithfulReferences';
+import { generateCharacter } from '../generators/character';
+import { classCharacterReading } from '../generators/characterReference';
+import { characterClasses } from '../generators/characterClasses';
 import { rollDungeonPreparationReading } from './dungeonReferencePreparation';
 import type { OracleRegistry, OracleResult } from './oracle';
 import type { Monster, NPC, RegionId, SourceReference } from './types';
@@ -286,6 +289,25 @@ export function executeReference(
       options.encounterRegion ?? 'sarkash',
       options.rng,
     );
+  if (
+    entry.id === 'procedure:character.core-classless' &&
+    (options.characterMode === 'random' || options.characterMode === 'chosen')
+  ) {
+    const mode =
+      options.characterMode === 'random' ? 'random' : options.characterClassId;
+    if (
+      !mode ||
+      (options.characterMode === 'chosen' &&
+        !characterClasses().some((def) => def.id === mode))
+    )
+      throw new Error(
+        '생성할 직업을 선택하세요. 지원하는 직업 자료가 필요합니다.',
+      );
+    return classCharacterReading(
+      generateCharacter(id(), false, mode),
+      options.characterMode,
+    );
+  }
   const epkHunting =
     (action.kind === 'procedure' && action.procedureId === 'workbench.epk') ||
     (action.kind === 'regional-table' &&

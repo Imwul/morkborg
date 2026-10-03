@@ -131,6 +131,19 @@ function resolveGear(
     provenance.classification = 'APP_DERIVED';
     provenance.transformation = `Presence ${presence} substituted into printed equipment quantities.`;
   }
+  if (tableId === 'core.containers' && Number(entry.meta.roll) >= 5) {
+    text +=
+      '\n\nOr choose: ' +
+      tableEntries(tableId)
+        .filter(
+          (choice) => Number(choice.meta.roll ?? 0) < Number(entry.meta.roll),
+        )
+        .map((choice) => choice.text)
+        .join('; ');
+    provenance.classification = 'APP_DERIVED';
+    provenance.transformation =
+      'Display the preceding container choices referenced by the printed result.';
+  }
   if (entry.meta.scrollTable) {
     const table = scalarText(entry.meta.scrollTable),
       scroll = rollCreatureTable('core.' + table);
