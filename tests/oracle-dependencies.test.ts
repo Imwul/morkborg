@@ -40,7 +40,7 @@ local(
       validateOracleRegistry(partial, { libraryAbsent: true }),
       [],
     );
-    assert.equal(validateOracleRegistry(partial).length, 35);
+    assert.equal(validateOracleRegistry(partial).length, 37);
     assert.deepEqual(validateOracleRegistry(complete), []);
     const missingIds = new Set(
       partial.tables.flatMap((table) =>

@@ -8,6 +8,8 @@ import {
 export const PENDING_LIBRARY_ORACLE_IDS = [
   'core.sacred',
   'core.unclean',
+  'sd.material.quality',
+  'sd.material.composition',
   'sd.npc.disposition',
   'sd.npc.profession',
   'sd.odoursTastes',

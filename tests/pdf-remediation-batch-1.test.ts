@@ -85,7 +85,10 @@ test('Omens retains all five source uses and depleted-only recovery, without a r
 privateTest(
   'All 20 exact Power names rank first and have the canonical unmodified effect',
   () => {
-    const powers = defs.filter((e) => e.definition!.kind === 'Power');
+    const powers = defs.filter(
+      (e) =>
+        e.definition!.kind === 'Power' && e.sourceRefs[0]?.bookId === 'core',
+    );
     assert.equal(powers.length, 20);
     for (const p of powers) {
       assert.equal(top(p.title).id, p.id, p.title);
@@ -100,7 +103,10 @@ privateTest(
 privateTest(
   'Named Power links resolve from a roll, generated scroll and innate Power without translation matching',
   () => {
-    for (const p of defs.filter((e) => e.definition!.kind === 'Power')) {
+    for (const p of defs.filter(
+      (e) =>
+        e.definition!.kind === 'Power' && e.sourceRefs[0]?.bookId === 'core',
+    )) {
       assert.equal(generatedReference(index.entries, p.title)?.id, p.id);
       assert.equal(
         generatedReference(
@@ -309,7 +315,11 @@ privateTest(
 privateTest(
   'All six Core classes rank before support tables and expose rules without character creation',
   () => {
-    const classes = defs.filter((e) => e.definition!.kind === 'Class');
+    const classes = defs.filter(
+      (e) =>
+        e.definition!.kind === 'Class' &&
+        e.sourceRefs[0]?.bookId === 'core-full',
+    );
     assert.equal(classes.length, 6);
     for (const c of classes) {
       assert.equal(top(c.title).id, c.id);
@@ -328,7 +338,9 @@ privateTest(
   'All 38 class table effects have a definition linked to their parent class',
   () => {
     const abilities = defs.filter(
-      (e) => e.definition!.kind === 'Class ability',
+      (e) =>
+        e.definition!.kind === 'Class ability' &&
+        e.sourceRefs[0]?.bookId === 'core',
     );
     assert.equal(abilities.length, 38);
     for (const a of abilities) {

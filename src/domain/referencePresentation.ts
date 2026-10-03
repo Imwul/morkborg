@@ -69,6 +69,7 @@ export function referenceEntryFormula(
   entry: ReferenceEntry,
   registry: OracleRegistry,
 ) {
+  if (entry.id === 'procedure:character.core-classless') return ''; // Each complete PC field retains its own dice; scrolls restrict arms after the kit roll.
   if (entry.id === 'procedure:sd.dungeon-preparation') return ''; // Each independent field displays its own source dice on the preparation sheet.
   if (entry.id === 'procedure:depths.encounter-level')
     return 'd20 ≤ Encounter Level';

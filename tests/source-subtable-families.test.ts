@@ -124,6 +124,6 @@ test('scenario-bound dungeon tables stay excluded while generic dungeon context 
     assert.ok(references.byId[id].contexts.includes('city'), id);
     assert.ok(!references.byId[id].contexts.includes('travel'), id);
   }
-  assert.equal(oracles.tables.length, 546);
-  assert.equal(references.entries.length, 993);
+  assert.equal(oracles.tables.length, 548);
+  assert.equal(references.entries.length, 1180);
 });

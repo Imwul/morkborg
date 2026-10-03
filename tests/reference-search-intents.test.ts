@@ -249,8 +249,8 @@ local(
   'Dungeon preparation exposes existing source tables directly without adding a canonical table',
   () => {
     const preparation = references.byId['procedure:sd.dungeon-preparation'];
-    assert.equal(references.entries.length, 993);
-    assert.equal(oracles.tables.length, 546);
+    assert.equal(references.entries.length, 1180);
+    assert.equal(oracles.tables.length, 548);
     assert.equal(preparation.available, true);
     assert.deepEqual(preparation.action, {
       kind: 'procedure',

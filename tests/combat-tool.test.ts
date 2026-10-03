@@ -147,7 +147,7 @@ test('Omen effects after seeing a result preserve dice, reroll costs and the una
     undefined,
     noRng,
   );
-  assert.equal(maximum.damage, 4);
+  assert.equal(maximum.damage, 10); // natural 20 is active again when changing the selected Omen
   assert.equal(maximum.omenCosts.pc, 2);
   assert.equal(maximum.dice[0].total, 20);
   assert.equal(maximum.dice[2].total, 2);
@@ -263,7 +263,7 @@ test('Preview is immutable, and applying once changes HP while preserving partic
   assert.equal(JSON.stringify(session), before);
   assert.throws(() => applyAttack(next, preview), /바뀌었습니다/);
 });
-test('Natural 20 attack is a critical notice, without double damage or automatic armor changes', () => {
+test('Natural 20 doubles weapon damage before armor; record leaves HP and armor manual', () => {
   const { session, frame, request } = fixture();
   const p = prepareAttack(
     frame,
@@ -271,12 +271,12 @@ test('Natural 20 attack is a critical notice, without double damage or automatic
     noRng,
   );
   assert.equal(p.critical, true);
-  assert.equal(p.damage, 4);
-  const next = combatFrame(applyAttack(session, p));
-  assert.equal(next.fighters[1].hp, 6);
+  assert.equal(p.damage, 9); // 5 × 2 − 1 armor
+  const next = combatFrame(recordAttack(session, p));
+  assert.equal(next.fighters[1].hp, 10);
   assert.equal(next.fighters[1].armorTier, 1);
   assert.equal(next.fighters[1].armor, 'd2');
-  assert.match(next.last, /자동 적용하지 않았습니다/);
+  assert.match(next.last, /직접 적용하세요/);
 });
 test('Natural 1 attack warns about the weapon without changing or deleting it', () => {
   const { session, frame, request } = fixture();
@@ -289,7 +289,7 @@ test('Natural 1 attack warns about the weapon without changing or deleting it', 
   assert.equal(next.fighters[0].active, true);
   assert.equal(next.fighters[0].notes, '');
 });
-test('Defence fumble shows its rule without doubling damage or degrading armor', () => {
+test('Defence fumble previews doubled weapon damage while HP and armor stay manual', () => {
   const { session, frame, request } = fixture();
   const p = prepareAttack(
     frame,
@@ -302,9 +302,9 @@ test('Defence fumble shows its rule without doubling damage or degrading armor',
     noRng,
   );
   assert.equal(p.fumble, true);
-  assert.equal(p.damage, 4);
-  const next = combatFrame(applyAttack(session, p));
-  assert.equal(next.fighters[0].hp, 8);
+  assert.equal(p.damage, 10); // 6 × 2 − 2 armor
+  const next = combatFrame(recordAttack(session, p));
+  assert.equal(next.fighters[0].hp, 12);
   assert.equal(next.fighters[0].armor, 'd4');
   assert.equal(next.fighters[0].defencePenalty, 2);
 });

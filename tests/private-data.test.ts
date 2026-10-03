@@ -47,7 +47,7 @@ test(
         assert.deepEqual(Object.keys(saved), ['oracles']);
       });
       assert.equal(writes, 1);
-      assert.equal(result.oracles!.tables.length, 348); // 21 scenario tables removed from this legacy pack.
+      assert.equal(result.oracles!.tables.length, 351); // 21 scenario tables removed from this legacy pack.
       assert.deepEqual(
         result.oracles!.tables.map((table) => table.id),
         data.oracles.tables
@@ -93,7 +93,7 @@ test(
       assert.equal(getOraclePack(), oracles);
       assert.equal(
         buildOracleRegistry(getRules(), getOraclePack()).tables.length,
-        545, // Legacy fixture + Core valuation, minus 28 scenario tables.
+        548, // Audited source catalogs included; scenario-only tables stay excluded.
       );
       const expected = parsePrivateData(bundle);
       assert.deepEqual(

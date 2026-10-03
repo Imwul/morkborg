@@ -9,6 +9,9 @@ export interface ReferenceDefinition {
   id: string;
   title: string;
   kind:
+    | 'Feat'
+    | 'Tablet'
+    | 'Relic'
     | 'Power'
     | 'Weapon'
     | 'Armor'
@@ -90,7 +93,7 @@ export function buildReferenceDefinitions(
         | { classes?: CharacterClassDefinition[] }
         | undefined
     )?.classes ?? [];
-  const coreClasses = classes.filter((c) => c.source.bookId === 'core-full');
+  const coreClasses = classes;
   const classTables = new Map<string, string>();
   for (const c of coreClasses)
     for (const step of c.features)
@@ -249,6 +252,7 @@ export function buildReferenceDefinitions(
     const kind: ReferenceDefinition['kind'] | undefined = [
       'core.sacred',
       'core.unclean',
+      'reclvse.powers',
     ].includes(table.id)
       ? 'Power'
       : table.id === 'core.weaponCatalog'
@@ -257,16 +261,24 @@ export function buildReferenceDefinitions(
           ? 'Armor'
           : table.id === 'core.equipmentCatalog'
             ? 'Equipment'
-            : classTables.has(table.id)
-              ? 'Class ability'
-              : undefined;
+            : table.id === 'heretic.unheroicFeats'
+              ? 'Feat'
+              : table.id === 'feretory.ochreTablets'
+                ? 'Tablet'
+                : ['feretory.tenebrousReliquary', 'reclvse.relics'].includes(
+                      table.id,
+                    )
+                  ? 'Relic'
+                  : classTables.has(table.id)
+                    ? 'Class ability'
+                    : undefined;
     if (!kind) continue;
     for (const entry of table.entries) {
       if (entry.sourceUnclear) continue;
       const meta = entry.metadata ?? {};
       const title = str(meta.referenceName) || str(meta.name) || entry.text;
       const parts: string[] = [];
-      if (kind === 'Power') parts.push(str(meta.effect));
+      if (kind === 'Power') parts.push(str(meta.effect) || entry.text);
       else if (kind === 'Armor') {
         if (typeof meta.tier === 'number')
           parts.push(
@@ -293,6 +305,8 @@ export function buildReferenceDefinitions(
         if (meta.ammunition) parts.push(str(meta.ammunition));
         if (meta.startingAmmunition) parts.push(str(meta.startingAmmunition));
       } else parts.push(entry.text);
+      if (typeof meta.usageGuidance === 'string')
+        parts.push(meta.usageGuidance);
       if (!parts.some(Boolean)) continue; // Missing effects never acquire substitute prose.
       // The starting kit and purchase list differ in the supplied book. Keep both
       // source rows separate, rather than silently reconciling their contents.
@@ -313,6 +327,8 @@ export function buildReferenceDefinitions(
           {
             title: startingEntry ? 'Purchase list' : '',
             text: parts.filter(Boolean).join('\n'),
+            translation:
+              typeof meta.ko === 'string' ? { ko: meta.ko } : undefined,
           },
           ...(startingEntry
             ? [{ title: 'Starting equipment', text: startingEntry.text }]
@@ -330,18 +346,30 @@ export function buildReferenceDefinitions(
         canonicalIds: [table.id],
         relatedIds: [
           `oracle:${table.id}`,
-          ...(kind === 'Power' ? ['rule:core.casting'] : []),
+          ...(['Power', 'Tablet'].includes(kind) ? ['rule:core.casting'] : []),
           ...(kind === 'Armor' ? ['rule:core.armor-shield'] : []),
           ...(classTables.has(table.id) ? [classTables.get(table.id)!] : []),
         ],
-        matchTexts: [title, entry.text],
+        // A same-named RCL Power has its own lookup, but must not steal an
+        // existing Core scroll's unqualified inline link. Source IDs resolve it.
+        matchTexts:
+          table.id === 'reclvse.powers' &&
+          registry.tables.some(
+            (t) =>
+              ['core.sacred', 'core.unclean'].includes(t.id) &&
+              t.entries.some(
+                (e) => e.text.toLocaleLowerCase() === title.toLocaleLowerCase(),
+              ),
+          )
+            ? [entry.text]
+            : [title, entry.text],
         tableEntry: { tableId: table.id, entryId: entry.id },
       });
     }
   }
   for (const c of coreClasses) {
     if (
-      !c.playerRules?.length ||
+      !(c.playerRules?.length || c.rules?.length) ||
       !registry.books.some((b) => b.id === c.source.bookId)
     )
       continue;
@@ -362,9 +390,12 @@ export function buildReferenceDefinitions(
       blocks: [
         {
           title: '',
-          text: `HP Toughness + d${c.hpDie}\nOmens d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}`,
+          text: `HP Toughness + d${c.hpDie}\nOmens d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}\nSilver ${c.silver.count}d${c.silver.sides} × ${c.silver.multiplier}\nStarting weapon d${c.weaponDie ?? 10}; armor ${c.forbidArmor ? 'forbidden' : 'd' + (c.armorDie ?? 4)}${c.forbidScrolls ? '; no scrolls' : ''}`,
+          translation: {
+            ko: `HP 건강 + d${c.hpDie}\n오멘 d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}\n은화 ${c.silver.count}d${c.silver.sides} × ${c.silver.multiplier}\n시작 무기 d${c.weaponDie ?? 10}; 방어구 ${c.forbidArmor ? '착용 불가' : 'd' + (c.armorDie ?? 4)}${c.forbidScrolls ? '; 두루마리 없음' : ''}`,
+          },
         },
-        ...c.playerRules.map((text) => ({ title: '', text })),
+        ...(c.playerRules ?? c.rules).map((text) => ({ title: '', text })),
       ],
       sourceRefs: [source],
       canonicalIds: ids,
@@ -373,7 +404,18 @@ export function buildReferenceDefinitions(
         'rule:core.omens',
         'rule:core.casting',
       ],
-      matchTexts: [c.name],
+      // "Pale One" is also a Core follower. Keep both searchable; unqualified
+      // generated companion wording continues to link to the creature.
+      matchTexts: [
+        ...(rules?.creatures ?? []),
+        ...(rules?.outcasts ?? []),
+      ].some(
+        (r) =>
+          typeof r.name === 'string' &&
+          r.name.toLocaleLowerCase() === c.name.toLocaleLowerCase(),
+      )
+        ? []
+        : [c.name],
     });
   }
   const travel = registry.tables.find(

@@ -31,6 +31,7 @@ import {
   combatFrame,
   prepareAttack,
   applyAttack,
+  recordAttack,
   changeAttackOmen,
   resolveCombatMorale,
   seekCombat,
@@ -140,7 +141,7 @@ test('Omen neutralization removes the critical shortcut; applied context survive
     noRng,
   );
   assert.deepEqual(relevant(frame, neutral), []);
-  const applied = applyAttack(session, p);
+  const applied = recordAttack(session, p);
   assert.ok(
     relevant(combatFrame(applied)).some(
       (r) => r.id === 'rule:core.crit-fumble',
@@ -428,7 +429,7 @@ test('All canonical data and relationship counts remain unchanged after every cr
       source.creatures.length,
       index.entries.filter((e) => e.kind === 'creature').length,
     ],
-    [546, 60, 993, 89, 95],
+    [548, 64, 1180, 90, 96],
   );
 });
 

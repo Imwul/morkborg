@@ -372,8 +372,10 @@ export function characterFieldRoll(
     return name ?? rollCreatureTable('core.names');
   }
   if (abilityKeys.includes(key as (typeof abilityKeys)[number])) {
-    const dice = [rollDie(6), rollDie(6), rollDie(6)];
-    const raw = dice.reduce((a, b) => a + b, 0),
+    const boosted = isClassless(c) && c.generation?.rolls['boost_' + key] === 1;
+    const dice = Array.from({ length: boosted ? 4 : 3 }, () => rollDie(6));
+    const raw =
+        dice.reduce((a, b) => a + b, 0) - (boosted ? Math.min(...dice) : 0),
       adjustment = def?.abilityRollAdjustments[key] ?? 0,
       modifier = def?.abilityModifierAdjustments[key] ?? 0;
     const value = abilityModifier(raw + adjustment) + modifier;
@@ -382,12 +384,17 @@ export function characterFieldRoll(
       source: def
         ? classCitation(def) +
           ` · 3d6${adjustment >= 0 ? '+' : ''}${adjustment} 변환${modifier ? ` 후 ${modifier}` : ''}`
-        : coreRule(27, '3d6 능력치 변환'),
+        : coreRule(
+            27,
+            boosted
+              ? '4d6 최저 제외 능력치 변환 · 선택 규칙'
+              : '3d6 능력치 변환',
+          ),
       provenance: mechanicalProvenance(
         27,
-        `3d6 (${dice.join('+')}) + ${adjustment} → ability modifier + ${modifier} = ${value}`,
+        `${boosted ? '4d6 drop lowest' : '3d6'} (${dice.join('+')}) + ${adjustment} → ability modifier + ${modifier} = ${value}`,
         [],
-        '3d6',
+        boosted ? '4d6 drop lowest' : '3d6',
         dice,
         c,
       ),
@@ -572,6 +579,7 @@ export function generateCharacter(
   campaignId: string,
   blank = false,
   mode = 'classless',
+  boostedAbilities: (typeof abilityKeys)[number][] = [],
 ): Character {
   const c: Character = {
     id: id(),
@@ -636,6 +644,15 @@ export function generateCharacter(
     };
     c.generation!.system = `class:${def.id}`;
     applyClassCreation(c, def);
+  }
+  if (isClassless(c) && boostedAbilities.length) {
+    if (
+      boostedAbilities.length !== 2 ||
+      new Set(boostedAbilities).size !== 2 ||
+      boostedAbilities.some((k) => !abilityKeys.includes(k))
+    )
+      throw new Error('서로 다른 능력치 두 개를 선택하세요.');
+    for (const key of boostedAbilities) c.generation!.rolls['boost_' + key] = 1;
   }
   for (const key of ['name', ...abilityKeys, 'hp', 'omens', 'silver'])
     rerollCharacterField(c, key);

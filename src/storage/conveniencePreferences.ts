@@ -19,6 +19,20 @@ const packSchema = z.object({
   userCreated: z.literal(true),
 });
 export const executionParametersSchema = z.object({
+  coreOmens: z.boolean().optional(),
+  classlessBoost: z
+    .array(z.enum(['strength', 'agility', 'presence', 'toughness']))
+    .max(2)
+    .optional(),
+  orakleLikelihood: z
+    .enum(['very-unlikely', 'unlikely', 'even', 'likely', 'very-likely'])
+    .optional(),
+  orakleDR: z.boolean().optional(),
+  orakleTR: z.number().int().min(3).max(30).optional(),
+  weatherDetails: z.array(z.string().max(100)).min(1).max(3).optional(),
+  huntingDie: z
+    .union([z.literal(6), z.literal(8), z.literal(10), z.literal(12)])
+    .optional(),
   region: z.enum(REGION_IDS).default('sarkash'),
   stockKind: z.enum(['common', 'rare', 'room']).default('common'),
   stockDR: z.number().int().min(1).max(99).default(10),

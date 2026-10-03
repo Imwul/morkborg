@@ -1,6 +1,6 @@
 /* An anchored utility, never a second page layered over the document. */
 [data-slot='dialog-content'].docked-tool-panel {
-  --tool-width: 640px;
+  --tool-width: 480px;
   --tool-bottom: calc(max(16px, env(safe-area-inset-bottom)) + 56px);
   position: fixed;
   inset: auto 20px var(--tool-bottom) auto !important;
@@ -28,10 +28,10 @@
     .combat-panel,
     .object-shelf-panel
   ) {
-  --tool-width: 800px;
+  --tool-width: 680px;
 }
 [data-slot='dialog-content'].docked-tool-panel.combat-panel-wide {
-  --tool-width: 1100px;
+  --tool-width: 960px;
 }
 .docked-tool-panel .docked-tool-toolbar {
   position: sticky;
@@ -89,4 +89,61 @@
   [data-slot='dialog-content'].docked-tool-panel {
     display: none !important;
   }
+}
+
+.docked-tool-panel.fate-panel {
+  --tool-width: 460px;
+}
+.docked-tool-panel.object-shelf-panel {
+  --tool-width: 600px;
+}
+.docked-tool-panel.fate-panel .fate-panel-heading {
+  margin-bottom: 12px;
+}
+
+.docked-tool-panel .mythic-list-columns {
+  grid-template-columns: minmax(0, 1fr);
+}
+.mythic-list-tabs {
+  display: flex;
+  gap: 8px;
+  margin-block: 12px;
+}
+.mythic-list-tabs button {
+  border: 1px solid var(--ink);
+  padding: 6px 12px;
+  font: 600 12px/1.4 var(--font-ui);
+}
+.mythic-list-tabs button[aria-pressed='true'] {
+  background: var(--acid);
+}
+
+.fate-scene-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 12px;
+  font: 600 12px/1.5 var(--font-ui);
+}
+.fate-scene-mode small {
+  flex-basis: 100%;
+  font-weight: 400;
+}
+
+.docked-tool-panel.fate-panel .docked-tool-toolbar {
+  margin-bottom: 12px;
+}
+.docked-tool-panel.fate-panel .fate-panel-heading h2 {
+  font-size: 28px;
+  margin-block: 4px 8px;
+}
+.docked-tool-panel.fate-panel .fate-panel-heading p {
+  margin-block: 6px;
+  font-size: 13px;
+}
+.docked-tool-panel.fate-panel .fate-tabs {
+  margin-block: 12px;
+}
+.docked-tool-panel.fate-panel .fate-settings {
+  margin-top: 12px;
 }

@@ -1,25 +1,31 @@
 import { random, rollDie, type RandomSource } from '../generators/random';
 
-export type MythicListKind = 'characters' | 'threads';
+export type MythicListKind = 'characters' | 'threads' | 'features';
 export interface MythicLists {
   characters: string[];
   threads: string[];
+  features?: string[];
 }
 export const emptyMythicLists = (): MythicLists => ({
   characters: Array(25).fill(''),
   threads: Array(25).fill(''),
+  features: Array(25).fill(''),
 });
 export function validateMythicLists(value: unknown): MythicLists {
-  const lists = value as MythicLists;
-  for (const kind of ['characters', 'threads'] as const) {
+  const candidate = value as MythicLists;
+  const lists: MythicLists = {
+    ...candidate,
+    features: candidate?.features ?? Array(25).fill(''),
+  };
+  for (const kind of ['characters', 'threads', 'features'] as const) {
     if (
       !Array.isArray(lists?.[kind]) ||
-      lists[kind].length !== 25 ||
-      lists[kind].some((v) => typeof v !== 'string' || v.length > 160)
+      lists[kind]!.length !== 25 ||
+      lists[kind]!.some((v) => typeof v !== 'string' || v.length > 160)
     )
       throw new Error('Mythic 목록 형식을 확인하세요.');
     const counts = new Map<string, number>();
-    for (const text of lists[kind]) {
+    for (const text of lists[kind]!) {
       const key = text.trim().toLocaleLowerCase();
       if (!key) continue;
       counts.set(key, (counts.get(key) ?? 0) + 1);
@@ -110,4 +116,10 @@ export function tidyMythicList(slots: string[]): string[] {
     Array(e.count >= 3 ? 2 : 1).fill(e.text),
   );
   return [...result, ...Array(25 - result.length).fill('')];
+}
+
+/** Prepared Adventure Focus, GME2 PDF165/p164. */
+export function preparedMythicFocusList(roll: number): MythicListKind | null {
+  if (!Number.isInteger(roll) || roll < 1 || roll > 100) return null;
+  return roll <= 20 ? 'features' : roll <= 55 ? 'characters' : null;
 }

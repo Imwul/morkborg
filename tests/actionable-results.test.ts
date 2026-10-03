@@ -416,6 +416,6 @@ test('All displayed result edges resolve; classification does not mutate registr
       registry.procedures.length,
       registry.tables.reduce((n, t) => n + t.entries.length, 0),
     ],
-    [993, 546, 60, 12310],
+    [1180, 548, 64, 12328],
   );
 });

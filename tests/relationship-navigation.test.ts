@@ -152,7 +152,7 @@ test('All canonical creature references materialize their printed data with zero
   const creatures = index.entries.filter(
     (entry) => entry.action?.kind === 'creature',
   );
-  assert.equal(creatures.length, 95);
+  assert.equal(creatures.length, 96);
   for (const entry of creatures) {
     const reading = executeReference(entry, {
       registry,

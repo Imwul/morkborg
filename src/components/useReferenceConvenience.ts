@@ -141,6 +141,13 @@ export function useReferenceConvenience({
       encounterRegion:
         overrides.encounterRegion ?? options.encounterRegion ?? 'sarkash',
       rareDeck: overrides.rareDeck ?? options.rareDeck,
+      classlessBoost: overrides.classlessBoost,
+      coreOmens: overrides.coreOmens,
+      orakleLikelihood: overrides.orakleLikelihood,
+      orakleDR: overrides.orakleDR,
+      orakleTR: overrides.orakleTR,
+      weatherDetails: overrides.weatherDetails,
+      huntingDie: overrides.huntingDie,
     };
   }
   function remember(request: LastRoll) {
@@ -173,11 +180,13 @@ export function useReferenceConvenience({
   function run(
     entry: ReferenceEntry,
     context = options.region,
-    override?: ExecutionParameters,
+    override?: Partial<ExecutionParameters>,
     only?: string,
   ) {
-    const params =
-        override ?? parameters({ region: referenceRegion(entry, context) }),
+    const params = parameters({
+        region: referenceRegion(entry, context),
+        ...override,
+      }),
       opts = { ...options, ...params, currentReading: readings[entry.id] };
     const current = readings[entry.id],
       holds = held[entry.id] ?? [];

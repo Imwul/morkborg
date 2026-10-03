@@ -1,3 +1,7 @@
+import {
+  ruleFaithfulResult,
+  type RuleFaithfulOptions,
+} from '../generators/ruleFaithfulReferences';
 import { rollDungeonPreparationReading } from './dungeonReferencePreparation';
 import type { OracleRegistry, OracleResult } from './oracle';
 import type { Monster, NPC, RegionId, SourceReference } from './types';
@@ -11,7 +15,7 @@ import {
   type ReferenceEntry,
 } from './references';
 import { rollProcedure } from '../generators/oracleRoller';
-import { id, type RandomSource } from '../generators/random';
+import { id, rollDie, random, type RandomSource } from '../generators/random';
 import {
   rollEatPreyKillPreset,
   loadMonsterPreset,
@@ -179,7 +183,7 @@ function creatureChildren(
     )
     .map(creatureReferenceId);
 }
-export interface ReferenceExecutionOptions {
+export interface ReferenceExecutionOptions extends RuleFaithfulOptions {
   dngngenPack?: import('./dngngenPack').DngngenPack;
   currentReading?: ReferenceReading;
   rng?: RandomSource;
@@ -282,6 +286,63 @@ export function executeReference(
       options.encounterRegion ?? 'sarkash',
       options.rng,
     );
+  const epkHunting =
+    (action.kind === 'procedure' && action.procedureId === 'workbench.epk') ||
+    (action.kind === 'regional-table' &&
+      action.tableId.startsWith('feretory.hunting.'));
+  if (epkHunting && options.huntingDie && options.huntingDie > 6) {
+    const face = rollDie(options.huntingDie, options.rng);
+    if (face > 6)
+      return {
+        title: 'Mundane prey',
+        blocks: [
+          {
+            title: 'Mundane prey',
+            text: 'Choose an ordinary local animal. No creature statistics or automatic hunting success are supplied by this optional rule.',
+            translation: {
+              ko: '지역의 평범한 동물을 정하세요. 이 선택 규칙은 생물 능력치나 자동 사냥 성공을 제공하지 않습니다.',
+            },
+            dice: `d${options.huntingDie} = ${face}`,
+          },
+        ],
+        sourceRefs: [
+          {
+            bookId: 'feretory',
+            pdfPage: 12,
+            printedPage: 10,
+            tableTitle: 'Eat Prey Kill · optional hunting',
+            roll: face,
+          },
+        ],
+        procedureInputs: { huntingDie: options.huntingDie },
+      };
+    let first = true;
+    const output = executeReference(entry, {
+      ...options,
+      huntingDie: 6,
+      rng: () => {
+        if (first) {
+          first = false;
+          return (face - 0.5) / 6;
+        }
+        return (options.rng ?? random)();
+      },
+    });
+    return output
+      ? {
+          ...output,
+          blocks: output.blocks.map((block, i) =>
+            i === 0
+              ? { ...block, dice: `d${options.huntingDie} = ${face}` }
+              : block,
+          ),
+          procedureInputs: {
+            ...output.procedureInputs,
+            huntingDie: options.huntingDie,
+          },
+        }
+      : undefined;
+  }
   if (entry.definition)
     return {
       title: entry.title,
@@ -483,7 +544,8 @@ export function executeReference(
           },
           registry,
         )
-      : rollProcedure(procedure, registry, options.rng);
+      : (ruleFaithfulResult(procedure, registry, options, options.rng) ??
+        rollProcedure(procedure, registry, options.rng));
     const monster = feretoryResultBlock(result);
     output = {
       title: result.title,
@@ -492,7 +554,7 @@ export function executeReference(
         : result.rolls.map((r) => ({
             title: r.title,
             text: oracleReadingText(r),
-            dice: `${r.dice} = ${r.roll}`,
+            ...(r.dice ? { dice: `${r.dice} = ${r.roll}` } : {}),
             ...(r.oracleId === 'core.treasures' &&
             r.entryId &&
             r.metadata?.referenceName

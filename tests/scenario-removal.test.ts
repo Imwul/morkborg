@@ -40,8 +40,8 @@ test('all 31 scenario tables and their combined roll disappear from every active
   const registry = buildOracleRegistry(fixture.library, fixture.oracles);
   const index = buildReferenceRegistry(registry, fixture.library);
   assert.equal(SCENARIO_TABLE_IDS.length, 31);
-  assert.equal(registry.tables.length, 546);
-  assert.equal(index.entries.length, 993);
+  assert.equal(registry.tables.length, 548);
+  assert.equal(index.entries.length, 1180);
   const preparation = index.entries.filter(
     (entry) => entry.id === 'procedure:sd.dungeon-preparation',
   );
@@ -53,7 +53,7 @@ test('all 31 scenario tables and their combined roll disappear from every active
   });
   assert.equal(
     index.entries.filter((entry) => entry.id !== preparation[0].id).length,
-    992,
+    1179,
   );
   for (const id of SCENARIO_TABLE_IDS) {
     assert.ok(!registry.tables.some((t) => t.id === id), id);
@@ -97,7 +97,7 @@ test('archival imports cannot restore scenario rolls and preserve creatures, boo
   const parsed = parsePrivateData(fixture);
   assert.deepEqual(parsePrivateData({ ...fixture, ...parsed }), parsed);
   assert.equal(Object.keys(parsed.library!.tables).length, 186);
-  assert.equal(parsed.oracles!.tables.length, 349);
+  assert.equal(parsed.oracles!.tables.length, 351);
   assert.ok(
     Object.keys(parsed.library!.tables).every((id) => !isScenarioTable(id)),
   );

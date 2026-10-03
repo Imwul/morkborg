@@ -205,6 +205,77 @@ export function buildOracleRegistry(
   );
   const shared = [
     {
+      id: 'heretic.seeds-of-cvlt',
+      title: 'Seeds of a Cvlt',
+      oracleIds: [
+        'heretic.cultName0',
+        'heretic.cultName1',
+        'heretic.cultKeyMember0',
+        'heretic.cultKeyMember1',
+        'heretic.cultKeyMember2',
+        'heretic.cultStatus',
+        'heretic.cultHeadquarters',
+        'heretic.cultDoctrine',
+        'heretic.cultHates',
+      ],
+      sourceBookId: 'heretic',
+      sourcePage: [2, 3],
+      rollLabels: [
+        'Name · first',
+        'Name · second',
+        'Key member · nature',
+        'Key member · role',
+        'Key member · sign',
+        'Status',
+        'Headquarters',
+        'Ritual',
+        'They truly hate',
+      ],
+      description:
+        'Independent columns: 2d12 for the name, 3d10 for the key member, then each remaining source table. Never sum the column dice.',
+    },
+    {
+      id: 'reclvse.adventure-calls',
+      title: 'Adventure Calls',
+      oracleIds: [
+        'reclvse.adventureCalls.spark',
+        'reclvse.adventureCalls.destination',
+        'reclvse.adventureCalls.danger',
+        'reclvse.adventureCalls.twist',
+      ],
+      sourceBookId: 'reclvse',
+      sourcePage: 138,
+      description:
+        'Four independent d20 rolls: Spark, Destination, Danger, Twist. Keep the four results separate.',
+    },
+    {
+      id: 'sd.buildings',
+      title: 'Buildings & Structures',
+      oracleIds: [
+        'sd.building.material',
+        'sd.building.size',
+        'sd.building.form',
+      ],
+      sourceBookId: 'sd',
+      sourcePage: [12, 13],
+      description:
+        'Material × d2, Size, Form. Other material uses the Materials tables.',
+    },
+    {
+      id: 'reclvse.weather-detail',
+      title: 'Weather Detail',
+      oracleIds: [
+        'reclvse.temperature',
+        'reclvse.precipitation',
+        'reclvse.wind',
+        'reclvse.visibility',
+      ],
+      sourceBookId: 'reclvse',
+      sourcePage: [107, 108],
+      description:
+        'After the Weather Move, choose 1–3 detail tables. Unnatural Weather is optional when a weather roll is 20.',
+    },
+    {
       id: 'reclvse.action-theme',
       title: 'RECLVSE · Action + Theme',
       oracleIds: ['reclvse.action', 'reclvse.theme'],

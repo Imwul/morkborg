@@ -1,0 +1,28 @@
+{
+  "auditDate": "2026-10-03",
+  "baselineCommit": "e67fb8d",
+  "note": "Reviewed rule-fidelity items 1–21. Source additions and the Mist roll-twice correction are documented in DECISIONS.md; the historical spatial baseline remains untouched.",
+  "registryHash": "2c8b3c7afca6b3cc5a4efbf87a714a72bcf69b0531a515e0bdb6e0b28f29a6b2",
+  "counts": {
+    "tables": 548,
+    "procedures": 64,
+    "references": 1180,
+    "rows": 12328,
+    "creatures": 90
+  },
+  "files": {
+    "outputs/morkborg-private-data.json": "3fff5da14b624eb21fb02e1ad85b0e6e9dbfdfd5abca9a50d7bb084053e0c217",
+    "public/rules/library.json": "a4d5787bf2969009e61a843c333df3ee5bde479738fb5863f511f00d9e8de106",
+    "public/rules/mythic-fate.json": "ca071e7ceb453cbe7f1a1604ae15a5003c4e89af8e5249f76b57375a9e1d2769",
+    "public/rules/oracles.json": "22c612185903a639ad6192f0e1529bd38ead14301dc3bddd3f14fce154b94a14",
+    "src/data/oracles/coreValuations.ts": "cdb772327f16680444e4415d8552d8564703e72f672553addfc3e7590f82f125",
+    "src/data/oracles/index.ts": "9d52133c724931ec06632331550ff8e5d3cef5ae5d1cb012b29bab025977287a",
+    "src/data/oracles/library.ts": "4f425216765367b7934c9cef745eb46d114b04ebd27ab2401fbf0a58f5f2bcea",
+    "src/data/oracles/sourceCorrections.ts": "055cbcb38b70ab4ac468247a165b870ac4639dc628f1bf8a037267d0cf333dd8",
+    "src/data/oracles/sourceEvidence.json": "0a7faea1321f19320cb2e26254cb8dda483ace89fa6b717d7f46e81eb75ba8bc",
+    "src/data/oracles/sourceEvidence.ts": "7c04f8fb16ceeaa568d7dd6c72f349aaf9e204f7d9df6939285fee1844b58c12",
+    "src/data/oracles/sourceProcedureIds.json": "9b74f5d986ca19d627515a76f201f6b8449669692a6d5890ff342e5a7b26b8a0",
+    "src/data/regions.ts": "15fa21884604e4ac76a5e94a575ccf7cb828977bd1573bfc4f1ef9872613a220",
+    "src/data/scenarioExclusions.ts": "c9550531e7c925f8818c073ddef10d8d8e578644207d30d721b1a7fcef94b78b"
+  }
+}

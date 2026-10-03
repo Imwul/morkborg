@@ -13,12 +13,14 @@ export interface ListSelection {
   kind: MythicListKind;
   draw: MythicListDraw;
 }
-const labels = { characters: '인물', threads: '스레드' };
+const labels = { characters: '인물', threads: '스레드', features: '모험 요소' };
 export function MythicListTables({
   result,
   onRoll,
   onResult,
+  prepared = false,
 }: {
+  prepared?: boolean;
   result: ListSelection | null;
   onRoll: (kind: MythicListKind) => void;
   onResult: (value: ListSelection | null) => void;
@@ -33,13 +35,18 @@ export function MythicListTables({
       });
   }, [result]);
   const [error, setError] = useState('');
+  const [visibleKind, setVisibleKind] = useState<MythicListKind>('characters');
+  const currentKind =
+    result?.kind ??
+    (visibleKind === 'features' && !prepared ? 'characters' : visibleKind);
   const [manualKind, setManualKind] = useState<MythicListKind>('characters');
   const [sectionDie, setSectionDie] = useState('1');
   const [lineDie, setLineDie] = useState('1');
   function edit(kind: MythicListKind, index: number, text: string) {
     try {
       store.update((lists) => {
-        lists[kind][index] = text;
+        lists[kind] ??= Array(25).fill('');
+        lists[kind]![index] = text;
         return lists;
       });
       onResult(null);
@@ -51,8 +58,9 @@ export function MythicListTables({
   return (
     <section className="mythic-lists" aria-label="Mythic 인물과 스레드 목록">
       <p className="tool-note">
-        인물에는 NPC·세력·장소, 스레드에는 추구하는 목표를 적으세요. 같은 항목은
-        최대 세 칸까지 적어 등장 비중을 높일 수 있습니다.
+        {prepared && '모험 요소에는 모듈의 특수 사건·절차를 적으세요. '}인물에는
+        NPC·세력·장소, 스레드에는 추구하는 목표를 적으세요. 같은 항목은 최대 세
+        칸까지 적어 등장 비중을 높일 수 있습니다.
       </p>
       {result && (
         <output ref={resultRef} className="list-draw-result" aria-live="polite">
@@ -78,88 +86,118 @@ export function MythicListTables({
           )}
         </output>
       )}
+      <nav className="mythic-list-tabs" aria-label="표시할 Mythic 목록">
+        {(prepared
+          ? (['features', 'characters', 'threads'] as const)
+          : (['characters', 'threads'] as const)
+        ).map((kind) => (
+          <button
+            key={kind}
+            aria-pressed={currentKind === kind}
+            onClick={() => {
+              setVisibleKind(kind);
+              onResult(null);
+            }}
+          >
+            {labels[kind]}
+          </button>
+        ))}
+      </nav>
       <div className="mythic-list-columns">
-        {(['characters', 'threads'] as const).map((kind) => {
-          const sections = mythicListSections(store.value[kind]);
-          return (
-            <section key={kind} aria-label={labels[kind] + ' 목록'}>
-              <header>
-                <h3>
-                  {kind === 'characters' ? 'Characters' : 'Threads'}
-                  <small>{labels[kind]}</small>
-                </h3>
-                <button onClick={() => onRoll(kind)}>
-                  {labels[kind]} 뽑기
-                </button>
-              </header>
-              <p className="list-dice">
-                {sections > 1
-                  ? '구역 d' + sections * 2 + ' → 행 d10'
-                  : sections
-                    ? '행 d10'
-                    : '비어 있음 · Current Context'}
-              </p>
-              <ol className="mythic-list-lines">
-                {store.value[kind].map((text, i) => (
-                  <li
-                    key={i}
-                    data-list-slot={i + 1}
-                    data-selected={
-                      result?.kind === kind && result.draw.slot === i
+        {(prepared
+          ? (['features', 'characters', 'threads'] as const)
+          : (['characters', 'threads'] as const)
+        )
+          .filter((kind) => kind === currentKind)
+          .map((kind) => {
+            const sections = mythicListSections(
+              store.value[kind] ?? Array(25).fill(''),
+            );
+            return (
+              <section key={kind} aria-label={labels[kind] + ' 목록'}>
+                <header>
+                  <h3>
+                    {kind === 'characters'
+                      ? 'Characters'
+                      : kind === 'threads'
+                        ? 'Threads'
+                        : 'Adventure Features'}
+                    <small>{labels[kind]}</small>
+                  </h3>
+                  <button onClick={() => onRoll(kind)}>
+                    {labels[kind]} 뽑기
+                  </button>
+                </header>
+                <p className="list-dice">
+                  {sections > 1
+                    ? '구역 d' + sections * 2 + ' → 행 d10'
+                    : sections
+                      ? '행 d10'
+                      : '비어 있음 · Current Context'}
+                </p>
+                <ol className="mythic-list-lines">
+                  {(store.value[kind] ?? Array(25).fill('')).map((text, i) => (
+                    <li
+                      key={i}
+                      data-list-slot={i + 1}
+                      data-selected={
+                        result?.kind === kind && result.draw.slot === i
+                      }
+                      data-section-start={i % 5 === 0}
+                    >
+                      <label htmlFor={'mythic-' + kind + '-' + i}>
+                        <b>{i + 1}</b>
+                        <small>
+                          {(i % 5) * 2 + 1}–{(i % 5) * 2 + 2}
+                        </small>
+                      </label>
+                      <input
+                        id={'mythic-' + kind + '-' + i}
+                        aria-label={labels[kind] + ' ' + (i + 1)}
+                        value={text}
+                        maxLength={160}
+                        onChange={(e) => edit(kind, i, e.target.value)}
+                      />
+                      {result?.kind === kind &&
+                        result.draw.kind === 'choose' &&
+                        text.trim() && (
+                          <button
+                            aria-label={text + ' 선택'}
+                            onClick={() =>
+                              onResult({
+                                kind,
+                                draw: { kind: 'element', slot: i, text },
+                              })
+                            }
+                          >
+                            선택
+                          </button>
+                        )}
+                    </li>
+                  ))}
+                </ol>
+                <button
+                  className="text-action"
+                  onClick={() => {
+                    try {
+                      store.update((lists) => {
+                        lists[kind] = tidyMythicList(
+                          lists[kind] ?? Array(25).fill(''),
+                        );
+                        return lists;
+                      });
+                      onResult(null);
+                      setError('');
+                    } catch (e) {
+                      setError(String(e));
                     }
-                    data-section-start={i % 5 === 0}
-                  >
-                    <label htmlFor={'mythic-' + kind + '-' + i}>
-                      <b>{i + 1}</b>
-                      <small>
-                        {(i % 5) * 2 + 1}–{(i % 5) * 2 + 2}
-                      </small>
-                    </label>
-                    <input
-                      id={'mythic-' + kind + '-' + i}
-                      aria-label={labels[kind] + ' ' + (i + 1)}
-                      value={text}
-                      maxLength={160}
-                      onChange={(e) => edit(kind, i, e.target.value)}
-                    />
-                    {result?.kind === kind &&
-                      result.draw.kind === 'choose' &&
-                      text.trim() && (
-                        <button
-                          aria-label={text + ' 선택'}
-                          onClick={() =>
-                            onResult({
-                              kind,
-                              draw: { kind: 'element', slot: i, text },
-                            })
-                          }
-                        >
-                          선택
-                        </button>
-                      )}
-                  </li>
-                ))}
-              </ol>
-              <button
-                className="text-action"
-                onClick={() => {
-                  try {
-                    store.update((lists) => {
-                      lists[kind] = tidyMythicList(lists[kind]);
-                      return lists;
-                    });
-                    onResult(null);
-                    setError('');
-                  } catch (e) {
-                    setError(String(e));
-                  }
-                }}
-              >
-                중복 비중 정리 · 3칸→2칸, 나머지→1칸
-              </button>
-            </section>
-          );
-        })}
+                  }}
+                >
+                  중복 비중 정리 · 3칸→2칸, 나머지→1칸
+                </button>
+              </section>
+            );
+          })}
       </div>
       <details className="list-manual">
         <summary>실물 주사위로 목록 선택</summary>
@@ -170,7 +208,7 @@ export function MythicListTables({
               onResult({
                 kind: manualKind,
                 draw: resolveMythicList(
-                  store.value[manualKind],
+                  store.value[manualKind] ?? Array(25).fill(''),
                   Number(sectionDie),
                   Number(lineDie),
                 ),
@@ -189,9 +227,11 @@ export function MythicListTables({
             >
               <option value="characters">인물</option>
               <option value="threads">스레드</option>
+              {prepared && <option value="features">모험 요소</option>}
             </select>
           </label>
-          {mythicListSections(store.value[manualKind]) > 1 && (
+          {mythicListSections(store.value[manualKind] ?? Array(25).fill('')) >
+            1 && (
             <label>
               구역 주사위
               <input
@@ -200,7 +240,11 @@ export function MythicListTables({
                 value={sectionDie}
                 onChange={(e) => setSectionDie(e.target.value)}
                 min={1}
-                max={mythicListSections(store.value[manualKind]) * 2}
+                max={
+                  mythicListSections(
+                    store.value[manualKind] ?? Array(25).fill(''),
+                  ) * 2
+                }
               />
             </label>
           )}

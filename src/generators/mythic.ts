@@ -86,6 +86,7 @@ export function resolveFate(
     modifier,
     answer,
     randomEvent,
+    sceneMode: state.sceneMode ?? 'standard',
     input,
   };
 }
@@ -97,7 +98,11 @@ export function resolveScene(
   assertDie(state.chaosFactor, 9);
   assertDie(roll, 10);
   const answer =
-    roll > state.chaosFactor ? 'expected' : roll % 2 ? 'altered' : 'interrupt';
+    state.sceneMode === 'prepared' || roll > state.chaosFactor
+      ? 'expected'
+      : roll % 2
+        ? 'altered'
+        : 'interrupt';
   return {
     id: id(),
     createdAt: now(),
@@ -110,7 +115,11 @@ export function resolveScene(
     total: roll,
     modifier: 0,
     answer,
-    randomEvent: answer === 'interrupt',
+    randomEvent:
+      state.sceneMode === 'prepared'
+        ? roll <= state.chaosFactor
+        : answer === 'interrupt',
+    sceneMode: state.sceneMode ?? 'standard',
     input,
   };
 }
@@ -137,7 +146,9 @@ export function fateSource(reading: FateReading) {
       ? 'PDF 20,24,26쪽 / p.19,23,25 · Fate Chart'
       : reading.method === 'check'
         ? 'PDF 26–27쪽 / p.25–26 · Fate Check'
-        : 'PDF 68쪽 / p.67 · Testing the Expected Scene')
+        : reading.sceneMode === 'prepared'
+          ? 'PDF 163,165쪽 / p.162,164 · Prepared Adventure'
+          : 'PDF 68쪽 / p.67 · Testing the Expected Scene')
   );
 }
 export function fateRollLabel(reading: FateReading) {

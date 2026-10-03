@@ -85,13 +85,14 @@
 .desk-home-room > div {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 20px;
+  gap: 8px 16px;
 }
 .desk-home-room button {
-  padding: 8px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--ink);
   text-decoration: underline;
   text-underline-offset: 4px;
-  font: 650 13px/1.4 var(--font-ui);
+  font: 650 15px/1.4 var(--font-ui);
 }
 .desk-home:not(.desk-generators) > .desk-home-generators {
   align-self: start;
@@ -318,4 +319,10 @@
       background-color 120ms ease,
       color 120ms ease;
   }
+}
+
+.desk-home-generator-grid .desk-home-english-link strong,
+.desk-generator-link.desk-home-english-link strong {
+  font-family: var(--font-editorial);
+  font-weight: 700;
 }

@@ -453,7 +453,7 @@ test('Scene navigation normalizes stale state while preserving all supported sce
 
 test('Spatial navigation preserves baseline canonical data hashes and registry cardinality', () => {
   const baseline = JSON.parse(
-    readFileSync('docs/spatial-oracle/registry-baseline.json', 'utf8'),
+    readFileSync('docs/rule-fidelity-2026-10-03/registry-baseline.json', 'utf8'),
   );
   for (const [path, hash] of Object.entries(baseline.files)) {
     if (
@@ -468,12 +468,12 @@ test('Spatial navigation preserves baseline canonical data hashes and registry c
       path,
     );
   }
-  assert.equal(registry.tables.length, 546);
-  assert.equal(registry.procedures.length, 60);
-  assert.equal(index.entries.length, 993);
+  assert.equal(registry.tables.length, 548);
+  assert.equal(registry.procedures.length, 64);
+  assert.equal(index.entries.length, 1180);
   assert.equal(
     registry.tables.reduce((sum, table) => sum + table.entries.length, 0),
-    12310,
+    12328,
   );
   assert.equal(
     new Set(registry.tables.map((table) => table.id)).size,
@@ -498,13 +498,13 @@ test('Both distributed data and the archival fixture resolve every scene without
     validateSpatialScenes(SPATIAL_SCENES, publicReferences.byId),
     [],
   );
-  assert.equal(publicRegistry.tables.length, 545);
-  assert.equal(publicRegistry.procedures.length, 60);
+  assert.equal(publicRegistry.tables.length, 548);
+  assert.equal(publicRegistry.procedures.length, 64);
   assert.equal(
     publicRegistry.tables.reduce((sum, table) => sum + table.entries.length, 0),
-    12305,
+    12328,
   );
-  assert.equal(publicReferences.entries.length, 987);
+  assert.equal(publicReferences.entries.length, 1180);
   for (const hotspot of hotspots()) {
     const published = publicReferences.byId[hotspot.referenceId];
     const archival = index.byId[hotspot.referenceId];

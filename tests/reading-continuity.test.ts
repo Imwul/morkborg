@@ -609,8 +609,8 @@ test('Associating and serializing explicit inline results leaves canonical regis
   assert.equal(JSON.stringify(registry), sourceBefore);
   assert.equal(JSON.stringify(reading), before);
   assert.deepEqual(Object.keys(reading), keys);
-  assert.equal(registry.tables.length, 546);
-  assert.equal(index.entries.length, 993);
+  assert.equal(registry.tables.length, 548);
+  assert.equal(index.entries.length, 1180);
 });
 
 function renderRooms(

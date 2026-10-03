@@ -27,6 +27,10 @@ export function oracleIntroductionLines(
 }
 
 const reviewedDescriptionTranslations: Record<string, string> = {
+  'core.arcaneCatastrophes':
+    '같은 마법 재앙이 다시 나오면 시전자가 검은 불에 휩싸입니다. 재만 남을 때까지 매 라운드 d6 피해를 받습니다. 물은 이 불을 키웁니다. 반복 결과와 HP는 직접 기록하세요.',
+  'feretory.ochreTablets':
+    '두루마리 규칙으로 사용합니다. Presence +3이거나 Forlorn Philosopher여야 합니다. 공격·방어 실수 때 석판 하나가 깨집니다. 일반 크기 물건이며 100s의 가치가 있습니다. 원문은 번호 10개를 제시하며 무작위 주사위를 지정하지 않습니다.',
   'reclvse.unspokens':
     '매일 1이 나오면 새로운 진실을 굴리고, 이미 나온 진실이면 다시 굴립니다. 일곱 번째 진실은 언제나 7:7이며 세계의 종말을 뜻합니다. 이전 진실은 기록해 두세요.',
 };

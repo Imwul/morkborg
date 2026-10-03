@@ -1,3 +1,5 @@
+import { RuleFaithfulSettings } from './RuleFaithfulSettings';
+import type { RuleFaithfulOptions } from '../generators/ruleFaithfulReferences';
 import { mythicFocusList } from '../domain/mythicLists';
 import { playGuideFor } from '../domain/playGuidance';
 import { ProceduralGuide } from './ProceduralGuide';
@@ -251,6 +253,7 @@ export function ReferenceProvider({
   );
   const dngngenPack =
     privateDngngen.status === 'ready' ? privateDngngen.pack : undefined;
+  const [ruleOptions, setRuleOptions] = useState<RuleFaithfulOptions>({});
   const [characterSource, setCharacterSource] = useState<'core' | 'scvm'>(
     'core',
   );
@@ -523,6 +526,15 @@ export function ReferenceProvider({
       setCityExits(params.cityExits);
       setEncounterRegion(params.encounterRegion);
       setRareDeck(params.rareDeck);
+      setRuleOptions({
+        coreOmens: params.coreOmens,
+        classlessBoost: params.classlessBoost,
+        orakleLikelihood: params.orakleLikelihood,
+        orakleDR: params.orakleDR,
+        orakleTR: params.orakleTR,
+        weatherDetails: params.weatherDetails,
+        huntingDie: params.huntingDie,
+      });
     },
   });
   function rerollReplay(entry: RollReplay) {
@@ -633,7 +645,7 @@ export function ReferenceProvider({
         acceptReading(entry.id, monsterSiteReferenceReading(monsterPack));
         return;
       }
-      convenience.run(entry, contextRegion, undefined, only);
+      convenience.run(entry, contextRegion, ruleOptions, only);
     } catch (e) {
       setFailure(e instanceof Error ? e.message : '원문 자료를 확인하세요.');
     }
@@ -1066,13 +1078,23 @@ export function ReferenceProvider({
       {!generatorPage && (
         <p className="sr-only">
           {selected.kind.toUpperCase()} ·{' '}
-          {regions.find((r) => r.id === region)?.name} ·{' '}
+          {selected.action?.kind === 'region' ||
+          selected.action?.kind === 'regional-monster' ||
+          selected.action?.kind === 'regional-table'
+            ? regions.find((r) => r.id === region)?.name + ' · '
+            : ''}{' '}
           {selected.canonicalIds.length
             ? `${selected.canonicalIds.length}개 연결 표`
             : '빠른 참조'}
         </p>
       )}
       <div className="reference-body">
+        <RuleFaithfulSettings
+          entry={selected}
+          value={ruleOptions}
+          onChange={setRuleOptions}
+          coreCharacter={characterSource === 'core'}
+        />
         {!siteMonsterSelected &&
           ['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
             procedureId,

@@ -45,6 +45,7 @@ const reading = z
     randomEvent: z.boolean(),
     input: z.enum(['random', 'manual']),
     event: event.optional(),
+    sceneMode: z.enum(['standard', 'prepared']).optional(),
   })
   .refine((r) => {
     const scene = ['expected', 'altered', 'interrupt'].includes(r.answer);
@@ -71,6 +72,7 @@ export const mythicStateSchema = z
     odds,
     method: z.enum(['chart', 'check']),
     tab: z.enum(['fate', 'scene']),
+    sceneMode: z.enum(['standard', 'prepared']).default('standard'),
     history: z.array(reading).max(MYTHIC_HISTORY_LIMIT),
   })
   .refine(

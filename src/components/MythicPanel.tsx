@@ -3,6 +3,7 @@ import { MythicListTables, type ListSelection } from './MythicListTables';
 import { mythicListsStore } from '../storage/notebookTools';
 import {
   mythicFocusList,
+  preparedMythicFocusList,
   rollMythicList,
   type MythicListKind,
 } from '../domain/mythicLists';
@@ -68,7 +69,10 @@ export function MythicPanel({
     setListView({ request: listRequest, open });
   const [listResult, setListResult] = useState<ListSelection | null>(null);
   function drawList(kind: MythicListKind) {
-    setListResult({ kind, draw: rollMythicList(lists.value[kind]) });
+    setListResult({
+      kind,
+      draw: rollMythicList(lists.value[kind] ?? Array(25).fill('')),
+    });
     setListsOpen(true);
   }
   const [chaosDraft, setChaosDraft] = useState<{
@@ -124,7 +128,11 @@ export function MythicPanel({
       // A quick roll has no typed prompt. Preserve optional drafts and old history.
       const rollState = settingsOpen
         ? state
-        : { ...state, question: '', scene: '' };
+        : {
+            ...state,
+            question: '',
+            scene: state.sceneMode === 'prepared' ? state.scene : '',
+          };
       const result = manual
         ? state.tab === 'scene'
           ? resolveScene(rollState, Number(diceA))
@@ -141,20 +149,43 @@ export function MythicPanel({
       setError(e instanceof Error ? e.message : '판정할 수 없습니다.');
     }
   }
-  function eventClues(result: FateReading) {
+  function eventClues(result: FateReading, meaningOnly = false) {
     try {
-      const event = rollProcedure(
-        {
-          id: 'mythic2.random-event-clues',
-          title: 'Random Event · Focus + Actions',
-          oracleIds: [
-            'mythic2.random-event-focus-table',
-            'mythic2.meaning.action-1',
-            'mythic2.meaning.action-2',
-          ],
-        },
-        registry,
-      );
+      const prepared = result.sceneMode === 'prepared';
+      const focusId = prepared
+        ? 'mythic2.prepared-adventure-event-focus-table'
+        : 'mythic2.random-event-focus-table';
+      const focus = meaningOnly
+        ? result.event
+        : rollProcedure(
+            {
+              id: 'mythic2.random-event-clues',
+              title: prepared ? 'Prepared Adventure Event' : 'Random Event',
+              oracleIds: [focusId],
+            },
+            registry,
+          );
+      if (!focus) throw new Error('먼저 Event Focus를 굴려 주세요.');
+      const needMeaning = meaningOnly || !prepared || focus.rolls[0].roll > 20;
+      const event = {
+        ...focus,
+        rolls: needMeaning
+          ? [
+              ...focus.rolls.slice(0, 1),
+              ...rollProcedure(
+                {
+                  id: 'mythic2.event-meaning',
+                  title: 'Actions',
+                  oracleIds: [
+                    'mythic2.meaning.action-1',
+                    'mythic2.meaning.action-2',
+                  ],
+                },
+                registry,
+              ).rolls,
+            ]
+          : focus.rolls,
+      };
       change((next) => {
         const item = next.history.find((r) => r.id === result.id);
         if (!item) throw new Error('이 판정은 최근 기록에 없습니다.');
@@ -285,8 +316,31 @@ export function MythicPanel({
             인물 · 스레드
           </Button>
         </fieldset>
+        {state.tab === 'scene' && (
+          <label className="fate-scene-mode">
+            Scene mode · 장면 방식
+            <select
+              value={state.sceneMode ?? 'standard'}
+              onChange={(e) =>
+                change((s) => {
+                  s.sceneMode = e.target.value as 'standard' | 'prepared';
+                })
+              }
+            >
+              <option value="standard">Standard · 표준</option>
+              <option value="prepared">Prepared Adventure · 준비된 모험</option>
+            </select>
+            {state.sceneMode === 'prepared' && (
+              <small>
+                Expected Scene을 유지합니다. Chaos Factor 이내면 사건만
+                추가합니다.
+              </small>
+            )}
+          </label>
+        )}
         {listsOpen ? (
           <MythicListTables
+            prepared={state.sceneMode === 'prepared'}
             result={listResult}
             onRoll={drawList}
             onResult={setListResult}
@@ -531,7 +585,9 @@ export function MythicPanel({
                     <strong>Random Event</strong>
                     <p>
                       {reading.kind === 'scene'
-                        ? 'Interrupt Scene의 사건을 정하세요.'
+                        ? reading.sceneMode === 'prepared'
+                          ? 'Expected Scene을 유지하고 사건을 추가하세요.'
+                          : 'Interrupt Scene의 사건을 정하세요.'
                         : 'Yes/No 결과와 함께 무작위 사건이 발생합니다.'}
                     </p>
                     <Button
@@ -542,6 +598,15 @@ export function MythicPanel({
                         ? '사건 단서 다시 굴리기'
                         : '사건 단서 굴리기'}
                     </Button>
+                    {reading.sceneMode === 'prepared' &&
+                      reading.event?.rolls.length === 1 && (
+                        <Button
+                          className="btn small"
+                          onClick={() => eventClues(reading, true)}
+                        >
+                          Meaning 단서 추가 · 필요할 때만
+                        </Button>
+                      )}
                     {reading.event?.rolls.map((r, i) => (
                       <div key={i}>
                         <small>
@@ -556,15 +621,33 @@ export function MythicPanel({
                               : undefined
                           }
                         />
-                        {r.oracleId === 'mythic2.random-event-focus-table' &&
-                          mythicFocusList(r.roll) && (
+                        {(r.oracleId === 'mythic2.random-event-focus-table' ||
+                          r.oracleId ===
+                            'mythic2.prepared-adventure-event-focus-table') &&
+                          (reading.sceneMode === 'prepared'
+                            ? preparedMythicFocusList(r.roll)
+                            : mythicFocusList(r.roll)) && (
                             <Button
                               className="btn small play-roll-action"
-                              onClick={() => drawList(mythicFocusList(r.roll)!)}
+                              onClick={() =>
+                                drawList(
+                                  (reading.sceneMode === 'prepared'
+                                    ? preparedMythicFocusList(r.roll)
+                                    : mythicFocusList(r.roll))!,
+                                )
+                              }
                             >
-                              {mythicFocusList(r.roll) === 'characters'
-                                ? '인물'
-                                : '스레드'}{' '}
+                              {r.oracleId ===
+                                'mythic2.prepared-adventure-event-focus-table' &&
+                              r.roll <= 20
+                                ? '모험 요소'
+                                : (r.oracleId ===
+                                    'mythic2.prepared-adventure-event-focus-table'
+                                      ? preparedMythicFocusList(r.roll)
+                                      : mythicFocusList(r.roll)) ===
+                                    'characters'
+                                  ? '인물'
+                                  : '스레드'}{' '}
                               목록에서 대상 뽑기
                             </Button>
                           )}

@@ -54,11 +54,11 @@ const cohort = refs.entries.filter((e) => {
 });
 const suppressed = cohort.filter((e) => !referenceDisplayTitle(e).text);
 
-test('all 264 existing owned translations are preserved, including 257 A and 7 B', () => {
+test('existing and newly indexed owned translations retain their source ownership', () => {
   const trusted = refs.entries.filter((e) =>
     trustedReferenceSearchTitle(refs, e),
   );
-  assert.equal(trusted.length, 264);
+  assert.equal(trusted.length, 321);
   for (const e of trusted) {
     assert.equal(referenceDisplayTitle(e).classification, 'trusted', e.id);
     assert.equal(referenceDisplayTitle(e).text, legacy(e.id), e.id);
@@ -85,10 +85,10 @@ test('all eight normalized whole-title mappings retain their translations', () =
   for (const e of entries)
     assert.equal(referenceDisplayTitle(e).text, legacy(e.id));
 });
-test('owned creature names and all nine whole UI names are preserved', () => {
+test('owned creature names and all whole UI names are preserved', () => {
   for (const [origin, count] of [
     ['creature-name', 4],
-    ['ui-name', 9],
+    ['ui-name', 10],
   ] as const) {
     const entries = refs.entries.filter(
       (e) => trustedReferenceSearchTitle(refs, e)?.origin === origin,
@@ -115,8 +115,8 @@ test('Room Shape noun-to-verb composition is suppressed without changing the bod
     classification: 'malformed',
   });
 });
-test('all 17 reviewed malformed outputs and one misowned output are suppressed', () => {
-  assert.equal(suppressed.length, 18);
+test('malformed, unreviewed and misowned outputs are suppressed', () => {
+  assert.equal(suppressed.length, 32);
   assert.equal(
     suppressed.filter((e) => display(e.id).classification === 'malformed')
       .length,
@@ -137,7 +137,7 @@ test('all 17 reviewed malformed outputs and one misowned output are suppressed',
     assert.equal(display(id).text, undefined);
 });
 test('useful helpers are retained independently of search certification', () => {
-  assert.equal(cohort.length, 83);
+  assert.equal(cohort.length, 97);
   assert.equal(
     cohort.filter((e) => display(e.id).classification === 'useful').length,
     65,
@@ -158,12 +158,12 @@ test('identity helpers remain suppressed and no absent helper is materialized', 
   assert.equal(
     refs.entries.filter((e) => display(e.id).classification === 'unchanged')
       .length,
-    22,
+    23,
   );
   assert.equal(
     refs.entries.filter((e) => display(e.id).classification === 'absent')
       .length,
-    624,
+    739,
   );
   for (const e of refs.entries.filter(
     (e) => display(e.id).classification === 'unchanged',

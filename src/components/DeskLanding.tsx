@@ -53,6 +53,18 @@ export const DESK_GENERATOR_SHORTCUTS = [
   ['procedure:aitc.settlement', '정착지', '규모 · 이름 · 특징'],
   ['oracle:core.names', '이름', 'Core 이름표'],
   ['procedure:reclvse.action-theme', 'Action + Theme', '행동과 주제 조합'],
+  [
+    'procedure:heretic.seeds-of-cvlt',
+    'Seeds of a Cvlt',
+    '이름 · 구성원 · 의식 · 적대',
+  ],
+  [
+    'procedure:reclvse.adventure-calls',
+    'Adventure Calls',
+    '도입 · 목적지 · 위험 · 반전',
+  ],
+  ['procedure:reclvse.weather-detail', 'Weather Detail', '날씨 세부 표 1–3개'],
+  ['procedure:sd.buildings', 'Buildings & Structures', '재료 · 크기 · 형태'],
 ] as const;
 
 const GENERATOR_GROUPS = [
@@ -68,14 +80,14 @@ const GENERATOR_GROUPS = [
     title: 'Places',
     subtitle: '장소',
     primary: [2],
-    secondary: [1, 2, 3],
+    secondary: [1, 2, 3, 8, 9],
   },
   {
     id: 'sparks',
     title: 'Sparks',
     subtitle: '이름과 이야기의 단서',
     primary: [],
-    secondary: [4, 5],
+    secondary: [4, 5, 6, 7],
   },
 ] as const;
 
@@ -109,6 +121,11 @@ export function DeskLanding({
               ([id, title, description]) => (
                 <button
                   key={id}
+                  className={
+                    /^[A-Za-z]/.test(title)
+                      ? 'desk-home-english-link'
+                      : undefined
+                  }
                   data-shortcut={id}
                   onClick={() => onOpenReference(id)}
                 >
@@ -171,6 +188,11 @@ export function DeskLanding({
               .map(([id, title, description]) => (
                 <button
                   key={id}
+                  className={
+                    /^[A-Za-z]/.test(title)
+                      ? 'desk-home-english-link'
+                      : undefined
+                  }
                   data-shortcut={id}
                   onClick={() => onOpenReference(id)}
                 >
@@ -241,7 +263,10 @@ export function DeskLanding({
                   DESK_GENERATOR_SHORTCUTS[position];
                 return desk?.byId[id] ? (
                   <button
-                    className="desk-generator-link"
+                    className={
+                      'desk-generator-link' +
+                      (/^[A-Za-z]/.test(title) ? ' desk-home-english-link' : '')
+                    }
                     key={id}
                     data-shortcut={id}
                     onClick={() => onOpenReference(id)}

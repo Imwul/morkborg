@@ -49,6 +49,7 @@ export interface FateReading {
   randomEvent: boolean;
   input: 'random' | 'manual';
   event?: OracleResult;
+  sceneMode?: 'standard' | 'prepared';
 }
 export interface MythicState {
   chaosFactor: number;
@@ -58,9 +59,11 @@ export interface MythicState {
   method: FateMethod;
   tab: 'fate' | 'scene';
   history: FateReading[];
+  sceneMode?: 'standard' | 'prepared';
 }
 export const defaultMythicState = (): MythicState => ({
   chaosFactor: 5,
+  sceneMode: 'standard',
   question: '',
   scene: '',
   odds: 'fifty-fifty',

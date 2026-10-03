@@ -403,7 +403,7 @@ test('All guidance projections leave canonical counts and data byte-for-byte unc
       index.entries.length,
       registry.tables.reduce((n, t) => n + t.entries.length, 0),
     ],
-    [546, 60, 993, 12310],
+    [548, 64, 1180, 12328],
   );
 });
 
@@ -428,7 +428,7 @@ test('All new helpers also resolve in the distributed pack without restoring exc
         refs.entries.length,
         distributed.tables.reduce((n, t) => n + t.entries.length, 0),
       ],
-      [545, 60, 987, 12305],
+      [548, 64, 1180, 12328],
     );
   } finally {
     setRules(bundle.library);

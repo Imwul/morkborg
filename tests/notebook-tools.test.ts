@@ -264,12 +264,12 @@ test('City follow-through follows the engine branch, including objectives alread
   assert.equal(roll(0, 0).metadata.streetAction, 'resolve-then-new-street');
 });
 test('Guide and action coverage leaves archival registry counts intact', () => {
-  assert.equal(registry.tables.length, 546);
-  assert.equal(index.entries.length, 993);
-  assert.equal(registry.procedures.length, 60);
+  assert.equal(registry.tables.length, 548);
+  assert.equal(index.entries.length, 1180);
+  assert.equal(registry.procedures.length, 64);
   assert.equal(
     registry.tables.reduce((n, t) => n + t.entries.length, 0),
-    12310,
+    12328,
   );
 });
 

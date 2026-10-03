@@ -94,12 +94,20 @@ local(
 );
 
 local(
-  'Translation-only private enrichment retains every canonical English entry, selector and die',
+  'Unchanged canonical English rows remain pinned outside the documented source additions',
   () => {
-    // Preserve the historical English checksum. The later five-row Core Beasts
-    // addition has its own complete source/price assertions in core-loose-ends.
+    // Core Beasts and the rule-fidelity source additions have independent source
+    // assertions. Pin every other original English row, selector and die here.
     const rows = bundle.oracles.tables
-      .filter((t: any) => t.id !== 'core.beasts')
+      .filter(
+        (t: any) =>
+          ![
+            'core.beasts',
+            'reclvse.relics',
+            'reclvse.classRules',
+            'reclvse.precipitation',
+          ].includes(t.id),
+      )
       .map((t: any) => [
         t.id,
         t.dice,
@@ -107,7 +115,7 @@ local(
       ]);
     assert.equal(
       createHash('sha256').update(JSON.stringify(rows)).digest('hex'),
-      'eed78fb00895c295f02942485588cfda90c0e92ec78a39edcf04842f11f0f2e3',
+      'cf3b8c33ba59f5d5329bf1d6bf45c3f830deea8bafde9b6967ffcb3bc03a04fb',
     );
   },
 );

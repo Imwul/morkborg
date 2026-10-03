@@ -29,6 +29,8 @@ const INDEPENDENT_PROCEDURES = new Set([
   'sd.room-description',
   'sd.material',
   'sd.sound',
+  'heretic.seeds-of-cvlt',
+  'reclvse.adventure-calls',
   'heretic.graves-loot-bodies',
 ]);
 /** Deliberate allowlist of existing independent pairings. Unknown procedures are atomic. */
@@ -60,7 +62,12 @@ export function independentTables(
     JSON.stringify(oracleLibraryRollIds(ids[0])) !== JSON.stringify(ids)
   )
     return [];
-  if (ids.includes('aitc.notable-artefact-type')) return []; // parent-controlled follow-up procedure
+  if (
+    ids.includes('aitc.notable-artefact-type') ||
+    ids.includes('depths.orakle') ||
+    ids.includes('sd.building.material')
+  )
+    return []; // parent-controlled follow-up procedure
   const tables = ids.map((id) => registry.tables.find((t) => t.id === id));
   return tables.every(
     (t): t is OracleDefinition =>

@@ -524,11 +524,16 @@ export function prepareAttack(
       dice.push(omen);
       reduction = omen.total;
     }
+    const damageMultiplier =
+      (!defence && critical) || (defence && fumble) ? 2 : 1;
     damage = request.breakShield
       ? 0
-      : Math.max(0, weapon.total - armor.total - shield - reduction);
+      : Math.max(
+          0,
+          weapon.total * damageMultiplier - armor.total - shield - reduction,
+        );
     messages.push(
-      `${weapon.total} − 방어구 ${armor.total} − 방패 ${shield}${reduction ? ` − Omen ${reduction}` : ''} = 기본 피해 ${damage}`,
+      `${weapon.total}${damageMultiplier === 2 ? ' × 2' : ''} − 방어구 ${armor.total} − 방패 ${shield}${reduction ? ` − Omen ${reduction}` : ''} = 기본 피해 ${damage}`,
     );
     if (request.breakShield)
       messages.push('방패를 부수어 이번 공격의 피해를 무시합니다.');
@@ -541,7 +546,7 @@ export function prepareAttack(
   const weaponLost = !defence && fumble;
   if (armorLoss)
     messages.push(
-      '치명타·실수 규칙: 피해 두 배, 대상 방어구 1단계 손상. 자동 적용하지 않았습니다. 피해와 방어구를 직접 수정하세요.',
+      '치명타·실수 규칙: 무기 피해 2배를 예상 피해에 반영했습니다. 대상 방어구 1단계 손상과 HP 감소는 직접 적용하세요.',
     );
   if (freeAttack)
     messages.push('방어 치명타 · 이 아군은 추가 공격을 할 수 있습니다.');

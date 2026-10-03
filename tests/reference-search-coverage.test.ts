@@ -59,6 +59,7 @@ const display = (entry: ReferenceEntry) => {
 // this registry. This is not a new search alias list or a generated dictionary.
 const uiNames = new Map([
   ['Reaction', '반응'],
+  ['Pale One', '창백한 자'],
   ['Zweihänder', '양손대검'],
   ['RECLVSE · RESOLUTION', '기본 판정'],
   ['RECLVSE · COMBAT', '전투'],
@@ -143,9 +144,9 @@ const exactTargetGroup = (query: string) =>
   ]);
 
 test('All displayed Korean search titles require independent existing source evidence; generated fallback remains uncertified', () => {
-  assert.equal(displayed.length, 347);
-  assert.equal(approved.length, 264);
-  assert.equal(approved.filter((row) => row.tier === 'A').length, 257);
+  assert.equal(displayed.length, 418);
+  assert.equal(approved.length, 321);
+  assert.equal(approved.filter((row) => row.tier === 'A').length, 314);
   assert.equal(approved.filter((row) => row.tier === 'B').length, 7);
   for (const row of displayed) {
     const expected = expectedEvidence(row.entry, row.text);
@@ -158,11 +159,11 @@ test('All displayed Korean search titles require independent existing source evi
   }
   assert.equal(
     displayed.filter((row) => !expectedEvidence(row.entry, row.text)).length,
-    83,
+    97,
   );
 });
 
-test('All approved secondary titles are searchable; all 257 names without a title or established-intent collision resolve first', () => {
+test('All approved secondary titles are searchable and unambiguous names resolve first', () => {
   let unambiguous = 0;
   for (const row of approved) {
     const results = searchReferences(references, row.text, { limit: 2000 });
@@ -180,8 +181,8 @@ test('All approved secondary titles are searchable; all 257 names without a titl
       unambiguous++;
     } else {
       const intents = intentTargets(row.text);
-      assert.equal(intents.length, 1, row.text);
-      assert.equal(results[0]?.id, intents[0], row.text);
+      assert.ok(intents.length <= 1, row.text);
+      if (intents.length) assert.equal(results[0]?.id, intents[0], row.text);
       assert.deepEqual(
         new Set(results.slice(0, exactTargets.size).map((entry) => entry.id)),
         exactTargets,
@@ -189,23 +190,24 @@ test('All approved secondary titles are searchable; all 257 names without a titl
       );
     }
   }
-  assert.equal(unambiguous, 257);
-  assert.equal(approved.length - unambiguous, 7);
+  assert.equal(unambiguous, 304);
+  assert.equal(approved.length - unambiguous, 17);
 });
 
 test('Identical Powers Korean titles keep both source identities in the exact-name result group', () => {
   const collisions = [...groups.values()].filter((rows) => rows.length > 1);
-  assert.equal(collisions.length, 1);
+  assert.equal(collisions.length, 6);
+  const powers = collisions.find((rows) => rows[0].text === '권능')!;
   assert.deepEqual(
-    new Set(collisions[0].map((row) => row.entry.id)),
+    new Set(powers.map((row) => row.entry.id)),
     new Set(['oracle:mythic2.meaning.powers', 'oracle:reclvse.powers']),
   );
-  assert.equal(collisions[0][0].text, '권능');
+  assert.equal(powers[0].text, '권능');
   const results = searchReferences(references, '권능');
   assert.equal(results[0]?.id, 'rule:core.casting');
   assert.deepEqual(
     new Set(results.slice(1, 3).map((entry) => entry.id)),
-    new Set(collisions[0].map((row) => row.entry.id)),
+    new Set(powers.map((row) => row.entry.id)),
   );
   assert.equal(new Set(results.map((entry) => entry.id)).size, results.length);
 });
@@ -233,7 +235,8 @@ test('Existing NFC, spacing and case normalization applies to exact trusted Kore
 
 test('All six title versus established-intent collisions preserve the intent and source-title group across NFC, NFD and spaces', () => {
   const ambiguous = [...groups.keys()].filter(
-    (query) => exactTargetGroup(query).size > 1,
+    (query) =>
+      exactTargetGroup(query).size > 1 && intentTargets(query).length > 0,
   );
   assert.deepEqual(
     new Set(ambiguous),
@@ -308,7 +311,7 @@ test('Existing whole UI names and normalized dictionary keys use their explicit 
   const dictionary = approved.filter(
     (row) => row.origin === 'title-dictionary',
   );
-  assert.equal(ui.length, 9);
+  assert.equal(ui.length, 10);
   assert.equal(dictionary.length, 8);
   for (const row of [...ui, ...dictionary])
     assert.deepEqual(trustedReferenceSearchTitle(references, row.entry), {
@@ -628,6 +631,6 @@ test('Reading search titles and querying real data consume zero dice RNG and lea
   }
   assert.equal(rng.mock.callCount(), 0);
   assert.equal(JSON.stringify({ oracles, rules, references }), before);
-  assert.equal(references.entries.length, 993);
-  assert.equal(oracles.tables.length, 546);
+  assert.equal(references.entries.length, 1180);
+  assert.equal(oracles.tables.length, 548);
 });

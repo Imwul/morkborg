@@ -298,10 +298,10 @@ test('calibration leaves canonical counts, oracle registry, source packs and ref
       getRules()!.creatures.length,
       registry.tables.reduce((n, t) => n + t.entries.length, 0),
     ],
-    [546, 60, 993, 89, 12310],
+    [548, 64, 1180, 90, 12328],
   );
   assert.equal(
     digest(registry),
-    'dcea5c3c78721c2db2d194f885f16a97df62d0d7c3f5a60a0d369794e2c982d1',
+    '2c8b3c7afca6b3cc5a4efbf87a714a72bcf69b0531a515e0bdb6e0b28f29a6b2',
   );
 });
