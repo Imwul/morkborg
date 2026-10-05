@@ -137,6 +137,86 @@ test('Monster presentation lifts the complete introduction, preserving rolls, co
     assert.ok(stats.includes(value), value);
 });
 
+test('Character groups retain every field and move complete armor rules out of the stat strip', () => {
+  const reading: ReferenceReading = {
+    title: 'Character',
+    sourceRefs: [],
+    blocks: [
+      { title: 'Name', text: 'Fixture name', dice: 'd66 = 23' },
+      { title: 'Class', text: 'Fixture class' },
+      { title: 'HP', text: '3' },
+      { title: 'Omens', text: '2' },
+      {
+        title: 'Armor',
+        text: 'Heavy armor −d6. Agility tests DR +4.',
+        translation: { ko: '중갑. 민첩 판정 DR +4.' },
+      },
+      {
+        title: 'Starting Equipment — First d12 Table',
+        text: 'A scroll with its full effect.',
+        dice: 'd12 = 5',
+      },
+      { title: 'Food', text: '4 days', dice: 'd4 = 4' },
+      {
+        title: 'Class feature',
+        text: 'A complete class rule with exceptions.',
+      },
+      { title: 'Power uses/day', text: 'Presence + d4, minimum 1.' },
+      { title: 'Background', text: 'A full background.' },
+      { title: 'Unfamiliar imported field', text: 'Keep me too.' },
+    ],
+  };
+  const before = structuredClone(reading);
+  const copied = copyReferenceReading(reading);
+  const layout = generatorReadingLayout(
+    reading,
+    'procedure:character.core-classless',
+  );
+  assert.deepEqual(
+    layout.stats.map((b) => b.title),
+    ['HP', 'Omens'],
+  );
+  assert.deepEqual(
+    layout.groups?.map((g) => [g.id, g.blocks.map((b) => b.title)]),
+    [
+      ['equipment', ['Armor', 'Starting Equipment — First d12 Table', 'Food']],
+      ['features', ['Class feature', 'Power uses/day']],
+      ['background', ['Background', 'Unfamiliar imported field']],
+    ],
+  );
+  const fields = layout.groups!.flatMap((group) => group.blocks);
+  assert.equal(new Set(fields).size, fields.length);
+  assert.deepEqual(fields, layout.fields);
+  assert.equal(layout.identity, reading.blocks[0]);
+  assert.equal(layout.characterClass, reading.blocks[1]);
+  assert.equal(fields[0], reading.blocks[4]);
+  assert.equal(fields.length + layout.stats.length + 2, reading.blocks.length);
+  assert.deepEqual(reading, before);
+  assert.equal(copyReferenceReading(reading), copied);
+});
+
+test('Empty character groups are omitted and ordinary oracle fields are not regrouped', () => {
+  const reading: ReferenceReading = {
+    title: 'Character',
+    sourceRefs: [],
+    blocks: [
+      { title: 'Names', text: 'Fixture' },
+      { title: 'Food', text: '1 day' },
+    ],
+  };
+  assert.deepEqual(
+    generatorReadingLayout(
+      reading,
+      'procedure:character.core-classless',
+    ).groups?.map((g) => g.id),
+    ['equipment'],
+  );
+  assert.equal(
+    generatorReadingLayout(reading, 'oracle:core.names').groups,
+    undefined,
+  );
+});
+
 test('Nonduplicated desires and translations survive; legacy results without a hero keep their fields', () => {
   const reading = siteReading();
   reading.blocks[1].translation!.ko = '추가 조건이 있다.';

@@ -221,61 +221,62 @@ export function MythicPanel({
         finalFocus={launcherRef}
       >
         <div className="fate-panel-heading">
-          <span className="eyebrow">MYTHIC GME · SECOND EDITION</span>
           <DialogTitle>Ask Fate.</DialogTitle>
-          <DialogDescription>가능성을 정하고 바로 굴리세요.</DialogDescription>
-        </div>
-        <section className="fate-chaos" aria-label="Chaos Factor">
-          <div>
-            <label htmlFor="fate-chaos">CHAOS FACTOR</label>
-          </div>
-          <div className="fate-chaos-stepper">
-            <Button
-              className="btn"
-              aria-label="Chaos 줄이기"
-              disabled={state.chaosFactor <= 1}
-              onClick={() =>
-                change((s) => {
-                  s.chaosFactor = Math.max(1, s.chaosFactor - 1);
-                })
-              }
-            >
-              <Minus size={18} />
-            </Button>
-            <Input
-              id="fate-chaos"
-              aria-label="Chaos Factor"
-              inputMode="numeric"
-              value={chaosText}
-              aria-invalid={!inputValid}
-              onFocus={(e) => e.target.select()}
-              onBlur={() => {
-                setChaosDraft(null);
-              }}
-              onChange={(e) => {
-                const value = e.target.value;
-                setChaosDraft({ basis: state.chaosFactor, text: value });
-                if (/^[1-9]$/.test(value))
+          <DialogDescription className="sr-only">
+            Mythic GME Second Edition. 가능성과 Chaos Factor를 정하고 굴리세요.
+          </DialogDescription>
+          <section className="fate-chaos" aria-label="Chaos Factor">
+            <div>
+              <label htmlFor="fate-chaos">Chaos Factor</label>
+            </div>
+            <div className="fate-chaos-stepper">
+              <Button
+                className="btn"
+                aria-label="Chaos 줄이기"
+                disabled={state.chaosFactor <= 1}
+                onClick={() =>
                   change((s) => {
-                    s.chaosFactor = Number(value);
-                  });
-              }}
-            />
-            <Button
-              className="btn"
-              aria-label="Chaos 늘리기"
-              disabled={state.chaosFactor >= 9}
-              onClick={() =>
-                change((s) => {
-                  s.chaosFactor = Math.min(9, s.chaosFactor + 1);
-                })
-              }
-            >
-              <Plus size={18} />
-            </Button>
-          </div>
-          {!inputValid && <p role="alert">1–9 사이의 정수를 입력하세요.</p>}
-        </section>
+                    s.chaosFactor = Math.max(1, s.chaosFactor - 1);
+                  })
+                }
+              >
+                <Minus size={18} />
+              </Button>
+              <Input
+                id="fate-chaos"
+                aria-label="Chaos Factor"
+                inputMode="numeric"
+                value={chaosText}
+                aria-invalid={!inputValid}
+                onFocus={(e) => e.target.select()}
+                onBlur={() => {
+                  setChaosDraft(null);
+                }}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setChaosDraft({ basis: state.chaosFactor, text: value });
+                  if (/^[1-9]$/.test(value))
+                    change((s) => {
+                      s.chaosFactor = Number(value);
+                    });
+                }}
+              />
+              <Button
+                className="btn"
+                aria-label="Chaos 늘리기"
+                disabled={state.chaosFactor >= 9}
+                onClick={() =>
+                  change((s) => {
+                    s.chaosFactor = Math.min(9, s.chaosFactor + 1);
+                  })
+                }
+              >
+                <Plus size={18} />
+              </Button>
+            </div>
+            {!inputValid && <p role="alert">1–9 사이의 정수를 입력하세요.</p>}
+          </section>
+        </div>
         <fieldset className="fate-tabs" aria-label="Mythic 판정 종류">
           <Button
             ref={tabRef}

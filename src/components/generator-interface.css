@@ -580,6 +580,7 @@
   color: var(--muted-ink);
 }
 .reference-app .reference-page[data-generator-page] .generator-roll-trace {
+  order: 2;
   grid-column: 1 / -1;
   font: 450 12px/1.65 var(--font-ui);
   color: var(--muted-ink);
@@ -648,37 +649,146 @@
 .reference-app
   .reference-page[data-generator-page]
   .generator-character-identity {
-  margin: 0 0 24px;
-  padding: 16px 0 24px;
-  border-bottom: 2px solid var(--ink);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 24px;
+  margin: 0 0 12px;
+  padding: 0;
 }
-.generator-character-identity > span {
+.generator-character-name {
+  min-width: 0;
+}
+.generator-character-name-label > span {
   font: 700 12px/1.5 var(--font-mono);
 }
-.generator-character-identity > span small {
+.generator-character-name-label > span small {
   font-family: var(--font-ui);
   margin-left: 8px;
 }
 .reference-app .generator-character-identity h3 {
-  margin: 8px 0 12px;
+  margin: 4px 0 8px;
   font: 700 clamp(2.5rem, 4vw, 4rem)/1.1 var(--font-editorial);
   overflow-wrap: anywhere;
 }
 .generator-character-identity > p {
-  margin: 12px 0 0;
+  margin: 0;
   font: 450 18px/1.6 var(--font-ui);
 }
 .generator-character-identity > p > strong {
+  display: block;
   font: 700 12px/1.5 var(--font-mono);
   margin-right: 12px;
 }
-.generator-character-identity > details {
-  margin-top: 16px;
+.generator-character-name-label > details {
+  grid-column: 1 / -1;
+  margin: 0;
 }
-.generator-character-identity > details > summary {
+.generator-character-name-label > details > summary {
   cursor: pointer;
   font: 450 12px/1.6 var(--font-ui);
   color: var(--muted-ink);
+}
+
+/* Character sheets group the same blocks into readable lists, without hiding rules. */
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading[data-character-sheet] {
+  margin-top: 12px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading[data-character-sheet]
+  .generator-stat-strip {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 5.5rem), 1fr));
+  gap: 12px 16px;
+  margin-bottom: 24px;
+  padding: 12px 0;
+}
+.reference-reading[data-character-sheet] .generator-stat-strip dt {
+  margin-bottom: 6px;
+}
+.generator-character-sections {
+  display: grid;
+  gap: 28px;
+}
+.reference-app .reference-page .generator-character-section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  margin: 0 0 10px;
+  font: 700 24px/1.3 var(--font-editorial);
+}
+.generator-character-section-title small {
+  color: var(--muted-ink);
+  font: 450 12px/1.5 var(--font-ui);
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-character-sheet]
+  .reference-reading-items {
+  gap: 8px 24px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-character-sheet]
+  .reference-reading-items
+  > section {
+  padding-block: 10px 4px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-character-sheet]
+  .reference-reading-items
+  > section
+  > h3 {
+  margin-bottom: 6px;
+}
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-body
+  .reference-reading[data-character-sheet]
+  .reference-reading-items
+  > section[data-reading-density='extended'] {
+  grid-column: 1 / -1;
+}
+@container generator-reading (max-width: 38rem) {
+  .reference-app
+    .reference-page[data-generator-page]
+    .generator-character-identity {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* An inline reference is visibly a link before hover, including in tool panels. */
+.reference-app .reference-inline-link,
+.docked-tool-panel .reference-inline-link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--muted-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.reference-app .reference-inline-link:hover,
+.docked-tool-panel .reference-inline-link:hover {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+}
+.generator-return {
+  margin-bottom: 12px;
+}
+.reference-app .generator-return button {
+  min-height: 36px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted-ink);
+  font: 550 12px/1.5 var(--font-ui);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /* Keep the result actions within reach without changing the masthead or tool dock. */
@@ -924,4 +1034,30 @@
   .result-field-controls {
     display: none !important;
   }
+}
+
+.reference-app .reference-page[data-character-page] .reference-inspector-top {
+  padding-block: 12px;
+}
+.reference-app
+  .reference-page[data-character-page]
+  .character-generation-control {
+  margin-block: 8px;
+}
+.reference-app .reference-page[data-character-page] .generator-result-actions {
+  margin-block: 12px;
+  padding-block: 4px;
+}
+.generator-character-name-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  line-height: 1.5;
+}
+.reference-reading[data-character-sheet] .generator-stat-strip dt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 6px;
 }

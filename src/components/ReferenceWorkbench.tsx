@@ -179,6 +179,7 @@ import { generatorReadingLayout } from '../domain/generatorReadingLayout';
 import {
   GeneratorIntroduction,
   GeneratorStatStrip,
+  GeneratorReadingFields,
 } from './GeneratorReadingLead';
 import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
@@ -998,6 +999,9 @@ export function ReferenceProvider({
       data-reference-id={selected.id}
       data-reference-kind={selected.kind}
       data-generator-page={generatorPage || undefined}
+      data-character-page={
+        selected.id.startsWith('procedure:character.') || undefined
+      }
       data-has-reading={reading ? 'true' : undefined}
       data-formula={
         referenceEntryFormula(selected, oracles.registry) || undefined
@@ -1516,6 +1520,7 @@ export function ReferenceProvider({
               data-generator-result={
                 generatorResultKind ?? (generatorPage ? 'fields' : undefined)
               }
+              data-character-sheet={!!generatorLayout?.identity || undefined}
             >
               {plainRule && hasQuickGuide && (
                 <summary>전체 규칙 펼치기 · 원문과 번역</summary>
@@ -1543,17 +1548,29 @@ export function ReferenceProvider({
               )}
               {generatorLayout?.identity && (
                 <header className="generator-character-identity">
-                  <span>
-                    Name <small>이름</small>
-                  </span>
-                  {fieldControl(generatorLayout.identity)}
-                  <h3>{generatorLayout.identity.text}</h3>
-                  <Translation
-                    text={generatorLayout.identity.text}
-                    translation={generatorLayout.identity.translation?.ko}
-                  />
+                  <div className="generator-character-name">
+                    <div className="generator-character-name-label">
+                      <span>
+                        Name <small>이름</small>
+                      </span>
+                      {fieldControl(generatorLayout.identity)}
+                      {generatorLayout.identity.dice && (
+                        <details>
+                          <summary>이름 굴림 내역</summary>
+                          <ReferenceRollTrace
+                            text={generatorLayout.identity.dice}
+                          />
+                        </details>
+                      )}
+                    </div>
+                    <h3>{generatorLayout.identity.text}</h3>
+                    <Translation
+                      text={generatorLayout.identity.text}
+                      translation={generatorLayout.identity.translation?.ko}
+                    />
+                  </div>
                   {generatorLayout.characterClass && (
-                    <p>
+                    <p className="generator-character-class">
                       <strong>Class</strong>{' '}
                       {generatorLayout.characterClass.text}
                       <Translation
@@ -1564,24 +1581,19 @@ export function ReferenceProvider({
                       />
                     </p>
                   )}
-                  {generatorLayout.identity.dice && (
-                    <details>
-                      <summary>이름 굴림 내역</summary>
-                      <ReferenceRollTrace
-                        text={generatorLayout.identity.dice}
-                      />
-                    </details>
-                  )}
                 </header>
               )}
               {generatorLayout && (
                 <GeneratorStatStrip blocks={generatorLayout.stats} />
               )}
-              <div className="reference-reading-items">
-                {(procedureId === 'sd.dungeon-preparation'
-                  ? []
-                  : (generatorLayout?.fields ?? reading.blocks)
-                ).map((block, n) => {
+              <GeneratorReadingFields
+                groups={generatorLayout?.groups}
+                blocks={
+                  procedureId === 'sd.dungeon-preparation'
+                    ? []
+                    : (generatorLayout?.fields ?? reading.blocks)
+                }
+                renderBlock={(block, n) => {
                   const source = reading.oracle?.rolls.find(
                     (row) =>
                       block.text === row.text ||
@@ -1610,7 +1622,9 @@ export function ReferenceProvider({
                     >
                       {block.dice &&
                       generatorPage &&
-                      block.dice.includes(' · ') ? (
+                      (reading.blocks.length > 1 ||
+                        block.dice.includes(' · ') ||
+                        block.kind === 'creature') ? (
                         <details className="generator-roll-trace">
                           <summary>굴림 내역</summary>
                           <ReferenceRollTrace text={block.dice} />
@@ -1700,8 +1714,8 @@ export function ReferenceProvider({
                       {source && <ContainerAlternatives parent={source} />}
                     </section>
                   );
-                })}
-              </div>
+                }}
+              />
               {reading.valuationReferenceId &&
                 index.byId[reading.valuationReferenceId] && (
                   <button
@@ -2738,6 +2752,7 @@ export function ReferenceDesk({
     return () => observer.disconnect();
   }, []);
   const [localPage, setLocalPage] = useState<ReferenceDeskPage>(initialPage);
+  const [generatorOrigin, setGeneratorOrigin] = useState<string | null>(null);
   const page = controlledPage ?? localPage;
   const [spatialSceneId, setSpatialSceneId] = useState('dungeon');
   useNavigationChannel('spatial-scene', spatialSceneId, setSpatialSceneId, {
@@ -2753,6 +2768,7 @@ export function ReferenceDesk({
     onPageChange?.(nextPage);
   };
   const openReference = (entryId: string, roll = false, region?: RegionId) => {
+    if (page === 'generators') setGeneratorOrigin(entryId);
     revealPageRef.current = true;
     if (page !== 'spatial') setPage('reference');
     setBrowserOpen(false);
@@ -3262,6 +3278,13 @@ export function ReferenceDesk({
               />
             ) : (
               <>
+                {!showResultSpread && generatorOrigin === desk?.selectedId && (
+                  <nav className="generator-return" aria-label="생성기 탐색">
+                    <button onClick={() => setPage('generators')}>
+                      ← 생성기 목록으로
+                    </button>
+                  </nav>
+                )}
                 {showResultSpread ? resultIndex : desk?.content}
                 {!showResultSpread && relatedContent}
               </>

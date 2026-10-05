@@ -1612,17 +1612,10 @@ h1 {
   white-space: pre-wrap;
 }
 .fate-result h3 {
+  color: var(--ink);
   margin: 8px 0 14px;
   font: 800 39px/1.25 var(--font-display);
   overflow-wrap: anywhere;
-}
-.fate-result .answer-exceptional-yes,
-.fate-result .answer-yes {
-  color: #465b20;
-}
-.fate-result .answer-exceptional-no,
-.fate-result .answer-no {
-  color: #873d32;
 }
 .fate-roll-detail {
   font: var(--text-meta)/var(--leading-text) var(--font-ui);

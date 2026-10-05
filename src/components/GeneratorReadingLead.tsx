@@ -6,6 +6,45 @@ import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
+import type { ReactNode } from 'react';
+import type { CharacterReadingGroup } from '../domain/generatorReadingLayout';
+
+export function GeneratorReadingFields({
+  blocks,
+  groups,
+  renderBlock,
+}: {
+  blocks: ReferenceReading['blocks'];
+  groups?: CharacterReadingGroup[];
+  renderBlock: (
+    block: ReferenceReading['blocks'][number],
+    index: number,
+  ) => ReactNode;
+}) {
+  if (!groups)
+    return (
+      <div className="reference-reading-items">{blocks.map(renderBlock)}</div>
+    );
+  return (
+    <div className="generator-character-sections">
+      {groups.map((group) => (
+        <section
+          key={group.id}
+          className="generator-character-section"
+          data-character-section={group.id}
+          aria-label={group.title}
+        >
+          <h3 className="generator-character-section-title">
+            {group.title} <small>{group.titleKo}</small>
+          </h3>
+          <div className="reference-reading-items">
+            {group.blocks.map(renderBlock)}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
 
 export function GeneratorStatStrip({
   blocks,

@@ -83,7 +83,7 @@
   background: var(--acid);
 }
 .reference-app
-  .reference-page[data-reference-kind='oracle']
+  .reference-page[data-reference-kind='oracle']:not([data-generator-page])
   .reference-body:has(> .reference-roll-results)
   > .reference-formula {
   margin-bottom: 0;

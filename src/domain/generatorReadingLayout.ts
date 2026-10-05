@@ -1,6 +1,43 @@
 import type { ReferenceReading, ReferenceTextBlock } from './referenceReading';
 
 type Block = ReferenceReading['blocks'][number];
+export interface CharacterReadingGroup {
+  id: 'equipment' | 'features' | 'background';
+  title: string;
+  titleKo: string;
+  blocks: Block[];
+}
+
+/** Group the view only; each original block, condition and roll remains intact. */
+function characterReadingGroups(fields: Block[]): CharacterReadingGroup[] {
+  const groups: CharacterReadingGroup[] = [
+    { id: 'equipment', title: 'Equipment', titleKo: '장비', blocks: [] },
+    {
+      id: 'features',
+      title: 'Class & powers',
+      titleKo: '직업과 권능',
+      blocks: [],
+    },
+    {
+      id: 'background',
+      title: 'Traits & background',
+      titleKo: '특징과 배경',
+      blocks: [],
+    },
+  ];
+  for (const block of fields) {
+    const group =
+      /^(Armor|Weapons?|Equipment|Starting Equipment|Food|Container|Inventory|Scroll)(\b|\s)/i.test(
+        block.title,
+      )
+        ? groups[0]
+        : /^(Class|Power|Ability|Abilities|Feature)(\b|\s)/i.test(block.title)
+          ? groups[1]
+          : groups[2];
+    group.blocks.push(block);
+  }
+  return groups.filter((group) => group.blocks.length);
+}
 const STAT_LABELS: Record<string, string> = {
   HP: '생명력',
   Morale: '사기',
@@ -62,6 +99,7 @@ export function generatorReadingLayout(
       continue;
     if (
       hasStatSheet &&
+      !(identity && block.title === 'Armor') &&
       STAT_LABELS[block.title] &&
       block.text.trim() &&
       !block.definitionReferenceId
@@ -91,7 +129,14 @@ export function generatorReadingLayout(
       ];
       return order.indexOf(a.title) - order.indexOf(b.title);
     });
-  return { identity, characterClass, introduction, stats, fields };
+  return {
+    identity,
+    characterClass,
+    introduction,
+    stats,
+    fields,
+    groups: identity ? characterReadingGroups(fields) : undefined,
+  };
 }
 
 /** Split only the stat-line format produced by our creature renderer. */
