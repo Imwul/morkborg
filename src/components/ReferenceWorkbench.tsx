@@ -1020,7 +1020,7 @@ export function ReferenceProvider({
             SEND TO SCRATCH · 스크랩에 추가
           </button>
         </details>
-        <h2 id="current-reference-title">
+        <h2 id="current-reference-title" tabIndex={-1}>
           {monsterReference ? 'Monster' : referenceShortName(selected)}
           {!monsterReference && <ReferenceTitleTranslation entry={selected} />}
         </h2>
@@ -2736,6 +2736,7 @@ export function ReferenceDesk({
   const surfaceRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const revealPageRef = useRef(false);
+  const focusReferenceRef = useRef(false);
   useEffect(() => {
     const surface = surfaceRef.current;
     const header = headerRef.current;
@@ -2786,10 +2787,16 @@ export function ReferenceDesk({
       (previous.page !== page && !query)
     ) {
       revealPageRef.current = false;
-      if (page !== 'spatial')
+      if (page !== 'spatial') {
         surfaceRef.current
           ?.querySelector('.desk-current-page')
           ?.scrollIntoView({ block: 'start' });
+        if (focusReferenceRef.current)
+          surfaceRef.current
+            ?.querySelector<HTMLElement>('#current-reference-title')
+            ?.focus({ preventScroll: true });
+      }
+      focusReferenceRef.current = false;
     }
   });
   useEffect(() => {
@@ -2803,6 +2810,7 @@ export function ReferenceDesk({
   );
   const [themeLimits, setThemeLimits] = useState<Record<string, number>>({});
   const [diceOpen, setDiceOpen] = useState(false);
+  const [searchFiltersOpen, setSearchFiltersOpen] = useState(false);
   const [browserState, setBrowserState] = useState({
     open: false,
     referenceId: desk?.selectedId,
@@ -2836,14 +2844,49 @@ export function ReferenceDesk({
   function search(value: string) {
     if (value) setPage('reference');
     setBrowserOpen(!!value);
+    setSearchFiltersOpen(false);
     desk?.setQuery?.(value);
     desk?.setScope?.('all');
     resetFilters();
   }
+  function clearSearch() {
+    // Return to the retained reading without activating or rolling it again.
+    if (page === 'reference' && desk?.selectedId) {
+      revealPageRef.current = true;
+      focusReferenceRef.current = true;
+    } else {
+      requestAnimationFrame(() =>
+        document.getElementById('desk-primary-search')?.focus(),
+      );
+    }
+    search('');
+  }
   const visibleEntries = index.entries.filter((e) => !isDeskClutter(e));
   const books = visibleEntries.filter((e) => e.kind === 'book');
+  const filterBook = books.find((entry) => entry.id === `book:${book}`);
+  const searchFilterSummary = [
+    filterBook ? referenceShortName(filterBook) : book,
+    REFERENCE_CONTEXTS.find(([id]) => id === context)?.[1],
+  ]
+    .filter(Boolean)
+    .join(' · ');
   const selected = desk?.selectedId ? index.byId[desk.selectedId] : undefined;
   const showResultSpread = page === 'reference' && (browserOpen || !selected);
+  const searchResultsOpen = showResultSpread && !!query.trim();
+  const browserExpanded = searchResultsOpen ? searchFiltersOpen : browserOpen;
+  const previousSearchResults = useRef(false);
+  useEffect(() => {
+    // Bring a new mobile search into view without scrolling on every keystroke.
+    if (
+      searchResultsOpen &&
+      !previousSearchResults.current &&
+      window.matchMedia('(max-width: 800px)').matches
+    )
+      surfaceRef.current
+        ?.querySelector('.desk-browser')
+        ?.scrollIntoView({ block: 'start' });
+    previousSearchResults.current = searchResultsOpen;
+  }, [searchResultsOpen]);
   const searchMatches = query.trim()
     ? partitionReferenceSearch(index, found, query)
     : null;
@@ -2899,6 +2942,15 @@ export function ReferenceDesk({
       className="desk-index-results"
       aria-label={query ? '검색 결과' : '참조 목록'}
       data-curated={desk?.scope === 'pinned' || desk?.scope === 'recent'}
+      onClickCapture={(event) => {
+        // Keyboard/assistive activation removes the focused result row.
+        if (
+          event.detail === 0 &&
+          event.target instanceof Element &&
+          event.target.closest('.reference-select-action, .reference-row-roll')
+        )
+          focusReferenceRef.current = true;
+      }}
     >
       <h2>
         <span>
@@ -3018,6 +3070,7 @@ export function ReferenceDesk({
             : 'archive'
         }
         data-searching={!!query}
+        data-search-results={searchResultsOpen}
       >
         <header ref={headerRef} className="rdesk-header">
           <h1 className="desk-wordmark">
@@ -3037,8 +3090,10 @@ export function ReferenceDesk({
             className="desk-search"
             onSubmit={(e) => {
               e.preventDefault();
-              setBrowserOpen(false);
-              if (found[0]) openReference(found[0].id);
+              if (found[0]) {
+                focusReferenceRef.current = true;
+                openReference(found[0].id);
+              }
             }}
           >
             <Search size={19} />
@@ -3050,7 +3105,20 @@ export function ReferenceDesk({
               placeholder="참조 검색…"
               value={query}
               onChange={(e) => search(e.target.value)}
+              onFocus={() => {
+                if (query.trim()) {
+                  setBrowserOpen(true);
+                  setSearchFiltersOpen(false);
+                }
+              }}
               onKeyDown={(e) => {
+                if (e.nativeEvent.isComposing) return;
+                if (e.key === 'Escape' && query) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  clearSearch();
+                  return;
+                }
                 if (e.key === 'ArrowDown') {
                   e.preventDefault();
                   (
@@ -3065,7 +3133,8 @@ export function ReferenceDesk({
               <button
                 type="button"
                 aria-label="검색 지우기"
-                onClick={() => search('')}
+                title="검색 지우기 · Esc"
+                onClick={clearSearch}
               >
                 ×
               </button>
@@ -3158,14 +3227,21 @@ export function ReferenceDesk({
             <aside
               className="desk-browser"
               aria-label="참조 탐색"
-              data-expanded={browserOpen}
+              data-expanded={browserExpanded}
             >
               <button
                 className="desk-browse-toggle"
-                aria-expanded={browserOpen}
-                onClick={() => setBrowserOpen(!browserOpen)}
+                aria-expanded={browserExpanded}
+                onClick={() =>
+                  searchResultsOpen
+                    ? setSearchFiltersOpen(!searchFiltersOpen)
+                    : setBrowserOpen(!browserOpen)
+                }
               >
-                참조 찾기 <span>{browserOpen ? '접기 −' : '펼치기 +'}</span>
+                {searchResultsOpen
+                  ? `검색 필터${searchFilterSummary ? ` · ${searchFilterSummary}` : ''}`
+                  : '참조 찾기'}{' '}
+                <span>{browserExpanded ? '접기 −' : '펼치기 +'}</span>
               </button>
               <div className="desk-browse-filters">
                 <label>

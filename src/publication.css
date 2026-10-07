@@ -2579,6 +2579,14 @@ body,
   }
 }
 @media (max-width: 800px) {
+  /* Search results take priority; the existing filters remain available. */
+  .reference-app .rdesk[data-search-results='true'] .desk-browser {
+    scroll-margin-top: var(--desk-header-height, 220px);
+  }
+  .reference-app .rdesk[data-search-results='true'] .desk-browser
+    :is(.desk-nav-history, .desk-theme-navigation) {
+    display: none;
+  }
   .reference-app .desk-layout[data-index-spread='true'] {
     display: flex;
     flex-direction: column;
