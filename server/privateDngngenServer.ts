@@ -3,6 +3,7 @@ import { readFile, realpath, stat } from 'node:fs/promises';
 import { networkInterfaces } from 'node:os';
 import { extname, join, relative, resolve, sep } from 'node:path';
 import { readPrivateDngngenPack } from './privateDngngenPack.js';
+import { readPrivateDngngenTranslation } from './privateDngngenTranslation.js';
 import { readPrivateGeneratorPack } from './privateGeneratorPack.js';
 import { readPrivateScvmTranslation } from './privateScvmTranslation.js';
 import { readPrivateMonsterTranslation } from './privateMonsterTranslation.js';
@@ -52,6 +53,7 @@ export function privateOrigin(value?: string): string | undefined {
 export interface PrivateServerOptions {
   root: string;
   packPath: string;
+  dngngenTranslationPath?: string;
   scvmPath?: string;
   scvmTranslationPath?: string;
   monsterPath?: string;
@@ -118,7 +120,12 @@ export function createPrivateDngngenServer(options: PrivateServerOptions) {
         }
         // Revalidate the current file on every read: replacements cannot reuse stale data.
         if (path === PRIVATE_PACK_ENDPOINT) {
-          json(response, 200, await readPrivateDngngenPack(options.packPath, options.allowSynthetic));
+          const result = await readPrivateDngngenPack(options.packPath, options.allowSynthetic);
+          if (result.status === 'ready' && options.dngngenTranslationPath) {
+            const translations = await readPrivateDngngenTranslation(options.dngngenTranslationPath, result.pack);
+            if (translations) result.pack = { ...result.pack, translations };
+          }
+          json(response, 200, result);
           return;
         }
         if (path === PRIVATE_SCVM_ENDPOINT) {

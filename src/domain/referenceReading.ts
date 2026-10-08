@@ -26,6 +26,12 @@ export interface ReferenceReading {
     rooms?: Partial<
       Record<1 | 2 | 3 | 4, import('../generators/dngngen').DngngenRoomResult>
     >;
+    features?: Partial<
+      Record<
+        import('./dngngenPack').DngngenFeatureKey,
+        import('../generators/dngngen').DngngenFeatureResult
+      >
+    >;
   };
   procedureInputs?: Record<string, string | number | boolean>;
   /** Transient workbench input metadata; never canonical source text or Campaign schema. */
@@ -56,9 +62,10 @@ export interface ReferenceReading {
 
 /** Legacy replay snapshots cannot preserve private room provenance; current readings still can. */
 export function eligibleForReferenceReplay(reading: ReferenceReading): boolean {
-  return !Object.values(reading.preparation?.rooms ?? {}).some(
-    (room) => room?.source === 'DNGNGEN',
-  );
+  return ![
+    ...Object.values(reading.preparation?.rooms ?? {}),
+    ...Object.values(reading.preparation?.features ?? {}),
+  ].some((room) => room?.source === 'DNGNGEN');
 }
 /** Keep one creature together while retaining every original die in OracleResult. */
 export function feretoryResultBlock(
@@ -99,6 +106,16 @@ export function copyReferenceReading(
     !!privateRooms && Object.keys(privateRooms).length > 0;
   const blockTitle = (block: { title: string; text: string }) => {
     if (block.title === content.title) return '';
+    const featureKey = (
+      {
+        'What brings you here?': 'reason',
+        Entrance: 'entrance',
+        'Guarded by': 'guard',
+      } as const
+    )[block.title as 'What brings you here?' | 'Entrance' | 'Guarded by'];
+    const feature = featureKey && reading.preparation?.features?.[featureKey];
+    if (feature)
+      return `${block.title} · DNGNGEN${feature.synthetic ? ' (synthetic demo)' : ''}`;
     if (
       !mixedSourceReading ||
       !/^Special Room [1-4]$/.test(block.title) ||

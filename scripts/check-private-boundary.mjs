@@ -38,6 +38,7 @@ export function privatePackNeedles(pack) {
       Object.entries(value).forEach(([key, child]) => walk(child, key, depth + 1));
   };
   walk(pack?.pools);
+  walk(pack?.features);
   walk(pack?.messages);
   walk(pack?.translations);
   // Value-list strings may be directly nested below sample recipe fields.
@@ -50,6 +51,7 @@ export function privatePackNeedles(pack) {
   strings(pack?.messages);
   strings(pack?.translations);
   strings(pack?.pools);
+  strings(pack?.features);
   strings(pack?.tables);
   add(pack?.snapshot?.id, 12);
   add(pack?.integrity?.payloadSha256, 64);
@@ -96,6 +98,7 @@ export function checkPrivateBuild(directory = 'dist', options = {}) {
     const bytes = readFileSync(file);
     const text = bytes.toString('utf8');
     if (text.includes('private/dngngen/pack.json') ||
+        text.includes('private/dngngen/ko.json') ||
         text.includes('private/scvmbirther/pack.json') ||
         text.includes('private/scvmbirther/ko.json') ||
         text.includes('private/monster-site/pack.json') ||
@@ -113,8 +116,8 @@ export function checkPrivateBuild(directory = 'dist', options = {}) {
     if (/\.json$/i.test(path)) {
       let value;
       try { value = JSON.parse(text); } catch { continue; }
-      if (['reference-desk.dngngen', 'reference-desk.scvmbirther', 'reference-desk.scvmbirther-ko', 'reference-desk.monster-site'].includes(value?.format) ||
-          ['reference-desk.dngngen', 'reference-desk.scvmbirther', 'reference-desk.scvmbirther-ko', 'reference-desk.monster-site'].includes(value?.pack?.format))
+      if (['reference-desk.dngngen', 'reference-desk.dngngen-ko', 'reference-desk.scvmbirther', 'reference-desk.scvmbirther-ko', 'reference-desk.monster-site'].includes(value?.format) ||
+          ['reference-desk.dngngen', 'reference-desk.dngngen-ko', 'reference-desk.scvmbirther', 'reference-desk.scvmbirther-ko', 'reference-desk.monster-site'].includes(value?.pack?.format))
         fail('a private pack or endpoint payload is present in public static JSON.');
     }
   }
@@ -125,7 +128,7 @@ export function checkPrivateGit(root = '.', packs = []) {
   const repo = resolve(root);
   const names = execFileSync('git', ['ls-files', '-z'], { cwd: repo, encoding: 'utf8' }).split('\0').filter(Boolean);
   if (names.some((name) => /^private\//.test(name))) fail('a private pack/configuration path is tracked.');
-  const paths = ['private/dngngen/pack.json', 'private/dngngen/cache.json', 'private/server.json', 'outputs/dngngen-audit.json', 'private/scvmbirther/pack.json', 'private/scvmbirther/ko.json', 'private/monster-site/pack.json'];
+  const paths = ['private/dngngen/pack.json', 'private/dngngen/ko.json', 'private/dngngen/cache.json', 'private/server.json', 'outputs/dngngen-audit.json', 'private/scvmbirther/pack.json', 'private/scvmbirther/ko.json', 'private/monster-site/pack.json'];
   const ignored = execFileSync('git', ['check-ignore', '--no-index', ...paths], { cwd: repo, encoding: 'utf8' }).trim().split('\n');
   if (paths.some((path) => !ignored.includes(path))) fail('private pack, cache or audit paths are not ignored.');
   const needles = packs.filter((pack) => pack?.profile !== 'synthetic').flatMap(privatePackNeedles);
@@ -162,6 +165,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const repo = fileURLToPath(new URL('..', import.meta.url));
   const files = [
     process.env.PRIVATE_DNGNGEN_PACK ?? 'private/dngngen/pack.json',
+    'private/dngngen/ko.json',
     process.env.PRIVATE_SCVM_PACK ?? 'private/scvmbirther/pack.json',
     'private/scvmbirther/ko.json',
     process.env.PRIVATE_MONSTER_PACK ?? 'private/monster-site/pack.json',

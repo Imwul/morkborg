@@ -4,7 +4,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { readFile, writeFile, mkdir, lstat, realpath } from 'node:fs/promises';
 import { resolve, relative, dirname, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { AUDITED_MAP_SHA256, DngngenImportError, extractDngngenPools, importDngngenSnapshot } from './importDngngenSnapshot.js';
+import { AUDITED_MAP_SHA256, DngngenImportError, extractDngngenPools, extractDngngenFeatures, importDngngenSnapshot } from './importDngngenSnapshot.js';
 
 export const DNGNGEN_ORIGIN = 'https://dngngen.makedatanotlore.dev';
 export const AUDITED_MAIN_SHA256 = 'c433fc85cf8211cb68b4ee6a318a5a99a5f0bf378d3fdc2ec6898ff1aaca9c8b';
@@ -39,14 +39,14 @@ export function extractRoomMessages(bundle: string, requiredIds: readonly string
         node.arguments.length === 1 && ts.isStringLiteral(node.arguments[0])) {
       const serialized = node.arguments[0].text;
       // Unrelated dictionaries are neither parsed nor retained.
-      if (serialized.includes('room.details.') || serialized.includes('"app.version"')) {
+      if (serialized.includes('room.details.') || serialized.includes('"app.version"') || requiredIds.some(id => id.startsWith('dungeon.feature.') && serialized.includes(id))) {
         let parsed: unknown; try { parsed = JSON.parse(serialized); } catch { return fail('asset-json'); }
         if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
           const record = parsed as Record<string, unknown>;
           if (typeof record['app.version'] === 'string') {
             version=record['app.version'].match(/^v(\d+\.\d+\.\d+)\b/)?.[1];
           }
-          if (Object.keys(record).some(key => key.startsWith('room.details.'))) {
+          if (requiredIds.some(id => Object.hasOwn(record, id))) {
             if (!Object.values(record).every(value => typeof value === 'string')) fail('room-message-shape');
             candidates.push(record as Record<string, string>);
           }
@@ -57,11 +57,12 @@ export function extractRoomMessages(bundle: string, requiredIds: readonly string
   }
   visit(file);
   if (version !== '1.0.0') fail('incompatible-deployment-version');
-  if (candidates.length !== 1) fail('ambiguous-room-message-module');
   const result: Record<string, string> = Object.create(null);
   for (const id of requiredIds) {
-    if (!Object.hasOwn(candidates[0], id)) fail('missing-message-dependency');
-    result[id] = candidates[0][id];
+    const matches = candidates.filter(candidate => Object.hasOwn(candidate, id));
+    if (!matches.length) fail('missing-message-dependency');
+    if (matches.length !== 1) fail('ambiguous-room-message-module');
+    result[id] = matches[0][id];
   }
   return result;
 }
@@ -74,7 +75,8 @@ export async function acquireRoomSnapshot(mapText: string, fetcher: AcquisitionF
   const en = map.sourcesContent[map.sources.indexOf('translations/en_US/index.ts')];
   if (typeof en !== 'string' || !en.includes("import rooms from './dungeon/rooms.json'")) fail('missing-room-import-evidence');
   const pools = extractDngngenPools(map.sourcesContent[map.sources.indexOf('roll/Room/tables/index.tsx')]);
-  const requiredIds = Object.values(pools).flat().map(entry => entry.messageId);
+  const features = extractDngngenFeatures(map.sourcesContent[map.sources.indexOf('roll/Feature/tables/index.tsx')]);
+  const requiredIds = [...new Set([...Object.values(pools).flat(), ...Object.values(features).flat()].map(entry => entry.messageId))];
   const pageUrl = officialDngngenUrl(DNGNGEN_ORIGIN + '/');
   const page = await fetchOfficialDngngenAsset(pageUrl, 200_000, fetcher);
   const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => new URL(match[1], pageUrl));

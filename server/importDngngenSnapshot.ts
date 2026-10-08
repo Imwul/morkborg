@@ -5,7 +5,7 @@ import { readFile, lstat, mkdir, realpath, writeFile, rename, copyFile, unlink }
 import { constants } from 'node:fs';
 import { resolve, relative, dirname, join } from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { DNGNGEN_POOL_ROLES, dngngenPackPayload, parseDngngenPack,
+import { DNGNGEN_POOL_ROLES, DNGNGEN_FEATURE_KEYS, dngngenPackPayload, parseDngngenPack,
   type DngngenEntry, type DngngenPack, type DngngenTemplatePart,
   type DngngenValue, type DngngenValueRecipe } from '../src/domain/dngngenPack.js';
 import { readPrivateDngngenPack } from './privateDngngenPack.js';
@@ -112,6 +112,37 @@ export function extractDngngenPools(text: string): DngngenPack['pools'] {
     });
   }
   return pools;
+}
+
+/** Read the audited feature declarations as data, retaining duplicate guard positions. */
+export function extractDngngenFeatures(text: string): NonNullable<DngngenPack['features']> {
+  const declarations = new Map<string, ts.Expression>();
+  for (const statement of ast(text).statements) {
+    if (!ts.isVariableStatement(statement)) continue;
+    for (const declaration of statement.declarationList.declarations) {
+      if (ts.isIdentifier(declaration.name) && declaration.initializer)
+        declarations.set(declaration.name.text, declaration.initializer);
+    }
+  }
+  return Object.fromEntries(DNGNGEN_FEATURE_KEYS.map(key => {
+    const table = declarations.get({ reason: 'Reasons', entrance: 'Entrances', guard: 'Guards' }[key]);
+    if (!table) return fail('missing-feature-table');
+    const fields = properties(table), results = fields.get('results');
+    if (fields.size !== 2 || !fields.has('id') || !results || !ts.isArrayLiteralExpression(results)) return fail('feature-table-shape');
+    const entries = results.elements.map(node => {
+      if (!ts.isCallExpression(node) || !ts.isIdentifier(node.expression) || node.expression.text !== 'feature' || ![1, 2].includes(node.arguments.length)) return fail('feature-entry-call');
+      const id = literal(node.arguments[0]);
+      if (typeof id !== 'string' || !id.startsWith(`${key}.`)) return fail('feature-entry-id');
+      const values: DngngenEntry['values'][number][] = [];
+      if (node.arguments.length === 2) {
+        const fn = node.arguments[1];
+        if (!ts.isArrowFunction(fn) || fn.parameters.length || ts.isBlock(fn.body)) return fail('value-function');
+        for (const [name, expression] of properties(fn.body)) values.push({ name, recipe: recipe(expression) });
+      }
+      return { id, messageId: `dungeon.feature.${id}`, values };
+    });
+    return [key, entries];
+  }));
 }
 
 /** Small ICU subset supported by this pack: literal text, arguments and selects.
@@ -238,6 +269,10 @@ export function importDngngenSnapshot(bytes: Buffer, options: { synthetic?: bool
   }
   if (!messagesInput) fail('missing-english-message-dependencies');
   const dictionary = object(messagesInput);
+  const featureModule = contents[sources.indexOf('roll/Feature/tables/index.tsx')];
+  const features = Object.keys(dictionary).some(key => key.startsWith('dungeon.feature.'))
+    ? typeof featureModule === 'string' ? extractDngngenFeatures(featureModule) : fail('missing-feature-module')
+    : undefined;
   const messages: Record<string, readonly DngngenTemplatePart[]> = Object.create(null);
   const visiting = new Set<string>();
   function add(id: string, entry: DngngenEntry) {
@@ -266,13 +301,14 @@ export function importDngngenSnapshot(bytes: Buffer, options: { synthetic?: bool
     scan(messages[id]); visiting.delete(id);
   }
   for (const entry of Object.values(pools).flat()) add(entry.messageId, entry);
+  for (const entry of Object.values(features ?? {}).flat()) add(entry.messageId, entry);
   const poolCounts = Object.fromEntries(DNGNGEN_POOL_ROLES.map(role => [role, pools[role].length])) as DngngenPack['integrity']['poolCounts'];
   const pack: DngngenPack = {
     format: 'reference-desk.dngngen', version: 1, profile: options.synthetic ? 'synthetic' : 'dngngen-1.0.0',
     source: options.synthetic ? { project: 'Synthetic importer test', author: 'Test fixture', url: 'https://example.invalid', attribution: 'Invented test data, not DNGNGEN content.' } :
       { project: 'DNGNGEN', author: 'Karl Druid', url: 'https://dngngen.makedatanotlore.dev/', attribution: 'DNGNGEN by Karl Druid. Private local snapshot; not an official integration. Redistribution rights remain unclear.' },
     snapshot: { id: `${options.synthetic ? 'synthetic' : 'dngngen'}-${sha(bytes).slice(0, 24)}`, version: options.synthetic ? 'test-1' : '1.0.0', auditedAt: '2026-09-20' },
-    pools, messages, integrity: { algorithm: 'sha256', payloadSha256: '0'.repeat(64), poolCounts },
+    pools, ...(features ? { features } : {}), messages, integrity: { algorithm: 'sha256', payloadSha256: '0'.repeat(64), poolCounts },
   };
   const sealed = { ...pack, integrity: { ...pack.integrity, payloadSha256: sha(dngngenPackPayload(pack)) } };
   const validated = parseDngngenPack(sealed, { allowSynthetic: options.synthetic });

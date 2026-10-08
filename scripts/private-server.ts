@@ -25,6 +25,7 @@ if (!Number.isSafeInteger(port) || port < 1024 || port > 65535)
   throw new Error('PRIVATE_PORT must be an integer from 1024 to 65535.');
 const origin = privateOrigin(process.env.PRIVATE_ORIGIN ?? saved.origin);
 const packPath = resolve(root, process.env.PRIVATE_DNGNGEN_PACK ?? 'private/dngngen/pack.json');
+const dngngenTranslationPath = resolve(root, 'private/dngngen/ko.json');
 const scvmPath = resolve(root, process.env.PRIVATE_SCVM_PACK ?? 'private/scvmbirther/pack.json');
 const scvmTranslationPath = resolve(root, 'private/scvmbirther/ko.json');
 const monsterPath = resolve(root, process.env.PRIVATE_MONSTER_PACK ?? 'private/monster-site/pack.json');
@@ -40,7 +41,7 @@ if (!key) {
 const status = await readPrivateDngngenPack(packPath, allowSynthetic);
 const scvmStatus = await readPrivateGeneratorPack(scvmPath, parseScvmPack, scvmPackPayload, allowSynthetic);
 const monsterStatus = await readPrivateGeneratorPack(monsterPath, parseMonsterSitePack, monsterSitePackPayload, allowSynthetic);
-const server = createPrivateDngngenServer({ root, packPath, scvmPath, scvmTranslationPath, monsterPath, monsterTranslationPath, allowSynthetic, host, origin, rulebookKey: key });
+const server = createPrivateDngngenServer({ root, packPath, dngngenTranslationPath, scvmPath, scvmTranslationPath, monsterPath, monsterTranslationPath, allowSynthetic, host, origin, rulebookKey: key });
 server.on('error', () => {
   console.error('Private server could not listen. Check the port and configured local interface.');
   process.exitCode = 1;

@@ -1,6 +1,8 @@
 /** A local, user-supplied snapshot. This module contains no source vocabulary. */
 export const DNGNGEN_POOL_ROLES = ['A', 'B', 'C', 'D'] as const;
 export type DngngenPoolRole = (typeof DNGNGEN_POOL_ROLES)[number];
+export const DNGNGEN_FEATURE_KEYS = ['reason', 'entrance', 'guard'] as const;
+export type DngngenFeatureKey = (typeof DNGNGEN_FEATURE_KEYS)[number];
 export type DngngenValue = string | number;
 export type DngngenValueRecipe =
   | { readonly op: 'literal'; readonly value: DngngenValue }
@@ -46,7 +48,14 @@ export interface DngngenPack {
     readonly auditedAt: string;
   };
   readonly pools: Readonly<Record<DngngenPoolRole, readonly DngngenEntry[]>>;
+  readonly features?: Readonly<
+    Partial<Record<DngngenFeatureKey, readonly DngngenEntry[]>>
+  >;
   readonly messages: Readonly<Record<string, readonly DngngenTemplatePart[]>>;
+  /** Korean helpers are separate from the verified English payload and its RNG recipes. */
+  readonly translations?: Readonly<
+    Record<string, readonly DngngenTemplatePart[]>
+  >;
   readonly integrity: {
     readonly algorithm: 'sha256';
     readonly payloadSha256: string;
@@ -249,7 +258,10 @@ function validateDependencies(pack: DngngenPack) {
     checked.add(id);
   }
   Object.keys(pack.messages).forEach((id) => staticVisit(id, new Set()));
-  for (const entry of Object.values(pack.pools).flat()) {
+  for (const entry of [
+    ...Object.values(pack.pools).flat(),
+    ...Object.values(pack.features ?? {}).flat(),
+  ]) {
     const recipes = new Map(
       entry.values.map((value) => [value.name, value.recipe]),
     );
@@ -300,8 +312,51 @@ function stableJson(value: unknown): string {
 }
 /** The private host verifies SHA-256 of this UTF-8 string, without browser crypto. */
 export function dngngenPackPayload(pack: DngngenPack): string {
+  const { translations: _translations, ...source } = pack;
   const { payloadSha256: _digest, ...integrity } = pack.integrity;
-  return stableJson({ ...pack, integrity });
+  return stableJson({ ...source, integrity });
+}
+
+/** Helpers may reorder words, but must retain every variable, branch and dependency. */
+export function parseDngngenTranslations(
+  pack: DngngenPack,
+  input: unknown,
+): Readonly<Record<string, readonly DngngenTemplatePart[]>> {
+  const messages = record(input);
+  function signature(parts: readonly DngngenTemplatePart[]): string {
+    return stableJson(
+      parts
+        .filter((part) => part.type !== 'text')
+        .map((part) =>
+          part.type === 'select'
+            ? {
+                type: part.type,
+                name: part.name,
+                cases: Object.fromEntries(
+                  Object.entries(part.cases).map(([key, branch]) => [
+                    key,
+                    signature(branch),
+                  ]),
+                ),
+                other: signature(part.other),
+              }
+            : part,
+        )
+        .sort((a, b) => stableJson(a).localeCompare(stableJson(b))),
+    );
+  }
+  for (const [key, parts] of Object.entries(messages)) {
+    if (!Object.hasOwn(pack.messages, key)) fail('translation-message');
+    validateParts(parts);
+    if (
+      signature(parts as readonly DngngenTemplatePart[]) !==
+      signature(pack.messages[key])
+    )
+      fail('translation-variables');
+  }
+  return deepFreeze(structuredClone(messages)) as Readonly<
+    Record<string, readonly DngngenTemplatePart[]>
+  >;
 }
 /** Validates data, not licensing. No source execution, network request or RNG. */
 export function parseDngngenPack(
@@ -309,16 +364,20 @@ export function parseDngngenPack(
   options: { allowSynthetic?: boolean } = {},
 ): DngngenPack {
   try {
-    const raw = shape(input, [
-      'format',
-      'version',
-      'profile',
-      'source',
-      'snapshot',
-      'pools',
-      'messages',
-      'integrity',
-    ]);
+    const raw = shape(
+      input,
+      [
+        'format',
+        'version',
+        'profile',
+        'source',
+        'snapshot',
+        'pools',
+        'messages',
+        'integrity',
+      ],
+      ['features', 'translations'],
+    );
     if (raw.format !== 'reference-desk.dngngen' || raw.version !== 1)
       fail('format-version');
     if (
@@ -395,6 +454,45 @@ export function parseDngngenPack(
     if (positions > 8192) fail('pool-size');
     if (raw.profile === 'dngngen-1.0.0' && byId.size !== 146)
       fail('snapshot-ids');
+    if (raw.features !== undefined) {
+      const features = shape(raw.features, [...DNGNGEN_FEATURE_KEYS]);
+      for (const key of DNGNGEN_FEATURE_KEYS) {
+        const entries = list(features[key]);
+        if (
+          raw.profile === 'dngngen-1.0.0' &&
+          entries.length !== { reason: 29, entrance: 25, guard: 25 }[key]
+        )
+          fail('feature-count');
+        const featureIds = new Map<string, string>();
+        for (const value of entries) {
+          const entry = shape(value, ['id', 'messageId', 'values']);
+          identifier(entry.id);
+          identifier(entry.messageId);
+          if (!Array.isArray(entry.values) || entry.values.length > 32)
+            fail('values');
+          const names = new Set<string>();
+          for (const variable of entry.values) {
+            const named = shape(variable, ['name', 'recipe']);
+            identifier(named.name);
+            if (names.has(named.name)) fail('duplicate-variable');
+            names.add(named.name);
+            validateRecipe(named.recipe);
+          }
+          const serialized = stableJson(entry);
+          if (
+            featureIds.has(entry.id) &&
+            featureIds.get(entry.id) !== serialized
+          )
+            fail('conflicting-entry-id');
+          featureIds.set(entry.id, serialized);
+        }
+        if (
+          raw.profile === 'dngngen-1.0.0' &&
+          featureIds.size !== { reason: 29, entrance: 25, guard: 24 }[key]
+        )
+          fail('feature-ids');
+      }
+    }
     const messages = record(raw.messages);
     if (!Object.keys(messages).length || Object.keys(messages).length > 8192)
       fail('messages');
@@ -404,6 +502,8 @@ export function parseDngngenPack(
     }
     const pack = raw as unknown as DngngenPack;
     validateDependencies(pack);
+    if (raw.translations !== undefined)
+      parseDngngenTranslations(pack, raw.translations);
     // Isolate callers' raw JSON from runtime data; never freeze a caller-owned object.
     return deepFreeze(structuredClone(pack));
   } catch (error) {

@@ -61,10 +61,10 @@ test('Workbench native room preview keeps English components out of generated tr
   assert.match(nativeParagraphs[0][0], />Attack<\/span>/);
   assert.match(nativeParagraphs[1][0], />None<\/span>/);
   assert.doesNotMatch(html, /공격|없음/);
-  assert.match(html, /dungeon-room-provenance">DNGNGEN · SYNTHETIC DEMO/);
+  assert.doesNotMatch(html, /dungeon-room-provenance|>DNGNGEN/);
 });
 
-test('Workbench mixed preview shows each result source and keeps explicit Core translation', () => {
+test('Workbench mixed preview keeps explicit Core translation without repeating source labels', () => {
   const reading = nativeReading();
   reading.blocks = reading.blocks.map((block) =>
     block.title === 'Special Room 2'
@@ -76,8 +76,7 @@ test('Workbench mixed preview shows each result source and keeps explicit Core t
       : block,
   );
   const html = render(reading);
-  assert.match(html, /dungeon-room-provenance">DNGNGEN · SYNTHETIC DEMO/);
-  assert.match(html, /dungeon-room-provenance">CORE<\/small>/);
+  assert.doesNotMatch(html, /dungeon-room-provenance/);
   assert.match(html, /CORE TEST CONTENT/);
   assert.match(html, /코어 테스트/);
 });
@@ -85,10 +84,7 @@ test('Workbench mixed preview shows each result source and keeps explicit Core t
 test('Workbench source switch cannot relabel an existing native result as Core', () => {
   const reading = nativeReading();
   reading.preparation = { ...reading.preparation!, roomSource: 'CORE' };
-  assert.match(
-    render(reading),
-    /dungeon-room-provenance">DNGNGEN · SYNTHETIC DEMO/,
-  );
+  assert.match(render(reading), /dungeon-native-component/);
   assert.match(
     copyReferenceReading(reading),
     /Special Room 1 · DNGNGEN \(synthetic demo\)/,

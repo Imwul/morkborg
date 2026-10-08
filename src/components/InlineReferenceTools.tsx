@@ -18,6 +18,7 @@ import { EquipmentScroll, ContainerAlternatives } from './GeneratedEquipment';
 import { fixedReferenceReading } from '../domain/referenceFixedLookup';
 import { copyReadingWithInlineChildren } from '../domain/inlineReadingContinuity';
 import { ReferenceReadingText } from './ReferenceReadingText';
+import { DngngenResultText } from './DngngenResultText';
 import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
 import { ReadingResultReferences } from './ResultReferenceLinks';
@@ -115,8 +116,15 @@ export function ReferenceReadingBlock({
         const nativeRoom = roomSlot
           ? reading.preparation?.rooms?.[Number(roomSlot) as 1 | 2 | 3 | 4]
           : undefined;
-        const hasPrivateRooms = !!Object.keys(reading.preparation?.rooms ?? {})
-          .length;
+        const featureKey = (
+          {
+            'What brings you here?': 'reason',
+            Entrance: 'entrance',
+            'Guarded by': 'guard',
+          } as const
+        )[block.title as 'What brings you here?' | 'Entrance' | 'Guarded by'];
+        const nativeFeature =
+          featureKey && reading.preparation?.features?.[featureKey];
         const source = sourceRows.find(
           (row) =>
             block.text === row.text || block.text.startsWith(`${row.text}\n\n`),
@@ -147,25 +155,12 @@ export function ReferenceReadingBlock({
                 </strong>
               )}
             {block.dice && <small>{block.dice}</small>}
-            {roomSlot && block.text && hasPrivateRooms && (
-              <small className="dungeon-room-provenance">
-                {nativeRoom
-                  ? `DNGNGEN${nativeRoom.synthetic ? ' · SYNTHETIC DEMO' : ''}`
-                  : 'CORE'}
-              </small>
-            )}
             {nativeRoom ? (
               nativeRoom.components.map((component, componentIndex) => (
-                <p
-                  className="dungeon-native-component"
-                  key={componentIndex}
-                  lang="en"
-                >
-                  <span className="reference-result-text">
-                    {component.text}
-                  </span>
-                </p>
+                <DngngenResultText key={componentIndex} {...component} />
               ))
+            ) : nativeFeature ? (
+              <DngngenResultText {...nativeFeature} />
             ) : block.kind === 'creature' ? (
               <CreatureReadingFields block={block} excludeId={referenceId} />
             ) : source &&

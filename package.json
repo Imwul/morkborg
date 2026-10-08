@@ -15,6 +15,7 @@
     "private": "npm run build && node --import tsx scripts/private-server.ts",
     "private:validate": "node --import tsx scripts/private-validate.ts",
     "private:dngngen:import": "node --import tsx scripts/private-dngngen-import.ts",
+    "private:dngngen:translate": "node --import tsx scripts/private-dngngen-translate.ts",
     "privacy:private": "node scripts/check-private-boundary.mjs --git",
     "private:dngngen:acquire": "node --import tsx scripts/private-dngngen-acquire.ts",
     "private:scvm:acquire": "node --import tsx scripts/private-scvm-acquire.ts",

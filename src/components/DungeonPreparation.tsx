@@ -10,10 +10,9 @@ import {
   selectDungeonRoomSource,
 } from '../domain/dungeonReferencePreparation';
 import type { PrivateDngngenState } from '../storage/privateDngngenClient';
-import {
-  ReferenceReadingText,
-  resultTextDensity,
-} from './ReferenceReadingText';
+import type { DngngenFeatureKey } from '../domain/dngngenPack';
+import { DngngenResultText } from './DngngenResultText';
+import { ReferenceReadingText } from './ReferenceReadingText';
 import { ReferenceRollTrace } from './ReferenceRollTrace';
 import { ReferenceNextSteps } from './ReferenceNextSteps';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
@@ -46,7 +45,7 @@ export function DungeonPreparation({
     <section className="dungeon-preparation" aria-label="던전 준비 항목">
       <p className="dungeon-preparation-method">
         {pack || hasDngngenResults
-          ? 'SD 준비 양식 · 원문 선택은 다음 특별한 방 굴림부터 적용됩니다. '
+          ? 'SD 준비 양식 · 원문 선택은 다음 굴림부터 적용됩니다. '
           : 'SD 준비 양식 · 특별한 방 4개는 Core Sample Rooms에서 각각 굴립니다. '}
         <a href={DNGNGEN_URL} target="_blank" rel="noreferrer">
           DNGNGEN 원본 ↗
@@ -54,7 +53,7 @@ export function DungeonPreparation({
       </p>
       {(pack || hasDngngenResults || roomSource === 'DNGNGEN') && (
         <ReferenceRollSettings
-          label="특별한 방 굴림 설정"
+          label="던전 굴림 설정"
           description={
             pack && (
               <>
@@ -67,7 +66,7 @@ export function DungeonPreparation({
           }
         >
           <label>
-            특별한 방 원문{' '}
+            {pack?.features ? '방·방문 이유·입구·경비 원문' : '특별한 방 원문'}{' '}
             <select
               value={roomSource}
               onChange={(event) => {
@@ -117,6 +116,11 @@ export function DungeonPreparation({
                   Number(field.key.slice(-1)) as 1 | 2 | 3 | 4
                 ]
               : undefined;
+          const nativeFeature =
+            current.preparation?.features?.[field.key as DngngenFeatureKey];
+          const pendingNativeFeature =
+            roomSource === 'DNGNGEN' &&
+            !!pack?.features?.[field.key as DngngenFeatureKey];
           const rolls =
             current.oracle?.rolls.filter(
               (roll) => roll.metadata?.preparationField === field.key,
@@ -135,9 +139,13 @@ export function DungeonPreparation({
                     {field.titleKo}
                   </span>
                 </h3>
-                {formula && (
+                {(formula ||
+                  nativeFeature ||
+                  (pendingNativeFeature && !block?.text)) && (
                   <code>
                     {nativeResult ||
+                    nativeFeature ||
+                    (pendingNativeFeature && !block?.text) ||
                     (field.kind === 'room' &&
                       !block?.text &&
                       roomSource === 'DNGNGEN')
@@ -147,32 +155,32 @@ export function DungeonPreparation({
                 )}
               </header>
               {field.kind === 'manual' ? (
-                <label>
-                  <span className="sr-only">{field.titleKo}</span>
-                  <textarea
-                    value={block?.text ?? ''}
-                    placeholder="직접 적기 · 선택 사항"
-                    onChange={(event) =>
-                      onChange(
-                        editDungeonPreparationField(
-                          current,
-                          field.key,
-                          event.target.value,
-                        ),
-                        false,
-                      )
-                    }
-                  />
-                </label>
+                <>
+                  <label>
+                    <span className="sr-only">{field.titleKo}</span>
+                    <textarea
+                      value={block?.text ?? ''}
+                      placeholder="직접 적기 · 선택 사항"
+                      onChange={(event) =>
+                        onChange(
+                          editDungeonPreparationField(
+                            current,
+                            field.key,
+                            event.target.value,
+                          ),
+                          false,
+                        )
+                      }
+                    />
+                  </label>
+                  {block?.translation?.ko && (
+                    <p className="generated-translation" lang="ko">
+                      {block.translation.ko}
+                    </p>
+                  )}
+                </>
               ) : block?.text ? (
                 <>
-                  {field.kind === 'room' && (pack || hasDngngenResults) && (
-                    <small className="dungeon-room-provenance">
-                      {nativeResult
-                        ? `DNGNGEN${nativeResult.synthetic ? ' · SYNTHETIC DEMO' : ''}`
-                        : 'CORE'}
-                    </small>
-                  )}
                   {block.dice && (
                     <p className="reference-result-dice">
                       <ReferenceRollTrace text={block.dice} />
@@ -180,21 +188,10 @@ export function DungeonPreparation({
                   )}
                   {nativeResult ? (
                     nativeResult.components.map((component, index) => (
-                      <p
-                        className="dungeon-native-component"
-                        key={index}
-                        lang="en"
-                      >
-                        <span
-                          className="reference-result-text"
-                          data-result-density={resultTextDensity(
-                            component.text,
-                          )}
-                        >
-                          {component.text}
-                        </span>
-                      </p>
+                      <DngngenResultText key={index} {...component} />
                     ))
+                  ) : nativeFeature ? (
+                    <DngngenResultText {...nativeFeature} />
                   ) : (
                     <ReferenceReadingText
                       text={block.text}
@@ -208,12 +205,14 @@ export function DungeonPreparation({
               ) : (
                 <p className="dungeon-field-empty">—</p>
               )}
-              {field.kind !== 'manual' && (
+              {(field.kind !== 'manual' || pendingNativeFeature) && (
                 <div className="dungeon-field-actions">
                   <button
                     className="play-roll-action"
                     disabled={
-                      field.kind === 'room' && roomSource === 'DNGNGEN' && !pack
+                      roomSource === 'DNGNGEN' &&
+                      !pack &&
+                      (field.kind === 'room' || !!nativeFeature)
                     }
                     onClick={() => {
                       try {
@@ -243,6 +242,8 @@ export function DungeonPreparation({
                     {block?.text ? '다시 굴리기' : '굴리기'}
                   </button>
                   {!nativeResult &&
+                    !nativeFeature &&
+                    !(pendingNativeFeature && !block?.text) &&
                     (field.kind !== 'room' ||
                       roomSource === 'CORE' ||
                       !!block?.text) &&
@@ -258,9 +259,12 @@ export function DungeonPreparation({
                     ))}
                 </div>
               )}
-              {'note' in field && field.kind !== 'room' && (
-                <p className="dungeon-field-note">{field.note}</p>
-              )}
+              {'note' in field &&
+                field.kind !== 'room' &&
+                !nativeFeature &&
+                !pendingNativeFeature && (
+                  <p className="dungeon-field-note">{field.note}</p>
+                )}
               {rolls.map((roll) => {
                 const table = registry.tables.find(
                   (table) => table.id === roll.oracleId,

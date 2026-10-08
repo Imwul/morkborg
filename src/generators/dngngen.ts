@@ -1,5 +1,6 @@
 import type {
   DngngenEntry,
+  DngngenFeatureKey,
   DngngenPack,
   DngngenTemplatePart,
   DngngenValue,
@@ -18,11 +19,24 @@ export interface DngngenRoomResult {
     readonly entryId: string;
     readonly values: Readonly<Record<string, DngngenValue>>;
     readonly text: string;
+    readonly ko?: string;
   }[];
   readonly text: string;
+  readonly ko?: string;
   readonly synthetic: boolean;
   readonly attribution: string;
   readonly sourceUrl: string;
+}
+export interface DngngenFeatureResult {
+  readonly source: 'DNGNGEN';
+  readonly key: DngngenFeatureKey;
+  readonly snapshotId: string;
+  readonly packIdentity: string;
+  readonly entryId: string;
+  readonly values: Readonly<Record<string, DngngenValue>>;
+  readonly text: string;
+  readonly ko?: string;
+  readonly synthetic: boolean;
 }
 function drawIndex(length: number, rng: RandomSource): number {
   if (!length) throw new Error('DNGNGEN has no eligible descriptions.');
@@ -47,7 +61,7 @@ function evaluate(recipe: DngngenValueRecipe, rng: RandomSource): DngngenValue {
   }
 }
 function render(
-  pack: DngngenPack,
+  messages: DngngenPack['messages'],
   parts: readonly DngngenTemplatePart[],
   values: Readonly<Record<string, DngngenValue>>,
 ): string {
@@ -57,14 +71,14 @@ function render(
         case 'text':
           return part.text;
         case 'message':
-          return render(pack, pack.messages[part.id], values);
+          return render(messages, messages[part.id], values);
         case 'value':
           return part.format === 'message'
-            ? render(pack, pack.messages[String(values[part.name])], values)
+            ? render(messages, messages[String(values[part.name])], values)
             : String(values[part.name]);
         case 'select':
           return render(
-            pack,
+            messages,
             Object.hasOwn(part.cases, String(values[part.name]))
               ? part.cases[String(values[part.name])]
               : part.other,
@@ -73,6 +87,72 @@ function render(
       }
     })
     .join('');
+}
+function resolvedEntry(
+  pack: DngngenPack,
+  entry: DngngenEntry,
+  rng: RandomSource,
+) {
+  const values: Record<string, DngngenValue> = Object.create(null);
+  for (const value of entry.values)
+    values[value.name] = evaluate(value.recipe, rng);
+  let ko: string | undefined;
+  if (pack.translations?.[entry.messageId]) {
+    // Partial local helpers cannot manufacture an English/Korean mixed translation.
+    const complete = (parts: readonly DngngenTemplatePart[]): boolean =>
+      parts.every((part) => {
+        const target =
+          part.type === 'message'
+            ? part.id
+            : part.type === 'value' && part.format === 'message'
+              ? String(values[part.name])
+              : undefined;
+        if (target)
+          return (
+            !!pack.translations?.[target] && complete(pack.translations[target])
+          );
+        if (part.type === 'select')
+          return complete(part.cases[String(values[part.name])] ?? part.other);
+        return true;
+      });
+    if (complete(pack.translations[entry.messageId]))
+      ko = render(
+        pack.translations,
+        pack.translations[entry.messageId],
+        values,
+      );
+  }
+  return Object.freeze({
+    entryId: entry.id,
+    values: Object.freeze(values),
+    text: render(pack.messages, pack.messages[entry.messageId], values),
+    ...(ko ? { ko } : {}),
+  });
+}
+
+/** Source feature rolls exclude their own previous ID while preserving repeated positions. */
+export function rollDngngenFeature(
+  pack: DngngenPack,
+  key: DngngenFeatureKey,
+  previous?: DngngenFeatureResult,
+  rng: RandomSource = random,
+): DngngenFeatureResult {
+  const previousId =
+    previous?.key === key &&
+    previous.packIdentity === pack.integrity.payloadSha256 &&
+    previous.snapshotId === pack.snapshot.id
+      ? previous.entryId
+      : undefined;
+  const pool = pack.features?.[key]?.filter((entry) => entry.id !== previousId);
+  if (!pool?.length) throw new Error('DNGNGEN 세부 항목 자료를 확인하세요.');
+  return Object.freeze({
+    ...resolvedEntry(pack, pool[drawIndex(pool.length, rng)], rng),
+    source: 'DNGNGEN',
+    key,
+    snapshotId: pack.snapshot.id,
+    packIdentity: pack.integrity.payloadSha256,
+    synthetic: pack.profile === 'synthetic',
+  });
 }
 /** Array views retain source order and multiplicity. No RNG is used here. */
 export function dngngenRoomPools(
@@ -122,14 +202,7 @@ export function rollDngngenRoom(
     throw new Error('DNGNGEN has no eligible descriptions.');
   const components = eligible.map((pool) => {
     const entry = pool[drawIndex(pool.length, rng)];
-    const values: Record<string, DngngenValue> = Object.create(null);
-    for (const value of entry.values)
-      values[value.name] = evaluate(value.recipe, rng);
-    return Object.freeze({
-      entryId: entry.id,
-      values: Object.freeze(values),
-      text: render(pack, pack.messages[entry.messageId], values),
-    });
+    return resolvedEntry(pack, entry, rng);
   });
   return Object.freeze({
     source: 'DNGNGEN',
@@ -138,6 +211,9 @@ export function rollDngngenRoom(
     slot,
     components: Object.freeze(components),
     text: components.map((component) => component.text).join('\n'),
+    ...(components.every((component) => component.ko)
+      ? { ko: components.map((component) => component.ko).join('\n') }
+      : {}),
     synthetic: pack.profile === 'synthetic',
     attribution: pack.source.attribution,
     sourceUrl: pack.source.url,

@@ -6,8 +6,8 @@ import { oracleRollProvenance } from './oracleProvenance';
 import { appPolicy, sourceProcedure } from './generationAuthority';
 import { rollOracle } from '../generators/oracleRoller';
 import { id, random, type RandomSource } from '../generators/random';
-import type { DngngenPack } from './dngngenPack';
-import { rollDngngenRoom } from '../generators/dngngen';
+import type { DngngenPack, DngngenFeatureKey } from './dngngenPack';
+import { rollDngngenRoom, rollDngngenFeature } from '../generators/dngngen';
 
 export const DNGNGEN_URL = 'https://dngngen.makedatanotlore.dev/';
 
@@ -244,6 +244,53 @@ export function rerollDungeonPreparationField(
   privatePack?: DngngenPack,
 ): ReferenceReading {
   const field = fieldFor(key);
+  const featureKey = ['reason', 'entrance', 'guard'].includes(key)
+    ? (key as DngngenFeatureKey)
+    : undefined;
+  if (
+    featureKey &&
+    current.preparation?.roomSource === 'DNGNGEN' &&
+    !privatePack
+  )
+    throw new Error(
+      'DNGNGEN 자료가 준비되지 않았습니다. 원문 선택과 자료를 확인하세요.',
+    );
+  if (
+    featureKey &&
+    current.preparation?.roomSource === 'DNGNGEN' &&
+    privatePack?.features?.[featureKey]
+  ) {
+    const result = rollDngngenFeature(
+      privatePack,
+      featureKey,
+      current.preparation.features?.[featureKey],
+      rng,
+    );
+    return withEvidence(
+      {
+        ...current,
+        preparation: {
+          ...current.preparation,
+          features: { ...current.preparation.features, [featureKey]: result },
+        },
+        blocks: current.blocks.map((block) =>
+          block.title === field.title
+            ? {
+                title: field.title,
+                text: result.text,
+                translation: {
+                  titleKo: field.titleKo,
+                  ...(result.ko ? { ko: result.ko } : {}),
+                },
+              }
+            : block,
+        ),
+      },
+      (current.oracle?.rolls ?? []).filter(
+        (roll) => roll.metadata?.preparationField !== key,
+      ),
+    );
+  }
   if (field.kind === 'room' && current.preparation?.roomSource === 'DNGNGEN') {
     if (!privatePack)
       throw new Error(
@@ -268,7 +315,10 @@ export function rerollDungeonPreparationField(
             ? {
                 title: field.title,
                 text: result.text,
-                translation: { titleKo: field.titleKo },
+                translation: {
+                  titleKo: field.titleKo,
+                  ...(result.ko ? { ko: result.ko } : {}),
+                },
               }
             : block,
         ),
@@ -280,6 +330,10 @@ export function rerollDungeonPreparationField(
   }
   const replacement = rollDungeonPreparationField(key, registry, rng);
   const rooms = current.preparation?.rooms && { ...current.preparation.rooms };
+  const features = current.preparation?.features && {
+    ...current.preparation.features,
+  };
+  if (featureKey && features) delete features[featureKey];
   if (field.kind === 'room' && rooms)
     delete rooms[Number(key.slice(-1)) as 1 | 2 | 3 | 4];
   const rolls = DUNGEON_PREPARATION_FIELDS.flatMap((candidate) =>
@@ -293,7 +347,7 @@ export function rerollDungeonPreparationField(
     {
       ...current,
       ...(current.preparation
-        ? { preparation: { ...current.preparation, rooms } }
+        ? { preparation: { ...current.preparation, rooms, features } }
         : {}),
       blocks: current.blocks.map((block) =>
         block.title === field.title ? replacement.blocks[0] : block,
@@ -321,7 +375,11 @@ export function rollDungeonPreparationReading(
       : current;
   return DUNGEON_PREPARATION_FIELDS.reduce(
     (reading, field) =>
-      field.kind === 'manual'
+      field.kind === 'manual' &&
+      !(
+        current.preparation?.roomSource === 'DNGNGEN' &&
+        privatePack?.features?.[field.key as DngngenFeatureKey]
+      )
         ? reading
         : rerollDungeonPreparationField(
             reading,
@@ -342,10 +400,19 @@ export function editDungeonPreparationField(
 ): ReferenceReading {
   const field = fieldFor(key);
   if (field.kind !== 'manual') throw new Error('직접 작성 항목이 아닙니다.');
+  const features = current.preparation?.features && {
+    ...current.preparation.features,
+  };
+  if (features) delete features[key as DngngenFeatureKey];
   return {
     ...current,
+    ...(current.preparation
+      ? { preparation: { ...current.preparation, features } }
+      : {}),
     blocks: current.blocks.map((block) =>
-      block.title === field.title ? { ...block, text } : block,
+      block.title === field.title
+        ? { ...block, text, translation: { titleKo: field.titleKo } }
+        : block,
     ),
   };
 }
