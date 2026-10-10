@@ -11,7 +11,7 @@ npm ci
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
-브라우저에서 <http://127.0.0.1:5173>을 엽니다. 참조 설정은 브라우저에 저장하며 계정, 서버 데이터베이스, 외부 생성 API는 사용하지 않습니다. 공통 룰북 자료는 이 사이트의 서버에서 자동으로 불러옵니다. 로컬 서버를 실행한 상태에서 사용하며, 설치형 오프라인 PWA는 아닙니다.
+브라우저에서 <http://127.0.0.1:5173>을 엽니다. 참조 설정과 개인 기록은 브라우저에 저장하며 외부 생성 API는 사용하지 않습니다. 공통 룰북 자료는 이 사이트에서 자동으로 불러옵니다. [개인 Vercel 사이트](docs/personal-hosted-site.md)로 배포하면 본인 계정으로 로그인하여 여러 기기에서 사용할 수 있으며 Mac의 로컬 서버나 Tailscale을 켜 둘 필요가 없습니다. 설치형 오프라인 PWA는 아닙니다.
 
 ```sh
 npm test
@@ -44,7 +44,7 @@ npm run preview
 - **동물 흔적 / 망가진 길**은 SD의 상황 판정입니다. Presence / Omens 보정만 입력해서 직접 굴릴 수 있고, 도로·Leaving the Road 표를 별도로 봅니다. 별도 원문이 없는 Tracks 표를 만들어 넣지 않습니다.
 - **재앙**은 Core Calendar of Nechrubel의 d66 36개 결과만 굴립니다. 중복 재굴림과 일곱 번째 고정 7:7은 원본 규칙으로 설명하며, 앱이 재앙 횟수나 날짜를 관리하지 않습니다.
 - 도시 Move, 던전 Move, 방·거리·NPC 생성, 일반 주사위와 Mythic 결과는 임시 참조입니다. 출처, 관련 링크, COPY, 고정과 최근 참조를 사용할 수 있습니다.
-- 캐릭터·몬스터·던전 생성기는 홈의 생성기 항목에서 열 수 있습니다. 프라이빗 서버에 유효한 스냅샷이 있으면 SCVMBIRTHER, The Monster Approaches, DNGNGEN 원문을 선택할 수 있습니다.
+- 캐릭터·몬스터·던전 생성기는 홈의 생성기 항목에서 열 수 있습니다. 로그인으로 보호한 개인 배포 또는 로컬 프라이빗 서버에 유효한 스냅샷이 있으면 SCVMBIRTHER, The Monster Approaches, DNGNGEN 원문과 한국어 도움말을 선택할 수 있습니다.
 
 SCVMBIRTHER 원문의 한글 도움말을 로컬에서 갱신하려면 Mac의 영→한 번역 언어 팩과 [`trn` 명령줄 도구](https://github.com/hotchpotch/trn)를 준비한 뒤 `npm run private:scvm:translate`를 실행합니다. 생성되는 `private/scvmbirther/ko.json`은 Git에서 제외되며 현재 원문 스냅샷과 일치할 때만 프라이빗 서버가 사용합니다. 원문을 다시 받았다면 번역도 다시 생성해야 합니다.
 

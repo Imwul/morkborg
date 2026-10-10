@@ -102,7 +102,11 @@ export function checkPublicBuild(directory = 'dist', options = {}) {
             data.publisherKey)
         )
           fail('a renamed plaintext pack or connection is present.');
-        if (name.startsWith('private-updates/')) {
+        if (
+          name.startsWith('private-updates/') ||
+          name.startsWith('hosted-generators/')
+        ) {
+          const directory = name.split('/')[0];
           if (!data || typeof data !== 'object' || Array.isArray(data))
             fail('an encrypted-update asset is invalid.');
           if (entry.name === 'latest.json') {
@@ -112,7 +116,9 @@ export function checkPublicBuild(directory = 'dist', options = {}) {
               data.schemaVersion !== 1 ||
               !Number.isSafeInteger(data.revision) ||
               data.revision < 1 ||
-              !/^\/private-updates\/[a-f0-9]{64}\.json$/.test(data.file) ||
+              !new RegExp(`^/${directory}/[a-f0-9]{64}\\.json$`).test(
+                data.file,
+              ) ||
               !existsSync(join(root, data.file))
             )
               fail('the encrypted-update manifest is invalid.');

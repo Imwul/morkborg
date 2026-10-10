@@ -2,12 +2,27 @@
   "functions": {
     "api/rulebook-data.ts": {
       "includeFiles": "public/private-updates/**"
+    },
+    "api/private-generator.ts": {
+      "includeFiles": "public/hosted-generators/**"
     }
   },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
+    {
+      "source": "/__private/dngngen",
+      "destination": "/api/private-generator?generator=dngngen"
+    },
+    {
+      "source": "/__private/scvmbirther",
+      "destination": "/api/private-generator?generator=scvmbirther"
+    },
+    {
+      "source": "/__private/monster",
+      "destination": "/api/private-generator?generator=monster"
+    },
     {
       "source": "/((?!api(?:/|$)|assets(?:/|$)|private-updates(?:/|$)|rules(?:/|$)|outputs(?:/|$)|work(?:/|$)).*)",
       "destination": "/index.html"

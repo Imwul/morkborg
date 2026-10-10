@@ -225,11 +225,13 @@ test('repo ignores personal pack/configuration/cache/evidence and excludes it fr
   assert.equal(tracked.trim(), '');
 });
 
-test('production client has no static private file import and Vercel has no private endpoint', async () => {
+test('production client has no static private file import and hosted functions include only encrypted assets', async () => {
   const vite = await readFile('vite.config.ts', 'utf8');
   assert(!/from\s*['"][^'"]*private\/dngngen/.test(vite));
   const config = JSON.parse(await readFile('vercel.json', 'utf8'));
-  assert.deepEqual(Object.keys(config.functions), ['api/rulebook-data.ts']);
+  assert.deepEqual(Object.keys(config.functions), ['api/rulebook-data.ts', 'api/private-generator.ts']);
+  assert.equal(config.functions['api/private-generator.ts'].includeFiles, 'public/hosted-generators/**');
+  assert(Object.values(config.functions).every((value: any) => !value.includeFiles.startsWith('private/')));
   const pkg = JSON.parse(await readFile('package.json', 'utf8'));
   assert(pkg.scripts.build.includes('check-private-boundary.mjs'));
   assert(pkg.scripts.private.includes('private-server.ts'));

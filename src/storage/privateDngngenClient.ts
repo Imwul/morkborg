@@ -5,13 +5,15 @@ export type PrivateDngngenState =
   | { status: 'unavailable'; reason: 'missing' | 'invalid' | 'connection' }
   | { status: 'ready'; pack: DngngenPack };
 
-/** Only the private host inserts this marker. Public pages never probe a private API. */
+/** Local hosts and protected hosted builds opt in; ordinary public pages never probe these APIs. */
 export function isPrivateDngngenHost(
   document: Pick<Document, 'querySelector'>,
 ) {
   return (
     document
-      .querySelector('meta[name="reference-desk-private"]')
+      .querySelector(
+        'meta[name="reference-desk-private"], meta[name="reference-desk-hosted-generators"]',
+      )
       ?.getAttribute('content') === 'enabled'
   );
 }

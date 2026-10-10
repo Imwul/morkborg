@@ -12,6 +12,7 @@
     "test": "tsx --test tests/*.test.ts",
     "lint": "oxlint src",
     "data:publish": "node scripts/publish-private-update.mjs",
+    "data:publish:generators": "node --import tsx scripts/publish-hosted-generators.ts",
     "private": "npm run build && node --import tsx scripts/private-server.ts",
     "private:validate": "node --import tsx scripts/private-validate.ts",
     "private:dngngen:import": "node --import tsx scripts/private-dngngen-import.ts",

@@ -5,9 +5,45 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/postcss';
 import { fileURLToPath, URL } from 'node:url';
 import { publishedMiddleware } from './server/publishedMiddleware.ts';
+import { hostedGeneratorMiddleware } from './server/hostedGenerators.ts';
 export default defineConfig({
   plugins: [
     react(),
+    {
+      name: 'protected-hosted-generators',
+      transformIndexHtml() {
+        return process.env.MORKBORG_HOSTED_GENERATORS === '1'
+          ? [
+              {
+                tag: 'meta',
+                attrs: {
+                  name: 'reference-desk-hosted-generators',
+                  content: 'enabled',
+                },
+                injectTo: 'head' as const,
+              },
+            ]
+          : [];
+      },
+      configureServer(server) {
+        server.middlewares.use(
+          hostedGeneratorMiddleware(() => ({
+            root: process.cwd(),
+            key: process.env.MORKBORG_DATA_KEY,
+            enabled: process.env.MORKBORG_HOSTED_GENERATORS === '1',
+          })),
+        );
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use(
+          hostedGeneratorMiddleware(() => ({
+            root: process.cwd(),
+            key: process.env.MORKBORG_DATA_KEY,
+            enabled: process.env.MORKBORG_HOSTED_GENERATORS === '1',
+          })),
+        );
+      },
+    },
     {
       name: 'local-rulebook-service',
       configureServer(server) {
