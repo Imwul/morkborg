@@ -360,6 +360,7 @@
 }
 .spatial-reader-tools button {
   font-size: 0.8rem;
+  min-width: 44px;
 }
 .spatial-reader-tools button:first-child {
   margin-right: auto;
