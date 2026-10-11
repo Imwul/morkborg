@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { isSupersededOracleSource } from '../data/oracles/sourceEvidence';
 import type { PrivateData, PrivateDataKey } from './privateData';
 import type { ParsedPrivateData } from './privateDataImport';
 import {
@@ -127,13 +128,19 @@ export function createPublishedDataClient(deps: Dependencies) {
             table.dice === 'd66' &&
             table.forcedFinal === undefined,
         );
+        const supersededSourceIds = new Set(
+          current.oracles?.tables
+            .filter(isSupersededOracleSource)
+            .map((table) => table.id),
+        );
+        const sourceRepair = supersededSourceIds.size > 0;
         emit({ enabled: connection.enabled, revision: connection.revision });
         if (!connection.enabled && !force && !(fillMissing && missing)) return;
         lastCheck = now();
         emit({ busy: true, error: '', message: '' });
         const response = responseSchema.parse(
           await deps.fetch(
-            `/api/rulebook-data?revision=${missing || missingMiseryFinal ? 0 : connection.revision}`,
+            `/api/rulebook-data?revision=${missing || missingMiseryFinal || sourceRepair ? 0 : connection.revision}`,
           ),
         );
         if (generation !== deps.generation()) return;
@@ -146,6 +153,7 @@ export function createPublishedDataClient(deps: Dependencies) {
         if (
           !missing &&
           !missingMiseryFinal &&
+          !sourceRepair &&
           response.revision === connection.revision
         ) {
           emit({ connected: true, message: '최신 자료입니다.' });
@@ -162,14 +170,21 @@ export function createPublishedDataClient(deps: Dependencies) {
             : deps.merge(current, incoming);
         const repairOnly =
           !missing &&
-          missingMiseryFinal &&
+          (missingMiseryFinal || sourceRepair) &&
           response.revision === connection.revision;
         if (repairOnly) {
           const restored = merged.oracles?.tables.find(
             (table) => table.id === 'core.miseries',
           )?.forcedFinal;
-          if (!restored)
+          if (missingMiseryFinal && !restored)
             throw new Error('Canonical fixed misery is unavailable.');
+          for (const tableId of supersededSourceIds) {
+            const corrected = merged.oracles?.tables.find(
+              (table) => table.id === tableId,
+            );
+            if (!corrected || isSupersededOracleSource(corrected))
+              throw new Error('Audited source correction is unavailable.');
+          }
           // A same-revision repair must not replay unrelated translation/source
           // enrichment. Carry over only the field accepted by the guarded merge.
           merged = {
@@ -177,9 +192,13 @@ export function createPublishedDataClient(deps: Dependencies) {
             oracles: {
               ...current.oracles!,
               tables: current.oracles!.tables.map((table) =>
-                table.id === 'core.miseries' && restored
-                  ? { ...table, forcedFinal: restored }
-                  : table,
+                supersededSourceIds.has(table.id)
+                  ? merged.oracles!.tables.find(
+                      (corrected) => corrected.id === table.id,
+                    )!
+                  : table.id === 'core.miseries' && restored
+                    ? { ...table, forcedFinal: restored }
+                    : table,
               ),
             },
           };

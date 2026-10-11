@@ -362,7 +362,8 @@ export function ruleFaithfulResult(
     };
     for (const tableId of selected) {
       const result = weatherRoll(tableId);
-      if (tableId === 'reclvse.precipitation' && result.roll === 3) {
+      // RECLVSE first edition, PDF107: temperature 20 says "roll twice".
+      if (tableId === 'reclvse.temperature' && result.roll === 20) {
         weatherRoll(tableId);
         weatherRoll(tableId);
       }

@@ -10,6 +10,14 @@ interface Attestation {
 export const ORACLE_SOURCE_ATTESTATIONS: Record<string, Attestation> =
   attestations;
 export const ORACLE_SOURCE_AUDIT_VERSION = 'supplied-pdf-audit-2026-09-08';
+const supersededFingerprints: Record<string, string> = {
+  'reclvse.precipitation': '237d7e9b',
+  'reclvse.classRules': '6d6eb89b',
+};
+/** Exact canonical snapshots corrected against the first-edition PDF on 2026-10-11. */
+export function isSupersededOracleSource(table: OracleDefinition): boolean {
+  return supersededFingerprints[table.id] === oracleSourceFingerprint(table);
+}
 const presentationKeys = new Set([
   'ko',
   'translation',

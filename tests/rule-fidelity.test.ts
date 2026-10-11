@@ -14,6 +14,9 @@ import {
 import { setRules, type RulesPack } from '../src/storage/rulesStore.ts';
 import type { OraclePack } from '../src/domain/oracle.ts';
 import { executeReference } from '../src/domain/referenceExecution.ts';
+import { mergeOracleTranslations } from '../src/storage/privateUpdates.ts';
+import { createPublishedDataClient } from '../src/storage/publishedDataClient.ts';
+import { mergePublishedPacks } from '../src/storage/publishedDataMerge.ts';
 import { readRowRelationships } from '../src/domain/rowRelationships.ts';
 import { defaultMythicState } from '../src/domain/mythic.ts';
 import { resolveScene } from '../src/generators/mythic.ts';
@@ -40,6 +43,138 @@ const sequence = (values: number[]) => {
     return values[i++];
   };
 };
+test('RECLVSE city discoveries on PDF106 remain in city, before wilderness PDF107', () => {
+  for (const id of [
+    'social_discoveries',
+    'physical_signs_of_trouble',
+    'signs_of_the_undercity',
+  ]) {
+    assert.deepEqual(references.byId[`oracle:reclvse.${id}`].contexts, [
+      'city',
+    ]);
+  }
+  assert.ok(
+    !references.byId['oracle:reclvse.temperature'].contexts.includes('city'),
+  );
+});
+test('RECLVSE class references retain mandatory downsides from PDF20–30', () => {
+  const table = registry.tables.find((t) => t.id === 'reclvse.classRules')!;
+  assert.equal(table.entries.length, 6);
+  for (const row of table.entries) {
+    const blocks = row.metadata!.blocks as {
+      title: string;
+      text: string;
+      translation?: { ko?: string };
+    }[];
+    const downside = blocks.find((b) => b.title === 'Downside · 약점');
+    assert.ok(downside, row.id);
+    assert.ok(downside.translation?.ko, row.id);
+  }
+  const blocksFor = (suffix: string) =>
+    (
+      table.entries.find((r) => r.id.endsWith(`:${suffix}`))!.metadata!
+        .blocks as { title: string; text: string }[]
+    ).find((b) => b.title === 'Downside · 약점')!.text;
+  assert.match(blocksFor('venom'), /Every night, test Presence DR10/);
+  assert.match(blocksFor('vessel'), /7 cracks/);
+  assert.match(blocksFor('beast'), /On a 1/);
+});
+test('audited RECLVSE corrections reach existing installations without replacing user edits', () => {
+  const previous = structuredClone(bundle.oracles);
+  const mist = previous.tables.find((t) => t.id === 'reclvse.precipitation')!;
+  mist.title = 'My weather table';
+  mist.entries[2].text = 'Mist (roll twice)';
+  mist.entries[2].metadata!.ko = '안개(두 번 굴림)';
+  const classes = previous.tables.find((t) => t.id === 'reclvse.classRules')!;
+  for (const row of classes.entries)
+    row.metadata!.blocks = (row.metadata!.blocks as { title: string }[]).filter(
+      (b) => b.title !== 'Downside · 약점',
+    );
+  const merged = mergeOracleTranslations(previous, bundle.oracles);
+  const corrected = merged.tables.find((t) => t.id === mist.id)!;
+  assert.equal(corrected.title, 'My weather table');
+  assert.equal(corrected.entries[2].text, 'Mist');
+  assert.equal(corrected.entries[2].metadata!.ko, '안개');
+  for (const row of merged.tables.find((t) => t.id === classes.id)!.entries)
+    assert.equal((row.metadata!.blocks as unknown[]).length, 3);
+  const edited = structuredClone(previous);
+  edited.tables.find((t) => t.id === mist.id)!.entries[2].text = 'My own mist';
+  assert.equal(
+    mergeOracleTranslations(edited, bundle.oracles).tables.find(
+      (t) => t.id === mist.id,
+    )!.entries[2].text,
+    'My own mist',
+  );
+  const unverified = structuredClone(bundle.oracles);
+  unverified.tables.find((t) => t.id === mist.id)!.entries[2].text =
+    'Unverified change';
+  assert.equal(
+    mergeOracleTranslations(previous, unverified).tables.find(
+      (t) => t.id === mist.id,
+    )!.entries[2].text,
+    'Mist (roll twice)',
+  );
+});
+test('an already acknowledged revision repairs superseded source tables and preserves other packs', async () => {
+  const previous = structuredClone(bundle.oracles);
+  const mist = previous.tables.find((t) => t.id === 'reclvse.precipitation')!;
+  mist.entries[2].text = 'Mist (roll twice)';
+  mist.entries[2].metadata!.ko = '안개(두 번 굴림)';
+  for (const row of previous.tables.find((t) => t.id === 'reclvse.classRules')!
+    .entries)
+    row.metadata!.blocks = (row.metadata!.blocks as { title: string }[]).filter(
+      (b) => b.title !== 'Downside · 약점',
+    );
+  const stored = {
+    library: bundle.library,
+    oracles: previous,
+    fateChart: { fixture: 'untouched' },
+    serverConnection: { schemaVersion: 1, revision: 123, enabled: true },
+  };
+  let persisted: Record<string, unknown> | undefined;
+  let activated: { oracles?: OraclePack } | undefined;
+  const client = createPublishedDataClient({
+    read: async (key) => stored[key as keyof typeof stored],
+    persist: async (next) => {
+      persisted = next;
+    },
+    active: () => ({}),
+    generation: () => 0,
+    fetch: async (path) => {
+      assert.equal(path, '/api/rulebook-data?revision=0');
+      return {
+        schemaVersion: 1,
+        revision: 123,
+        bundle: {
+          library: bundle.library,
+          oracles: bundle.oracles,
+          fateChart: { fixture: 'incoming' },
+        },
+      };
+    },
+    parse: (input) => input as never,
+    merge: mergePublishedPacks,
+    validate: () => {},
+    activate: (packs) => {
+      activated = packs;
+    },
+  });
+  await client.check(true);
+  assert.ok(persisted?.oracles);
+  assert.equal(
+    persisted?.library,
+    undefined,
+    'repair commits only corrected oracle pack',
+  );
+  assert.equal(
+    activated?.oracles?.tables.find((t) => t.id === mist.id)!.entries[2].text,
+    'Mist',
+  );
+  assert.deepEqual(
+    (activated as Record<string, unknown>).fateChart,
+    stored.fateChart,
+  );
+});
 test('complete classless PC has essentials and scroll-dependent starting arms', () => {
   const p = registry.procedures.find(
     (p) => p.id === 'character.core-classless',
@@ -154,9 +289,35 @@ test('Weather selects 1–3 tables and leaves unnatural follow-up optional', () 
     p,
     registry,
     { weatherDetails: ['reclvse.precipitation'] },
-    sequence([0.12, 0, 0]),
+    sequence([0.12]),
   )!;
-  assert.equal(mist.rolls.length, 3);
+  // Freshly supplied first-edition PDF107: Mist has no repeat instruction.
+  assert.equal(mist.rolls.length, 1);
+  assert.equal(mist.rolls[0].text, 'Mist');
+  assert.equal(mist.rolls[0].metadata?.ko, '안개');
+  const temperature = ruleFaithfulResult(
+    p,
+    registry,
+    { weatherDetails: ['reclvse.temperature'] },
+    sequence([0.99, 0, 0.5]),
+  )!;
+  assert.deepEqual(
+    temperature.rolls.map((r) => r.roll),
+    [20, 1, 11],
+  );
+  assert.ok(
+    temperature.rolls.every((r) => r.oracleId === 'reclvse.temperature'),
+  );
+  const precipitation = ruleFaithfulResult(
+    p,
+    registry,
+    { weatherDetails: ['reclvse.precipitation'] },
+    sequence([0.99, 0]),
+  )!;
+  assert.deepEqual(
+    precipitation.rolls.map((r) => r.roll),
+    [20, 1],
+  );
 });
 test('Buildings rolls d2 material count, each material and Other follow-up independently', () => {
   const p = registry.procedures.find((p) => p.id === 'sd.buildings')!;

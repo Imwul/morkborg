@@ -199,7 +199,7 @@ function contextsFor(table: OracleDefinition): ReferenceContext[] {
     table.sourceBookId === 'reclvse' &&
     typeof table.sourcePage === 'number' &&
     table.sourcePage >= 94 &&
-    table.sourcePage <= 105
+    table.sourcePage <= 106
   )
     return ['city'];
   if (id === 'reclvse.city_names') return ['city'];

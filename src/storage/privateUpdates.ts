@@ -12,6 +12,11 @@ import { loadFateChart } from './fateChartStore';
 import { mergeRuleTranslations } from './ruleTranslations';
 import type { OraclePack } from '../domain/oracle';
 import {
+  oracleSourceFingerprint,
+  isSupersededOracleSource,
+  ORACLE_SOURCE_ATTESTATIONS,
+} from '../data/oracles/sourceEvidence';
+import {
   parseUpdateConnection,
   privateImportGeneration,
   type UpdateConnection,
@@ -71,6 +76,60 @@ export function mergeOracleTranslations(
     ...current,
     tables: current.tables.map((table) => {
       const source = tables.get(table.id);
+      // First-edition PDF107 and PDF20–30 corrections. Only replace the exact
+      // superseded canonical data with the freshly inspected source snapshot.
+      // Edited English/ranges/metadata never match these fingerprints.
+      if (
+        source &&
+        isSupersededOracleSource(table) &&
+        ORACLE_SOURCE_ATTESTATIONS[table.id]?.fingerprint ===
+          oracleSourceFingerprint(source)
+      ) {
+        const previous = new Map(table.entries.map((row) => [row.id, row]));
+        return {
+          ...table,
+          entries: source.entries.map((row) => {
+            const old = previous.get(row.id);
+            const oldKo = old?.metadata?.ko;
+            const oldBlocks = old?.metadata?.blocks;
+            const blocks = row.metadata?.blocks;
+            return {
+              ...row,
+              metadata: {
+                ...row.metadata,
+                ...(typeof oldKo === 'string' &&
+                !(
+                  table.id === 'reclvse.precipitation' &&
+                  row.min === 3 &&
+                  oldKo === '안개(두 번 굴림)'
+                )
+                  ? { ko: oldKo }
+                  : {}),
+                ...(Array.isArray(blocks) && Array.isArray(oldBlocks)
+                  ? {
+                      blocks: blocks.map((block) => {
+                        const match = oldBlocks.find(
+                          (oldBlock) =>
+                            oldBlock.title === block.title &&
+                            oldBlock.text === block.text,
+                        );
+                        return match
+                          ? {
+                              ...block,
+                              translation: {
+                                ...block.translation,
+                                ...match.translation,
+                              },
+                            }
+                          : block;
+                      }),
+                    }
+                  : {}),
+              },
+            };
+          }),
+        };
+      }
       // Older imports predate this non-rollable source field. Fill only its absence;
       // keep all existing rows, edits and any explicitly supplied final result.
       const final = source?.forcedFinal;
