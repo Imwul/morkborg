@@ -391,12 +391,24 @@ test('named definitions, classes and all twelve relic effects resolve without re
 });
 test('all Stock Creatures named results point to the inspected statblock', () => {
   const table = registry.tables.find((t) => t.id === 'sd.stockCreatures')!;
+  // SD PDF11 names these species. Bare Bones PDF59–62 identifies the
+  // corresponding named statblocks; target availability alone is insufficient.
+  const correctedTargets: Record<number, string> = {
+    5: 'creature:core:60:belze',
+    6: 'creature:core:61:nodh',
+    12: 'creature:core:62:aland',
+    17: 'creature:core:59:zukuma',
+    18: 'creature:core:62:eulotha',
+    20: 'creature:core:60:arbint',
+  };
   for (const row of table.entries.slice(1)) {
     const edge = readRowRelationships(row.metadata, table.id).find(
       (e) => e.kind === 'FOLLOW-UP',
     );
     assert.ok(edge, row.text);
     assert.ok(references.byId[edge!.targetId]?.available, row.text);
+    if (correctedTargets[row.min])
+      assert.equal(edge!.targetId, correctedTargets[row.min], row.text);
   }
 });
 test('prepared Mythic preserves Expected Scene and legacy lists migrate without losing contents', () => {

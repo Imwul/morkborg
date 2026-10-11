@@ -90,7 +90,7 @@ if not any(c.get('id')=='core-full.rotblack.nesting-death' for c in creatures):
     creatures.append({'id':'core-full.rotblack.nesting-death','book':'core-full','pdfPage':79,'printedPage':'III','name':'Nesting Death','hp':12,'morale':None,'moraleDisplay':'—','armor':'Thick carapace −d2','attack':'Bite','damage':'d4','specialAbility':'Wins initiative on 1–4. Bite: Toughness DR12 or tests DR+2 for one hour (freezing).','sourceText':raw,'sourceVerified':True,'presetEligible':True})
 
 selector = bundle['library']['tables']['sd.stockCreatures']
-source_names = {2:'Pale one',3:'Dusk Gnoum',4:'Bent',5:'Zukuma',6:'Arbint',7:'Mongrel',8:'Seth',9:'Guards with Sharpened Teeth',10:'Earthbound',11:'Prowler',12:'Nodh',13:'Wrat',14:'Lady Porcelain',15:'Nesting Death',16:'Lich',17:'Belze',18:'Aland',19:'Thinx',20:'Eulotha'}
+source_names = {2:'Pale one',3:'Dusk Gnoum',4:'Bent',5:'Belze',6:'Nodh',7:'Mongrel',8:'Seth',9:'Guards with Sharpened Teeth',10:'Earthbound',11:'Prowler',12:'Aland',13:'Wrat',14:'Lady Porcelain',15:'Nesting Death',16:'Lich',17:'Zukuma',18:'Eulotha',19:'Thinx',20:'Arbint'}
 for row in selector['entries']:
     number = row['meta']['range'][0]
     name = source_names.get(number)

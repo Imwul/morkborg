@@ -62,6 +62,50 @@ export function correctOracleSourcePages(
 export function correctOracleGuidance(
   table: OracleDefinition,
 ): OracleDefinition {
+  // SD PDF11 identifies the species; Bare Bones PDF59–62 identifies the
+  // named statblocks. Repair only the six legacy cross-reference mistakes.
+  if (table.id === 'sd.stockCreatures' && table.sourceBookId === 'sd') {
+    const bindings: Record<number, [string, string, string]> = {
+      5: [
+        'Blood Drenched Skeleton',
+        'creature:core:59:zukuma',
+        'creature:core:60:belze',
+      ],
+      6: ['Zombie', 'creature:core:60:arbint', 'creature:core:61:nodh'],
+      12: [
+        'Wickhead Knife-Wielder',
+        'creature:core:61:nodh',
+        'creature:core:62:aland',
+      ],
+      17: ['Berserker', 'creature:core:60:belze', 'creature:core:59:zukuma'],
+      18: ['Wyvern', 'creature:core:62:aland', 'creature:core:62:eulotha'],
+      20: ['Troll', 'creature:core:62:eulotha', 'creature:core:60:arbint'],
+    };
+    return {
+      ...table,
+      entries: table.entries.map((entry) => {
+        const binding = bindings[entry.min];
+        const links = entry.metadata?.followUpReferenceIds;
+        if (
+          !binding ||
+          entry.min !== entry.max ||
+          entry.text !== binding[0] ||
+          !Array.isArray(links) ||
+          !links.includes(binding[1])
+        )
+          return entry;
+        return {
+          ...entry,
+          metadata: {
+            ...entry.metadata,
+            followUpReferenceIds: links.map((id) =>
+              id === binding[1] ? binding[2] : id,
+            ),
+          },
+        };
+      }),
+    };
+  }
   // PDF24 explicitly prints D6 on Brute's Archetype Skills chart. Correct
   // the old extraction note while retaining this reader's selection-only UI.
   if (
