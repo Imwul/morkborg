@@ -453,7 +453,10 @@ test('Scene navigation normalizes stale state while preserving all supported sce
 
 test('Spatial navigation preserves baseline canonical data hashes and registry cardinality', () => {
   const baseline = JSON.parse(
-    readFileSync('docs/rule-fidelity-2026-10-03/registry-baseline.json', 'utf8'),
+    readFileSync(
+      'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+      'utf8',
+    ),
   );
   for (const [path, hash] of Object.entries(baseline.files)) {
     if (

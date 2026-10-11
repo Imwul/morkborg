@@ -260,6 +260,11 @@ test('access derivation consumes no RNG and leaves all source/registry/relations
   assert.equal(graph.reverse.length, 88);
   assert.equal(
     hash(registry),
-    '2c8b3c7afca6b3cc5a4efbf87a714a72bcf69b0531a515e0bdb6e0b28f29a6b2',
+    JSON.parse(
+      readFileSync(
+        'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+        'utf8',
+      ),
+    ).registryHash,
   );
 });

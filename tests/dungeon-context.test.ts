@@ -302,6 +302,11 @@ test('calibration leaves canonical counts, oracle registry, source packs and ref
   );
   assert.equal(
     digest(registry),
-    '2c8b3c7afca6b3cc5a4efbf87a714a72bcf69b0531a515e0bdb6e0b28f29a6b2',
+    JSON.parse(
+      readFileSync(
+        'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+        'utf8',
+      ),
+    ).registryHash,
   );
 });
