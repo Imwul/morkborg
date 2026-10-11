@@ -191,7 +191,11 @@ export function DungeonPreparation({
                       <DngngenResultText key={index} {...component} />
                     ))
                   ) : nativeFeature ? (
-                    <DngngenResultText {...nativeFeature} />
+                    <DngngenResultText
+                      key={nativeFeature.key}
+                      text={nativeFeature.text}
+                      ko={nativeFeature.ko}
+                    />
                   ) : (
                     <ReferenceReadingText
                       text={block.text}

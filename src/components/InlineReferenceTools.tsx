@@ -160,7 +160,11 @@ export function ReferenceReadingBlock({
                 <DngngenResultText key={componentIndex} {...component} />
               ))
             ) : nativeFeature ? (
-              <DngngenResultText {...nativeFeature} />
+              <DngngenResultText
+                key={nativeFeature.key}
+                text={nativeFeature.text}
+                ko={nativeFeature.ko}
+              />
             ) : block.kind === 'creature' ? (
               <CreatureReadingFields block={block} excludeId={referenceId} />
             ) : source &&
