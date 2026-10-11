@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
-  "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-  "observed_at": "2026-10-11T07:22:43.662892+00:00",
+  "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+  "observed_at": "2026-10-11T07:51:36.444744+00:00",
   "producer": "/root actual CUA walkthrough and final existing verification commands",
   "results": [
     {
@@ -153,16 +153,16 @@
       "requirement_id": "SYS-25",
       "title": "Final existing checks and private boundaries",
       "status": "pass",
-      "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
-      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
+      "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-26",
       "requirement_id": "SYS-26",
       "title": "Honest evidence report with unresolved scope",
       "status": "pass",
-      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
-      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
+      "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-late-shelf-quota",
@@ -171,6 +171,14 @@
       "status": "pass",
       "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
       "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json."
+    },
+    {
+      "id": "system-LIVE-late-dngngen-key",
+      "requirement_id": "SYS-12",
+      "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+      "status": "pass",
+      "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+      "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json."
     }
   ]
 }

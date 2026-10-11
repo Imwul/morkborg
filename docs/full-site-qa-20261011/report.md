@@ -25,6 +25,8 @@
 
 루트 브라우저 기록은 272개 관찰 상태와 32개 레이아웃 측정을 남겼다. 공간 검사의 88개 관찰 기록 및 다른 담당자의 저장/전투 기록은 별도 증거이며 숫자를 더해 고유 기능 수로 주장하지 않는다. 최종 루트 및 담당자 콘솔 기록에서 오류는 0개였다.
 
+서버 정리 시 이전 로그에 한 번 기록된 DNGNGEN React 경고를 발견했고, 새 페이지에서 실제 재현했다. 아래23번째 수정 후 경고 캐시가 없는 새 탭에서 이유·입구·경비, 특별한 방4개와 미리보기를 다시 생성하고 세 항목의 개별 재굴림·COPY를 조작했다. 그 새 탭의 경고/오류는0개였다. 기존 탭의0개 기록만으로 이 경고가 없었다고 확대 해석하지 않는다.
+
 ## 원문 대조와 근거
 
 Core BARE BONES/전체판, FERETORY, SOLITARY DEFILEMENT, The Depths of the Dungeon, HERETIC, Mythic GME2, Alone in the Crowd의 **8개 구현 관련 원본 PDF**를 새 해시·추출로 대조했다. 추가 참고 PDF5종도 확인했지만 활성 표 대조의 분모에 넣지 않았다. RECLVSE는 원본 PDF가 없어 기존 렌더11/12/85페이지만 제한적으로 확인했다.
@@ -76,6 +78,7 @@ P1은 판정/핵심 사용 흐름, P2는 상태/표시/데이터 보호, P3는 �
 | P3 | 모바일 홈 Weather/Reaction 제목이 단어 조각으로 줄바꿈 | 기존 모바일 글자 크기만 반응형 보정 | 같은360×800 전후에서 온전한 단어 표시 |
 | P3 | 모바일 지도 확대 툴바 라벨이 세로 두 글자로 눌림 | 좁은 화면에서 줄바꿈·컨트롤 축소 방지 | 같은360×800에서 확대 토글과 horizontal label 실제 확인 |
 | P3 | 실제 저장 용량 초과 안내가 영어·내부 저장 키를 노출 | 기존 QuotaExceededError 안내만 한국어로 표시 | 실제153 QA키로 quota도달→저장 거부·원문 byte 동일·한국어 안내→QA키 정리→정상 저장 복구 |
+| P3 | DNGNGEN 이유·입구·경비 표시와 미리보기가 React key spread 경고 발생 | 두 표시 경계에서 key/text/ko만 명시적으로 전달; 도메인 분류용 key는 그대로 보존 | 실제 재현1건→수정 직후 DOM 동일→새 탭0건; 세 개별 재굴림에서 다른 방 보존·미리보기/COPY 및 관련30개 회귀 통과 |
 
 일반 캐릭터/몬스터/던전 자료 구조, 원문 팩, RNG, 기존 전투 계산식은 보존했다. Wind의 오역을 기대하던 기존 테스트는 원문 의미에 근거해 보정했으며 Black Salt의 미검토 제목 검증은 그대로 유지했다.
 
@@ -84,7 +87,7 @@ P1은 판정/핵심 사용 흐름, P2는 상태/표시/데이터 보호, P3는 �
 | 검사 | 결과 |
 | --- | --- |
 | 시작 기준 전체 회귀 | 1,249/1,249 통과 |
-| 모든 수정 후 최종 전체 회귀 | **1,259/1,259 통과**, 실패·취소·skip·todo0,193,415.953541ms (최종9a7c57f 소스) |
+| 모든 수정 후 최종 전체 회귀 | **1,259/1,259 통과**, 실패·취소·skip·todo0,204,221.255875ms (최종b2b1bc1 소스) |
 | 관련 회귀 | 전투52, Mythic/Notebook50, Dungeon9, City17 등 수정 경로 재검증. 서로 겹치는 실행 수는 합산하지 않음 |
 | 코드 검사 | lint 통과, diff 공백 검사 통과 |
 | 타입·빌드 | 클라이언트/서버 타입 검사와 Vite 빌드 통과 |
@@ -93,13 +96,17 @@ P1은 판정/핵심 사용 흐름, P2는 상태/표시/데이터 보호, P3는 �
 
 기존 Vite 대형 청크 경고는 남아 있다. 이 작업에서 성능 목표를 새로 만들거나 구조 개편을 하지 않았으며 성능 부하·SLA는 측정하지 않았다.
 
+전체 회귀 중 모든 Oracle 행을 렌더링하는 기존 검사1개가190,134.272375ms로 BMAD의90초 테스트 품질 권고를 넘었다. 검사는 통과했으나 실행시간 경고로 남겼다. 이 시간을 웹앱 응답 시간이나 성능 SLA 결과로 해석하지 않는다.
+
 BMAD TEA 설정을 승인된 기본값으로 추가했고 **Test Design·Test Review·Trace** 워크플로를 단계별 산출물과 checkpoint로 실행했다. 현 Node runner를 유지했으며 적용 대상이 없는 Playwright/Pact 패키지를 설치하지 않았다.
 
 Test Review의7파일111개 실행은 통과했다. 별도 구조 rubric은 **63/100, D, Request Changes**이며 조건부 기대값·중첩·그룹 구조의6High/6Medium 지적이다. 이것을 게임 규칙 오류나 전체 사이트 실패로 바꾸어 표현하지 않는다. 점수를 위해 기존 기대값/검사 수를 바꾸거나 관련 없는 전체 테스트 재구성을 하지 않았다. 루트 신규3개 회귀는 별도 supplement로 검토했다.
 
-최신 코드 기준 **Trace 품질 게이트는 FAIL**이다. 26개 기준은 FULL6 / PARTIAL7 / UNIT-ONLY12 / NONE1이며 FULL 비율은 전체23%, P0 25%(1/4), P1 19%(4/21), P2 100%(1/1)다. P0의 SYS-18·19·20이 FULL에 못 미쳐 제공된 판정 엔진이 미통과로 결정했다. 채택 증거58개와 전체 회귀1,259개는 서로 다른 분모다. live21개 중 최신본 증거3개를 채택했고 이전 소스에서 관찰한17개는 stale, 저장 오류 주입 범위가 남은1개는 blocked로 분류했다. 방문한 이전 화면을 최신본에서 모두 다시 관찰했다고 바꾸지 않았다. SYS-24의 최신 반응형 증거 공백도 남겨 두었다. 이 결과는 자동 회귀가 실패했다는 뜻이 아니라 전체 검증 완료를 승인할 근거가 부족하다는 뜻이다.
+최신 `b2b1bc1`에서 **Trace 품질 게이트는 FAIL**이다. 실제 판정 엔진을 다시 실행했으며 26개 기준은 FULL6 / PARTIAL6 / UNIT-ONLY13 / NONE1이다. FULL 비율은 전체23%, P0 25%(1/4), P1 19%(4/21), P2 100%(1/1)이며 P0의 SYS-18·19·20이 FULL에 못 미쳐 미통과로 결정했다. P3는 기준이 없어 해당 없음이며 machine의 빈 분모 기본값100을 실제 검증률로 표현하지 않는다.
 
-전체 브라우저 순회와21개 수정의 검증 code commit은 `c01e24363983cc6d594896a43cf0e883d0bef664`다. 후속 실제 quota 검사에서 발견한22번째 오류 안내 수정은 `9a7c57f8f9f2d120210a8cd7f0507d78535637f8`이며 해당 오류·원문 보존·정상 저장 복구를 이 코드에서 재검증했다. 기존 bulk live 기록은 실제 관찰한 이전 SHA를 그대로 유지한다. Trace 최종 판정은 최신 code HEAD를 기준으로 기록하며, 이전 commit의 관찰을 새 commit의 재관찰로 위장하지 않는다. 보고서만 추가하는 commit이 바뀌어도 검증한 소스 SHA를 새 것으로 위장하지 않는다.
+현재 실제 수집 결과는 live22개 중3개 채택·18개 stale·1개 blocked, 채택 고유 증거58개다. 이는 전체 실행1,259개와 다른 분모다. 최신 DNGNGEN 표시는 SYS-12의 일부 경로를 직접 확인한 증거로만 채택했고 이전 전체 Dungeon 순회로 확대하지 않았다. `c01e243`·`9a7c57f`에서 방문한 화면은 해당 SHA를 유지했다. SYS-24의 최신 전체 반응형 증거 공백도 남겨 두었다. 이 판정은 자동 회귀가 실패했다는 뜻이 아니라 전체 검증 완료를 승인할 근거가 부족하다는 뜻이다. RECLVSE 원본, 의미 검토, 저장 오류 주입 및 최신 전체 화면 검증은 추가 확인이 필요하다.
+
+전체 브라우저 순회와21개 수정의 검증 code commit은 `c01e24363983cc6d594896a43cf0e883d0bef664`다. 후속 실제 quota 검사에서 발견한22번째 오류 안내 수정은 `9a7c57f8f9f2d120210a8cd7f0507d78535637f8`이며 해당 오류·원문 보존·정상 저장 복구를 이 코드에서 재검증했다. 추가 재현한23번째 DNGNGEN 경고의 수정 code commit은 `b2b1bc17ffe63ae57b45c6d258eedd2895364ea0`이고 관련 실제 조작과 전체 회귀를 다시 실행했다. 기존 bulk live 기록은 실제 관찰한 이전 SHA를 그대로 유지한다. Trace 최종 판정은 최신 code HEAD를 기준으로 기록하며, 이전 commit의 관찰을 새 commit의 재관찰로 위장하지 않는다. 보고서만 추가하는 commit이 바뀌어도 검증한 소스 SHA를 새 것으로 위장하지 않는다.
 
 ## Before / After 증거
 
@@ -132,7 +139,7 @@ Test Review의7파일111개 실행은 통과했다. 별도 구조 rubric은 **63
 
 공개 산출물: `docs/full-site-qa-20261011/`, `_bmad-output/test-artifacts/test-design/`, `test-review/`, `trace/` 및 root live manifest.
 
-ignored 로컬 증거: `outputs/full-site-qa-20261011/`의 `browser-main.json`, `browser-root-summary.md`, `responsive-layout.json`, `browser-tools.md`, `browser-spatial.md`, `spatial-coverage.json`, `storage-findings.md`, `storage-follow-ups.md`, `rulebook-findings.md`, 콘솔·스크린샷·`verified-tests/lint/build.log`, 최종 `release-tests/lint/build.log`, `live-storage-fault-metadata.json`. 원문 독립 추출·전사는 `rules-private/`에 유지한다.
+ignored 로컬 증거: `outputs/full-site-qa-20261011/`의 `browser-main.json`, `browser-root-summary.md`, `responsive-layout.json`, `browser-tools.md`, `browser-spatial.md`, `spatial-coverage.json`, `storage-findings.md`, `storage-follow-ups.md`, `rulebook-findings.md`, 콘솔·스크린샷·`verified-tests/lint/build.log`, 이전 `release-tests/lint/build.log`, 최종 `late-final-tests/lint/build.log`, `late-dngngen-tests.log`, `dngngen-late-proof.json`, `dngngen-late-before/after-console.json`, `live-storage-fault-metadata.json`. 원문 독립 추출·전사는 `rules-private/`에 유지한다.
 
 기존 Vercel 프로젝트의 Production 환경변수 존재와 All Deployments 인증 보호·우회 없음 상태를 읽기 전용으로 확인했다. 연결·API·빌드·배포 설정은 이번 코드 수정에서 바꾸지 않았다. 배포 결과와 실제 전달 소스 확인은 로컬 `deployment-verification.json` 및 최종 안내에 기록한다.
 

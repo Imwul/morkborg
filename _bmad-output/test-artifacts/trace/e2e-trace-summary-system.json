@@ -1,12 +1,12 @@
 {
   "schema_version": "0.3.0",
-  "snapshot_at": "2026-10-11T07:30:47.895Z",
+  "snapshot_at": "2026-10-11T07:57:24.101Z",
   "repo": "codex",
   "collection_mode": "contract_static",
   "collection_status": "COLLECTED",
   "inventory_basis": "acceptance_criteria",
   "gate_basis": "priority_thresholds",
-  "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+  "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
   "target": {
     "type": "story",
     "id": null,
@@ -104,11 +104,11 @@
     "present": true,
     "results_file": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/live-verification-results.json",
     "freshness": "mixed",
-    "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-    "current_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+    "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+    "current_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
     "producer": "/root actual CUA walkthrough and final existing verification commands",
     "counted": 3,
-    "stale": 17,
+    "stale": 18,
     "unverifiable": 0,
     "failed": 0,
     "contradicted": 0,
@@ -122,91 +122,91 @@
     {
       "id": "system-LIVE-07",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Home quick references and return"
     },
     {
       "id": "system-LIVE-08",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Search, filters and reader kinds"
     },
     {
       "id": "system-LIVE-09",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Nested follow-up, manual dice and reading retention"
     },
     {
       "id": "system-LIVE-10",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Core and native character generation"
     },
     {
       "id": "system-LIVE-11",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Current active Monster source and stat paths; legacy editor N/A"
     },
     {
       "id": "system-LIVE-12",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Core and DNGNGEN dungeon fields and special rooms"
     },
     {
       "id": "system-LIVE-13",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Remaining active generators"
     },
     {
       "id": "system-LIVE-14",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "All spatial links and action menus"
     },
     {
       "id": "system-LIVE-15",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Dice and play guidance"
     },
     {
       "id": "system-LIVE-16",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Combat main control families and changed messages"
     },
     {
       "id": "system-LIVE-17",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Mythic Fate, Scene, Event and lists"
     },
     {
       "id": "system-LIVE-18",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Shelf main CRUD and save kinds"
     },
     {
       "id": "system-LIVE-19",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Actual Shelf file export/import and rejected files"
     },
@@ -220,30 +220,37 @@
     {
       "id": "system-LIVE-21",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Tray, Scratch and Last active workflows"
     },
     {
       "id": "system-LIVE-22",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Sources backup/restore, updates and About"
     },
     {
       "id": "system-LIVE-23",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Visited keyboard, return, reload and console flows"
     },
     {
       "id": "system-LIVE-24",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Mobile, tablet and desktop active surfaces"
+    },
+    {
+      "id": "system-LIVE-late-shelf-quota",
+      "severity": "high",
+      "reason": "Live result recorded against 9a7c57f8f9f2d120210a8cd7f0507d78535637f8, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Late quota UI correction and normal Shelf save recovery"
     }
   ],
   "rejected_evidence": [],
@@ -266,13 +273,12 @@
     },
     {
       "priority": "MEDIUM",
-      "action": "Complete coverage for 7 partially covered requirements; recover RECLVSE original and complete semantic/source review without guessing.",
+      "action": "Complete coverage for 6 partially covered requirements; recover RECLVSE original and complete semantic/source review without guessing.",
       "requirements": [
         "SYS-04",
         "SYS-06",
         "SYS-07",
         "SYS-12",
-        "SYS-18",
         "SYS-20",
         "SYS-22"
       ]
@@ -327,7 +333,7 @@
     },
     {
       "priority": "HIGH",
-      "action": "Re-record 17 live results against the commit under trace; historical records no longer count as coverage.",
+      "action": "Re-record 18 live results against the commit under trace; historical records no longer count as coverage.",
       "requirements": [
         "SYS-07",
         "SYS-08",
@@ -345,7 +351,8 @@
         "SYS-21",
         "SYS-22",
         "SYS-23",
-        "SYS-24"
+        "SYS-24",
+        "SYS-18"
       ]
     },
     {

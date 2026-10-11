@@ -1,7 +1,7 @@
 {
   "phase": "PHASE_1_COMPLETE",
-  "generated_at": "2026-10-11T07:28:47.443Z",
-  "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+  "generated_at": "2026-10-11T07:55:16.985Z",
+  "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
   "trace_target": {
     "type": "story",
     "id": null,
@@ -711,7 +711,7 @@
       ],
       "description": "Core/native 던전·이유/경비/특별한 방1–4·개별 조작",
       "coverage": "PARTIAL",
-      "justification": "Current domain and SSR dungeon assertions cover fields/duplicate label suppression. Actual 12-part/manual/source/save journey is c01 historical/stale.",
+      "justification": "Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale.",
       "tests": [
         {
           "id": "NODE:tests/dngngen-translation-features.test.ts:194",
@@ -744,6 +744,23 @@
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "system-LIVE-late-dngngen-key",
+          "requirement_id": "SYS-12",
+          "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
+          "observed_at": "2026-10-11T07:51:36.444744+00:00",
+          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -751,7 +768,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_limited_live",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1060,8 +1077,8 @@
         "QA-03"
       ],
       "description": "Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload",
-      "coverage": "PARTIAL",
-      "justification": "Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD.",
+      "coverage": "UNIT-ONLY",
+      "justification": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey.",
       "tests": [
         {
           "id": "NODE:tests/notebook-tools.test.ts:182",
@@ -1078,23 +1095,6 @@
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
-        },
-        {
-          "id": "system-LIVE-late-shelf-quota",
-          "requirement_id": "SYS-18",
-          "title": "Late quota UI correction and normal Shelf save recovery",
-          "level": "live",
-          "status": "active",
-          "disposition": "counted",
-          "invalid_reason": "",
-          "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-          "observed_at": "2026-10-11T07:22:43.662892+00:00",
-          "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-          "file": "",
-          "line": null,
-          "skipped": false,
-          "pending": false,
-          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -1102,7 +1102,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "fresh_limited_live",
+        "ui_journey": "missing_current_live",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1397,7 +1397,7 @@
       ],
       "description": "최소 수정·원문/데이터 보존·최종 tests/lint/type/build/privacy",
       "coverage": "FULL",
-      "justification": "Current9a7 release tests1259/1259, lint/build/diffcheck success and public/private55 boundary proof; source tests/assertions and minimal diff remain independently reviewable.",
+      "justification": "Current b2b late-final tests1259/1259, related DNGNGEN30, lint/build/diffcheck success and public/private55 boundary proof; source tests/assertions and two JSX-only boundaries remain reviewable.",
       "tests": [
         {
           "id": "NODE:tests/public-build.test.ts:22",
@@ -1471,9 +1471,9 @@
           "status": "active",
           "disposition": "counted",
           "invalid_reason": "",
-          "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
-          "observed_at": "2026-10-11T07:22:43.662892+00:00",
-          "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+          "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
+          "observed_at": "2026-10-11T07:51:36.444744+00:00",
+          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
           "file": "",
           "line": null,
           "skipped": false,
@@ -1498,7 +1498,7 @@
       ],
       "description": "실제 visited/source/bugs/fixes/test/gap/전후 증거의 정직한 보고",
       "coverage": "FULL",
-      "justification": "Current report accurately records22 fixes, original pages, final1259 checks, local Before/After and unresolved scope; historical and fresh code revisions remain explicit.",
+      "justification": "Current report records23 fixes, original pages, latest1259 checks, local Before/After and unresolved scope; c01/9a7 historical observations and b2b limited fresh observations remain separate.",
       "tests": [
         {
           "id": "system-LIVE-26",
@@ -1508,9 +1508,9 @@
           "status": "active",
           "disposition": "counted",
           "invalid_reason": "",
-          "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
-          "observed_at": "2026-10-11T07:22:43.662892+00:00",
-          "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+          "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
+          "observed_at": "2026-10-11T07:51:36.444744+00:00",
+          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
           "file": "",
           "line": null,
           "skipped": false,
@@ -1531,7 +1531,7 @@
   "coverage_statistics": {
     "total_requirements": 26,
     "fully_covered": 6,
-    "partially_covered": 7,
+    "partially_covered": 6,
     "uncovered": 1,
     "overall_coverage_percentage": 23,
     "priority_breakdown": {
@@ -1567,8 +1567,8 @@
           "QA-03"
         ],
         "description": "Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload",
-        "coverage": "PARTIAL",
-        "justification": "Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD.",
+        "coverage": "UNIT-ONLY",
+        "justification": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey.",
         "tests": [
           {
             "id": "NODE:tests/notebook-tools.test.ts:182",
@@ -1585,23 +1585,6 @@
             "optionsExpression": "",
             "status": "active",
             "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
-          },
-          {
-            "id": "system-LIVE-late-shelf-quota",
-            "requirement_id": "SYS-18",
-            "title": "Late quota UI correction and normal Shelf save recovery",
-            "level": "live",
-            "status": "active",
-            "disposition": "counted",
-            "invalid_reason": "",
-            "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-            "observed_at": "2026-10-11T07:22:43.662892+00:00",
-            "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-            "file": "",
-            "line": null,
-            "skipped": false,
-            "pending": false,
-            "fixme": false
           }
         ],
         "source_evidence": [],
@@ -1609,7 +1592,7 @@
           "endpoint": "not_applicable",
           "auth_negative": "not_applicable",
           "error_path": "present_or_not_applicable",
-          "ui_journey": "fresh_limited_live",
+          "ui_journey": "missing_current_live",
           "ui_states": "partial_or_missing_current_rendered_state"
         }
       },
@@ -1895,7 +1878,7 @@
         ],
         "description": "Core/native 던전·이유/경비/특별한 방1–4·개별 조작",
         "coverage": "PARTIAL",
-        "justification": "Current domain and SSR dungeon assertions cover fields/duplicate label suppression. Actual 12-part/manual/source/save journey is c01 historical/stale.",
+        "justification": "Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale.",
         "tests": [
           {
             "id": "NODE:tests/dngngen-translation-features.test.ts:194",
@@ -1928,55 +1911,18 @@
             "optionsExpression": "",
             "status": "active",
             "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
-          }
-        ],
-        "source_evidence": [],
-        "heuristic_signals": {
-          "endpoint": "not_applicable",
-          "auth_negative": "not_applicable",
-          "error_path": "present_or_not_applicable",
-          "ui_journey": "missing_current_live",
-          "ui_states": "partial_or_missing_current_rendered_state"
-        }
-      },
-      {
-        "id": "SYS-18",
-        "priority": "P0",
-        "parent_requirements": [
-          "QA-02",
-          "QA-03"
-        ],
-        "description": "Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload",
-        "coverage": "PARTIAL",
-        "justification": "Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD.",
-        "tests": [
-          {
-            "id": "NODE:tests/notebook-tools.test.ts:182",
-            "title": "Shelf snapshots stay independent, retaining the generated original on edit",
-            "file": "tests/notebook-tools.test.ts",
-            "line": 182,
-            "level": "unit",
-            "skipped": false,
-            "pending": false,
-            "fixme": false,
-            "assertionsDirectInCallback": 2,
-            "registrationSourceSha256": "0a9f2125582602b47ca91ab6ed352530453fb4c28abda1203f96ce32b75f9fb4",
-            "skipReason": "",
-            "optionsExpression": "",
-            "status": "active",
-            "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
           },
           {
-            "id": "system-LIVE-late-shelf-quota",
-            "requirement_id": "SYS-18",
-            "title": "Late quota UI correction and normal Shelf save recovery",
+            "id": "system-LIVE-late-dngngen-key",
+            "requirement_id": "SYS-12",
+            "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
             "level": "live",
             "status": "active",
             "disposition": "counted",
             "invalid_reason": "",
-            "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-            "observed_at": "2026-10-11T07:22:43.662892+00:00",
-            "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+            "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
+            "observed_at": "2026-10-11T07:51:36.444744+00:00",
+            "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
             "file": "",
             "line": null,
             "skipped": false,
@@ -2674,6 +2620,43 @@
         }
       },
       {
+        "id": "SYS-18",
+        "priority": "P0",
+        "parent_requirements": [
+          "QA-02",
+          "QA-03"
+        ],
+        "description": "Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload",
+        "coverage": "UNIT-ONLY",
+        "justification": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey.",
+        "tests": [
+          {
+            "id": "NODE:tests/notebook-tools.test.ts:182",
+            "title": "Shelf snapshots stay independent, retaining the generated original on edit",
+            "file": "tests/notebook-tools.test.ts",
+            "line": 182,
+            "level": "unit",
+            "skipped": false,
+            "pending": false,
+            "fixme": false,
+            "assertionsDirectInCallback": 2,
+            "registrationSourceSha256": "0a9f2125582602b47ca91ab6ed352530453fb4c28abda1203f96ce32b75f9fb4",
+            "skipReason": "",
+            "optionsExpression": "",
+            "status": "active",
+            "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+          }
+        ],
+        "source_evidence": [],
+        "heuristic_signals": {
+          "endpoint": "not_applicable",
+          "auth_negative": "not_applicable",
+          "error_path": "present_or_not_applicable",
+          "ui_journey": "missing_current_live",
+          "ui_states": "partial_or_missing_current_rendered_state"
+        }
+      },
+      {
         "id": "SYS-19",
         "priority": "P0",
         "parent_requirements": [
@@ -2813,7 +2796,7 @@
       },
       {
         "id": "SYS-12",
-        "reason": "Current domain and SSR dungeon assertions cover fields/duplicate label suppression. Actual 12-part/manual/source/save journey is c01 historical/stale."
+        "reason": "Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale."
       },
       {
         "id": "SYS-13",
@@ -2837,7 +2820,7 @@
       },
       {
         "id": "SYS-18",
-        "reason": "Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD."
+        "reason": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey."
       },
       {
         "id": "SYS-19",
@@ -2887,7 +2870,7 @@
       },
       {
         "id": "SYS-12",
-        "reason": "Current domain and SSR dungeon assertions cover fields/duplicate label suppression. Actual 12-part/manual/source/save journey is c01 historical/stale."
+        "reason": "Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale."
       },
       {
         "id": "SYS-13",
@@ -2911,7 +2894,7 @@
       },
       {
         "id": "SYS-18",
-        "reason": "Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD."
+        "reason": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey."
       },
       {
         "id": "SYS-19",
@@ -2950,11 +2933,11 @@
     "present": true,
     "results_file": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/live-verification-results.json",
     "freshness": "mixed",
-    "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-    "current_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+    "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+    "current_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
     "producer": "/root actual CUA walkthrough and final existing verification commands",
     "counted": 3,
-    "stale": 17,
+    "stale": 18,
     "unverifiable": 0,
     "failed": 0,
     "contradicted": 0,
@@ -2974,7 +2957,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Home quick references, table/roll, COPY/PIN/HOLD, invalid manual dice and recovery. outputs/full-site-qa-20261011/browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -2986,7 +2969,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all 9 book, 8 context, 7 type filter choices; empty/no-match/Korean/accent search; book/region/creature/rule/table/procedure readers. browser-main.json; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -2998,7 +2981,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Room Contents to Searching/corpse/trinkets, Names endpoints and invalid values, Orakle likelihood/TR boundaries, partial/HOLD and table/back state retention. browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3010,7 +2993,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Classless/random/all12 classes, SCVMBIRTHER/homebrew, current vs next source, reroll/save/reopen; public/unavailable native fallback on5532/5533. Sacred scroll and trap terminology seen; tongs not selected. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3022,7 +3005,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual FER A/B/C/native and EPK7 regions/hunting d8/d10/d12, source/result stat relationships. Legacy manual-stat screen is not an active reachable current function and is N/A to the current-site browser scope, not live verified. browser-main.json; browser-root-summary.md; source/component regressions separately.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3034,7 +3017,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual12 fields and individual controls, Core/DNGNGEN current/pending source, manual reason/entrance guard kept across special rooms1-4, native Korean details without repeated DNGNGEN result labels, nested table/manual errors/save/return. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3046,7 +3029,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "NPC7regions/7parts/HOLD, Room2parts, Street small/large1-2 contents/no-exit, Settlement, Weather1-3/4tables/Wind, Buildings, Names, ActionTheme, Cult9parts, Adventure4parts; actual generation/copy/source/repeat. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3058,7 +3041,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual75 links,70 random rolls,12 place-action controls across Dungeon/City/Journey; static/source-only branches distinguished, pan/zoom/keyboard/return/reload. outputs/full-site-qa-20261011/browser-spatial.md; spatial-coverage.json88 observations.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3070,7 +3053,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual8 die choices, count/modifier clamps/empty defaults, power/rest/infection/food/overload guidance, Core/SD physical dice natural1/20/invalid and recovery. browser-tools.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3082,7 +3065,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual attack/defense/natural20/1/Omen/morale/HP/UndoRedo/reload, ranged10+Presence2 threshold and damage3, armor quick tiers0-3, shield cancel/commit0/Undo, added/duplicated/removed/off-participation combatants and cleared attacker. Not every Cartesian combination. browser-tools.md; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3094,7 +3077,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual9Odds/CFbounds/Chart endpoints/doubles100exclusion, Check/Scene/Prepared/Event/Meaning/list3kinds/zone/duplicates/Thread edit/cleanup/history20/reload. All81x100 mathematical cases are independent automated evidence. browser-tools.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3106,7 +3089,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all4 kinds(character/NPC/dungeon/city) generated/saved/selected. Each kind edit-cancel-save/name-body/copy/clone/deleteUndo/reload, counts and original-source disclosures retained. Root supplemented character/dungeon/city on127.0.0.1; other producer NPC onlocalhost. Stale-error close-normal-save-reopen and Combat-to-Shelf retested. browser-main.json; browser-root-summary.md; storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3118,7 +3101,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual downloaded JSON reimport appended; wrongkind, oversize10MB and combined200 rejection kept prior records. Normal export/import after guard fixed. browser corruption branch is not included in this pass. storage-findings.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3130,7 +3113,7 @@
       "disposition": "blocked",
       "invalid_reason": "",
       "evidence": "Actual browser corrupted Shelf bytes→persistent error/disabledExport→exactrawrestore/allrecords recovered. Actual153QAquota keys→QuotaExceededError/save rejected/oldrawidentical; localizedKorean text after latefix/QAkeys removed/normal save recovered. Deniedstorage/IDB corruption/offline/CAS races not injected. browser-main.json; live-storage-fault-metadata.json; browser-root-summary.md. This aggregate remains blocked rather than claiming all fault branches passed.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
     },
     {
@@ -3142,7 +3125,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Tray search/duplicate/remove, Scratch multiline/SEND/open/copy/reopen/reload, Recent copy/source/replay/removed recipe blocked, Pack/Recipe create/edit-cancel/order/HOLD/run/activate/reload/delete. Temporary lifetime help now matches observation. storage-findings.md; browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3154,7 +3137,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Sources auto-update on/off/check, downloaded full backup/restore/reload, malformed JSON/wrongkind/duplicate/filecount/20MiB rejection and exact pre/post invalid backup bytes; About/license/source links read, external sites not opened. storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3166,7 +3149,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "CtrlK/R/input isolation/Esc, linked/back/close/reload in visited journeys; final root console0error0warning and producer logs0errors. No all-engine assertion. browser-main.json; root-console.json; tools-console/spatial-console evidence.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3178,7 +3161,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual360x800/768x1024/1440x900 Home/generators/longreaders/tables/map/all4docks/Sources, mobileScratch. Three responsive fixes same-size checked;32 geometry observations; document no unintended horizontal overflow; viewport reset. responsive-layout.json; screenshots.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -3189,9 +3172,9 @@
       "status": "pass",
       "disposition": "counted",
       "invalid_reason": "",
-      "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
-      "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-26",
@@ -3201,9 +3184,9 @@
       "status": "pass",
       "disposition": "counted",
       "invalid_reason": "",
-      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
-      "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-late-shelf-quota",
@@ -3211,11 +3194,23 @@
       "title": "Late quota UI correction and normal Shelf save recovery",
       "level": "live",
       "status": "pass",
-      "disposition": "counted",
+      "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    },
+    {
+      "id": "system-LIVE-late-dngngen-key",
+      "requirement_id": "SYS-12",
+      "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     }
   ],
   "test_inventory": {
@@ -3614,6 +3609,18 @@
         "blocker_reason": ""
       },
       {
+        "id": "system-LIVE-late-dngngen-key",
+        "file": "",
+        "line": null,
+        "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+        "level": "live",
+        "status": "active",
+        "skipped": false,
+        "fixme": false,
+        "pending": false,
+        "blocker_reason": ""
+      },
+      {
         "id": "NODE:tests/rule-fidelity.test.ts:137",
         "file": "tests/rule-fidelity.test.ts",
         "line": 137,
@@ -3739,18 +3746,6 @@
         "line": 182,
         "title": "Shelf snapshots stay independent, retaining the generated original on edit",
         "level": "unit",
-        "status": "active",
-        "skipped": false,
-        "fixme": false,
-        "pending": false,
-        "blocker_reason": ""
-      },
-      {
-        "id": "system-LIVE-late-shelf-quota",
-        "file": "",
-        "line": null,
-        "title": "Late quota UI correction and normal Shelf save recovery",
-        "level": "live",
         "status": "active",
         "skipped": false,
         "fixme": false,
@@ -3956,91 +3951,91 @@
     {
       "id": "system-LIVE-07",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Home quick references and return"
     },
     {
       "id": "system-LIVE-08",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Search, filters and reader kinds"
     },
     {
       "id": "system-LIVE-09",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Nested follow-up, manual dice and reading retention"
     },
     {
       "id": "system-LIVE-10",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Core and native character generation"
     },
     {
       "id": "system-LIVE-11",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Current active Monster source and stat paths; legacy editor N/A"
     },
     {
       "id": "system-LIVE-12",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Core and DNGNGEN dungeon fields and special rooms"
     },
     {
       "id": "system-LIVE-13",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Remaining active generators"
     },
     {
       "id": "system-LIVE-14",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "All spatial links and action menus"
     },
     {
       "id": "system-LIVE-15",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Dice and play guidance"
     },
     {
       "id": "system-LIVE-16",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Combat main control families and changed messages"
     },
     {
       "id": "system-LIVE-17",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Mythic Fate, Scene, Event and lists"
     },
     {
       "id": "system-LIVE-18",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Shelf main CRUD and save kinds"
     },
     {
       "id": "system-LIVE-19",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Actual Shelf file export/import and rejected files"
     },
@@ -4054,30 +4049,37 @@
     {
       "id": "system-LIVE-21",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Tray, Scratch and Last active workflows"
     },
     {
       "id": "system-LIVE-22",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Sources backup/restore, updates and About"
     },
     {
       "id": "system-LIVE-23",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Visited keyboard, return, reload and console flows"
     },
     {
       "id": "system-LIVE-24",
       "severity": "high",
-      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "reason": "Live result recorded against c01e24363983cc6d594896a43cf0e883d0bef664, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
       "test_file": "",
       "test_title": "Mobile, tablet and desktop active surfaces"
+    },
+    {
+      "id": "system-LIVE-late-shelf-quota",
+      "severity": "high",
+      "reason": "Live result recorded against 9a7c57f8f9f2d120210a8cd7f0507d78535637f8, not the commit under trace b2b1bc17ffe63ae57b45c6d258eedd2895364ea0; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Late quota UI correction and normal Shelf save recovery"
     }
   ],
   "recommendations": [
@@ -4099,13 +4101,12 @@
     },
     {
       "priority": "MEDIUM",
-      "action": "Complete coverage for 7 partially covered requirements; recover RECLVSE original and complete semantic/source review without guessing.",
+      "action": "Complete coverage for 6 partially covered requirements; recover RECLVSE original and complete semantic/source review without guessing.",
       "requirements": [
         "SYS-04",
         "SYS-06",
         "SYS-07",
         "SYS-12",
-        "SYS-18",
         "SYS-20",
         "SYS-22"
       ]
@@ -4160,7 +4161,7 @@
     },
     {
       "priority": "HIGH",
-      "action": "Re-record 17 live results against the commit under trace; historical records no longer count as coverage.",
+      "action": "Re-record 18 live results against the commit under trace; historical records no longer count as coverage.",
       "requirements": [
         "SYS-07",
         "SYS-08",
@@ -4178,7 +4179,8 @@
         "SYS-21",
         "SYS-22",
         "SYS-23",
-        "SYS-24"
+        "SYS-24",
+        "SYS-18"
       ]
     },
     {

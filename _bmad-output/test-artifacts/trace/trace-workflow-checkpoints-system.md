@@ -10,59 +10,53 @@ lastStep: 'step-04-analyze-gaps'
 nextStep: '/Users/imwul/.agents/skills/bmad-testarch-trace/steps-c/step-05-gate-decision.md'
 lastSaved: '2026-10-11'
 workflowType: 'testarch-trace'
+sourceSha: 'b2b1bc17ffe63ae57b45c6d258eedd2895364ea0'
 collectionStatus: 'COLLECTED'
-sourceSha: '9a7c57f8f9f2d120210a8cd7f0507d78535637f8'
 coverageBasis: 'acceptance_criteria'
 oracleConfidence: 'high'
 oracleResolutionMode: 'formal_requirements'
 oracleSources: ['docs/full-site-qa-20261011/requirements.md', '_bmad-output/test-artifacts/test-design/test-design-qa.md', '_bmad-output/test-artifacts/test-design/test-design-architecture.md']
 externalPointerStatus: 'not_used'
-tempCoverageMatrixPath: '/tmp/tea-trace-coverage-matrix-system-2026-10-11T07-28-47-443Z.json'
+tempCoverageMatrixPath: '/tmp/tea-trace-coverage-matrix-system-2026-10-11T07-55-16-985Z.json'
 ---
 
-# Traceability Matrix & Gate Decision — 전체 사이트 QA
+# Traceability Matrix — 추가 확정 수정 후 새 system run
 
-## Step 1 — Coverage oracle와 범위
+## Step1 — 새 실행의 oracle와 identity
 
-공식 사용자의 전체 사이트 acceptance를 QA-01–QA-07로 전사한 `docs/full-site-qa-20261011/requirements.md`가 최우선 oracle이다. 현 source에서 synthetic 요구를 만들지 않았다. Oracle confidence high는 무엇을 검사해야 하는지의 신뢰도이며 사이트가 모두 정확하다는 신뢰도가 아니다.
+루트가 추가 확정 JSX key 경고 수정의 최종 코드 b2b1bc17을 기준으로 Step1–5 전체 재실행을 요청했다. Create를 선택하고 이미 completed인 같은 system run의 이전 결과를 ignored `outputs/full-site-qa-20261011/trace-history-9a7c57f/`에 보존한 뒤 이 문서를 완전히 교체했다. 이전 stepsCompleted나 coverage를 새 실행에 합치지 않았다. sourceSha는 현재 git HEAD의 정확한 값이며 이후 현재 SHA의 fresh proof만 채택한다.
 
-체크포인트가 없어서 새 Create run이다. story/epic/release/hotfix의 개별 target은 없으므로 `runScope/runKey=system`, targetId/targetLabel은 비운다. gate type은 workflow default `story`를 유지한다. “No story, epic, release, or hotfix target could be resolved; this run is scoped to system.”
+Skill full read/resolve workflow 결과 prepend/append/persistent facts 없음, on_complete 빈값을 확인했다. resolve_config에서 승인된 modules.tea 설정이 존재하고 user_name/language 추가값은 없어 evaluator unknown·세션 한국어를 사용한다. knowledge는 Step1 closed five fragments(test-priorities-matrix/risk-governance/probability-impact/test-quality/selective-testing)를 실제 읽었으며 다른 예시 framework 패키지는 설치하지 않는다.
 
-Test-design의 두 system 문서와 handoff를 읽었다. 현재 NFR assessment 파일은 없다. README/freeform-reference-audit/rule-sources/personal-hosted-site의 결정은 context이며 원문 증거와 구분한다. 외부 tracker/pointer 및 API spec oracle은 선택하지 않았다.
+사용자 공식 QA01–07을 전사한 requirements.md와 이미 completed인 system TestDesign architecture/qa를 모두 다시 읽었다. 요구를 current 구현에서 합성하지 않았고 oracle high는 기준에 대한 confidence이며 원문 전수 완료를 뜻하지 않는다. 기존 관련 아키텍처 결정은 context로만 유지한다. NFR assessment system/legacy 파일이 없고 미측정 기준은 UNKNOWN으로 유지한다. 외부 pointer/계약 oracle은 사용하지 않았다. 기존 테스트가 존재하며 source/live coverage 공백은 다음 단계에 기록한다.
 
-Step 1의 closed knowledge set인 test-priorities-matrix, risk-governance, probability-impact, test-quality, selective-testing을 모두 읽었다. test-design에서 이미 읽은 fragment는 중복 로딩하지 않았다. 위험 score는 우선순위와 별도이며 실제 gate는 trace Step 5의 coverage 엔진을 따른다.
+별도 story/epic/release/hotfix target을 사용자나 artifacts가 식별하지 않아 configured gate type story를 유지하고 runScope/runKey=system, targetId/Label 빈값으로 정했다. No story, epic, release, or hotfix target could be resolved; this run is scoped to system.
 
-기존 Node test runner와 실제 CUA browser 증거는 존재한다. 현재 브라우저와 최종 회귀 수집은 진행 중이며 수집되지 않은 전체 조건을 PASS로 처리하지 않는다. 원문 full text와 비공개 key는 matrix나 public 보고에 넣지 않는다.
+원문 독립 숫자 및 모든 행 source-status 작업은 별도로 최종 code HEAD에서 다시 실행했다. 변경은 JSX 경계이며 domain/RNG/원문 숫자 변경은 없다. Producer manifest는 준비 통지를 기다린 뒤 Step2에서만 수집한다. 이전 모든 c01/9a7 UI record의 SHA를 현재 source로 일괄 변경하지 않는다.
 
 
-## Step 2 — 테스트 탐색 (수집 진행 중)
+## Step2 — 실제 새 source 탐색과 producer 수집
 
-`rg --files tests -g '*.test.*'`로109파일을 발견하고 TypeScript AST로1,072개 정적 test 등록을 카탈로그했다. `test-inventory-system.json`에 안정된 file:line ID, 제목, 실제 assertion 방식의 level, skip/pending/fixme source flag, 직접 callback assertion 수, 등록 소스 해시를 기록했다. Unit961 / server-render component103 / 실제 HTTP API8이며 정적 파일을 실제 브라우저 E2E로 분류하지 않았다. 반복 등록의 source registration 수는 final runner의1,259개 runtime subtest와 다르다. 등록 ID/제목만으로 acceptance 충족을 인정하지 않고 Step3에서 관련 행동과 assertion을 연결한다.
+`rg --files`/TypeScript AST로109파일·1,072 정적 test registrations를 재생성했다. unit961/componentSSR103/실제HTTP API8이며 static E2E는0다. runtime runner의1,259 subtests와 등록/unique 매핑 수는 구분한다. inventory에 stableID/title/file/line/level/skip/pending/fixme/reason/등록hash를 보존했다.
 
-현재 최신 `verified-tests.log`에서1,259 pass/0 fail/0 skip/0 todo, duration_ms195675.729791를 확인했다. `verified-lint.log`와 `verified-build.log`는 성공했고 build는55 static files의 public privacy와 private boundary를 통과했다. 기존500kB chunk 경고는 성공 검사와 구분한다. 최종 source code commit 및 실제 producer의 live manifest를 기다리고 있다. 이 문단은 Step2의 중간 저장이며 stepsCompleted와 nextStep은 이동하지 않는다. trace는 live manifest를 생산하지 않고 시스템을 실행해 live 결과를 만들지 않는다.
+Producer가 manifest 준비를 통지한 뒤 contract_static/live enabled로 읽었다. git HEAD는 정확 b2b1bc17이며 header 일치, 총22records 중 counted3(SYS25/SYS26/new SYS12 partial), stale18(c01과9a7 이전 actual UI), blocked1(SYS20)의 계약 결과다. blocked는 먼저 status 판정하므로 이전9a7의 partial fault 관찰을 fresh fault라고 부르지 않는다. freshpass만 tests에 들어가며 나머지는 named blockers로 연결한다. invalid/fail/skipped/unverifiable0, duplicate ID0이다. 파일을 trace가 작성하거나 수정하지 않았다.
 
-### coverage_heuristics — 탐색 결과
+최종 `late-final-tests.log`는1259/1259 PASS, fail/cancelled/skipped/todo0, duration_ms204221.255875다. late-final-lint/build 성공, 타입/public55/private55 경계 성공, diffcheck 성공; related DNGNGEN30PASS는 producer가 별도 검사했다. 기존500kB chunk 경고는 실제 성능 검증 PASS/FAIL로 만들지 않는다.
 
-- API: existing private pack HTTP `/__private/dngngen` 및 hosted `/api/rulebook-data`의 GET 정상/오류·POST/HEAD/OPTIONS·host/origin/fetch-site·private namespace 차단 tests를 발견했다. Static assets/encrypted update 경로도 기존 server/loader tests에 있으나 fake fetch unit와 실제 HTTP를 구분한다. 실제 사용자의 UI 요청에 새 OpenAPI/API 요구를 창작하지 않았다.
-- 인증/권한: 로그인·logout·역할 시스템은 현 개인 사이트 요구에 없다. 세션 auth E2E는 N/A이고 private data source/같은 origin/read-only/키 미노출의 오류 경로는 기존 보안 단위/API assertions로 별도 검토한다.
-- Error paths: invalid dice/number, damaged import/oversize/kind, Quota/CAS/stale update/invalid cache, malformed original/private pack tests를 발견했다. Storage fault tests는 Node fake storage/IDB이며 실제 브라우저 거부 환경의 검사로 과장하지 않는다.
-- UI journey: Home/search/filter/reader/linked reference, Core/native character·monster·dungeon, NPC/room/street/settlement, spatial, dice/combat/Mythic, Shelf, Tray/Scratch/Last, Sources/About, history/reload/keyboard, desktop/tablet/mobile가 acceptance와26개 SYS 시나리오에 있다. Component/static source tests는 실제 완주를 대체하지 않는다. Producer의 live 계약 기록이 들어올 때 countable 실제 방문과 미방문/부분 범위를 분리한다.
-- UI state: loading/empty/validation/error 표시는 일부 server-render 및 store tests에서 발견했다. 실제 클릭·취소·뒤로·새로고침·레이아웃/console는 브라우저 담당자 기록을 읽어 연결한다. 색상 취향이나 새 성능 기준을 합성 acceptance로 추가하지 않는다.
+### coverage_heuristics
 
-### Step 2 최종 수집 — 마지막 수정 이후 다시 분류
-
-최신 code HEAD는 `9a7c57f8f9f2d120210a8cd7f0507d78535637f8`다. 앞선 문단의 c01 검사는 역사적 증거이며 최신 통과 로그는 `release-tests.log`: 1,259 pass/0 fail/0 cancelled/0 skipped/0 todo, duration_ms193415.953541다. `release-lint.log`, `release-build.log` 및 diffcheck는 성공했고55 public/private 파일 경계도 통과했다.
-
-Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 records 중17 stale historical pass(c01),3 fresh counted pass(SYS18의 제한된 quota 후 정상 저장 복구, SYS25 최종 검사, SYS26 정직한 보고),1 fresh blocked(SYS20 미완료 fault branches)다. 버전이 다른17개 기록은 최신 coverage에 포함하지 않는다. 전체4kind CRUD와 반응형 순회는 실제 c01에서 완료되었으며 새 버전의 재방문으로 간주하지 않는다. SYS20의 actual corruption/Quota 관찰은 보존하되 blocked aggregate를 counted로 승격하지 않는다.
-
-정적 inventory를 최신 HEAD에서 재생성해109파일/1,072 registrations(unit961/component103/API8)를 확인했다. 독립 원문 계산과 모든 행 출처 분류도 같은 HEAD에서 다시 실행했다. trace는 live producer 파일이나 원문 팩을 수정하지 않았다. 계약 validator는 contract_static, COLLECTED이고 counted3/stale17/blocked1; invalid/fail/skipped/unverifiable0이다.
+- Endpoint: 기존 실제 private/hosted GET/POST/HEAD/host/origin/error와 private namespace 검사 발견. fake fetch unit와 실제 HTTP를 분리한다. 사용자 요구에 새 API를 만들지 않는다.
+- Auth negative: 해당 source경계 deny/error assertions 존재. 생산 로그인·역할 시스템 요구는 없으며 검증 범위에 추가하지 않는다.
+- Errors: number/manual-dice/import/schema/oversize 및 fake corrupt/Quota/IDB/CAS/stale tests 발견. fake environment를 actual browser로 바꾸어 보고하지 않는다.
+- UI journeys: 모든 formal 주요 화면을 catalog와 producer에 연결할 수 있으나 최신 actual은 DNGNGEN 제한 경로뿐이다. 이전 전체 순회 기록의SHA는 그대로 유지한다.
+- UI states: server-render/도메인 assertion이 있는 부분과 browser empty/invalid/error/return/reload가 필요한 부족한 부분을 다음 단계에서 구분한다. SYS20 미완료 fault는 blocked다.
 
 ### Live Verification Results
 
 ```json
 {
   "collectionStatus": "COLLECTED",
-  "sourceSha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+  "sourceSha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
   "liveRecords": [
     {
       "id": "system-LIVE-07",
@@ -73,7 +67,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Home quick references, table/roll, COPY/PIN/HOLD, invalid manual dice and recovery. outputs/full-site-qa-20261011/browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -85,7 +79,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all 9 book, 8 context, 7 type filter choices; empty/no-match/Korean/accent search; book/region/creature/rule/table/procedure readers. browser-main.json; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -97,7 +91,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Room Contents to Searching/corpse/trinkets, Names endpoints and invalid values, Orakle likelihood/TR boundaries, partial/HOLD and table/back state retention. browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -109,7 +103,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Classless/random/all12 classes, SCVMBIRTHER/homebrew, current vs next source, reroll/save/reopen; public/unavailable native fallback on5532/5533. Sacred scroll and trap terminology seen; tongs not selected. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -121,7 +115,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual FER A/B/C/native and EPK7 regions/hunting d8/d10/d12, source/result stat relationships. Legacy manual-stat screen is not an active reachable current function and is N/A to the current-site browser scope, not live verified. browser-main.json; browser-root-summary.md; source/component regressions separately.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -133,7 +127,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual12 fields and individual controls, Core/DNGNGEN current/pending source, manual reason/entrance guard kept across special rooms1-4, native Korean details without repeated DNGNGEN result labels, nested table/manual errors/save/return. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -145,7 +139,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "NPC7regions/7parts/HOLD, Room2parts, Street small/large1-2 contents/no-exit, Settlement, Weather1-3/4tables/Wind, Buildings, Names, ActionTheme, Cult9parts, Adventure4parts; actual generation/copy/source/repeat. browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -157,7 +151,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual75 links,70 random rolls,12 place-action controls across Dungeon/City/Journey; static/source-only branches distinguished, pan/zoom/keyboard/return/reload. outputs/full-site-qa-20261011/browser-spatial.md; spatial-coverage.json88 observations.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -169,7 +163,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual8 die choices, count/modifier clamps/empty defaults, power/rest/infection/food/overload guidance, Core/SD physical dice natural1/20/invalid and recovery. browser-tools.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -181,7 +175,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual attack/defense/natural20/1/Omen/morale/HP/UndoRedo/reload, ranged10+Presence2 threshold and damage3, armor quick tiers0-3, shield cancel/commit0/Undo, added/duplicated/removed/off-participation combatants and cleared attacker. Not every Cartesian combination. browser-tools.md; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -193,7 +187,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual9Odds/CFbounds/Chart endpoints/doubles100exclusion, Check/Scene/Prepared/Event/Meaning/list3kinds/zone/duplicates/Thread edit/cleanup/history20/reload. All81x100 mathematical cases are independent automated evidence. browser-tools.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -205,7 +199,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all4 kinds(character/NPC/dungeon/city) generated/saved/selected. Each kind edit-cancel-save/name-body/copy/clone/deleteUndo/reload, counts and original-source disclosures retained. Root supplemented character/dungeon/city on127.0.0.1; other producer NPC onlocalhost. Stale-error close-normal-save-reopen and Combat-to-Shelf retested. browser-main.json; browser-root-summary.md; storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -217,7 +211,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual downloaded JSON reimport appended; wrongkind, oversize10MB and combined200 rejection kept prior records. Normal export/import after guard fixed. browser corruption branch is not included in this pass. storage-findings.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -229,7 +223,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "blocked",
       "invalid_reason": "",
       "evidence": "Actual browser corrupted Shelf bytes→persistent error/disabledExport→exactrawrestore/allrecords recovered. Actual153QAquota keys→QuotaExceededError/save rejected/oldrawidentical; localizedKorean text after latefix/QAkeys removed/normal save recovered. Deniedstorage/IDB corruption/offline/CAS races not injected. browser-main.json; live-storage-fault-metadata.json; browser-root-summary.md. This aggregate remains blocked rather than claiming all fault branches passed.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
     },
     {
@@ -241,7 +235,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Tray search/duplicate/remove, Scratch multiline/SEND/open/copy/reopen/reload, Recent copy/source/replay/removed recipe blocked, Pack/Recipe create/edit-cancel/order/HOLD/run/activate/reload/delete. Temporary lifetime help now matches observation. storage-findings.md; browser-main.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -253,7 +247,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Sources auto-update on/off/check, downloaded full backup/restore/reload, malformed JSON/wrongkind/duplicate/filecount/20MiB rejection and exact pre/post invalid backup bytes; About/license/source links read, external sites not opened. storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -265,7 +259,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "CtrlK/R/input isolation/Esc, linked/back/close/reload in visited journeys; final root console0error0warning and producer logs0errors. No all-engine assertion. browser-main.json; root-console.json; tools-console/spatial-console evidence.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -277,7 +271,7 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual360x800/768x1024/1440x900 Home/generators/longreaders/tables/map/all4docks/Sources, mobileScratch. Three responsive fixes same-size checked;32 geometry observations; document no unintended horizontal overflow; viewport reset. responsive-layout.json; screenshots.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -288,9 +282,9 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "status": "pass",
       "disposition": "counted",
       "invalid_reason": "",
-      "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
-      "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-26",
@@ -300,9 +294,9 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "status": "pass",
       "disposition": "counted",
       "invalid_reason": "",
-      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
-      "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
       "id": "system-LIVE-late-shelf-quota",
@@ -310,64 +304,74 @@ Producer manifest header는 현재 HEAD와 일치하지만 개별 관찰은21 re
       "title": "Late quota UI correction and normal Shelf save recovery",
       "level": "live",
       "status": "pass",
-      "disposition": "counted",
+      "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-      "observed_at": "2026-10-11T07:22:43.662892+00:00",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    },
+    {
+      "id": "system-LIVE-late-dngngen-key",
+      "requirement_id": "SYS-12",
+      "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
+      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     }
   ],
   "liveManifestHeader": {
     "present": true,
     "results_file": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/live-verification-results.json",
-    "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "producer": "/root actual CUA walkthrough and final existing verification commands",
     "read_error": "",
-    "current_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    "current_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
   }
 }
 ```
 
-Step3 매핑 전에 Step2 계약을 같은 HEAD에서 다시 수집했다. Producer가 SYS18 네 종류의 각각 CRUD를 실제 보완하고 SYS11 활성 기능을 pass로 기록했으며, legacy 미방문은 N/A로 유지했다. sourceSHA와 statuses를 임의 수정하지 않았다. SYS20의 보완 시도는 아직 진행 중이므로 최종 gate를 닫지 않는다.
 
+## Step3 — 새 source의 criteria mapping
 
-## Step 3 — 공식 acceptance와 증거 연결
+공식 QA01–07과 승인된 SYS01–26를 모두 다시 매핑했다. 현재 source는 b2b이며 FULL6/PARTIAL6/UNIT-ONLY13/NONE1이다. 전체등록1,072의 stable metadata와 등록 source hash가 이전 run과 같아 이미 읽은 관련 assertions의 의미를 유지하고 현재1259 PASS 및 독립 source audits를 재실행 근거로 연결했다. 원문을 대신해 test expectations를 사용하지 않았다.
 
-QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해를 연결했다. 구현으로 새 acceptance를 합성하지 않았다. 최신 code SHA coverage는 FULL6/PARTIAL7/UNIT-ONLY12/NONE1이다. FULL은 해당 시나리오를 전부 입증한 범위에만 적용한다. 원문에 없는 임의 조건을 추가하지 않았다.
+SYS12 fresh live는 key 수정된 DNGNGEN 제한 경로이며 whole Core/native/twelve parts/수동보존/save 흐름은 현재입증되지 않아 PARTIAL. SYS18의 이전9a7 freshquota도 이 run에서는 stale이며 UNIT-ONLY다. 해당 부족을 계층 수나 파일 변화 없음으로 FULL 승격하지 않았다. Current SYS25/26와 source basics01/02/03/05만FULL이고 원문 currentRECLVSE 및 전체semantic공백04/06은PARTIAL을유지한다.
 
-`traceability-mapping-system.json`에 stable id/title/file/line/level/skip/pending/fixme/status와 heuristic signals를 보존했다. 같은 테스트가 여러 기준을 입증하면 각각 관련 assertion만 적용하고 unique test는 id로 deduplicate한다. 원문 독립 스크립트는 전체 Node runner count에 합산하지 않는다.
+| Criterion | Priority | Coverage | 근거/제한 |
+| --- | --- | --- | --- |
+| SYS-01 | P1 | FULL | Core PDF21/23/27/29 및 Core6/FER4/HER2의 기본 시작값 직접 대조. 모든 attachment는 SYS06의 전수 조건 공백으로 별도 유지. |
+| SYS-02 | P1 | FULL | FER PDF2–3과 독립1,728조합. HP 본문/괄호 충돌과 동률 미지정은 추측 변경 없이 보고. |
+| SYS-03 | P1 | FULL | SD PDF5/7–9/15/17 및 Depths PDF6/9–13/15–19/25의 해당 절차를 직접 대조. 원문이 아닌 기존 TR3–30 앱 계약은 분리. 전체 표의 모든 조건은 SYS06 범위. |
+| SYS-04 | P1 | PARTIAL | 기존 원본 렌더11/12/85와 현재 Sources 코드는 제한 대조. fresh PDF와 전체 현재 판본을 재확보하지 못해 현재 원문 충실도는 미완료. 테스트의 sourceVerified flag를 원문으로 인정하지 않는다. |
+| SYS-05 | P1 | FULL | Mythic PDF20/26–27/38/68/163/165/187 직접 대조 및 Chart81셀/8,100·Check8,100·Scene180. 모든 Meaning/Variation 적용은 SYS06 공백. |
+| SYS-06 | P1 | PARTIAL | 548표/12,328행 screening은 완료. fresh originals가 없는4,394행과 모든 range/condition/translation/attachment semantic 승인 공백이 남아 있다. normalized match를 전체 규칙 승인으로 승격하지 않는다. |
+| SYS-07 | P1 | PARTIAL | SSR Home destination assertions establish part of the controls; the actual c01 journey is historical/stale at current HEAD. |
+| SYS-08 | P1 | UNIT-ONLY | Search/filter domain assertions pass at current HEAD, but the actual rendered reader/filter journey remains c01 historical/stale. |
+| SYS-09 | P1 | UNIT-ONLY | Linked reading, selection and invalid-TR domain guards are current automated proof; the wired UI path has only stale c01 live records. |
+| SYS-10 | P1 | UNIT-ONLY | Native generator and immutable translation assertions pass, but current character UI source/save/reopen was not freshly repeated. |
+| SYS-11 | P1 | UNIT-ONLY | Active Monster and FER numeric proof passes; the reachable active UI was observed at c01 and is stale here. Inactive legacy manual editor remains N/A, not verified. |
+| SYS-12 | P1 | PARTIAL | Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale. |
+| SYS-13 | P1 | UNIT-ONLY | Current generator and Wind regression assertions are accepted partial proof; actual remaining-generator control families were visited at c01 and are stale here. |
+| SYS-14 | P1 | UNIT-ONLY | Spatial link/domain assertions pass; actual map/action/pan/return/reload journey is only historical c01 proof. |
+| SYS-15 | P1 | UNIT-ONLY | Dice/formula boundaries pass; current rendered eight-choice/guidance/input-recovery journey lacks fresh live proof. |
+| SYS-16 | P1 | UNIT-ONLY | Critical/fumble/manual-HP calculation assertions pass; the combat control-family/ranged/shield/roster journey has stale c01 live evidence. |
+| SYS-17 | P1 | UNIT-ONLY | Fate/scene/list boundaries pass; actual current Mythic UI edit/cleanup/reload has only historical c01 live proof. |
+| SYS-18 | P0 | UNIT-ONLY | Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey. |
+| SYS-19 | P0 | UNIT-ONLY | Current schema/kind/date/duplicate tests establish import guards; the actual file chooser/export/append journey is only historical c01 proof. |
+| SYS-20 | P0 | PARTIAL | Current actual-store/component and fake Quota/CAS/offline assertions establish guards. Fresh blocked producer record retains real corruption/Quota observations but contributes no coverage; actual IDB/denied/offline/CAS branches remain incomplete. |
+| SYS-21 | P1 | UNIT-ONLY | Memory isolation assertions pass; current rendered Tray/Scratch/Last/Pack/Recipe control paths retain only stale c01 live evidence. |
+| SYS-22 | P1 | PARTIAL | Backup/update domain and actual HTTP success/denial/error tests establish part of Sources. Fresh current file chooser, settings and About UI journey is missing. |
+| SYS-23 | P1 | UNIT-ONLY | Navigation state assertion preserves current domain behavior; actual keyboard/Esc/reload/console coverage is c01 historical/stale. |
+| SYS-24 | P1 | NONE | Three viewport walkthroughs and 32 geometry observations were genuinely completed at c01; all live responsive proof is stale at the current code HEAD and no accepted current test establishes this criterion. |
+| SYS-25 | P0 | FULL | Current b2b late-final tests1259/1259, related DNGNGEN30, lint/build/diffcheck success and public/private55 boundary proof; source tests/assertions and two JSX-only boundaries remain reviewable. |
+| SYS-26 | P2 | FULL | Current report records23 fixes, original pages, latest1259 checks, local Before/After and unresolved scope; c01/9a7 historical observations and b2b limited fresh observations remain separate. |
 
-| 기준 | 부모 요구 | 우선순위 | coverage | 근거와 제한 |
-| --- | --- | --- | --- | --- |
-| SYS-01 | QA-01 | P1 | FULL | Core PDF21/23/27/29 및 Core6/FER4/HER2의 기본 시작값 직접 대조. 모든 attachment는 SYS06의 전수 조건 공백으로 별도 유지. |
-| SYS-02 | QA-01 | P1 | FULL | FER PDF2–3과 독립1,728조합. HP 본문/괄호 충돌과 동률 미지정은 추측 변경 없이 보고. |
-| SYS-03 | QA-01 | P1 | FULL | SD PDF5/7–9/15/17 및 Depths PDF6/9–13/15–19/25의 해당 절차를 직접 대조. 원문이 아닌 기존 TR3–30 앱 계약은 분리. 전체 표의 모든 조건은 SYS06 범위. |
-| SYS-04 | QA-01 | P1 | PARTIAL | 기존 원본 렌더11/12/85와 현재 Sources 코드는 제한 대조. fresh PDF와 전체 현재 판본을 재확보하지 못해 현재 원문 충실도는 미완료. 테스트의 sourceVerified flag를 원문으로 인정하지 않는다. |
-| SYS-05 | QA-01 | P1 | FULL | Mythic PDF20/26–27/38/68/163/165/187 직접 대조 및 Chart81셀/8,100·Check8,100·Scene180. 모든 Meaning/Variation 적용은 SYS06 공백. |
-| SYS-06 | QA-01 | P1 | PARTIAL | 548표/12,328행 screening은 완료. fresh originals가 없는4,394행과 모든 range/condition/translation/attachment semantic 승인 공백이 남아 있다. normalized match를 전체 규칙 승인으로 승격하지 않는다. |
-| SYS-07 | QA-02,QA-03 | P1 | PARTIAL | SSR Home destination assertions establish part of the controls; the actual c01 journey is historical/stale at current HEAD. |
-| SYS-08 | QA-02,QA-03 | P1 | UNIT-ONLY | Search/filter domain assertions pass at current HEAD, but the actual rendered reader/filter journey remains c01 historical/stale. |
-| SYS-09 | QA-02,QA-03 | P1 | UNIT-ONLY | Linked reading, selection and invalid-TR domain guards are current automated proof; the wired UI path has only stale c01 live records. |
-| SYS-10 | QA-02,QA-03 | P1 | UNIT-ONLY | Native generator and immutable translation assertions pass, but current character UI source/save/reopen was not freshly repeated. |
-| SYS-11 | QA-02,QA-03 | P1 | UNIT-ONLY | Active Monster and FER numeric proof passes; the reachable active UI was observed at c01 and is stale here. Inactive legacy manual editor remains N/A, not verified. |
-| SYS-12 | QA-02,QA-03 | P1 | PARTIAL | Current domain and SSR dungeon assertions cover fields/duplicate label suppression. Actual 12-part/manual/source/save journey is c01 historical/stale. |
-| SYS-13 | QA-02,QA-03 | P1 | UNIT-ONLY | Current generator and Wind regression assertions are accepted partial proof; actual remaining-generator control families were visited at c01 and are stale here. |
-| SYS-14 | QA-02,QA-03 | P1 | UNIT-ONLY | Spatial link/domain assertions pass; actual map/action/pan/return/reload journey is only historical c01 proof. |
-| SYS-15 | QA-02,QA-03 | P1 | UNIT-ONLY | Dice/formula boundaries pass; current rendered eight-choice/guidance/input-recovery journey lacks fresh live proof. |
-| SYS-16 | QA-02,QA-03 | P1 | UNIT-ONLY | Critical/fumble/manual-HP calculation assertions pass; the combat control-family/ranged/shield/roster journey has stale c01 live evidence. |
-| SYS-17 | QA-02,QA-03 | P1 | UNIT-ONLY | Fate/scene/list boundaries pass; actual current Mythic UI edit/cleanup/reload has only historical c01 live proof. |
-| SYS-18 | QA-02,QA-03 | P0 | PARTIAL | Fresh limited live proof establishes late quota message, rejected save preserving bytes and normal edit/save recovery with seven counts. The four-kind complete CRUD was not freshly repeated at current HEAD. |
-| SYS-19 | QA-02,QA-03 | P0 | UNIT-ONLY | Current schema/kind/date/duplicate tests establish import guards; the actual file chooser/export/append journey is only historical c01 proof. |
-| SYS-20 | QA-03 | P0 | PARTIAL | Current actual-store/component and fake Quota/CAS/offline assertions establish guards. Fresh blocked producer record retains real corruption/Quota observations but contributes no coverage; actual IDB/denied/offline/CAS branches remain incomplete. |
-| SYS-21 | QA-02,QA-03 | P1 | UNIT-ONLY | Memory isolation assertions pass; current rendered Tray/Scratch/Last/Pack/Recipe control paths retain only stale c01 live evidence. |
-| SYS-22 | QA-02,QA-03 | P1 | PARTIAL | Backup/update domain and actual HTTP success/denial/error tests establish part of Sources. Fresh current file chooser, settings and About UI journey is missing. |
-| SYS-23 | QA-03 | P1 | UNIT-ONLY | Navigation state assertion preserves current domain behavior; actual keyboard/Esc/reload/console coverage is c01 historical/stale. |
-| SYS-24 | QA-04 | P1 | NONE | Three viewport walkthroughs and 32 geometry observations were genuinely completed at c01; all live responsive proof is stale at the current code HEAD and no accepted current test establishes this criterion. |
-| SYS-25 | QA-05,QA-06 | P0 | FULL | Current9a7 release tests1259/1259, lint/build/diffcheck success and public/private55 boundary proof; source tests/assertions and minimal diff remain independently reviewable. |
-| SYS-26 | QA-07 | P2 | FULL | Current report accurately records22 fixes, original pages, final1259 checks, local Before/After and unresolved scope; historical and fresh code revisions remain explicit. |
-
-### 기준별 채택 테스트
+### 매핑한 stable test locations
 
 #### SYS-01 — Core 시작 자원·능력·HP·scroll 장비·12직업 기본 보정
 
@@ -392,7 +396,7 @@ QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해�
 
 #### SYS-04 — RECLVSE 두 d20·치명·질문 경계와 현재 원본
 
-현재 채택한 실행 테스트 없음. 제한된 source 근거와 stale 과거 관찰은 설명으로만 보존한다.
+현재 채택한 실행 테스트 없음. 제한 source/historical live는 설명으로만 보존한다.
 
 #### SYS-05 — Mythic Fate Chart/Check/Scene/Prepared/Event·CF
 
@@ -436,6 +440,7 @@ QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해�
 
 - `tests/dngngen-translation-features.test.ts:194` — unit / P1 / active / `NODE:tests/dngngen-translation-features.test.ts:194`: full preparation connects reason, entrance, guards and every native room; individual rerolls preserve other fields
 - `tests/dngngen-translation-features.test.ts:287` — component / P1 / active / `NODE:tests/dngngen-translation-features.test.ts:287`: main sheet and preview show explicit Korean helpers without repeating DNGNGEN per room
+- `system-LIVE-late-dngngen-key` (live, no file) — live / P1 / active / `system-LIVE-late-dngngen-key`: Fresh DNGNGEN feature rendering and preview without key spread warning
 
 #### SYS-13 — NPC/Room/Street/Settlement와 나머지 활성 생성기
 
@@ -467,7 +472,6 @@ QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해�
 #### SYS-18 — Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload
 
 - `tests/notebook-tools.test.ts:182` — unit / P0 / active / `NODE:tests/notebook-tools.test.ts:182`: Shelf snapshots stay independent, retaining the generated original on edit
-- producer `system-LIVE-late-shelf-quota` (file 없이 stable live ID) — live / P0 / active / `system-LIVE-late-shelf-quota`: Late quota UI correction and normal Shelf save recovery
 
 #### SYS-19 — Shelf 실제 파일 export/import append·잘못된 입력 보존
 
@@ -496,7 +500,7 @@ QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해�
 
 #### SYS-24 — mobile/tablet/desktop 주요 화면 layout·longtext·focus
 
-현재 채택한 실행 테스트 없음. 제한된 source 근거와 stale 과거 관찰은 설명으로만 보존한다.
+현재 채택한 실행 테스트 없음. 제한 source/historical live는 설명으로만 보존한다.
 
 #### SYS-25 — 최소 수정·원문/데이터 보존·최종 tests/lint/type/build/privacy
 
@@ -504,17 +508,15 @@ QA01–07의 공식 요구와 승인된 system Test Design의 SYS01–26 분해�
 - `tests/public-build.test.ts:54` — unit / P0 / active / `NODE:tests/public-build.test.ts:54`: ciphertext and its matching manifest pass without embedding private plaintext or keys
 - `tests/published-server.test.ts:164` — api / P0 / active / `NODE:tests/published-server.test.ts:164`: production preview shares the real API handler and never serves plaintext or SPA for API errors
 - `tests/translation-ui-terms.test.ts:48` — unit / P0 / active / `NODE:tests/translation-ui-terms.test.ts:48`: companion terminology corrections require the matching English meaning and keep dice
-- producer `system-LIVE-25` (file 없이 stable live ID) — live / P0 / active / `system-LIVE-25`: Final existing checks and private boundaries
+- `system-LIVE-25` (live, no file) — live / P0 / active / `system-LIVE-25`: Final existing checks and private boundaries
 
 #### SYS-26 — 실제 visited/source/bugs/fixes/test/gap/전후 증거의 정직한 보고
 
-- producer `system-LIVE-26` (file 없이 stable live ID) — live / P2 / active / `system-LIVE-26`: Honest evidence report with unresolved scope
+- `system-LIVE-26` (live, no file) — live / P2 / active / `system-LIVE-26`: Honest evidence report with unresolved scope
 
-### 증거 거부와 검증 논리
+### Coverage 검증과 rejectedEvidence
 
-SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 assertion은 관련 행동 일부 이상을 입증하고 각 file/line이 존재한다. 전체1,072 등록의 모든 본문을 품질 검토했다고 주장하지 않는다. SYS 이름을 주장하면서 관련 assertion이 전혀 없는 선택 테스트는 없어서 rejectedEvidence는 빈 배열이다. stale17/blocked1 live records는 tests 배열에 넣지 않았다. SYS20 blocked는 실제 두 fault 종류 관찰을 보존하지만 전체 criterion 통과가 아니다. Fresh SYS18은 제한된 정상 저장 복구이므로 전체 CRUD FULL이 아니다. 현재 P0/P1 부족은 그대로 남겼고 HTTP denied/error assertions를 필요한 범위에 확인했다. 계층 수는 FULL의 근거가 아니다. live fail/unmatched/contradicted는0이다.
-
-저장 확인 중 provenance summary 위치를 잘못 지정해 최초 write script가 중단됐고 checkpoint는 이동하지 않았다. 이후 실제 summary 경로를 확인하고 같은 SHA 독립 결과 검증 후 Step3를 저장했다. 그때 이른 Step4 read 시도가 있었으나 분석/계산/완료 처리는 하지 않았으며 다음 단계 full read를 새로 수행한다.
+계층 수는 FULL근거가 아니다. 같은 case가 여러기준에 연결되면 관련assertion만 적용하며58 unique가61mapping assignments와 다르다. P0/P1의부족과current18UIjourney/state공백을유지한다. API경계의actualHTTP denial/error가있고 loginrole요구는N/A다. Fresh fail0, unknowncriterion0, contradicted0. 비채택stale18/blocked1는tests에안넣는다. Selected assertions가해당행동을전혀입증하지않으면서SYS이름만붙은case는없어 rejectedEvidence=[]이다. 전체catalog전수 품질심사를주장하지않는다.
 
 ### Resolved Live Records
 
@@ -529,7 +531,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual Home quick references, table/roll, COPY/PIN/HOLD, invalid manual dice and recovery. outputs/full-site-qa-20261011/browser-main.json; browser-root-summary.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -541,7 +543,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual all 9 book, 8 context, 7 type filter choices; empty/no-match/Korean/accent search; book/region/creature/rule/table/procedure readers. browser-main.json; storage-follow-ups.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -553,7 +555,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual Room Contents to Searching/corpse/trinkets, Names endpoints and invalid values, Orakle likelihood/TR boundaries, partial/HOLD and table/back state retention. browser-main.json; browser-root-summary.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -565,7 +567,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual Classless/random/all12 classes, SCVMBIRTHER/homebrew, current vs next source, reroll/save/reopen; public/unavailable native fallback on5532/5533. Sacred scroll and trap terminology seen; tongs not selected. browser-main.json.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -577,7 +579,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual FER A/B/C/native and EPK7 regions/hunting d8/d10/d12, source/result stat relationships. Legacy manual-stat screen is not an active reachable current function and is N/A to the current-site browser scope, not live verified. browser-main.json; browser-root-summary.md; source/component regressions separately.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -589,7 +591,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual12 fields and individual controls, Core/DNGNGEN current/pending source, manual reason/entrance guard kept across special rooms1-4, native Korean details without repeated DNGNGEN result labels, nested table/manual errors/save/return. browser-main.json.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -601,7 +603,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "NPC7regions/7parts/HOLD, Room2parts, Street small/large1-2 contents/no-exit, Settlement, Weather1-3/4tables/Wind, Buildings, Names, ActionTheme, Cult9parts, Adventure4parts; actual generation/copy/source/repeat. browser-main.json.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -613,7 +615,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual75 links,70 random rolls,12 place-action controls across Dungeon/City/Journey; static/source-only branches distinguished, pan/zoom/keyboard/return/reload. outputs/full-site-qa-20261011/browser-spatial.md; spatial-coverage.json88 observations.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -625,7 +627,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual8 die choices, count/modifier clamps/empty defaults, power/rest/infection/food/overload guidance, Core/SD physical dice natural1/20/invalid and recovery. browser-tools.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -637,7 +639,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual attack/defense/natural20/1/Omen/morale/HP/UndoRedo/reload, ranged10+Presence2 threshold and damage3, armor quick tiers0-3, shield cancel/commit0/Undo, added/duplicated/removed/off-participation combatants and cleared attacker. Not every Cartesian combination. browser-tools.md; browser-root-summary.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -649,7 +651,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual9Odds/CFbounds/Chart endpoints/doubles100exclusion, Check/Scene/Prepared/Event/Meaning/list3kinds/zone/duplicates/Thread edit/cleanup/history20/reload. All81x100 mathematical cases are independent automated evidence. browser-tools.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -661,7 +663,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual all4 kinds(character/NPC/dungeon/city) generated/saved/selected. Each kind edit-cancel-save/name-body/copy/clone/deleteUndo/reload, counts and original-source disclosures retained. Root supplemented character/dungeon/city on127.0.0.1; other producer NPC onlocalhost. Stale-error close-normal-save-reopen and Combat-to-Shelf retested. browser-main.json; browser-root-summary.md; storage-findings.md; storage-follow-ups.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -673,7 +675,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual downloaded JSON reimport appended; wrongkind, oversize10MB and combined200 rejection kept prior records. Normal export/import after guard fixed. browser corruption branch is not included in this pass. storage-findings.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -685,7 +687,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "blocked",
     "invalid_reason": "",
     "evidence": "Actual browser corrupted Shelf bytes→persistent error/disabledExport→exactrawrestore/allrecords recovered. Actual153QAquota keys→QuotaExceededError/save rejected/oldrawidentical; localizedKorean text after latefix/QAkeys removed/normal save recovered. Deniedstorage/IDB corruption/offline/CAS races not injected. browser-main.json; live-storage-fault-metadata.json; browser-root-summary.md. This aggregate remains blocked rather than claiming all fault branches passed.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
   },
   {
@@ -697,7 +699,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual Tray search/duplicate/remove, Scratch multiline/SEND/open/copy/reopen/reload, Recent copy/source/replay/removed recipe blocked, Pack/Recipe create/edit-cancel/order/HOLD/run/activate/reload/delete. Temporary lifetime help now matches observation. storage-findings.md; browser-main.json.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -709,7 +711,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual Sources auto-update on/off/check, downloaded full backup/restore/reload, malformed JSON/wrongkind/duplicate/filecount/20MiB rejection and exact pre/post invalid backup bytes; About/license/source links read, external sites not opened. storage-findings.md; storage-follow-ups.md.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -721,7 +723,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "CtrlK/R/input isolation/Esc, linked/back/close/reload in visited journeys; final root console0error0warning and producer logs0errors. No all-engine assertion. browser-main.json; root-console.json; tools-console/spatial-console evidence.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -733,7 +735,7 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual360x800/768x1024/1440x900 Home/generators/longreaders/tables/map/all4docks/Sources, mobileScratch. Three responsive fixes same-size checked;32 geometry observations; document no unintended horizontal overflow; viewport reset. responsive-layout.json; screenshots.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
   },
   {
@@ -744,9 +746,9 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "status": "pass",
     "disposition": "counted",
     "invalid_reason": "",
-    "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
-    "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
+    "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
   },
   {
     "id": "system-LIVE-26",
@@ -756,9 +758,9 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "status": "pass",
     "disposition": "counted",
     "invalid_reason": "",
-    "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
-    "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
+    "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
   },
   {
     "id": "system-LIVE-late-shelf-quota",
@@ -766,11 +768,23 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
     "title": "Late quota UI correction and normal Shelf save recovery",
     "level": "live",
     "status": "pass",
-    "disposition": "counted",
+    "disposition": "stale",
     "invalid_reason": "",
     "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-    "observed_at": "2026-10-11T07:22:43.662892+00:00",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
     "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+  },
+  {
+    "id": "system-LIVE-late-dngngen-key",
+    "requirement_id": "SYS-12",
+    "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
+    "level": "live",
+    "status": "pass",
+    "disposition": "counted",
+    "invalid_reason": "",
+    "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
+    "observed_at": "2026-10-11T07:51:36.444744+00:00",
+    "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
   }
 ]
 ```
@@ -782,16 +796,14 @@ SourceVerified라는 이름을 원문 증거로 삼지 않았다. 선택한 asse
 ```
 
 
-## Step 4 — Phase1 완료, 공백 분석
+## Step4 — 새 Phase1 merge와 공백 분석
 
-별도 사용자 execution mode 지정은 없다. 승인 설정 auto/probe=true이고 collaboration subagent 실행을 실제로 사용할 수 있어 auto→subagent로 해석했다. 기존 storage QA 담당자에게 dependency-safe 통계·dedup·live-only만 read-only 교차 계산을 위임했고 gap/heuristic/live rollup은 본 담당자가 병렬 진행했다. 기존 peer를 재사용했으며 새 프레임워크나 dependency를 설치하지 않았다. 독립 응답이26 기준/58 unique/coverage/우선순위/3counted17stale1blocked 및 live-only SYS26과 일치한 뒤 merge했다.
+Explicit execution mode 없음, config auto/probe=true, actual collaboration subagent 가능하므로 auto→subagent. 기존 storage 담당자에게 read-only count/dedup/live-only를 위임했고 gap/heuristic/live rollup을 독립 진행해 새 계산끼리 비교 후 merge했다. 응답26criteria/6FULL6PARTIAL13UNIT-ONLY1NONE·58unique·3counted18stale1blocked와완전히일치한다. 다른run수치를합치지않았다.
 
-전체 기준26: FULL6(23%), PARTIAL7, UNIT-ONLY12, NONE1. P0 FULL1/4(25%); P1 FULL4/21(19%); P2 FULL1/1(100%); P3 기준없음(N/A,0/0). Machine P3 percentage100은 skill safePct의 빈 분모 기본값이고 검사한 P3가100%라는 뜻이 아니다. 모든 비율은 workflow Math.round 규칙이다.
+FULL6/26 Math.round23%;P0 1/4=25%;P1 4/21=19%;P2 1/1=100%;P3 0/0=N/A(machine safePct 기본100으로실검증승인아님). Critical P0 SYS18/19/20,High P1 NONE SYS24;Medium/Low NONE0. Partial/UnitOnly도우선순위FULL비율에서제외. source gaps04/06과현재18majorUIjourney/state공백은보존한다. 실제source경계HTTPdenied/error관련endpoint/authgap0이며로그인역할기준은만들지않았다.
 
-Critical P0 공백은 SYS18/SYS19/SYS20, High P1 NONE는 SYS24, Medium/Low NONE는0이다. P1의 PARTIAL/UNIT-ONLY도 해당 우선순위 FULL비율에서 제외했다. 의미 검토/원문 확보 공백 SYS04/SYS06은 계속 남는다. 현 사용 요구와 선택한 실제 HTTP tests의 endpoint/auth-negative gaps는0; 로그인 역할이나 새 endpoint 요구를 창작하지 않았다. 현재 UI journey/state 불완전18범위는 advisory 공백으로 남겨 stale 기록과 별개 권고에 반영했다.
+채택unique58(unit50/component3/API2/live3),26source파일,skip/fixme/pending0. Current counted3 외18stale·1blocked를19namedblockers로기록했다. Freshnessmixed;현재활성tests만으로derive live-only SYS26 하나, 손으로flag를설정하지않았다. Fresh SYS12는부분시나리오이며전체Core/nativeCRUD승격없음;9a7quota복구는이전관찰로보존한다.
 
-채택 unique evidence58: unit50/component3/API2/live3,26개 실제 소스 파일. 정적 E2E0/other0, skip/fixme/pending0. 이58은 전체 runtime test1259, catalog1072와 다른 수이다. Fresh counted records3 외17stale·1blocked는18named blockers로 보존했다. Freshness=mixed. active test만으로 live_only를 계산했으며 SYS26 하나(정직한 보고)다. 이를 손으로 지정하지 않았다.
+Quality: 선택source파일최대731줄,선택NODE46개모두현재log에서명확한durationline매칭,최대336.47775ms로90초미만. 전체runner log에는미선택단일Oraclepresentationcase190134.272375ms가있어90초quality권고초과WARNING으로보고한다. 최초전체90초assertion은실패해원인을찾았고test/expectations를바꾸지않았다. 실제live duration은UNKNOWN. 기존TestReview의구조6High/6Medium도별도warning이며앱성능SLA또는규칙오류로만들지않는다.
 
-8개 권고는 P0 current UI·fault coverage, SYS24 responsive, 부분 원문/의미 대조, 현재 UI journey/state,17live재관찰, live-only 재실행 검사, 기존 test-review 후속이다. 전체 선정 테스트를 happy-path-only로 가정하지 않았으며 각 실제 오류 조건의 일부 proof와 부족한 UI 상태를 분리했다.
-
-정확한 Phase1 JSON은 frontmatter tempCoverageMatrixPath의 파일에 저장했고 같은 내용의 `coverage-matrix-system.json`을 보존했다. phase=PHASE_1_COMPLETE, collection_status=COLLECTED, allow_gate=true, target은 Step1 story/system 그대로다. 여기서는 gate를 결정하지 않았다. 최종판정은 Step5에서 수행한다.
+8권고는현재P0증거/반응형/currentUIstate/부분원문과semantic/18기록재관찰/live-onlyre-runnable/기존quality후속이다. Exact phase1tempfile는frontmatterpath,내용동일coverage-matrix-system.json보존본을저장했다. phase=PHASE_1_COMPLETE,collection_statusCOLLECTED,allow_gatetrue,targetidentity불변이며이단계는gate를결정하지않는다.
