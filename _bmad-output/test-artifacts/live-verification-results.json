@@ -1,0 +1,176 @@
+{
+  "schema_version": "0.1.0",
+  "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+  "observed_at": "2026-10-11T07:22:43.662892+00:00",
+  "producer": "/root actual CUA walkthrough and final existing verification commands",
+  "results": [
+    {
+      "id": "system-LIVE-07",
+      "requirement_id": "SYS-07",
+      "title": "Home quick references and return",
+      "status": "pass",
+      "evidence": "Actual Home quick references, table/roll, COPY/PIN/HOLD, invalid manual dice and recovery. outputs/full-site-qa-20261011/browser-main.json; browser-root-summary.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-08",
+      "requirement_id": "SYS-08",
+      "title": "Search, filters and reader kinds",
+      "status": "pass",
+      "evidence": "Actual all 9 book, 8 context, 7 type filter choices; empty/no-match/Korean/accent search; book/region/creature/rule/table/procedure readers. browser-main.json; storage-follow-ups.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-09",
+      "requirement_id": "SYS-09",
+      "title": "Nested follow-up, manual dice and reading retention",
+      "status": "pass",
+      "evidence": "Actual Room Contents to Searching/corpse/trinkets, Names endpoints and invalid values, Orakle likelihood/TR boundaries, partial/HOLD and table/back state retention. browser-main.json; browser-root-summary.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-10",
+      "requirement_id": "SYS-10",
+      "title": "Core and native character generation",
+      "status": "pass",
+      "evidence": "Actual Classless/random/all12 classes, SCVMBIRTHER/homebrew, current vs next source, reroll/save/reopen; public/unavailable native fallback on5532/5533. Sacred scroll and trap terminology seen; tongs not selected. browser-main.json.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-11",
+      "requirement_id": "SYS-11",
+      "title": "Current active Monster source and stat paths; legacy editor N/A",
+      "status": "pass",
+      "evidence": "Actual FER A/B/C/native and EPK7 regions/hunting d8/d10/d12, source/result stat relationships. Legacy manual-stat screen is not an active reachable current function and is N/A to the current-site browser scope, not live verified. browser-main.json; browser-root-summary.md; source/component regressions separately.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-12",
+      "requirement_id": "SYS-12",
+      "title": "Core and DNGNGEN dungeon fields and special rooms",
+      "status": "pass",
+      "evidence": "Actual12 fields and individual controls, Core/DNGNGEN current/pending source, manual reason/entrance guard kept across special rooms1-4, native Korean details without repeated DNGNGEN result labels, nested table/manual errors/save/return. browser-main.json.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-13",
+      "requirement_id": "SYS-13",
+      "title": "Remaining active generators",
+      "status": "pass",
+      "evidence": "NPC7regions/7parts/HOLD, Room2parts, Street small/large1-2 contents/no-exit, Settlement, Weather1-3/4tables/Wind, Buildings, Names, ActionTheme, Cult9parts, Adventure4parts; actual generation/copy/source/repeat. browser-main.json.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-14",
+      "requirement_id": "SYS-14",
+      "title": "All spatial links and action menus",
+      "status": "pass",
+      "evidence": "Actual75 links,70 random rolls,12 place-action controls across Dungeon/City/Journey; static/source-only branches distinguished, pan/zoom/keyboard/return/reload. outputs/full-site-qa-20261011/browser-spatial.md; spatial-coverage.json88 observations.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-15",
+      "requirement_id": "SYS-15",
+      "title": "Dice and play guidance",
+      "status": "pass",
+      "evidence": "Actual8 die choices, count/modifier clamps/empty defaults, power/rest/infection/food/overload guidance, Core/SD physical dice natural1/20/invalid and recovery. browser-tools.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-16",
+      "requirement_id": "SYS-16",
+      "title": "Combat main control families and changed messages",
+      "status": "pass",
+      "evidence": "Actual attack/defense/natural20/1/Omen/morale/HP/UndoRedo/reload, ranged10+Presence2 threshold and damage3, armor quick tiers0-3, shield cancel/commit0/Undo, added/duplicated/removed/off-participation combatants and cleared attacker. Not every Cartesian combination. browser-tools.md; browser-root-summary.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-17",
+      "requirement_id": "SYS-17",
+      "title": "Mythic Fate, Scene, Event and lists",
+      "status": "pass",
+      "evidence": "Actual9Odds/CFbounds/Chart endpoints/doubles100exclusion, Check/Scene/Prepared/Event/Meaning/list3kinds/zone/duplicates/Thread edit/cleanup/history20/reload. All81x100 mathematical cases are independent automated evidence. browser-tools.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-18",
+      "requirement_id": "SYS-18",
+      "title": "Shelf main CRUD and save kinds",
+      "status": "pass",
+      "evidence": "Actual all4 kinds(character/NPC/dungeon/city) generated/saved/selected. Each kind edit-cancel-save/name-body/copy/clone/deleteUndo/reload, counts and original-source disclosures retained. Root supplemented character/dungeon/city on127.0.0.1; other producer NPC onlocalhost. Stale-error close-normal-save-reopen and Combat-to-Shelf retested. browser-main.json; browser-root-summary.md; storage-findings.md; storage-follow-ups.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-19",
+      "requirement_id": "SYS-19",
+      "title": "Actual Shelf file export/import and rejected files",
+      "status": "pass",
+      "evidence": "Actual downloaded JSON reimport appended; wrongkind, oversize10MB and combined200 rejection kept prior records. Normal export/import after guard fixed. browser corruption branch is not included in this pass. storage-findings.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-20",
+      "requirement_id": "SYS-20",
+      "title": "Actual corruption and quota recovery; remaining storage fault branches blocked",
+      "status": "blocked",
+      "evidence": "Actual browser corrupted Shelf bytes→persistent error/disabledExport→exactrawrestore/allrecords recovered. Actual153QAquota keys→QuotaExceededError/save rejected/oldrawidentical; localizedKorean text after latefix/QAkeys removed/normal save recovered. Deniedstorage/IDB corruption/offline/CAS races not injected. browser-main.json; live-storage-fault-metadata.json; browser-root-summary.md. This aggregate remains blocked rather than claiming all fault branches passed.",
+      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    },
+    {
+      "id": "system-LIVE-21",
+      "requirement_id": "SYS-21",
+      "title": "Tray, Scratch and Last active workflows",
+      "status": "pass",
+      "evidence": "Actual Tray search/duplicate/remove, Scratch multiline/SEND/open/copy/reopen/reload, Recent copy/source/replay/removed recipe blocked, Pack/Recipe create/edit-cancel/order/HOLD/run/activate/reload/delete. Temporary lifetime help now matches observation. storage-findings.md; browser-main.json.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-22",
+      "requirement_id": "SYS-22",
+      "title": "Sources backup/restore, updates and About",
+      "status": "pass",
+      "evidence": "Actual Sources auto-update on/off/check, downloaded full backup/restore/reload, malformed JSON/wrongkind/duplicate/filecount/20MiB rejection and exact pre/post invalid backup bytes; About/license/source links read, external sites not opened. storage-findings.md; storage-follow-ups.md.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-23",
+      "requirement_id": "SYS-23",
+      "title": "Visited keyboard, return, reload and console flows",
+      "status": "pass",
+      "evidence": "CtrlK/R/input isolation/Esc, linked/back/close/reload in visited journeys; final root console0error0warning and producer logs0errors. No all-engine assertion. browser-main.json; root-console.json; tools-console/spatial-console evidence.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-24",
+      "requirement_id": "SYS-24",
+      "title": "Mobile, tablet and desktop active surfaces",
+      "status": "pass",
+      "evidence": "Actual360x800/768x1024/1440x900 Home/generators/longreaders/tables/map/all4docks/Sources, mobileScratch. Three responsive fixes same-size checked;32 geometry observations; document no unintended horizontal overflow; viewport reset. responsive-layout.json; screenshots.",
+      "source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
+    },
+    {
+      "id": "system-LIVE-25",
+      "requirement_id": "SYS-25",
+      "title": "Final existing checks and private boundaries",
+      "status": "pass",
+      "evidence": "Executed on9a7c57f final source: npmtest1259/1259pass fail/cancel/skip/todo0 duration193415.953541ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. Earlier stagedGitprivacy934paths8ignored86unchangedshared passed; final artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/release-tests.log; release-lint.log; release-build.log.",
+      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    },
+    {
+      "id": "system-LIVE-26",
+      "requirement_id": "SYS-26",
+      "title": "Honest evidence report with unresolved scope",
+      "status": "pass",
+      "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,22confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence and historicalc01 vs fresh late9a7 UI observations. Exact current Trace verdict will be appended after the workflow; no whole-source or full current live rerun claimed.",
+      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
+    },
+    {
+      "id": "system-LIVE-late-shelf-quota",
+      "requirement_id": "SYS-18",
+      "title": "Late quota UI correction and normal Shelf save recovery",
+      "status": "pass",
+      "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+      "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json."
+    }
+  ]
+}

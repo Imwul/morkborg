@@ -1,0 +1,383 @@
+{
+  "schema_version": "0.3.0",
+  "snapshot_at": "2026-10-11T07:30:47.895Z",
+  "repo": "codex",
+  "collection_mode": "contract_static",
+  "collection_status": "COLLECTED",
+  "inventory_basis": "acceptance_criteria",
+  "gate_basis": "priority_thresholds",
+  "source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+  "target": {
+    "type": "story",
+    "id": null,
+    "label": null
+  },
+  "decision_mode": "deterministic",
+  "evaluator": "unknown",
+  "confidence": "high",
+  "oracle": {
+    "resolution_mode": "formal_requirements",
+    "confidence": "high",
+    "sources": [
+      "docs/full-site-qa-20261011/requirements.md",
+      "_bmad-output/test-artifacts/test-design/test-design-qa.md"
+    ],
+    "external_pointer_status": "not_used",
+    "synthetic": false
+  },
+  "coverage": {
+    "inventory": {
+      "covered": 6,
+      "total": 26,
+      "pct": 23
+    },
+    "priority_breakdown": {
+      "P0": {
+        "total": 4,
+        "covered": 1,
+        "pct": 25
+      },
+      "P1": {
+        "total": 21,
+        "covered": 4,
+        "pct": 19
+      },
+      "P2": {
+        "total": 1,
+        "covered": 1,
+        "pct": 100
+      },
+      "P3": {
+        "total": 0,
+        "covered": 0,
+        "pct": 100
+      }
+    },
+    "by_level": {
+      "e2e": {
+        "tests": 0,
+        "criteria_covered": 0
+      },
+      "api": {
+        "tests": 2,
+        "criteria_covered": 2
+      },
+      "component": {
+        "tests": 3,
+        "criteria_covered": 3
+      },
+      "unit": {
+        "tests": 50,
+        "criteria_covered": 22
+      },
+      "live": {
+        "tests": 3,
+        "criteria_covered": 3
+      },
+      "other": {
+        "tests": 0,
+        "criteria_covered": 0
+      }
+    }
+  },
+  "tests": {
+    "files": 26,
+    "cases": 58,
+    "skipped_cases": 0,
+    "fixme_cases": 0,
+    "pending_cases": 0
+  },
+  "risk_summary": {
+    "critical_open": 3,
+    "high_open": 1,
+    "medium_open": 0,
+    "low_open": 0
+  },
+  "heuristics": {
+    "endpoint_gaps": 0,
+    "auth_negative_path_status": "present",
+    "error_path_status": "present",
+    "ui_journey_status": "not_applicable",
+    "ui_state_status": "not_applicable"
+  },
+  "live_evidence": {
+    "present": true,
+    "results_file": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/live-verification-results.json",
+    "freshness": "mixed",
+    "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+    "current_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8",
+    "producer": "/root actual CUA walkthrough and final existing verification commands",
+    "counted": 3,
+    "stale": 17,
+    "unverifiable": 0,
+    "failed": 0,
+    "contradicted": 0,
+    "blocked": 1,
+    "skipped": 0,
+    "unmatched": 0,
+    "invalid": 0,
+    "requirements_live_only": 1
+  },
+  "blockers": [
+    {
+      "id": "system-LIVE-07",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Home quick references and return"
+    },
+    {
+      "id": "system-LIVE-08",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Search, filters and reader kinds"
+    },
+    {
+      "id": "system-LIVE-09",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Nested follow-up, manual dice and reading retention"
+    },
+    {
+      "id": "system-LIVE-10",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Core and native character generation"
+    },
+    {
+      "id": "system-LIVE-11",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Current active Monster source and stat paths; legacy editor N/A"
+    },
+    {
+      "id": "system-LIVE-12",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Core and DNGNGEN dungeon fields and special rooms"
+    },
+    {
+      "id": "system-LIVE-13",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Remaining active generators"
+    },
+    {
+      "id": "system-LIVE-14",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "All spatial links and action menus"
+    },
+    {
+      "id": "system-LIVE-15",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Dice and play guidance"
+    },
+    {
+      "id": "system-LIVE-16",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Combat main control families and changed messages"
+    },
+    {
+      "id": "system-LIVE-17",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Mythic Fate, Scene, Event and lists"
+    },
+    {
+      "id": "system-LIVE-18",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Shelf main CRUD and save kinds"
+    },
+    {
+      "id": "system-LIVE-19",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Actual Shelf file export/import and rejected files"
+    },
+    {
+      "id": "system-LIVE-20",
+      "severity": "medium",
+      "reason": "Live verification was blocked before a verdict for the complete criterion.",
+      "test_file": "",
+      "test_title": "Actual corruption and quota recovery; remaining storage fault branches blocked"
+    },
+    {
+      "id": "system-LIVE-21",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Tray, Scratch and Last active workflows"
+    },
+    {
+      "id": "system-LIVE-22",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Sources backup/restore, updates and About"
+    },
+    {
+      "id": "system-LIVE-23",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Visited keyboard, return, reload and console flows"
+    },
+    {
+      "id": "system-LIVE-24",
+      "severity": "high",
+      "reason": "Live result is historical c01, not current 9a7c57f8f9f2d120210a8cd7f0507d78535637f8; re-verify and re-record.",
+      "test_file": "",
+      "test_title": "Mobile, tablet and desktop active surfaces"
+    }
+  ],
+  "rejected_evidence": [],
+  "recommendations": [
+    {
+      "priority": "URGENT",
+      "action": "Run /bmad-testarch-atdd for 3 P0 requirements; establish fresh four-kind CRUD/file import and unfinished storage faults.",
+      "requirements": [
+        "SYS-18",
+        "SYS-19",
+        "SYS-20"
+      ]
+    },
+    {
+      "priority": "HIGH",
+      "action": "Run /bmad-testarch-automate to expand coverage for 1 P1 requirements; current three-viewport UI proof is missing.",
+      "requirements": [
+        "SYS-24"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Complete coverage for 7 partially covered requirements; recover RECLVSE original and complete semantic/source review without guessing.",
+      "requirements": [
+        "SYS-04",
+        "SYS-06",
+        "SYS-07",
+        "SYS-12",
+        "SYS-18",
+        "SYS-20",
+        "SYS-22"
+      ]
+    },
+    {
+      "priority": "HIGH",
+      "action": "Add E2E/component coverage and fresh actual walkthrough proof for 18 current UI journeys using the existing stack.",
+      "requirements": [
+        "SYS-07",
+        "SYS-08",
+        "SYS-09",
+        "SYS-10",
+        "SYS-11",
+        "SYS-12",
+        "SYS-13",
+        "SYS-14",
+        "SYS-15",
+        "SYS-16",
+        "SYS-17",
+        "SYS-18",
+        "SYS-19",
+        "SYS-20",
+        "SYS-21",
+        "SYS-22",
+        "SYS-23",
+        "SYS-24"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Complete current loading/empty/error/permission state proof for 18 UI journeys.",
+      "requirements": [
+        "SYS-07",
+        "SYS-08",
+        "SYS-09",
+        "SYS-10",
+        "SYS-11",
+        "SYS-12",
+        "SYS-13",
+        "SYS-14",
+        "SYS-15",
+        "SYS-16",
+        "SYS-17",
+        "SYS-18",
+        "SYS-19",
+        "SYS-20",
+        "SYS-21",
+        "SYS-22",
+        "SYS-23",
+        "SYS-24"
+      ]
+    },
+    {
+      "priority": "HIGH",
+      "action": "Re-record 17 live results against the commit under trace; historical records no longer count as coverage.",
+      "requirements": [
+        "SYS-07",
+        "SYS-08",
+        "SYS-09",
+        "SYS-10",
+        "SYS-11",
+        "SYS-12",
+        "SYS-13",
+        "SYS-14",
+        "SYS-15",
+        "SYS-16",
+        "SYS-17",
+        "SYS-18",
+        "SYS-19",
+        "SYS-21",
+        "SYS-22",
+        "SYS-23",
+        "SYS-24"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add a re-runnable test for 1 live-only criterion; gate is capped at CONCERNS.",
+      "requirements": [
+        "SYS-26"
+      ]
+    },
+    {
+      "priority": "LOW",
+      "action": "Run /bmad-testarch-test-review to assess test quality; existing completed review findings are tracked separately.",
+      "requirements": []
+    }
+  ],
+  "links": {
+    "trace_report_path": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/trace/traceability-matrix-system.md",
+    "trace_report_url": "",
+    "artifact_url": "",
+    "journey_evidence_url": ""
+  },
+  "gate_status": "FAIL",
+  "gate_criteria": {
+    "p0_coverage_required": "100%",
+    "p0_coverage_actual": "25%",
+    "p0_status": "NOT_MET",
+    "p1_coverage_target": "90%",
+    "p1_coverage_minimum": "80%",
+    "p1_coverage_actual": "19%",
+    "p1_status": "NOT_MET",
+    "overall_coverage_minimum": "80%",
+    "overall_coverage_actual": "23%",
+    "overall_status": "NOT_MET"
+  }
+}
