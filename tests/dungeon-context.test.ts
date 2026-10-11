@@ -275,6 +275,28 @@ test('ambiguous remains/hazard/empty and door/trap results receive no invented p
       [],
     );
 });
+test('reversing only the six verified SD link corrections restores the historical registry exactly', () => {
+  const historical = JSON.parse(
+    readFileSync(
+      'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+      'utf8',
+    ),
+  );
+  const copy = JSON.parse(JSON.stringify(registry)) as typeof registry;
+  const legacy: Record<number, string> = {
+    5: 'creature:core:59:zukuma',
+    6: 'creature:core:60:arbint',
+    12: 'creature:core:61:nodh',
+    17: 'creature:core:60:belze',
+    18: 'creature:core:62:aland',
+    20: 'creature:core:62:eulotha',
+  };
+  const table = copy.tables.find((t) => t.id === 'sd.stockCreatures')!;
+  for (const row of table.entries)
+    if (legacy[row.min]) row.metadata!.followUpReferenceIds = [legacy[row.min]];
+  assert.equal(digest(copy), historical.registryHash);
+});
+
 test('calibration leaves canonical counts, oracle registry, source packs and reference index unchanged', () => {
   const before = digest({
     registry,
@@ -304,7 +326,7 @@ test('calibration leaves canonical counts, oracle registry, source packs and ref
     digest(registry),
     JSON.parse(
       readFileSync(
-        'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+        'docs/final-playability-20261012/registry-baseline.json',
         'utf8',
       ),
     ).registryHash,

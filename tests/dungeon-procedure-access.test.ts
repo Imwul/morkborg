@@ -306,7 +306,7 @@ test('access derivation consumes no RNG and leaves all source/registry/relations
     hash(registry),
     JSON.parse(
       readFileSync(
-        'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+        'docs/final-playability-20261012/registry-baseline.json',
         'utf8',
       ),
     ).registryHash,

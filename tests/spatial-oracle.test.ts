@@ -454,7 +454,7 @@ test('Scene navigation normalizes stale state while preserving all supported sce
 test('Spatial navigation preserves baseline canonical data hashes and registry cardinality', () => {
   const baseline = JSON.parse(
     readFileSync(
-      'docs/full-site-qa-20261011/reclvse-registry-baseline.json',
+      'docs/final-playability-20261012/registry-baseline.json',
       'utf8',
     ),
   );
