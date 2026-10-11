@@ -3023,7 +3023,6 @@ export function ReferenceDesk({
           desk.resultReferenceIds,
         )
       : { theme: '', items: [] };
-  const companionIds = new Set(companions.items.map(({ entry }) => entry.id));
   const relatedItems =
     selected && desk?.relationships
       ? relatedReferenceRelationships(
@@ -3031,11 +3030,9 @@ export function ReferenceDesk({
           desk.relationships,
           selected.id,
           8,
-        ).filter(
-          (link) =>
-            !desk.resultReferenceIds?.includes(link.entry.id) &&
-            (page !== 'reference' || !companionIds.has(link.entry.id)),
-        )
+          // Theme navigation can be collapsed or truncate a group. It cannot
+          // replace the reader's explicit links; only visible result links do.
+        ).filter((link) => !desk.resultReferenceIds?.includes(link.entry.id))
       : [];
   const relatedContent = !!relatedItems.length && (
     <section className="desk-related" aria-label="관련 참조">

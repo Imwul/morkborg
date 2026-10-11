@@ -15,6 +15,10 @@ import { fixedReferenceReading } from '../src/domain/referenceFixedLookup.ts';
 import { readingResultRelationships } from '../src/domain/resultRelationships.ts';
 import { dungeonRelevantReferences } from '../src/domain/dungeonContext.ts';
 import { executeReference } from '../src/domain/referenceExecution.ts';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { ReferenceDesk } from '../src/components/ReferenceWorkbench.tsx';
+import { ReferenceContext } from '../src/components/ReferenceContext.tsx';
 const bundle = JSON.parse(
   readFileSync('outputs/morkborg-private-data.json', 'utf8'),
 );
@@ -31,6 +35,46 @@ const access = (id: string, refs = index, g = graph) =>
   );
 const hash = (value: unknown) =>
   createHash('sha256').update(JSON.stringify(value)).digest('hex');
+
+test('Common and Rare readers retain their explicit candidate access when browsing is collapsed', () => {
+  for (const selectedId of ['rule:sd.stockCommon', 'rule:sd.stockRare']) {
+    const html = renderToStaticMarkup(
+      createElement(
+        ReferenceContext.Provider,
+        {
+          value: {
+            entries: index.entries,
+            byId: index.byId,
+            relationships: graph,
+            selectedId,
+            query: 'Room Contents',
+            content: createElement('p', null, 'current reading'),
+            activate: () => {
+              throw new Error('Rendering must not activate a reference');
+            },
+            openSearch: () => {},
+            search: () => [],
+            contextual: () => [],
+            pinnedIds: [],
+            recentIds: [],
+            touch: () => {},
+            togglePin: () => {},
+          },
+        },
+        createElement(ReferenceDesk),
+      ),
+    );
+    const related = html.match(
+      /<section class="desk-related"[^>]*>([\s\S]*?)<\/section>/,
+    )?.[1];
+    assert.ok(related, 'The current reader must expose related references');
+    assert.ok(
+      related.includes(`data-reference-row="${candidate}"`) &&
+        related.includes(`aria-label="${index.byId[candidate].title} 열기"`),
+      'The candidate must be reachable without reopening browsing or searching',
+    );
+  }
+});
 
 test('explicit Common and Rare preparation rules expose the exact existing candidate procedure', () => {
   for (const id of ['rule:sd.stockCommon', 'rule:sd.stockRare']) {
