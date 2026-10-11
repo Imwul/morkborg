@@ -998,7 +998,9 @@ export function ReferenceProvider({
           <button onClick={() => copyReading(true)}>COPY WITH SOURCE</button>
           <button
             onClick={() => {
-              convenience.sendReading(reading);
+              convenience.scratch(
+                copyReadingWithInlineChildren(reading, inlineChildren),
+              );
               convenience.setPanel('scratch');
             }}
           >
@@ -1006,7 +1008,9 @@ export function ReferenceProvider({
           </button>
           <button
             onClick={() => {
-              convenience.sendReading(reading, true);
+              convenience.scratch(
+                copyReadingWithInlineChildren(reading, inlineChildren, true),
+              );
               convenience.setPanel('scratch');
             }}
           >
@@ -1052,7 +1056,10 @@ export function ReferenceProvider({
           <summary aria-label="참조 편의 동작">⋯</summary>
           <button
             onClick={() => {
-              if (reading) convenience.sendReading(reading);
+              if (reading)
+                convenience.scratch(
+                  copyReadingWithInlineChildren(reading, inlineChildren),
+                );
               else convenience.scratch(selected.title);
               convenience.setPanel('scratch');
             }}
