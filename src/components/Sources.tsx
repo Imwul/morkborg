@@ -25,9 +25,7 @@ export function Sources() {
       <div className="eyebrow">룰북 / 자료 및 규칙</div>
       <div className="page-heading">
         <div>
-          <h1>
-            SOURCEBOOK
-          </h1>
+          <h1>SOURCEBOOK</h1>
           <p>
             실제 책의 표와 규칙을 사용합니다. 각 생성 결과에 출처가 함께
             저장됩니다.
@@ -172,7 +170,18 @@ export function Sources() {
               </div>
               <Button
                 className="btn primary"
+                disabled={
+                  !Number.isSafeInteger(modifier) ||
+                  modifier < -99 ||
+                  modifier > 99
+                }
                 onClick={() => {
+                  if (
+                    !Number.isSafeInteger(modifier) ||
+                    modifier < -99 ||
+                    modifier > 99
+                  )
+                    return;
                   const a = rollDie(20),
                     b = rollDie(20);
                   const hits =
@@ -196,6 +205,11 @@ export function Sources() {
               >
                 <Dices size={15} /> 2d20 판정
               </Button>
+              {(!Number.isSafeInteger(modifier) ||
+                modifier < -99 ||
+                modifier > 99) && (
+                <p role="alert">보정은 −99부터 99까지의 정수로 입력하세요.</p>
+              )}
             </section>
             <section className="solo-check" aria-label="d100 질문 판정 설정">
               <div className="solo-controls solo-controls-single">
