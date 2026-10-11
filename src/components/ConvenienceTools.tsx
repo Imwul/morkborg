@@ -671,8 +671,8 @@ export function ConveniencePanel({
                 작동하지 않습니다.
               </p>
               <p>
-                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last·최근 결과는
-                현재 탭에서 새로고침까지 유지됩니다.
+                Recipe·Pack은 개인 환경설정입니다. Tray·스크랩·Last는 같은
+                탭에서 새로고침해도 유지됩니다. 최근 결과는 새로고침하면 지워집니다.
               </p>
               <p>
                 모음과 사용자 조합은 APP_POLICY입니다. 실물 입력은 USER_ROLL로

@@ -330,9 +330,15 @@ export function CityRoller({
                       : '현재 존재치 보정'}
             <Input
               type="number"
+              min={move === 'stash' ? 0 : undefined}
+              max={move === 'stash' ? 4 : undefined}
               value={modifier}
               onChange={(e) =>
-                setModifier(Math.trunc(Number(e.target.value)) || 0)
+                setModifier(
+                  move === 'stash'
+                    ? Number(e.target.value)
+                    : Math.trunc(Number(e.target.value)) || 0,
+                )
               }
             />
           </label>

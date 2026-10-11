@@ -4,7 +4,7 @@ import type { ScvmPack } from '../domain/scvmPack';
 import { rollScvm, SCVM_URL } from '../domain/scvmPack';
 import type { GeneratedValueProvenance } from '../domain/generationProvenance';
 import { id, now, random, type RandomSource } from './random';
-import { translateGeneratedText } from './translation';
+import { polishKoreanTranslation, translateGeneratedText } from './translation';
 
 const provenance = (text: string, homebrew: boolean): GeneratedValueProvenance => ({
   classification: 'APP_DERIVED',
@@ -49,7 +49,9 @@ export function scvmReferenceReading(
       text,
       translation: {
         titleKo,
-        ...(helper && /[가-힣]/u.test(helper) ? { ko: helper } : {}),
+        ...(helper && /[가-힣]/u.test(helper)
+          ? { ko: polishKoreanTranslation(helper, text) }
+          : {}),
       },
     };
   };

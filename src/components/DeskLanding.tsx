@@ -48,7 +48,7 @@ export const DESK_RECORD_GENERATORS = [
 
 export const DESK_GENERATOR_SHORTCUTS = [
   ['procedure:workbench.npc', 'NPC', '이름 · 성격 · 직업 · 외형 · 반응'],
-  ['procedure:sd.room-description', '방', '방의 특징 · 내용 · 출구'],
+  ['procedure:sd.room-description', '방', '방의 수식어 · 유형'],
   ['procedure:aitc.street', '거리', '형용사 · 거리 유형 · 내용'],
   ['procedure:aitc.settlement', '정착지', '규모 · 이름 · 특징'],
   ['oracle:core.names', '이름', 'Core 이름표'],

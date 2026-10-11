@@ -143,6 +143,8 @@ export function rollCityMove(
 ): CityMoveResult {
   requireInteger(input.dr, 'DR');
   requireInteger(input.modifier, '가산치');
+  if (input.move === 'stash' && (input.modifier < 0 || input.modifier > 4))
+    throw new Error('현재 오멘은 0–4 사이의 정수입니다.');
   if (input.dr < 1) throw new Error('DR은 1 이상이어야 합니다.');
   if (!(input.move in CITY_MOVE_DEFAULTS))
     throw new Error('지원하지 않는 도시 절차입니다.');
@@ -159,8 +161,15 @@ export function rollCityMove(
     number,
   ];
   const successes = modifiedValues.filter((value) => value >= input.dr).length;
-  const outcome: CityOutcome =
+  let outcome: CityOutcome =
     successes === 2 ? 'strong' : successes === 1 ? 'weak' : 'fail';
+  if (
+    input.move === 'crawl' &&
+    mode === 'city' &&
+    input.allObjectivesMet &&
+    outcome === 'strong'
+  )
+    outcome = 'weak';
   const result: CityMoveResult = {
     move: input.move,
     mode,

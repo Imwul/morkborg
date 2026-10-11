@@ -8,6 +8,7 @@ import {
   type ReviewedHelperClass,
 } from './reviewedDisplayHelpers';
 import {
+  exactUiTranslation,
   polishKoreanTranslation,
   translateGeneratedText,
 } from '../generators/translation';
@@ -31,6 +32,14 @@ let helpers = new WeakMap<ReferenceEntry, ReferenceDisplayTitle>();
 export function referenceDisplayTitle(
   entry: ReferenceEntry,
 ): ReferenceDisplayTitle {
+  // This weather heading owns the UI meaning; a sound-table dictionary helper
+  // must not rename the Wind reference when supplied title helpers take priority.
+  if (entry.id === 'oracle:reclvse.wind' && entry.title === 'Wind')
+    return {
+      text: exactUiTranslation(entry.title),
+      classification: 'trusted',
+      origin: 'ui-name',
+    };
   const owned = ownedReferenceTitle(entry);
   if (owned)
     return owned.text.normalize('NFC') === entry.title.normalize('NFC')

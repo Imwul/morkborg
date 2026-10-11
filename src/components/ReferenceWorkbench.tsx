@@ -35,8 +35,12 @@ import {
 } from '../navigation/referenceView';
 import { usePrivateDngngen } from './usePrivateDngngen';
 import { usePrivateGenerator } from './usePrivateGenerator';
-import { parsePrivateMonster } from '../storage/privateGeneratorClient';
+import {
+  parsePrivateMonster,
+  parsePrivateScvm,
+} from '../storage/privateGeneratorClient';
 import { monsterSiteReferenceReading } from '../generators/monsterSite';
+import { scvmReferenceReading } from '../generators/scvmCharacter';
 import { eligibleForReferenceReplay } from '../domain/referenceReading';
 import { InlineSourceSubtable } from './InlineSourceSubtable';
 import {
@@ -266,6 +270,19 @@ export function ReferenceProvider({
   );
   const monsterPack =
     privateMonster.status === 'ready' ? privateMonster.pack : undefined;
+  const characterReference =
+    selectedId === 'procedure:character.core-classless';
+  const [characterSource, setCharacterSource] = useState<'core' | 'scvm'>(
+    'core',
+  );
+  const [scvmHomebrew, setScvmHomebrew] = useState(false);
+  const privateScvm = usePrivateGenerator(
+    '/__private/scvmbirther',
+    parsePrivateScvm,
+    characterReference,
+  );
+  const scvmPack =
+    privateScvm.status === 'ready' ? privateScvm.pack : undefined;
   const [inlineChildren] = useState(createInlineChildResults);
   const [, refreshInlineChildren] = useState(0);
   const readings = session.readings;
@@ -617,6 +634,15 @@ export function ReferenceProvider({
       setFailure('');
       if (
         !only &&
+        characterSource === 'scvm' &&
+        scvmPack &&
+        entry.id === 'procedure:character.core-classless'
+      ) {
+        acceptReading(entry.id, scvmReferenceReading(scvmPack, scvmHomebrew));
+        return;
+      }
+      if (
+        !only &&
         monsterSource === 'site' &&
         monsterPack &&
         (entry.id === 'oracle:feretory.A' ||
@@ -897,6 +923,9 @@ export function ReferenceProvider({
   const PartsContainer = hasQuickGuide || generatorPage ? 'details' : 'section';
   const siteMonsterSelected =
     monsterReference && monsterSource === 'site' && !!monsterPack;
+  const siteCharacterSelected =
+    characterReference && characterSource === 'scvm' && !!scvmPack;
+  const characterResultSource = generatorResultSource('character', reading);
   const displayedSource =
     (generatorPage ? reading?.sourceRefs[0] : undefined) ??
     selected?.sourceRefs[0];
@@ -967,10 +996,20 @@ export function ReferenceProvider({
         <details className="result-more-actions">
           <summary aria-label="결과 추가 동작">⋯</summary>
           <button onClick={() => copyReading(true)}>COPY WITH SOURCE</button>
-          <button onClick={() => convenience.sendReading(reading)}>
+          <button
+            onClick={() => {
+              convenience.sendReading(reading);
+              convenience.setPanel('scratch');
+            }}
+          >
             SEND TO SCRATCH · 스크랩에 추가
           </button>
-          <button onClick={() => convenience.sendReading(reading, true)}>
+          <button
+            onClick={() => {
+              convenience.sendReading(reading, true);
+              convenience.setPanel('scratch');
+            }}
+          >
             출처와 스크랩에 추가
           </button>
         </details>
@@ -1015,9 +1054,13 @@ export function ReferenceProvider({
             onClick={() => {
               if (reading) convenience.sendReading(reading);
               else convenience.scratch(selected.title);
+              convenience.setPanel('scratch');
             }}
           >
             SEND TO SCRATCH · 스크랩에 추가
+          </button>
+          <button onClick={() => convenience.setPanel('scratch')}>
+            스크랩 열기
           </button>
         </details>
         <h2 id="current-reference-title" tabIndex={-1}>
@@ -1067,19 +1110,74 @@ export function ReferenceProvider({
         </p>
       )}
       <div className="reference-body">
-        {procedureId === 'character.core-classless' && (
-          <CharacterGenerationControl
+        {characterReference && privateScvm.status !== 'public' && (
+          <GeneratorSourceControl
+            current={characterResultSource}
+            next={
+              siteCharacterSelected
+                ? scvmHomebrew
+                  ? 'scvm-homebrew'
+                  : 'scvm'
+                : 'core'
+            }
+            description={
+              siteCharacterSelected
+                ? scvmPack.source.attribution
+                : '룰북의 캐릭터 생성 절차를 사용합니다. SCVMBIRTHER는 별도 사이트의 원문 스냅샷입니다.'
+            }
+            status={
+              scvmPack
+                ? undefined
+                : privateScvm.status === 'loading'
+                  ? '캐릭터 스냅샷을 확인하고 있습니다.'
+                  : 'SCVMBIRTHER 스냅샷을 사용할 수 없습니다. 룰북 굴림은 계속됩니다.'
+            }
+          >
+            <label>
+              캐릭터 원문{' '}
+              <select
+                aria-label="캐릭터 생성 원문"
+                value={siteCharacterSelected ? 'scvm' : 'core'}
+                onChange={(event) =>
+                  setCharacterSource(
+                    event.target.value === 'scvm' ? 'scvm' : 'core',
+                  )
+                }
+              >
+                <option value="core">룰북</option>
+                <option value="scvm" disabled={!scvmPack}>
+                  SCVMBIRTHER
+                </option>
+              </select>
+            </label>
+            {siteCharacterSelected && (
+              <label>
+                <input
+                  type="checkbox"
+                  checked={scvmHomebrew}
+                  onChange={(event) => setScvmHomebrew(event.target.checked)}
+                />{' '}
+                SCVMBIRTHER homebrew
+              </label>
+            )}
+          </GeneratorSourceControl>
+        )}
+        {procedureId === 'character.core-classless' &&
+          !siteCharacterSelected && (
+            <CharacterGenerationControl
+              value={ruleOptions}
+              onChange={setRuleOptions}
+              classes={characterClasses()}
+              reading={reading}
+            />
+          )}
+        {!siteCharacterSelected && (
+          <RuleFaithfulSettings
+            entry={selected}
             value={ruleOptions}
             onChange={setRuleOptions}
-            classes={characterClasses()}
-            reading={reading}
           />
         )}
-        <RuleFaithfulSettings
-          entry={selected}
-          value={ruleOptions}
-          onChange={setRuleOptions}
-        />
         {!siteMonsterSelected &&
           ['workbench.npc', 'workbench.epk', 'workbench.stock-room'].includes(
             procedureId,
@@ -1968,6 +2066,7 @@ export function ReferenceProvider({
         </button>
       )}
       {procedureParts.length > 0 &&
+        !siteCharacterSelected &&
         !(
           procedureId === 'character.core-classless' &&
           (ruleOptions.characterMode ?? 'classless') !== 'classless'
@@ -1997,12 +2096,14 @@ export function ReferenceProvider({
                 >
                   표 보기
                 </button>
-                <button
-                  className="play-roll-action"
-                  onClick={() => activate(entry.id, true)}
-                >
-                  굴리기
-                </button>
+                {referenceProducesRoll(entry) && (
+                  <button
+                    className="play-roll-action"
+                    onClick={() => activate(entry.id, true)}
+                  >
+                    굴리기
+                  </button>
+                )}
               </div>
             ))}
           </PartsContainer>
@@ -2358,7 +2459,7 @@ export function ReferenceProvider({
           if (!open) {
             convenience.setPanel(null);
             setSearchOpen(false);
-            setSelectedId(null);
+            if (!inline) setSelectedId(null);
           }
         }}
       >

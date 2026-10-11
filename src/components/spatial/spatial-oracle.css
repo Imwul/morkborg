@@ -441,6 +441,12 @@
   .spatial-description {
     font-size: 0.8rem;
   }
+  .spatial-map-tools {
+    flex-wrap: wrap;
+  }
+  .spatial-map-tools > div {
+    flex-shrink: 0;
+  }
   .spatial-plate-caption > span {
     font-size: 0.75rem;
   }

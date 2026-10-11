@@ -1123,25 +1123,6 @@ export function buildReferenceRegistry(
       action: { kind: 'region', region: region.id },
     });
   }
-  for (const book of oracles.books)
-    add({
-      ...defaultEntry(`book:${book.id}`, 'book', book.title),
-      summary: (['oracle', 'procedure', 'rule', 'creature'] as const)
-        .map((kind) => {
-          const count = entries.filter(
-            (e) =>
-              e.kind === kind && e.sourceRefs.some((s) => s.bookId === book.id),
-          ).length;
-          return count ? `${kind.toUpperCase()} ${count}` : '';
-        })
-        .filter(Boolean)
-        .join(' · '),
-      keywords: [book.id, book.title],
-      sourceRefs: [{ bookId: book.id, bookTitle: book.title }],
-      relatedIds: entries
-        .filter((e) => e.sourceRefs.some((s) => s.bookId === book.id))
-        .map((e) => e.id),
-    });
   // The source's eight encounter regions include two outside the campaign region selector.
   // Reuse the same verified regional router; do not add campaign regions or alternate pools.
   for (const [key, name] of [
@@ -1169,6 +1150,25 @@ export function buildReferenceRegistry(
     }
   }
   for (const entry of additions) add(entry);
+  for (const book of oracles.books)
+    add({
+      ...defaultEntry(`book:${book.id}`, 'book', book.title),
+      summary: (['oracle', 'procedure', 'rule', 'creature'] as const)
+        .map((kind) => {
+          const count = entries.filter(
+            (e) =>
+              e.kind === kind && e.sourceRefs.some((s) => s.bookId === book.id),
+          ).length;
+          return count ? `${kind.toUpperCase()} ${count}` : '';
+        })
+        .filter(Boolean)
+        .join(' · '),
+      keywords: [book.id, book.title],
+      sourceRefs: [{ bookId: book.id, bookTitle: book.title }],
+      relatedIds: entries
+        .filter((e) => e.sourceRefs.some((s) => s.bookId === book.id))
+        .map((e) => e.id),
+    });
   for (const entry of entries) {
     if (entry.id === 'oracle:core.creatureValuations')
       entry.authority = [appPolicy('app.core-valuation-index')];

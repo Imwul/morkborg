@@ -281,6 +281,12 @@ export function ruleFaithfulResult(
     procedure.oracleIds.length === 1 &&
     procedure.oracleIds[0] === 'depths.orakle'
   ) {
+    const threat = options.orakleTR ?? 12;
+    if (
+      options.orakleDR &&
+      (!Number.isInteger(threat) || threat < 3 || threat > 30)
+    )
+      throw new Error('Threat rating은 3–30 사이의 정수로 입력하세요.');
     const likelihood = options.orakleLikelihood ?? 'even';
     const count =
       likelihood === 'even' ? 1 : likelihood.startsWith('very-') ? 3 : 2;
@@ -317,7 +323,6 @@ export function ruleFaithfulResult(
         continue;
       }
       if (value > 10 && options.orakleDR) {
-        const threat = options.orakleTR ?? 12;
         rolls[rolls.length - 1].text +=
           `\n\nChallenge DR ${orakleChallengeDR(value, threat)} · ${value} + (${threat} − 12), cap 18. Harmful Yes only; apply when a challenge needs a DR.`;
         derived(

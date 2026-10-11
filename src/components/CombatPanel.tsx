@@ -896,8 +896,8 @@ export function CombatPanel({
                             : '피해 두 배 · 대상 방어구 1단계 손상.'}
                       </p>
                       <b>
-                        알림만 표시합니다. 피해·장비·추가 행동은 자동 변경하지
-                        않습니다.
+                        계산된 피해를 확인하세요. HP·장비 손상·추가 공격은
+                        직접 처리합니다.
                       </b>
                     </div>
                   )}
@@ -950,6 +950,7 @@ export function CombatPanel({
                           {pending.dice.find((die) => die.key === 'damage')
                             ?.total ?? 0}
                         </b>
+                        {pending.armorLoss && ' × 2'}
                         {' − 방어구 '}
                         <b>
                           {pending.dice.find((die) => die.key === 'armor')
@@ -982,16 +983,14 @@ export function CombatPanel({
                     )}
                     <span>
                       ={' '}
-                      {pending.armorLoss &&
-                      pending.request.damageOverride === null
-                        ? '기본 피해'
-                        : '최종 피해'}{' '}
+                      최종 피해{' '}
                       <strong>{pending.damage}</strong>
                     </span>
                     {pending.armorLoss &&
                       pending.request.damageOverride === null && (
                         <small>
-                          치명타·실수의 피해 두 배는 아래에서 직접 지정하세요.
+                          치명타·실수의 피해 두 배를 감소 전 공격 피해에
+                          반영했습니다.
                         </small>
                       )}
                     <small>0 미만은 0 · HP는 자동으로 차감하지 않습니다.</small>
@@ -1375,8 +1374,8 @@ export function CombatPanel({
                   음수까지 내려갑니다.
                 </li>
                 <li>
-                  치명타·실수는 알림만 표시합니다. 피해 배수와 장비 손상은 직접
-                  수정하세요.
+                  공격 치명타·방어 실수의 피해 두 배는 계산에 반영합니다.
+                  HP·장비 손상·추가 공격은 직접 처리하세요.
                 </li>
                 <li>
                   상태 메모는 자동 판정에 영향을 주지 않습니다. 해당 효과를

@@ -143,6 +143,13 @@ export function rollDungeonAction(
   const action = DUNGEON_ACTIONS.find((a) => a.id === input.action);
   if (!action) throw new Error('지원하지 않는 던전 행동입니다.');
   if (
+    input.action === 'search' &&
+    (!Number.isSafeInteger(input.modifier) ||
+      input.modifier < 0 ||
+      input.modifier > 4)
+  )
+    throw new Error('남은 Omens는 0–4 사이의 정수입니다.');
+  if (
     !Number.isSafeInteger(input.modifier) ||
     ![9, 12, 15].includes(input.threatRating)
   )

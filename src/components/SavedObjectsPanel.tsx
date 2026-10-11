@@ -32,7 +32,12 @@ export function SavedObjectsPanel({
   const [draft, setDraft] = useState<SavedObject | null>(null);
   const [deleted, setDeleted] = useState<SavedObject | null>(null);
   const [error, setError] = useState('');
+  const [previousOpen, setPreviousOpen] = useState(open);
   const file = useRef<HTMLInputElement>(null);
+  if (open !== previousOpen) {
+    setPreviousOpen(open);
+    if (open) setError('');
+  }
   useEffect(() => {
     const request = (event: Event) => {
       const next = (event as CustomEvent).detail;
@@ -266,8 +271,10 @@ export function SavedObjectsPanel({
         )}
         <footer className="shelf-actions">
           <button
+            disabled={!!store.error}
             onClick={() =>
               run(() => {
+                if (store.error) throw new Error(store.error);
                 const url = URL.createObjectURL(
                   new Blob([JSON.stringify(store.value, null, 2)], {
                     type: 'application/json',

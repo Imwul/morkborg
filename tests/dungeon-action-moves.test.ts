@@ -86,6 +86,30 @@ test('search follows the canonical Strong or Weak d4 and never invents a follow-
   assert.equal(calls, 2);
   assert.deepEqual(result.relatedIds, ['oracle:depths.danger']);
 });
+test('SD searching accepts remaining Omens 0–4 and rejects invalid counts before rolling', () => {
+  for (const modifier of [-1, 0.5, 5, 999]) {
+    let calls = 0;
+    assert.throws(
+      () =>
+        rollDungeonAction({ ...base, modifier }, registry, () => {
+          calls++;
+          return 0;
+        }),
+      /남은 Omens는 0–4 사이의 정수/,
+    );
+    assert.equal(calls, 0);
+  }
+  const none = rollDungeonAction(base, registry, sequence(0.4, 0.4));
+  assert.equal(none.outcome, 'fail');
+  const four = rollDungeonAction(
+    { ...base, modifier: 4 },
+    registry,
+    sequence(0.4, 0.4, 0),
+  );
+  assert.equal(four.outcome, 'strong');
+  assert.equal(four.modifier, 4);
+  assert.equal(four.secondaryRoll, 1);
+});
 test('short rest and camping have distinct DR and recovery dice; retry cannot miss', () => {
   const breath = rollDungeonAction(
     { ...base, action: 'breath' },

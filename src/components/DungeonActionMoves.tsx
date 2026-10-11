@@ -114,6 +114,8 @@ export function DungeonActionMoves({
             <Input
               id={`${uid}-modifier`}
               type="number"
+              min={action === 'search' ? 0 : undefined}
+              max={action === 'search' ? 4 : undefined}
               step={1}
               value={modifier}
               onChange={(e) => setModifier(e.target.value)}

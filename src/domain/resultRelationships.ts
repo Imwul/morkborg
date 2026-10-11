@@ -262,6 +262,8 @@ export function rowResultRelationships(
   },
   completedTableIds: readonly string[] = [],
 ): ResultRelationship[] {
+  // A quantity roll has source provenance, but does not select a source row.
+  if (row.metadata?.conditionalCount === true) return [];
   const table = registry.tables.find((t) => t.id === row.oracleId);
   const source = table?.entries.find((e) => e.id === row.entryId);
   const verified =

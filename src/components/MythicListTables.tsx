@@ -49,6 +49,7 @@ export function MythicListTables({
         lists[kind]![index] = text;
         return lists;
       });
+      setVisibleKind(kind);
       onResult(null);
       setError('');
     } catch (e) {
@@ -186,6 +187,7 @@ export function MythicListTables({
                         );
                         return lists;
                       });
+                      setVisibleKind(kind);
                       onResult(null);
                       setError('');
                     } catch (e) {

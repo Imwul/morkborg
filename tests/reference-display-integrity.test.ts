@@ -61,7 +61,12 @@ test('existing and newly indexed owned translations retain their source ownershi
   assert.equal(trusted.length, 321);
   for (const e of trusted) {
     assert.equal(referenceDisplayTitle(e).classification, 'trusted', e.id);
-    assert.equal(referenceDisplayTitle(e).text, legacy(e.id), e.id);
+    // The weather heading corrects a demonstrably misowned sound helper.
+    assert.equal(
+      referenceDisplayTitle(e).text,
+      e.id === 'oracle:reclvse.wind' ? '바람' : legacy(e.id),
+      e.id,
+    );
   }
 });
 test('explicit title metadata remains the first display authority', () => {
@@ -120,7 +125,13 @@ test('malformed, unreviewed and misowned outputs are suppressed', () => {
   assert.equal(
     suppressed.filter((e) => display(e.id).classification === 'malformed')
       .length,
-    17,
+    16,
+  );
+  // The corrected Wind vocabulary changes this helper's review class, while
+  // its unreviewed secondary title remains suppressed as before.
+  assert.equal(
+    display('oracle:feretory.blackSaltWindIntensity').classification,
+    'unreviewed',
   );
   assert.equal(
     suppressed.filter((e) => display(e.id).classification === 'misowned')

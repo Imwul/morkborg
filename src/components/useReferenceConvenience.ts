@@ -147,7 +147,7 @@ export function useReferenceConvenience({
       coreOmens: overrides.coreOmens,
       orakleLikelihood: overrides.orakleLikelihood,
       orakleDR: overrides.orakleDR,
-      orakleTR: overrides.orakleTR,
+      orakleTR: overrides.orakleDR ? overrides.orakleTR : undefined,
       weatherDetails: overrides.weatherDetails,
       huntingDie: overrides.huntingDie,
     };

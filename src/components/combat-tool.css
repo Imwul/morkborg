@@ -448,10 +448,21 @@
 .combat-damage {
   border-block: 2px solid #161612;
   padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  gap: 8px;
   font-weight: 800;
+}
+.combat-damage-equation {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.combat-damage > span {
+  text-align: right;
+}
+.combat-damage > small {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
 }
 .combat-damage strong {
   font: 800 36px/1.1 var(--font-mono);

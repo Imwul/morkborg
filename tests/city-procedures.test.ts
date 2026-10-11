@@ -74,6 +74,19 @@ test('City failure records its d4 branch and requires resolution before a new st
     assert.equal(result.metadata.requiresResolution, true);
   }
 });
+test('completed City objectives convert Strong to Weak while Dérive keeps both grades', () => {
+  const completed = move([0.99, 0.99], { allObjectivesMet: true });
+  assert.deepEqual(completed.diceValues, [20, 20]);
+  assert.equal(completed.outcome, 'weak');
+  assert.equal(completed.metadata.streetAction, 'new-street');
+  assert.equal(completed.metadata.followUp, undefined);
+  assert.equal(move([0.99, 0.99]).outcome, 'strong');
+  assert.equal(
+    move([0.99, 0.99], { mode: 'derive', allObjectivesMet: true }).outcome,
+    'strong',
+  );
+  assert.equal(move([0.99, 0], { mode: 'derive' }).outcome, 'weak');
+});
 test('Directions strong exposes mutually exclusive fixed benefits without rolling extra dice', () => {
   let calls = 0;
   const result = rollCityMove(
@@ -171,6 +184,27 @@ test('Stash is a retrieval move; weak outcomes expose d6 without mutating any it
   assert.equal(CITY_MOVE_DEFAULTS.stash.ability, 'omens');
   assert.equal(CITY_MOVE_DEFAULTS.stash.dr, 10);
   assert.equal(result.sourceRefs.at(-1)?.pdfPage, 8);
+});
+test('Stash remaining Omens are integer 0–4 without restricting ability modifiers', () => {
+  for (const modifier of [-1, 0.5, 5, 999]) {
+    let calls = 0;
+    assert.throws(() =>
+      rollCityMove({ move: 'stash', dr: 10, modifier }, () => {
+        calls++;
+        return 0;
+      }),
+    );
+    assert.equal(calls, 0);
+  }
+  assert.equal(move([0.3, 0.3], { move: 'stash', dr: 10 }).outcome, 'fail');
+  assert.equal(
+    move([0.3, 0.3], { move: 'stash', dr: 10, modifier: 4 }).outcome,
+    'strong',
+  );
+  assert.equal(
+    move([0.99, 0.99], { move: 'pray', modifier: -3 }).outcome,
+    'strong',
+  );
 });
 test('Merchant disposition enumerates 36 equally likely dice pairs, not six uniform bands', () => {
   const counts = [0, 0, 0, 0, 0, 0];

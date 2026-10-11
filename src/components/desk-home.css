@@ -270,7 +270,7 @@
     padding-block: 20px;
   }
   .desk-home-grid > button strong {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 7.5vw, 2rem);
   }
   .desk-home-room h3 {
     font-size: 1.15rem;

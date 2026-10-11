@@ -20,6 +20,7 @@ const vocabulary: Record<string, string> = {
   Armor: '방어구',
   Omens: '오멘',
   Reaction: '반응',
+  Wind: '바람',
   Tier: '등급',
   Traits: '특성',
   Values: '중시하는 것',
@@ -111,8 +112,8 @@ const exactUiNames = new Map(
 export function exactUiTranslation(text: string): string | undefined {
   return exactUiNames.get(normalize(text).toLocaleLowerCase());
 }
-export function polishKoreanTranslation(text: string): string {
-  return text.replace(
+export function polishKoreanTranslation(text: string, source = ''): string {
+  let output = text.replace(
     /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Omens|Armor|Attack|Defence|Defense|Damage)\b/gi,
     (word) =>
       vocabulary[
@@ -121,6 +122,22 @@ export function polishKoreanTranslation(text: string): string {
         )!
       ] ?? word,
   );
+  // Correct local companion terminology only where the English source proves
+  // the meaning; an unrelated stamp, book, roll or tool keeps its own helper.
+  if (/\bunclean scrolls?\b/i.test(source))
+    output = output.replace(
+      /\((?:불순한|더러운|깨끗하지 않은)\s*(?:스탬프|스크롤|두루마리|서적|사본)\)/g,
+      '(부정한 두루마리)',
+    );
+  if (/\bsacred scrolls?\b/i.test(source))
+    output = output.replace(/\(신성한\s*(?:사본|롤|스크롤)\)/g, '(신성한 두루마리)');
+  if (/\bscrolls?\b/i.test(source))
+    output = output.replace(/스탬프|스크롤/g, '두루마리');
+  if (/\bto spot\b/i.test(source))
+    output = output.replace(/DR(\d+)\s*로\s*스팟/g, '발견에 DR$1');
+  if (/\btongs\b/i.test(source))
+    output = output.replace(/핸드드라이버/g, '집게');
+  return output;
 }
 function refresh() {
   const rules = getRules(),
