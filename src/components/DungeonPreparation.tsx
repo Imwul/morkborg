@@ -287,6 +287,7 @@ export function DungeonPreparation({
                         table={table}
                         entry={entry}
                         parentContext={roll}
+                  parentRoll={roll}
                       />
                     )}
                   </div>

@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ReferenceTable } from '../src/components/ReferenceTable.tsx';
+import { DungeonPreparation } from '../src/components/DungeonPreparation.tsx';
+import { rollDungeonPreparationField } from '../src/domain/dungeonReferencePreparation.ts';
 import {
   ReferenceContext,
   type DeskContext,
@@ -616,6 +618,7 @@ test('Associating and serializing explicit inline results leaves canonical regis
 function renderRooms(
   reading: ReferenceReading,
   results: ReturnType<typeof createInlineChildResults>,
+  preparation = false,
 ) {
   const context: DeskContext = {
     entries: index.entries,
@@ -639,17 +642,48 @@ function renderRooms(
     createElement(
       ReferenceContext.Provider,
       { value: context },
-      createElement(ReferenceTable, {
-        table: table('core.rooms'),
-        currentEntryIds: reading.oracle!.rolls.map((roll) => roll.entryId),
-        parentResult: reading.oracle,
-        onChoose: () => {
-          throw new Error('Rendering cannot choose a parent');
-        },
-      }),
+      preparation
+        ? createElement(DungeonPreparation, {
+            reading,
+            registry,
+            onChange: () => {
+              throw new Error('Rendering cannot change a preparation');
+            },
+            onOpen: () => {
+              throw new Error('Rendering cannot navigate');
+            },
+          })
+        : createElement(ReferenceTable, {
+            table: table('core.rooms'),
+            currentEntryIds: reading.oracle!.rolls.map((roll) => roll.entryId),
+            parentResult: reading.oracle,
+            onChoose: () => {
+              throw new Error('Rendering cannot choose a parent');
+            },
+          }),
     ),
   );
 }
+
+test('Dungeon preparation restores its explicitly obtained conditional detail after reader return', (t) => {
+  const rng = forbidDice(t);
+  const reading = rollDungeonPreparationField('special1', registry, () => 0);
+  const parent = reading.oracle!.rolls[0];
+  const child = childFor(reading);
+  const results = createInlineChildResults();
+  retainInlineChild(results, parent, child);
+  const html = renderRooms(reading, results, true);
+  assert.match(html, /<output[^>]*>d6 → 3 · Hypnotic<\/output>/);
+  assert.match(html, /data-parent-entry-id="core.rooms:11-11" open=""/);
+  const replacement = rollDungeonPreparationField(
+    'special1',
+    registry,
+    () => 0,
+  );
+  const fresh = renderRooms(replacement, results, true);
+  assert.doesNotMatch(fresh, /<output[^>]*>d6 → 3 · Hypnotic<\/output>/);
+  assert.equal(rng.mock.callCount(), 0);
+});
 
 test('Actual source table rendering restores only the selected parent child, including its value and open result', (t) => {
   const rng = forbidDice(t);
