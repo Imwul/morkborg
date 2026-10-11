@@ -186,3 +186,30 @@ CUA browser와 원본 PDF/기존 private cache는 준비돼 있다. RECLVSE 현�
 ## Appendix B: Knowledge Base References
 
 실제로 읽은 system 지식: ADR readiness, nfr-criteria, test-levels-framework, risk-governance, test-quality, playwright-cli, test-priorities-matrix. 완전한 활성화/input 기록과 각 checkpoint는 `test-design-progress-system.md`에 있다.
+
+
+## 2026-10-12 Final Playability — Edit-mode supplement
+
+This section supplements the existing approved plan without changing historical SYS acceptance or TraceFAIL. Initial HEAD9373481 changes only reports after validated44766de. Workflow edit target selected from the user's autonomous request: this existing QA plan. Activation resolver/core+TEA config and both edit step files were read; no new Create/system run or agent delegation is claimed.
+
+Current unresolved issues are classified as (1) reproducible functional/rule defects, (2) probable play UX friction, (3) low-probability high-impact data/wrong-rule risks, (4) evidence-only gaps. Category4 stays unverified but does not cause speculative code. Prior1265suite and223/4394source audit are reused; only final required regression and newly changed situations are rerun.
+
+| Risk | Impact / likelihood rationale | Actual planned evidence |
+|---|---|---|
+| Wrong source/move/armor/casting or forced optional step | High impact; similar names and mixed reference navigation recur | Explicit Core+SD main play; separate Mythic/RCL scenarios; current source pages only for used rules |
+| Scene/result lost during reference/tool transitions | Frequent lookup within play, high interruption cost | Action chronicle; actual Back/PIN/Recent/Tray/Scratch return and identical saved result comparison |
+| Saved data lost during refresh, stale pack update or rejected write | Lower likelihood, high impact | Reuse SYS18/19 proven cases; isolated-origin QA only; narrow actual save/resume and code/established tests for SYS20 risk selection |
+| Unusable narrow reader/combat/dock | Requested viewport tool was ineffective previously | Verify innerWidth/height, visualViewport and screenshot pixels before accepting any size; alternative measured rendering explicitly separated from real mobile |
+
+Main scenario: create one Core character with a class; choose minimum adventure setting/goal; SD exploration result determines further table, encounter and response; Core combat/HP/Omen/rest; actual saved-object resume. All authored narrative is QA fiction, not an added official table. Natural RNG is separated from explicit critical/fumble/extra-system scenarios.
+
+Cases FP-A character+source+constraints; FP-B chained exploration+mandatory/optional links; FP-C reaction/combat/Omen/HP/recovery; FP-D scene search/Back/PIN/Recent/Tray/Scratch/save/reload; FP-E explicit independent Mythic and RCL; FP-V measured360x800,768x1024,1440x900,3440x1440 requests/effective results; FP-R only useful reliability deltas. Count actual clicks, search submissions, content transitions and Back separately. Time is observed wall interval, never human task performance.
+
+Fix only reproduced P0/P1, and narrow demonstrated P2 with same-situation replay. Record P3 and evidence-only gaps without code. No framework install or all-combinations browser repetition. Final current full suite/type/lint/production build/privacy required by user; focused meaningful regressions for changes. Cleanup independent QA state and tabs, never user's data.
+
+
+Edit-mode completion evidence (2026-10-12): actual Core+SD continuous play and distinct combat/Mythic/RCL checks are recorded in `docs/final-playability-20261012/report.md`. Five narrow changes address observed continuity, Scratch completeness, hidden explicit access, six wrong species links, and spatial target width. Real360/768/1440/3440 dimensions and full-page capture pixels were recorded; this supplements selected SYS24 evidence without a fresh formal TracePASS. Actual Back/Forward was tested after the candidate-link change; historical export/import and SYS18/19 faults were reused, not reenacted. SYS20 remains PARTIAL. All saved QA objects, Pins, Tray, Scratch, Last and combat fiction were cleared through the isolated origin's UI; local evidence and source caches stay private. No human study or new Test Review/Trace execution is claimed.
+
+The historical registry baseline was preserved. A separate current baseline records the six verified link changes, and a strict regression proves that reversing only those six targets restores the entire historical hash; existing count/file/nonmutation assertions remain strict. This is an evidence-backed source correction, not an arbitrary expected-value relaxation. Workflow on_complete is resolved separately; final commands/results appear in the report.
+
+Completion: workflow.on_complete resolver was executed on2026-10-12 and returned an empty string; no further hook applies.
