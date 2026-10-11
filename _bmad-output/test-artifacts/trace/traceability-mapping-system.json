@@ -1,5 +1,5 @@
 {
-  "sourceSha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+  "sourceSha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
   "oracle": {
     "resolution_mode": "formal_requirements",
     "confidence": "high",
@@ -23,16 +23,17 @@
       "justification": "Core PDF21/23/27/29 및 Core6/FER4/HER2의 기본 시작값 직접 대조. 모든 attachment는 SYS06의 전수 조건 공백으로 별도 유지.",
       "tests": [
         {
-          "id": "NODE:tests/rule-fidelity.test.ts:43",
+          "id": "NODE:tests/rule-fidelity.test.ts:187",
           "title": "complete classless PC has essentials and scroll-dependent starting arms",
           "file": "tests/rule-fidelity.test.ts",
-          "line": 43,
+          "line": 187,
           "level": "unit",
           "skipped": false,
           "pending": false,
           "fixme": false,
           "assertionsDirectInCallback": 11,
           "registrationSourceSha256": "5742f4f19c543ca1127bd9861515f604eb48d3ad4a61c2aba8a9662c8eddbe60",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -67,7 +68,7 @@
       ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
@@ -98,6 +99,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 7,
           "registrationSourceSha256": "760578257e4354f83e05fe7521fa5ebf6d787e764ba86bfe895203678d5c5a17",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -114,6 +116,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 8,
           "registrationSourceSha256": "47654f5760e8888242f2d63ab8e18d14d0eb71a8fba20a7c55613f02f7ce4e3e",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -135,7 +138,7 @@
       ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
@@ -166,6 +169,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 6,
           "registrationSourceSha256": "ba420d0ccd40d1daa2f7fb8c3038a63728090991966bf7924a5915c105adae88",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -182,6 +186,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "6fab2152bb57cb99f71cc7c9526504e9ac86f7b57f53ebb6e82a34800cb092e4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -198,6 +203,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 11,
           "registrationSourceSha256": "f689c9a2e9b29410aa636aaef70232f108ffffe68edb66af1fba88da44737610",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -245,7 +251,7 @@
       ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
@@ -262,17 +268,49 @@
         "QA-01"
       ],
       "description": "RECLVSE 두 d20·치명·질문 경계와 현재 원본",
-      "coverage": "PARTIAL",
-      "justification": "기존 원본 렌더11/12/85와 현재 Sources 코드는 제한 대조. fresh PDF와 전체 현재 판본을 재확보하지 못해 현재 원문 충실도는 미완료. 테스트의 sourceVerified flag를 원문으로 인정하지 않는다.",
-      "tests": [],
+      "coverage": "FULL",
+      "justification": "Fresh original PDF11-12/85 and actual callbacks4506 plus browser117 establish all stated 2d20/critical/oracle boundaries; the source <=/below contradiction is retained and disclosed.",
+      "tests": [
+        {
+          "id": "SOURCE-RCL-CALLBACKS",
+          "title": "PDF11-12/85 independently expected actual4506 callback cases",
+          "file": "outputs/reclvse-qa-20261011/private/calculator-audit.mjs",
+          "line": 8,
+          "level": "unit",
+          "status": "active",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "skipReason": "",
+          "evidence_scope": "Reproducible ignored local audit with independent values transcribed from provided originals. Source files remain private."
+        },
+        {
+          "id": "RCL-SOURCE-CALCULATOR-44766de",
+          "requirement_id": "SYS-04",
+          "title": "Original PDF11-12/85: actual callback4506 and browser117 resolution/oracle outcomes",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/calculator-results.json; browser-calculators-final.json; report original ambiguities explicitly retained",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
+        }
+      ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log",
+        "docs/full-site-qa-20261011/reclvse-follow-up.md"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
-        "error_path": "unverified_source",
+        "error_path": "present_or_not_applicable",
         "ui_journey": "source_audit",
         "ui_states": "present_or_not_applicable"
       }
@@ -298,6 +336,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 7,
           "registrationSourceSha256": "fe19b045a9fb0d6cfa846b713671cbd43e721082a81537a36321411936edc701",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -314,6 +353,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "a7babefbaca5e865bcf1e61deab9070b3b4e1e3a9863b82c9ad490eaee5a9fc7",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -348,7 +388,7 @@
       ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
@@ -366,7 +406,7 @@
       ],
       "description": "전체 표 행 범위·후속·원문 authority·번역의 전수 대조",
       "coverage": "PARTIAL",
-      "justification": "548표/12,328행 screening은 완료. fresh originals가 없는4,394행과 모든 range/condition/translation/attachment semantic 승인 공백이 남아 있다. normalized match를 전체 규칙 승인으로 승격하지 않는다.",
+      "justification": "RCL original recovered; all223/4394 English/range entries investigated (4330 automatic/layout matches plus64 manual groups), probability4416, restored mandatory downsides. All4394 Korean semantic readings and other-book full attachment/conditions still not established.",
       "tests": [
         {
           "id": "NODE:tests/oracles.test.ts:81",
@@ -379,6 +419,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 1,
           "registrationSourceSha256": "078c8f0c030232c2544af7ff9c5d58626c911d80e6764e96b3c3571a17ff9929",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -395,16 +436,17 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "69916e756866cd64adab44f46ee6e06714e9c6712dbc30505287a9af15a5f84d",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
         },
         {
-          "id": "SOURCE-ENTRY-PROVENANCE",
-          "title": "Fresh original hashes and every runtime row status",
-          "file": "outputs/full-site-qa-20261011/rules-private/full-entry-audit.mjs",
-          "line": 26,
+          "id": "SOURCE-RCL-DICE",
+          "title": "Independent physical4416 cases across all223 RCL tables",
+          "file": "outputs/reclvse-qa-20261011/private/probability-audit.mjs",
+          "line": 4,
           "level": "unit",
           "status": "active",
           "skipped": false,
@@ -412,16 +454,51 @@
           "fixme": false,
           "skipReason": "",
           "evidence_scope": "Reproducible ignored local audit with independent values transcribed from provided originals. Source files remain private."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:46",
+          "title": "Brute skill guidance acknowledges the explicit PDF24 d6 without changing the selection-only reader",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 46,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 4,
+          "registrationSourceSha256": "f60c32bae16333ce509dcb397e8cd306af81a12034ab6429f091580b5ae043f9",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:69",
+          "title": "RECLVSE class references retain mandatory downsides from PDF20–30",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 69,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 6,
+          "registrationSourceSha256": "c7106ef2a95543cf8e2cda2eaa30dc4c1b9cba7fbcbbf5daa6f3431e3ed0c3b3",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
         }
       ],
       "source_evidence": [
         "outputs/full-site-qa-20261011/rulebook-findings.md",
-        "outputs/full-site-qa-20261011/mechanical-audit-results.json"
+        "outputs/reclvse-qa-20261011/final-44766de-other-system-mechanics.log",
+        "docs/full-site-qa-20261011/reclvse-follow-up.md"
       ],
       "heuristic_signals": {
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
-        "error_path": "unverified_source",
+        "error_path": "semantic_scope_gap",
         "ui_journey": "source_audit",
         "ui_states": "present_or_not_applicable"
       }
@@ -435,7 +512,7 @@
       ],
       "description": "Home 빠른 참조·굴림·copy/pin·return",
       "coverage": "PARTIAL",
-      "justification": "SSR Home destination assertions establish part of the controls; the actual c01 journey is historical/stale at current HEAD.",
+      "justification": "Current Home component assertions establish only part of the control families; whole Home live journey is historical.",
       "tests": [
         {
           "id": "NODE:tests/home-bilingual.test.ts:143",
@@ -448,6 +525,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "3e99fd2bb0b0f968ba0d881495dfd2f16329ef982f649f744c28fdec6b23877b",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -471,8 +549,8 @@
         "QA-03"
       ],
       "description": "검색·책/상황/유형 필터·모든 reader 종류",
-      "coverage": "UNIT-ONLY",
-      "justification": "Search/filter domain assertions pass at current HEAD, but the actual rendered reader/filter journey remains c01 historical/stale.",
+      "coverage": "PARTIAL",
+      "justification": "Current source-scoped RCL318 readers, duplicate-name selection, canonical76 and city3 filters supplement domain/SSR proof. Whole9book/8context/7type reader family journey is not freshly complete.",
       "tests": [
         {
           "id": "NODE:tests/reference-search-coverage.test.ts:596",
@@ -485,6 +563,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "c893ee977020d6d05c047cb4293f62ac2c3c57d37c474c6f1755c06bab6e64c9",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -501,10 +580,45 @@
           "fixme": false,
           "assertionsDirectInCallback": 2,
           "registrationSourceSha256": "7ef967dc68a6327e522086d800b05db96da8a71fc3185bf77838d0033a596397",
+          "registrationMethod": "it",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:55",
+          "title": "RECLVSE city discoveries on PDF106 remain in city, before wilderness PDF107",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 55,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 2,
+          "registrationSourceSha256": "5b124fa02199e11757483390e7e68e385e0aaedb8e6f87f74363c6346772be7b",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "RCL-READERS-44766de",
+          "requirement_id": "SYS-08",
+          "title": "All318 active RCL related entries visited; city3 filters; canonical76 selected; limited to RCL",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json; browser-city-final.json; browser-sources-tables-final.json",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -512,7 +626,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -524,8 +638,8 @@
         "QA-03"
       ],
       "description": "하위 참조·manual dice·partial/HOLD·복귀",
-      "coverage": "UNIT-ONLY",
-      "justification": "Linked reading, selection and invalid-TR domain guards are current automated proof; the wired UI path has only stale c01 live records.",
+      "coverage": "PARTIAL",
+      "justification": "Current RCL manual invalid/valid d66 and actual RCL armor/Power links and weather follow-ups establish part. Other-book nested partial/HOLD/invalidTR end-to-end families remain historical.",
       "tests": [
         {
           "id": "NODE:tests/reference-reading.test.ts:66",
@@ -538,6 +652,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "cad8d5f9930c56d9eeb6abc6166ed376b448624eb4f68e6541d53dd2628b0b5a",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -554,6 +669,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "982df60c1fd138622bce258584d3a29c9465cb3740c2cc055822d8f31a675141",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -570,10 +686,45 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "73b3c4214074bad197974de807a98d08b22ce8f5f5561fbb71b87fc90ae32a79",
+          "registrationMethod": "it",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "NODE:tests/pdf-remediation-batch-1.test.ts:55",
+          "title": "RECLVSE prose opens its own armor table without borrowing Core gear or Powers",
+          "file": "tests/pdf-remediation-batch-1.test.ts",
+          "line": 55,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 11,
+          "registrationSourceSha256": "5be37124a1f0c7c02d1686eb4c6e6a449d12ae8a2a8ec660c0dfcf7fdef955c8",
+          "registrationMethod": "privateTest",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "RCL-FOLLOWUPS-44766de",
+          "requirement_id": "SYS-09",
+          "title": "RCL armor and Power links; weather20 andMist; classes6; manual d66 invalid and valid edges",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-classes-final.json; browser-power-link-final.json; browser-weather-final.json; browser-manual-final.json",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -581,7 +732,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -594,7 +745,7 @@
       ],
       "description": "Core/native 캐릭터·12직업·source·reroll/save",
       "coverage": "UNIT-ONLY",
-      "justification": "Native generator and immutable translation assertions pass, but current character UI source/save/reopen was not freshly repeated.",
+      "justification": "Automated native character preservation is current. Four-kind Shelf starter character is fresh but not all12classes/source/reroll control families; whole criterion remains unestablished.",
       "tests": [
         {
           "id": "NODE:tests/official-generators.test.ts:63",
@@ -607,6 +758,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 10,
           "registrationSourceSha256": "85e394656394b072a3d1f79030a53fa369f95ac801620266734357d4a1318e62",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -623,6 +775,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "536da18d0250b9e3f4533809f2a9113c32e660b463b3adf5660218ce92addd76",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -647,7 +800,7 @@
       ],
       "description": "현재 활성 Monster source·수치·FER/native/EPK",
       "coverage": "UNIT-ONLY",
-      "justification": "Active Monster and FER numeric proof passes; the reachable active UI was observed at c01 and is stale here. Inactive legacy manual editor remains N/A, not verified.",
+      "justification": "Current active Monster/FER numeric assertions pass; active whole UI control families remain historical. Inactive legacy manual editor remains separately N/A.",
       "tests": [
         {
           "id": "NODE:tests/official-generators.test.ts:122",
@@ -660,6 +813,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 8,
           "registrationSourceSha256": "afaf57d6f99a485d2d7a55f36eb9c1ebdd4c202355e87d78a38cc2ba6db4dc88",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -676,6 +830,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 7,
           "registrationSourceSha256": "760578257e4354f83e05fe7521fa5ebf6d787e764ba86bfe895203678d5c5a17",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -700,7 +855,7 @@
       ],
       "description": "Core/native 던전·이유/경비/특별한 방1–4·개별 조작",
       "coverage": "PARTIAL",
-      "justification": "Current domain and SSR assertions plus fresh b2b live DNGNGEN reason/entrance/guard/special rooms1-4/preview reroll/console0 establish the corrected JSX key boundaries. Whole Core/native twelve-part/manual/source/save journey is c01 historical/stale.",
+      "justification": "Fresh SD preparation generator/save/restore and current DNGNGEN translation/context regressions establish part. Full native/Core twelve-part/manual/source journey is historical.",
       "tests": [
         {
           "id": "NODE:tests/dngngen-translation-features.test.ts:194",
@@ -713,6 +868,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 6,
           "registrationSourceSha256": "64edb07579945bc1e40ee0079712ccb95e959a10d4c3d27ab0345db731940ae0",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -729,27 +885,11 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "29906263476e368bd51ddb9ec8d2b70dde25e6dc1f711667a2f3df86a855da39",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
-        },
-        {
-          "id": "system-LIVE-late-dngngen-key",
-          "requirement_id": "SYS-12",
-          "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
-          "level": "live",
-          "status": "active",
-          "disposition": "counted",
-          "invalid_reason": "",
-          "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
-          "observed_at": "2026-10-11T07:51:36.444744+00:00",
-          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
-          "file": "",
-          "line": null,
-          "skipped": false,
-          "pending": false,
-          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -757,7 +897,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "fresh_limited_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -769,36 +909,38 @@
         "QA-03"
       ],
       "description": "NPC/Room/Street/Settlement와 나머지 활성 생성기",
-      "coverage": "UNIT-ONLY",
-      "justification": "Current generator and Wind regression assertions are accepted partial proof; actual remaining-generator control families were visited at c01 and are stale here.",
+      "coverage": "PARTIAL",
+      "justification": "Fresh three RCL and three mixed-source procedure reads/rolls plus NPC/Settlement Shelf starters establish part. Remaining generator control families have only historical live observations.",
       "tests": [
         {
-          "id": "NODE:tests/rule-fidelity.test.ts:137",
+          "id": "NODE:tests/rule-fidelity.test.ts:281",
           "title": "Weather selects 1–3 tables and leaves unnatural follow-up optional",
           "file": "tests/rule-fidelity.test.ts",
-          "line": 137,
+          "line": 281,
           "level": "unit",
           "skipped": false,
           "pending": false,
           "fixme": false,
-          "assertionsDirectInCallback": 5,
-          "registrationSourceSha256": "1b7d433382bbcc15abbdc69a95afdaea24b17bcb19862fd550dc6e01005da55f",
+          "assertionsDirectInCallback": 10,
+          "registrationSourceSha256": "b8e7e89fd80bd5b413197c0fda48c76ad349b61e1d343a8c5980cd099f47cea3",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
         },
         {
-          "id": "NODE:tests/rule-fidelity.test.ts:161",
+          "id": "NODE:tests/rule-fidelity.test.ts:331",
           "title": "Buildings rolls d2 material count, each material and Other follow-up independently",
           "file": "tests/rule-fidelity.test.ts",
-          "line": 161,
+          "line": 331,
           "level": "unit",
           "skipped": false,
           "pending": false,
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "377a93ba579daeb244dc357e08d4d70a32cb6844035cd042585001c9a5855fe4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -815,10 +957,28 @@
           "fixme": false,
           "assertionsDirectInCallback": 6,
           "registrationSourceSha256": "8419f995bacd8290d20f15da316b15b3dc31e06ea33987c62947a0ef3da38fa8",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "RCL-PROCEDURES-44766de",
+          "requirement_id": "SYS-13",
+          "title": "Three RCL and three existing mixed-source procedure screens visited and rolled; remaining whole-site generators not rerun",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json and browser-storage-final.json; Source composition disclosure retained",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -826,7 +986,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -839,7 +999,7 @@
       ],
       "description": "Dungeon/City/Journey map·hotspot·action·return",
       "coverage": "UNIT-ONLY",
-      "justification": "Spatial link/domain assertions pass; actual map/action/pan/return/reload journey is only historical c01 proof.",
+      "justification": "Current spatial/domain links pass; actual map/action/pan/return journey remains historical.",
       "tests": [
         {
           "id": "NODE:tests/spatial-oracle.test.ts:86",
@@ -852,6 +1012,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 9,
           "registrationSourceSha256": "82cf106a93fb2a613fee2ab091e131006722da266b83f7cf92c35ebeec39b72e",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -876,7 +1037,7 @@
       ],
       "description": "일반 주사위·physical invalid·play guidance",
       "coverage": "UNIT-ONLY",
-      "justification": "Dice/formula boundaries pass; current rendered eight-choice/guidance/input-recovery journey lacks fresh live proof.",
+      "justification": "Current dice/formula boundaries pass; actual full general dice/guidance control families were not freshly rerun.",
       "tests": [
         {
           "id": "NODE:tests/combat-tool.test.ts:159",
@@ -889,6 +1050,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "05951cadc8f99ec2a91f40fb44963fd30fe99a384d79ca18f0f41c376ccfa9f8",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -905,6 +1067,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "7e001bc1ecf00b54767f2d4588b0e6fd170d2641265d24f9d11d84c127a742b4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -929,7 +1092,7 @@
       ],
       "description": "전투 계산·치명/실수/Omen·기록·Undo 및 주요 관리",
       "coverage": "UNIT-ONLY",
-      "justification": "Critical/fumble/manual-HP calculation assertions pass; the combat control-family/ranged/shield/roster journey has stale c01 live evidence.",
+      "justification": "Current combat numeric boundaries pass; whole combat/roster/shield/ranged/Undo UI families remain historical.",
       "tests": [
         {
           "id": "NODE:tests/combat-tool.test.ts:266",
@@ -942,6 +1105,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 6,
           "registrationSourceSha256": "d7b43cd8560a3a0b0c7453e2529057fc4ee25ab2f04c8d2e118aaeeb506080f4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -958,6 +1122,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "ceecd416bc29bf24aed82678be23139647968a788c2c0fd633e7e6d4d67368c9",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -974,6 +1139,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "67b75cf3f8fd44f5a073a10edbd4ca6a2a0897ccce38b178a7f034a29d0b249c",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -998,7 +1164,7 @@
       ],
       "description": "Mythic Odds/CF/Chart/Check/Scene/Event/list·repeat/reload",
       "coverage": "UNIT-ONLY",
-      "justification": "Fate/scene/list boundaries pass; actual current Mythic UI edit/cleanup/reload has only historical c01 live proof.",
+      "justification": "Current Mythic calculation/list guards pass; whole Mythic rendered list/edit/history journey remains historical.",
       "tests": [
         {
           "id": "NODE:tests/mythic.test.ts:201",
@@ -1011,6 +1177,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 7,
           "registrationSourceSha256": "fe19b045a9fb0d6cfa846b713671cbd43e721082a81537a36321411936edc701",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1027,6 +1194,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "a7babefbaca5e865bcf1e61deab9070b3b4e1e3a9863b82c9ad490eaee5a9fc7",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1043,6 +1211,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 2,
           "registrationSourceSha256": "802e501e0c04e07591e8e994361e3ec16f60ceacec591981cc148f88c6f8b4b4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1066,8 +1235,8 @@
         "QA-03"
       ],
       "description": "Shelf4kind 생성/save/select/edit/cancel/clone/copy/deleteUndo/reload",
-      "coverage": "UNIT-ONLY",
-      "justification": "Current immutable snapshot assertion proves part of data preservation. Four-kind full CRUD is c01 historical/stale and the late quota/normal save recovery is9a7 historical/stale; no fresh b2b full Shelf journey.",
+      "coverage": "FULL",
+      "justification": "Current actual four-kind generate/save/select/edit cancel/save/original source/clone/verified clipboard/deleteUndo/reload all complete; snapshot assertions add preservation proof.",
       "tests": [
         {
           "id": "NODE:tests/notebook-tools.test.ts:182",
@@ -1080,10 +1249,28 @@
           "fixme": false,
           "assertionsDirectInCallback": 2,
           "registrationSourceSha256": "0a9f2125582602b47ca91ab6ed352530453fb4c28abda1203f96ce32b75f9fb4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "RCL-SHELF-FOUR-KINDS-44766de",
+          "requirement_id": "SYS-18",
+          "title": "Four kinds generate/save/select/edit/cancel/save/original/clone/copy/delete/Undo/reload complete",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-storage-final.json; actual clipboard markers and sixteen records after file append",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -1091,7 +1278,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1103,8 +1290,8 @@
         "QA-03"
       ],
       "description": "Shelf 실제 파일 export/import append·잘못된 입력 보존",
-      "coverage": "UNIT-ONLY",
-      "justification": "Current schema/kind/date/duplicate tests establish import guards; the actual file chooser/export/append journey is only historical c01 proof.",
+      "coverage": "FULL",
+      "justification": "Current actual downloaded8-record file selected via chooser and appended to16; wrongkind/date/duplicateID/201count/JSON/10MB rejection each preserves exact prior export bytes.",
       "tests": [
         {
           "id": "NODE:tests/notebook-tools.test.ts:194",
@@ -1117,10 +1304,28 @@
           "fixme": false,
           "assertionsDirectInCallback": 2,
           "registrationSourceSha256": "db12876e2d7c05e986330440a6078fa942275ae42ffccb70be06a4a7e8d31806",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "RCL-SHELF-FILES-44766de",
+          "requirement_id": "SYS-19",
+          "title": "Actual downloaded file selected and appended; six invalid uploads preserve exact prior export bytes",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-import-results.json; browser-storage-final.json; actual file chooser/export",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -1128,7 +1333,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1140,7 +1345,7 @@
       ],
       "description": "손상 byte·Quota/IDB/CAS/stale update의 데이터 보호와 실제 오류 상태",
       "coverage": "PARTIAL",
-      "justification": "Current actual-store/component and fake Quota/CAS/offline assertions establish guards. Fresh blocked producer record retains real corruption/Quota observations but contributes no coverage; actual IDB/denied/offline/CAS branches remain incomplete.",
+      "justification": "Current actual corrupt bytes and Quota error/rendered draft/disabled export and exact raw recovery established. Actual IDB denied/corrupt, denied storage, offline/CAS whole environments remain blocked; unit/fake tests do not establish all actual fault states.",
       "tests": [
         {
           "id": "NODE:tests/object-shelf-corruption.test.ts:7",
@@ -1153,6 +1358,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 6,
           "registrationSourceSha256": "42a950ad1ee4c7cb0a5a221367bb7ff35f78925cdaf45983078e5eb800e948bb",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1169,6 +1375,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "c2c4c76932cde70846e3ea7cf1eb886d27009fb63fd4ece6ac375a8d40bc9010",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "{ skip: !available }",
           "status": "active",
@@ -1185,6 +1392,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 5,
           "registrationSourceSha256": "758645c5d81921f58d2449ebac0372f709a6f0b6b76180f4c93461bd54ccf79d",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1201,10 +1409,62 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "f99f54357df616715c15e10294a2fd85224fb018f5c5b0c7b69c389de96d62bc",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:91",
+          "title": "audited RECLVSE corrections reach existing installations without replacing user edits",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 91,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 6,
+          "registrationSourceSha256": "e5525a02b296546e868f1dde48c887888617ac5f710597c235539b82abbc837a",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:127",
+          "title": "an already acknowledged revision repairs superseded source tables and preserves other packs",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 127,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 5,
+          "registrationSourceSha256": "704341ed7b4f91702d8e55e3f68da91ec9efd6d0719fa7e85a173d49aa2d5028",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "RCL-CORRUPTION-QUOTA-44766de",
+          "requirement_id": "SYS-20",
+          "title": "Real corrupt bytes and QuotaExceededError error display, disabled corrupt export, byte preservation and recovery",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/fault-corrupt-*.txt; fault-quota-*.txt; browser-storage-final.json; final export hash unchanged",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -1212,7 +1472,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "partial",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "missing_fault_state"
       }
     },
@@ -1225,7 +1485,7 @@
       ],
       "description": "Tray/Scratch/Last/Recent/Pack/Recipe·수명·clear isolation",
       "coverage": "UNIT-ONLY",
-      "justification": "Memory isolation assertions pass; current rendered Tray/Scratch/Last/Pack/Recipe control paths retain only stale c01 live evidence.",
+      "justification": "Current memory isolation assertions pass; whole rendered Tray/Scratch/Last/Pack/Recipe paths remain historical.",
       "tests": [
         {
           "id": "NODE:tests/play-memory.test.ts:330",
@@ -1238,6 +1498,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "b235073cf2f75b117683e01b53657f78ac017361a96b76f36befe272cd9ca40e",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1262,7 +1523,7 @@
       ],
       "description": "Sources backup/restore·update pause/check·About",
       "coverage": "PARTIAL",
-      "justification": "Backup/update domain and actual HTTP success/denial/error tests establish part of Sources. Fresh current file chooser, settings and About UI journey is missing.",
+      "justification": "Current canonical76 and source-correction arrival plus exact update/HTTP guards establish part. Whole fresh backup/restore/pause/check/About UI family not repeated.",
       "tests": [
         {
           "id": "NODE:tests/private-data.test.ts:176",
@@ -1275,6 +1536,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "ad21966b50ffe76129607ca8963e1557eafa3d7fe71819edda0bfa05f8ff556f",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "{ skip: !available }",
           "status": "active",
@@ -1291,6 +1553,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 3,
           "registrationSourceSha256": "c1c9744093c9375dedebb747512e0d54c0d38a4f24839f62ec2d83c9af881990",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1307,10 +1570,62 @@
           "fixme": false,
           "assertionsDirectInCallback": 8,
           "registrationSourceSha256": "81e84f120beb702c21d487c3873ccd190334fd2f9f7d53d4849dcaade2d0daf0",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:91",
+          "title": "audited RECLVSE corrections reach existing installations without replacing user edits",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 91,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 6,
+          "registrationSourceSha256": "e5525a02b296546e868f1dde48c887888617ac5f710597c235539b82abbc837a",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "NODE:tests/rule-fidelity.test.ts:127",
+          "title": "an already acknowledged revision repairs superseded source tables and preserves other packs",
+          "file": "tests/rule-fidelity.test.ts",
+          "line": 127,
+          "level": "unit",
+          "skipped": false,
+          "pending": false,
+          "fixme": false,
+          "assertionsDirectInCallback": 5,
+          "registrationSourceSha256": "704341ed7b4f91702d8e55e3f68da91ec9efd6d0719fa7e85a173d49aa2d5028",
+          "registrationMethod": "test",
+          "skipReason": "",
+          "optionsExpression": "",
+          "status": "active",
+          "evidence_scope": "Current executed source registration; assertions inspected against criterion."
+        },
+        {
+          "id": "RCL-SOURCES-44766de",
+          "requirement_id": "SYS-22",
+          "title": "Canonical76 RCL selected and old exact-fingerprint corrections received; full backup/settings/About not rerun",
+          "level": "live",
+          "status": "active",
+          "disposition": "counted",
+          "invalid_reason": "",
+          "evidence": "outputs/reclvse-qa-20261011/private/browser-sources-tables-final.json; browser-modifier-after.json; browser-weather-mist-after.json historical intermediate SHA retained",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+          "file": "",
+          "line": null,
+          "skipped": false,
+          "pending": false,
+          "fixme": false
         }
       ],
       "source_evidence": [],
@@ -1318,7 +1633,7 @@
         "endpoint": "present",
         "auth_negative": "present",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1329,8 +1644,8 @@
         "QA-03"
       ],
       "description": "keyboard/Esc/back/reload·visited flow console",
-      "coverage": "UNIT-ONLY",
-      "justification": "Navigation state assertion preserves current domain behavior; actual keyboard/Esc/reload/console coverage is c01 historical/stale.",
+      "coverage": "PARTIAL",
+      "justification": "Current RCL links and Shelf reloads/copy are actual; whole keyboard/Esc/back journeys remain historical. Two Vite connection errors observed; no zero-console-error claim.",
       "tests": [
         {
           "id": "NODE:tests/navigation-history.test.ts:109",
@@ -1343,6 +1658,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 4,
           "registrationSourceSha256": "f95342dfc587e0499ee38e72b8410bb49f1b1f7f59262a8fa90181f2d5b4a071",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1354,7 +1670,7 @@
         "endpoint": "not_applicable",
         "auth_negative": "not_applicable",
         "error_path": "present_or_not_applicable",
-        "ui_journey": "missing_current_live",
+        "ui_journey": "fresh_live_scoped_to_criterion",
         "ui_states": "partial_or_missing_current_rendered_state"
       }
     },
@@ -1366,7 +1682,7 @@
       ],
       "description": "mobile/tablet/desktop 주요 화면 layout·longtext·focus",
       "coverage": "NONE",
-      "justification": "Three viewport walkthroughs and 32 geometry observations were genuinely completed at c01; all live responsive proof is stale at the current code HEAD and no accepted current test establishes this criterion.",
+      "justification": "Viewport API requests360/768/1440 did not change actual1529x1233 dimensions. Current mobile/tablet evidence blocked; c01 three-viewport observations are stale.",
       "tests": [],
       "source_evidence": [],
       "heuristic_signals": {
@@ -1386,7 +1702,7 @@
       ],
       "description": "최소 수정·원문/데이터 보존·최종 tests/lint/type/build/privacy",
       "coverage": "FULL",
-      "justification": "Current b2b late-final tests1259/1259, related DNGNGEN30, lint/build/diffcheck success and public/private55 boundary proof; source tests/assertions and two JSX-only boundaries remain reviewable.",
+      "justification": "Exact latest44766de tests1265/no fail/skip, build/type/lint/privacy57files pass; independent source deltas preserve IDs/ranges/library/Fate and actual correction regressions.",
       "tests": [
         {
           "id": "NODE:tests/public-build.test.ts:22",
@@ -1399,6 +1715,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 1,
           "registrationSourceSha256": "05f0e54ae01b98ba8bff9d00f79f4dbd686bd70b5b48ae6db22b6e0197f6a917",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1415,6 +1732,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 2,
           "registrationSourceSha256": "882a0fa5b717779f855fde0155026680f92e133c944b5505a979134c8ede920e",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1431,6 +1749,7 @@
           "fixme": false,
           "assertionsDirectInCallback": 9,
           "registrationSourceSha256": "785e39a2d3e193084a29daa999e74c42f4ec378762ec5ab2c8b9a4911b31d7d4",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
@@ -1447,22 +1766,23 @@
           "fixme": false,
           "assertionsDirectInCallback": 7,
           "registrationSourceSha256": "18f738ffef86e084cacf1b88525466dd7284cb3f2ed5e5179e29b4e66b4f75ca",
+          "registrationMethod": "test",
           "skipReason": "",
           "optionsExpression": "",
           "status": "active",
           "evidence_scope": "Assertions read against this criterion; a source registration is distinct from expanded runtime subtests."
         },
         {
-          "id": "system-LIVE-25",
+          "id": "RCL-LATEST-CHECKS-44766de",
           "requirement_id": "SYS-25",
-          "title": "Final existing checks and private boundaries",
+          "title": "Final1265 tests/no skips, build/type/lint/privacy; source evidence minimal deltas and actual regressions",
           "level": "live",
           "status": "active",
           "disposition": "counted",
           "invalid_reason": "",
-          "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
-          "observed_at": "2026-10-11T07:51:36.444744+00:00",
-          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+          "evidence": "outputs/reclvse-qa-20261011/final-44766de-tests.log; final-44766de-build.log; final-44766de-lint.log; final-44766de-privacy.log; private/canonical-delta.json",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
           "file": "",
           "line": null,
           "skipped": false,
@@ -1487,19 +1807,19 @@
       ],
       "description": "실제 visited/source/bugs/fixes/test/gap/전후 증거의 정직한 보고",
       "coverage": "FULL",
-      "justification": "Current report records23 fixes, original pages, latest1259 checks, local Before/After and unresolved scope; c01/9a7 historical observations and b2b limited fresh observations remain separate.",
+      "justification": "Current followup report distinguishes actual source/English/layout/fix proofs from full Korean semantic gaps, original contradictions, stale evidence, failed viewport requests and unfinished storage faults; no unverified PASS.",
       "tests": [
         {
-          "id": "system-LIVE-26",
+          "id": "RCL-HONEST-REPORT-44766de",
           "requirement_id": "SYS-26",
-          "title": "Honest evidence report with unresolved scope",
+          "title": "Current source/defects/evidence/limits report with actual SHAs, semantic and viewport/fault gaps",
           "level": "live",
           "status": "active",
           "disposition": "counted",
           "invalid_reason": "",
-          "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
-          "observed_at": "2026-10-11T07:51:36.444744+00:00",
-          "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
+          "evidence": "docs/full-site-qa-20261011/reclvse-follow-up.md; updated historical report points to this followup; final gate not claimed before completion",
+          "observed_at": "2026-10-11T15:42:04.179417+00:00",
+          "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
           "file": "",
           "line": null,
           "skipped": false,
@@ -1527,7 +1847,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Home quick references, table/roll, COPY/PIN/HOLD, invalid manual dice and recovery. outputs/full-site-qa-20261011/browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1539,7 +1859,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all 9 book, 8 context, 7 type filter choices; empty/no-match/Korean/accent search; book/region/creature/rule/table/procedure readers. browser-main.json; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1551,7 +1871,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Room Contents to Searching/corpse/trinkets, Names endpoints and invalid values, Orakle likelihood/TR boundaries, partial/HOLD and table/back state retention. browser-main.json; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1563,7 +1883,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Classless/random/all12 classes, SCVMBIRTHER/homebrew, current vs next source, reroll/save/reopen; public/unavailable native fallback on5532/5533. Sacred scroll and trap terminology seen; tongs not selected. browser-main.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1575,7 +1895,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual FER A/B/C/native and EPK7 regions/hunting d8/d10/d12, source/result stat relationships. Legacy manual-stat screen is not an active reachable current function and is N/A to the current-site browser scope, not live verified. browser-main.json; browser-root-summary.md; source/component regressions separately.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1587,7 +1907,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual12 fields and individual controls, Core/DNGNGEN current/pending source, manual reason/entrance guard kept across special rooms1-4, native Korean details without repeated DNGNGEN result labels, nested table/manual errors/save/return. browser-main.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1599,7 +1919,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "NPC7regions/7parts/HOLD, Room2parts, Street small/large1-2 contents/no-exit, Settlement, Weather1-3/4tables/Wind, Buildings, Names, ActionTheme, Cult9parts, Adventure4parts; actual generation/copy/source/repeat. browser-main.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1611,7 +1931,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual75 links,70 random rolls,12 place-action controls across Dungeon/City/Journey; static/source-only branches distinguished, pan/zoom/keyboard/return/reload. outputs/full-site-qa-20261011/browser-spatial.md; spatial-coverage.json88 observations.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1623,7 +1943,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual8 die choices, count/modifier clamps/empty defaults, power/rest/infection/food/overload guidance, Core/SD physical dice natural1/20/invalid and recovery. browser-tools.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1635,7 +1955,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual attack/defense/natural20/1/Omen/morale/HP/UndoRedo/reload, ranged10+Presence2 threshold and damage3, armor quick tiers0-3, shield cancel/commit0/Undo, added/duplicated/removed/off-participation combatants and cleared attacker. Not every Cartesian combination. browser-tools.md; browser-root-summary.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1647,7 +1967,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual9Odds/CFbounds/Chart endpoints/doubles100exclusion, Check/Scene/Prepared/Event/Meaning/list3kinds/zone/duplicates/Thread edit/cleanup/history20/reload. All81x100 mathematical cases are independent automated evidence. browser-tools.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1659,7 +1979,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual all4 kinds(character/NPC/dungeon/city) generated/saved/selected. Each kind edit-cancel-save/name-body/copy/clone/deleteUndo/reload, counts and original-source disclosures retained. Root supplemented character/dungeon/city on127.0.0.1; other producer NPC onlocalhost. Stale-error close-normal-save-reopen and Combat-to-Shelf retested. browser-main.json; browser-root-summary.md; storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1671,7 +1991,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual downloaded JSON reimport appended; wrongkind, oversize10MB and combined200 rejection kept prior records. Normal export/import after guard fixed. browser corruption branch is not included in this pass. storage-findings.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1683,7 +2003,7 @@
       "disposition": "blocked",
       "invalid_reason": "",
       "evidence": "Actual browser corrupted Shelf bytes→persistent error/disabledExport→exactrawrestore/allrecords recovered. Actual153QAquota keys→QuotaExceededError/save rejected/oldrawidentical; localizedKorean text after latefix/QAkeys removed/normal save recovered. Deniedstorage/IDB corruption/offline/CAS races not injected. browser-main.json; live-storage-fault-metadata.json; browser-root-summary.md. This aggregate remains blocked rather than claiming all fault branches passed.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
     },
     {
@@ -1695,7 +2015,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Tray search/duplicate/remove, Scratch multiline/SEND/open/copy/reopen/reload, Recent copy/source/replay/removed recipe blocked, Pack/Recipe create/edit-cancel/order/HOLD/run/activate/reload/delete. Temporary lifetime help now matches observation. storage-findings.md; browser-main.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1707,7 +2027,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual Sources auto-update on/off/check, downloaded full backup/restore/reload, malformed JSON/wrongkind/duplicate/filecount/20MiB rejection and exact pre/post invalid backup bytes; About/license/source links read, external sites not opened. storage-findings.md; storage-follow-ups.md.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1719,7 +2039,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "CtrlK/R/input isolation/Esc, linked/back/close/reload in visited journeys; final root console0error0warning and producer logs0errors. No all-engine assertion. browser-main.json; root-console.json; tools-console/spatial-console evidence.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1731,7 +2051,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual360x800/768x1024/1440x900 Home/generators/longreaders/tables/map/all4docks/Sources, mobileScratch. Three responsive fixes same-size checked;32 geometry observations; document no unintended horizontal overflow; viewport reset. responsive-layout.json; screenshots.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "c01e24363983cc6d594896a43cf0e883d0bef664"
     },
     {
@@ -1740,10 +2060,10 @@
       "title": "Final existing checks and private boundaries",
       "level": "live",
       "status": "pass",
-      "disposition": "counted",
+      "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Executed on b2b1bc1 final source: tests1259/1259pass, fail/cancel/skip/todo0, duration204221.255875ms; lint exit0; client/servertypes+Vitebuild/public55/private55files exit0; gitdiffcheck0. DNGNGEN related30pass. Previous stagedGitprivacy950paths8ignored86unchangedshared passed; final updated artifact-stage privacy will run before publication. outputs/full-site-qa-20261011/late-final-tests.log; late-final-lint.log; late-final-build.log; late-dngngen-tests.log.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
@@ -1752,10 +2072,10 @@
       "title": "Honest evidence report with unresolved scope",
       "level": "live",
       "status": "pass",
-      "disposition": "counted",
+      "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Producer report docs/full-site-qa-20261011/report.md records actual visited paths, source pages,23confirmed fixes, latest1259pass checks, local BeforeAfter, missing original/semantic/IDB/denied/CAS/device evidence, owner production login smoke missing, and historical c01/9a7 vs fresh b2b DNGNGEN observations. Final current Trace verdict will be updated after workflow; no whole-source or full current live rerun claimed.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
     },
     {
@@ -1767,7 +2087,7 @@
       "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual same quota condition after late Korean text change: save rejected, oldrawexact; cleaned153QAkeys+backup, existing record edited/saved successfully, editorclosed,alert0,all7counts retained. Historical all4kind CRUD remains at c01, not freshly repeated here. browser-main.json shelf-live-quota-korean-error-after and shelf-quota-cleanup-normal-save-recovery; live-storage-fault-metadata.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "9a7c57f8f9f2d120210a8cd7f0507d78535637f8"
     },
     {
@@ -1776,11 +2096,179 @@
       "title": "Fresh DNGNGEN feature rendering and preview without key spread warning",
       "level": "live",
       "status": "pass",
-      "disposition": "counted",
+      "disposition": "stale",
       "invalid_reason": "",
       "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json.",
-      "observed_at": "2026-10-11T07:51:36.444744+00:00",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
       "recorded_source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0"
+    },
+    {
+      "id": "RCL-SOURCE-CALCULATOR-44766de",
+      "requirement_id": "SYS-04",
+      "title": "Original PDF11-12/85: actual callback4506 and browser117 resolution/oracle outcomes",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/calculator-results.json; browser-calculators-final.json; report original ambiguities explicitly retained",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-ROWS-TRANSLATION-GAP-44766de",
+      "requirement_id": "SYS-06",
+      "title": "All4394 English/range source screening complete; all Korean semantic and other-book full conditions remain incomplete",
+      "level": "live",
+      "status": "blocked",
+      "disposition": "blocked",
+      "invalid_reason": "",
+      "evidence": "docs/full-site-qa-20261011/reclvse-follow-up.md; private/audit-summary-final.json",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-READERS-44766de",
+      "requirement_id": "SYS-08",
+      "title": "All318 active RCL related entries visited; city3 filters; canonical76 selected; limited to RCL",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json; browser-city-final.json; browser-sources-tables-final.json",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-FOLLOWUPS-44766de",
+      "requirement_id": "SYS-09",
+      "title": "RCL armor and Power links; weather20 andMist; classes6; manual d66 invalid and valid edges",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-classes-final.json; browser-power-link-final.json; browser-weather-final.json; browser-manual-final.json",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-PROCEDURES-44766de",
+      "requirement_id": "SYS-13",
+      "title": "Three RCL and three existing mixed-source procedure screens visited and rolled; remaining whole-site generators not rerun",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json and browser-storage-final.json; Source composition disclosure retained",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-SHELF-FOUR-KINDS-44766de",
+      "requirement_id": "SYS-18",
+      "title": "Four kinds generate/save/select/edit/cancel/save/original/clone/copy/delete/Undo/reload complete",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-storage-final.json; actual clipboard markers and sixteen records after file append",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-SHELF-FILES-44766de",
+      "requirement_id": "SYS-19",
+      "title": "Actual downloaded file selected and appended; six invalid uploads preserve exact prior export bytes",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-import-results.json; browser-storage-final.json; actual file chooser/export",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-CORRUPTION-QUOTA-44766de",
+      "requirement_id": "SYS-20",
+      "title": "Real corrupt bytes and QuotaExceededError error display, disabled corrupt export, byte preservation and recovery",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/fault-corrupt-*.txt; fault-quota-*.txt; browser-storage-final.json; final export hash unchanged",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-UNOBSERVED-STORAGE-44766de",
+      "requirement_id": "SYS-20",
+      "title": "Actual IDB read/write denied/corruption, denied storage/offline/CAS branch environments incomplete",
+      "level": "live",
+      "status": "blocked",
+      "disposition": "blocked",
+      "invalid_reason": "",
+      "evidence": "Automated guard tests pass, but not all actual browser fault environments observed. SYS20 remains PARTIAL.",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-SOURCES-44766de",
+      "requirement_id": "SYS-22",
+      "title": "Canonical76 RCL selected and old exact-fingerprint corrections received; full backup/settings/About not rerun",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-sources-tables-final.json; browser-modifier-after.json; browser-weather-mist-after.json historical intermediate SHA retained",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-CONSOLE-SCOPE-44766de",
+      "requirement_id": "SYS-23",
+      "title": "Visited RCL and storage reloads/links; two Vite development-connection errors, no app-domain exception observed",
+      "level": "live",
+      "status": "blocked",
+      "disposition": "blocked",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-console-final.json; no zero-console-error claim; whole-site keyboard scope not fresh",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-VIEWPORT-UNAPPLIED-44766de",
+      "requirement_id": "SYS-24",
+      "title": "Requested360/768/1440 ignored by browser viewport tool: actual1529 width in all observations",
+      "level": "live",
+      "status": "blocked",
+      "disposition": "blocked",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-responsive-final.json; all screenshots1514x1221. Desktop only, no new responsive PASS.",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-LATEST-CHECKS-44766de",
+      "requirement_id": "SYS-25",
+      "title": "Final1265 tests/no skips, build/type/lint/privacy; source evidence minimal deltas and actual regressions",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "outputs/reclvse-qa-20261011/final-44766de-tests.log; final-44766de-build.log; final-44766de-lint.log; final-44766de-privacy.log; private/canonical-delta.json",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
+    },
+    {
+      "id": "RCL-HONEST-REPORT-44766de",
+      "requirement_id": "SYS-26",
+      "title": "Current source/defects/evidence/limits report with actual SHAs, semantic and viewport/fault gaps",
+      "level": "live",
+      "status": "pass",
+      "disposition": "counted",
+      "invalid_reason": "",
+      "evidence": "docs/full-site-qa-20261011/reclvse-follow-up.md; updated historical report points to this followup; final gate not claimed before completion",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00",
+      "recorded_source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b"
     }
   ],
   "rejectedEvidence": []

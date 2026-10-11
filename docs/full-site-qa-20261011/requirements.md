@@ -25,3 +25,9 @@ Baseline source: main `81bbb9419900ab0bf7476f756e9dc013b3add9fa`. Reliable QA cl
 Actual browser: Codex in-app browser through CUA. Existing automated runner: `node:test` with `tsx`. No Pact boundary/broker, Playwright test dependency or new test framework is assumed. Browser evidence and full private audit details live in ignored `outputs/full-site-qa-20261011/`; public reports must summarize rather than reproduce source tables or secrets.
 
 No new performance threshold has been supplied; subjective speed or a passed unit suite is not treated as a measured performance gate. Missing source PDFs, browser capabilities or fault injection must be marked unverified.
+
+## RECLVSE original-source follow-up — 2026-10-12 (KST)
+
+The user explicitly requests autonomous original-PDF investigation, all223 active RECLVSE tables/4,394 rows, ranges/probabilities/conditions/follow-ups and translations, all active RECLVSE UI, separation from Core/SD/Mythic, evidenced minimal fixes, browser plus automatic regressions, updating missing-original findings, revisiting SYS18/19/20, and a fresh BMAD TEA Trace without unverified PASS. These refine QA01/02/03/05/06/07; they do not waive QA04 or lower existing quality gates.
+
+Follow-up code under validation: 44766de62b01cd4dfd6e0f8d31a033a376ca780b. Browser origin127.0.0.1:5531 isolates this run from prior5530 records. Original RECLVSE First Edition©2026 JadraGames has138pages and SHA2566c6314891eb98dd6128d6dd85c902a00ab5d00210476d509e6d014b658b6e565; the exact provided PDF, not earlier screenshots, is the authoritative new evidence. Private table text and original scans remain ignored local outputs. Prior browser records retain their actual commit; they are never relabeled as current observations. The investigation began October11 and this follow-up was completed October12 in the user's Asia/Seoul timezone.

@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
-  "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
-  "observed_at": "2026-10-11T07:51:36.444744+00:00",
-  "producer": "/root actual CUA walkthrough and final existing verification commands",
+  "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+  "observed_at": "2026-10-11T15:42:04.179417+00:00",
+  "producer": "Independent browser/source/automatic QA producer; Trace only consumes records. Historical observations retain their actual sha.",
   "results": [
     {
       "id": "system-LIVE-07",
@@ -179,6 +179,132 @@
       "status": "pass",
       "source_sha": "b2b1bc17ffe63ae57b45c6d258eedd2895364ea0",
       "evidence": "Actual late error reproduced in existing e7 code, key/text/ko explicit boundary fix; rendered DOM unchanged through HMR. Fresh new tab after fix and committed b2b source generated reason/entrance/guard/all4rooms/main+preview, whole and three individual rerolls preserve other room, COPY contains fields, fresh console0. Only this subset of SYS12 is fresh; earlier full Dungeon/Core/source-switch/save/nested table coverage stays historical c01. outputs/full-site-qa-20261011/dngngen-late-proof.json; dngngen-late-before-console.json; dngngen-late-after-console.json."
+    },
+    {
+      "id": "RCL-SOURCE-CALCULATOR-44766de",
+      "requirement_id": "SYS-04",
+      "title": "Original PDF11-12/85: actual callback4506 and browser117 resolution/oracle outcomes",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/calculator-results.json; browser-calculators-final.json; report original ambiguities explicitly retained",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-ROWS-TRANSLATION-GAP-44766de",
+      "requirement_id": "SYS-06",
+      "title": "All4394 English/range source screening complete; all Korean semantic and other-book full conditions remain incomplete",
+      "status": "blocked",
+      "evidence": "docs/full-site-qa-20261011/reclvse-follow-up.md; private/audit-summary-final.json",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-READERS-44766de",
+      "requirement_id": "SYS-08",
+      "title": "All318 active RCL related entries visited; city3 filters; canonical76 selected; limited to RCL",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json; browser-city-final.json; browser-sources-tables-final.json",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-FOLLOWUPS-44766de",
+      "requirement_id": "SYS-09",
+      "title": "RCL armor and Power links; weather20 andMist; classes6; manual d66 invalid and valid edges",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-classes-final.json; browser-power-link-final.json; browser-weather-final.json; browser-manual-final.json",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-PROCEDURES-44766de",
+      "requirement_id": "SYS-13",
+      "title": "Three RCL and three existing mixed-source procedure screens visited and rolled; remaining whole-site generators not rerun",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-references-final.json and browser-storage-final.json; Source composition disclosure retained",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-SHELF-FOUR-KINDS-44766de",
+      "requirement_id": "SYS-18",
+      "title": "Four kinds generate/save/select/edit/cancel/save/original/clone/copy/delete/Undo/reload complete",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-storage-final.json; actual clipboard markers and sixteen records after file append",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-SHELF-FILES-44766de",
+      "requirement_id": "SYS-19",
+      "title": "Actual downloaded file selected and appended; six invalid uploads preserve exact prior export bytes",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-import-results.json; browser-storage-final.json; actual file chooser/export",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-CORRUPTION-QUOTA-44766de",
+      "requirement_id": "SYS-20",
+      "title": "Real corrupt bytes and QuotaExceededError error display, disabled corrupt export, byte preservation and recovery",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/fault-corrupt-*.txt; fault-quota-*.txt; browser-storage-final.json; final export hash unchanged",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-UNOBSERVED-STORAGE-44766de",
+      "requirement_id": "SYS-20",
+      "title": "Actual IDB read/write denied/corruption, denied storage/offline/CAS branch environments incomplete",
+      "status": "blocked",
+      "evidence": "Automated guard tests pass, but not all actual browser fault environments observed. SYS20 remains PARTIAL.",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-SOURCES-44766de",
+      "requirement_id": "SYS-22",
+      "title": "Canonical76 RCL selected and old exact-fingerprint corrections received; full backup/settings/About not rerun",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-sources-tables-final.json; browser-modifier-after.json; browser-weather-mist-after.json historical intermediate SHA retained",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-CONSOLE-SCOPE-44766de",
+      "requirement_id": "SYS-23",
+      "title": "Visited RCL and storage reloads/links; two Vite development-connection errors, no app-domain exception observed",
+      "status": "blocked",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-console-final.json; no zero-console-error claim; whole-site keyboard scope not fresh",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-VIEWPORT-UNAPPLIED-44766de",
+      "requirement_id": "SYS-24",
+      "title": "Requested360/768/1440 ignored by browser viewport tool: actual1529 width in all observations",
+      "status": "blocked",
+      "evidence": "outputs/reclvse-qa-20261011/private/browser-responsive-final.json; all screenshots1514x1221. Desktop only, no new responsive PASS.",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-LATEST-CHECKS-44766de",
+      "requirement_id": "SYS-25",
+      "title": "Final1265 tests/no skips, build/type/lint/privacy; source evidence minimal deltas and actual regressions",
+      "status": "pass",
+      "evidence": "outputs/reclvse-qa-20261011/final-44766de-tests.log; final-44766de-build.log; final-44766de-lint.log; final-44766de-privacy.log; private/canonical-delta.json",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
+    },
+    {
+      "id": "RCL-HONEST-REPORT-44766de",
+      "requirement_id": "SYS-26",
+      "title": "Current source/defects/evidence/limits report with actual SHAs, semantic and viewport/fault gaps",
+      "status": "pass",
+      "evidence": "docs/full-site-qa-20261011/reclvse-follow-up.md; updated historical report points to this followup; final gate not claimed before completion",
+      "source_sha": "44766de62b01cd4dfd6e0f8d31a033a376ca780b",
+      "observed_at": "2026-10-11T15:42:04.179417+00:00"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1.0",
-  "evaluated_at": "2026-10-11T07:57:24.101Z",
+  "evaluated_at": "2026-10-11T15:55:41.259Z",
   "repo": "codex",
   "target": {
     "type": "story",
@@ -10,11 +10,11 @@
   "collection_status": "COLLECTED",
   "gate_basis": "priority_thresholds",
   "gate_status": "FAIL",
-  "rationale": "P0 coverage is 25% (required: 100%). 3 critical requirement(s) below FULL coverage.",
+  "rationale": "P0 coverage is 75% (required: 100%). 1 critical requirement(s) below FULL coverage.",
   "p0_status": "NOT_MET",
   "p1_status": "NOT_MET",
   "overall_status": "NOT_MET",
-  "critical_open": 3,
+  "critical_open": 1,
   "links": {
     "trace_report_path": "/Users/imwul/.codex/workspaces/morkborg-personal-site-20261010/_bmad-output/test-artifacts/trace/traceability-matrix-system.md",
     "trace_report_url": "",
