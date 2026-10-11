@@ -62,6 +62,22 @@ export function correctOracleSourcePages(
 export function correctOracleGuidance(
   table: OracleDefinition,
 ): OracleDefinition {
+  // PDF24 explicitly prints D6 on Brute's Archetype Skills chart. Correct
+  // the old extraction note while retaining this reader's selection-only UI.
+  if (
+    table.id === 'reclvse.class.brute.powers' &&
+    table.sourceBookId === 'reclvse' &&
+    table.sourceNote?.includes(
+      'No explicit D6 token is printed on this particular chart.',
+    )
+  )
+    return {
+      ...table,
+      sourceNote: table.sourceNote.replace(
+        'The source says “Choose one or roll” and gives six entries; d6 follows the 1–6 index. No explicit D6 token is printed on this particular chart.',
+        'PDF24 explicitly says “Choose one or roll D6 on this table”. This reader retains direct selection rather than automatic rolling. PDF24쪽은 직접 선택하거나 d6를 굴리도록 명시합니다. 이 화면은 직접 선택 방식을 제공합니다.',
+      ),
+    };
   if (
     table.id !== 'aitc.notable-artefact-type' ||
     table.sourceBookId !== 'aitc'

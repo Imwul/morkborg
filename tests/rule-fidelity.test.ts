@@ -43,6 +43,15 @@ const sequence = (values: number[]) => {
     return values[i++];
   };
 };
+test('Brute skill guidance acknowledges the explicit PDF24 d6 without changing the selection-only reader', () => {
+  const table = registry.tables.find(
+    (t) => t.id === 'reclvse.class.brute.powers',
+  )!;
+  assert.match(table.sourceNote!, /PDF24 explicitly says/);
+  assert.ok(!table.sourceNote!.includes('No explicit D6 token'));
+  assert.equal(table.dice, 'd6');
+  assert.equal(table.rollable, false);
+});
 test('RECLVSE city discoveries on PDF106 remain in city, before wilderness PDF107', () => {
   for (const id of [
     'social_discoveries',
