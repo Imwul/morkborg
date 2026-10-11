@@ -346,7 +346,13 @@ export function buildReferenceDefinitions(
         canonicalIds: [table.id],
         relatedIds: [
           `oracle:${table.id}`,
-          ...(['Power', 'Tablet'].includes(kind) ? ['rule:core.casting'] : []),
+          ...(['Power', 'Tablet'].includes(kind)
+            ? [
+                table.sourceBookId === 'reclvse'
+                  ? 'rule:reclvse.invoke-power'
+                  : 'rule:core.casting',
+              ]
+            : []),
           ...(kind === 'Armor' ? ['rule:core.armor-shield'] : []),
           ...(classTables.has(table.id) ? [classTables.get(table.id)!] : []),
         ],

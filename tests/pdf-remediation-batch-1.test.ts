@@ -52,6 +52,43 @@ const privateTest = (name: string, fn: () => void) =>
 const top = (q: string) => searchReferences(index, q)[0];
 const table = (id: string) => registry.tables.find((t) => t.id === id)!;
 
+privateTest(
+  'RECLVSE prose opens its own armor table without borrowing Core gear or Powers',
+  () => {
+    for (const name of ['Light armor', 'Medium armor', 'Heavy armor']) {
+      const text = `Armor restriction: no ${name}.`;
+      const rcl = referenceTextSegments(index.entries, text, 'reclvse');
+      assert.equal(rcl.map((part) => part.text).join(''), text);
+      assert.equal(rcl.find((part) => part.id)?.id, 'oracle:reclvse.armor');
+      const core = referenceTextSegments(index.entries, text, 'core');
+      assert.equal(core.find((part) => part.id)?.id, top(name).id);
+      assert.notEqual(core.find((part) => part.id)?.id, 'oracle:reclvse.armor');
+    }
+    const coreOnly = generatedReference(index.entries, 'Death')!;
+    assert.equal(coreOnly.sourceRefs[0].bookId, 'core');
+    assert.ok(
+      referenceTextSegments(index.entries, 'Death').some((part) => part.id),
+    );
+    assert.ok(
+      referenceTextSegments(index.entries, 'Death', 'reclvse').every(
+        (part) => !part.id,
+      ),
+    );
+    const rclPowers = defs.filter(
+      (entry) => entry.definition!.tableEntry?.tableId === 'reclvse.powers',
+    );
+    assert.equal(rclPowers.length, 36);
+    for (const entry of rclPowers) {
+      assert.ok(
+        entry.relatedIds.includes('rule:reclvse.invoke-power'),
+        entry.id,
+      );
+      assert.ok(!entry.relatedIds.includes('rule:core.casting'), entry.id);
+    }
+    assert.ok(coreOnly.relatedIds.includes('rule:core.casting'));
+  },
+);
+
 test('Omens retains all five source uses and depleted-only recovery, without a retry/failure substitution', () => {
   const r = buildReferenceRegistry({
     books: [

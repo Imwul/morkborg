@@ -10,9 +10,11 @@ export function ReferenceLinkedText({
   excludeId?: string;
 }) {
   const desk = useReferenceDesk();
+  const context = desk?.byId[excludeId ?? desk.selectedId ?? ''];
+  const sourceBookId = context?.sourceRefs[0]?.bookId;
   const segments = useMemo(
-    () => referenceTextSegments(desk?.entries ?? [], text),
-    [desk?.entries, text],
+    () => referenceTextSegments(desk?.entries ?? [], text, sourceBookId),
+    [desk?.entries, text, sourceBookId],
   );
   return (
     <>

@@ -69,7 +69,23 @@ export function generatedSourceReference(
 export function referenceTextSegments(
   entries: ReferenceEntry[],
   text: string,
+  sourceBookId?: string,
 ): { text: string; id?: string }[] {
+  // RECLVSE has its own gear and Powers. Its prose must not silently open
+  // Core definitions with different damage, armor tiers or casting rules.
+  if (sourceBookId === 'reclvse')
+    entries = entries
+      .filter((entry) =>
+        entry.sourceRefs.some((source) => source.bookId === 'reclvse'),
+      )
+      .map((entry) =>
+        entry.id === 'oracle:reclvse.armor'
+          ? {
+              ...entry,
+              matchTexts: ['Light armor', 'Medium armor', 'Heavy armor'],
+            }
+          : entry,
+      );
   const whole = generatedReference(entries, text);
   if (whole) return [{ text, id: whole.id }];
   // Longest exact source names win (e.g. Shortbow must never be split into Bow).
