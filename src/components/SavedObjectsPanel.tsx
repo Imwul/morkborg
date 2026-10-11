@@ -59,7 +59,13 @@ export function SavedObjectsPanel({
       action();
       setError('');
     } catch (e) {
-      setError(e instanceof Error ? e.message : '저장하지 못했습니다.');
+      setError(
+        e instanceof Error && e.name === 'QuotaExceededError'
+          ? '브라우저 저장 공간이 부족해 저장하지 못했습니다. 기존 자료는 유지됩니다.'
+          : e instanceof Error
+            ? e.message
+            : '저장하지 못했습니다.',
+      );
     }
   };
   return (
