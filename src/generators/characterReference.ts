@@ -104,7 +104,12 @@ export function classCharacterReading(
     character.powerUses != null &&
     (hasScroll(character) ||
       def.id === 'forlorn-philosopher' ||
-      character.equipment.some((item) => item.text.startsWith('Innate Power:')))
+      [...def.rules, ...(def.playerRules ?? [])].some((rule) =>
+        /\bdaily Power(?:s| use)\b/i.test(rule),
+      ) ||
+      (character.classFeatures ?? []).some((item) =>
+        item.text.startsWith('Innate Power:'),
+      ))
   )
     scalar('powerUses', 'Power uses/day', '하루 권능 사용 횟수');
   const items = (

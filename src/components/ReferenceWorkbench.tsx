@@ -184,7 +184,7 @@ import {
   GeneratorIntroduction,
   GeneratorStatStrip,
   GeneratorReadingFields,
-  CharacterResourceNote,
+  CharacterFieldContext,
 } from './GeneratorReadingLead';
 import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
@@ -538,6 +538,8 @@ export function ReferenceProvider({
         characterClassId: params.characterClassId,
         coreOmens: params.coreOmens,
         classlessBoost: params.classlessBoost,
+        reclvseBlessings: params.reclvseBlessings,
+        reclvseFortitude: params.reclvseFortitude,
         orakleLikelihood: params.orakleLikelihood,
         orakleDR: params.orakleDR,
         orakleTR: params.orakleTR,
@@ -1793,6 +1795,7 @@ export function ReferenceProvider({
                             {fieldControl(block)}
                           </h3>
                         )}
+                      <CharacterFieldContext block={block} />
                       {block.definitionReferenceId &&
                       index.byId[block.definitionReferenceId] ? (
                         <button
@@ -1822,10 +1825,6 @@ export function ReferenceProvider({
                           splitLines={!!reading.rareMonster}
                         />
                       )}
-                      {!!generatorLayout?.identity &&
-                        block.title === 'Power uses/day' && (
-                          <CharacterResourceNote kind="powers" />
-                        )}
                       {source && <ContainerAlternatives parent={source} />}
                     </section>
                   );

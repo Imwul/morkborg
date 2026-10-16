@@ -6,6 +6,7 @@ import type { OracleRegistry } from './oracle';
 import type { ReferenceRegistry } from './references';
 import { CARD_RANKS, CARD_SUITS } from './depthsProcedures';
 import { executionParametersSchema } from '../storage/conveniencePreferences';
+import { reclvseBlessingLabel } from './reclvseStartingBlessings';
 
 const text = z.string().max(50000);
 const source = z.object({
@@ -131,19 +132,31 @@ export function replayParameterLines(
     allObjectivesMet: '모든 목표 완료',
     characterMode: 'Generation · 생성 방식',
     characterClass: 'Class · 직업',
+    reclvseBlessings: 'RECLVSE 시작 축복',
+    reclvseFortitude: '강화된 강인함 · 시작 HP',
   };
   for (const [key, value] of Object.entries(entry.procedureInputs ?? {})) {
     if (key === 'characterClassId') continue;
-    lines.push([
-      labels[key] ?? key,
-      key === 'characterMode'
-        ? ({
-            classless: 'Classless',
-            random: 'Random Class',
-            chosen: 'Choose Class',
-          }[String(value)] ?? value)
-        : value,
-    ]);
+    let display = value;
+    if (key === 'characterMode')
+      display =
+        {
+          classless: 'Classless',
+          random: 'Random Class',
+          chosen: 'Choose Class',
+        }[String(value)] ?? value;
+    else if (key === 'reclvseBlessings')
+      display =
+        String(value)
+          .split(',')
+          .map((id) => id.trim())
+          .filter(Boolean)
+          .map(reclvseBlessingLabel)
+          .join(', ') || '선택 안 함';
+    else if (key === 'reclvseFortitude')
+      display =
+        { fixed12: '12 고정', '10+d4': '10+d4' }[String(value)] ?? value;
+    lines.push([labels[key] ?? key, display]);
   }
   return lines;
 }

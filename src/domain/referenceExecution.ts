@@ -5,6 +5,10 @@ import {
 import { generateCharacter } from '../generators/character';
 import { classCharacterReading } from '../generators/characterReference';
 import { characterClasses } from '../generators/characterClasses';
+import {
+  applyReclvseStartingBlessings,
+  validateReclvseBlessings,
+} from './reclvseStartingBlessings';
 import { rollDungeonPreparationReading } from './dungeonReferencePreparation';
 import type { OracleRegistry, OracleResult } from './oracle';
 import type { Monster, NPC, RegionId, SourceReference } from './types';
@@ -265,6 +269,8 @@ export function executeReference(
     options;
   const action = entry.action;
   if (!action || !entry.available) return;
+  if (entry.id === 'procedure:character.core-classless')
+    validateReclvseBlessings(options);
   if (
     action.kind === 'procedure' &&
     action.procedureId === 'sd.dungeon-preparation'
@@ -303,9 +309,13 @@ export function executeReference(
       throw new Error(
         '생성할 직업을 선택하세요. 지원하는 직업 자료가 필요합니다.',
       );
-    return classCharacterReading(
-      generateCharacter(id(), false, mode),
-      options.characterMode,
+    return applyReclvseStartingBlessings(
+      classCharacterReading(
+        generateCharacter(id(), false, mode),
+        options.characterMode,
+      ),
+      options,
+      options.rng,
     );
   }
   const epkHunting =
@@ -606,5 +616,7 @@ export function executeReference(
       ),
     };
   }
-  return output;
+  return output && entry.id === 'procedure:character.core-classless'
+    ? applyReclvseStartingBlessings(output, options, options.rng)
+    : output;
 }

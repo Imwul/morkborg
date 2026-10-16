@@ -211,13 +211,13 @@ test('Character groups retain every field and move complete armor rules out of t
   );
   assert.deepEqual(
     layout.stats.map((b) => b.title),
-    ['HP', 'Omens'],
+    ['HP', 'Omens', 'Power uses/day'],
   );
   assert.deepEqual(
     layout.groups?.map((g) => [g.id, g.blocks.map((b) => b.title)]),
     [
       ['equipment', ['Armor', 'Starting Equipment — First d12 Table', 'Food']],
-      ['features', ['Class feature', 'Power uses/day']],
+      ['features', ['Class feature']],
       ['background', ['Background', 'Unfamiliar imported field']],
     ],
   );

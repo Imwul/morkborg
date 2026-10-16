@@ -2,6 +2,11 @@ import type { RuleFaithfulOptions } from '../generators/ruleFaithfulReferences';
 import type { CharacterClassDefinition } from '../generators/characterClasses';
 import type { ReferenceReading } from '../domain/referenceReading';
 import { translateGeneratedText } from '../generators/translation';
+import {
+  RECLVSE_BLESSINGS,
+  RECLVSE_BLESSING_IDS,
+  type ReclvseFortitudeMode,
+} from '../domain/reclvseStartingBlessings';
 
 const modes = [
   ['classless', 'Classless · 직업 없음'],
@@ -28,10 +33,20 @@ export function CharacterGenerationControl({
   const mode = value.characterMode ?? 'classless';
   const choice = classes.find((def) => def.id === value.characterClassId);
   const currentMode = reading?.procedureInputs?.characterMode ?? 'classless';
+  const blessings = value.reclvseBlessings ?? [];
+  const blessingKey = RECLVSE_BLESSING_IDS.filter((id) =>
+    blessings.includes(id),
+  ).join(',');
+  const enhanced = blessings.includes('enhanced-fortitude');
+  const fortitude = value.reclvseFortitude ?? 'fixed12';
   const pending =
     !!reading &&
     (reading.procedureInputs?.generator === 'scvmbirther' ||
       currentMode !== mode ||
+      String(reading.procedureInputs?.reclvseBlessings ?? '') !== blessingKey ||
+      (enhanced &&
+        (reading.procedureInputs?.reclvseFortitude ?? 'fixed12') !==
+          fortitude) ||
       (mode === 'chosen' &&
         reading.procedureInputs?.characterClassId !== value.characterClassId));
   return (
@@ -93,6 +108,66 @@ export function CharacterGenerationControl({
           </select>
         </label>
       )}
+      <details className="character-blessings-control">
+        <summary>
+          RECLVSE 시작 축복 ·{' '}
+          {blessings.length ? `${blessings.length}개 선택` : '선택 안 함'}
+        </summary>
+        <p className="character-blessings-notice">
+          Core 캐릭터에 명시적으로 추가하는 RECLVSE 선택 규칙입니다. 상세
+          규칙(PDF 13)은 ‘하나 이상’, 생성 요약(PDF 18)은 ‘하나’로 서로
+          다릅니다. 여기서는 상세 규칙에 따라 복수 선택할 수 있습니다. 현재
+          결과에는 소급 적용하지 않습니다.
+        </p>
+        <fieldset className="character-blessings-options">
+          <legend className="sr-only">RECLVSE 시작 축복 선택</legend>
+          {RECLVSE_BLESSINGS.map((blessing) => (
+            <label
+              key={blessing.id}
+              aria-label={`${blessing.title} · ${blessing.titleKo}`}
+            >
+              <input
+                type="checkbox"
+                checked={blessings.includes(blessing.id)}
+                onChange={(event) =>
+                  onChange({
+                    ...value,
+                    reclvseBlessings: RECLVSE_BLESSING_IDS.filter((id) =>
+                      id === blessing.id
+                        ? event.target.checked
+                        : blessings.includes(id),
+                    ),
+                  })
+                }
+              />
+              <span>
+                <span>
+                  {blessing.title} · {blessing.titleKo}
+                </span>
+                <small>{blessing.hint}</small>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+        {enhanced && (
+          <label className="character-generation-choice">
+            시작 HP 방식
+            <select
+              aria-label="시작 축복 HP 방식"
+              value={fortitude}
+              onChange={(event) =>
+                onChange({
+                  ...value,
+                  reclvseFortitude: event.target.value as ReclvseFortitudeMode,
+                })
+              }
+            >
+              <option value="fixed12">12 고정 · 체력 보정 없음</option>
+              <option value="10+d4">10+d4 · 체력 보정 없음</option>
+            </select>
+          </label>
+        )}
+      </details>
       <details className="character-generation-help">
         <summary>안내</summary>
         <p>
@@ -109,6 +184,8 @@ export function CharacterGenerationControl({
           {mode === 'chosen'
             ? (choice?.name ?? '직업 선택')
             : modes.find(([key]) => key === mode)![1]}
+          {' · 축복 '}
+          {blessings.length ? `${blessings.length}개` : '없음'}
         </output>
       )}
     </div>

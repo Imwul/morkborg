@@ -8,6 +8,10 @@ import { id, random, rollDie, type RandomSource } from './random';
 import { rollOracle } from './oracleRoller';
 import { abilityModifier } from './tables';
 import { oracleValueProvenance } from '../domain/oracleProvenance';
+import type {
+  ReclvseBlessingId,
+  ReclvseFortitudeMode,
+} from '../domain/reclvseStartingBlessings';
 const textMetadata = (value: unknown) =>
   typeof value === 'string' ? value : '';
 const numberMetadata = (value: unknown) =>
@@ -37,6 +41,8 @@ export interface RuleFaithfulOptions {
   characterClassId?: string;
   classlessBoost?: ClasslessAbility[];
   coreOmens?: boolean;
+  reclvseBlessings?: ReclvseBlessingId[];
+  reclvseFortitude?: ReclvseFortitudeMode;
   orakleLikelihood?: OrakleLikelihood;
   orakleDR?: boolean;
   orakleTR?: number;

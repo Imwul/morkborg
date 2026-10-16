@@ -8,6 +8,7 @@ import { ReferenceLinkedText } from './ReferenceLinkedText';
 import { Translation } from './Translation';
 import type { ReactNode } from 'react';
 import type { CharacterReadingGroup } from '../domain/generatorReadingLayout';
+import type { CharacterSheetBlock } from '../domain/characterSheetPresentation';
 import { useReferenceDesk } from './ReferenceContext';
 
 /** Reading help only; generating a character does not spend or recover resources. */
@@ -90,7 +91,7 @@ export function GeneratorStatStrip({
   blocks,
   character = false,
 }: {
-  blocks: ReferenceReading['blocks'];
+  blocks: CharacterSheetBlock[];
   character?: boolean;
 }) {
   if (!blocks.length) return null;
@@ -147,6 +148,11 @@ export function GeneratorStatStrip({
                 text={block.text}
                 translation={block.translation?.ko}
               />
+              {character && block.sheetFormula && (
+                <small className="generator-stat-formula">
+                  생성: {block.sheetFormula}
+                </small>
+              )}
               {block.dice && (
                 <details className="generator-stat-trace">
                   <summary>굴림 내역</summary>
@@ -160,8 +166,22 @@ export function GeneratorStatStrip({
       {character && blocks.some((block) => block.title === 'Omens') && (
         <CharacterResourceNote kind="omens" />
       )}
+      {character &&
+        blocks.some((block) => block.title === 'Power uses/day') && (
+          <CharacterResourceNote kind="powers" />
+        )}
     </>
   );
+}
+
+export function CharacterFieldContext({
+  block,
+}: {
+  block: CharacterSheetBlock;
+}) {
+  return block.sheetContext ? (
+    <p className="character-field-context">{block.sheetContext}</p>
+  ) : null;
 }
 
 export function GeneratorIntroduction({

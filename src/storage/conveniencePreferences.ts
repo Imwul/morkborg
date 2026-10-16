@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { REGION_IDS } from '../domain/types';
 import { CARD_RANKS, CARD_SUITS } from '../domain/depthsProcedures';
 import { isScenarioReference } from '../data/scenarioExclusions';
+import { RECLVSE_BLESSING_IDS } from '../domain/reclvseStartingBlessings';
 
 export const CONVENIENCE_KEY = 'morkborg-convenience:v1';
 export const PLAY_SESSION_KEY = 'morkborg-play-session:v1';
@@ -22,6 +23,12 @@ export const executionParametersSchema = z.object({
   characterMode: z.enum(['classless', 'random', 'chosen']).optional(),
   characterClassId: z.string().min(1).max(150).optional(),
   coreOmens: z.boolean().optional(),
+  reclvseBlessings: z
+    .array(z.enum(RECLVSE_BLESSING_IDS))
+    .max(5)
+    .refine((ids) => new Set(ids).size === ids.length)
+    .optional(),
+  reclvseFortitude: z.enum(['fixed12', '10+d4']).optional(),
   classlessBoost: z
     .array(z.enum(['strength', 'agility', 'presence', 'toughness']))
     .max(2)

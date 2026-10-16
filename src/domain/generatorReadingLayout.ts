@@ -1,6 +1,10 @@
 import type { ReferenceReading, ReferenceTextBlock } from './referenceReading';
+import {
+  characterSheetPresentation,
+  type CharacterSheetBlock,
+} from './characterSheetPresentation';
 
-type Block = ReferenceReading['blocks'][number];
+type Block = CharacterSheetBlock;
 export interface CharacterReadingGroup {
   id: 'equipment' | 'features' | 'background';
   title: string;
@@ -31,7 +35,9 @@ function characterReadingGroups(fields: Block[]): CharacterReadingGroup[] {
         block.title,
       )
         ? groups[0]
-        : /^(Class|Power|Ability|Abilities|Feature)(\b|\s)/i.test(block.title)
+        : /^(Class|Power|Ability|Abilities|Feature|Starting Blessing)(\b|\s)/i.test(
+              block.title,
+            )
           ? groups[1]
           : groups[2];
     group.blocks.push(block);
@@ -51,6 +57,7 @@ const STAT_LABELS: Record<string, string> = {
   Agility: '민첩',
   Presence: '지각',
   Toughness: '체력',
+  'Power uses/day': '하루 권능 사용 횟수',
 };
 
 /** A view of an existing result. Never changes its rolls, saved data or copy text. */
@@ -80,7 +87,10 @@ export function generatorReadingLayout(
   const hasStatSheet = reading.blocks.some((block) =>
     ['HP', 'Morale', 'Abilities'].includes(block.title),
   );
-  for (const block of reading.blocks) {
+  const presentedBlocks = character
+    ? characterSheetPresentation(reading)
+    : reading.blocks;
+  for (const block of presentedBlocks) {
     if (
       block === introduction ||
       block === identity ||
@@ -99,6 +109,7 @@ export function generatorReadingLayout(
       continue;
     if (
       hasStatSheet &&
+      (character || block.title !== 'Power uses/day') &&
       !(identity && block.title === 'Armor') &&
       STAT_LABELS[block.title] &&
       block.text.trim() &&
@@ -119,6 +130,7 @@ export function generatorReadingLayout(
       const order = [
         'HP',
         'Omens',
+        'Power uses/day',
         'Abilities',
         'Strength',
         'Agility',

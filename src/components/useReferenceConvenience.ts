@@ -145,6 +145,8 @@ export function useReferenceConvenience({
       characterMode: overrides.characterMode ?? options.characterMode,
       characterClassId: overrides.characterClassId ?? options.characterClassId,
       coreOmens: overrides.coreOmens,
+      reclvseBlessings: overrides.reclvseBlessings ?? options.reclvseBlessings,
+      reclvseFortitude: overrides.reclvseFortitude ?? options.reclvseFortitude,
       orakleLikelihood: overrides.orakleLikelihood,
       orakleDR: overrides.orakleDR,
       orakleTR: overrides.orakleDR ? overrides.orakleTR : undefined,
@@ -300,8 +302,18 @@ export function useReferenceConvenience({
     });
   }
   function rerollLast(request?: LastRoll) {
-    const last = request ?? temporary.lastRoll;
-    if (!last) return;
+    const stored = request ?? temporary.lastRoll;
+    if (!stored) return;
+    // Historical rolls predate blessings. Missing means off, even while the
+    // current controls select a blessing and their state restore is pending.
+    const last = {
+      ...stored,
+      parameters: {
+        ...stored.parameters,
+        reclvseBlessings: stored.parameters.reclvseBlessings ?? [],
+        reclvseFortitude: stored.parameters.reclvseFortitude ?? 'fixed12',
+      },
+    };
     try {
       setError('');
       restoreParameters(last.parameters);
