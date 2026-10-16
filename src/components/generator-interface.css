@@ -1095,7 +1095,9 @@
   font-weight: 650;
 }
 
-.reference-reading[data-character-sheet]
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading[data-character-sheet]
   .generator-stat-strip
   + .character-resource-note {
   margin: -12px 0 24px;
