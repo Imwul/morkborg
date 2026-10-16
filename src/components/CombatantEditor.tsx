@@ -154,14 +154,14 @@ export function CombatantEditor({
       <div className="combatant-vitals">
         {num('HP', 'hp')}
         {num('최대 HP', 'maxHp', 1)}
-        {num('Morale', 'morale', 0)}
-        {num('Omen', 'omens', 0)}
+        {num('Morale · 사기', 'morale', 0)}
+        {num('Omen · 오멘', 'omens', 0)}
       </div>
       {f.side === 'pc' && (
         <div className="combatant-abilities">
-          {num('Strength', 'strength')}
-          {num('Agility', 'agility')}
-          {num('Presence', 'presence')}
+          {num('Strength · 근력', 'strength')}
+          {num('Agility · 민첩', 'agility')}
+          {num('Presence · 지각', 'presence')}
         </div>
       )}
       <div className="combatant-gear">
@@ -285,9 +285,9 @@ export function CombatantEditor({
         </label>
         {f.side === 'enemy' && (
           <div className="combatant-abilities">
-            {num('Strength', 'strength')}
-            {num('Agility', 'agility')}
-            {num('Presence', 'presence')}
+            {num('Strength · 근력', 'strength')}
+            {num('Agility · 민첩', 'agility')}
+            {num('Presence · 지각', 'presence')}
           </div>
         )}
         <div className="combat-button-row">

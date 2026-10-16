@@ -98,6 +98,8 @@ test('Omens retains all five source uses and depleted-only recovery, without a r
     tables: [],
     procedures: [],
   }).byId['rule:core.omens'];
+  assert.equal(r.title, 'Omens · 오멘');
+  assert.match(r.summary, /치명타 또는 실수 무효화/);
   for (const term of [
     'with an attack',
     'yours or someone else',

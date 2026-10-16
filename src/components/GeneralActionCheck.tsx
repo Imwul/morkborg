@@ -1,5 +1,6 @@
 import { usePlayToolState } from './usePlayToolState';
 import { GuidedRollControl } from './GuidedRollControl';
+import { exactUiTranslation } from '../generators/translation';
 export function GeneralActionCheck({ sd }: { sd: boolean }) {
   const [ability, setAbility] = usePlayToolState(
     `general:${sd}:ability`,
@@ -27,7 +28,11 @@ export function GeneralActionCheck({ sd }: { sd: boolean }) {
               'Toughness',
               ...(sd ? ['남은 Omens'] : []),
             ].map((a) => (
-              <option key={a}>{a}</option>
+              <option key={a} value={a}>
+                {a === '남은 Omens'
+                  ? '남은 오멘 · Omens'
+                  : `${a} · ${exactUiTranslation(a)}`}
+              </option>
             ))}
           </select>
         </label>

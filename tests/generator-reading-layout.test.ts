@@ -13,6 +13,7 @@ import {
 import {
   GeneratorIntroduction,
   GeneratorStatStrip,
+  CharacterResourceNote,
 } from '../src/components/GeneratorReadingLead.tsx';
 
 const siteReading = (): ReferenceReading => ({
@@ -135,6 +136,42 @@ test('Monster presentation lifts the complete introduction, preserving rolls, co
     '특별한 보호',
   ])
     assert.ok(stats.includes(value), value);
+});
+
+test('character Omens explain conditional recovery without treating other stat strips as characters', () => {
+  const blocks = [
+    { title: 'HP', text: '1' },
+    { title: 'Omens', text: '0', translation: { titleKo: '오멘' } },
+  ];
+  const before = structuredClone(blocks);
+  const character = renderToStaticMarkup(
+    createElement(GeneratorStatStrip, { blocks, character: true }),
+  );
+  assert.match(character, /모두 소진한 뒤 6시간 이상/);
+  assert.match(character, /직업 없음은 d2/);
+  assert.match(character, /Core 선택 규칙/);
+  const ordinary = renderToStaticMarkup(
+    createElement(GeneratorStatStrip, { blocks }),
+  );
+  assert.doesNotMatch(ordinary, /모두 소진한 뒤/);
+  const noOmens = renderToStaticMarkup(
+    createElement(GeneratorStatStrip, {
+      blocks: [{ title: 'HP', text: '1' }],
+      character: true,
+    }),
+  );
+  assert.doesNotMatch(noOmens, /모두 소진한 뒤/);
+  assert.deepEqual(blocks, before);
+});
+
+test('Power use guidance distinguishes morning allowance, successful casts and class exceptions', () => {
+  const html = renderToStaticMarkup(
+    createElement(CharacterResourceNote, { kind: 'powers' }),
+  );
+  assert.match(html, /매일 아침 지각\+d4/);
+  assert.match(html, /성공하면 1회 소모/);
+  assert.match(html, /직업 능력의 별도/);
+  assert.doesNotMatch(html, /최소 1회|실패하면 1회|매일 회복/);
 });
 
 test('Character groups retain every field and move complete armor rules out of the stat strip', () => {

@@ -50,7 +50,7 @@ const STAT_LABELS: Record<string, string> = {
   Strength: '근력',
   Agility: '민첩',
   Presence: '지각',
-  Toughness: '강인함',
+  Toughness: '체력',
 };
 
 /** A view of an existing result. Never changes its rolls, saved data or copy text. */
@@ -108,7 +108,7 @@ export function generatorReadingLayout(
         ...block,
         translation: {
           ...block.translation,
-          titleKo: block.translation?.titleKo ?? STAT_LABELS[block.title],
+          titleKo: STAT_LABELS[block.title],
         },
       });
     } else fields.push(block);

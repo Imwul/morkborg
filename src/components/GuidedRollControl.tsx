@@ -6,6 +6,7 @@ import {
   type GuidedRollResult,
 } from '../domain/guidedRoll';
 import { usePlayToolState } from './usePlayToolState';
+import { exactUiTranslation } from '../generators/translation';
 
 interface Props {
   spec: GuidedRoll;
@@ -42,6 +43,10 @@ function GuidedRollFields({
       : spec.kind === 'quantity'
         ? spec.modifierLabel
         : undefined;
+  const modifierTranslation = modifierLabel?.replace(
+    /\b(?:Strength|Agility|Presence|Toughness|Omens?)\b/gi,
+    (term) => exactUiTranslation(term) ?? term,
+  );
   function run(physical: boolean) {
     try {
       if (modifierLabel && !modifier.trim())
@@ -62,6 +67,9 @@ function GuidedRollFields({
         {modifierLabel && (
           <label>
             {modifierLabel}
+            {modifierTranslation && modifierTranslation !== modifierLabel
+              ? ` · ${modifierTranslation}`
+              : ''}
             <input
               aria-label={`${label} 보정`}
               type="number"

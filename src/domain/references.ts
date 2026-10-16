@@ -259,9 +259,9 @@ interface RuleSeed extends Omit<PlayReferenceRuleSeed, 'printedPage'> {
 const RULES: RuleSeed[] = [
   {
     id: 'core.omens',
-    title: 'Omens · 징조',
+    title: 'Omens · 오멘',
     summary:
-      'Optional rule. Begin with the class’s designated Omens (classless: d2). Only when depleted: rest at least six hours, then roll the designated die to regain that many.\n\nUse Omens to:\n• Deal maximum damage with an attack.\n• Reroll a dice roll — yours or someone else’s.\n• Lower damage dealt to you by d6.\n• Neutralize a Crit or Fumble.\n• Lower one test’s DR by 4.\n\n모두 소진한 뒤 6시간 이상 쉬어 직업 주사위만큼 회복(직업 없음 d2). 사용: 공격 최대 피해 / 자신 또는 타인의 주사위 재굴림 / 받는 피해 d6 감소 / Crit 또는 Fumble 무효화 / 한 판정의 DR −4.',
+      'Optional rule. Begin with the class’s designated Omens (classless: d2). Only when depleted: rest at least six hours, then roll the designated die to regain that many.\n\nUse Omens to:\n• Deal maximum damage with an attack.\n• Reroll a dice roll — yours or someone else’s.\n• Lower damage dealt to you by d6.\n• Neutralize a Crit or Fumble.\n• Lower one test’s DR by 4.\n\n모두 소진한 뒤 6시간 이상 쉬어 직업 주사위만큼 회복(직업 없음 d2). 사용: 공격 최대 피해 / 자신 또는 타인의 주사위 재굴림 / 받는 피해 d6 감소 / 치명타 또는 실수 무효화 / 한 판정의 DR −4.',
     book: 'core',
     pages: [37],
     printedPage: 37,

@@ -6,6 +6,7 @@ import {
   type OrakleLikelihood,
 } from '../generators/ruleFaithfulReferences';
 import type { ReferenceEntry } from '../domain/references';
+import { exactUiTranslation } from '../generators/translation';
 
 export function RuleFaithfulSettings({
   entry,
@@ -25,7 +26,7 @@ export function RuleFaithfulSettings({
       CLASSLESS_ABILITIES.slice(i + 1).map((b) => [a, b]),
     );
     return (
-      <ReferenceRollSettings description="Classless only: 두 능력치를 4d6으로 굴려 최저 주사위를 버리는 선택 규칙입니다. 나머지는 3d6으로 굴립니다. Omens는 필요할 때 쓰는 선택 자원이며, 켜면 시작 점수를 d2로 굴립니다. 다음 REROLL부터 적용됩니다.">
+      <ReferenceRollSettings description="직업 없음(Classless) 전용: 두 능력치를 4d6으로 굴려 최저 주사위를 버리는 선택 규칙입니다. 나머지는 3d6으로 굴립니다. 오멘은 필요할 때 쓰는 선택 자원이며, 사용을 켜면 시작 오멘을 d2로 굴립니다. 다음 REROLL부터 적용됩니다.">
         <label>
           Ability rolls · 능력치
           <select
@@ -44,7 +45,12 @@ export function RuleFaithfulSettings({
             <option value="">Standard · 모두 3d6</option>
             {pairs.map((pair) => (
               <option key={pair.join(',')} value={pair.join(',')}>
-                {pair.join(' + ')} · 4d6 drop lowest
+                {pair
+                  .map(
+                    (ability) => `${ability} · ${exactUiTranslation(ability)}`,
+                  )
+                  .join(' + ')}{' '}
+                · 4d6, 최저값 제외
               </option>
             ))}
           </select>
@@ -55,14 +61,14 @@ export function RuleFaithfulSettings({
             checked={value.coreOmens ?? false}
             onChange={(e) => set({ coreOmens: e.target.checked })}
           />{' '}
-          Use Omens · 시작 1–2점
+          Use Omens · 시작 1–2점 (오멘 사용)
         </label>
       </ReferenceRollSettings>
     );
   }
   if (entry.canonicalIds.includes('depths.orakle'))
     return (
-      <ReferenceRollSettings description="10은 사건을 추가하고 다시 굴립니다. 사건은 겹칠 수 있습니다. 선택 DR은 Yes가 위험한 질문에만 사용하세요. 질문을 입력할 필요는 없습니다.">
+      <ReferenceRollSettings description="10은 사건을 추가하고 다시 굴립니다. 사건은 겹칠 수 있습니다. 선택 DR은 ‘예(Yes)’가 위험을 뜻하는 질문에만 사용하세요. 질문을 입력할 필요는 없습니다.">
         <label>
           Likelihood · 가능성
           <select
@@ -72,11 +78,11 @@ export function RuleFaithfulSettings({
             }
           >
             {[
-              ['very-unlikely', 'Very unlikely · 3d20 ↓'],
-              ['unlikely', 'Unlikely · 2d20 ↓'],
-              ['even', 'Even · d20'],
-              ['likely', 'Likely · 2d20 ↑'],
-              ['very-likely', 'Very likely · 3d20 ↑'],
+              ['very-unlikely', 'Very unlikely · 매우 낮음 · 3d20 ↓'],
+              ['unlikely', 'Unlikely · 낮음 · 2d20 ↓'],
+              ['even', 'Even · 반반 · d20'],
+              ['likely', 'Likely · 높음 · 2d20 ↑'],
+              ['very-likely', 'Very likely · 매우 높음 · 3d20 ↑'],
             ].map(([v, l]) => (
               <option value={v} key={v}>
                 {l}
@@ -90,11 +96,11 @@ export function RuleFaithfulSettings({
             checked={value.orakleDR ?? false}
             onChange={(e) => set({ orakleDR: e.target.checked })}
           />{' '}
-          Challenge DR · 선택 규칙
+          Challenge DR · 도전 난이도 적용 (선택 규칙)
         </label>
         {value.orakleDR && (
           <label>
-            Threat rating
+            Threat rating · 위협도
             <input
               type="number"
               min={3}
@@ -110,7 +116,7 @@ export function RuleFaithfulSettings({
   if (entry.id === 'procedure:reclvse.weather-detail') {
     const chosen = value.weatherDetails ?? WEATHER_DETAIL_IDS.slice(0, 2);
     return (
-      <ReferenceRollSettings description="Weather Move 뒤에 1–3개 표를 선택하세요. 20이면 결과 아래에서 Unnatural Weather를 선택적으로 열 수 있습니다.">
+      <ReferenceRollSettings description="날씨 판정(Weather Move) 뒤에 1–3개 표를 선택하세요. 20이면 결과 아래에서 초자연적 날씨(Unnatural Weather)를 선택적으로 열 수 있습니다.">
         {WEATHER_DETAIL_IDS.map((tableId) => (
           <label key={tableId}>
             <input
@@ -129,7 +135,14 @@ export function RuleFaithfulSettings({
                 })
               }
             />
-            {tableId.split('.')[1]}
+            {
+              {
+                'reclvse.temperature': 'Temperature · 기온',
+                'reclvse.precipitation': 'Precipitation · 강수',
+                'reclvse.wind': 'Wind · 바람',
+                'reclvse.visibility': 'Visibility · 시야',
+              }[tableId]
+            }
           </label>
         ))}
       </ReferenceRollSettings>
@@ -140,9 +153,9 @@ export function RuleFaithfulSettings({
     entry.canonicalIds.some((t) => t.startsWith('feretory.hunting.'))
   )
     return (
-      <ReferenceRollSettings description="Optional hunting: d8/d10/d12 makes ordinary animals more likely. 7+ is mundane prey; its statistics are not invented.">
+      <ReferenceRollSettings description="선택 사냥 규칙: d8/d10/d12를 쓰면 평범한 동물이 나올 가능성이 커집니다. 7 이상은 평범한 사냥감이며, 앱이 능력치를 임의로 부여하지 않습니다.">
         <label>
-          Hunting die
+          Hunting die · 사냥 주사위
           <select
             value={value.huntingDie ?? 6}
             onChange={(e) =>
@@ -156,7 +169,7 @@ export function RuleFaithfulSettings({
             {[6, 8, 10, 12].map((n) => (
               <option key={n} value={n}>
                 d{n}
-                {n === 6 ? ' · Standard' : ' · Optional'}
+                {n === 6 ? ' · Standard · 기본' : ' · Optional · 선택 규칙'}
               </option>
             ))}
           </select>

@@ -398,7 +398,7 @@ export function buildReferenceDefinitions(
           title: '',
           text: `HP Toughness + d${c.hpDie}\nOmens d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}\nSilver ${c.silver.count}d${c.silver.sides} × ${c.silver.multiplier}\nStarting weapon d${c.weaponDie ?? 10}; armor ${c.forbidArmor ? 'forbidden' : 'd' + (c.armorDie ?? 4)}${c.forbidScrolls ? '; no scrolls' : ''}`,
           translation: {
-            ko: `HP 건강 + d${c.hpDie}\n오멘 d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}\n은화 ${c.silver.count}d${c.silver.sides} × ${c.silver.multiplier}\n시작 무기 d${c.weaponDie ?? 10}; 방어구 ${c.forbidArmor ? '착용 불가' : 'd' + (c.armorDie ?? 4)}${c.forbidScrolls ? '; 두루마리 없음' : ''}`,
+            ko: `HP 체력 + d${c.hpDie}\n오멘 d${c.omenDie}${c.omenBonus ? ` + ${c.omenBonus}` : ''}\n은화 ${c.silver.count}d${c.silver.sides} × ${c.silver.multiplier}\n시작 무기 d${c.weaponDie ?? 10}; 방어구 ${c.forbidArmor ? '착용 불가' : 'd' + (c.armorDie ?? 4)}${c.forbidScrolls ? '; 두루마리 없음' : ''}`,
           },
         },
         ...(c.playerRules ?? c.rules).map((text) => ({ title: '', text })),

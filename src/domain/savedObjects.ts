@@ -50,6 +50,7 @@ function bilingualSnapshot(reading: ReferenceReading): ReferenceReading {
   const helper = (text: string, explicit?: string) => {
     const ko = polishKoreanTranslation(
       explicit?.trim() ? explicit : translateGeneratedText(text),
+      text,
     );
     return ko && ko.normalize('NFC') !== text.normalize('NFC') ? ko : '';
   };

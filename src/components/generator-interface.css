@@ -1057,7 +1057,51 @@
 }
 .reference-reading[data-character-sheet] .generator-stat-strip dt {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 6px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading[data-character-sheet]
+  .generator-stat-strip
+  dt
+  .generated-translation {
+  margin: 0;
+}
+
+.reference-reading[data-character-sheet]
+  :is(.reference-result-text, .generated-translation) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+
+.reference-app
+  .reference-page[data-generator-page]
+  .reference-reading[data-character-sheet]
+  .character-resource-note {
+  margin: 8px 0 0;
+  color: var(--muted-ink);
+  font: 450 12px/1.7 var(--font-ui);
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.character-resource-note strong {
+  font: inherit;
+  font-weight: 650;
+}
+
+.reference-reading[data-character-sheet]
+  .generator-stat-strip
+  + .character-resource-note {
+  margin: -12px 0 24px;
+}
+
+.generator-character-class > strong small {
+  margin-left: 8px;
+  font-family: var(--font-ui);
 }

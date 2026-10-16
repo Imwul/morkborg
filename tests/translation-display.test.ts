@@ -26,6 +26,7 @@ import { Monsters } from '../src/components/Monsters.tsx';
 import { TranslatedValue } from '../src/components/TranslatedValue.tsx';
 import { ReferenceReadingText } from '../src/components/ReferenceReadingText.tsx';
 import { Translation } from '../src/components/Translation.tsx';
+import { characterClasses } from '../src/generators/characterClasses.ts';
 const b = JSON.parse(
   readFileSync('outputs/morkborg-private-data.json', 'utf8'),
 );
@@ -179,6 +180,28 @@ test('Every Core weapon, armor, equipment and class reference effect is bilingua
         /lang="ko"/,
         e.id + ' ' + block.title,
       );
+  }
+});
+test('class HP summaries use the same Toughness name as ability and equipment helpers', () => {
+  const classes = characterClasses();
+  assert.ok(classes.length >= 6);
+  for (const definition of classes) {
+    const entry = index.byId[`class:${definition.id}`];
+    assert.ok(entry, definition.id);
+    const reading = executeReference(entry, {
+      registry,
+      rules,
+      region: 'sarkash',
+    })!;
+    const summary = reading.blocks.find((block) =>
+      /^HP Toughness \+ d\d+/.test(block.text),
+    );
+    assert.ok(summary, definition.id);
+    assert.equal(
+      summary.translation?.ko.split('\n')[0],
+      summary.text.split('\n')[0].replace('Toughness', '체력'),
+      entry.id,
+    );
   }
 });
 test('Travel time and its separate world/weather procedure remain understandable in Korean', () => {

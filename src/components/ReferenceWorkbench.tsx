@@ -184,6 +184,7 @@ import {
   GeneratorIntroduction,
   GeneratorStatStrip,
   GeneratorReadingFields,
+  CharacterResourceNote,
 } from './GeneratorReadingLead';
 import { readingResultRelationships } from '../domain/resultRelationships';
 import { ReferenceTable } from './ReferenceTable';
@@ -1676,7 +1677,9 @@ export function ReferenceProvider({
                   </div>
                   {generatorLayout.characterClass && (
                     <p className="generator-character-class">
-                      <strong>Class</strong>{' '}
+                      <strong>
+                        Class <small>직업</small>
+                      </strong>{' '}
                       {generatorLayout.characterClass.text}
                       <Translation
                         text={generatorLayout.characterClass.text}
@@ -1689,7 +1692,10 @@ export function ReferenceProvider({
                 </header>
               )}
               {generatorLayout && (
-                <GeneratorStatStrip blocks={generatorLayout.stats} />
+                <GeneratorStatStrip
+                  blocks={generatorLayout.stats}
+                  character={!!generatorLayout.identity}
+                />
               )}
               <GeneratorReadingFields
                 groups={generatorLayout?.groups}
@@ -1816,6 +1822,10 @@ export function ReferenceProvider({
                           splitLines={!!reading.rareMonster}
                         />
                       )}
+                      {!!generatorLayout?.identity &&
+                        block.title === 'Power uses/day' && (
+                          <CharacterResourceNote kind="powers" />
+                        )}
                       {source && <ContainerAlternatives parent={source} />}
                     </section>
                   );

@@ -1,10 +1,11 @@
 import type { RuleFaithfulOptions } from '../generators/ruleFaithfulReferences';
 import type { CharacterClassDefinition } from '../generators/characterClasses';
 import type { ReferenceReading } from '../domain/referenceReading';
+import { translateGeneratedText } from '../generators/translation';
 
 const modes = [
-  ['classless', 'Classless'],
-  ['random', 'Random Class'],
+  ['classless', 'Classless · 직업 없음'],
+  ['random', 'Random Class · 무작위 직업'],
   ['chosen', 'Choose Class · 직업 선택'],
 ] as const;
 const books: Record<string, string> = {
@@ -77,11 +78,15 @@ export function CharacterGenerationControl({
                 <optgroup key={book} label={books[book] ?? book}>
                   {classes
                     .filter((def) => def.source.bookId === book)
-                    .map((def) => (
-                      <option key={def.id} value={def.id}>
-                        {def.name}
-                      </option>
-                    ))}
+                    .map((def) => {
+                      const ko = translateGeneratedText(def.name);
+                      return (
+                        <option key={def.id} value={def.id}>
+                          {def.name}
+                          {ko && ko !== def.name ? ` · ${ko}` : ''}
+                        </option>
+                      );
+                    })}
                 </optgroup>
               ),
             )}
@@ -91,10 +96,11 @@ export function CharacterGenerationControl({
       <details className="character-generation-help">
         <summary>안내</summary>
         <p>
-          Classless는 직업 없이 생성합니다. Random Class는 지원하는{' '}
-          {classes.length}개 직업 중 하나를 같은 확률로 고릅니다. Choose Class는
-          선택한 직업의 능력치·시작 장비·Omens 규칙을 적용합니다. 설정을 바꿔도
-          현재 결과는 유지되며 다음 ROLL / REROLL부터 적용됩니다.
+          직업 없음(Classless)은 직업 없이 생성합니다. 무작위 직업(Random
+          Class)은 지원하는 {classes.length}개 직업 중 하나를 같은 확률로
+          고릅니다. 직업 선택(Choose Class)은 선택한 직업의 능력치·시작
+          장비·오멘 규칙을 적용합니다. 설정을 바꿔도 현재 결과는 유지되며 다음
+          ROLL / REROLL부터 적용됩니다.
         </p>
       </details>
       {pending && (

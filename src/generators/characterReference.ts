@@ -93,7 +93,7 @@ export function classCharacterReading(
     ['strength', 'Strength', '근력'],
     ['agility', 'Agility', '민첩'],
     ['presence', 'Presence', '지각'],
-    ['toughness', 'Toughness', '강인함'],
+    ['toughness', 'Toughness', '체력'],
     ['hp', 'HP', '생명력'],
     ['omens', 'Omens', '오멘'],
     ['silver', 'Silver', '은화'],

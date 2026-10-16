@@ -19,6 +19,7 @@ const vocabulary: Record<string, string> = {
   Attack: '공격',
   Armor: '방어구',
   Omens: '오멘',
+  Omen: '오멘',
   Reaction: '반응',
   Wind: '바람',
   Tier: '등급',
@@ -39,6 +40,8 @@ const vocabulary: Record<string, string> = {
   Toughness: '체력',
   Morale: '사기',
   Powers: '권능',
+  Power: '권능',
+  'Power uses/day': '하루 권능 사용 횟수',
   'Encounter Level': '조우 수준',
   Encounter: '조우',
   'No encounter': '조우 없음',
@@ -114,13 +117,67 @@ export function exactUiTranslation(text: string): string | undefined {
 }
 export function polishKoreanTranslation(text: string, source = ''): string {
   let output = text.replace(
-    /\b(Strength|Agility|Presence|Toughness|Morale|Powers|Omens|Armor|Attack|Defence|Defense|Damage)\b/gi,
+    /\b(Strength|Agility|Presence|Toughness|Morale|Powers?|Omens?|Armor|Attack|Defence|Defense|Damage)\b/gi,
     (word) =>
       vocabulary[
         Object.keys(vocabulary).find(
           (key) => key.toLowerCase() === word.toLowerCase(),
         )!
       ] ?? word,
+  );
+  // A capitalized source ability establishes the meaning of its local helper.
+  // Ordinary presence, health descriptions and unrelated rule systems keep
+  // their wording. Never replace the loaded dictionary or canonical source.
+  if (/\b(?:Toughness|TOUGHNESS)\b/.test(source)) {
+    output = output.replace(
+      /(^|[^\p{L}\p{N}])강인함(?=$|[^\p{L}\p{N}]|으로|로|은|는|이|가|을|를|과|와)/gu,
+      '$1체력',
+    );
+    if (!/\b(?:health|healthy|healthily)\b/i.test(source))
+      output = output.replace(
+        /(^|[^\p{L}\p{N}])건강(?=$|[^\p{L}\p{N}]|으로|로|은|는|이|가|을|를|과|와)/gu,
+        '$1체력',
+      );
+  }
+  if (/\b(?:Agility|AGILITY)\b/.test(source))
+    output = output.replace(
+      /(^|[^\p{L}\p{N}])민첩성(?=$|[^\p{L}\p{N}]|으로|로|은|는|이|가|을|를|과|와)/gu,
+      '$1민첩',
+    );
+  if (/\b(?:Presence|PRESENCE)\b/.test(source))
+    output = output.replace(
+      /(^|[^\p{L}\p{N}])존재감(?=$|[^\p{L}\p{N}]|으로|로|은|는|이|가|을|를|과|와)/gu,
+      '$1지각',
+    );
+  if (/\bTR Omens Move\b/.test(source))
+    output = output.replace(
+      /\bTR 전조 행동(?=$|[^\p{L}\p{N}])/gu,
+      'TR 오멘 행동',
+    );
+  // Private helpers sometimes attach a particle to an English mechanical term.
+  // Once translated, select its Korean particle without changing the source,
+  // dice, or arbitrary words in the user's text.
+  output = output.replace(
+    /(^|[^\p{L}\p{N}])(근력|민첩|지각|체력|사기|권능|오멘|방어구|공격|방어|피해)(으로|로|은|는|이|가|을|를|과|와)/gu,
+    (_, prefix: string, term: string, particle: string) => {
+      const finalConsonant = (term.charCodeAt(term.length - 1) - 0xac00) % 28;
+      const withConsonant = finalConsonant !== 0;
+      const pair =
+        particle === '은' || particle === '는'
+          ? ['은', '는']
+          : particle === '이' || particle === '가'
+            ? ['이', '가']
+            : particle === '을' || particle === '를'
+              ? ['을', '를']
+              : particle === '과' || particle === '와'
+                ? ['과', '와']
+                : ['으로', '로'];
+      const consonantForm =
+        pair[0] === '으로'
+          ? withConsonant && finalConsonant !== 8
+          : withConsonant;
+      return `${prefix}${term}${pair[consonantForm ? 0 : 1]}`;
+    },
   );
   // Correct local companion terminology only where the English source proves
   // the meaning; an unrelated stamp, book, roll or tool keeps its own helper.
@@ -130,7 +187,10 @@ export function polishKoreanTranslation(text: string, source = ''): string {
       '(부정한 두루마리)',
     );
   if (/\bsacred scrolls?\b/i.test(source))
-    output = output.replace(/\(신성한\s*(?:사본|롤|스크롤)\)/g, '(신성한 두루마리)');
+    output = output.replace(
+      /\(신성한\s*(?:사본|롤|스크롤)\)/g,
+      '(신성한 두루마리)',
+    );
   if (/\bscrolls?\b/i.test(source))
     output = output.replace(/스탬프|스크롤/g, '두루마리');
   if (/\bto spot\b/i.test(source))
@@ -268,7 +328,7 @@ export function translateGeneratedText(input: string): string {
   }
   const text = normalize(input);
   const direct = exact.get(text.toLocaleLowerCase());
-  if (direct !== undefined) return polishKoreanTranslation(direct);
+  if (direct !== undefined) return polishKoreanTranslation(direct, input);
   const silver = /^((?:\d+d?\d*|d\d+)(?:[+−–-](?:\d+|d\d+))*)s$/i.exec(text);
   if (silver) return `은화 ${silver[1]}`;
   const days = /^([\dd+ −–-]+) days?$/i.exec(text);
@@ -342,6 +402,6 @@ export function translateGeneratedText(input: string): string {
     .replace(/\b(?:HP|DR\s*\d*|\d*[dD]\d+|\d+s|24h)\b/g, '');
   if (/[\p{L}]/u.test(unknown)) return '';
   return (changed || output !== text) && /[가-힣]/.test(output)
-    ? polishKoreanTranslation(output)
+    ? polishKoreanTranslation(output, input)
     : '';
 }
