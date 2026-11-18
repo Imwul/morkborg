@@ -40,8 +40,10 @@ try {
     const click = (loc) => (width === 360 ? loc.tap() : loc.click());
     const ref = () => page.locator('.reference-page');
     const result = () => ref().locator('.reference-reading').first();
+    const resultLinks = () =>
+      ref().locator('.reference-follow-up .result-references');
     const follow = (id) =>
-      result().locator(`[data-relationship-target="${id}"]`);
+      resultLinks().locator(`[data-relationship-target="${id}"]`);
     const waitRef = async (id) => {
       await page
         .locator(`.reference-page[data-reference-id="${id}"]`)
@@ -83,12 +85,7 @@ try {
       }, values);
     const roll = async (values) => {
       await dice(values);
-      const button = ref().getByRole('button', { name: 'ROLL', exact: true });
-      await click(
-        (await button.count())
-          ? button
-          : ref().getByRole('button', { name: 'REROLL', exact: true }),
-      );
+      await click(ref().getByRole('button', { name: /^(?:RE)?ROLL$/ }));
       await result().waitFor();
     };
     const openFollow = async (id) => {
@@ -135,6 +132,48 @@ try {
         );
       }, data);
       await page.reload();
+      await click(
+        page
+          .getByRole('navigation', { name: '주요 페이지' })
+          .getByRole('button', { name: '생성기', exact: true }),
+      );
+      const characterId = 'procedure:character.core-classless';
+      await click(
+        page.locator(`.desk-generators [data-shortcut="${characterId}"]`),
+      );
+      await waitRef(characterId);
+      await dice([]);
+      await page.keyboard.press('r');
+      await result().waitFor();
+      const characterDice = await rngCount();
+      assert.ok(characterDice > 0, 'R rolls the visible character generator');
+      await click(page.locator('.generator-return button'));
+      await page.getByRole('region', { name: '생성기 모음' }).waitFor();
+      await page.keyboard.press('r');
+      assert.equal(
+        await rngCount(),
+        characterDice,
+        'R leaves the hidden generator alone',
+      );
+      const input = page.getByRole('textbox', {
+        name: '참조 검색',
+        exact: true,
+      });
+      await input.fill('Weather');
+      await page
+        .getByRole('region', { name: '검색 결과', exact: true })
+        .waitFor();
+      await input.blur();
+      await page.keyboard.press('r');
+      assert.equal(
+        await rngCount(),
+        characterDice,
+        'R leaves the retained roll alone during search',
+      );
+      check(
+        'R rolls the visible reader and preserves hidden results in the generator list and search',
+      );
+
       await search('Events by the road', 'oracle:feretory.roadEvent');
       assert.equal(await result().count(), 0);
       check('unrolled reference has no result follow-ups');
@@ -147,7 +186,7 @@ try {
       await openFollow('oracle:core.weather');
       assert.equal(await result().count(), 0);
       await roll([0]);
-      assert.equal(await result().locator('.result-references').count(), 0);
+      assert.equal(await resultLinks().count(), 0);
       await page.goBack();
       await waitRef('oracle:feretory.roadEvent');
       assert.equal(await result().innerText(), origin);
@@ -165,7 +204,7 @@ try {
         );
       }
       await click(
-        ref().getByRole('button', { name: '참조 고정', exact: true }),
+        ref().getByRole('button', { name: 'PIN · 참조 고정', exact: true }),
       );
       await click(
         ref().getByRole('button', { name: '작업대에 펼치기', exact: true }),
@@ -188,7 +227,7 @@ try {
       assert.equal(await rngCount(), before);
       await roll([0, 0]);
       assert.equal(
-        await result().locator('[data-result-purpose="REQUIRED"]').count(),
+        await resultLinks().locator('[data-result-purpose="REQUIRED"]').count(),
         0,
       );
       assert.equal(await held.locator('.inline-reading').innerText(), heldText);
@@ -222,7 +261,7 @@ try {
       assert.match(await result().innerText(), /Common encounter/);
       check('Dungeon common encounter opens its exact procedure in 1 click');
       await roll([0.99]);
-      assert.equal(await result().locator('.result-references').count(), 0);
+      assert.equal(await resultLinks().count(), 0);
       check('reroll replaces row-specific actions; empty room has none');
       await search('Reveal a Danger', 'oracle:depths.danger');
       await roll([0.99]);
@@ -280,22 +319,16 @@ try {
         'Keyboard activation; combat Morale / crit-fumble / Broken and injury use source conditions without tracking HP',
       );
       // Use existing Recent to recover the exact Reaction reading after several references.
-      if (width <= 800) {
-        await click(
-          page
-            .getByRole('navigation', { name: '주요 페이지' })
-            .getByRole('button', { name: /공간 탐색/ }),
-        );
-        await click(
-          page
-            .locator('.spatial-oracle')
-            .getByRole('button', { name: '최근', exact: true }),
-        );
-      } else {
-        await click(
-          page.locator('.desk-nav-history[aria-label="최근 참조"] h2 button'),
-        );
-      }
+      await click(
+        page
+          .getByRole('navigation', { name: '주요 페이지' })
+          .getByRole('button', { name: /공간 탐색/ }),
+      );
+      await click(
+        page
+          .getByRole('navigation', { name: '장면 참조 도구' })
+          .getByRole('button', { name: '최근', exact: true }),
+      );
       if (
         !(await page
           .locator('[data-reference-row="oracle:core.reaction"]')
@@ -316,7 +349,7 @@ try {
       assert.equal(await result().innerText(), reaction);
       await roll([0.5, 0.5]);
       assert.equal(
-        await result()
+        await resultLinks()
           .locator('[data-relationship-target="rule:core.violence"]')
           .count(),
         0,
@@ -342,7 +375,7 @@ try {
 
       await search('Stash', 'oracle:aitc.stash-weak');
       await roll([0.7]);
-      const stashLinks = result().locator('[data-relationship-target]');
+      const stashLinks = resultLinks().locator('[data-relationship-target]');
       assert.equal(await stashLinks.count(), 1);
       const npcId = await stashLinks.getAttribute('data-relationship-target');
       await openFollow(npcId);

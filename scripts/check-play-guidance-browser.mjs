@@ -285,7 +285,7 @@ try {
       await shot('foraging');
       await noOverflow();
       await click(
-        ref().getByRole('button', { name: '참조 고정', exact: true }),
+        ref().getByRole('button', { name: 'PIN · 참조 고정', exact: true }),
       );
       await click(
         ref().getByRole('button', { name: '작업대에 펼치기', exact: true }),
@@ -308,7 +308,7 @@ try {
       await waitRef('oracle:feretory.forage');
       assert.equal(
         await ref()
-          .getByRole('button', { name: '고정 해제', exact: true })
+          .getByRole('button', { name: 'PINNED · 고정 해제', exact: true })
           .count(),
         1,
       );

@@ -76,8 +76,7 @@ export function PrivateDataTools({ backup = false }: { backup?: boolean }) {
           type="file"
           accept=".json,application/json"
           multiple
-          className="sr-only"
-          aria-label="개인 룰북 자료 파일"
+          hidden
           onChange={async (e) => {
             const files = [...(e.target.files ?? [])];
             e.target.value = '';

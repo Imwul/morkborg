@@ -1,6 +1,10 @@
 import { useMemo, useSyncExternalStore } from 'react';
 import { z } from 'zod';
-import { ORACLE_CATEGORIES, type OraclePack } from '../domain/oracle';
+import {
+  ORACLE_CATEGORIES,
+  type OraclePack,
+  type OracleRegistry,
+} from '../domain/oracle';
 import { buildOracleRegistry } from '../data/oracles';
 import { useRules } from './rulesStore';
 import { validateOracleRegistry } from '../validation/oracleValidation';
@@ -197,6 +201,9 @@ export async function loadOraclePack() {
   });
   return inFlight;
 }
+// Installed pack pairs share an immutable registry across consumers.
+const validationIssues = new WeakMap<OracleRegistry, string[]>();
+
 export function useOracleRegistry() {
   const rules = useRules();
   const extra = useSyncExternalStore(
@@ -208,7 +215,11 @@ export function useOracleRegistry() {
     () => buildOracleRegistry(rules.pack, extra.pack),
     [rules.pack, extra.pack],
   );
-  const issues = useMemo(() => validateOracleRegistry(registry), [registry]);
+  let issues = validationIssues.get(registry);
+  if (!issues) {
+    issues = validateOracleRegistry(registry);
+    validationIssues.set(registry, issues);
+  }
   return {
     registry,
     issues,

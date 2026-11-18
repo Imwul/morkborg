@@ -74,6 +74,7 @@ export function SourceDisclosure({
   ];
   const fullSource =
     source && compactSourceText(source) !== source ? source : undefined;
+  const defaultSummaryName = label === '출처' ? '출처' : `출처 · ${label}`;
   if (
     !items.length &&
     !source &&
@@ -100,7 +101,9 @@ export function SourceDisclosure({
           </span>
         )}
       <details className="sheet-source source-disclosure">
-        <summary aria-label={label === '출처' ? '출처' : `출처 · ${label}`}>
+        <summary
+          aria-label={summaryLabel == null ? defaultSummaryName : undefined}
+        >
           {summaryLabel ?? (
             <>
               <span aria-hidden="true">ⓘ</span> 출처

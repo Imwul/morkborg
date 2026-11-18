@@ -39,7 +39,7 @@ function tupleSides(notation: string): [number, number] | null {
     'd6 × d8': [6, 8],
     'd4 × d8': [4, 8],
   };
-  return pairs[notation] ?? null;
+  return Object.hasOwn(pairs, notation) ? pairs[notation] : null;
 }
 
 export function diceDomain(notation: string): number[] {

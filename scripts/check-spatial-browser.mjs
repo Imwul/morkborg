@@ -433,7 +433,7 @@ try {
       const sharedId = await inspect('wilderness', 'weather', width === 360);
       const spatialFormula = await current().getAttribute('data-formula');
       await current()
-        .getByRole('button', { name: '참조 고정', exact: true })
+        .getByRole('button', { name: 'PIN · 참조 고정', exact: true })
         .click();
       await current()
         .getByRole('button', { name: '작업대에 펼치기', exact: true })
@@ -467,7 +467,7 @@ try {
       );
       assert.equal(
         await current()
-          .getByRole('button', { name: '고정 해제', exact: true })
+          .getByRole('button', { name: 'PINNED · 고정 해제', exact: true })
           .count(),
         1,
       );
@@ -514,7 +514,7 @@ try {
       await waitReference(sharedId);
       assert.equal(
         await current()
-          .getByRole('button', { name: '고정 해제', exact: true })
+          .getByRole('button', { name: 'PINNED · 고정 해제', exact: true })
           .count(),
         1,
       );

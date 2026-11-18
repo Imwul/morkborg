@@ -1297,7 +1297,10 @@ body,
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.32fr);
     align-items: start;
-    gap: var(--page-gutter);
+    column-gap: var(--page-gutter);
+  }
+  .reference-app .desk-current-page > .generator-return {
+    grid-column: 1 / -1;
   }
   .reference-app .desk-current-page > .desk-related {
     display: block;

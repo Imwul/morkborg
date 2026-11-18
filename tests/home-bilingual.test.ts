@@ -140,7 +140,7 @@ test('Desk opens without an unsolicited full index, keeping search, header secti
   );
 });
 
-test('Home exposes real generator destinations without running a generator or requiring a session', () => {
+test('Home lists pending generator destinations without running a generator or starting a session', () => {
   let calls = 0;
   const html = renderToStaticMarkup(
     createElement(ReferenceDesk, {
@@ -150,11 +150,17 @@ test('Home exposes real generator destinations without running a generator or re
   );
   assert.match(html, /aria-label="주요 페이지"/);
   assert.match(html, /aria-current="page">홈<\/button>/);
-  for (const title of ['캐릭터', '몬스터', '던전'])
-    assert.ok(html.includes(`<strong>${title}</strong>`), title);
+  for (const [id, title] of [
+    ['procedure:character.core-classless', '캐릭터'],
+    ['oracle:feretory.A', '몬스터'],
+    ['procedure:sd.dungeon-preparation', '던전'],
+  ])
+    assert.ok(
+      html.includes(
+        `data-shortcut="${id}" disabled=""><strong>${title}</strong>`,
+      ),
+      title,
+    );
   assert.equal(calls, 0);
-  assert.doesNotMatch(
-    html,
-    /세션 시작|이전 단계|<button[^>]*\sdisabled(?:=|\s|>)/,
-  );
+  assert.doesNotMatch(html, /세션 시작|이전 단계/);
 });

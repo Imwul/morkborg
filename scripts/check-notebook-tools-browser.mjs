@@ -448,7 +448,7 @@ try {
           0,
         );
         await click(
-          page.getByRole('button', { name: 'Reference Desk 홈', exact: true }),
+          page.getByRole('button', { name: 'MÖRK BORG Reference Desk 홈', exact: true }),
         );
         await mythic().waitFor();
         check(

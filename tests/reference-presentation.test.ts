@@ -6,7 +6,11 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { buildOracleRegistry } from '../src/data/oracles/index.ts';
 import { buildReferenceRegistry } from '../src/domain/references.ts';
 import { setRules, getRules } from '../src/storage/rulesStore.ts';
-import { setOraclePack, getOraclePack } from '../src/storage/oracleStore.ts';
+import {
+  setOraclePack,
+  getOraclePack,
+  useOracleRegistry,
+} from '../src/storage/oracleStore.ts';
 import {
   browseReferences,
   groupReferenceResults,
@@ -315,4 +319,49 @@ test('Morale reuses the independent dice control without exposing a workflow or 
   );
   assert.match(html, /2d6/);
   assert.doesNotMatch(html, /d20|\sdisabled(?:=|\s|>)|완료|저장|dice-picker/);
+});
+
+test('Oracle registry consumers share validation and refresh it when the pack changes', () => {
+  function readIssues() {
+    let result: string[] | undefined;
+    function Consumer() {
+      result = useOracleRegistry().issues;
+      return null;
+    }
+    renderToStaticMarkup(createElement(Consumer));
+    assert.ok(result);
+    return result;
+  }
+
+  const originalIssues = readIssues();
+  assert.deepEqual(originalIssues, []);
+  assert.equal(readIssues(), originalIssues);
+
+  setOraclePack({
+    ...fixture.oracles,
+    tables: [
+      ...fixture.oracles.tables,
+      {
+        id: 'test.invalid-oracle',
+        sourceBookId: 'missing-source',
+        sourcePage: 1,
+        sourceVerified: true,
+        title: 'Validation cache test',
+        category: 'OTHER',
+        dice: 'd2',
+        tags: [],
+        entries: [
+          { id: 'test.invalid-oracle:1-2', min: 1, max: 2, text: 'Example' },
+        ],
+      },
+    ],
+  });
+  try {
+    const issues = readIssues();
+    assert.notEqual(issues, originalIssues);
+    assert.deepEqual(issues, ['test.invalid-oracle: missing source/title']);
+    assert.equal(readIssues(), issues);
+  } finally {
+    setOraclePack(fixture.oracles);
+  }
 });

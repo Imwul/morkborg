@@ -247,7 +247,7 @@ export default function App() {
               setFateOpen(!fateOpen);
             }}
             aria-expanded={fateOpen}
-            aria-label="Mythic Fate와 목록 열기"
+            aria-label={`Mythic CF ${mythicState.chaosFactor} · Mythic Fate와 목록 열기`}
           >
             Mythic <span>CF {mythicState.chaosFactor}</span>
           </button>

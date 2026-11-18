@@ -459,11 +459,7 @@ test('Spatial navigation preserves baseline canonical data hashes and registry c
     ),
   );
   for (const [path, hash] of Object.entries(baseline.files)) {
-    if (
-      !path.startsWith('src/data/') &&
-      !path.startsWith('public/rules/') &&
-      path !== 'outputs/morkborg-private-data.json'
-    )
+    if (!path.startsWith('src/data/') && !path.startsWith('public/rules/'))
       continue;
     assert.equal(
       createHash('sha256').update(readFileSync(path)).digest('hex'),
@@ -471,6 +467,20 @@ test('Spatial navigation preserves baseline canonical data hashes and registry c
       path,
     );
   }
+  // Pin the published source data while allowing the local backup's feed settings to vary.
+  const { kind, schemaVersion, library, oracles, fateChart } = bundle;
+  assert.equal(
+    createHash('sha256')
+      .update(
+        JSON.stringify({ kind, schemaVersion, library, oracles, fateChart }),
+      )
+      .digest('hex'),
+    'e2fda9d8c239afeb7101bf75be5b86d65cd7a262056b7de55c0220c5dfe1e9bc',
+  );
+  assert.equal(
+    createHash('sha256').update(JSON.stringify(registry)).digest('hex'),
+    baseline.registryHash,
+  );
   assert.equal(registry.tables.length, 548);
   assert.equal(registry.procedures.length, 64);
   assert.equal(index.entries.length, 1180);

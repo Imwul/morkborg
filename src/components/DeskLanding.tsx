@@ -106,6 +106,24 @@ export function DeskLanding({
 }) {
   const desk = useReferenceDesk();
   void onGenerator;
+  const renderPrimaryGenerator = (
+    [ids, title, description]: (typeof DESK_RECORD_GENERATORS)[number],
+    className: string,
+  ) => {
+    const id = ids.find((candidate) => desk?.byId[candidate]);
+    return (
+      <button
+        key={ids[0]}
+        className={className}
+        data-shortcut={id ?? ids[0]}
+        disabled={!id}
+        onClick={id ? () => onOpenReference(id) : undefined}
+      >
+        <strong>{title}</strong>
+        <span>{description}</span>
+      </button>
+    );
+  };
   if (!generators)
     return (
       <section className="desk-home" aria-label="홈">
@@ -166,23 +184,9 @@ export function DeskLanding({
             </button>
           </header>
           <div className="desk-home-generator-grid">
-            {DESK_RECORD_GENERATORS.map(([ids, title, description]) => {
-              const id =
-                ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
-              return (
-                id && (
-                  <button
-                    key={id}
-                    className="desk-home-primary-link"
-                    data-shortcut={id}
-                    onClick={() => onOpenReference(id)}
-                  >
-                    <strong>{title}</strong>
-                    <span>{description}</span>
-                  </button>
-                )
-              );
-            })}
+            {DESK_RECORD_GENERATORS.map((generator) =>
+              renderPrimaryGenerator(generator, 'desk-home-primary-link'),
+            )}
             {DESK_GENERATOR_SHORTCUTS.filter(([id]) => desk?.byId[id])
               .slice(0, 3)
               .map(([id, title, description]) => (
@@ -241,23 +245,12 @@ export function DeskLanding({
                 <h3 id={`generator-group-${group.id}`}>{group.title}</h3>
                 <p>{group.subtitle}</p>
               </header>
-              {group.primary.map((position) => {
-                const [ids, title, description] =
-                  DESK_RECORD_GENERATORS[position];
-                const id =
-                  ids.find((candidate) => desk?.byId[candidate]) ?? ids[0];
-                return (
-                  <button
-                    className="desk-generator-link desk-generator-major"
-                    key={id}
-                    data-shortcut={id}
-                    onClick={() => onOpenReference(id)}
-                  >
-                    <strong>{title}</strong>
-                    <span>{description}</span>
-                  </button>
-                );
-              })}
+              {group.primary.map((position) =>
+                renderPrimaryGenerator(
+                  DESK_RECORD_GENERATORS[position],
+                  'desk-generator-link desk-generator-major',
+                ),
+              )}
               {group.secondary.map((position) => {
                 const [id, title, description] =
                   DESK_GENERATOR_SHORTCUTS[position];

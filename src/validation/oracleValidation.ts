@@ -20,10 +20,10 @@ export function validateOracleRegistry(
     ids.add(t.id);
     if (!t.title.trim() || !books.has(t.sourceBookId))
       error('missing source/title');
+    const pages = [t.sourcePage ?? []].flat();
     if (
       t.sourceVerified &&
-      (t.sourcePage == null ||
-        ![t.sourcePage].flat().every((p) => Number.isInteger(p) && p > 0))
+      (!pages.length || !pages.every((p) => Number.isInteger(p) && p > 0))
     )
       error('verified source without page');
     if (!ORACLE_CATEGORIES.includes(t.category)) error('unknown category');

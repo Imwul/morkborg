@@ -301,6 +301,7 @@ export function ReferenceProvider({
     [stockKind, setStockKind] = useState<'common' | 'rare' | 'room'>('common'),
     [stockDR, setStockDR] = useState(10);
   const inspectorRef = useRef<HTMLDivElement>(null);
+  const inlineToolsDialogRef = useRef<HTMLDivElement>(null);
   const pendingPhysicalRow = useRef<string | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   function referenceViewRoot() {
@@ -670,6 +671,7 @@ export function ReferenceProvider({
         event.altKey ||
         event.shiftKey ||
         event.repeat ||
+        (inline && !inspectorRef.current) ||
         suppressRollShortcut(event.target)
       )
         return;
@@ -1080,7 +1082,9 @@ export function ReferenceProvider({
         <button
           className="ref-pin"
           aria-label={
-            prefs.pinnedIds.includes(selected.id) ? '고정 해제' : '참조 고정'
+            prefs.pinnedIds.includes(selected.id)
+              ? 'PINNED · 고정 해제'
+              : 'PIN · 참조 고정'
           }
           aria-pressed={prefs.pinnedIds.includes(selected.id)}
           onClick={() => savePrefs(toggleReferencePin(prefs, selected.id))}
@@ -2480,9 +2484,11 @@ export function ReferenceProvider({
         }}
       >
         <DialogContent
-          ref={inspectorRef}
+          ref={inline ? inlineToolsDialogRef : inspectorRef}
           initialFocus={() =>
-            searchOpen ? searchInputRef.current : inspectorRef.current
+            searchOpen
+              ? searchInputRef.current
+              : (inline ? inlineToolsDialogRef : inspectorRef).current
           }
           className={
             convenience.panel
@@ -2707,7 +2713,6 @@ export function ReferenceRow({
     <div className="reference-row" data-reference-row={entry.id}>
       <button
         className="reference-select-action"
-        aria-label={`${entry.title} 열기`}
         aria-current={desk?.selectedId === entry.id ? 'page' : undefined}
         onClick={() => desk?.activate(entry.id)}
       >
@@ -3189,14 +3194,14 @@ export function ReferenceDesk({
         <header ref={headerRef} className="rdesk-header">
           <h1 className="desk-wordmark">
             <button
-              aria-label="Reference Desk 홈"
+              aria-label="MÖRK BORG Reference Desk 홈"
               onClick={() => {
                 setPage('home');
                 search('');
                 setBrowserOpen(false);
               }}
             >
-              <span className="desk-wordmark-name">MÖRK BORG</span>
+              <span className="desk-wordmark-name">MÖRK BORG</span>{' '}
               <span className="desk-wordmark-caption">REFERENCE DESK</span>
             </button>
           </h1>

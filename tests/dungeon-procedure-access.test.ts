@@ -15,6 +15,7 @@ import { fixedReferenceReading } from '../src/domain/referenceFixedLookup.ts';
 import { readingResultRelationships } from '../src/domain/resultRelationships.ts';
 import { dungeonRelevantReferences } from '../src/domain/dungeonContext.ts';
 import { executeReference } from '../src/domain/referenceExecution.ts';
+import { referenceShortName } from '../src/domain/referenceActions.ts';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ReferenceDesk } from '../src/components/ReferenceWorkbench.tsx';
@@ -68,9 +69,13 @@ test('Common and Rare readers retain their explicit candidate access when browsi
       /<section class="desk-related"[^>]*>([\s\S]*?)<\/section>/,
     )?.[1];
     assert.ok(related, 'The current reader must expose related references');
+    const candidateButton = related
+      .split(
+        `data-reference-row="${candidate}"><button class="reference-select-action"`,
+      )[1]
+      ?.split('</button>')[0];
     assert.ok(
-      related.includes(`data-reference-row="${candidate}"`) &&
-        related.includes(`aria-label="${index.byId[candidate].title} 열기"`),
+      candidateButton?.includes(referenceShortName(index.byId[candidate])),
       'The candidate must be reachable without reopening browsing or searching',
     );
   }

@@ -136,6 +136,13 @@ for (const [name, mutate, issue] of [
     'verified source without page',
   ],
   [
+    'an empty page list on a verified source',
+    (r: OracleRegistry) => {
+      r.tables[0].sourcePage = [];
+    },
+    'verified source without page',
+  ],
+  [
     'malformed dice',
     (r: OracleRegistry) => {
       r.tables[0].dice = '1d10+20!!';
@@ -148,6 +155,16 @@ for (const [name, mutate, issue] of [
     mutate(r);
     assert.ok(validateOracleRegistry(r).some((s) => s.includes(issue)));
   });
+test('Oracle validation and rolling reject inherited property names as dice notation', () => {
+  const notation = 'toString';
+  assert.deepEqual(validateOracleRegistry(registry(table(notation))), [
+    'test: malformed dice notation',
+  ]);
+  assert.throws(
+    () => rollOracleDice(notation, () => 0),
+    /지원하지 않는 주사위 표기/,
+  );
+});
 test('intentional gaps require source notes and return no invented text', () => {
   const t = table();
   t.entries[0].max = 2;

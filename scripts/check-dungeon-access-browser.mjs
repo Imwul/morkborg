@@ -377,7 +377,7 @@ for (const width of (process.env.WIDTHS || '1440').split(',').map(Number)) {
       // Actually exercise existing alternatives, outside the measured room scenarios.
       await origin.click();
       await reader()
-        .getByRole('button', { name: '참조 고정', exact: true })
+        .getByRole('button', { name: 'PIN · 참조 고정', exact: true })
         .click();
       await reader()
         .getByRole('button', { name: '작업대에 펼치기', exact: true })
