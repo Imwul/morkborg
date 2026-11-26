@@ -664,15 +664,29 @@ export function ReferenceProvider({
   }
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
+      const target = event.target;
       if (
         event.key.toLowerCase() !== 'r' ||
+        event.defaultPrevented ||
         event.ctrlKey ||
         event.metaKey ||
         event.altKey ||
         event.shiftKey ||
         event.repeat ||
         (inline && !inspectorRef.current) ||
-        suppressRollShortcut(event.target)
+        suppressRollShortcut(target)
+      )
+        return;
+      const dialog =
+        target instanceof Element
+          ? target.closest('[role="dialog"], [role="alertdialog"]')
+          : null;
+      if (
+        dialog &&
+        (inline ||
+          searchOpen ||
+          convenience.panel ||
+          !dialog.contains(inspectorRef.current))
       )
         return;
       if (selected && referenceProducesRoll(selected)) {
@@ -2876,6 +2890,14 @@ export function ReferenceDesk({
   }, []);
   const [localPage, setLocalPage] = useState<ReferenceDeskPage>(initialPage);
   const [generatorOrigin, setGeneratorOrigin] = useState<string | null>(null);
+  useNavigationChannel(
+    'generator-origin',
+    generatorOrigin,
+    setGeneratorOrigin,
+    {
+      normalize: (value) => (typeof value === 'string' ? value : null),
+    },
+  );
   const page = controlledPage ?? localPage;
   const [spatialSceneId, setSpatialSceneId] = useState('dungeon');
   useNavigationChannel('spatial-scene', spatialSceneId, setSpatialSceneId, {
@@ -2891,7 +2913,7 @@ export function ReferenceDesk({
     onPageChange?.(nextPage);
   };
   const openReference = (entryId: string, roll = false, region?: RegionId) => {
-    if (page === 'generators') setGeneratorOrigin(entryId);
+    setGeneratorOrigin(page === 'generators' ? entryId : null);
     revealPageRef.current = true;
     if (page !== 'spatial') setPage('reference');
     setBrowserOpen(false);

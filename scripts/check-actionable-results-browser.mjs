@@ -145,8 +145,53 @@ try {
       await dice([]);
       await page.keyboard.press('r');
       await result().waitFor();
+      const firstRollDice = await rngCount();
+      assert.ok(firstRollDice > 0, 'R rolls the visible character generator');
+      await click(ref().locator('summary[aria-label="참조 편의 동작"]'));
+      await click(
+        ref().getByRole('button', { name: '스크랩 열기', exact: true }),
+      );
+      const scratch = page.getByRole('dialog');
+      await scratch.getByRole('button', { name: '닫기', exact: true }).focus();
+      await page.keyboard.press('r');
+      assert.equal(
+        await rngCount(),
+        firstRollDice,
+        'R leaves the reader alone in Scratch',
+      );
+      await page.keyboard.press('Escape');
+      await scratch.waitFor({ state: 'hidden' });
+      await page.keyboard.press('r');
+      const afterScratchDice = await rngCount();
+      assert.ok(
+        afterScratchDice > firstRollDice,
+        'R rolls again after Scratch closes',
+      );
+
+      await click(page.getByRole('button', { name: '보관함', exact: true }));
+      const shelf = page.getByRole('dialog', { name: '보관함', exact: true });
+      const closeShelf = shelf.getByRole('button', {
+        name: '보관함 닫기',
+        exact: true,
+      });
+      await closeShelf.focus();
+      await page.keyboard.press('r');
+      assert.equal(
+        await rngCount(),
+        afterScratchDice,
+        'R leaves the reader alone while the shelf has focus',
+      );
+      await ref().locator('#current-reference-title').focus();
+      await page.keyboard.press('r');
       const characterDice = await rngCount();
-      assert.ok(characterDice > 0, 'R rolls the visible character generator');
+      assert.ok(
+        characterDice > afterScratchDice,
+        'R rolls the focused reader while the shelf is open',
+      );
+      await click(closeShelf);
+      await shelf.waitFor({ state: 'hidden' });
+      check('R respects focus in Scratch and the docked object shelf');
+
       await click(page.locator('.generator-return button'));
       await page.getByRole('region', { name: '생성기 모음' }).waitFor();
       await page.keyboard.press('r');

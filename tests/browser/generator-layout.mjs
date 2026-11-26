@@ -62,6 +62,22 @@ try {
 
   await navigation.getByRole('button', { name: /생성기 목록으로/ }).click();
   await character.waitFor();
+  await character.click();
+  await navigation.waitFor();
+  await page
+    .getByRole('navigation', { name: '주요 페이지' })
+    .getByRole('button', { name: '홈', exact: true })
+    .click();
+  await homeCharacter.click();
+  const heading = current.getByRole('heading', { name: '캐릭터', exact: true });
+  await heading.waitFor();
+  await navigation.waitFor({ state: 'hidden' });
+
+  await page.goBack();
+  await homeCharacter.waitFor();
+  await page.goBack();
+  await heading.waitFor();
+  await navigation.waitFor();
 } finally {
   sources.resolve();
   await browser.close();
